@@ -1,0 +1,40 @@
+# 训练超参 (Hydra/OmegaConf 风格, 可被 train.py 读取)
+# 设计依据(db03 检测/跟踪卡的场景适配段):
+#  - 俯拍小目标: 偏好较大输入(imgsz=1280, 对应 P6 思路); 显存不足回退 960。
+#  - 密集栏舍遮挡: 高 recall 优先, conf 阈值在推理端调低, 由 ByteTrack 低分框二次关联救回。
+#  - 红外/低光: RGB 预训练域差大 → 先 CherryChèvre/COCO 预训练再红外微调(见 finetune 段)。
+
+seed: 42                         # 固定随机种子, 复现要求(SKILL: 确定性)
+model: yolo11m.pt                # m 档精度/速度平衡; 场端盒子换 yolo11n/s, 高精度换 l/x
+
+train:
+  data: configs/goat_det.yaml
+  epochs: 150
+  imgsz: 1280                    # 俯拍小目标用大输入; 边缘部署可降到 640
+  batch: 16                      # 显存不足设 -1 让 ultralytics 自动估算
+  device: 0                      # 多卡: "0,1"
+  workers: 8
+  optimizer: auto                # ultralytics 自动在 SGD/AdamW 间选并定 lr
+  cos_lr: true                   # 余弦退火, 长训更稳
+  patience: 30                   # 早停: 30 epoch 无提升即停
+  close_mosaic: 10               # 最后 10 epoch 关 mosaic, 贴近真实分布收尾
+  # 增强: 羊只外观相似且场景固定, 慎用过强色彩/几何扰动破坏个体辨识线索
+  hsv_h: 0.015
+  hsv_s: 0.7
+  hsv_v: 0.4
+  degrees: 0.0                   # 俯拍朝向已多样, 不额外大角度旋转(除非用 OBB)
+  fliplr: 0.5
+  mosaic: 1.0
+  project: runs/goat_det
+  name: yolo11m_1280
+
+val:
+  conf: 0.001                    # 验证阶段低 conf 算全 PR 曲线, 报告 mAP@[.5:.95]/AP50
+  iou: 0.6
+
+# 红外/夜间微调: 在 RGB 最优权重上继续训练红外子集, 小学习率防灾难性遗忘
+finetune_ir:
+  enabled: false
+  weights: runs/goat_det/yolo11m_1280/weights/best.pt
+  epochs: 60
+  lr0: 0.001

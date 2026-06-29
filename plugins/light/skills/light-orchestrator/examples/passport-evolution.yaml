@@ -1,0 +1,59 @@
+# passport-evolution.yaml — 端到端演进快照示例（X-6）
+#
+# 一条 pipeline A 从「信用卡欺诈数据集」走到「论文初稿」的台账全貌，演示：
+#   stage 1 调研 → stage 2 数据评估(裁链路,access_level 守门) → stage 4 idea 决策点
+#   (m03⇄m04 第2轮,用户拍板微调放行) → stage 5/6 方案与实验(E5 负结果如实记 WARN)
+#   → stage 8 写作诚信门 FAIL->PASS(返修1轮修掉幻觉引用) + 留 GAP 衔接卡。
+#
+# 注意 stage 3/7 在本链未单独落条（裁链路：数据评估并入 stage2、分析并入 stage8 上游），
+# 故 stage 序号非连续——校验只要求升序无重复，不要求连号。
+# 本文件由 scripts/passport.py 逐条 append-stage 生成、validate 通过（verdict=PASS）。
+# 复现/校验：python scripts/passport.py validate --file examples/passport-evolution.yaml
+project: fraud-calib
+pipeline: A
+created: "2026-06-08T09:00"
+updated: "2026-06-14T20:08"
+current_stage: 8
+stages:
+  - stage: 1
+    skill: m01
+    input: 用户提供的信用卡欺诈数据集 + 研究目标
+    output: 文献清单 12 篇，方向=校准+不平衡，gap=缺少树模型系统对照
+    artifacts: [docs/literature_review.md]
+    gate: {type: confirm, result: PASS, notes: 来源均可核}
+  - stage: 2
+    skill: a01
+    input: 原始数据集 + db01 背景
+    output: 数据卡 + 安全切分，access_level=verified_only
+    artifacts: [data/datacard.md, data/splits/]
+    gate: {type: confirm, result: PASS, notes: check_access_level 通过，无 train/test 污染}
+  - stage: 4
+    round: 2
+    revision_rounds: 1
+    skill: m04
+    input: m03 第 2 轮提出的 idea：先验校正 + 树模型对照
+    output: idea 八维 72 分，新颖性存疑
+    gate: {type: decision, choice: 微调放行（缩小到树模型对照）, by: user}
+  - stage: 5
+    skill: m05
+    input: 放行的 idea
+    output: 实验矩阵 + 可执行方案
+    artifacts: [PROJECT_PLAN.md, experiments/experiment_matrix.md]
+    gate: {type: confirm, result: PASS}
+  - stage: 6
+    skill: a03
+    input: 实验方案
+    output: 5 组实验结果，E5 先验校正为负结果
+    artifacts: [experiments/results/]
+    gate: {type: confirm, result: WARN, notes: E5 负结果，已排查非 bug}
+  - stage: 8
+    revision_rounds: 1
+    skill: m07
+    input: m05 方案 + a03 实验结果 + m06 分析
+    output: 初稿 6 节
+    artifacts: [paper/draft.md]
+    gate: {type: confirm, result: FAIL->PASS, notes: 诚信门首轮 2 处幻觉引用(M2)，已删/替换后复检过；配额已用 1 轮，剩 1 轮}
+    gaps: ["[RESULT GAP] 讨论节待补敏感性分析"]
+known_limitations:
+  - "E5 先验校正为负结果，如实写入未强行修正（stage 6 WARN）"
+  - "stage 8 讨论节敏感性分析为 [RESULT GAP]，留待下一会话补；衔接卡见 .light/handoff/S01-fraud-calib.md"

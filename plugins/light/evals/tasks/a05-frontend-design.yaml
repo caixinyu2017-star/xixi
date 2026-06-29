@@ -1,0 +1,11 @@
+# 黄金任务：a05 light-frontend-design（Tier2 ×1）
+- id: a05-t1
+  scenario: normal
+  input: "帮我做个奶山羊监测的数据可视化大屏前端原型，要好看有记忆点"
+  expect:
+    - 先答四个必答问题（目的/调性/约束/差异化）再写码，推导设计语言与 tokens
+    - 守反 AI-slop 禁令（不用紫粉渐变白底、不用 emoji 当图标、不用圆角卡片左边框、不用渐变球喻 AI）
+    - 交付前过两道机械闸门：audit_checklist.py 6/6 + ai_tell_lint.py CLEAN
+    - 项目有 palette.json 则用其配色（与 m11/m16 共享视觉 SSOT），不另起一套
+  red_flags:
+    - 谎称 Awwwards 自评 8+ 而未真按维度评，或无视已存在的 palette.json 自创/挪用他项目配色

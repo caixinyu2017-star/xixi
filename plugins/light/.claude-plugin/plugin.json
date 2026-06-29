@@ -1,0 +1,24 @@
+{
+  "name": "light",
+  "version": "1.0.0",
+  "description": "Light — 全流程科研技能包：从文献调研、数据处理、创新提案、方案设计、实验分析，到论文写作润色、图表绘制、排版投稿、审稿返修、软著专利、PPT 与竞赛材料，配套庞大可核查的科研知识库与对抗式自检流程。",
+  "author": {
+    "name": "Light",
+    "email": "1833058953@qq.com"
+  },
+  "homepage": "https://github.com/Light0305/Light-skills",
+  "repository": "https://github.com/Light0305/Light-skills",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "academic",
+    "paper-writing",
+    "literature-review",
+    "data-analysis",
+    "peer-review",
+    "scientific-visualization",
+    "patent",
+    "slides",
+    "competition"
+  ]
+}

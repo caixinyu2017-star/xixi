@@ -1,0 +1,42 @@
+name: 🐛 Bug 报告 / Bug report
+description: 某个技能、脚本或知识库的行为不符合预期 / Something in a skill, script, or knowledge base behaves wrong
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: 感谢反馈!请尽量填写以下信息,便于快速定位。/ Thanks! Please fill in as much as you can.
+  - type: input
+    id: skill
+    attributes:
+      label: 涉及技能 / Skill
+      placeholder: "例如 light-citation / light-paper-drafting"
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 现象 / What happened
+      description: 实际发生了什么?期望是什么?/ What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤 / Steps to reproduce
+      placeholder: |
+        1. 调用 ...
+        2. 输入 ...
+        3. 看到 ...
+  - type: dropdown
+    id: client
+    attributes:
+      label: 客户端 / Client
+      options:
+        - Claude Code
+        - Codex
+        - 两者都有 / Both
+        - 其他 / Other
+  - type: textarea
+    id: env
+    attributes:
+      label: 环境 / Environment
+      placeholder: "OS、客户端版本、Python 版本(如涉及脚本)"

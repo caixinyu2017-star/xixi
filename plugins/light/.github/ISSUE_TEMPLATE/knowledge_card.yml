@@ -1,0 +1,66 @@
+name: 🗃️ 知识卡贡献 / Knowledge-card contribution
+description: 给某个知识库(db01-db09)新增或修正一张数据卡 / Add or fix a data card in a knowledge base
+title: "[Card] "
+labels: ["knowledge-base"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢贡献知识卡!Light 的知识库(`databases/db01`-`db09`)有**硬性诚信底线**:每张卡必须可溯源、不编造。
+        Thanks! Light's knowledge bases enforce a **hard honesty floor**: every card must be traceable, never fabricated.
+        提交前请读 [CONTRIBUTING.md](../blob/master/CONTRIBUTING.md) 与 [CONVENTIONS.md](../blob/master/CONVENTIONS.md) 的诚实底线。
+  - type: dropdown
+    id: base
+    attributes:
+      label: 目标知识库 / Target base
+      options:
+        - db01 期刊会议 / venues
+        - db02 写作模板与样本 / writing templates & samples
+        - db03 方法 / methods
+        - db04 数据集 / datasets
+        - db05 前端设计系统 / frontend design system
+        - db06 PPT 主题 / slide themes
+        - db07 科研图表 / figures
+        - db08 知识产权与竞赛 / IP & contests
+        - db09 项目状态 / project state
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 类型 / Kind
+      options:
+        - 新增一张卡 / Add a new card
+        - 修正现有卡 / Fix an existing card
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: 卡片内容 / Card content
+      description: 按该库 README 的字段 schema 填(如 db01 的 19 列、db03 方法卡字段等)。/ Fill per that base's README field schema.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 来源与核验 / Source & verification
+      description: |
+        **必填**:可访问的真实来源链接(官网/论文 DOI/官方指南等)+ 你核验的日期。
+        **Required**: a real, reachable source link (official site / paper DOI / official guide) + the date you verified it.
+        无法核验的字段请标 `待核查`,不要凭印象填。/ Mark unverifiable fields `to-be-checked`; do not fill from memory.
+      placeholder: |
+        来源 / Source: https://...
+        核验日期 / Verified on: 2026-06-12
+        核验方法 / How: 打开官网投稿指南页,确认 ai_policy 原文 ...
+    validations:
+      required: true
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: 诚信确认 / Integrity check
+      options:
+        - label: 所有字段均来自真实可访问来源,未编造;不确定的已标"待核查" / All fields come from real reachable sources, nothing fabricated; uncertain ones marked
+          required: true
+        - label: 不含受版权全文(只放元数据与链接) / No copyrighted full text (metadata & links only)
+          required: true

@@ -1,0 +1,32 @@
+# GitHub Actions 轻量 CI 骨架（面向科研可复现，按项目改字段即可）
+# 放 .github/workflows/ci.yml。约定要点见 ../references.md「GitHub Actions」段。
+# action 版本真相源 = light-backend-coding（a03）references.md「版本实测」段；checkout@v6 / setup-python@v6（2026-06 GitHub API 实测存在）。
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:          # PR 触发；fork 的 PR 默认拿不到 secrets
+  workflow_dispatch:     # 允许在 Actions 页手动触发
+
+permissions:
+  contents: read         # 最小权限：默认只读 token
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip      # 缓存 pip 下载加速（Node 项目换 setup-node + cache: npm）
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Lint
+        run: ruff check .         # 或 flake8 / black --check
+      - name: Test
+        run: pytest -q
+      # 用迁移则启个临时库校验未生成的变更（闭合 SKILL「CI 跑 alembic check」铁律）
+      - name: Migration check
+        run: alembic check        # Prisma 项目换 prisma migrate deploy 对临时 DB 校验

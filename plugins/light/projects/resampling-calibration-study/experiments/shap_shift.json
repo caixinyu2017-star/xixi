@@ -1,0 +1,7 @@
+{
+  "dataset": "credit_g",
+  "n_features": 48,
+  "spearman_rank_corr_base_vs_smote": 0.9639,
+  "top_feature_base": "checking_status_no checking",
+  "mean_abs_shap_change_top10": 0.12901
+}

@@ -1,0 +1,27 @@
+[project]
+name = "dairygoat-detect-track"
+version = "0.1.0"
+description = "奶山羊检测(YOLOv11)+ByteTrack跟踪流水线"
+requires-python = ">=3.10"
+# 版本锁定区间 (SKILL: 锁依赖保证复现); 提交 uv.lock 做精确还原。
+dependencies = [
+    "ultralytics>=8.3.0,<8.4.0",   # 含 YOLOv11 + 内置 ByteTrack
+    "torch>=2.2,<2.6",
+    "pyyaml>=6.0,<7.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0,<9.0",
+    "ruff>=0.6,<0.7",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+extend-select = ["B"]   # flake8-bugbear
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

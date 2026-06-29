@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Build / dist
+dist/
+build/
+*.whl
+
+# Generated figures / temp outputs (keep committed examples under examples/)
+*.tmp
+/tmp/
+scratch/
+
+# Lock files that are environment-specific (keep uv.lock when present intentionally)
+
+# figure_export.py 自检产物
+skills/light-figure-drawing/examples/_export_demo/
+
+# Light 科研技能包范围外的残留/外部技能目录
+skills/light-miniprogram/
+skills/light-software/
+skills/light-novel/
+
+# result-analysis worked_example.py 可重生成的示例输出
+skills/light-result-analysis/examples/example_out/

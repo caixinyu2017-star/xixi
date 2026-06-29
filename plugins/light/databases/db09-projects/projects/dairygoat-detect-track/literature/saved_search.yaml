@@ -1,0 +1,39 @@
+# 文献定期追踪 · 保存的检索式（dairygoat-detect-track）
+#
+# m01 light-literature-search「定期追踪协议」的落地状态文件。
+# 每次增量重跑后更新 last_run_date，并把本轮确认相关的新条目 DOI 追加进 known_dois.txt。
+# 重跑命令见本文件末尾。
+
+watch:
+  project: dairygoat-detect-track
+  topic: 奶山羊行为识别（检测+跟踪+时空行为，含发情/反刍/采食/跛行）
+  created: 2026-06-12
+  last_run_date: 2026-06-12        # 下次增量用 --from-date 接这个日期
+
+  # 多源检索式（OpenAlex/Crossref 同 query；中文走 ISSN 另检，见 references 中文检索节）
+  queries:
+    - source: OpenAlex+Crossref
+      query: "dairy goat behavior recognition"
+      filters: "from_publication_date / from-pub-date = last_run_date；sort=cited_by"
+      note: |
+        宽 query + 纯被引排序会把领域外高被引论文顶进来（实测混入 YOLOv7/DETR/DreamBooth
+        等通用 CV 与无关高引文）——必须做标题/摘要相关度筛选后才入库，勿直接采信。
+        收窄建议：补 "goat" + ("estrus" OR "rumination" OR "lameness" OR "tracking")
+        或按精准畜牧子领域刊（Computers and Electronics in Agriculture 等）限定。
+    - source: 中文（OpenAlex sources by ISSN）
+      query: 山羊 行为 识别 / 发情 检测
+      filters: 按《农业工程学报》《畜牧兽医学报》等核心刊 ISSN 检 source 再拉 works
+      note: 中文标题 OpenAlex 常存英译，按 source.id/ISSN 检比 language:zh 可靠（本轮未跑，待补）
+
+  cadence:
+    default: 手动月跑（维护者每月重跑一次，对比 diff 报告）
+    optional: Claude Code 定时任务 / 本地 cron 自配（涉及用户 key 与隐私，不内置自动外发）
+
+# 增量重跑命令（在仓库根，PYTHONUTF8=1）：
+#   python skills/light-literature-search/scripts/search_normalize.py \
+#     "dairy goat behavior recognition" --per-page 12 \
+#     --from-date <last_run_date> \
+#     --known-dois databases/db09-projects/projects/dairygoat-detect-track/literature/known_dois.txt \
+#     --json-out <本轮结果>.json
+# 跑完：人工按相关度筛 new_records → 确认相关的 DOI 追加进 known_dois.txt → 更新本文件 last_run_date
+#       → 写一份 watch_report_<日期>.md（新增/去重/是否影响结论）。

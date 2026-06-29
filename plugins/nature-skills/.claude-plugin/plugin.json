@@ -1,0 +1,21 @@
+{
+  "name": "nature-skills",
+  "version": "1.0.0",
+  "description": "Nature-style research skill pack: academic search, citation management, data handling, scientific figures, paper-to-patent, paper-to-PPT, language polishing, reading/translation, reviewer-response drafting, peer review, and Nature-style scientific writing — plus an OpenClaw medical-skills module. Skills share a versioned knowledge layer under skills/_shared.",
+  "author": {
+    "name": "Yuan Yizhe (袁一哲) and the nature-skills community"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "research",
+    "academic",
+    "nature",
+    "paper-writing",
+    "citation",
+    "scientific-figures",
+    "peer-review",
+    "patent",
+    "slides",
+    "medical"
+  ]
+}

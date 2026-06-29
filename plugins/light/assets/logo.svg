@@ -1,0 +1,36 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Light logo">
+  <title>Light — 全流程科研技能包</title>
+  <defs>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.0"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1020"/>
+      <stop offset="100%" stop-color="#161B2E"/>
+    </linearGradient>
+    <linearGradient id="prism" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8AA0FF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#5B6FE0" stop-opacity="0.75"/>
+    </linearGradient>
+  </defs>
+
+  <!-- backdrop -->
+  <rect x="8" y="8" width="304" height="304" rx="64" fill="url(#bg)"/>
+
+  <!-- incoming white beam -->
+  <rect x="40" y="156" width="96" height="8" rx="4" fill="url(#beam)"/>
+
+  <!-- prism -->
+  <polygon points="150,96 150,224 234,160" fill="url(#prism)" stroke="#AEB9FF" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- refracted spectrum -->
+  <g stroke-width="7" stroke-linecap="round" opacity="0.95">
+    <line x1="222" y1="158" x2="286" y2="120" stroke="#FF5D5D"/>
+    <line x1="224" y1="160" x2="288" y2="138" stroke="#FFA63D"/>
+    <line x1="226" y1="162" x2="289" y2="156" stroke="#FFE14D"/>
+    <line x1="226" y1="164" x2="289" y2="174" stroke="#3DDc84"/>
+    <line x1="224" y1="166" x2="288" y2="192" stroke="#43B0FF"/>
+    <line x1="222" y1="168" x2="286" y2="210" stroke="#9B6BFF"/>
+  </g>
+</svg>

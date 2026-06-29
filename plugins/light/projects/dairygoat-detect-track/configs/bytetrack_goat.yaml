@@ -1,0 +1,16 @@
+# ByteTrack 跟踪器配置 (ultralytics 内置格式)
+# 真实依据: db03 ByteTrack 卡 — "不丢弃低置信检测框, 先高分关联再用低分框与
+#   未匹配轨迹二次关联", implementation_repo = ifzhang/ByteTrack / ultralytics 内置。
+# 选型理由(db04 re-id 警示 + db03 场景表): 同品种白色奶山羊外观高度相似, re-id
+#   embedding 区分度低易 ID switch → 选纯运动/位置驱动的 ByteTrack, 不依赖外观。
+#   栏舍固定相机用 ByteTrack; 若改云台/航拍移动相机, 换 botsort.yaml 开 CMC。
+
+tracker_type: bytetrack
+
+track_high_thresh: 0.5    # 第一次关联的高分框阈值
+track_low_thresh: 0.1     # 低分框下界; 遮挡羊只常落在 [low, high) 区间, 二次关联救回
+new_track_thresh: 0.6     # 新建轨迹的最低置信度, 抑制误检起新 ID
+track_buffer: 60          # 轨迹丢失后保留帧数; 30fps 下=2s, 栏舍羊只走出遮挡可重连
+                          # 遮挡频繁/长时可调大(如 90), 代价是 ID 漂移风险上升
+match_thresh: 0.8         # IoU 关联的匹配阈值
+fuse_score: true          # 关联时把检测置信度融进相似度, 提升密集场景稳定性

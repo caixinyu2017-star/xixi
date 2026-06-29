@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "Light — 全流程科研技能包 / a full-pipeline research skill pack"
+message: "如果 Light 对你的研究有帮助,欢迎按以下方式引用。/ If Light helps your research, please cite it as below."
+type: software
+authors:
+  - given-names: Light
+    alias: Light0305
+    email: 1833058953@qq.com
+repository-code: "https://github.com/Light0305/Light-skills"
+url: "https://github.com/Light0305/Light-skills"
+abstract: >-
+  Light 是一套面向科研工作者的 AI 技能包,把科研全流程拆成 28 个互相衔接的技能
+  (文献调研、数据处理、创新提案、方案设计、实验、结果分析、论文写作润色、图表、
+  排版、投稿、返修、软著专利、PPT、竞赛),配套 9 个可溯源知识库与经对抗验证的
+  统计代码,支持 Claude Code 与 Codex。核心原则是诚实优先:不编造文献、数据、
+  DOI 与 API 端点。
+keywords:
+  - research-tools
+  - academic-writing
+  - ai-agent
+  - agent-skills
+  - claude-code
+  - codex
+  - scientific-workflow
+  - literature-review
+license: MIT
+version: 3.0.0
+date-released: "2026-06-12"

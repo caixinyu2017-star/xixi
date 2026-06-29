@@ -1,0 +1,91 @@
+{
+  "$description": "项目级共享色板（视觉 SSOT 实例）。论文图(m11/db07)、PPT(m16/db06)、前端(a05/db05)、海报全部从这一份取色，禁止下游各调各的。a07 跨材料配色一致检查对照本文件。字段与 db05 design_tokens.template.json(DTCG 视觉锚点真相源)对齐：本文件是该模板在本项目的落地副本(扁平 token 视图)，色值最终以 db05 DTCG 模板为准。每个 token 的 source 指向 db05/db06 真实卡，可追溯；改色只改这一份并广播下游(a07 变更广播)。",
+  "$project": "dairygoat-detect-track",
+  "$aligned_with": "databases/db05-frontend-styles/design_tokens.template.json",
+  "tokens": [
+    {
+      "name": "primary",
+      "hex": "#4E7D2C",
+      "usage": "主色",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.primary（农业风主题，scenario 含『畜牧检测项目』，themes.py selftest 绿）",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "secondary",
+      "hex": "#8AB661",
+      "usage": "辅色",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.secondary",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "accent",
+      "hex": "#E08A1E",
+      "usage": "强调色",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.accent（尖锐强调，用于一个重点/本方法高亮）",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "text",
+      "hex": "#2E3A22",
+      "usage": "正文文字",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.text",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "bg",
+      "hex": "#FBFDF7",
+      "usage": "页面主背景",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.bg",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "surface",
+      "hex": "#EAF3DE",
+      "usage": "卡片/色块次级背景",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.surface",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "muted",
+      "hex": "#7A8769",
+      "usage": "注释/次要文字",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.muted",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "line",
+      "hex": "#D2E0BF",
+      "usage": "分隔线/描边",
+      "source": "db06:light-slides/assets/themes.py::AGRICULTURE.COLORS.line",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "success",
+      "hex": "#16A34A",
+      "usage": "语义色-成功",
+      "source": "db05:design_tokens.template.json::color.semantic.success（DTCG 视觉 SSOT）",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "warning",
+      "hex": "#D97706",
+      "usage": "语义色-警告",
+      "source": "db05:design_tokens.template.json::color.semantic.warning",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "danger",
+      "hex": "#DC2626",
+      "usage": "语义色-危险/告警",
+      "source": "db05:design_tokens.template.json::color.semantic.danger",
+      "last_checked": "2026-06-12"
+    },
+    {
+      "name": "info",
+      "hex": "#0EA5E9",
+      "usage": "语义色-信息",
+      "source": "db05:design_tokens.template.json::color.semantic.info",
+      "last_checked": "2026-06-12"
+    }
+  ]
+}

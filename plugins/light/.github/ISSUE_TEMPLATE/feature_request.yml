@@ -1,0 +1,39 @@
+name: 💡 功能建议 / Feature request
+description: 希望 Light 支持新的科研场景、技能或能力 / Suggest a new research scenario, skill, or capability
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解决什么问题 / What problem
+      description: 你在科研流程的哪一步卡住了?现在怎么绕过的?/ Where in your research workflow are you stuck?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望的能力 / Proposed capability
+      description: 你希望哪个技能(或新技能)能做什么?/ What should a skill (new or existing) be able to do?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 涉及方向 / Area
+      options:
+        - 文献检索 / Literature
+        - 数据与实验 / Data & experiments
+        - 创新与方案 / Ideation & planning
+        - 论文写作润色 / Paper writing
+        - 图表与排版 / Figures & typesetting
+        - 投稿返修 / Submission & rebuttal
+        - 软著专利竞赛 / IP & contests
+        - PPT / Slides
+        - 知识库 / Knowledge bases
+        - 其他 / Other
+  - type: textarea
+    id: extra
+    attributes:
+      label: 补充 / Anything else
+      placeholder: 参考工具、示例、相关链接均可

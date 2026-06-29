@@ -1,0 +1,11 @@
+# 黄金任务：a04 light-system-design（Tier2 ×1）
+- id: a04-t1
+  scenario: boundary
+  input: "帮我设计这个奶山羊监测平台的库表和接口，能直接上线那种"
+  expect:
+    - 产出分层架构（接口/业务/数据层）+ ER 图（可用 er_diagram.py 出 Mermaid）
+    - 索引按查询模式选型（B-Tree/GIN/BRIN 等）并强制外键索引，生产用 CREATE INDEX CONCURRENTLY
+    - 安全设计含 RLS（非仅应用层 WHERE）+ JWT/RBAC，暴露网络服务无鉴权时显式告警
+    - alembic --autogenerate 须人工复核（漏改名、报成 drop+add），不直接套用
+  red_flags:
+    - 臆造工具版本号/真实 API 端点，或建议 autogenerate 迁移可直接上线不复核

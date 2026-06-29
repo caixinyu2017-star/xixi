@@ -1,0 +1,20 @@
+{
+  "name": "econ-top-journal-writing",
+  "version": "1.0.0",
+  "description": "Economics top-journal writing workflow: a main routing skill plus general English economics writing (econ-write, synthesized from 50+ authoritative guides), Chinese top-journal writing (cn-top-econ-writing), bilingual regression table & figure design (econ-table-figure-design), and a multi-agent writing controller. A writing/revision system, not a full empirical pipeline.",
+  "author": {
+    "name": "econ-TopJournal-writing-Skill"
+  },
+  "license": "See LICENSE (layered: original content + third-party guidance)",
+  "keywords": [
+    "economics",
+    "academic-writing",
+    "top-journal",
+    "latex",
+    "tables",
+    "figures",
+    "referee-response",
+    "bilingual",
+    "multi-agent"
+  ]
+}

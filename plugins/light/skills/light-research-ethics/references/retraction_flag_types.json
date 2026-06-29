@@ -1,0 +1,10 @@
+{
+  "_comment": "撤稿/更正标记类型的跨技能单一真相源（CONVENTIONS 风格的共享常量）。",
+  "_consumers": [
+    "skills/light-research-ethics/scripts/check_retractions.py (FLAG_TYPES = retraction_level + concern_level)",
+    "skills/light-citation/scripts/verify_refs.py (RETRACTION_TYPES=retraction_level, CONCERN_TYPES=concern_level)"
+  ],
+  "_note": "Crossref update-to[].type 已知取值。两脚本读取前都对输入做 .lower().replace('-','_') 归一化，故此处只存下划线规范形；读取失败时各自回退到内联默认集（保证离线 selftest 不依赖本文件）。新增类型改这里并同步两脚本注释。",
+  "retraction_level": ["retraction", "withdrawal"],
+  "concern_level": ["correction", "expression_of_concern"]
+}

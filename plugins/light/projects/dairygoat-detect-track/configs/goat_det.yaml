@@ -1,0 +1,14 @@
+# Ultralytics 数据集配置 (奶山羊检测)
+# 真实依据: db03 YOLOv11 卡 implementation_repo = ultralytics/ultralytics
+# 数据来源建议: 自建俯拍/侧视双视角 + CherryChèvre 迁移预训练 (db04 dairy goat 专项卡)
+#   CherryChèvre 已提供 YOLO 格式标注, DOI:10.57745/4C03OG, 是最直接的同类(山羊)检测数据。
+
+path: ../data/goat_det          # 数据集根目录
+train: images/train             # 相对 path 的训练图像目录
+val:   images/val
+test:  images/test              # 可选, 留出独立测试集做最终报告
+
+# 单类: 个体奶山羊。检测只负责"定位个体", 行为分类在下游时序模型完成。
+# 若后续要在检测阶段直接出粗行为(站/卧), 再扩成多类; 起步保持单类更稳、标注成本低。
+names:
+  0: goat

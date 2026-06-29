@@ -1,0 +1,20 @@
+{
+  "name": "writing-ai-paper",
+  "version": "1.0.0",
+  "description": "Writing AI Conference Papers — a beginner's handbook by hzwer (Zhewei Huang) and DingXiaoH (Xiaohan Ding), packaged as an invocable skill. Guidance on finding the core idea, building the framework, writing the introduction/related work, improving readability and defensibility, last-hours checklists, common negative review comments, and which research ideas tend not to work.",
+  "author": {
+    "name": "hzwer (Zhewei Huang) and DingXiaoH (Xiaohan Ding); skill packaging"
+  },
+  "homepage": "https://github.com/hzwer/WritingAIPaper",
+  "repository": "https://github.com/hzwer/WritingAIPaper",
+  "license": "See repository",
+  "keywords": [
+    "ai-paper",
+    "machine-learning",
+    "conference-paper",
+    "academic-writing",
+    "introduction",
+    "rebuttal",
+    "deep-learning"
+  ]
+}

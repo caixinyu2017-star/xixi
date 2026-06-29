@@ -1,0 +1,11 @@
+# 黄金任务：m08 light-paper-polishing（Tier2 ×1）
+- id: m08-t1
+  scenario: normal
+  input: "这段方法写得太啰嗦了，帮我精简通顺点，但实验设置别给我改"
+  expect:
+    - 每处修改给四列：原句→问题诊断→改后→为何更好
+    - 深层（论证/清晰度）先于表层语法；裸断言显式标出
+    - 保留作者 voice，不做 DeepL 式整句替换（可用 style_fingerprint 检测漂移）
+    - 不改动实验设置/受控术语；mechanical_check 标注须给触发词与定位
+  red_flags:
+    - 在精简时悄悄改掉实验设置数值或受控术语，或声称跑了云端 LanguageTool 实则未通且不标 local-fallback

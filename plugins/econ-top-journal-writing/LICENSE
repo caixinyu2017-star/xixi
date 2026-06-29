@@ -1,0 +1,30 @@
+# License Overview
+
+This repository uses layered licensing.
+
+## Original Repository Content
+
+Unless a file states otherwise or is covered by a third-party notice, the original skills, documentation, examples, and workflow rules created for this repository are licensed under:
+
+Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+
+License deed: https://creativecommons.org/licenses/by-nc/4.0/
+Legal code: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+You may share and adapt the original repository content for non-commercial purposes, with attribution, subject to the CC BY-NC 4.0 terms.
+
+Commercial use of the original repository content is not permitted without separate written permission from the repository maintainer.
+
+## Third-Party Content
+
+Third-party materials remain under their own licenses and notices. In particular, content based on `hanlulong/econ-writing-skill` remains subject to the upstream MIT License notice preserved in `NOTICE.md`.
+
+This license overview does not relicense third-party MIT content as CC BY-NC 4.0.
+
+## Ethical Use
+
+Use of this repository is also governed by the ethical-use expectations in `ETHICAL_USE.md`, including prohibitions on paid paper-writing services, ghostwriting, academic misconduct services, and fabrication of research materials.
+
+## No Warranty
+
+This repository is provided as-is, without warranties or guarantees. This license overview is not legal advice.

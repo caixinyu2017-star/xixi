@@ -1,0 +1,149 @@
+# Python 科研项目 .gitignore 模板
+# 基线取自 GitHub 官方 Python.gitignore（github/gitignore，main 分支，
+#   raw 实测 HTTP 200 @2026-06-06），末尾补充科研/ML 专用条目。
+# 用法：复制为项目根目录的 .gitignore，按需取消注释 lock / IDE 行。
+
+# ---- 字节码 / 优化文件 ----
+__pycache__/
+*.py[codz]
+*$py.class
+
+# ---- C 扩展 ----
+*.so
+
+# ---- 打包 / 分发 ----
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ---- 安装日志 ----
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---- 测试 / 覆盖率 ----
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+*.lcov
+.hypothesis/
+.pytest_cache/
+cover/
+
+# ---- Sphinx / mkdocs 文档 ----
+docs/_build/
+/site
+
+# ---- Jupyter / IPython ----
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# ---- 类型检查缓存 ----
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+
+# ---- Ruff 缓存 ----
+.ruff_cache/
+
+# ---- 环境 / 虚拟环境 ----
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ---- pyenv（库通常忽略、应用可签入）----
+# .python-version
+
+# ---- lock 文件（模板默认注释；应用项目应提交、库可权衡）----
+# Pipfile.lock
+# uv.lock
+# poetry.lock
+# poetry.toml
+# pdm.lock
+.pdm-python
+.pdm-build/
+# pixi.lock
+
+# ---- IDE / 编辑器（按需取消注释）----
+# .idea/
+# .vscode/
+.spyderproject
+.spyproject
+.ropeproject
+
+# ---- PyPI 配置 ----
+.pypirc
+
+# ====================================================================
+# 科研 / ML 专用补充（非 GitHub 官方模板，按需取舍）
+# ====================================================================
+# 数据：大文件交给 DVC 管理，DVC add 后会自动向 .gitignore 写入忽略规则，
+#   勿与此处手写规则冲突。下面两行仅在不使用 DVC 时手动启用：
+# data/raw/
+# data/interim/
+# data/processed/
+
+# 模型权重 / 检查点（大二进制，建议走 DVC 或对象存储）
+*.ckpt
+*.pth
+*.pt
+*.h5
+*.onnx
+*.pb
+*.safetensors
+
+# 实验跟踪 / 日志
+logs/
+wandb/
+mlruns/
+outputs/
+lightning_logs/
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
+
+# ---- LaTeX 编译产物(保留 main.tex / refs.bib / main.pdf)----
+paper/*.aux
+paper/*.log
+paper/*.blg
+paper/*.out
+paper/*.bbl
+paper/*.toc
+paper/b1.log
+paper/b2.log
+paper/b3.log
+paper/build1.log
+paper/build2.log
+paper/build3.log
+paper/bib.log

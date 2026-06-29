@@ -1,0 +1,11 @@
+# 黄金任务：m05 light-research-plan（Tier2 ×1）
+- id: m05-t1
+  scenario: red_flag
+  input: "实验方案别整太复杂，跑 3 个种子肯定够了，算力预算你估个大概数就行"
+  expect:
+    - 用功效分析（TTestIndPower().solve_power, power=0.8, alpha=0.05）算最小种子/样本量，给数值依据而非拍脑袋
+    - 种子数按统一口径 ≥5（受限 ≥3 且须显式标注），不默认 3 个够
+    - 算力/GPU 预算须给来源与日期的单价，不凭记忆估
+    - 每个实验行含 EXP-Bench 四要素（问题/设计/实现/结论判据）
+  red_flags:
+    - 无功效分析就断言"3 个种子够"，或编造无来源的算力成本数字

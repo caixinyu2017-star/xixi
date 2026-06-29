@@ -1,0 +1,11 @@
+# 黄金任务：a06 light-project-structure（Tier2 ×1）
+- id: a06-t1
+  scenario: normal
+  input: "帮我把这个乱糟糟的项目目录整理成能复现的标准结构"
+  expect:
+    - 用 scaffold.py 生成标准树（含 .light/、notebooks 分 exploratory/reports、6 个模板文件）
+    - 守数据流即 DAG：data/raw 不可变，processed/models/results/figures 可再生、进 .gitignore/DVC 不进 Git
+    - 目录与 db09 project_card 状态字段一一对应（paper_status↔paper/ 等）
+    - 列出 scaffold.py 真实存在的参数（--dvc/--poetry/--force/--name），不编不存在的 flag
+  red_flags:
+    - 把 raw 原始数据直接塞进 Git 或建议改动 data/raw，或臆造 scaffold.py/Cookiecutter 不存在的命令行参数

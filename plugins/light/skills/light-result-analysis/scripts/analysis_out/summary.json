@@ -1,0 +1,270 @@
+{
+  "csv": "D:\\skill\\Light\\skills\\light-result-analysis\\scripts\\_synth_results.csv",
+  "group": "method",
+  "n_rows": 24,
+  "metrics": [
+    "acc",
+    "f1"
+  ],
+  "alpha": 0.05,
+  "results": [
+    {
+      "metric": "acc",
+      "eda": [
+        {
+          "group": "ours",
+          "n": 8,
+          "mean": 0.8538625,
+          "std": 0.014173812623486817,
+          "median": 0.84895,
+          "min": 0.8378,
+          "max": 0.8799,
+          "ci95_low": 0.8420128961075057,
+          "ci95_high": 0.8657121038924942,
+          "normal": true
+        },
+        {
+          "group": "ablation",
+          "n": 8,
+          "mean": 0.8374625,
+          "std": 0.028253947258998793,
+          "median": 0.8371500000000001,
+          "min": 0.7922,
+          "max": 0.8737,
+          "ci95_low": 0.8138416089728546,
+          "ci95_high": 0.8610833910271454,
+          "normal": true
+        },
+        {
+          "group": "baseline",
+          "n": 8,
+          "mean": 0.7894875,
+          "std": 0.028080925783476984,
+          "median": 0.7855,
+          "min": 0.7419,
+          "max": 0.8326,
+          "ci95_low": 0.766011258546282,
+          "ci95_high": 0.812963741453718,
+          "normal": true
+        }
+      ],
+      "omnibus": {
+        "n_groups": 3,
+        "all_normal": true,
+        "groups": [
+          "ablation",
+          "baseline",
+          "ours"
+        ],
+        "test": "anova_oneway",
+        "statistic": 15.0240482769512,
+        "p": 8.902608752882079e-05,
+        "posthoc": [
+          {
+            "group1": "ablation",
+            "group2": "baseline",
+            "meandiff": -0.048,
+            "p_adj": 0.0021,
+            "lower": -0.0787,
+            "upper": -0.0172,
+            "reject": true
+          },
+          {
+            "group1": "ablation",
+            "group2": "ours",
+            "meandiff": 0.0164,
+            "p_adj": 0.3877,
+            "lower": -0.0144,
+            "upper": 0.0472,
+            "reject": false
+          },
+          {
+            "group1": "baseline",
+            "group2": "ours",
+            "meandiff": 0.0644,
+            "p_adj": 0.0001,
+            "lower": 0.0336,
+            "upper": 0.0951,
+            "reject": true
+          }
+        ]
+      },
+      "pairwise": [
+        {
+          "group1": "ablation",
+          "group2": "baseline",
+          "test": "welch_t",
+          "p": 0.004258539701432893,
+          "cohens_d": 1.6102980424159021,
+          "effect": "large",
+          "mean_diff": 0.04797499999999999,
+          "diff_ci95": [
+            0.017768179165413966,
+            0.07818182083458601
+          ],
+          "q_fdr": 0.00638780955214934,
+          "significant_fdr": true
+        },
+        {
+          "group1": "ablation",
+          "group2": "ours",
+          "test": "welch_t",
+          "p": 0.17207299695624625,
+          "cohens_d": -0.6937086190863652,
+          "effect": "medium",
+          "mean_diff": -0.01639999999999997,
+          "diff_ci95": [
+            -0.04119897730631568,
+            0.008398977306315739
+          ],
+          "q_fdr": 0.17207299695624625,
+          "significant_fdr": false
+        },
+        {
+          "group1": "baseline",
+          "group2": "ours",
+          "test": "welch_t",
+          "p": 0.0001538021847147175,
+          "cohens_d": -2.736397476106279,
+          "effect": "large",
+          "mean_diff": -0.06437499999999996,
+          "diff_ci95": [
+            -0.0890414840659054,
+            -0.039708515934094524
+          ],
+          "q_fdr": 0.00046140655414415253,
+          "significant_fdr": true
+        }
+      ]
+    },
+    {
+      "metric": "f1",
+      "eda": [
+        {
+          "group": "ours",
+          "n": 8,
+          "mean": 0.831825,
+          "std": 0.012578524782910194,
+          "median": 0.82945,
+          "min": 0.8199,
+          "max": 0.8589,
+          "ci95_low": 0.8213090901182493,
+          "ci95_high": 0.8423409098817508,
+          "normal": true
+        },
+        {
+          "group": "ablation",
+          "n": 8,
+          "mean": 0.8097375,
+          "std": 0.02695482662848027,
+          "median": 0.81575,
+          "min": 0.7571,
+          "max": 0.8426,
+          "ci95_low": 0.7872027009996888,
+          "ci95_high": 0.8322722990003112,
+          "normal": true
+        },
+        {
+          "group": "baseline",
+          "n": 8,
+          "mean": 0.770625,
+          "std": 0.02488830763918789,
+          "median": 0.76955,
+          "min": 0.7241,
+          "max": 0.8031,
+          "ci95_low": 0.7498178541096824,
+          "ci95_high": 0.7914321458903176,
+          "normal": true
+        }
+      ],
+      "omnibus": {
+        "n_groups": 3,
+        "all_normal": true,
+        "groups": [
+          "ablation",
+          "baseline",
+          "ours"
+        ],
+        "test": "anova_oneway",
+        "statistic": 15.325216549980244,
+        "p": 7.870927928299904e-05,
+        "posthoc": [
+          {
+            "group1": "ablation",
+            "group2": "baseline",
+            "meandiff": -0.0391,
+            "p_adj": 0.0059,
+            "lower": -0.0673,
+            "upper": -0.0109,
+            "reject": true
+          },
+          {
+            "group1": "ablation",
+            "group2": "ours",
+            "meandiff": 0.0221,
+            "p_adj": 0.1437,
+            "lower": -0.0061,
+            "upper": 0.0503,
+            "reject": false
+          },
+          {
+            "group1": "baseline",
+            "group2": "ours",
+            "meandiff": 0.0612,
+            "p_adj": 0.0001,
+            "lower": 0.033,
+            "upper": 0.0894,
+            "reject": true
+          }
+        ]
+      },
+      "pairwise": [
+        {
+          "group1": "ablation",
+          "group2": "baseline",
+          "test": "welch_t",
+          "p": 0.009319867101696178,
+          "cohens_d": 1.4254442125401703,
+          "effect": "large",
+          "mean_diff": 0.039112499999999994,
+          "diff_ci95": [
+            0.011275763965712868,
+            0.06694923603428712
+          ],
+          "q_fdr": 0.013979800652544267,
+          "significant_fdr": true
+        },
+        {
+          "group1": "ablation",
+          "group2": "ours",
+          "test": "welch_t",
+          "p": 0.062296067182038506,
+          "cohens_d": -0.9928510144112904,
+          "effect": "large",
+          "mean_diff": -0.022087500000000038,
+          "diff_ci95": [
+            -0.04554848572610304,
+            0.0013734857261029666
+          ],
+          "q_fdr": 0.062296067182038506,
+          "significant_fdr": false
+        },
+        {
+          "group1": "baseline",
+          "group2": "ours",
+          "test": "welch_t",
+          "p": 8.636994986313938e-05,
+          "cohens_d": -2.9343761474209615,
+          "effect": "large",
+          "mean_diff": -0.06120000000000003,
+          "diff_ci95": [
+            -0.08306569884108356,
+            -0.039334301158916514
+          ],
+          "q_fdr": 0.0002591098495894181,
+          "significant_fdr": true
+        }
+      ]
+    }
+  ]
+}

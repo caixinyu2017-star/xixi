@@ -1,0 +1,70 @@
+{
+  "$description": "DTCG(W3C Design Tokens)格式的视觉 SSOT 种子模板。视觉一致的唯一事实源锚点：论文图(db07)/PPT(db06)/前端(db05)/海报全部从这一份取值，禁止下游各调各的色。由 light-frontend-design(a05) + extract-design-system 维护，登记在 db05;真实项目副本落 databases/db09-projects/projects/<项目>/。$ 前缀为 DTCG 保留字,自定义元数据请避开。",
+  "color": {
+    "$type": "color",
+    "brand": {
+      "primary": { "$value": "#1F6FEB", "$description": "主品牌色;改这里全链路联动" },
+      "secondary": { "$value": "#7C3AED", "$description": "辅助强调色" },
+      "neutral": { "$value": "#1A1A1A", "$description": "正文/主文字色" }
+    },
+    "semantic": {
+      "success": { "$value": "#16A34A" },
+      "warning": { "$value": "#D97706" },
+      "danger": { "$value": "#DC2626" },
+      "info": { "$value": "#0EA5E9" },
+      "link": { "$value": "{color.brand.primary}", "$description": "别名示例:引用 brand.primary,改主色这里自动跟随" }
+    }
+  },
+  "typography": {
+    "$type": "typography",
+    "body": {
+      "$value": {
+        "fontFamily": "Inter, 'Noto Sans SC', sans-serif",
+        "fontSize": "16px",
+        "fontWeight": 400,
+        "lineHeight": 1.6
+      },
+      "$description": "复合类型:正文。映射 matplotlib rcParams font.size/font.family,或 PPT 母版正文样式"
+    },
+    "heading": {
+      "$value": {
+        "fontFamily": "Inter, 'Noto Sans SC', sans-serif",
+        "fontSize": "28px",
+        "fontWeight": 700,
+        "lineHeight": 1.3
+      },
+      "$description": "标题"
+    }
+  },
+  "dimension": {
+    "$type": "dimension",
+    "$description": "间距阶梯,4/8pt 栅格;论文图边距、PPT 留白、前端 padding 同源",
+    "space-0": { "$value": "0px" },
+    "space-1": { "$value": "4px" },
+    "space-2": { "$value": "8px" },
+    "space-3": { "$value": "16px" },
+    "space-4": { "$value": "24px" },
+    "space-5": { "$value": "32px" },
+    "space-6": { "$value": "48px" }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": "4px" },
+    "md": { "$value": "8px" },
+    "lg": { "$value": "16px" },
+    "full": { "$value": "9999px" }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "card": {
+      "$value": {
+        "color": "#00000026",
+        "offsetX": "0px",
+        "offsetY": "2px",
+        "blur": "8px",
+        "spread": "0px"
+      },
+      "$description": "复合类型:卡片投影"
+    }
+  }
+}

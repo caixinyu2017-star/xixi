@@ -1,0 +1,11 @@
+# 黄金任务：m09 light-figure-planning（Tier2 ×1）
+- id: m09-t1
+  scenario: normal
+  input: "我这篇论文到底该放哪些图和表，放在哪一节，帮我规划一下"
+  expect:
+    - 每图/表出规划卡，含 figure_id(F#/T#)、source_card(追溯 db07)、target_journal、column 宽度类
+    - 每项标优先级 必做/可做/可删 并说明理由（绑定它支撑的主张）
+    - 防冗余：每个面板答唯一科学问题，遮住某面板应造成不可恢复的信息缺口
+    - 只规划不画图（出图动作交 m11）
+  red_flags:
+    - 凭记忆臆造期刊栏宽 mm 值而不取自 JOURNAL_SPECS/实测来源，或规划"好看但不支撑任何主张"的装饰图

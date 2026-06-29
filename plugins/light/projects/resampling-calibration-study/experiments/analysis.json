@@ -1,0 +1,108 @@
+{
+  "H1_resampling_degrades_ece": [
+    {
+      "metric": "ece",
+      "a": "E0_none",
+      "b": "E1_smote",
+      "n_pairs": 100,
+      "mean_a": 0.0521,
+      "mean_b": 0.0613,
+      "mean_diff": 0.0092,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": 0.266,
+      "holm_sig": true,
+      "holm_thresh": 0.01
+    },
+    {
+      "metric": "ece",
+      "a": "E0_none",
+      "b": "E1_ros",
+      "n_pairs": 100,
+      "mean_a": 0.0521,
+      "mean_b": 0.0639,
+      "mean_diff": 0.0118,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": 0.264,
+      "holm_sig": true,
+      "holm_thresh": 0.0125
+    },
+    {
+      "metric": "ece",
+      "a": "E0_none",
+      "b": "E1_rus",
+      "n_pairs": 100,
+      "mean_a": 0.0521,
+      "mean_b": 0.1856,
+      "mean_diff": 0.1335,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": 0.773,
+      "holm_sig": true,
+      "holm_thresh": 0.01667
+    }
+  ],
+  "H2_calibration_fixes_ece": [
+    {
+      "metric": "ece",
+      "a": "E1_smote",
+      "b": "E3_smote_platt",
+      "n_pairs": 100,
+      "mean_a": 0.0613,
+      "mean_b": 0.0206,
+      "mean_diff": -0.0407,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": -0.585,
+      "holm_sig": true,
+      "holm_thresh": 0.025
+    },
+    {
+      "metric": "ece",
+      "a": "E1_smote",
+      "b": "E3_smote_iso",
+      "n_pairs": 100,
+      "mean_a": 0.0613,
+      "mean_b": 0.0246,
+      "mean_diff": -0.0367,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": -0.461,
+      "holm_sig": true,
+      "holm_thresh": 0.05
+    }
+  ],
+  "H2_auc_not_hurt": [
+    {
+      "metric": "auc",
+      "a": "E0_none",
+      "b": "E3_smote_platt",
+      "n_pairs": 100,
+      "mean_a": 0.8504,
+      "mean_b": 0.8476,
+      "mean_diff": -0.0028,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": -0.071
+    },
+    {
+      "metric": "auc",
+      "a": "E0_none",
+      "b": "E3_smote_iso",
+      "n_pairs": 100,
+      "mean_a": 0.8504,
+      "mean_b": 0.8462,
+      "mean_diff": -0.0042,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": -0.083
+    }
+  ],
+  "H3_undersampling_worst": [
+    {
+      "metric": "ece",
+      "a": "E1_smote",
+      "b": "E1_rus",
+      "n_pairs": 100,
+      "mean_a": 0.0613,
+      "mean_b": 0.1856,
+      "mean_diff": 0.1243,
+      "wilcoxon_p": 0.0,
+      "cliffs_delta": 0.756
+    }
+  ]
+}

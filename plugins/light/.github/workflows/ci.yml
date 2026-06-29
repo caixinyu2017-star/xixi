@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+    paths: ["code_assets/**", "databases/**", "skills/**/SKILL.md", "skills/**/references.md", "skills/**/references/**", "skills/**/templates/**", "skills/**/examples/**", "skills/**/scripts/**", "skills/**/assets/**", "README*.md", "WHATS_INCLUDED.md", "CHANGELOG.md", "CONTRIBUTING.md", "MODE_REGISTRY.md", "ROUTER.md", "ROUTER_EXAMPLES.md", "CONVENTIONS.md", "install.sh", "install.ps1", "AGENTS.snippet.md", ".codex/**", ".claude-plugin/**", ".codex-plugin/**", ".github/workflows/**", ".github/scripts/**"]
+  pull_request:
+    paths: ["code_assets/**", "databases/**", "skills/**/SKILL.md", "skills/**/references.md", "skills/**/references/**", "skills/**/templates/**", "skills/**/examples/**", "skills/**/scripts/**", "skills/**/assets/**", "README*.md", "WHATS_INCLUDED.md", "CHANGELOG.md", "CONTRIBUTING.md", "MODE_REGISTRY.md", "ROUTER.md", "ROUTER_EXAMPLES.md", "CONVENTIONS.md", "install.sh", "install.ps1", "AGENTS.snippet.md", ".codex/**", ".claude-plugin/**", ".codex-plugin/**", ".github/workflows/**", ".github/scripts/**"]
+
+jobs:
+  test:
+    name: 验证统计/指标代码 (code_assets)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy scipy scikit-learn pytest pyyaml
+
+      - name: Run code_assets sanity check
+        run: |
+          if ls code_assets/*.py >/dev/null 2>&1; then
+            python -c "import numpy, scipy, sklearn; print('deps ok')"
+            for f in code_assets/*.py; do
+              echo "::group::compile $f"; python -m py_compile "$f" && echo "ok"; echo "::endgroup::"
+            done
+          fi
+
+      - name: Run pytest if real tests exist
+        run: |
+          # 只有存在 test_*.py / *_test.py（pytest 默认发现规则）才跑。
+          # 注意：code_assets/stats_tests.py 是“统计检验”功能模块，不是单元测试，
+          # 故用精确的 pytest 命名规则匹配，避免把它误当测试。
+          if ls code_assets/test_*.py code_assets/*_test.py >/dev/null 2>&1; then
+            # --exitcode-on-no-tests 不存在；用 || 捕获 exit 5（无测试）视为通过
+            pytest -q code_assets; rc=$?
+            if [ $rc -eq 5 ]; then echo "pytest collected no tests; treating as pass"; exit 0; fi
+            exit $rc
+          else
+            echo "no pytest targets in code_assets; skipping"
+          fi
+
+  lint:
+    name: 校验技能与数据库结构
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install lint dependencies
+        run: python -m pip install --upgrade pip pyyaml
+      - name: Check every SKILL.md has name + description
+        run: python .github/scripts/check_skills.py
+      - name: Check database YAML blocks and README links
+        run: python .github/scripts/check_databases.py
+      - name: Check skill script assets
+        run: python .github/scripts/check_skill_assets.py
+      - name: Check entry-point docs
+        run: python .github/scripts/check_entry_docs.py
+      - name: Check installation assets
+        run: python .github/scripts/check_installation_assets.py
+      - name: Check skill internal links
+        run: python .github/scripts/check_skill_links.py
+      - name: Data-card freshness (warn-only)
+        continue-on-error: true
+        run: python .github/scripts/check_freshness.py
+
+  skill-selftests:
+    name: 执行技能脚本自测
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install skill selftest dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            numpy scipy pandas scikit-learn statsmodels matplotlib pyyaml \
+            pillow python-pptx python-docx openpyxl \
+            pypdf PyPDF2 reportlab pdfplumber pymupdf
+      - name: Run all skill script selftests
+        run: python .github/scripts/run_skill_selftests.py --group all --timeout 120
+
+  install-windows:
+    name: Windows 安装幂等与卸载安全
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: install.ps1 幂等 + junction 指向 + 卸载不伤源
+        shell: pwsh
+        run: ./.github/scripts/check_install_windows.ps1

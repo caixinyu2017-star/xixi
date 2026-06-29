@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 使用疑问 / Usage questions
+    url: https://github.com/Light0305/Light-skills/discussions
+    about: 不确定怎么用、想交流科研流程经验,请到 Discussions / For how-to and workflow questions
+  - name: 📧 邮件联系 / Email
+    url: mailto:1833058953@qq.com
+    about: 不便公开的问题可邮件联系作者 / Reach the author privately

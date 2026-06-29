@@ -1,0 +1,48 @@
+{
+  "name": "xixi-research-skills",
+  "owner": {
+    "name": "caixinyu2017-star",
+    "url": "https://github.com/caixinyu2017-star/xixi"
+  },
+  "metadata": {
+    "description": "A bundled Claude Code marketplace of five academic-research skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, and writing-ai-paper.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "light",
+      "source": "./plugins/light",
+      "description": "Light — full-pipeline research skill pack (28 skills): literature search, data engineering, idea generation/critique, system & figure design, experiment analysis, paper drafting/polishing, citation, typesetting, peer-review rebuttal, patents/software-copyright, slides and competition materials. Ships 9 traceable knowledge bases and runnable code assets; keep the plugin intact.",
+      "version": "1.0.0",
+      "license": "MIT"
+    },
+    {
+      "name": "academic-research-skills",
+      "source": "./plugins/academic-research-skills",
+      "description": "Production-grade academic research pipeline (4 skills, 35+ modes, multi-agent ensemble): research → write → review → revise → finalize, with deep-research, citation-verification gates, and a Material Passport pipeline.",
+      "version": "3.12.0",
+      "license": "CC-BY-NC-4.0"
+    },
+    {
+      "name": "nature-skills",
+      "source": "./plugins/nature-skills",
+      "description": "Nature-style research skills (12): academic search, citation, data, figures, paper-to-patent, paper-to-PPT, polishing, reading/translation, reviewer response, peer review, scientific writing, plus an OpenClaw medical module.",
+      "version": "1.0.0",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "econ-top-journal-writing",
+      "source": "./plugins/econ-top-journal-writing",
+      "description": "Economics top-journal writing workflow (5 skills): workflow router, English economics writing, Chinese top-journal writing, bilingual table/figure design, and a multi-agent writing controller.",
+      "version": "1.0.0",
+      "license": "See plugin LICENSE"
+    },
+    {
+      "name": "writing-ai-paper",
+      "source": "./plugins/writing-ai-paper",
+      "description": "Writing AI Conference Papers — the beginner's handbook by hzwer and DingXiaoH, packaged as an invocable skill for planning, drafting, and revising NeurIPS/ICML/ICLR/CVPR-style papers.",
+      "version": "1.0.0",
+      "license": "See plugin"
+    }
+  ]
+}

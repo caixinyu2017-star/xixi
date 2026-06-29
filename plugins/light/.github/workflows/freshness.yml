@@ -1,0 +1,116 @@
+# 数据卡保鲜月度检查（R11.3）
+#
+# 作用：每月跑一次 .github/scripts/check_freshness.py，扫 databases/ 下全部数据卡
+# （当前基线 318 张，含 db01 venues.csv 的 last_checked_date 列 + db03-db08 的
+#   核实/核验/研究/核查日期标头）。有超过阈值（默认 90 天）未复查的卡时，
+# 自动开/更一张"数据卡保鲜清单"issue 列出待办；无超期则只打日志、不开单。
+#
+# check_freshness.py 自身是 warn-only（永远退出 0），故本工作流也不因超期而失败——
+# 它是"每月出一份待办清单"的运维节律，不是合并门禁（行为评测同理不进 CI，见 evals/）。
+#
+# ⚠️ 关于触发方式（GitHub 的两条硬约束，故必须同时保留 schedule + workflow_dispatch）：
+#   1. GitHub 对**连续 60 天无提交活动**的仓库会**自动停用 schedule 定时触发**
+#      （需要有人手动 enable 或推一次提交才恢复）。只靠 cron 不可靠。
+#   2. **fork 仓库默认禁用** Actions 的 schedule（也常禁用其他事件），且
+#      workflow_dispatch 在 fork 上需手动开启 Actions。
+#   因此保留 workflow_dispatch 手动入口，README 的"数据保鲜节律"指向它：
+#   维护者每月（或随时）可在 Actions 页点 "Run workflow" 手动跑一次。
+#   注意 workflow_dispatch 仅在本文件**已存在于默认分支**时才可被触发
+#   （GitHub 限制），本仓库 R1-R11 以叠加 PR 形式维护、合并入 master 后方可手动触发。
+
+name: 数据卡保鲜检查
+
+on:
+  schedule:
+    # 每月 1 日 08:00 UTC 跑一次。cron 五段：分 时 日 月 周。
+    - cron: "0 8 1 * *"
+  workflow_dispatch:
+    # 手动触发入口（见上方说明）。两个可选输入便于演练/复测：
+    inputs:
+      today:
+        description: "基准日 YYYY-MM-DD（留空=系统当天）。设为未来日期可演练超期开单。"
+        required: false
+        default: ""
+      threshold_days:
+        description: "超期阈值（天），默认 90。"
+        required: false
+        default: "90"
+
+# 只读仓库 + 可写 issue（开/更保鲜清单单）。最小权限原则。
+permissions:
+  contents: read
+  issues: write
+
+# 同一时刻只跑一个，避免月初定时与手动触发撞车重复开单。
+concurrency:
+  group: freshness
+  cancel-in-progress: false
+
+jobs:
+  freshness:
+    name: 扫描数据卡新鲜度并开/更清单
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: 跑新鲜度检查（warn-only，永不失败）
+        id: scan
+        env:
+          PYTHONUTF8: "1"
+        run: |
+          TODAY="${{ github.event.inputs.today }}"
+          THRESH="${{ github.event.inputs.threshold_days }}"
+          THRESH="${THRESH:-90}"
+          ARGS="--threshold-days ${THRESH}"
+          if [ -n "${TODAY}" ]; then ARGS="${ARGS} --today ${TODAY}"; fi
+          echo "运行: python .github/scripts/check_freshness.py ${ARGS}"
+          python .github/scripts/check_freshness.py ${ARGS} | tee freshness_report.txt
+          # 从汇总行 "合计 N 张卡，M 张 > T 天需复查。" 解析出超期张数 M（健壮地用 python 抽，不靠 Chinese grep）。
+          STALE=$(python - <<'PY'
+          import re
+          txt = open("freshness_report.txt", encoding="utf-8").read()
+          m = re.search(r"(\d+)\s*张\s*>\s*\d+\s*天", txt)
+          print(m.group(1) if m else "0")
+          PY
+          )
+          echo "stale_count=${STALE}" >> "$GITHUB_OUTPUT"
+          echo "检测到 ${STALE} 张超期。"
+
+      - name: 有超期则开/更"数据卡保鲜清单"issue
+        if: steps.scan.outputs.stale_count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MONTH=$(date -u +%Y-%m)
+          TITLE="数据卡保鲜清单 (${MONTH})"
+          BODY_FILE=issue_body.md
+          {
+            echo "> 由 \`.github/workflows/freshness.yml\` 自动生成于 $(date -u +%Y-%m-%dT%H:%MZ)（UTC）。"
+            echo ""
+            echo "以下数据卡超过新鲜度阈值未复查，请逐条核对来源现行有效性并更新 \`last_checked_date\` / \`核验日期\`："
+            echo ""
+            echo '```'
+            cat freshness_report.txt
+            echo '```'
+            echo ""
+            echo "复查流程见各库 README 的"采集→核验→入库"管线。复查完成后关闭本 issue。"
+          } > "${BODY_FILE}"
+          # 找当月是否已有同名开放 issue：有则追加评论（更单），无则新建（开单）。
+          EXISTING=$(gh issue list --state open --search "${TITLE} in:title" --json number,title \
+            --jq ".[] | select(.title==\"${TITLE}\") | .number" | head -n1)
+          if [ -n "${EXISTING}" ]; then
+            echo "已存在 #${EXISTING}，追加本次扫描结果评论。"
+            gh issue comment "${EXISTING}" --body-file "${BODY_FILE}"
+          else
+            echo "新建保鲜清单 issue。"
+            gh issue create --title "${TITLE}" --body-file "${BODY_FILE}"
+          fi
+
+      - name: 无超期，仅记录
+        if: steps.scan.outputs.stale_count == '0'
+        run: echo "全部数据卡均在阈值内，本月无需开单。"

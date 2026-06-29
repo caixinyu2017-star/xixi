@@ -1,0 +1,67 @@
+{
+  "target": "y",
+  "scores": {
+    "train": 0.99,
+    "val": 0.85,
+    "test": 0.71
+  },
+  "n_flags": 5,
+  "flags": [
+    {
+      "type": "overfit",
+      "severity": "high",
+      "detail": "train-val gap 0.140 > 0.05",
+      "value": 0.14
+    },
+    {
+      "type": "val_test_shift",
+      "severity": "high",
+      "detail": "val-test gap 0.140 > 0.05 (shift or val leakage)",
+      "value": 0.14
+    },
+    {
+      "type": "feature_leakage",
+      "severity": "high",
+      "detail": "feature 'leak_feature' |corr| 1.000 >= 0.95 -> likely target proxy",
+      "feature": "leak_feature",
+      "corr": 0.9997975517967745
+    },
+    {
+      "type": "near_constant",
+      "severity": "low",
+      "detail": "column 'dead_col' is 100.0% a single value",
+      "feature": "dead_col"
+    },
+    {
+      "type": "train_test_duplicate",
+      "severity": "high",
+      "detail": "5 test rows exactly match train rows (5 unique) -> leakage",
+      "n_test_rows": 5
+    }
+  ],
+  "top_feature_correlations": [
+    {
+      "feature": "leak_feature",
+      "corr_with_target": 0.9997975517967745
+    },
+    {
+      "feature": "x1",
+      "corr_with_target": 0.646749945450351
+    },
+    {
+      "feature": "x2",
+      "corr_with_target": 0.24235961221916738
+    }
+  ],
+  "deepchecks": {
+    "available": false,
+    "note": "deepchecks not installed -> using built-in numpy/pandas checks only (degraded mode, still functional)"
+  },
+  "thresholds": {
+    "gap_overfit": 0.05,
+    "gap_shift": 0.05,
+    "leak_corr": 0.95,
+    "near_const": 0.999
+  },
+  "verdict": "FLAGS RAISED"
+}

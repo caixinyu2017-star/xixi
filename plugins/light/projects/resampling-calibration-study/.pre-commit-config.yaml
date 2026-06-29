@@ -1,0 +1,17 @@
+# pre-commit 质量门配置；复制为项目根 .pre-commit-config.yaml。
+# 仅在 git 仓库内 `pre-commit install` 后生效（钩子挂到 .git/hooks/）。
+# 维护:用 `pre-commit autoupdate --freeze` 升级各 repo 的 rev 到最新 tag 并钉死。
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0  # 用 `pre-commit autoupdate --freeze` 维护
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6  # 用 `pre-commit autoupdate --freeze` 维护
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format

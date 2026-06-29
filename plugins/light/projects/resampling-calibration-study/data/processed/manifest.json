@@ -1,0 +1,62 @@
+[
+  {
+    "dataset": "pima",
+    "n": 768,
+    "n_features": 8,
+    "pos": 268,
+    "neg": 500,
+    "imbalance_ratio": 1.87,
+    "minority_frac": 0.349,
+    "nan_fraction": 0.0,
+    "openml_id": 37,
+    "file": "pima.parquet"
+  },
+  {
+    "dataset": "credit_g",
+    "n": 1000,
+    "n_features": 48,
+    "pos": 300,
+    "neg": 700,
+    "imbalance_ratio": 2.33,
+    "minority_frac": 0.3,
+    "nan_fraction": 0.0,
+    "openml_id": 31,
+    "file": "credit_g.parquet"
+  },
+  {
+    "dataset": "phoneme",
+    "n": 5404,
+    "n_features": 5,
+    "pos": 1586,
+    "neg": 3818,
+    "imbalance_ratio": 2.41,
+    "minority_frac": 0.2935,
+    "nan_fraction": 0.0,
+    "openml_id": 1489,
+    "file": "phoneme.parquet"
+  },
+  {
+    "dataset": "adult",
+    "n": 48842,
+    "n_features": 97,
+    "pos": 11687,
+    "neg": 37155,
+    "imbalance_ratio": 3.18,
+    "minority_frac": 0.2393,
+    "nan_fraction": 0.0,
+    "openml_id": 1590,
+    "file": "adult.parquet"
+  },
+  {
+    "dataset": "yeast_ml8",
+    "n": 2417,
+    "n_features": 116,
+    "pos": 34,
+    "neg": 2383,
+    "imbalance_ratio": 70.09,
+    "minority_frac": 0.0141,
+    "nan_fraction": 0.0,
+    "openml_id": 316,
+    "file": "yeast_ml8.parquet"
+  }
+]
