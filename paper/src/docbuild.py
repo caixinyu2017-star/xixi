@@ -42,6 +42,25 @@ class Paper:
         # east-asian font binding
         rpr=st.element.get_or_add_rPr(); rfonts=rpr.get_or_add_rFonts()
         rfonts.set(qn('w:eastAsia'),BODY_FONT)
+        self._add_header_footer(sec)
+
+    def _page_field(self, paragraph):
+        for t,val in (("begin",None),("instrText","PAGE"),("end",None)):
+            r=paragraph.add_run(); r.font.size=Pt(8)
+            fld=OxmlElement('w:fldChar')
+            if t=="instrText":
+                it=OxmlElement('w:instrText'); it.set(qn('xml:space'),'preserve'); it.text=" PAGE "
+                r._r.append(it); continue
+            fld.set(qn('w:fldCharType'),t); r._r.append(fld)
+
+    def _add_header_footer(self, sec):
+        from docx.enum.text import WD_ALIGN_PARAGRAPH as _AL
+        hdr=sec.header; hdr.is_linked_to_previous=False
+        hp=hdr.paragraphs[0]; hp.alignment=_AL.RIGHT; hp.paragraph_format.space_after=Pt(0)
+        r=hp.add_run("Biomimetics 2026, 10, x FOR PEER REVIEW"); r.italic=True; r.font.size=Pt(8)
+        ftr=sec.footer; ftr.is_linked_to_previous=False
+        fp=ftr.paragraphs[0]; fp.alignment=_AL.CENTER
+        self._page_field(fp)
 
     # ---------- low level ----------
     def _p(self, text="", align=AL.JUSTIFY, size=BODY_SIZE, bold=False, italic=False,
@@ -196,6 +215,7 @@ class Paper:
 
     # ---------- references ----------
     def references(self):
+        import re
         self.heading("References",1)
         for i,tag in enumerate(self.refs,1):
             c=refs_db.citation(tag)
@@ -203,9 +223,32 @@ class Paper:
             pf=p.paragraph_format; pf.left_indent=Cm(0.6); pf.first_line_indent=Cm(-0.6)
             pf.space_after=Pt(2); pf.line_spacing=1.0
             r=p.add_run(f"{i}. "); r.font.size=Pt(9)
-            # split title/journal italic? keep simple: plain; italicize journal is hard. MDPI ok plain-ish.
-            r2=p.add_run(c); r2.font.size=Pt(9)
+            self._emit_reference(p, c)
         return len(self.refs)
+
+    def _emit_reference(self, p, c):
+        """MDPI typography: bold the publication year, italicize the volume that follows it."""
+        import re
+        # locate "YEAR, VOLUME," or "YEAR," (year = 19xx/20xx) — the publication-year token
+        m=re.search(r'\b(19|20)\d{2}\b', c)
+        def run(txt, bold=False, italic=False):
+            if not txt: return
+            rr=p.add_run(txt); rr.font.size=Pt(9); rr.bold=bold; rr.italic=italic
+        if not m:
+            run(c); return
+        ys, ye = m.start(), m.end()
+        run(c[:ys])                       # everything before the year (authors, title, journal)
+        run(c[ys:ye], bold=True)          # bold year
+        rest=c[ye:]
+        # volume: ", <number/number-range>" immediately after year
+        vm=re.match(r'(,\s*)(\d+[A-Za-z]?)(\s*,)', rest)
+        if vm:
+            run(vm.group(1))
+            run(vm.group(2), italic=True)
+            run(vm.group(3))
+            run(rest[vm.end():])
+        else:
+            run(rest)
 
     def page_break(self):
         from docx.enum.text import WD_BREAK
@@ -224,6 +267,7 @@ class Paper:
             sec.page_width=Cm(21.0); sec.page_height=Cm(29.7)
             sec.top_margin=Cm(1.9); sec.bottom_margin=Cm(2.4)
             sec.left_margin=Cm(2.0); sec.right_margin=Cm(2.0)
+        self._add_header_footer(sec)
         return sec
 
     def fit_table(self, table, total_cm, first_widths):
