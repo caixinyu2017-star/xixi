@@ -14,6 +14,11 @@ modelled closely on:
 - **`China_AI_Server_Sustainability.docx`** — the full manuscript with six embedded figures,
   numbered references (cited by order of appearance, Nature convention), abstract, five results
   sections, discussion, methods with governing equations, and author/competing-interest blocks.
+  - **In-text citations are clickable cross-references**: every superscript citation number is an
+    internal hyperlink to its bookmarked entry in the References list (Ctrl/Cmd-click to jump).
+  - **Every reference carries a validated, clickable DOI/stable URL** appended in Nature style.
+    All 48 references were independently re-verified (Crossref/DOI/publisher/arXiv) and several
+    bibliographic errors (page ranges, truncated/incorrect titles, missing DOIs) were corrected.
 
 ## What is real vs. simulated
 

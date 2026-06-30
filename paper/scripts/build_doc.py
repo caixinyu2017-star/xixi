@@ -17,6 +17,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.section import WD_SECTION
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
@@ -92,6 +93,77 @@ def _set_font(run, name="Times New Roman", size=10.5, bold=False, italic=False, 
 
 CITE_RE = re.compile(r"\{([a-zA-Z0-9_,]+)\}")
 
+def _cite_link(p, text, anchor, size):
+    """Append a superscript run wrapped in an internal hyperlink (cross-reference
+    to a bookmark named `anchor` in the reference list)."""
+    hl = OxmlElement('w:hyperlink')
+    hl.set(qn('w:anchor'), anchor)
+    run = OxmlElement('w:r')
+    rpr = OxmlElement('w:rPr')
+    rfonts = OxmlElement('w:rFonts')
+    for a in ('w:ascii', 'w:hAnsi', 'w:cs', 'w:eastAsia'):
+        rfonts.set(qn(a), 'Times New Roman')
+    rpr.append(rfonts)
+    va = OxmlElement('w:vertAlign'); va.set(qn('w:val'), 'superscript'); rpr.append(va)
+    sz = OxmlElement('w:sz'); sz.set(qn('w:val'), str(int(round(size * 2)))); rpr.append(sz)
+    col = OxmlElement('w:color'); col.set(qn('w:val'), '1F4E79'); rpr.append(col)
+    run.append(rpr)
+    t = OxmlElement('w:t'); t.set(qn('xml:space'), 'preserve'); t.text = text
+    run.append(t)
+    hl.append(run)
+    p._p.append(hl)
+
+def _cite_sep(p, ch, size):
+    r = p.add_run(ch)
+    _set_font(r, size=size)
+    r.font.superscript = True
+
+def _bookmark_start(p, name, bid):
+    el = OxmlElement('w:bookmarkStart')
+    el.set(qn('w:id'), str(bid)); el.set(qn('w:name'), name)
+    p._p.append(el)
+
+def _bookmark_end(p, bid):
+    el = OxmlElement('w:bookmarkEnd'); el.set(qn('w:id'), str(bid))
+    p._p.append(el)
+
+URL_RE = re.compile(r"(https?://[^\s]+)")
+
+def _ext_link(p, url, text, size):
+    """Append a clickable EXTERNAL hyperlink run to paragraph p."""
+    r_id = p.part.relate_to(url, RT.HYPERLINK, is_external=True)
+    hl = OxmlElement('w:hyperlink'); hl.set(qn('r:id'), r_id)
+    run = OxmlElement('w:r'); rpr = OxmlElement('w:rPr')
+    rfonts = OxmlElement('w:rFonts')
+    for a in ('w:ascii', 'w:hAnsi', 'w:cs', 'w:eastAsia'):
+        rfonts.set(qn(a), 'Times New Roman')
+    rpr.append(rfonts)
+    sz = OxmlElement('w:sz'); sz.set(qn('w:val'), str(int(round(size * 2)))); rpr.append(sz)
+    col = OxmlElement('w:color'); col.set(qn('w:val'), '0563C1'); rpr.append(col)
+    u = OxmlElement('w:u'); u.set(qn('w:val'), 'single'); rpr.append(u)
+    run.append(rpr)
+    t = OxmlElement('w:t'); t.set(qn('xml:space'), 'preserve'); t.text = text
+    run.append(t)
+    hl.append(run)
+    p._p.append(hl)
+
+def _add_text_with_urls(p, text, size):
+    """Render text, turning any embedded URL into a clickable external hyperlink."""
+    idx = 0
+    for m in URL_RE.finditer(text):
+        if m.start() > idx:
+            r = p.add_run(text[idx:m.start()]); _set_font(r, size=size)
+        url = m.group(1)
+        trail = ""
+        while url and url[-1] in ".,;)]":
+            trail = url[-1] + trail; url = url[:-1]
+        _ext_link(p, url, url, size)
+        if trail:
+            r = p.add_run(trail); _set_font(r, size=size)
+        idx = m.end()
+    if idx < len(text):
+        r = p.add_run(text[idx:]); _set_font(r, size=size)
+
 def add_para(doc, text, size=10.5, bold=False, italic=False, align=None,
              space_after=6, space_before=0, first_indent=None, line=1.15, style=None):
     p = doc.add_paragraph(style=style)
@@ -117,10 +189,16 @@ def add_para(doc, text, size=10.5, bold=False, italic=False, align=None,
                 groups[-1].append(n)
             else:
                 groups.append([n])
-        sup = ",".join(f"{g[0]}–{g[-1]}" if len(g) > 1 else f"{g[0]}" for g in groups)
-        r = p.add_run(sup)
-        _set_font(r, size=size - 2.5)
-        r.font.superscript = True
+        ssize = size - 2.5
+        for gi, g in enumerate(groups):
+            if gi > 0:
+                _cite_sep(p, ",", ssize)
+            if len(g) == 1:
+                _cite_link(p, str(g[0]), f"Ref{g[0]}", ssize)
+            else:
+                _cite_link(p, str(g[0]), f"Ref{g[0]}", ssize)
+                _cite_sep(p, "–", ssize)
+                _cite_link(p, str(g[-1]), f"Ref{g[-1]}", ssize)
         pos = m.end()
     if pos < len(text):
         r = p.add_run(text[pos:])
@@ -171,14 +249,15 @@ def build(prose):
         if ref is None:
             ref = f"[MISSING REFERENCE for key '{key}']"
         p = doc.add_paragraph()
-        p.paragraph_format.space_after = Pt(2)
-        p.paragraph_format.line_spacing = 1.0
+        p.paragraph_format.space_after = Pt(3)
+        p.paragraph_format.line_spacing = 1.05
         p.paragraph_format.left_indent = Inches(0.3)
         p.paragraph_format.first_line_indent = Inches(-0.3)
+        _bookmark_start(p, f"Ref{i}", i)        # cross-reference target
         rn = p.add_run(f"{i}. ")
         _set_font(rn, size=9, bold=True)
-        rr = p.add_run(ref)
-        _set_font(rr, size=9)
+        _add_text_with_urls(p, ref, size=9)      # clickable DOI/URL
+        _bookmark_end(p, i)
     doc.save(OUT)
     # report unresolved
     missing = [k for k in CITE.order if k not in allrefs]

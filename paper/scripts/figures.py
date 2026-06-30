@@ -355,9 +355,11 @@ def fig5():
     ax.set_xticklabels(steps, fontsize=7)
     ax.set_ylabel("Cumulative carbon 2024–2030 (Mt CO$_2$e)")
     ax.set_title("a  Net-zero contribution pathway (carbon, best practice)")
+    ax.set_ylim(0, base_total * 1.12)
+    # label sits just above the residual bar
     ax.annotate(f"Residual ≈ {running:.0f} Mt\n(≈ {running/base_total*100:.0f}% of added)",
-                xy=(4, running), xytext=(2.6, base_total*0.7), fontsize=7,
-                arrowprops=dict(arrowstyle="->", lw=0.7))
+                xy=(4, running), xytext=(4, running + 95), ha="center", fontsize=7,
+                arrowprops=dict(arrowstyle="->", lw=0.7, color="#333"))
     ax.grid(alpha=0.2, lw=0.5, axis="y")
 
     # b residual carbon & water across scenarios under best/worst practice
