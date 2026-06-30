@@ -1,0 +1,55 @@
+{
+  "years": [
+    2024,
+    2030
+  ],
+  "scenarios": [
+    "Low demand",
+    "Low power",
+    "Mid-case",
+    "High application",
+    "High demand"
+  ],
+  "energy_2030_TWh": [
+    85.5,
+    253.3
+  ],
+  "water_2030_Mm3": [
+    463.4,
+    1373.0
+  ],
+  "carbon_2030_Mt": [
+    45.8,
+    135.7
+  ],
+  "annual_avg_energy_TWh": [
+    52.7,
+    123.4
+  ],
+  "annual_avg_water_Mm3": [
+    295.8,
+    687.3
+  ],
+  "annual_avg_carbon_Mt": [
+    30.6,
+    70.4
+  ],
+  "midcase_2030": {
+    "year": 2030.0,
+    "cum_capacity_GW": 42.0,
+    "annual_shipment_GW": 7.0,
+    "it_energy_TWh": 123.25,
+    "infra_energy_TWh": 33.28,
+    "facility_energy_TWh": 156.53,
+    "direct_water_Mm3": 234.8,
+    "indirect_water_Mm3": 613.6,
+    "total_water_Mm3": 848.4,
+    "scope2_carbon_Mt": 73.57,
+    "scope3_carbon_Mt": 10.3,
+    "total_carbon_Mt": 83.87
+  },
+  "direct_indirect_water_share": [
+    27.7,
+    72.3
+  ]
+}
