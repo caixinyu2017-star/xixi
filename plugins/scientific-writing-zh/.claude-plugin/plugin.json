@@ -1,0 +1,19 @@
+{
+  "name": "scientific-writing-zh",
+  "version": "1.0.0",
+  "description": "科研写作教练(中文讲解版)——帮助中文母语的研究者撰写、修改和组织科研论文:起草、润色、搭建结构,写标题/摘要/引言/方法/结果/讨论/结论,做图表与引用,处理署名与学术伦理,撰写同行评审意见与审稿回复,以及准备学术报告与海报。This is the Chinese-language counterpart of the scientific-writing skill.",
+  "author": {
+    "name": "Yuan ZHAO"
+  },
+  "license": "MIT",
+  "keywords": [
+    "scientific-writing",
+    "academic-writing",
+    "chinese",
+    "paper-structure",
+    "peer-review",
+    "revision",
+    "esl",
+    "presentations"
+  ]
+}
