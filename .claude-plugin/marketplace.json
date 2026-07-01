@@ -5,7 +5,7 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of five academic-research skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, and writing-ai-paper.",
+    "description": "A bundled Claude Code marketplace of academic-research and presentation/diagramming skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, scientific-writing-zh, auto-visio-helper, visio-image-rebuilder, frontend-slides, and ppt-master.",
     "version": "1.0.0"
   },
   "plugins": [
@@ -49,6 +49,34 @@
       "source": "./plugins/scientific-writing-zh",
       "description": "科研写作教练(中文讲解版) — a Chinese-language scientific-writing coach: drafting, revision, paper structure (title/abstract/intro/methods/results/discussion), figures & citations, authorship ethics, peer review & rebuttals, and presentations.",
       "version": "1.0.0",
+      "license": "MIT"
+    },
+    {
+      "name": "auto-visio-helper",
+      "source": "./plugins/auto-visio-helper",
+      "description": "Plan, generate, reproduce, and refine editable Microsoft Visio scientific diagrams from descriptions, paper screenshots, or sketches — spec-first workflow rendered via local Visio COM automation. Requires Windows + a licensed local Microsoft Visio install.",
+      "version": "1.0.0",
+      "license": "MIT"
+    },
+    {
+      "name": "visio-image-rebuilder",
+      "source": "./plugins/visio-image-rebuilder",
+      "description": "Rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files for scientific-paper figures, using native shapes/text/connectors instead of embedding a flat picture. Requires Windows + a licensed local Microsoft Visio install.",
+      "version": "1.0.0",
+      "license": "See plugin"
+    },
+    {
+      "name": "frontend-slides",
+      "source": "./plugins/frontend-slides",
+      "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files — zero-dependency single-file decks, bold template pack, and an anti-\"AI slop\" design philosophy.",
+      "version": "2.1.0",
+      "license": "MIT"
+    },
+    {
+      "name": "ppt-master",
+      "source": "./plugins/ppt-master",
+      "description": "Generate natively editable PPTX from PDF/DOCX/URL/Markdown — real DrawingML shapes, text boxes, charts, and animations via an AI multi-role SVG generation pipeline. Ships a large icon/template/reference library; run `pip install -r requirements.txt` inside skills/ppt-master/ for the Python post-processing scripts.",
+      "version": "2.7.0",
       "license": "MIT"
     }
   ]

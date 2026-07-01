@@ -1,0 +1,20 @@
+{
+  "name": "visio-image-rebuilder",
+  "version": "1.0.0",
+  "description": "Rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files, for scientific-paper figures. Recreates references as native Visio shapes, text, connectors, and groups instead of embedding a flat picture; supports multi-panel figure reconstruction, layout/color/font restyling of existing .vsdx files, and .vsdx inspection to catch accidental whole-image embedding. Requires Windows + a licensed local Microsoft Visio install.",
+  "author": {
+    "name": "pengjunchi0"
+  },
+  "homepage": "https://github.com/pengjunchi0/codex-visio-paper-figure-skill",
+  "repository": "https://github.com/pengjunchi0/codex-visio-paper-figure-skill",
+  "license": "See repository",
+  "keywords": [
+    "visio",
+    "vsdx",
+    "diagrams",
+    "scientific-figures",
+    "paper-figures",
+    "windows",
+    "com-automation"
+  ]
+}

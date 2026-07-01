@@ -1,16 +1,17 @@
 # xixi — 科研 Skills 集合 / Research Skills Marketplace
 
-本仓库把 **6 套科研类 Claude Code Skill 包** 打包成一个本地 **plugin marketplace（插件市场）**，
+本仓库把 **10 套科研/演示类 Claude Code Skill 包** 打包成一个本地 **plugin marketplace（插件市场）**，
 安装后即可在 Claude Code 中按需启用。每套包都保留了作者原始的目录结构与相对路径引用，
 因此知识库、脚本、模板、`_shared`/`shared`/`databases` 等内部资源都能正确加载。
 
-This repo bundles **six academic-research skill packages** into a single local **Claude Code plugin
-marketplace**. Each package keeps its original directory layout and relative-path references intact, so
-its knowledge bases, scripts, templates and shared folders all resolve correctly once installed.
+This repo bundles **ten academic-research and presentation/diagramming skill packages** into a single
+local **Claude Code plugin marketplace**. Each package keeps its original directory layout and
+relative-path references intact, so its knowledge bases, scripts, templates and shared folders all
+resolve correctly once installed.
 
 ---
 
-## 📦 包含的 6 个插件 / The 6 plugins
+## 📦 包含的 10 个插件 / The 10 plugins
 
 | 插件 / Plugin | 技能数 / Skills | 说明 / What it does |
 | --- | --- | --- |
@@ -20,8 +21,12 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 | **econ-top-journal-writing** | 5 | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | 1 | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
 | **scientific-writing-zh** | 1 | 科研写作教练（中文讲解版）：用中文讲解起草、修改、论文结构（标题/摘要/引言/方法/结果/讨论/结论）、图表引用、署名伦理、非母语作者指南、同行评审与审稿回复、学术报告与海报。 |
+| **auto-visio-helper** | 1 | 把方法描述、论文截图或手绘草图先转成可核对的 JSON 绘图 spec，再通过本地 Visio COM 自动化渲染成可编辑 `.vsdx` 科研配图。**需 Windows + 已激活的本地 Microsoft Visio。** |
+| **visio-image-rebuilder** | 1 | 面向论文配图，用参考图片/已有 `.vsdx` 重建或改版可编辑 Visio 图形（原生形状而非整图内嵌），支持多面板结构复刻与配色/字体统一。**需 Windows + 已激活的本地 Microsoft Visio。** |
+| **frontend-slides** | 1 | 生成零依赖、动效丰富的单文件 HTML 演示文稿，支持从零创作或将 PPT/PPTX 转成网页版；内置 bold 模板包与"反 AI 陈词滥调"设计理念。 |
+| **ppt-master** | 1 | 把 PDF/DOCX/URL/Markdown 转成原生可编辑 PPTX（真实 DrawingML 形状/文本框/图表/动画），AI 多角色 SVG 生成流水线；内置大型图标/模板/参考图库。**首次使用前需在 `skills/ppt-master/` 下 `pip install -r requirements.txt`。** |
 
-合计 **51 个 skill**。
+合计 **55 个 skill**。
 
 ---
 
@@ -45,6 +50,10 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 /plugin install econ-top-journal-writing@xixi-research-skills
 /plugin install writing-ai-paper@xixi-research-skills
 /plugin install scientific-writing-zh@xixi-research-skills
+/plugin install auto-visio-helper@xixi-research-skills
+/plugin install visio-image-rebuilder@xixi-research-skills
+/plugin install frontend-slides@xixi-research-skills
+/plugin install ppt-master@xixi-research-skills
 ```
 
 也可以直接运行 `/plugin` 打开交互式菜单，浏览并勾选要安装的插件。
@@ -69,21 +78,26 @@ Some packages ship their own installer (e.g. `plugins/light/install.sh` symlinks
 ```text
 xixi/
 ├── .claude-plugin/
-│   └── marketplace.json          # 列出全部 5 个插件 / lists all 5 plugins
+│   └── marketplace.json          # 列出全部 10 个插件 / lists all 10 plugins
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
 │   ├── academic-research-skills/ # 4 skills (+ shared/, agents/, hooks/, modes)
 │   ├── nature-skills/            # 12 skills (+ skills/_shared/)
 │   ├── econ-top-journal-writing/ # 5 skills
 │   ├── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
-│   └── scientific-writing-zh/    # 1 skill (Chinese-language scientific-writing coach)
+│   ├── scientific-writing-zh/    # 1 skill (Chinese-language scientific-writing coach)
+│   ├── auto-visio-helper/        # 1 skill (spec-first Visio diagram generation, Windows-only)
+│   ├── visio-image-rebuilder/    # 1 skill (rebuild paper figures as native Visio shapes, Windows-only)
+│   ├── frontend-slides/          # 1 skill (zero-dependency HTML decks + PPT→web)
+│   └── ppt-master/               # 1 skill (doc→native PPTX pipeline, large icon/template library)
 └── README.md
 ```
 
 每个插件目录都含有 `.claude-plugin/plugin.json` 与 `skills/`。其中 `light` 与
 `academic-research-skills` 由作者自带插件清单；`nature-skills`、`econ-top-journal-writing`
-的清单在本次部署中按其结构补全；`writing-ai-paper`、`scientific-writing-zh` 由原手册/skill
-文档封装为可调用 skill。
+的清单在本次部署中按其结构补全；`writing-ai-paper`、`scientific-writing-zh`、
+`auto-visio-helper`、`visio-image-rebuilder` 由原手册/skill 文档封装为可调用 skill；
+`frontend-slides`、`ppt-master` 的插件清单由原仓库自带，直接照原样收录。
 
 ---
 
@@ -97,5 +111,9 @@ xixi/
 - **econ-top-journal-writing** — 分层许可，见插件内 `LICENSE`
 - **writing-ai-paper** — 见 https://github.com/hzwer/WritingAIPaper（hzwer、DingXiaoH）
 - **scientific-writing-zh** — MIT（Yuan ZHAO），见插件内 `LICENSE`
+- **auto-visio-helper** — MIT（0Antique，https://github.com/0Antique/Auto-Visio-Helper）
+- **visio-image-rebuilder** — 许可未在源仓库注明，见 https://github.com/pengjunchi0/codex-visio-paper-figure-skill
+- **frontend-slides** — MIT（Zara Zhang，https://github.com/zarazhangrui/frontend-slides）
+- **ppt-master** — MIT（Hugo He，https://github.com/hugohe3/ppt-master）
 
 请在使用时遵循各自许可（尤其 academic-research-skills 为非商业 CC-BY-NC-4.0）。
