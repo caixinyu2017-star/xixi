@@ -5,7 +5,7 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of academic-research and presentation/diagramming skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, scientific-writing-zh, auto-visio-helper, visio-image-rebuilder, frontend-slides, and ppt-master.",
+    "description": "A bundled Claude Code marketplace of academic-research and presentation/diagramming skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, and ppt-master.",
     "version": "1.0.0"
   },
   "plugins": [
@@ -43,13 +43,6 @@
       "description": "Writing AI Conference Papers — the beginner's handbook by hzwer and DingXiaoH, packaged as an invocable skill for planning, drafting, and revising NeurIPS/ICML/ICLR/CVPR-style papers.",
       "version": "1.0.0",
       "license": "See plugin"
-    },
-    {
-      "name": "scientific-writing-zh",
-      "source": "./plugins/scientific-writing-zh",
-      "description": "科研写作教练(中文讲解版) — a Chinese-language scientific-writing coach: drafting, revision, paper structure (title/abstract/intro/methods/results/discussion), figures & citations, authorship ethics, peer review & rebuttals, and presentations.",
-      "version": "1.0.0",
-      "license": "MIT"
     },
     {
       "name": "auto-visio-helper",
