@@ -2,11 +2,11 @@
 #SUBTITLE# ——基于2016—2025年中央政策文本的分析
 #AUTHOR# ×××
 #AFFIL# （××大学××学院，×× ××××××）
-#ABSTRACT# 摘要：科学的人才评价体系是激发科技创新人才创新活力的“指挥棒”，也是深化人才发展体制机制改革的关键环节。为系统把握我国科技创新人才评价改革的演进逻辑与深层矛盾，基于政策工具理论构建“政策工具—评价要素”二维分析框架，对2016—2025年中央层面出台的14份代表性政策文本进行系统的质性内容分析。研究发现：我国科技创新人才评价改革经历了奠基探索、破除痼疾、重构标准、系统深化4个阶段，呈现出从单项突破走向系统集成、从“破”字当头走向“破立并举”、从行政主导走向多元参与的演进特征；政策工具配置存在结构性失衡，供给型与环境型工具占据主导而需求型工具相对缺位，评价标准分类化、评价主体多元化、评价周期长效化等关键环节仍存在制度供给不足；当前科技创新人才评价面临“破”后“立”不到位、同行评议机制不健全、评价周期与创新规律错位、评价数智化转型滞后以及与教育科技人才一体化改革协同不足等现实困境。基于此，从重塑分类评价标准、健全多元评价主体、推行长周期与代表作评价、建设人才评价数字化基础设施、强化评价结果运用以及将人才评价改革嵌入教育科技人才一体化改革大局等方面，提出科技创新人才评价体系的重构路径。
+#ABSTRACT# 摘要：为系统把握我国科技创新人才评价改革的演进逻辑与深层矛盾，充分发挥人才评价的“指挥棒”功能，基于政策工具理论构建“政策工具—评价要素”二维分析框架，对2016—2025年中央层面出台的14份代表性政策文献进行系统的质性文本分析。研究发现：我国科技创新人才评价改革经历了奠基探索、破除痼疾、重构标准、系统深化4个阶段，呈现出从单项突破走向系统集成、从“破”字当头走向“破立并举”、从行政主导走向多元参与的演进特征；政策工具配置存在结构性失衡，环境型工具占据主导、供给型工具居于辅助地位、需求型工具相对缺位，评价周期与结果使用环节的制度供给相对薄弱，分领域可操作的分类评价标准供给不足；当前科技创新人才评价面临“破”后“立”不到位、同行评议机制不健全、评价周期与创新规律错位、评价结果使用异化、评价数智化转型滞后以及与教育科技人才一体化改革协同不足等现实困境。基于此，从重塑分类评价标准、健全多元评价主体、推行长周期与代表作评价、建设人才评价数字化基础设施、强化评价结果科学使用以及将人才评价改革嵌入教育科技人才一体化改革大局等方面，提出科技创新人才评价体系的重构路径。
 #KEYWORDS# 关键词：科技创新人才；人才评价；破四唯；分类评价；政策工具；政策文本分析
 #CLC# 中图分类号：C964.2；G316　　　　文献标志码：A
-#ENTITLE# From “Breaking the Four Onlys” to “Establishing New Standards”: Policy Evolution, Practical Dilemmas and System Reconstruction of the Evaluation Reform for Sci-tech Innovation Talents: An Analysis Based on Central Policy Texts from 2016 to 2025
-#ENABSTRACT# Abstract: A scientific talent evaluation system serves as the “baton” for stimulating the innovation vitality of sci-tech innovation talents and constitutes a key link in deepening the reform of institutional mechanisms for talent development. To systematically grasp the evolutionary logic and underlying contradictions of China's evaluation reform for sci-tech innovation talents, this study constructs a two-dimensional analytical framework of “policy instruments–evaluation elements” based on policy instrument theory, and conducts a systematic qualitative content analysis of 14 representative policy texts issued at the central level from 2016 to 2025. The findings show that the reform has gone through four stages, namely foundation-laying, dismantling entrenched practices, reconstructing standards, and systematic deepening, exhibiting evolutionary characteristics of moving from single breakthroughs to systematic integration, from “breaking first” to “breaking and establishing in parallel”, and from administrative dominance to multi-actor participation. The configuration of policy instruments shows structural imbalance: supply-side and environment-side instruments dominate while demand-side instruments are relatively absent, and institutional supply remains insufficient in key links such as classified evaluation standards, diversified evaluation subjects, and long-cycle evaluation. Current evaluation of sci-tech innovation talents faces practical dilemmas including inadequate “establishment” after “breaking”, imperfect peer review mechanisms, misalignment between evaluation cycles and the laws of innovation, lagging digital-intelligent transformation of evaluation, and insufficient coordination with the integrated reform of education, science and technology, and talent. Accordingly, this paper proposes reconstruction paths for the evaluation system, including reshaping classified evaluation standards, improving diversified evaluation subjects, promoting long-cycle and representative-work evaluation, building digital infrastructure for talent evaluation, strengthening the application of evaluation results, and embedding talent evaluation reform into the overall integrated reform of education, science and technology, and talent.
+#ENTITLE# From “Breaking the Four Onlys” to “Establishing New Standards”: Policy Evolution, Practical Dilemmas and System Reconstruction of the Evaluation Reform for Sci-tech Innovation Talents—An Analysis Based on Central Policy Texts from 2016 to 2025
+#ENABSTRACT# Abstract: To systematically grasp the evolutionary logic and underlying contradictions of China's evaluation reform for sci-tech innovation talents and to give full play to the “baton” function of talent evaluation, this study constructs a two-dimensional analytical framework of “policy instruments–evaluation elements” based on policy instrument theory, and conducts a systematic qualitative textual analysis of 14 representative policy documents issued at the central level from 2016 to 2025. The findings show that the reform has gone through four stages, namely foundation-laying, dismantling entrenched practices, reconstructing standards, and systematic deepening, exhibiting evolutionary characteristics of moving from single breakthroughs to systematic integration, from “breaking first” to “breaking and establishing in parallel”, and from administrative dominance to multi-actor participation. The configuration of policy instruments shows structural imbalance: environment-side instruments dominate, supply-side instruments play an auxiliary role, and demand-side instruments are relatively absent; institutional supply remains relatively weak in the links of evaluation cycles and the application of evaluation results, and operational classified evaluation standards for different fields are still insufficient. Current evaluation of sci-tech innovation talents faces practical dilemmas including inadequate “establishment” after “breaking”, imperfect peer review mechanisms, misalignment between evaluation cycles and the laws of innovation, distorted application of evaluation results with the solidified binding between talent titles and resources, lagging digital-intelligent transformation of evaluation, and insufficient coordination with the integrated reform of education, science and technology, and talent. Accordingly, this paper proposes reconstruction paths for the evaluation system, including reshaping classified evaluation standards, improving diversified evaluation subjects, promoting long-cycle and representative-work evaluation, building digital infrastructure for talent evaluation, strengthening the scientific application of evaluation results, and embedding talent evaluation reform into the overall integrated reform of education, science and technology, and talent.
 #ENKEYWORDS# Key words: sci-tech innovation talents; talent evaluation; breaking the “Four Onlys”; classified evaluation; policy instruments; policy text analysis
 
 #H1# 0　引言
@@ -28,8 +28,8 @@
 
 #H1# 2　研究设计
 #H2# 2.1　研究方法与文本选取
-本文采用政策文本分析法。政策文本是政策意图的权威载体，对政策文本的系统分析能够客观揭示政策演进的阶段特征与工具偏好[@songjj2021][@tanchh2022]。文本选取遵循三个标准：一是权威性，限定为中共中央、国务院及其办公厅和国务院相关部门发布的中央层面文件；二是相关性，文件核心内容须直接涉及科技人才评价或包含专门的人才评价条款；三是时效性，时间跨度为2016年1月至2025年12月，覆盖“十三五”以来人才评价改革的完整周期。据此，本文最终选取14份代表性政策文本（如表1所示），文本全文均来源于中国政府网、新华社及相关部委官方网站。
-#TABLE# 表1　2016—2025年科技创新人才评价代表性中央政策文本
+本文采用政策文本分析法。政策文本是政策意图的权威载体，对政策文本的系统分析能够客观揭示政策演进的阶段特征与工具偏好[@songjj2021][@tanchh2022]。文本选取遵循三个标准：一是权威性，限定为中央层面的权威政策文献，包括党代会报告和中央重要会议精神的权威文本，以及中共中央、国务院及其办公厅和相关部门发布的政策文件；二是相关性，文献核心内容须直接涉及科技人才评价或包含专门的人才评价条款；三是时效性，时间跨度为2016年1月至2025年6月，覆盖“十三五”以来人才评价改革的主要进程。据此，本文最终选取14份代表性政策文献（如表1所示），文本全文均来源于中国政府网、新华社及相关部委官方网站。
+#TABLE# 表1　2016—2025年科技创新人才评价代表性中央政策文献
 序号|发布时间|发文机关|文件名称
 1|2016年3月|中共中央|关于深化人才发展体制机制改革的意见
 2|2016年5月|中共中央、国务院|国家创新驱动发展战略纲要
@@ -40,20 +40,20 @@
 7|2020年2月|教育部、科技部|关于规范高等学校SCI论文相关指标使用　树立正确评价导向的若干意见
 8|2020年10月|中共中央、国务院|深化新时代教育评价改革总体方案
 9|2021年8月|国务院办公厅|关于完善科技成果评价机制的指导意见
-10|2022年10月|中国共产党第二十次全国代表大会|党的二十大报告（教育科技人才部分）
+10|2022年10月|中共中央|党的二十大报告（经大会审议通过，教育、科技、人才部分）
 11|2022年11月|科技部等八部门|关于开展科技人才评价改革试点的工作方案
 12|2024年7月|中共中央（二十届三中全会）|中共中央关于进一步全面深化改革、推进中国式现代化的决定（人才发展体制机制改革部分）
-13|2024年9月|全国教育大会|习近平总书记在全国教育大会上的重要讲话（教育科技人才一体化部分）
+13|2024年9月|中共中央|全国教育大会精神权威文本（教育科技人才一体化部分）
 14|2025年1月|中共中央、国务院|教育强国建设规划纲要（2024—2035年）
 #ENDTABLE#
 #H2# 2.2　编码与分析过程
-本文以政策条款为基本编码单元，按照“文本编号—章节序号—条款序号”对14份文本中涉及人才评价的条款进行逐条编码，随后依据二维分析框架将各条款归入“政策工具×评价要素”矩阵。编码采用两轮时隔独立编码的方式进行，对两轮归类不一致的条款回溯政策原文语境进行复核修正，以保证编码信度。在此基础上，结合政策发布的时间序列与文本间的引用承继关系，对政策演进阶段进行划分，并对政策工具配置结构进行质性归纳。需要说明的是，鉴于不同文本的体例与颗粒度差异较大，本文侧重于结构特征的质性判断而非条款频数的精确统计，以避免因文本体例差异造成的计量偏误。
+本文以政策条款为基本编码单元，按照“文本编号—章节序号—条款序号”对14份文献中涉及人才评价的条款进行逐条编码，随后依据二维分析框架将各条款归入“政策工具×评价要素”矩阵。编码工作由研究者间隔两周独立进行两轮，对两轮归类不一致的少数条款，回溯政策原文语境并对照编码规则复核修正；同时，将编码结果与既有科技人才评价政策计量研究的结论进行外部比对校验[@ganyh2022][@tanchh2022]，以保证编码的稳定性与效度。在此基础上，结合政策发布的时间序列与文本间的引用承继关系，对政策演进阶段进行划分，并对政策工具配置结构进行质性归纳。需要说明的是，鉴于不同文献的体例与颗粒度差异较大，本文侧重于结构特征的质性判断而非条款频数的精确统计，以避免因文本体例差异造成的计量偏误；此外，第5部分对现实困境的识别，在文本分析结果的基础上综合了既有实证研究的证据与改革实践的公开报道，以弥补单一文本分析方法的局限。
 
 #H1# 3　科技创新人才评价改革的政策演进
 #H2# 3.1　奠基探索期（2016—2017年）：确立改革基调
 2016年是人才评价改革的破题之年。《关于深化人才发展体制机制改革的意见》作为党中央出台的第一个针对人才发展体制机制改革的综合性文件，明确提出突出品德、能力和业绩评价导向，改进人才评价考核方式，克服唯学历、唯职称、唯论文等倾向，首次在中央文件层面对“唯”字问题作出系统回应[@rcyj2016]。同期发布的《国家创新驱动发展战略纲要》将改革人才培养、评价和激励机制作为创新驱动发展的重要制度支撑。这一阶段的政策特征是确立基调、指明方向，评价改革尚附属于人才发展体制机制改革的整体框架之中，专项化、操作性的制度安排还比较少。
 #H2# 3.2　破除痼疾期（2018—2020年）：“破”字当头的集中攻坚
-2018年起，人才评价改革进入专项推进的快车道。《关于分类推进人才评价机制改革的指导意见》作为我国首个专门针对人才评价机制改革的综合性文件，确立了分类评价的基本原则，提出以职业属性和岗位要求为基础，健全科学的人才分类评价体系，推行代表作评价制度[@fenlei2018]。《关于深化项目评审、人才评价、机构评估改革的意见》则将人才评价与项目评审、机构评估作为相互关联的整体加以改革，直指“三评”活动中的重复评审、指标僵化等积弊[@sanping2018]。随后，科技部等五部门启动清理“四唯”专项行动，将改革从文件推向行动。2020年，科技部出台破除“唯论文”若干措施[@powl2020]，教育部、科技部联合规范SCI论文指标使用，中共中央、国务院印发《深化新时代教育评价改革总体方案》，将“破五唯”上升为教育评价改革的总体要求[@jypj2020]。这一阶段政策密度高、指向明确，以“破”字当头，集中清理量化指标异化使用的存量问题，但“破”后如何“立”的制度供给相对滞后，部分科研单位一度出现评价标准悬置、基层执行观望的现象。
+2018年起，人才评价改革进入专项推进的快车道。《关于分类推进人才评价机制改革的指导意见》作为我国首个专门针对人才评价机制改革的综合性文件，确立了分类评价的基本原则，提出以职业属性和岗位要求为基础，健全科学的人才分类评价体系，推行代表作评价制度[@fenlei2018]。《关于深化项目评审、人才评价、机构评估改革的意见》则将人才评价与项目评审、机构评估作为相互关联的整体加以改革，直指“三评”活动中的重复评审、指标僵化等积弊[@sanping2018]。随后，科技部等五部门启动清理“四唯”专项行动，将改革从文件推向行动。2020年，科技部出台破除“唯论文”若干措施[@powl2020]，教育部、科技部联合规范SCI论文指标使用，中共中央、国务院印发《深化新时代教育评价改革总体方案》，聚焦教育领域“唯分数、唯升学、唯文凭、唯论文、唯帽子”问题，将“破五唯”上升为教育评价改革的总体要求[@jypj2020]。教育领域的“五唯”与科技人才评价领域的“四唯”在论文、文凭等指标依赖上同源交叠，共同指向量化信号的过度使用。这一阶段政策密度高、指向明确，以“破”字当头，集中清理量化指标异化使用的存量问题，但“破”后如何“立”的制度供给相对滞后，已有研究反映，部分科研单位一度出现评价标准悬置、基层执行观望的现象[@mengw2021][@sunyl2023]。
 #H2# 3.3　重构标准期（2021—2023年）：从“破”到“立”的转段
 2021年中央人才工作会议明确提出完善人才评价体系，加快建立以创新价值、能力、贡献为导向的人才评价体系[@rcgzhy2021]，标志着改革重心从破除旧标准转向确立新标准。同年，国务院办公厅印发《关于完善科技成果评价机制的指导意见》，提出全面准确评价科技成果的科学、技术、经济、社会、文化价值，为成果评价与人才评价的衔接提供了价值坐标[@cgpj2021]。2022年，科技部等八部门联合印发科技人才评价改革试点工作方案，在21家高校院所和6个地方开展试点，以“评什么、谁来评、怎么评、怎么用”为着力点，以“破四唯”“立新标”为突破口，探索按承担国家重大攻关任务、基础研究、应用研究和技术开发、社会公益研究4类创新活动构建评价新机制[@shidian2022]。这一阶段的政策特征是由面上要求转向机制建构，通过试点先行积累可复制经验，分类评价从原则走向操作。
 #H2# 3.4　系统深化期（2024—2025年）：融入一体化改革大局
@@ -63,7 +63,7 @@
 
 #H1# 4　政策工具视角下的文本分析
 #H2# 4.1　政策工具的总体配置：环境型主导、供给型辅助、需求型缺位
-将14份政策文本的评价相关条款归入二维矩阵后可以发现，环境型工具占据绝对主导地位。各文本中大量条款属于目标规划、法规管制与策略性倡导，如确立分类评价原则、规范指标使用、明确破除“四唯”要求等，均是通过塑造制度环境来引导评价行为。供给型工具居于次要位置，主要表现为评价改革试点布局、人才计划优化整合、评价专家队伍与信息平台建设等直接投入。相比之下，需求型工具明显缺位：培育市场化、专业化人才评价机构的条款散见于个别文件且缺乏配套措施；以市场薪酬、成果转化收益等需求侧信号校准评价结果的机制安排仍然薄弱；政府购买第三方评价服务的制度化渠道尚未建立。政策工具的这种结构性失衡意味着，评价改革的推进高度依赖行政系统的层层传导，市场与社会力量的评价功能未被充分激活，这与人才评价所要求的多元治理格局存在差距（如表2所示）。
+将14份政策文献的评价相关条款归入二维矩阵后，从条款分布的总体特征看，环境型工具占据主导地位。各文献中大量条款属于目标规划、法规管制与策略性倡导，如确立分类评价原则、规范指标使用、明确破除“四唯”要求等，均是通过塑造制度环境来引导评价行为。供给型工具居于辅助位置，主要表现为评价改革试点布局、人才计划优化整合、评价专家队伍与信息平台建设等直接投入。相比之下，需求型工具明显缺位：培育市场化、专业化人才评价机构的条款散见于个别文件且缺乏配套措施；以市场薪酬、成果转化收益等需求侧信号校准评价结果的机制安排仍然薄弱；政府购买第三方评价服务的制度化渠道尚未建立。这一结构特征与甘宇慧等基于更大规模政策样本的计量发现在“需求型工具明显不足”这一关键判断上高度一致[@ganyh2022]；两项研究对供给型与环境型工具的相对位次判断略有差异，主要缘于本文样本以综合性中央文献为主，其中目标规划与规制倡导类条款的比重天然较高。政策工具的这种结构性失衡意味着，评价改革的推进高度依赖行政系统的层层传导，市场与社会力量的评价功能未被充分激活，这与人才评价所要求的多元治理格局存在差距（如表2所示）。
 #TABLE# 表2　“政策工具—评价要素”二维框架下的政策供给特征
 评价要素|供给型工具表现|环境型工具表现|需求型工具表现
 评价标准|试点探索分类标准；成果评价价值坐标建构|确立品德能力业绩导向；破除“四唯”规制；代表作制度倡导|市场认可、成果转化效益纳入标准的安排较少
@@ -77,15 +77,17 @@
 
 #H1# 5　科技创新人才评价的现实困境
 #H2# 5.1　“破”后“立”不到位，新标准体系尚未定型
-破除“四唯”后，部分单位出现了标准真空与标准回潮并存的现象：一方面，新的分类评价标准尚未细化定型，基层评价者面临“不知怎么评”的操作困境；另一方面，由于量化指标操作简便、争议成本低，一些单位在实际操作中仍变相沿用论文数量、期刊分区等旧标准。制度分析的研究表明，“唯”量化指标的评价惯习深嵌于资源配置结构与学术声誉系统之中，仅靠禁止性规定难以根除[@mengw2021]。信号理论视角下，这实质上是新评价信号的公信力尚未建立、旧信号的路径依赖仍在延续的转型期特征[@spence]。评价标准的悬置与摇摆，弱化了政策的预期引导功能，也在一定程度上加剧了科研人员的行为观望。
+破除“四唯”后，部分单位出现了标准真空与标准回潮并存的现象[@sunyl2023]：一方面，新的分类评价标准尚未细化定型，基层评价者面临“不知怎么评”的操作困境；另一方面，由于量化指标操作简便、争议成本低，一些单位在实际操作中仍变相沿用论文数量、期刊分区等旧标准。制度分析的研究表明，“唯”量化指标的评价惯习深嵌于资源配置结构与学术声誉系统之中，仅靠禁止性规定难以根除[@mengw2021]。信号理论视角下，这实质上是新评价信号的公信力尚未建立、旧信号的路径依赖仍在延续的转型期特征[@spence]。评价标准的悬置与摇摆，弱化了政策的预期引导功能，也在一定程度上加剧了科研人员的行为观望。
 #H2# 5.2　同行评议机制不健全，评价主体功能错位
 分类评价的落地高度依赖高质量的同行评议，而当前同行评议机制存在明显短板：小同行专家遴选机制不健全，跨学科、新兴领域成果常常面临“找不到合适评审人”的窘境；评审专家的责任约束与激励机制缺失，人情评审、圈子评审等现象侵蚀评议公信力，即使在科学基金这一同行评议制度最为成熟的领域，评议质量保障机制也仍有较大优化空间[@chenguang2021]；行政力量在评价组织中的主导地位仍然突出，用人主体的自主评价权在编制、职称指标等约束下难以充分行使。默顿所揭示的科学奖励系统的自组织逻辑要求评价权威主要来自学术共同体内部[@merton]，而评价组织的过度行政化恰恰削弱了这一内生权威的形成。
 #H2# 5.3　评价周期短期化，与创新规律深层错位
 重大原始创新往往需要长期积累，基础研究成果的价值显现具有滞后性和不确定性。然而，当前普遍实行的年度考核、三年聘期考核与人才计划的周期设置，使科研人员被锁定在短周期的成果产出节奏中，与“十年磨一剑”的创新规律形成深层错位。申小曼等的研究表明，评价政策的短期化导向会系统性地改变高层次人才的选题偏好与成果结构，抑制高风险、长周期的探索性研究[@shenxm]。长周期评价虽已进入政策议程，但由于缺乏与之配套的稳定支持机制和容错机制，实践中推进缓慢。
 #H2# 5.4　评价数智化转型滞后，数据基础设施薄弱
 人工智能与大数据技术为人才评价的精准化、动态化提供了新的技术可能[@peixt]。人工智能不仅能够辅助大规模成果的语义识别与贡献解析，还能通过人机协同显著增强评价者的判断能力[@jia2024]。然而，当前我国人才评价的数据基础设施建设明显滞后：科研人员成果数据、项目数据、贡献数据分散于各部门系统之中，互不联通的“数据孤岛”使全景式、过程性评价缺乏数据支撑；智能评价工具的算法透明度、公平性规制尚属空白，技术赋能与技术风险并存。评价数智化转型的滞后，制约了分类评价、长周期评价等新机制的可操作性。
-#H2# 5.5　与教育科技人才一体化改革协同不足
-人才评价改革并非孤立系统，其与教育评价、科技评价的联动程度直接影响改革成效。现实中，高校学科评估、科研项目评审与人才评价在指标设计上相互强化，形成了“指挥棒共振”：学科评估看“帽子”，项目评审看“帽子”，人才评价发“帽子”，三者互为因果、彼此锁定。苗阳等对浙江省的研究表明，评价体系改革是打通教育链、人才链与产业链、创新链衔接梗阻的关键环节[@miaoyang]；黄永春等的测度研究也显示，教育、科技、人才系统的耦合协调水平仍有较大提升空间[@huangyc]。若人才评价改革不能与教育评价、科技评价改革协同推进，单兵突进的效果将被制度摩擦所抵消。
+#H2# 5.5　评价结果使用异化，“帽子”与资源固化捆绑
+评价结果的使用环节是激励机制的“最后一公里”，也是当前异化最为明显的环节。人才称号本应是阶段性的学术认可，实践中却往往异化为身份标签和资源分配的通行证：项目申请、职称晋升、绩效分配乃至学科声誉均不同程度地与称号挂钩，“帽子”的马太效应使学术资源持续向少数获誉者集中[@merton]，挤压了青年人才的成长空间。已有研究表明，人才计划的“背书”效应在便利获誉者获取创新资源的同时，也强化了称号与资源的制度性捆绑[@liuchl]。虽然中央政策已明确要求人才称号回归学术性、荣誉性本位，但在存量利益格局之下，评价结果使用的去利益化改革进展仍然缓慢。
+#H2# 5.6　与教育科技人才一体化改革协同不足
+人才评价改革并非孤立系统，其与教育评价、科技评价的联动程度直接影响改革成效。现实中，高校学科评估、科研项目评审与人才评价曾长期在指标设计上相互强化，形成“指挥棒共振”：学科评估、项目评审将人才称号作为重要观测点，人才评价则源源不断产出新的称号，三者互为因果、彼此锁定。尽管新一轮学科评估规则已明确不将人才称号和数量作为评价依据，但基于称号的隐性识别与资源配置惯性仍在延续[@mengw2021]。苗阳等对浙江省的研究表明，评价体系改革是打通教育链、人才链与产业链、创新链衔接梗阻的关键环节[@miaoyang]；黄永春等的测度研究也显示，教育、科技、人才系统的耦合协调水平仍有较大提升空间[@huangyc]。若人才评价改革不能与教育评价、科技评价改革协同推进，单兵突进的效果将被制度摩擦所抵消。
 
 #H1# 6　科技创新人才评价体系的重构路径
 #H2# 6.1　以创新价值、能力、贡献为导向，重塑分类分层的评价标准体系
@@ -93,7 +95,7 @@
 #H2# 6.2　健全多元评价主体格局，重建同行评议公信力
 一是向用人主体实质性放权，将职称评审权、人才认定权更大范围下放给符合条件的高校、科研院所和企业，配套建立放权与监管并行的质量保障机制。二是重建同行评议的制度基础，健全小同行专家遴选与动态更新机制，推行评审专家实名责任制、回避制度与信用记录制度，探索国际同行评议在基础研究领域的规范化应用。三是培育市场化、社会化评价力量，发展专业化人才评价机构，在应用型人才评价中引入行业协会、龙头企业和投资机构的评价视角，将市场认可、社会认可转化为可采信的评价证据[@wangfs2026]。多元主体各司其职、相互校验，才能形成评价权威的多源支撑。
 #H2# 6.3　推行长周期评价与代表作评价，顺应创新规律
-针对基础研究人才，全面推行以五年及以上为周期的聘期评价与代表作评价，大幅减少年度考核的强度与频次，配套建立稳定支持经费机制，使潜心研究者获得可预期的制度庇护。针对青年科技人才，设置成长性评价机制，注重发展潜力评估而非存量成果比拼，缓解“非升即走”制度下的短期化压力。针对承担探索性、高风险研究的人才，建立尽职免责的容错机制，将“允许失败”从理念倡导转化为评价条款。长周期评价的推行还需与项目管理、经费拨付制度联动改革，避免评价周期延长而考核压力通过项目渠道回流。
+针对基础研究人才，全面推行以五年及以上为周期的聘期评价与代表作评价，大幅减少年度考核的强度与频次，配套建立稳定支持经费机制，使潜心研究者获得稳定的制度预期与保障。针对青年科技人才，设置成长性评价机制，注重发展潜力评估而非存量成果比拼，缓解“非升即走”制度下的短期化压力。针对承担探索性、高风险研究的人才，建立尽职免责的容错机制，将“允许失败”从理念倡导转化为评价条款。长周期评价的推行还需与项目管理、经费拨付制度联动改革，避免评价周期延长而考核压力通过项目渠道回流。
 #H2# 6.4　建设人才评价数字化基础设施，实现数智赋能与风险规制并重
 依托国家科技管理信息系统与学术数据资源，建设覆盖科研人员成果、项目、贡献全景的人才评价数据基础设施，推动跨部门评价数据的标准化与互联互通。审慎引入人工智能辅助评价工具，将其定位于证据整合、贡献解析、异常识别等辅助环节，坚持专家评议的主体地位，落实量化证据支撑而非取代定性判断的原则[@leiden]。同时，建立智能评价算法的备案、审计与申诉机制，防范算法偏见对评价公平的侵蚀。数字化基础设施的建设应与“帽子”治理相结合，通过全口径人才数据归集，为人才计划的优化整合与称号的动态管理提供支撑。
 #H2# 6.5　强化评价结果的科学使用，破解“帽子”与资源的固化捆绑
@@ -102,7 +104,7 @@
 人才评价改革应与教育评价、科技评价改革同频共振、系统集成。一是建立三类评价改革的统筹协调机制，在学科评估、项目评审、人才评价的指标设计中同步去除“帽子”依赖，打破“指挥棒共振”的制度锁定[@miaoyang]。二是将服务国家战略和区域发展的贡献度纳入高校和科研机构的评价体系，引导教育系统的人才培养导向与科技系统的创新需求对接[@huangyc]。三是在教育科技人才一体化改革试点中同步布局评价改革试验，鼓励地方结合区域创新生态特征探索差异化的评价制度创新[@chenjin2026]，及时提炼可复制、可推广的制度成果，为全国层面的体系重构提供实践支撑。
 
 #H1# 7　结论与展望
-本文基于“政策工具—评价要素”二维分析框架，对2016—2025年中央层面14份代表性政策文本进行了系统分析。研究表明：我国科技创新人才评价改革经历了奠基探索、破除痼疾、重构标准、系统深化4个阶段，实现了从单项纠偏到系统改革、从“破”字当头到“破立并举”的转段升级；政策工具配置呈现环境型主导、供给型辅助、需求型缺位的结构性特征，评价周期与结果使用环节的制度供给相对薄弱；当前改革面临新标准落地难、同行评议弱、周期短期化、数智化滞后、协同性不足等现实困境。破解之道在于以分类分层标准重塑评价内核，以多元主体重建评价权威，以长周期评价顺应创新规律，以数字基础设施赋能评价升级，以结果使用改革破解“帽子”固化，并将人才评价改革深度嵌入教育科技人才一体化改革的系统工程之中。
+本文基于“政策工具—评价要素”二维分析框架，对2016—2025年中央层面14份代表性政策文本进行了系统分析。研究表明：我国科技创新人才评价改革经历了奠基探索、破除痼疾、重构标准、系统深化4个阶段，实现了从单项纠偏到系统改革、从“破”字当头到“破立并举”的转段升级；政策工具配置呈现环境型主导、供给型辅助、需求型缺位的结构性特征，评价周期与结果使用环节的制度供给相对薄弱；当前改革面临新标准落地难、同行评议弱、周期短期化、结果使用异化、数智化滞后、协同性不足等现实困境。破解之道在于以分类分层标准重塑评价内核，以多元主体重建评价权威，以长周期评价顺应创新规律，以数字基础设施赋能评价升级，以结果使用改革破解“帽子”固化，并将人才评价改革深度嵌入教育科技人才一体化改革的系统工程之中。
 本文的研究也存在一定局限。政策文本分析揭示的是制度供给侧的结构特征，政策在基层的执行偏差与效果异质性有待结合微观调查数据进一步检验；14份代表性文本虽覆盖了改革主线，但部委规章与地方创新实践未纳入分析范围。未来研究可沿两个方向深化：一是利用科研人员行为微观数据，实证检验评价改革对创新产出结构的因果效应；二是跟踪科技人才评价改革试点的实施进展，运用定性比较分析等方法识别试点成效的差异化生成路径[@wangfs2026]，为评价体系重构提供更精细的证据支撑。
 
 #REFS#
