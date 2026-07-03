@@ -7,9 +7,10 @@ stages) followed by one escape sub-update, each with greedy acceptance.
 
 MSSBOA adds three strategies:
   GPS - good point set initialization
-  EGS - elite-guided golden sine search: in hunting stage 1 each individual
-        applies the golden-sine elite move with probability 0.5 and otherwise
-        keeps the original differential move (probabilistic hybrid)
+  EDS - elite-guided differential search: in hunting stage 1 the differential
+        move is guided by an elite pool (three best individuals + centroid of
+        the top 10%) and combined with the parent through dimension-wise
+        binomial crossover (CR = 0.5)
   ERM - elite refinement mechanism: the global best is refined once per
         iteration, alternating an adaptive t-distribution perturbation (odd
         iterations) with a three-point quadratic interpolation (even
@@ -49,7 +50,7 @@ def _qi_point(xa, xb, xc, fa, fb, fc):
     return 0.5 * num / den
 
 
-def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_erm=False):
+def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_eds=False, use_erm=False):
     rec = Recorder(prob, max_fes)
     D = prob.dim
     # ---------------- initialization ----------------
@@ -66,7 +67,7 @@ def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_e
     while rec.budget_left():
         t += 1
         tt = min(t / T, 1.0)
-        if use_egs:
+        if use_eds:
             order = np.argsort(F)
             elites = [X[order[0]], X[order[1]], X[order[2]],
                       X[order[:max(3, N // 10)]].mean(axis=0)]
@@ -75,14 +76,15 @@ def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_e
             if not rec.budget_left():
                 break
             if t < T / 3:
-                if use_egs and rng.random() < 0.5:
-                    # elite-guided golden sine move
+                if use_eds:
+                    # elite-guided differential move + binomial crossover
                     Xe = elites[rng.integers(len(elites))]
-                    r1 = rng.random() * 2 * np.pi
-                    r2 = rng.random() * np.pi
-                    c1 = -np.pi * (1 - TAU) + np.pi * TAU
-                    c2 = -np.pi * TAU + np.pi * (1 - TAU)
-                    nx = X[i] * np.abs(np.sin(r1)) + r2 * np.sin(r1) * np.abs(c1 * Xe - c2 * X[i])
+                    cand = [j for j in range(N) if j != i]
+                    a, b = rng.choice(cand, 2, replace=False)
+                    v = X[i] + rng.random(D) * (Xe - X[i]) + rng.random(D) * (X[a] - X[b])
+                    mask = rng.random(D) < 0.5
+                    mask[rng.integers(D)] = True
+                    nx = np.where(mask, v, X[i])
                 else:
                     cand = [j for j in range(N) if j != i]
                     a, b = rng.choice(cand, 2, replace=False)
@@ -145,15 +147,15 @@ def sboa(prob, max_fes, N, rng):
 
 
 def mssboa(prob, max_fes, N, rng):
-    return _hunt_escape_loop(prob, max_fes, N, rng, use_gps=True, use_egs=True, use_erm=True)
+    return _hunt_escape_loop(prob, max_fes, N, rng, use_gps=True, use_eds=True, use_erm=True)
 
 
 def sboa_gps(prob, max_fes, N, rng):
     return _hunt_escape_loop(prob, max_fes, N, rng, use_gps=True)
 
 
-def sboa_egs(prob, max_fes, N, rng):
-    return _hunt_escape_loop(prob, max_fes, N, rng, use_egs=True)
+def sboa_eds(prob, max_fes, N, rng):
+    return _hunt_escape_loop(prob, max_fes, N, rng, use_eds=True)
 
 
 def sboa_erm(prob, max_fes, N, rng):

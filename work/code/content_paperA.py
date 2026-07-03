@@ -21,7 +21,7 @@ AFFILIATIONS = [
 ]
 
 KEYWORDS = ('secretary bird optimization algorithm; metaheuristic algorithm; good point set; '
-            'golden sine strategy; quadratic interpolation; portfolio selection; '
+            'elite-guided differential search; quadratic interpolation; portfolio selection; '
             'financial management')
 
 
@@ -36,9 +36,9 @@ def abstract(st):
         'multi-strategy secretary bird optimization algorithm (MSSBOA) that integrates three improvement '
         'strategies. First, a good point set initialization strategy is introduced to generate a uniformly '
         'distributed initial population and enhance the quality of the starting search. Secondly, an '
-        'elite-guided golden sine search strategy is designed to hybridize with the undirected differential move of '
+        'elite-guided differential search strategy is designed to reconstruct the undirected differential move of '
         'the first hunting stage, which strengthens the information exchange between the elite group and '
-        'ordinary individuals while accelerating convergence. Finally, an elite refinement mechanism is '
+        'ordinary individuals through a dimension-wise crossover while accelerating convergence. Finally, an elite refinement mechanism is '
         'applied to the global best individual, which alternates an adaptive t-distribution perturbation with '
         'a quadratic interpolation operator, helping the population escape from local optima in the early '
         'stage and refining the solution accuracy in the later stage. MSSBOA is comprehensively evaluated on '
@@ -204,12 +204,12 @@ def blocks(st):
         'basic SBOA. MSSBOA organically integrates three improvement strategies. First, a good point set '
         '(GPS) initialization strategy based on number theory {ref:hua} is adopted to construct a uniformly '
         'distributed initial population, which improves the coverage of the solution space at the very '
-        'beginning of the search. Secondly, an elite-guided golden sine search strategy (EGS) is designed '
-        'for the first hunting stage. By introducing the golden sine operator {ref:goldsa} and an elite '
-        'pool composed of the three best individuals and the centroid of the top 10% of the population, EGS '
-        'applies a guided contraction search with probability 0.5 in the first hunting stage while '
-        'otherwise retaining the original differential move, which strengthens the exploitation ability '
-        'without sacrificing the randomness needed for exploration. Finally, an elite refinement '
+        'beginning of the search. Secondly, an elite-guided differential search strategy (EDS) is designed '
+        'for the first hunting stage. By introducing an elite pool composed of the three best individuals '
+        'and the centroid of the top 10% of the population, EDS pulls each individual toward the elite '
+        'region with a guided differential move and then inherits about half of the parent dimensions '
+        'through a binomial crossover, which strengthens the exploitation ability without sacrificing the '
+        'randomness needed for exploration. Finally, an elite refinement '
         'mechanism (ERM) is executed in each iteration, which alternately applies an adaptive '
         't-distribution perturbation {ref:tdist} and a three-point quadratic interpolation to the global '
         'best individual. The degrees of freedom of the t-distribution grow with the iteration counter, '
@@ -219,7 +219,7 @@ def blocks(st):
         'this paper are summarized as follows.'
     )})
     ap({'p': '(1) A multi-strategy SBOA variant, called MSSBOA, is proposed by integrating the good point '
-             'set initialization, the elite-guided golden sine search, and the elite refinement '
+             'set initialization, the elite-guided differential search, and the elite refinement '
              'mechanism into the basic SBOA.', 'style': 'MDPI_3.1_text'})
     ap({'p': '(2) The performance of MSSBOA is comprehensively examined on the 29 functions of the CEC2017 '
              'test suite in 10 and 30 dimensions. Ablation experiments verify the effectiveness of each '
@@ -316,8 +316,8 @@ def blocks(st):
         'As analyzed in Section 1, the basic SBOA suffers from the non-uniform random initialization, the '
         'blind differential search in the first hunting stage, and the rapid loss of population diversity '
         'in the later stage. To overcome these limitations, this section proposes the MSSBOA algorithm, '
-        'which integrates the good point set initialization strategy, the elite-guided golden sine search '
-        'strategy, and the adaptive t-distribution perturbation strategy into the basic framework. The '
+        'which integrates the good point set initialization strategy, the elite-guided differential search '
+        'strategy, and the elite refinement mechanism into the basic framework. The '
         'three strategies are described in detail below, followed by the overall framework and the '
         'complexity analysis of MSSBOA.'
     )})
@@ -343,40 +343,47 @@ def blocks(st):
     ap({'fig': f'{FIGS}/gps_vs_random.png',
         'caption': '**Figure 2.** Population distributions of random initialization and good point set '
                    'initialization.', 'width_cm': 12.5})
-    ap({'h2': '3.2. Elite-Guided Golden Sine Search Strategy (EGS)'})
+    ap({'h2': '3.2. Elite-Guided Differential Search Strategy (EDS)'})
     ap({'p': (
         'In the first hunting stage of the basic SBOA, the position update in Equation (2) depends only on '
         'the difference between two randomly selected individuals. Although this operator maintains '
         'randomness, it completely ignores the guiding information accumulated by the dominant group, so '
         'the early search is blind and inefficient. To address this issue, this paper designs an '
-        'elite-guided golden sine search strategy. First, an elite pool is constructed as shown in Equation (14).'
+        'elite-guided differential search strategy. First, an elite pool is constructed as shown in Equation (14).'
     )})
     ap({'eq': r'E=\left\{ X_{best1}^{t},X_{best2}^{t},X_{best3}^{t},X_{mean}^{t} \right\},\ \ X_{mean}^{t}=\frac{1}{n_e}\sum_{k=1}^{n_e}{X_{k}^{t}}', 'num': 14})
     ap({'p': (
         'where $X_{best1}^t$, $X_{best2}^t$, and $X_{best3}^t$ are the three best individuals of the '
         'current population, and $X_{mean}^t$ is the centroid of the top $n_e$ individuals, with '
         '$n_e=\\max (3,\\lfloor 0.1N \\rfloor )$, namely 10% of the population size and at least three '
-        'individuals. The golden sine algorithm (Gold-SA) {ref:goldsa} is a '
-        'mathematics-inspired method that scans the unit circle through the sine function and narrows the '
-        'search region with the golden ratio, showing strong local exploitation ability. Inspired by '
-        'Gold-SA, the golden ratio coefficients are calculated as in Equation (15).'
+        'individuals. Drawing on the successful current-to-pbest mutation idea of advanced differential '
+        'evolution variants {ref:de,lshade}, a guided mutant vector is generated for each individual by '
+        'Equation (15).'
     )})
-    ap({'eq': r'c_1=a\times \left( 1-\tau \right)+b\times \tau ,\ \ c_2=a\times \tau +b\times \left( 1-\tau \right),\ \ \tau =\frac{\sqrt{5}-1}{2}', 'num': 15})
-    ap({'p': 'where $a=-\\pi$ and $b=\\pi$. Then, the position update of the first hunting stage is '
-             'replaced by Equation (16).'})
-    ap({'eq': r'x_{i,j}^{new,P1}=x_{i,j}^{t}\times \left| \sin \left( r_1 \right) \right|+r_2\times \sin \left( r_1 \right)\times \left| c_1\times X_{E,j}^{t}-c_2\times x_{i,j}^{t} \right|', 'num': 16})
+    ap({'eq': r'v_{i,j}^{t}=x_{i,j}^{t}+r_3\times \left( X_{E,j}^{t}-x_{i,j}^{t} \right)+r_4\times \left( x_{r_1,j}^{t}-x_{r_2,j}^{t} \right)', 'num': 15})
     ap({'p': (
-        'where $X_E^t$ is an individual randomly selected from the elite pool $E$, $r_1$ is a random '
-        'number in $[0,2\\pi ]$, and $r_2$ is a random number in $[0,\\pi ]$. Figure 3 illustrates the '
-        'mechanism of the EGS strategy. On the one hand, the elite pool provides diverse and reliable '
-        'guidance so that ordinary individuals no longer move blindly; on the other hand, the golden sine '
-        'coefficients continuously compress the gap between the individual and the elite target, which '
-        'accelerates the convergence while the sine function preserves the oscillation characteristic '
-        'needed for exploration. The randomness of elite selection avoids over-concentration toward a '
-        'single leader and thus alleviates premature convergence.'
+        'where $X_E^t$ is an individual randomly selected from the elite pool $E$, $x_{r_1}^t$ and '
+        '$x_{r_2}^t$ are two randomly selected distinct individuals, and $r_3$ and $r_4$ are random '
+        'vectors whose elements obey the uniform distribution in [0, 1]. The first difference term pulls '
+        'the individual toward the elite region, and the second difference term preserves the random '
+        'perturbation of the original operator. Then, the mutant vector is combined with the parent '
+        'through the dimension-wise binomial crossover in Equation (16), which replaces the original '
+        'update of the first hunting stage.'
     )})
-    ap({'fig': f'{FIGS}/sketch_egs.png',
-        'caption': '**Figure 3.** Schematic diagram of the elite-guided golden sine search strategy.',
+    ap({'eq': r'x_{i,j}^{new,P1}=\begin{cases} v_{i,j}^{t}, & rand_j<CR\ \mathrm{or}\ j=j_{rand} \\ x_{i,j}^{t}, & \mathrm{otherwise} \end{cases}', 'num': 16})
+    ap({'p': (
+        'where $rand_j$ is a uniform random number generated for the $j$th dimension, $j_{rand}$ is a '
+        'randomly chosen dimension index that guarantees at least one dimension is inherited from the '
+        'mutant vector, and the crossover rate $CR$ is set to 0.5. Figure 3 illustrates the mechanism of '
+        'the EDS strategy. On the one hand, the elite pool provides diverse and reliable guidance so that '
+        'ordinary individuals no longer move blindly, and the randomness of elite selection avoids '
+        'over-concentration toward a single leader, which alleviates premature convergence; on the other '
+        'hand, the binomial crossover lets each trial vector inherit about half of its dimensions from '
+        'the parent, which softens the guidance into a moderate step and effectively protects the '
+        'population diversity in the early stage.'
+    )})
+    ap({'fig': f'{FIGS}/sketch_eds.png',
+        'caption': '**Figure 3.** Schematic diagram of the elite-guided differential search strategy.',
         'width_cm': 13.5})
     ap({'h2': '3.3. Elite Refinement Mechanism (ERM)'})
     ap({'p': (
@@ -419,10 +426,10 @@ def blocks(st):
     ap({'h2': '3.4. The Framework of MSSBOA'})
     ap({'p': (
         'The MSSBOA algorithm is obtained by embedding the three improvement strategies into the basic '
-        'SBOA. GPS acts on the initialization step, EGS augments the position update of the first hunting '
-        'stage, and ERM is executed at the end of each iteration. It should be emphasized that the three '
+        'SBOA. GPS acts on the initialization step, EDS reconstructs the position update of the first '
+        'hunting stage, and ERM is executed at the end of each iteration. It should be emphasized that the three '
         'strategies work on different stages of the search process and complement each other: GPS improves '
-        'the starting point of the search, EGS strengthens the guided exploration in the early stage, and '
+        'the starting point of the search, EDS strengthens the guided exploration in the early stage, and '
         'ERM maintains the vitality and accuracy of the population in the whole process. The pseudo-code of MSSBOA is '
         'given in Algorithm 1, and the corresponding flowchart is presented in Figure 4.'
     )})
@@ -432,7 +439,7 @@ def blocks(st):
             '2: Evaluate the fitness of all individuals; determine $X_{best}$; set $FEs=N$',
             '3: **while** $FEs<MaxFEs$ **do**',
             '4:  **for** $i=1$ to $N$ **do**  //hunting strategy',
-            '5:   **if** $t<T/3$ **then** update $x_i^{new,P1}$ with the EGS strategy using Equation (16) with probability 0.5, otherwise using Equation (2)',
+            '5:   **if** $t<T/3$ **then** update $x_i^{new,P1}$ with the EDS strategy using Equations (15)–(16)',
             '6:   **else if** $t<2T/3$ **then** update $x_i^{new,P1}$ using Equation (3)',
             '7:   **else** update $x_i^{new,P1}$ using Equations (4)–(5)',
             '8:   **end if**',
@@ -457,7 +464,7 @@ def blocks(st):
         'performs two position updates and evaluations for every individual, so the total time complexity '
         'is $O(2\\times N\\times D\\times T)$, which is simplified as $O(N\\times D\\times T)$. For MSSBOA, '
         'the GPS strategy only changes the generation rule of the initial population and its complexity is '
-        'still $O(N\\times D)$. The EGS strategy only modifies the update formula of the first hunting '
+        'still $O(N\\times D)$. The EDS strategy only modifies the update formula of the first hunting '
         'stage without extra fitness evaluations, so it does not increase the order of complexity. The ERM '
         'strategy introduces one additional evaluation per iteration, whose cost $O(D\\times T)$ is far '
         'smaller than the main loop. Therefore, the overall time complexity of MSSBOA remains '
@@ -518,7 +525,7 @@ def blocks_experiments(st):
     ap({'p': (
         'In order to verify the contribution of each improvement strategy, three MSSBOA variants '
         'incorporating a single strategy were constructed: SBOA-GPS only adopts the good point set '
-        'initialization, SBOA-EGS only adopts the elite-guided golden sine search, and SBOA-ERM only '
+        'initialization, SBOA-EDS only adopts the elite-guided differential search, and SBOA-ERM only '
         'adopts the elite refinement mechanism. The basic SBOA, the three single-strategy '
         'variants, and the complete MSSBOA were run independently 30 times on the CEC2017 test suite in '
         '10 and 30 dimensions, and the Friedman test was applied to the mean errors. The average '
@@ -547,7 +554,7 @@ def blocks_experiments(st):
         'Figure 6 and Figure 7 depict the average convergence curves of all algorithms on six '
         'representative functions in 10 and 30 dimensions, respectively, where the vertical axis is drawn '
         'in the logarithmic scale. It can be observed that MSSBOA descends noticeably faster than the '
-        'basic SBOA in the early stage benefiting from the GPS initialization and the EGS guidance, and '
+        'basic SBOA in the early stage benefiting from the GPS initialization and the EDS guidance, and '
         'keeps refining the solution in the later stage when most competitors have stagnated, which is '
         'attributed to the ERM strategy continuously injecting vitality and accuracy into the population. Figure 8 '
         'presents the boxplots of the 30 independent results on the same representative functions in 30 '
@@ -661,8 +668,8 @@ def blocks_experiments(st):
         'hunting stage, and the rapid loss of population diversity in the later stage, this paper '
         'proposed a multi-strategy variant called MSSBOA. The good point set initialization strategy '
         'generates a uniformly distributed initial population from number theory; the elite-guided '
-        'golden sine search strategy complements the undirected random walk of the first hunting stage '
-        'with a guided contraction search driven by an elite pool; and the elite refinement mechanism '
+        'differential search strategy reconstructs the undirected random walk of the first hunting stage '
+        'into a guided differential move with dimension-wise crossover driven by an elite pool; and the elite refinement mechanism '
         'alternately applies an adaptive t-distribution perturbation and a quadratic interpolation '
         'operator to the global best individual. The three strategies act on different '
         'stages of the search and complement each other without raising the order of computational '
@@ -670,7 +677,7 @@ def blocks_experiments(st):
     )})
     ap({'p': st['conclusion_numbers']})
     ap({'p': (
-        'Certainly, MSSBOA also has some limitations. First, the elite pool size, the hybrid probability of EGS, and the perturbation '
+        'Certainly, MSSBOA also has some limitations. First, the elite pool size, the crossover rate of EDS, and the perturbation '
         'amplitude of ERM are fixed empirically, and their optimal settings on a wider range of problems '
         'deserve further investigation. Secondly, the improvement of MSSBOA on high-dimensional problems '
         'is smaller than that on low-dimensional problems, and the search efficiency in '

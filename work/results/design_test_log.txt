@@ -1,0 +1,11 @@
+637s
+  M_eds    2.621
+  EDS      2.759
+  SBOA     3.103
+  M_egs2   3.138
+  EGS2     3.379
+  M_egs2 vs SBOA: 12/10
+  M_eds vs SBOA: 14/9
+  EGS2 vs SBOA: 11/11
+  EDS vs SBOA: 11/10
+DESIGN_TEST_DONE

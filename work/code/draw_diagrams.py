@@ -105,7 +105,7 @@ def flowchart_mssboa(path):
     arrow(ax, cx - 2.6, 18.85, 1.9, 17.8)
     arrow(ax, cx, 18.1, cx, 17.8)
     arrow(ax, cx + 2.6, 18.85, 10.1, 17.8)
-    box(ax, 0.3, 16.4, 3.2, 1.4, 'Stage 1:\nelite-guided golden\nsine search (EGS)', fc='#FFE6CC', fs=7.4)
+    box(ax, 0.3, 16.4, 3.2, 1.4, 'Stage 1:\nelite-guided differential\nsearch (EDS)', fc='#FFE6CC', fs=7.4)
     box(ax, 4.4, 16.4, 3.2, 1.4, 'Stage 2:\nBrownian motion\naround $X_{best}$', fs=7.4)
     box(ax, 8.5, 16.4, 3.2, 1.4, 'Stage 3:\nLevy flight\nattacking', fs=7.4)
     for xx in (1.9, 6.0, 10.1):
@@ -250,6 +250,58 @@ def sketch_fdb(path):
     plt.close(fig)
 
 
+def sketch_eds(path):
+    """Sketch of elite-guided differential search (paper A, Figure 3)."""
+    rng = np.random.default_rng(3)
+    fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.6))
+    ax = axes[0]
+    pts = rng.normal(0, 1.6, (24, 2)) + np.array([4.5, 4.5])
+    ax.scatter(pts[:, 0], pts[:, 1], s=18, c='#9EB6D4', label='Ordinary individuals')
+    el = np.array([[3.2, 5.6], [4.0, 5.9], [3.4, 6.3]])
+    ax.scatter(el[:, 0], el[:, 1], s=55, c='#C44E52', marker='*', label='Elite pool')
+    cm = el.mean(axis=0)
+    ax.scatter(*cm, s=60, c='#DD8452', marker='P', label='Elite centroid')
+    xi = np.array([6.8, 2.6])
+    ax.scatter(*xi, s=40, c='#55A868', marker='s', label='$X_i$')
+    for e in list(el) + [cm]:
+        arrow(ax, xi[0], xi[1], (xi[0] + e[0]) / 2, (xi[1] + e[1]) / 2, lw=0.8, color='#888888')
+    tgt = xi + 0.62 * (cm - xi)
+    arrow(ax, xi[0], xi[1], tgt[0], tgt[1], lw=1.6, color='#C44E52')
+    ax.set_title('(a) Elite-guided differential move', fontsize=9)
+    ax.set_xlim(0, 9); ax.set_ylim(0, 9)
+    ax.set_xticks([]); ax.set_yticks([])
+    ax.legend(fontsize=7, loc='lower left', frameon=False)
+    # panel (b): binomial crossover
+    ax2 = axes[1]
+    D = 10
+    rng2 = np.random.default_rng(8)
+    mask = rng2.random(D) < 0.5
+    mask[3] = True
+    rows = [('Parent $X_i$', '#9EB6D4', None),
+            ('Mutant $V_i$', '#DD8452', None),
+            ('Trial $X_i^{new}$', '#55A868', mask)]
+    for ri, (label, color, mk) in enumerate(rows):
+        y = 2.2 - ri * 0.8
+        for j in range(D):
+            if mk is None:
+                fc = color
+            else:
+                fc = '#DD8452' if mk[j] else '#9EB6D4'
+            ax2.add_patch(plt.Rectangle((j * 0.8, y), 0.72, 0.55, fc=fc, ec='black', lw=0.5))
+        ax2.text(-0.25, y + 0.27, label, ha='right', va='center', fontsize=8)
+    for j in range(D):
+        ax2.text(j * 0.8 + 0.36, 2.95, f'$j={j+1}$', ha='center', fontsize=6)
+    ax2.annotate('', xy=(3 * 0.8 + 0.36, 0.62 + 0.55), xytext=(3 * 0.8 + 0.36, 1.4),
+                 arrowprops=dict(arrowstyle='-|>', color='#C44E52'))
+    ax2.text(3 * 0.8 + 0.36, 1.03, '$j_{rand}$', ha='left', fontsize=7, color='#C44E52')
+    ax2.set_xlim(-2.2, 8.2); ax2.set_ylim(0.2, 3.3)
+    ax2.axis('off')
+    ax2.set_title('(b) Dimension-wise binomial crossover ($CR=0.5$)', fontsize=9)
+    fig.tight_layout()
+    fig.savefig(path, bbox_inches='tight', dpi=300)
+    plt.close(fig)
+
+
 def gps_vs_random(path):
     """GPS initialization vs random (paper A, part of strategy section)."""
     from algos_sboa import _good_point_set
@@ -293,6 +345,7 @@ if __name__ == '__main__':
     flowchart_mssboa(f'{FIGS}/flow_mssboa.png')
     flowchart_msbka(f'{FIGS}/flow_msbka.png')
     sketch_egs(f'{FIGS}/sketch_egs.png')
+    sketch_eds(f'{FIGS}/sketch_eds.png')
     sketch_fdb(f'{FIGS}/sketch_fdb.png')
     gps_vs_random(f'{FIGS}/gps_vs_random.png')
     tent_vs_random(f'{FIGS}/tent_vs_random.png')

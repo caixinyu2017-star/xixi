@@ -9,8 +9,8 @@ from analysis import (RESULTS, FIGS, load_runs, summarize, friedman_ranks, wilco
                       fmt, load_curves, convergence_grid, boxplot_grid, friedman_bar)
 
 ALGOS = ['MSSBOA', 'SBOA', 'GWO', 'WOA', 'SCA', 'PSO', 'HHO', 'DBO', 'COA', 'RIME']
-ABL = ['SBOA', 'SBOA-GPS', 'SBOA-EGS', 'SBOA-ERM', 'MSSBOA']
-ABL_LABEL = {'SBOA': 'SBOA', 'SBOA-GPS': 'SBOA-GPS', 'SBOA-EGS': 'SBOA-EGS',
+ABL = ['SBOA', 'SBOA-GPS', 'SBOA-EDS', 'SBOA-ERM', 'MSSBOA']
+ABL_LABEL = {'SBOA': 'SBOA', 'SBOA-GPS': 'SBOA-GPS', 'SBOA-EDS': 'SBOA-EDS',
              'SBOA-ERM': 'SBOA-ERM', 'MSSBOA': 'MSSBOA'}
 REPR_FUNCS = ['F12017', 'F52017', 'F72017', 'F122017', 'F212017', 'F272017']
 
@@ -51,7 +51,7 @@ def main():
         'caption': '**Table 1.** Parameter settings of MSSBOA and the selected algorithms.',
         'header': ['Algorithm', 'Parameter Settings'],
         'rows': [
-            ['MSSBOA', '$n_e=\\max (3,0.1N)$; golden sine probability 0.5; $\\beta=1.5$; perturbation factor 0.5'],
+            ['MSSBOA', '$n_e=\\max (3,0.1N)$; $CR=0.5$; $\\beta=1.5$; perturbation factor 0.5'],
             ['SBOA', '$\\beta=1.5$; escape threshold $r_i=0.5$'],
             ['GWO', '$a$ linearly decreased from 2 to 0'],
             ['WOA', '$a$ linearly decreased from 2 to 0; $b=1$'],
@@ -84,7 +84,7 @@ def main():
                  f'{FIGS}/A_ablation_friedman.png')
     order_str = ' > '.join([ABL_LABEL[a] for a in np.array(ABL)[np.argsort(avg)]][::-1][:4][::-1])
     strat_rank = {a: avg[i] for i, a in enumerate(ABL)}
-    singles = {'SBOA-GPS': 'GPS', 'SBOA-EGS': 'EGS', 'SBOA-ERM': 'ERM'}
+    singles = {'SBOA-GPS': 'GPS', 'SBOA-EDS': 'EDS', 'SBOA-ERM': 'ERM'}
     sorted_singles = sorted(singles, key=lambda a: strat_rank[a])
     st['ablation_discussion'] = (
         f'According to Table 2, the p-values in both dimensional settings are far below 0.05, which '
