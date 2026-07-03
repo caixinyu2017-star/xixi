@@ -23,6 +23,15 @@ This plugin vendors two upstream skills verbatim (original layout and relative-p
 - 说明 / Notes: Anthropic 官方审美校准 skill：刻意的配色/字体/版式决策，避免"模板感/AI 味"。
   与 baoyu-diagram 互补——后者固定深色主题，需要浅色或文档内嵌风格时用它校准。
 
+## 3. academic-diagram-style / image2-diagram（本仓库原创 / original to this repo）
+
+这两个 skill 为本仓库自研，不来自上游：`academic-diagram-style` 是叠加在 baoyu-diagram 之上的
+科研/期刊风格视觉层；`image2-diagram` 封装 OpenAI Images API（`gpt-image-2`），API key 一律从
+环境变量 `OPENAI_API_KEY` 读取，仓库内不存放任何密钥。
+These two skills are original to this repo (not vendored): an academic/journal visual layer over
+baoyu-diagram, and a GPT Image 2 wrapper that reads `OPENAI_API_KEY` from the environment — no
+secrets are stored in this repository.
+
 ## 更新 / Updating
 
 重新从上游拉取对应目录覆盖本地副本即可；两个上游目录都是自包含的（`SKILL.md` 以相对路径引用

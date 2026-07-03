@@ -21,9 +21,9 @@ templates and shared folders all resolve correctly once installed.
 | **nature-skills** | 12 | Nature 风格科研技能：学术检索、引用、数据、图表、论文转专利、论文转 PPT、润色、阅读/翻译、审稿回复、同行评审、科研写作，外加 OpenClaw 医学模块。 |
 | **econ-top-journal-writing** | 5 | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | 1 | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
-| **diagram-skills** | 2 | 专业作图：`baoyu-diagram` 输出精美、可编辑、自包含的 SVG——技术路线图/时间线、路径图/流程图、框架图/架构图、时序图、结构图、思维导图、状态机、数据流图，内置完整设计系统（语义配色、字体层级、版式数学）；`frontend-design` 为 Anthropic 官方审美校准 skill，避免"模板感"输出。 |
+| **diagram-skills** | 4 | 专业作图：`baoyu-diagram` 输出精美、可编辑、自包含的 SVG——技术路线图/时间线、路径图/流程图、框架图/架构图、时序图、结构图、思维导图、状态机、数据流图；`academic-diagram-style` 叠加**科研/期刊风格**（白底、色盲友好 Okabe-Ito 配色、期刊排版），论文场景默认生效；`image2-diagram` 调用 OpenAI GPT Image 2 生成位图（需 `OPENAI_API_KEY`）；`frontend-design` 为 Anthropic 官方审美校准 skill。 |
 
-合计 **52 个 skill**。
+合计 **54 个 skill**。
 
 ---
 
@@ -78,7 +78,8 @@ xixi/
 │   ├── nature-skills/            # 12 skills (+ skills/_shared/)
 │   ├── econ-top-journal-writing/ # 5 skills
 │   ├── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
-│   └── diagram-skills/           # 2 skills (baoyu-diagram + frontend-design)
+│   └── diagram-skills/           # 4 skills (baoyu-diagram, academic-diagram-style,
+│                                 #           image2-diagram, frontend-design)
 └── README.md
 ```
 
@@ -107,30 +108,50 @@ xixi/
 ## 🎨 作图说明 / About diagramming (and "image 2")
 
 装好 `diagram-skills` 并重启 Claude Code 后，说"**画个技术路线图 / 画一个架构图 / 画流程图**"
-就会自动触发 `baoyu-diagram`，输出单个自包含、可直接编辑的 `.svg` 文件（深色主题、
-语义化配色、专业排版）。SVG 可在浏览器打开，也可导入 draw.io / Inkscape / Figma 继续编辑，
-或用插件自带的 `scripts/main.ts`（需 `bun` + npm 包 `sharp`）转成 PNG。
+就会自动触发 `baoyu-diagram`，输出单个自包含、可直接编辑的 `.svg` 文件。SVG 可在浏览器打开，
+也可导入 draw.io / Inkscape / Figma 继续编辑，或用插件自带的 `scripts/main.ts`
+（需 `bun` + npm 包 `sharp`）转成 PNG。
+
+**科研风格 / Academic style**：论文、报告、基金申报等学术场景（或说"科研风格/期刊风格"）会自动
+叠加 `academic-diagram-style`——白底、细线、色盲友好的 Okabe-Ito 配色、期刊排版、系统字体
+（不依赖网络字体），SVG 可经 `rsvg-convert -f pdf` / Inkscape 转为 LaTeX 用的 PDF，
+或直接插入 Word/PPT。`baoyu-diagram` 默认的深色科技风只在明确要求时使用。
 
 After installing `diagram-skills` and restarting Claude Code, asking for a roadmap / architecture
-diagram / flowchart auto-triggers `baoyu-diagram`, which emits a single self-contained, editable
-`.svg` (dark theme, semantic palette, professional layout). Open it in a browser, or import into
-draw.io / Inkscape / Figma; the bundled `scripts/main.ts` (needs `bun` + the `sharp` npm package)
-converts SVG to PNG.
+diagram / flowchart auto-triggers `baoyu-diagram` (self-contained, editable `.svg`). In academic
+contexts `academic-diagram-style` overlays a publication-grade look: white background, thin strokes,
+colorblind-safe Okabe-Ito palette, journal typography, system fonts only.
 
-**关于用"image 2"等图像生成模型作图 / On image-generation models:**
-"image 2" 一般指 OpenAI 的 GPT Image 2（2026-04 发布）。Claude 本身不生成位图，Claude Code
-也没有内置任何图像生成模型——要调用 GPT Image 2 / Gemini 3 Pro Image（Nano Banana Pro）等，
-必须自行配置带 API key 的 MCP 服务器，例如：
+### 用 GPT Image 2 作图 / Drawing with GPT Image 2
 
-- https://github.com/shinpr/mcp-image — Gemini 图像模型，可选接入 GPT Image（需 `GEMINI_API_KEY`，可选 `OPENAI_API_KEY`）
-- https://github.com/spartanz51/imagegen-mcp — OpenAI 图像模型（需 `OPENAI_API_KEY`）
+`image2-diagram` skill 封装了 OpenAI Images API（`gpt-image-2`，即"image 2"）。
+说"**用 image 2 画……**"或需要**封面图/宣传图/海报**等一次性位图时触发。启用前需两步配置：
+
+1. **配置 API key（绝不要写进仓库）/ Set the key (never commit it):**
+   - Claude Code 网页版/远程：在环境设置的 **Environment variables** 里添加
+     `OPENAI_API_KEY`（见 https://code.claude.com/docs/en/claude-code-on-the-web ）。
+   - 本地：`export OPENAI_API_KEY=...` 写入 shell 配置，或在 `~/.claude/settings.json`
+     的 `"env"` 里添加。
+2. **放行域名（仅远程环境需要）/ Allow the domain (remote envs only):**
+   在环境设置的网络策略（network access）中允许 `api.openai.com`，否则请求会被代理以 403 拒绝。
+
+也可以手动调用脚本 / Manual invocation:
+
+```bash
+python3 plugins/diagram-skills/skills/image2-diagram/scripts/generate.py \
+  --prompt "..." --out figure.png --size 1536x1024 --quality high
+```
+
+**选型建议 / Which to use:** 对带大量文字标注、需要反复修改的技术路线图/框架图，图像生成模型
+输出的是不可编辑的位图——改一个标签要整图重生成且布局会漂移，小字号标注仍不可靠，连线关系可能
+被"脑补"错；SVG 文字 100% 准确、逐元素可编辑、可进版本库。所以日常技术图用
+`baoyu-diagram`（+ 科研风格），GPT Image 2 留给内容定稿后的一次性宣传图/封面图/概念示意图。
+
+Image-gen models output flat rasters: labels aren't element-editable, small text is still
+unreliable, and regenerating shifts the layout. Use structured SVG for label-heavy, frequently
+edited technical diagrams; use GPT Image 2 for one-off, content-frozen visuals.
+
+其他可选的图像生成 MCP 方案 / Alternative image-gen MCP servers:
+
+- https://github.com/shinpr/mcp-image — Gemini 图像模型，可选接入 GPT Image（需 `GEMINI_API_KEY`）
 - https://github.com/ArcadeAI/blueprint-mcp — 基于 Nano Banana Pro 的架构图生成（需 Gemini API key）
-
-不过对技术路线图/框架图这类**带大量文字标注、需要反复修改**的图，2026 年的行业共识仍然是：
-图像生成模型输出的是不可编辑的位图，小字号标注仍不可靠，改一个标签就要整图重生成且布局会漂移，
-连线关系还可能被"脑补"错；而 SVG/图表代码的文字 100% 准确、逐元素可编辑、可进版本库。
-所以日常技术图建议直接用 `baoyu-diagram`；图像模型更适合内容定稿后的一次性宣传图/封面图。
-
-Image-gen models (e.g. GPT Image 2) output flat rasters: labels aren't element-editable, small text
-is still unreliable, and regenerating shifts the layout. For label-heavy, frequently-edited technical
-diagrams, structured SVG remains the right tool; use image models for one-off, content-frozen visuals.

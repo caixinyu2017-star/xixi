@@ -47,8 +47,8 @@
     {
       "name": "diagram-skills",
       "source": "./plugins/diagram-skills",
-      "description": "Professional diagram drawing (2 skills): baoyu-diagram emits polished, editable, self-contained SVG for 技术路线图/路径图/框架图 — architecture, flowchart, sequence, structural, mind map, timeline, state machine and data-flow diagrams — with a full design system (semantic palette, typography, layout math); frontend-design is Anthropic's official aesthetic-calibration skill against templated-looking output.",
-      "version": "1.0.0",
+      "description": "Professional diagram drawing (4 skills): baoyu-diagram emits polished, editable, self-contained SVG for 技术路线图/路径图/框架图 — architecture, flowchart, sequence, structural, mind map, timeline, state machine and data-flow diagrams; academic-diagram-style overlays a publication-grade 科研风格 (white bg, Okabe-Ito palette, journal typography) for papers; image2-diagram generates raster figures via OpenAI GPT Image 2 (needs OPENAI_API_KEY + network access); frontend-design is Anthropic's official aesthetic-calibration skill.",
+      "version": "1.1.0",
       "license": "MIT / Apache-2.0"
     }
   ]

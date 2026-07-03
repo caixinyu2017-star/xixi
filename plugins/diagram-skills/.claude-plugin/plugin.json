@@ -1,7 +1,7 @@
 {
   "name": "diagram-skills",
-  "version": "1.0.0",
-  "description": "Professional diagram drawing skills: baoyu-diagram generates polished, editable, self-contained SVG for 技术路线图 (roadmaps/timelines), 路径图 (flowcharts/data flows), 框架图 (architecture/structural diagrams), sequence diagrams, mind maps and state machines, with a complete design system (semantic palette, typography scale, spacing/layout math); frontend-design is Anthropic's official aesthetic-calibration skill that keeps visual output looking deliberately designed instead of templated.",
+  "version": "1.1.0",
+  "description": "Professional diagram drawing skills: baoyu-diagram generates polished, editable, self-contained SVG for 技术路线图 (roadmaps/timelines), 路径图 (flowcharts/data flows), 框架图 (architecture/structural diagrams), sequence diagrams, mind maps and state machines, with a complete design system; academic-diagram-style overlays a publication-grade 科研风格 (white background, colorblind-safe Okabe-Ito palette, journal typography) for papers and reports; image2-diagram generates raster figures via OpenAI GPT Image 2 (needs OPENAI_API_KEY); frontend-design is Anthropic's official aesthetic-calibration skill against templated-looking output.",
   "author": {
     "name": "Jim Liu (baoyu-diagram) & Anthropic (frontend-design), bundled by xixi"
   },
@@ -16,6 +16,9 @@
     "sequence-diagram",
     "技术路线图",
     "框架图",
+    "科研风格",
+    "academic-figure",
+    "gpt-image-2",
     "visual-design"
   ]
 }
