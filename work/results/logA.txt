@@ -11,3 +11,6 @@
 [cec2017 30D] 9980 tasks remaining (1330 done)
   200/9980 done, 0.7 min elapsed, ETA 36.5 min
   400/9980 done, 2.5 min elapsed, ETA 59.4 min
+  600/9980 done, 4.5 min elapsed, ETA 69.7 min
+  800/9980 done, 5.5 min elapsed, ETA 63.3 min
+  1000/9980 done, 6.5 min elapsed, ETA 58.5 min

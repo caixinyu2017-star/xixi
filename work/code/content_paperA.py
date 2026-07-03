@@ -30,18 +30,19 @@ def abstract(st):
         'Complex optimization problems are widespread in modern business management and engineering practice, '
         'and metaheuristic algorithms have become an important tool for solving them. The secretary bird '
         'optimization algorithm (SBOA) is a recently proposed metaheuristic inspired by the survival behavior '
-        'of secretary birds, which shows competitive performance but still suffers from insufficient population '
-        'diversity, a blind random search in the early hunting stage, and a tendency to fall into local optima '
-        'when facing complex multimodal landscapes. To overcome these deficiencies, this paper proposes a '
-        'multi-strategy secretary bird optimization algorithm (MSSBOA) that integrates three improvement '
-        'strategies. First, a good point set initialization strategy is introduced to generate a uniformly '
-        'distributed initial population and enhance the quality of the starting search. Secondly, an '
-        'elite-guided differential search strategy is designed to reconstruct the undirected differential move of '
-        'the first hunting stage, which strengthens the information exchange between the elite group and '
-        'ordinary individuals through a dimension-wise crossover while accelerating convergence. Finally, an elite refinement mechanism is '
-        'applied to the global best individual, which alternates an adaptive t-distribution perturbation with '
-        'a quadratic interpolation operator, helping the population escape from local optima in the early '
-        'stage and refining the solution accuracy in the later stage. MSSBOA is comprehensively evaluated on '
+        'of secretary birds. Although SBOA shows competitive performance, it still suffers from insufficient '
+        'population diversity, a blind random search in the early hunting stage, and a tendency to fall into '
+        'local optima when facing complex multimodal landscapes. To overcome these deficiencies, this paper '
+        'proposes a multi-strategy secretary bird optimization algorithm (MSSBOA) that integrates three '
+        'improvement strategies. Firstly, a good point set initialization strategy is introduced to generate '
+        'a uniformly distributed initial population and improve the quality of the initial solutions. '
+        'Secondly, an elite-guided differential search strategy is designed to replace the undirected '
+        'differential move of the first hunting stage; it strengthens the information exchange between the '
+        'elite group and ordinary individuals and accelerates convergence, while a dimension-wise crossover '
+        'preserves the population diversity. Finally, an elite refinement mechanism, which alternates an '
+        'adaptive t-distribution perturbation with a quadratic interpolation operator, is applied to the '
+        'global best individual, helping the population escape from local optima in the early stage and '
+        'refining the solution accuracy in the later stage. MSSBOA is comprehensively evaluated on '
         'the CEC2017 test suite in 10 and 30 dimensions against the basic SBOA and eight well-known and '
         'state-of-the-art algorithms, and the results are analyzed using the Friedman test and the Wilcoxon '
         f'rank-sum test. MSSBOA achieves {st.get("abs_rank_phrase", "a highly competitive overall ranking")} '
@@ -439,7 +440,7 @@ def blocks(st):
             '2: Evaluate the fitness of all individuals; determine $X_{best}$; set $FEs=N$',
             '3: **while** $FEs<MaxFEs$ **do**',
             '4:  **for** $i=1$ to $N$ **do**  //hunting strategy',
-            '5:   **if** $t<T/3$ **then** update $x_i^{new,P1}$ with the EDS strategy using Equations (15)–(16)',
+            '5:   **if** $t<T/3$ **then** update $x_i^{new,P1}$ with the EDS strategy using Equations (14)–(16)',
             '6:   **else if** $t<2T/3$ **then** update $x_i^{new,P1}$ using Equation (3)',
             '7:   **else** update $x_i^{new,P1}$ using Equations (4)–(5)',
             '8:   **end if**',

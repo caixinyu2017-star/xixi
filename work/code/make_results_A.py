@@ -51,7 +51,7 @@ def main():
         'caption': '**Table 1.** Parameter settings of MSSBOA and the selected algorithms.',
         'header': ['Algorithm', 'Parameter Settings'],
         'rows': [
-            ['MSSBOA', '$n_e=\\max (3,0.1N)$; $CR=0.5$; $\\beta=1.5$; perturbation factor 0.5'],
+            ['MSSBOA', '$n_e=\\max (3,\\lfloor 0.1N \\rfloor )$; $CR=0.5$; $\\beta=1.5$; perturbation factor 0.5'],
             ['SBOA', '$\\beta=1.5$; escape threshold $r_i=0.5$'],
             ['GWO', '$a$ linearly decreased from 2 to 0'],
             ['WOA', '$a$ linearly decreased from 2 to 0; $b=1$'],
@@ -82,7 +82,6 @@ def main():
     friedman_bar([(f'D = 10', [ABL_LABEL[a] for a in ABL], list(r10)),
                   (f'D = 30', [ABL_LABEL[a] for a in ABL], list(r30))],
                  f'{FIGS}/A_ablation_friedman.png')
-    order_str = ' > '.join([ABL_LABEL[a] for a in np.array(ABL)[np.argsort(avg)]][::-1][:4][::-1])
     strat_rank = {a: avg[i] for i, a in enumerate(ABL)}
     singles = {'SBOA-GPS': 'GPS', 'SBOA-EDS': 'EDS', 'SBOA-ERM': 'ERM'}
     sorted_singles = sorted(singles, key=lambda a: strat_rank[a])

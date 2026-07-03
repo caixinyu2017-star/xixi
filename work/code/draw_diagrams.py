@@ -346,7 +346,6 @@ if __name__ == '__main__':
     classification_figure(f'{FIGS}/classification.png')
     flowchart_mssboa(f'{FIGS}/flow_mssboa.png')
     flowchart_msbka(f'{FIGS}/flow_msbka.png')
-    sketch_egs(f'{FIGS}/sketch_egs.png')
     sketch_eds(f'{FIGS}/sketch_eds.png')
     sketch_fdb(f'{FIGS}/sketch_fdb.png')
     gps_vs_random(f'{FIGS}/gps_vs_random.png')
