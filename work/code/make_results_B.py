@@ -318,9 +318,9 @@ def main():
     st['appendix'] = [
         {'h1': 'Appendix A'},
         {'table': appendix_table(d10, ABL, funcs,
-            '**Table A1.** Statistical results of BKA variants with different strategies on CEC2022 (D = 10).', labelfn=funclabel)},
+            '**Table A1.** Statistical results of BKA variants with different strategies on CEC2022 (D = 10).', labelfn=funclabel, algo_labels=[ABL_LABEL[a] for a in ABL])},
         {'table': appendix_table(d20, ABL, funcs,
-            '**Table A2.** Statistical results of BKA variants with different strategies on CEC2022 (D = 20).', labelfn=funclabel)},
+            '**Table A2.** Statistical results of BKA variants with different strategies on CEC2022 (D = 20).', labelfn=funclabel, algo_labels=[ABL_LABEL[a] for a in ABL])},
         {'table': appendix_table(d10, ALGOS, funcs,
             '**Table A3.** Statistical results of MSBKA and the comparison algorithms on CEC2022 (D = 10).', fontsize=5, labelfn=funclabel)},
         {'table': appendix_table(d20, ALGOS, funcs,

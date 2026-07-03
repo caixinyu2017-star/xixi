@@ -21,9 +21,9 @@ def funclabel(nm):
     return f'F{i}' if i == 1 else f'F{i + 1}'
 
 
-def appendix_table(data, algos, funcs, caption, fontsize=6, labelfn=None):
+def appendix_table(data, algos, funcs, caption, fontsize=6, labelfn=None, algo_labels=None):
     labelfn = labelfn or funclabel
-    header = ['Function', 'Index'] + algos
+    header = ['Function', 'Index'] + (algo_labels or algos)
     rows = []
     for f in funcs:
         means = {a: data[(f, a)].mean() for a in algos}
@@ -295,9 +295,9 @@ def main():
     st['appendix'] = [
         {'h1': 'Appendix A'},
         {'table': appendix_table(d10, ABL, funcs,
-            '**Table A1.** Statistical results of SBOA variants with different strategies on CEC2017 (D = 10).')},
+            '**Table A1.** Statistical results of SBOA variants with different strategies on CEC2017 (D = 10).', algo_labels=[ABL_LABEL[a] for a in ABL])},
         {'table': appendix_table(d30, ABL, funcs,
-            '**Table A2.** Statistical results of SBOA variants with different strategies on CEC2017 (D = 30).')},
+            '**Table A2.** Statistical results of SBOA variants with different strategies on CEC2017 (D = 30).', algo_labels=[ABL_LABEL[a] for a in ABL])},
         {'table': appendix_table(d10, ALGOS, funcs,
             '**Table A3.** Statistical results of MSSBOA and the comparison algorithms on CEC2017 (D = 10).', fontsize=5)},
         {'table': appendix_table(d30, ALGOS, funcs,
