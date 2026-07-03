@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of five academic-research skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, and writing-ai-paper.",
-    "version": "1.0.0"
+    "description": "A bundled Claude Code marketplace of six skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, and diagram-skills (professional SVG diagramming).",
+    "version": "1.1.0"
   },
   "plugins": [
     {
@@ -43,6 +43,13 @@
       "description": "Writing AI Conference Papers — the beginner's handbook by hzwer and DingXiaoH, packaged as an invocable skill for planning, drafting, and revising NeurIPS/ICML/ICLR/CVPR-style papers.",
       "version": "1.0.0",
       "license": "See plugin"
+    },
+    {
+      "name": "diagram-skills",
+      "source": "./plugins/diagram-skills",
+      "description": "Professional diagram drawing (2 skills): baoyu-diagram emits polished, editable, self-contained SVG for 技术路线图/路径图/框架图 — architecture, flowchart, sequence, structural, mind map, timeline, state machine and data-flow diagrams — with a full design system (semantic palette, typography, layout math); frontend-design is Anthropic's official aesthetic-calibration skill against templated-looking output.",
+      "version": "1.0.0",
+      "license": "MIT / Apache-2.0"
     }
   ]
 }

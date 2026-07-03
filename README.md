@@ -1,16 +1,18 @@
 # xixi — 科研 Skills 集合 / Research Skills Marketplace
 
-本仓库把 **5 套科研类 Claude Code Skill 包** 打包成一个本地 **plugin marketplace（插件市场）**，
-安装后即可在 Claude Code 中按需启用。每套包都保留了作者原始的目录结构与相对路径引用，
+本仓库把 **6 套 Claude Code Skill 包**（5 套科研 + 1 套专业作图）打包成一个本地
+**plugin marketplace（插件市场）**，安装后即可在 Claude Code 中按需启用。
+每套包都保留了作者原始的目录结构与相对路径引用，
 因此知识库、脚本、模板、`_shared`/`shared`/`databases` 等内部资源都能正确加载。
 
-This repo bundles **five academic-research skill packages** into a single local **Claude Code plugin
-marketplace**. Each package keeps its original directory layout and relative-path references intact, so
-its knowledge bases, scripts, templates and shared folders all resolve correctly once installed.
+This repo bundles **six skill packages** (five academic-research packs plus one professional
+diagramming pack) into a single local **Claude Code plugin marketplace**. Each package keeps its
+original directory layout and relative-path references intact, so its knowledge bases, scripts,
+templates and shared folders all resolve correctly once installed.
 
 ---
 
-## 📦 包含的 5 个插件 / The 5 plugins
+## 📦 包含的 6 个插件 / The 6 plugins
 
 | 插件 / Plugin | 技能数 / Skills | 说明 / What it does |
 | --- | --- | --- |
@@ -19,8 +21,9 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 | **nature-skills** | 12 | Nature 风格科研技能：学术检索、引用、数据、图表、论文转专利、论文转 PPT、润色、阅读/翻译、审稿回复、同行评审、科研写作，外加 OpenClaw 医学模块。 |
 | **econ-top-journal-writing** | 5 | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | 1 | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
+| **diagram-skills** | 2 | 专业作图：`baoyu-diagram` 输出精美、可编辑、自包含的 SVG——技术路线图/时间线、路径图/流程图、框架图/架构图、时序图、结构图、思维导图、状态机、数据流图，内置完整设计系统（语义配色、字体层级、版式数学）；`frontend-design` 为 Anthropic 官方审美校准 skill，避免"模板感"输出。 |
 
-合计 **50 个 skill**。
+合计 **52 个 skill**。
 
 ---
 
@@ -43,6 +46,7 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 /plugin install nature-skills@xixi-research-skills
 /plugin install econ-top-journal-writing@xixi-research-skills
 /plugin install writing-ai-paper@xixi-research-skills
+/plugin install diagram-skills@xixi-research-skills
 ```
 
 也可以直接运行 `/plugin` 打开交互式菜单，浏览并勾选要安装的插件。
@@ -67,13 +71,14 @@ Some packages ship their own installer (e.g. `plugins/light/install.sh` symlinks
 ```text
 xixi/
 ├── .claude-plugin/
-│   └── marketplace.json          # 列出全部 5 个插件 / lists all 5 plugins
+│   └── marketplace.json          # 列出全部 6 个插件 / lists all 6 plugins
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
 │   ├── academic-research-skills/ # 4 skills (+ shared/, agents/, hooks/, modes)
 │   ├── nature-skills/            # 12 skills (+ skills/_shared/)
 │   ├── econ-top-journal-writing/ # 5 skills
-│   └── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
+│   ├── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
+│   └── diagram-skills/           # 2 skills (baoyu-diagram + frontend-design)
 └── README.md
 ```
 
@@ -92,5 +97,40 @@ xixi/
 - **nature-skills** — Apache-2.0（袁一哲 / nature-skills community）
 - **econ-top-journal-writing** — 分层许可，见插件内 `LICENSE`
 - **writing-ai-paper** — 见 https://github.com/hzwer/WritingAIPaper（hzwer、DingXiaoH）
+- **diagram-skills** — `baoyu-diagram`：MIT（Jim Liu，https://github.com/JimLiu/baoyu-skills ）；
+  `frontend-design`：Apache-2.0（Anthropic，https://github.com/anthropics/skills ）。详见插件内 `NOTICE.md`。
 
 请在使用时遵循各自许可（尤其 academic-research-skills 为非商业 CC-BY-NC-4.0）。
+
+---
+
+## 🎨 作图说明 / About diagramming (and "image 2")
+
+装好 `diagram-skills` 并重启 Claude Code 后，说"**画个技术路线图 / 画一个架构图 / 画流程图**"
+就会自动触发 `baoyu-diagram`，输出单个自包含、可直接编辑的 `.svg` 文件（深色主题、
+语义化配色、专业排版）。SVG 可在浏览器打开，也可导入 draw.io / Inkscape / Figma 继续编辑，
+或用插件自带的 `scripts/main.ts`（需 `bun` + npm 包 `sharp`）转成 PNG。
+
+After installing `diagram-skills` and restarting Claude Code, asking for a roadmap / architecture
+diagram / flowchart auto-triggers `baoyu-diagram`, which emits a single self-contained, editable
+`.svg` (dark theme, semantic palette, professional layout). Open it in a browser, or import into
+draw.io / Inkscape / Figma; the bundled `scripts/main.ts` (needs `bun` + the `sharp` npm package)
+converts SVG to PNG.
+
+**关于用"image 2"等图像生成模型作图 / On image-generation models:**
+"image 2" 一般指 OpenAI 的 GPT Image 2（2026-04 发布）。Claude 本身不生成位图，Claude Code
+也没有内置任何图像生成模型——要调用 GPT Image 2 / Gemini 3 Pro Image（Nano Banana Pro）等，
+必须自行配置带 API key 的 MCP 服务器，例如：
+
+- https://github.com/shinpr/mcp-image — Gemini 图像模型，可选接入 GPT Image（需 `GEMINI_API_KEY`，可选 `OPENAI_API_KEY`）
+- https://github.com/spartanz51/imagegen-mcp — OpenAI 图像模型（需 `OPENAI_API_KEY`）
+- https://github.com/ArcadeAI/blueprint-mcp — 基于 Nano Banana Pro 的架构图生成（需 Gemini API key）
+
+不过对技术路线图/框架图这类**带大量文字标注、需要反复修改**的图，2026 年的行业共识仍然是：
+图像生成模型输出的是不可编辑的位图，小字号标注仍不可靠，改一个标签就要整图重生成且布局会漂移，
+连线关系还可能被"脑补"错；而 SVG/图表代码的文字 100% 准确、逐元素可编辑、可进版本库。
+所以日常技术图建议直接用 `baoyu-diagram`；图像模型更适合内容定稿后的一次性宣传图/封面图。
+
+Image-gen models (e.g. GPT Image 2) output flat rasters: labels aren't element-editable, small text
+is still unreliable, and regenerating shifts the layout. For label-heavy, frequently-edited technical
+diagrams, structured SVG remains the right tool; use image models for one-off, content-frozen visuals.
