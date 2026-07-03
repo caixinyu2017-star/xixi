@@ -24,3 +24,12 @@
   2600/9980 done, 18.1 min elapsed, ETA 51.4 min
   2800/9980 done, 20.1 min elapsed, ETA 51.5 min
   3000/9980 done, 21.8 min elapsed, ETA 50.8 min
+  3200/9980 done, 23.2 min elapsed, ETA 49.2 min
+  3400/9980 done, 24.6 min elapsed, ETA 47.6 min
+  3600/9980 done, 26.2 min elapsed, ETA 46.4 min
+  3800/9980 done, 27.8 min elapsed, ETA 45.1 min
+  4000/9980 done, 29.0 min elapsed, ETA 43.4 min
+  4200/9980 done, 31.3 min elapsed, ETA 43.1 min
+  4400/9980 done, 34.9 min elapsed, ETA 44.3 min
+  4600/9980 done, 41.3 min elapsed, ETA 48.3 min
+  4800/9980 done, 52.7 min elapsed, ETA 56.9 min
