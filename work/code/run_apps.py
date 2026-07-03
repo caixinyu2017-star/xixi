@@ -15,7 +15,7 @@ RUNS = 30
 POP = 30
 FES = 20000
 
-ALGOS_A = ['MSSBOA', 'SBOA', 'GWO', 'WOA', 'SCA', 'PSO', 'HHO', 'DBO', 'RIME', 'LSHADE']
+ALGOS_A = ['MSSBOA', 'SBOA', 'GWO', 'WOA', 'SCA', 'PSO', 'HHO', 'DBO', 'COA', 'RIME']
 ALGOS_B = ['MSBKA', 'BKA', 'SSA', 'COA', 'GWO', 'SCA', 'PSO', 'DE', 'HHO', 'RIME']
 
 

@@ -121,7 +121,7 @@ def flowchart_mssboa(path):
     arrow(ax, 9.6, 11.2, cx, 10.4)
     box(ax, cx - 3.4, 9.6, 6.8, 0.8, 'Greedy selection and update $X_{best}$')
     arrow(ax, cx, 9.6, cx, 9.05)
-    box(ax, cx - 4.3, 7.7, 8.6, 1.3, 'Adaptive t-distribution perturbation (ATP) on $X_{best}$;\ngreedy replacement of the worst individual', fc='#FFE6CC', fs=8)
+    box(ax, cx - 4.3, 7.7, 8.6, 1.3, 'Elite refinement mechanism (ERM): t-distribution perturbation or\nquadratic interpolation on $X_{best}$; greedy replacement of the worst', fc='#FFE6CC', fs=8)
     arrow(ax, cx, 7.7, cx, 7.15)
     box(ax, cx - 2.4, 6.3, 4.8, 0.8, 'FEs accounting and recording')
     # loop back

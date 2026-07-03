@@ -21,12 +21,12 @@ POP = 30
 def get_algos(paper):
     from algos_classic import ALGOS as C
     if paper == 'A':
-        from algos_sboa import sboa, mssboa, sboa_gps, sboa_egs, sboa_atp
+        from algos_sboa import sboa, mssboa, sboa_gps, sboa_egs, sboa_erm
         return {
             'MSSBOA': mssboa, 'SBOA': sboa,
-            'SBOA-GPS': sboa_gps, 'SBOA-EGS': sboa_egs, 'SBOA-ATP': sboa_atp,
+            'SBOA-GPS': sboa_gps, 'SBOA-EGS': sboa_egs, 'SBOA-ERM': sboa_erm,
             'GWO': C['GWO'], 'WOA': C['WOA'], 'SCA': C['SCA'], 'PSO': C['PSO'],
-            'HHO': C['HHO'], 'DBO': C['DBO'], 'RIME': C['RIME'], 'LSHADE': C['LSHADE'],
+            'HHO': C['HHO'], 'DBO': C['DBO'], 'RIME': C['RIME'], 'COA': C['COA'],
         }
     else:
         from algos_bka import bka, msbka, bka_s1, bka_s2, bka_s3

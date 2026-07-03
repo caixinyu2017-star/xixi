@@ -6,10 +6,15 @@ per iteration each individual performs one hunting sub-update (three time-gated
 stages) followed by one escape sub-update, each with greedy acceptance.
 
 MSSBOA adds three strategies:
-  GPS  - good point set initialization
-  EGS  - elite-guided golden sine search (replaces the blind differential move
-         of hunting stage 1)
-  ATP  - adaptive t-distribution perturbation of the global best each iteration
+  GPS - good point set initialization
+  EGS - elite-guided golden sine search: in hunting stage 1 each individual
+        applies the golden-sine elite move with probability 0.5 and otherwise
+        keeps the original differential move (probabilistic hybrid)
+  ERM - elite refinement mechanism: the global best is refined once per
+        iteration, alternating an adaptive t-distribution perturbation (odd
+        iterations) with a three-point quadratic interpolation (even
+        iterations); the refined solution replaces the worst individual when
+        it improves upon it
 """
 import numpy as np
 from framework import Recorder, init_pop, clipx, levy
@@ -17,7 +22,34 @@ from framework import Recorder, init_pop, clipx, levy
 TAU = (np.sqrt(5) - 1) / 2  # golden ratio coefficient
 
 
-def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_atp=False):
+def _good_point_set(N, D, lb, ub):
+    """Hua-Wang good point set: p = smallest prime >= 2D+3, r_j = 2cos(2*pi*j/p)."""
+    def is_prime(n):
+        if n < 2:
+            return False
+        for q in range(2, int(n ** 0.5) + 1):
+            if n % q == 0:
+                return False
+        return True
+    p = 2 * D + 3
+    while not is_prime(p):
+        p += 1
+    j = np.arange(1, D + 1)
+    r = 2 * np.cos(2 * np.pi * j / p)
+    i = np.arange(1, N + 1).reshape(-1, 1)
+    pts = np.mod(r * i, 1.0)
+    return lb + pts * (ub - lb)
+
+
+def _qi_point(xa, xb, xc, fa, fb, fc):
+    """Dimension-wise three-point quadratic interpolation minimum."""
+    num = (xb ** 2 - xc ** 2) * fa + (xc ** 2 - xa ** 2) * fb + (xa ** 2 - xb ** 2) * fc
+    den = (xb - xc) * fa + (xc - xa) * fb + (xa - xb) * fc
+    den = np.where(np.abs(den) < 1e-50, 1e-50, den)
+    return 0.5 * num / den
+
+
+def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_erm=False):
     rec = Recorder(prob, max_fes)
     D = prob.dim
     # ---------------- initialization ----------------
@@ -28,22 +60,23 @@ def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_a
     F = rec.eval_pop(X)
     gb = np.argmin(F)
     Xbest, fbest = X[gb].copy(), F[gb]
-    # 2 evals per individual per iteration (+1 for ATP)
-    T = max(1, max_fes // (2 * N + (1 if use_atp else 0)))
+    # 2 evals per individual per iteration (+1 for ERM)
+    T = max(1, max_fes // (2 * N + (1 if use_erm else 0)))
     t = 0
     while rec.budget_left():
         t += 1
         tt = min(t / T, 1.0)
+        if use_egs:
+            order = np.argsort(F)
+            elites = [X[order[0]], X[order[1]], X[order[2]],
+                      X[order[:max(3, N // 10)]].mean(axis=0)]
         # ---------------- hunting strategy (exploration) ----------------
         for i in range(N):
             if not rec.budget_left():
                 break
             if t < T / 3:
-                if use_egs:
+                if use_egs and rng.random() < 0.5:
                     # elite-guided golden sine move
-                    order = np.argsort(F)
-                    elites = [X[order[0]], X[order[1]], X[order[2]],
-                              X[order[:max(3, N // 10)]].mean(axis=0)]
                     Xe = elites[rng.integers(len(elites))]
                     r1 = rng.random() * 2 * np.pi
                     r2 = rng.random() * np.pi
@@ -86,36 +119,25 @@ def _hunt_escape_loop(prob, max_fes, N, rng, use_gps=False, use_egs=False, use_a
                 X[i], F[i] = nx, f
                 if f < fbest:
                     Xbest, fbest = nx.copy(), f
-        # ---------------- adaptive t-distribution perturbation ----------------
-        if use_atp and rec.budget_left():
-            df = max(1, t)  # degrees of freedom grow with iterations
-            step = rng.standard_t(df, D)
-            nx = clipx(Xbest * (1 + 0.5 * (1 - tt) * step), prob)
+        # ---------------- elite refinement mechanism ----------------
+        if use_erm and rec.budget_left():
+            if t % 2 == 1:
+                # adaptive t-distribution perturbation
+                df = max(1, t)
+                step = rng.standard_t(df, D)
+                nx = Xbest * (1 + 0.5 * (1 - tt) * step)
+            else:
+                # three-point quadratic interpolation
+                a, b = rng.choice(N, 2, replace=False)
+                nx = _qi_point(Xbest, X[a], X[b], fbest, F[a], F[b])
+            nx = clipx(nx, prob)
             f = rec.eval(nx)
-            if f < fbest:
-                Xbest, fbest = nx.copy(), f
-                w = np.argmax(F)
+            w = np.argmax(F)
+            if f < F[w]:
                 X[w], F[w] = nx.copy(), f
+                if f < fbest:
+                    Xbest, fbest = nx.copy(), f
     return rec.finalize()
-
-
-def _good_point_set(N, D, lb, ub):
-    """Hua-Wang good point set: p = smallest prime >= 2D+3, r_j = 2cos(2*pi*j/p)."""
-    def is_prime(n):
-        if n < 2:
-            return False
-        for q in range(2, int(n ** 0.5) + 1):
-            if n % q == 0:
-                return False
-        return True
-    p = 2 * D + 3
-    while not is_prime(p):
-        p += 1
-    j = np.arange(1, D + 1)
-    r = 2 * np.cos(2 * np.pi * j / p)
-    i = np.arange(1, N + 1).reshape(-1, 1)
-    pts = np.mod(r * i, 1.0)
-    return lb + pts * (ub - lb)
 
 
 def sboa(prob, max_fes, N, rng):
@@ -123,7 +145,7 @@ def sboa(prob, max_fes, N, rng):
 
 
 def mssboa(prob, max_fes, N, rng):
-    return _hunt_escape_loop(prob, max_fes, N, rng, use_gps=True, use_egs=True, use_atp=True)
+    return _hunt_escape_loop(prob, max_fes, N, rng, use_gps=True, use_egs=True, use_erm=True)
 
 
 def sboa_gps(prob, max_fes, N, rng):
@@ -134,5 +156,5 @@ def sboa_egs(prob, max_fes, N, rng):
     return _hunt_escape_loop(prob, max_fes, N, rng, use_egs=True)
 
 
-def sboa_atp(prob, max_fes, N, rng):
-    return _hunt_escape_loop(prob, max_fes, N, rng, use_atp=True)
+def sboa_erm(prob, max_fes, N, rng):
+    return _hunt_escape_loop(prob, max_fes, N, rng, use_erm=True)

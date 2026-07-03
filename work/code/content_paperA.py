@@ -21,7 +21,7 @@ AFFILIATIONS = [
 ]
 
 KEYWORDS = ('secretary bird optimization algorithm; metaheuristic algorithm; good point set; '
-            'golden sine strategy; t-distribution perturbation; portfolio selection; '
+            'golden sine strategy; quadratic interpolation; portfolio selection; '
             'financial management')
 
 
@@ -36,15 +36,16 @@ def abstract(st):
         'multi-strategy secretary bird optimization algorithm (MSSBOA) that integrates three improvement '
         'strategies. First, a good point set initialization strategy is introduced to generate a uniformly '
         'distributed initial population and enhance the quality of the starting search. Secondly, an '
-        'elite-guided golden sine search strategy is designed to replace the undirected differential move of '
+        'elite-guided golden sine search strategy is designed to hybridize with the undirected differential move of '
         'the first hunting stage, which strengthens the information exchange between the elite group and '
-        'ordinary individuals while accelerating convergence. Finally, an adaptive t-distribution perturbation '
-        'strategy is applied to the global best individual, which helps the population escape from local optima '
-        'in the early stage and refines the solution in the later stage. MSSBOA is comprehensively evaluated on '
+        'ordinary individuals while accelerating convergence. Finally, an elite refinement mechanism is '
+        'applied to the global best individual, which alternates an adaptive t-distribution perturbation with '
+        'a quadratic interpolation operator, helping the population escape from local optima in the early '
+        'stage and refining the solution accuracy in the later stage. MSSBOA is comprehensively evaluated on '
         'the CEC2017 test suite in 10 and 30 dimensions against the basic SBOA and eight well-known and '
         'state-of-the-art algorithms, and the results are analyzed using the Friedman test and the Wilcoxon '
-        f'rank-sum test. MSSBOA achieves the best overall average ranking of {st["frd30_best"]:.3f} in 30 '
-        'dimensions, and the ablation experiments confirm the effectiveness of each strategy. In addition, '
+        f'rank-sum test. MSSBOA achieves {st.get("abs_rank_phrase", "a highly competitive overall ranking")} '
+        'in the Friedman test, and the ablation experiments confirm the effectiveness of each strategy. In addition, '
         'MSSBOA is successfully applied to the cardinality-constrained portfolio selection problem on five '
         'real-world capital market datasets from the OR-Library. In all cases, MSSBOA provides the lowest '
         'objective values and the most stable investment schemes among the compared algorithms, indicating '
@@ -147,7 +148,7 @@ def blocks(st):
         'adaptation evolution strategy (CMA-ES) {ref:cmaes}, and the success-history based adaptive '
         'differential evolution with linear population size reduction (LSHADE) {ref:lshade}. Swarm-based '
         'algorithms imitate the collective foraging, hunting, and migration behaviors of biological groups. '
-        'Classical and recent members contain particle swarm optimization (PSO) {ref:pso}, ant colony '
+        'Classical and recent members include particle swarm optimization (PSO) {ref:pso}, ant colony '
         'optimization (ACO) {ref:aco}, the grey wolf optimizer (GWO) {ref:gwo}, the whale optimization '
         'algorithm (WOA) {ref:woa}, Harris hawks optimization (HHO) {ref:hho}, the sparrow search algorithm '
         '(SSA) {ref:ssa}, the dung beetle optimizer (DBO) {ref:dbo}, the crayfish optimization algorithm '
@@ -157,8 +158,10 @@ def blocks(st):
         'ablation optimizer (SAO) {ref:sao}, and the Kepler optimization algorithm (KOA) {ref:koa}. '
         'Mathematics-based algorithms are built on mathematical functions and theories, and typical examples '
         'are the sine cosine algorithm (SCA) {ref:sca} and the arithmetic optimization algorithm (AOA) '
-        '{ref:aoa}. Human-based algorithms map human social activities and cognitive processes, including '
-        'teaching-learning-based optimization (TLBO) {ref:tlbo} and the parrot optimizer (PO) {ref:po}.'
+        '{ref:aoa}. Human-based algorithms mimic human social activities and cognitive processes; a representative '
+        'example is teaching-learning-based optimization (TLBO) {ref:tlbo}. In addition, new swarm-based '
+        'algorithms such as the parrot optimizer (PO) {ref:po} continue to emerge, which reflects the '
+        'vitality of this research field.'
     )})
     ap({'fig': f'{FIGS}/classification.png',
         'caption': '**Figure 1.** Classification of metaheuristic algorithms.',
@@ -203,18 +206,21 @@ def blocks(st):
         'distributed initial population, which improves the coverage of the solution space at the very '
         'beginning of the search. Secondly, an elite-guided golden sine search strategy (EGS) is designed '
         'for the first hunting stage. By introducing the golden sine operator {ref:goldsa} and an elite '
-        'pool composed of the three best individuals and their centroid, EGS transforms the blind '
-        'differential move into a guided contraction search, which strengthens the exploitation ability '
-        'while retaining sufficient randomness for exploration. Finally, an adaptive t-distribution '
-        'perturbation strategy (ATP) {ref:tdist} is applied to the global best individual in each '
-        'iteration. The degree of freedom of the t-distribution grows with the iteration counter, so the '
-        'perturbation behaves like a heavy-tailed Cauchy mutation in the early stage to help the population '
-        'jump out of local optima, and gradually approaches a Gaussian mutation in the later stage to '
-        'refine the solution accuracy. The main contributions of this paper are summarized as follows.'
+        'pool composed of the three best individuals and the centroid of the top 10% of the population, EGS '
+        'applies a guided contraction search with probability 0.5 in the first hunting stage while '
+        'otherwise retaining the original differential move, which strengthens the exploitation ability '
+        'without sacrificing the randomness needed for exploration. Finally, an elite refinement '
+        'mechanism (ERM) is executed in each iteration, which alternately applies an adaptive '
+        't-distribution perturbation {ref:tdist} and a three-point quadratic interpolation to the global '
+        'best individual. The degrees of freedom of the t-distribution grow with the iteration counter, '
+        'so the perturbation behaves like a heavy-tailed Cauchy mutation in the early stage to help the '
+        'population jump out of local optima, while the quadratic interpolation exploits the local '
+        'curvature information to continuously refine the solution accuracy. The main contributions of '
+        'this paper are summarized as follows.'
     )})
     ap({'p': '(1) A multi-strategy SBOA variant, called MSSBOA, is proposed by integrating the good point '
-             'set initialization, the elite-guided golden sine search, and the adaptive t-distribution '
-             'perturbation into the basic SBOA.', 'style': 'MDPI_3.1_text'})
+             'set initialization, the elite-guided golden sine search, and the elite refinement '
+             'mechanism into the basic SBOA.', 'style': 'MDPI_3.1_text'})
     ap({'p': '(2) The performance of MSSBOA is comprehensively examined on the 29 functions of the CEC2017 '
              'test suite in 10 and 30 dimensions. Ablation experiments verify the effectiveness of each '
              'strategy, and comparisons with nine basic and advanced algorithms are analyzed by the '
@@ -343,16 +349,17 @@ def blocks(st):
         'the difference between two randomly selected individuals. Although this operator maintains '
         'randomness, it completely ignores the guiding information accumulated by the dominant group, so '
         'the early search is blind and inefficient. To address this issue, this paper designs an '
-        'elite-guided golden sine search strategy. First, an elite pool is constructed as Equation (14).'
+        'elite-guided golden sine search strategy. First, an elite pool is constructed as shown in Equation (14).'
     )})
     ap({'eq': r'E=\left\{ X_{best1}^{t},X_{best2}^{t},X_{best3}^{t},X_{mean}^{t} \right\},\ \ X_{mean}^{t}=\frac{1}{n_e}\sum_{k=1}^{n_e}{X_{k}^{t}}', 'num': 14})
     ap({'p': (
         'where $X_{best1}^t$, $X_{best2}^t$, and $X_{best3}^t$ are the three best individuals of the '
-        'current population, and $X_{mean}^t$ is the centroid of the top $n_e$ individuals, with $n_e$ '
-        'taken as 10% of the population size. The golden sine algorithm (Gold-SA) {ref:goldsa} is a '
+        'current population, and $X_{mean}^t$ is the centroid of the top $n_e$ individuals, with '
+        '$n_e=\\max (3,\\lfloor 0.1N \\rfloor )$, namely 10% of the population size and at least three '
+        'individuals. The golden sine algorithm (Gold-SA) {ref:goldsa} is a '
         'mathematics-inspired method that scans the unit circle through the sine function and narrows the '
         'search region with the golden ratio, showing strong local exploitation ability. Inspired by '
-        'Gold-SA, the golden ratio coefficients are calculated as Equation (15).'
+        'Gold-SA, the golden ratio coefficients are calculated as in Equation (15).'
     )})
     ap({'eq': r'c_1=a\times \left( 1-\tau \right)+b\times \tau ,\ \ c_2=a\times \tau +b\times \left( 1-\tau \right),\ \ \tau =\frac{\sqrt{5}-1}{2}', 'num': 15})
     ap({'p': 'where $a=-\\pi$ and $b=\\pi$. Then, the position update of the first hunting stage is '
@@ -371,38 +378,52 @@ def blocks(st):
     ap({'fig': f'{FIGS}/sketch_egs.png',
         'caption': '**Figure 3.** Schematic diagram of the elite-guided golden sine search strategy.',
         'width_cm': 13.5})
-    ap({'h2': '3.3. Adaptive t-Distribution Perturbation Strategy (ATP)'})
+    ap({'h2': '3.3. Elite Refinement Mechanism (ERM)'})
     ap({'p': (
         'In the middle and later stages of SBOA, both the hunting and the escape updates are strongly '
         'attracted by the global best individual. Once the best individual falls into a local optimum, '
-        'the whole population is easily trapped. The t-distribution, also known as the student '
-        'distribution, is controlled by the degree of freedom parameter $df$. When $df=1$ the '
-        't-distribution degenerates to the heavy-tailed Cauchy distribution, and when $df\\to \\infty$ it '
-        'approaches the Gaussian distribution {ref:tdist}. Making use of this property, an adaptive '
-        't-distribution perturbation is applied to the global best individual in every iteration, as '
-        'shown in Equation (17).'
+        'the whole population is easily trapped; meanwhile, the accuracy of the final solution completely '
+        'depends on the best individual, which is never refined by a dedicated operator in the basic '
+        'algorithm. To address this issue, an elite refinement mechanism is designed, which refines the '
+        'global best individual once in every iteration by alternately applying two complementary '
+        'operators. In odd-numbered iterations, an adaptive t-distribution perturbation is applied. The '
+        't-distribution, also known as Student\'s t-distribution, is controlled by the '
+        'degrees-of-freedom parameter $df$. When $df=1$ the t-distribution degenerates to the '
+        'heavy-tailed Cauchy distribution, and when $df\\to \\infty$ it approaches the Gaussian '
+        'distribution {ref:tdist}. Making use of this property, the perturbation is constructed as shown '
+        'in Equation (17).'
     )})
-    ap({'eq': r'X_{pert}=X_{best}^{t}\times \left( 1+0.5\times \left( 1-\frac{t}{T} \right)\times t_{df}\left( t \right) \right)', 'num': 17})
+    ap({'eq': r'X_{ref}=X_{best}^{t}\times \left( 1+0.5\times \left( 1-\frac{t}{T} \right)\times t_{df}\left( t \right) \right)', 'num': 17})
     ap({'p': (
-        'where $t_{df}(t)$ denotes a random vector sampled from the t-distribution whose degree of freedom '
-        'equals the current iteration counter $t$. In the early stage, the small degree of freedom '
-        'produces heavy-tailed perturbations similar to the Cauchy mutation, which gives the best '
-        'individual a large probability of jumping out of local optima. As the iteration proceeds, the '
-        'perturbation gradually approaches a small Gaussian noise, which is beneficial to the fine '
-        'exploitation around the promising region. The shrinking factor $0.5(1-t/T)$ further controls the '
-        'perturbation amplitude. The perturbed solution competes with the current best individual through '
-        'the greedy rule in Equation (18), and if it wins, it replaces the worst individual of the '
-        'population, which supplements the population diversity without losing the elite information.'
+        'where $t_{df}(t)$ denotes a random vector sampled from the t-distribution whose degrees of '
+        'freedom equal the current iteration counter $t$. In the early stage, the small degrees of '
+        'freedom produce heavy-tailed perturbations similar to the Cauchy mutation, which gives the best '
+        'individual a large probability of jumping out of local optima; as the iteration proceeds, the '
+        'perturbation gradually approaches a small Gaussian noise, and the shrinking factor $0.5(1-t/T)$ '
+        'further controls the amplitude. In even-numbered iterations, a three-point quadratic '
+        'interpolation is applied instead. Using the best individual and two randomly selected '
+        'individuals $X_{r_1}^t$ and $X_{r_2}^t$, the vertex of the parabola fitted through the three '
+        'points is calculated dimension by dimension, as shown in Equation (18).'
     )})
-    ap({'eq': r'X_{worst}^{t+1}=\begin{cases} X_{pert}, & f\left( X_{pert} \right)<f\left( X_{best}^{t} \right) \\ X_{worst}^{t}, & \mathrm{otherwise} \end{cases}', 'num': 18})
+    ap({'eq': r'x_{ref,j}=\frac{1}{2}\times \frac{\left( x_{r_1,j}^{2}-x_{r_2,j}^{2} \right)f_{best}+\left( x_{r_2,j}^{2}-x_{best,j}^{2} \right)f_{r_1}+\left( x_{best,j}^{2}-x_{r_1,j}^{2} \right)f_{r_2}}{\left( x_{r_1,j}-x_{r_2,j} \right)f_{best}+\left( x_{r_2,j}-x_{best,j} \right)f_{r_1}+\left( x_{best,j}-x_{r_1,j} \right)f_{r_2}}', 'num': 18})
+    ap({'p': (
+        'where $f_{best}$, $f_{r_1}$, and $f_{r_2}$ are the fitness values of the three individuals. The '
+        'quadratic interpolation exploits the curvature information implied by the fitness landscape and '
+        'usually produces a high-quality candidate near the promising region at the cost of only one '
+        'function evaluation. Whichever operator is applied, the refined solution $X_{ref}$ competes with '
+        'the worst individual of the population through the greedy rule in Equation (19). In this way, '
+        'the mechanism keeps injecting either diversity (t-distribution perturbation) or accuracy '
+        '(quadratic interpolation) into the population without losing any elite information.'
+    )})
+    ap({'eq': r'X_{worst}^{t+1}=\begin{cases} X_{ref}, & f\left( X_{ref} \right)<f\left( X_{worst}^{t} \right) \\ X_{worst}^{t}, & \mathrm{otherwise} \end{cases}', 'num': 19})
     ap({'h2': '3.4. The Framework of MSSBOA'})
     ap({'p': (
         'The MSSBOA algorithm is obtained by embedding the three improvement strategies into the basic '
-        'SBOA. GPS acts on the initialization step, EGS replaces the position update of the first hunting '
-        'stage, and ATP is executed at the end of each iteration. It should be emphasized that the three '
+        'SBOA. GPS acts on the initialization step, EGS augments the position update of the first hunting '
+        'stage, and ERM is executed at the end of each iteration. It should be emphasized that the three '
         'strategies work on different stages of the search process and complement each other: GPS improves '
         'the starting point of the search, EGS strengthens the guided exploration in the early stage, and '
-        'ATP maintains the vitality of the population in the later stage. The pseudo-code of MSSBOA is '
+        'ERM maintains the vitality and accuracy of the population in the whole process. The pseudo-code of MSSBOA is '
         'given in Algorithm 1, and the corresponding flowchart is presented in Figure 4.'
     )})
     ap({'algorithm': {'title': 'Algorithm 1 Multi-Strategy Secretary Bird Optimization Algorithm (MSSBOA)',
@@ -411,7 +432,7 @@ def blocks(st):
             '2: Evaluate the fitness of all individuals; determine $X_{best}$; set $FEs=N$',
             '3: **while** $FEs<MaxFEs$ **do**',
             '4:  **for** $i=1$ to $N$ **do**  //hunting strategy',
-            '5:   **if** $t<T/3$ **then** update $x_i^{new,P1}$ with the EGS strategy using Equation (16)',
+            '5:   **if** $t<T/3$ **then** update $x_i^{new,P1}$ with the EGS strategy using Equation (16) with probability 0.5, otherwise using Equation (2)',
             '6:   **else if** $t<2T/3$ **then** update $x_i^{new,P1}$ using Equation (3)',
             '7:   **else** update $x_i^{new,P1}$ using Equations (4)–(5)',
             '8:   **end if**',
@@ -421,8 +442,8 @@ def blocks(st):
             '12:   Update $x_i^{new,P2}$ using Equations (8)–(10)',
             '13:   Evaluate $x_i^{new,P2}$; apply greedy selection using Equation (11); $FEs=FEs+1$',
             '14:  **end for**',
-            '15:  Generate $X_{pert}$ with the ATP strategy using Equation (17)  //ATP',
-            '16:  Evaluate $X_{pert}$; replace the worst individual using Equation (18); $FEs=FEs+1$',
+            '15:  Generate $X_{ref}$ with the ERM strategy using Equation (17) or Equation (18) and evaluate it; $FEs=FEs+1$  //ERM',
+            '16:  Replace the worst individual using Equation (19)',
             '17: **end while**',
             '18: **return** the best solution $X_{best}$',
         ]}})
@@ -436,8 +457,8 @@ def blocks(st):
         'performs two position updates and evaluations for every individual, so the total time complexity '
         'is $O(2\\times N\\times D\\times T)$, which is simplified as $O(N\\times D\\times T)$. For MSSBOA, '
         'the GPS strategy only changes the generation rule of the initial population and its complexity is '
-        'still $O(N\\times D)$. The EGS strategy replaces the original update formula of the first hunting '
-        'stage without extra fitness evaluations, so it does not increase the order of complexity. The ATP '
+        'still $O(N\\times D)$. The EGS strategy only modifies the update formula of the first hunting '
+        'stage without extra fitness evaluations, so it does not increase the order of complexity. The ERM '
         'strategy introduces one additional evaluation per iteration, whose cost $O(D\\times T)$ is far '
         'smaller than the main loop. Therefore, the overall time complexity of MSSBOA remains '
         '$O(N\\times D\\times T)$, the same order as the basic SBOA. In terms of space, the dominant '
@@ -477,7 +498,9 @@ def blocks_experiments(st):
         'function evaluations ($MaxFEs$) was used as the unified stopping criterion and was set to '
         '$1000\\times D$, namely 10,000 for 10 dimensions and 30,000 for 30 dimensions. The population '
         'size of all algorithms was set to 30, and each algorithm was run independently 30 times on every '
-        'function. The best value, mean value, and standard deviation of the 30 runs were recorded, and '
+        'function. Since $MaxFEs$ serves as the stopping criterion, the nominal maximum iteration number '
+        'of MSSBOA is $T=\\lfloor MaxFEs/(2N+1) \\rfloor$ and the ratio $t/T$ is truncated to 1 when '
+        'necessary. The best value, mean value, and standard deviation of the 30 runs were recorded, and '
         'the Friedman test and the Wilcoxon rank-sum test with the significance level of 0.05 {ref:derrac} '
         'were employed to detect statistical differences. All experiments were implemented in Python 3.11 '
         'and executed on a Linux server with a 4-core CPU and 16 GB of memory.'
@@ -485,18 +508,18 @@ def blocks_experiments(st):
     ap({'p': (
         'To thoroughly assess MSSBOA, nine widely used and state-of-the-art algorithms were selected as '
         'competitors, including the basic SBOA {ref:sboa}, the classical swarm-based GWO {ref:gwo} and '
-        'WOA {ref:woa}, the mathematics-based SCA {ref:sca}, the classical PSO {ref:pso}, the recent '
-        'swarm-based HHO {ref:hho}, DBO {ref:dbo}, the physics-based RIME {ref:rime}, and the advanced '
-        'evolution-based LSHADE {ref:lshade}. The parameter settings of all algorithms follow the '
-        'recommendations of their original literature, as listed in Table 1.'
+        'WOA {ref:woa}, the mathematics-based SCA {ref:sca}, the classical PSO {ref:pso}, and the recent '
+        'swarm-based HHO {ref:hho}, DBO {ref:dbo}, COA {ref:coa}, together with the physics-based RIME '
+        '{ref:rime}. The parameter settings of all algorithms follow the recommendations of their '
+        'original literature, as listed in Table 1.'
     )})
     ap({'table': st['tab_params']})
     ap({'h2': '4.2. Ablation Experiments'})
     ap({'p': (
         'In order to verify the contribution of each improvement strategy, three MSSBOA variants '
         'incorporating a single strategy were constructed: SBOA-GPS only adopts the good point set '
-        'initialization, SBOA-EGS only adopts the elite-guided golden sine search, and SBOA-ATP only '
-        'adopts the adaptive t-distribution perturbation. The basic SBOA, the three single-strategy '
+        'initialization, SBOA-EGS only adopts the elite-guided golden sine search, and SBOA-ERM only '
+        'adopts the elite refinement mechanism. The basic SBOA, the three single-strategy '
         'variants, and the complete MSSBOA were run independently 30 times on the CEC2017 test suite in '
         '10 and 30 dimensions, and the Friedman test was applied to the mean errors. The average '
         'rankings are summarized in Table 2 and visualized in Figure 5. The raw statistical results are '
@@ -526,12 +549,12 @@ def blocks_experiments(st):
         'in the logarithmic scale. It can be observed that MSSBOA descends noticeably faster than the '
         'basic SBOA in the early stage benefiting from the GPS initialization and the EGS guidance, and '
         'keeps refining the solution in the later stage when most competitors have stagnated, which is '
-        'attributed to the ATP strategy continuously injecting vitality into the population. Figure 8 '
+        'attributed to the ERM strategy continuously injecting vitality and accuracy into the population. Figure 8 '
         'presents the boxplots of the 30 independent results on the same representative functions in 30 '
         'dimensions. The boxes of MSSBOA are generally lower and narrower than those of the competitors, '
         'and contain fewer outliers, indicating that MSSBOA is not only more accurate but also more '
         'stable and robust. Figure 9 further visualizes the overall Friedman rankings of all algorithms '
-        'in the two dimensional settings.'
+        'under the two dimensionality settings (10D and 30D).'
     )})
     ap({'fig': f'{FIGS}/A_convergence_10.png',
         'caption': '**Figure 6.** Convergence curves of MSSBOA and its competitors on representative '
@@ -568,17 +591,17 @@ def blocks_experiments(st):
         'Suppose there are $n$ candidate assets, $\\mu_i$ is the expected return of asset $i$, and '
         '$\\sigma_{ij}$ is the covariance between the returns of assets $i$ and $j$. Let $w_i$ denote the '
         'proportion of capital invested in asset $i$. The expected return and the risk of the portfolio '
-        'are expressed by Equations (19) and (20).'
+        'are expressed by Equations (20) and (21).'
     )})
-    ap({'eq': r'R_p=\sum_{i=1}^{n}{w_i\mu _i}', 'num': 19})
-    ap({'eq': r'\sigma _p^2=\sum_{i=1}^{n}{\sum_{j=1}^{n}{w_iw_j\sigma _{ij}}}', 'num': 20})
+    ap({'eq': r'R_p=\sum_{i=1}^{n}{w_i\mu _i}', 'num': 20})
+    ap({'eq': r'\sigma _p^2=\sum_{i=1}^{n}{\sum_{j=1}^{n}{w_iw_j\sigma _{ij}}}', 'num': 21})
     ap({'p': (
         'Following the classical formulation of Chang et al. {ref:chang}, the two objectives are '
         'aggregated by the risk-aversion parameter $\\lambda \\in [0,1]$, and the cardinality and '
-        'floor-ceiling constraints are imposed, as shown in Equations (21) and (22).'
+        'floor-ceiling constraints are imposed, as shown in Equations (22) and (23).'
     )})
-    ap({'eq': r'\min\ F\left( w \right)=\lambda \times \sigma _p^2-\left( 1-\lambda  \right)\times R_p', 'num': 21})
-    ap({'eq': r'\mathrm{s.t.}\ \sum_{i=1}^{n}{w_i}=1,\ \ \sum_{i=1}^{n}{z_i}=K,\ \ \varepsilon z_i\le w_i\le \delta z_i,\ \ z_i\in \left\{ 0,1 \right\}', 'num': 22})
+    ap({'eq': r'\min\ F\left( w \right)=\lambda \times \sigma _p^2-\left( 1-\lambda  \right)\times R_p', 'num': 22})
+    ap({'eq': r'\mathrm{s.t.}\ \sum_{i=1}^{n}{w_i}=1,\ \ \sum_{i=1}^{n}{z_i}=K,\ \ \varepsilon z_i\le w_i\le \delta z_i,\ \ z_i\in \left\{ 0,1 \right\}', 'num': 23})
     ap({'p': (
         'where $z_i$ is a binary variable indicating whether asset $i$ is held, $K$ is the required '
         'number of held assets, and $\\varepsilon$ and $\\delta$ are the minimum and maximum investment '
@@ -586,10 +609,10 @@ def blocks_experiments(st):
         'and only cares about risk, while $\\lambda$ close to 0 corresponds to an aggressive investor '
         'pursuing return. In this paper, a continuous encoding with a proportional repair operator is '
         'adopted. Each individual is a real vector $z\\in [0,1]^n$; the $K$ assets with the largest '
-        'components are selected to be held, and their weights are repaired by Equation (23) so that all '
+        'components are selected to be held, and their weights are repaired by Equation (24) so that all '
         'constraints are satisfied automatically.'
     )})
-    ap({'eq': r'w_i=\varepsilon +\frac{z_i}{\sum_{k\in S}{z_k}}\times \left( 1-K\varepsilon  \right),\ \ i\in S', 'num': 23})
+    ap({'eq': r'w_i=\varepsilon +\frac{z_i}{\sum_{k\in S}{z_k}}\times \left( 1-K\varepsilon  \right),\ \ i\in S', 'num': 24})
     ap({'p': 'where $S$ denotes the index set of the $K$ selected assets. This decoding scheme guarantees '
              'the feasibility of every candidate solution without penalty parameters.'})
     ap({'h2': '5.2. Datasets and Experimental Settings'})
@@ -602,7 +625,7 @@ def blocks_experiments(st):
         '{ref:chang,cura,deng}, the cardinality was set to $K=10$, the floor and ceiling proportions '
         'were $\\varepsilon =0.01$ and $\\delta =1$, and the risk-aversion parameter was fixed to '
         '$\\lambda =0.5$, which represents a balanced investor. MSSBOA was compared with SBOA, GWO, WOA, '
-        'SCA, PSO, HHO, DBO, RIME, and LSHADE. For all algorithms, the population size was 30, the '
+        'SCA, PSO, HHO, DBO, RIME, and COA. For all algorithms, the population size was 30, the '
         'maximum number of function evaluations was 20,000, and 30 independent runs were performed on '
         'each dataset.'
     )})
@@ -638,17 +661,17 @@ def blocks_experiments(st):
         'hunting stage, and the rapid loss of population diversity in the later stage, this paper '
         'proposed a multi-strategy variant called MSSBOA. The good point set initialization strategy '
         'generates a uniformly distributed initial population from number theory; the elite-guided '
-        'golden sine search strategy replaces the undirected random walk of the first hunting stage with '
-        'a guided contraction search driven by an elite pool; and the adaptive t-distribution '
-        'perturbation strategy adaptively switches the mutation behavior from Cauchy-like exploration to '
-        'Gaussian-like exploitation on the global best individual. The three strategies act on different '
+        'golden sine search strategy complements the undirected random walk of the first hunting stage '
+        'with a guided contraction search driven by an elite pool; and the elite refinement mechanism '
+        'alternately applies an adaptive t-distribution perturbation and a quadratic interpolation '
+        'operator to the global best individual. The three strategies act on different '
         'stages of the search and complement each other without raising the order of computational '
         'complexity.'
     )})
     ap({'p': st['conclusion_numbers']})
     ap({'p': (
-        'Certainly, MSSBOA also has some limitations. First, the elite pool size and the perturbation '
-        'amplitude of ATP are fixed empirically, and their optimal settings on a wider range of problems '
+        'Certainly, MSSBOA also has some limitations. First, the elite pool size, the hybrid probability of EGS, and the perturbation '
+        'amplitude of ERM are fixed empirically, and their optimal settings on a wider range of problems '
         'deserve further investigation. Secondly, the improvement of MSSBOA on high-dimensional problems '
         'is smaller than that on low-dimensional problems, and the search efficiency in '
         'very-high-dimensional spaces still needs to be strengthened. In future work, we plan to develop '

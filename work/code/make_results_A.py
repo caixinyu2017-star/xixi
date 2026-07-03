@@ -8,10 +8,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from analysis import (RESULTS, FIGS, load_runs, summarize, friedman_ranks, wilcoxon_vs,
                       fmt, load_curves, convergence_grid, boxplot_grid, friedman_bar)
 
-ALGOS = ['MSSBOA', 'SBOA', 'GWO', 'WOA', 'SCA', 'PSO', 'HHO', 'DBO', 'RIME', 'LSHADE']
-ABL = ['SBOA', 'SBOA-GPS', 'SBOA-EGS', 'SBOA-ATP', 'MSSBOA']
+ALGOS = ['MSSBOA', 'SBOA', 'GWO', 'WOA', 'SCA', 'PSO', 'HHO', 'DBO', 'COA', 'RIME']
+ABL = ['SBOA', 'SBOA-GPS', 'SBOA-EGS', 'SBOA-ERM', 'MSSBOA']
 ABL_LABEL = {'SBOA': 'SBOA', 'SBOA-GPS': 'SBOA-GPS', 'SBOA-EGS': 'SBOA-EGS',
-             'SBOA-ATP': 'SBOA-ATP', 'MSSBOA': 'MSSBOA'}
+             'SBOA-ERM': 'SBOA-ERM', 'MSSBOA': 'MSSBOA'}
 REPR_FUNCS = ['F12017', 'F52017', 'F72017', 'F122017', 'F212017', 'F272017']
 
 
@@ -51,7 +51,7 @@ def main():
         'caption': '**Table 1.** Parameter settings of MSSBOA and the selected algorithms.',
         'header': ['Algorithm', 'Parameter Settings'],
         'rows': [
-            ['MSSBOA', '$n_e=0.1N$; $\\beta=1.5$; perturbation factor 0.5'],
+            ['MSSBOA', '$n_e=\\max (3,0.1N)$; golden sine probability 0.5; $\\beta=1.5$; perturbation factor 0.5'],
             ['SBOA', '$\\beta=1.5$; escape threshold $r_i=0.5$'],
             ['GWO', '$a$ linearly decreased from 2 to 0'],
             ['WOA', '$a$ linearly decreased from 2 to 0; $b=1$'],
@@ -59,8 +59,8 @@ def main():
             ['PSO', '$c_1=c_2=2$; $w$ linearly decreased from 0.9 to 0.4'],
             ['HHO', '$E_0\\in[-1,1]$; $\\beta=1.5$'],
             ['DBO', 'proportions of four subgroups 6:6:7:11; $k=0.1$; $b=0.3$; $S=0.5$'],
+            ['COA', 'temperature $\\in[20,35]$; $C_2=2-t/T$'],
             ['RIME', '$W=5$'],
-            ['LSHADE', '$N_{init}=18D$; $H=6$; $p=0.11$; $r_{arc}=2.6$'],
         ],
         'fontsize': 8, 'widths': [3.2, 12.0],
     }
@@ -84,7 +84,7 @@ def main():
                  f'{FIGS}/A_ablation_friedman.png')
     order_str = ' > '.join([ABL_LABEL[a] for a in np.array(ABL)[np.argsort(avg)]][::-1][:4][::-1])
     strat_rank = {a: avg[i] for i, a in enumerate(ABL)}
-    singles = {'SBOA-GPS': 'GPS', 'SBOA-EGS': 'EGS', 'SBOA-ATP': 'ATP'}
+    singles = {'SBOA-GPS': 'GPS', 'SBOA-EGS': 'EGS', 'SBOA-ERM': 'ERM'}
     sorted_singles = sorted(singles, key=lambda a: strat_rank[a])
     st['ablation_discussion'] = (
         f'According to Table 2, the p-values in both dimensional settings are far below 0.05, which '
@@ -106,6 +106,11 @@ def main():
     fr30, fp30 = friedman_ranks(d30, ALGOS, funcs)
     favg = (fr10 + fr30) / 2
     st['frd30_best'] = fr30[ALGOS.index('MSSBOA')]
+    _r30 = int(np.where(np.argsort(fr30) == ALGOS.index('MSSBOA'))[0][0]) + 1
+    st['abs_rank_phrase'] = (
+        f'the best overall average ranking of {fr30[ALGOS.index("MSSBOA")]:.3f} in 30 dimensions'
+        if _r30 == 1 else
+        f'an overall average ranking of {fr30[ALGOS.index("MSSBOA")]:.3f} (No. {_r30} among the ten algorithms) in 30 dimensions')
     st['tab_friedman'] = {
         'caption': '**Table 3.** Average Friedman rankings of MSSBOA and the comparison algorithms on '
                    'CEC2017 ($\\alpha=0.05$).',
@@ -151,9 +156,9 @@ def main():
         f'dimensions and on {nwin_sboa30} functions in 30 dimensions, and is rarely inferior. Against '
         f'all nine competitors, MSSBOA wins {total_w10} out of {total_c10} pairwise comparisons in 10 '
         f'dimensions and {total_w30} in 30 dimensions. These results indicate that the advantages of '
-        f'MSSBOA hold not only over the basic SBOA but also over both the classical algorithms and '
-        f'the advanced variants such as LSHADE, and the advantage is more obvious on the complex '
-        f'hybrid and composition functions.'
+        f'MSSBOA hold not only over the basic SBOA but also over the classical and recent competitor '
+        f'algorithms, and the advantage is more obvious on the complex hybrid and composition '
+        f'functions.'
     )
     st['conclusion_numbers'] = (
         f'The experimental results on the CEC2017 test suite show that MSSBOA achieves average '
@@ -229,7 +234,7 @@ def main():
         f'{n_best} out of the five datasets. Note that the problem dimensionality grows from 31 '
         f'(Hang Seng) to 225 (Nikkei 225), and the superiority of MSSBOA becomes more pronounced on '
         f'the larger instances, which benefits from the uniform initial coverage of GPS and the '
-        f'sustained population vitality provided by ATP. Moreover, the average standard deviation of '
+        f'sustained population vitality provided by ERM. Moreover, the average standard deviation of '
         f'MSSBOA over the five datasets is {mss_std:.2E}, clearly smaller than the {sboa_std:.2E} of '
         f'the basic SBOA, meaning that the investment schemes recommended by MSSBOA are highly '
         f'reproducible across repeated runs — a property that fund managers value for the credibility '

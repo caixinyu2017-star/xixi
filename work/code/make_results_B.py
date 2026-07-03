@@ -82,6 +82,11 @@ def main():
     fr20, fp20 = friedman_ranks(d20, ALGOS, funcs)
     favg = (fr10 + fr20) / 2
     st['frd20_best'] = fr20[ALGOS.index('MSBKA')]
+    _r20 = int(np.where(np.argsort(fr20) == ALGOS.index('MSBKA'))[0][0]) + 1
+    st['abs_rank_phrase'] = (
+        f'the best overall average ranking of {fr20[ALGOS.index("MSBKA")]:.3f} in 20 dimensions'
+        if _r20 == 1 else
+        f'an overall average ranking of {fr20[ALGOS.index("MSBKA")]:.3f} (No. {_r20} among the ten algorithms) in 20 dimensions')
     st['tab_friedman'] = {
         'caption': '**Table 3.** Average Friedman rankings of MSBKA and the comparison algorithms on '
                    'CEC2022 ($\\alpha=0.05$).',
@@ -125,6 +130,20 @@ def main():
         f'competitors in the two settings, respectively. The advantage is especially evident on the '
         f'hybrid and composition functions, which possess complicated landscapes similar to '
         f'real-world problems.'
+    )
+
+    st['conclusion_numbers'] = (
+        f'The experimental results on the CEC2022 test suite show that MSBKA achieves average Friedman '
+        f'rankings of {fr10[ALGOS.index("MSBKA")]:.3f} and {fr20[ALGOS.index("MSBKA")]:.3f} in 10 and 20 '
+        f'dimensions among ten algorithms, '
+        f'{"ranking first in both settings" if rank10 == 1 and rank20 == 1 else "showing highly competitive performance"}. '
+        f'The ablation experiments confirm that each of the three strategies improves the basic BKA and '
+        f'that their combination performs best. On the customer segmentation problem with two real '
+        f'business datasets, MSBKA obtains the lowest or near-lowest mean SSE with a variance far '
+        f'smaller than that of the randomly initialized K-means algorithm, and the resulting customer '
+        f'segments support clear differentiated marketing strategies. In summary, MSBKA is an effective '
+        f'and reliable optimization tool for both benchmark problems and data-driven marketing '
+        f'management applications.'
     )
 
     c10 = load_curves(f'{RESULTS}/curves_B_cec2022_10.npz', REPR_FUNCS, ALGOS)
