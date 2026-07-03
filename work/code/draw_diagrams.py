@@ -274,8 +274,10 @@ def sketch_eds(path):
     # panel (b): binomial crossover
     ax2 = axes[1]
     D = 10
-    rng2 = np.random.default_rng(8)
+    rng2 = np.random.default_rng(23)
     mask = rng2.random(D) < 0.5
+    if mask.sum() < 4 or mask.sum() > 6:
+        mask = np.array([True, False, True, False, True, True, False, True, False, False])
     mask[3] = True
     rows = [('Parent $X_i$', '#9EB6D4', None),
             ('Mutant $V_i$', '#DD8452', None),

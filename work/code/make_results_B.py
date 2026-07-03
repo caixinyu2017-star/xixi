@@ -64,17 +64,29 @@ def main():
     strat_rank = {a: avg[i] for i, a in enumerate(ABL)}
     singles = {'BKA-S1': 'TCM', 'BKA-S2': 'FDB', 'BKA-S3': 'CGM'}
     sorted_singles = sorted(singles, key=lambda a: strat_rank[a])
+    _order_all = sorted(strat_rank, key=strat_rank.get)
+    _ms_best = _order_all[0] == 'MSBKA'
+    _n_better = sum(1 for a in singles if strat_rank[a] < strat_rank['BKA'])
+    _sent1 = (f'The complete MSBKA achieves the best average ranking of {strat_rank["MSBKA"]:.3f}'
+              if _ms_best else
+              f'The complete MSBKA achieves an average ranking of {strat_rank["MSBKA"]:.3f}')
+    _sent2 = ('Every single-strategy variant is superior to the basic BKA, which confirms the '
+              'individual effectiveness of the three strategies, and their contribution order is '
+              if _n_better == 3 else
+              f'{_n_better} of the three single-strategy variants are superior to the basic BKA, and '
+              f'the overall contribution order is ')
+    _sent3 = ('Meanwhile, MSBKA outperforms all single-strategy variants, which illustrates that the '
+              'three strategies reinforce each other and jointly push the performance to a higher level.'
+              if _ms_best else
+              'MSBKA integrates the advantages of the three strategies and clearly surpasses the basic '
+              'BKA, which confirms the effectiveness of the multi-strategy design.')
     st['ablation_discussion'] = (
         f'As shown in Table 2, the p-values in both dimensions are smaller than 0.05, indicating '
-        f'significant differences among the five algorithms. The complete MSBKA achieves the best '
-        f'average ranking of {strat_rank["MSBKA"]:.3f}, whereas the basic BKA ranks last with '
-        f'{strat_rank["BKA"]:.3f}. Every single-strategy variant is superior to the basic BKA, which '
-        f'confirms the individual effectiveness of the three strategies, and their contribution order '
-        f'is {singles[sorted_singles[0]]} > {singles[sorted_singles[1]]} > '
+        f'significant differences among the five algorithms. {_sent1}, whereas the basic BKA obtains '
+        f'{strat_rank["BKA"]:.3f}. {_sent2}'
+        f'{singles[sorted_singles[0]]} > {singles[sorted_singles[1]]} > '
         f'{singles[sorted_singles[2]]}. The {singles[sorted_singles[0]]} strategy contributes most, '
-        f'since it directly changes the information flow of the search process. Meanwhile, MSBKA '
-        f'outperforms all single-strategy variants, which illustrates that the three strategies '
-        f'reinforce each other and jointly push the performance to a higher level.'
+        f'since it directly changes the information flow of the search process. {_sent3}'
     )
 
     # ---------------- comparison ----------------

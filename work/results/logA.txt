@@ -1,3 +1,11 @@
 [cec2017 10D] 1740 tasks remaining (10350 done)
   200/1740 done, 0.3 min elapsed, ETA 2.0 min
   400/1740 done, 0.7 min elapsed, ETA 2.2 min
+  600/1740 done, 1.1 min elapsed, ETA 2.1 min
+  800/1740 done, 1.6 min elapsed, ETA 1.9 min
+  1000/1740 done, 2.7 min elapsed, ETA 2.0 min
+  1200/1740 done, 3.8 min elapsed, ETA 1.7 min
+  1400/1740 done, 4.8 min elapsed, ETA 1.2 min
+  1600/1740 done, 6.6 min elapsed, ETA 0.6 min
+[cec2017 10D] complete.
+[cec2017 30D] 9980 tasks remaining (1330 done)

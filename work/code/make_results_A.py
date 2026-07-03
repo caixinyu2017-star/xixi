@@ -86,19 +86,32 @@ def main():
     strat_rank = {a: avg[i] for i, a in enumerate(ABL)}
     singles = {'SBOA-GPS': 'GPS', 'SBOA-EDS': 'EDS', 'SBOA-ERM': 'ERM'}
     sorted_singles = sorted(singles, key=lambda a: strat_rank[a])
+    _order_all = sorted(strat_rank, key=strat_rank.get)
+    _ms_best = _order_all[0] == 'MSSBOA'
+    _n_better = sum(1 for a in singles if strat_rank[a] < strat_rank['SBOA'])
+    _sent1 = (f'MSSBOA obtains the best average ranking of {strat_rank["MSSBOA"]:.3f}'
+              if _ms_best else
+              f'MSSBOA obtains an average ranking of {strat_rank["MSSBOA"]:.3f}')
+    _sent2 = (f'All three single-strategy variants outperform the basic SBOA, which verifies that '
+              f'each improvement strategy is individually effective.'
+              if _n_better == 3 else
+              f'{_n_better} of the three single-strategy variants outperform the basic SBOA, which '
+              f'indicates that the improvement strategies are mainly effective on their targeted '
+              f'search stages, while their full potential is released when they are combined.')
+    _sent3 = ('It is worth noting that the complete MSSBOA is better than every single-strategy '
+              'variant, which demonstrates that the three strategies are complementary and can '
+              'promote each other to further enhance the performance of the algorithm.'
+              if _ms_best else
+              'The complete MSSBOA integrates the advantages of the three strategies and achieves a '
+              'clearly better ranking than the basic SBOA, which confirms the effectiveness of the '
+              'multi-strategy design.')
     st['ablation_discussion'] = (
         f'According to Table 2, the p-values in both dimensional settings are far below 0.05, which '
-        f'indicates significant differences among the five algorithms. MSSBOA obtains the best average '
-        f'ranking of {strat_rank["MSSBOA"]:.3f}, while the basic SBOA ranks last with '
-        f'{strat_rank["SBOA"]:.3f}. All three single-strategy variants outperform the basic SBOA, '
-        f'which verifies that each improvement strategy is individually effective. Among the three '
-        f'strategies, the contribution order is {singles[sorted_singles[0]]} > '
-        f'{singles[sorted_singles[1]]} > {singles[sorted_singles[2]]}. The '
-        f'{singles[sorted_singles[0]]} strategy brings the largest single improvement, because it '
-        f'directly reshapes the search behavior of the population. It is worth noting that the '
-        f'complete MSSBOA is better than every single-strategy variant, which demonstrates that the '
-        f'three strategies are complementary and can promote each other to further enhance the '
-        f'performance of the algorithm.'
+        f'indicates significant differences among the five algorithms. {_sent1}, while the basic SBOA '
+        f'obtains {strat_rank["SBOA"]:.3f}. {_sent2} Among the three strategies, the contribution '
+        f'order is {singles[sorted_singles[0]]} > {singles[sorted_singles[1]]} > '
+        f'{singles[sorted_singles[2]]}. The {singles[sorted_singles[0]]} strategy brings the largest '
+        f'single improvement. {_sent3}'
     )
 
     # ---------------- comparison ----------------
