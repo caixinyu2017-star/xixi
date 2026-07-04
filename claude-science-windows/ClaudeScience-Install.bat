@@ -171,6 +171,8 @@ exit /b 0
 rem ============================================================
 rem  以下以 ::: 开头的内容是桌面启动器 ClaudeScience.bat 的模板，
 rem  由第 4 步自动提取生成到桌面，本安装脚本自身不会执行它们。
+rem  启动器获取登录网址的方式：优先使用官方命令 claude-science url
+rem  （每次都返回有效的新登录链接），失败时退回从启动日志提取。
 rem ============================================================
 :::@echo off
 :::rem  Claude Science 启动器（由 ClaudeScience-Install.bat 自动生成）
@@ -188,35 +190,43 @@ rem ============================================================
 :::    pause
 :::    exit /b 1
 :::)
-:::rem ---- 通过探测端口判断服务是否已在运行 ----
+:::rem ---- 服务是否已在运行：探测端口 ----
 :::wsl.exe -d %DISTRO% -- bash -lc "timeout 2 bash -c 'exec 3<>/dev/tcp/127.0.0.1/%PORT%' 2>/dev/null" >nul 2>&1
-:::if %errorlevel% neq 0 goto start_server
-:::echo Claude Science 已在后台运行。
+:::if %errorlevel% equ 0 goto get_url
+:::echo 正在启动服务，首次启动可能需要一点时间...
+:::wsl.exe -d %DISTRO% -- bash -lc "rm -f ~/claude-science-server.log; setsid nohup $HOME/.local/bin/claude-science serve --port %PORT% --no-browser >~/claude-science-server.log 2>&1 & sleep 2"
+:::set /a TRIES=0
+::::waitport
+:::wsl.exe -d %DISTRO% -- bash -lc "timeout 2 bash -c 'exec 3<>/dev/tcp/127.0.0.1/%PORT%' 2>/dev/null" >nul 2>&1
+:::if %errorlevel% equ 0 goto get_url
+:::set /a TRIES+=1
+:::if %TRIES% geq 45 goto failed
+:::timeout /t 2 /nobreak >nul
+:::goto waitport
+::::get_url
+:::rem ---- 向服务索取带登录令牌的网址（官方命令 claude-science url）----
+:::set /a UTRIES=0
+::::try_url
 :::set "URL="
+:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "$HOME/.local/bin/claude-science url 2>/dev/null | tr -d '\r' | sed -e 's/\x1b\[[0-9;]*m//g' | grep -m1 -oE 'https?://[^[:space:]]+'"`) do set "URL=%%U"
+:::if defined URL if not "%URL:~0,4%"=="http" set "URL="
+:::if defined URL goto openurl
+:::set /a UTRIES+=1
+:::if %UTRIES% geq 5 goto url_fallback
+:::timeout /t 2 /nobreak >nul
+:::goto try_url
+::::url_fallback
+:::rem ---- 后备：从启动日志提取（优先带 token 的网址）----
 :::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+' | awk -v pat=:%PORT% '/token/{print;t=1;exit} index($0,pat){if(length(p)==0)p=$0} END{if(t==0&&length(p)>0)print p}'"`) do set "URL=%%U"
 :::if defined URL if not "%URL:~0,4%"=="http" set "URL="
 :::if not defined URL set "URL=http://localhost:%PORT%/"
-:::goto openurl
-::::start_server
-:::echo 正在启动服务，首次启动可能需要一点时间...
-:::wsl.exe -d %DISTRO% -- bash -lc "rm -f ~/claude-science-server.log; setsid nohup $HOME/.local/bin/claude-science serve --port %PORT% --no-browser >~/claude-science-server.log 2>&1 & sleep 2"
-:::set "URL="
-:::set /a TRIES=0
-::::waiturl
-:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+' | awk -v pat=:%PORT% '/token/{print;t=1;exit} index($0,pat){if(length(p)==0)p=$0} END{if(t==0&&length(p)>0)print p}'"`) do set "URL=%%U"
-:::if defined URL if not "%URL:~0,4%"=="http" set "URL="
-:::if defined URL goto openurl
-:::set /a TRIES+=1
-:::if %TRIES% geq 60 goto failed
-:::timeout /t 2 /nobreak >nul
-:::goto waiturl
 ::::openurl
 :::echo.
 :::echo 正在打开浏览器："%URL%"
 :::start "" "%URL%"
 :::echo.
 :::echo 若浏览器没有自动打开，请手动复制上面引号里的网址到浏览器地址栏。
-:::echo 若页面提示无权限或登录过期，请在命令提示符运行 wsl --shutdown 后再双击本启动器。
+:::echo 若页面显示 session has expired ，关掉本窗口后再双击一次本启动器即可拿到新链接。
 :::echo 首次使用需要登录你的 Claude 账号。关闭本窗口不影响后台服务。
 :::echo 如需彻底停止服务，可在命令提示符中运行： wsl --shutdown
 :::pause

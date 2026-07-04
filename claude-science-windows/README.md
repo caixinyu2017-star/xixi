@@ -41,8 +41,9 @@ WSL2 → Ubuntu 24.04 → Claude Science 的安装，并在桌面生成 `ClaudeS
 ## 🛑 停止 / 常见问题
 
 - **停止服务**：在命令提示符（cmd）中运行 `wsl --shutdown`。
-- **浏览器打不开 / 页面提示无权限**：先运行 `wsl --shutdown`，再双击桌面的
-  `ClaudeScience.bat`（每次冷启动会生成新的一次性登录令牌）。
+- **浏览器打不开 / 页面提示无权限 / 显示 "session has expired"**：直接再双击一次
+  桌面的 `ClaudeScience.bat` 即可——启动器通过官方命令 `claude-science url`
+  向服务索取新的登录链接，每次运行都会拿到有效链接。
 - **浏览器直接打开 `localhost:8765` 并提示"拒绝连接"**：桌面上的启动器是旧版
   （旧版误判服务已在运行）。请重新下载并运行最新的 `ClaudeScience-Install.bat`，
   它会在桌面重新生成修复后的 `ClaudeScience.bat`。
