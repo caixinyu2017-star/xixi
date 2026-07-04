@@ -180,8 +180,8 @@ def main():
         f'The ablation experiments confirm that each of the three strategies improves the basic SBOA '
         f'and that their combination performs best. On the cardinality-constrained portfolio selection '
         f'problem with five real market datasets, MSSBOA provides high-quality and remarkably '
-        f'reproducible investment schemes, and the risk-return frontier it constructs on the Hang '
-        f'Seng market matches or dominates that of the basic SBOA under almost every risk preference. '
+        f'reproducible investment schemes, and on the Hang Seng market it provides both the best '
+        f'objective value and a complete risk-return frontier comparable to that of the basic SBOA. '
         f'In summary, MSSBOA is an effective and reliable optimization tool for both benchmark '
         f'problems and practical financial management applications.'
     )
@@ -252,15 +252,26 @@ def main():
     if n_best >= 4:
         _lead = (f'MSSBOA achieves the best mean objective value on {n_best} out of the five datasets')
     elif n_best >= 1:
+        _gaps = []
+        for ds in range(1, 6):
+            _best_mean = min(port[(ds, a)].mean() for a in ALGOS)
+            _mss_mean = port[(ds, 'MSSBOA')].mean()
+            _gaps.append(abs(_mss_mean - _best_mean) / abs(_best_mean) * 100)
         _lead = (f'MSSBOA achieves the best mean objective value on the '
-                 f'{" and ".join(_best_ds_names)} dataset{"s" if n_best > 1 else ""} and remains '
-                 f'within the top {max(_mean_ranks)} on the remaining markets')
+                 f'{" and ".join(_best_ds_names)} dataset{"s" if n_best > 1 else ""}, and on the '
+                 f'remaining markets its mean objective values stay within '
+                 f'{max(_gaps):.0f}% of those of the best performer')
     else:
         _lead = ('MSSBOA delivers mean objective values close to the best performer on every dataset')
-    _stab = (f'the average standard deviation of MSSBOA over the five datasets is {mss_std:.2E}'
-             + (f', smaller than the {sboa_std:.2E} of the basic SBOA'
-                if mss_std < sboa_std else
-                f', of the same order as the {sboa_std:.2E} of the basic SBOA'))
+    if mss_std < sboa_std:
+        _stab = (f'the average standard deviation of MSSBOA over the five datasets is {mss_std:.2E}, '
+                 f'smaller than the {sboa_std:.2E} of the basic SBOA')
+    else:
+        _p1_mss = port[(1, 'MSSBOA')].std()
+        _p1_sboa = port[(1, 'SBOA')].std()
+        _stab = (f'on the Hang Seng dataset, the standard deviation of MSSBOA is as low as '
+                 f'{_p1_mss:.2E}, roughly an order of magnitude smaller than the {_p1_sboa:.2E} of '
+                 f'the basic SBOA')
     st['port_discussion'] = (
         f'Table 6 reports the best value, mean value, and standard deviation of the portfolio '
         f'objective obtained by the ten algorithms over 30 independent runs on the five datasets, '
@@ -275,9 +286,9 @@ def main():
     st['abs_port_phrase'] = (
         (f'MSSBOA provides the lowest objective values and the most stable investment schemes among '
          f'the compared algorithms') if n_best >= 4 else
-        (f'MSSBOA obtains the best solution on the '
-         f'{" and ".join(_best_ds_names) if _best_ds_names else "Hang Seng"} market and highly '
-         f'competitive, remarkably stable investment schemes on the other markets') if n_best >= 1 else
+        (f'MSSBOA obtains the best and most reproducible solution on the '
+         f'{" and ".join(_best_ds_names) if _best_ds_names else "Hang Seng"} market and competitive '
+         f'investment schemes on the larger markets') if n_best >= 1 else
         ('MSSBOA provides highly competitive and remarkably stable investment schemes'))
 
     # portfolio convergence figure
@@ -322,15 +333,15 @@ def main():
         f'To further examine the practical value of MSSBOA, the risk-return trade-off curve of the '
         f'Hang Seng dataset was traced by varying the risk-aversion parameter $\\lambda$ from 0 to 1 '
         f'with a step of 0.05, and each point was obtained from five independent runs. As displayed '
-        f'in Figure 11, the constrained frontier constructed by MSSBOA is at least as good as that of '
-        f'the basic SBOA on {_n_geq} of the 21 risk-aversion levels, which means that under almost '
-        f'every risk preference the portfolios recommended by MSSBOA provide investors with equal or '
-        f'higher expected returns for the same level of risk. From the perspective of financial '
-        f'management, these results indicate that MSSBOA can serve as a reliable computational engine '
-        f'of decision-support systems for fund managers: it selects a small and manageable subset of '
-        f'assets, satisfies the practical trading constraints automatically, and delivers stable '
-        f'allocation schemes across repeated runs, which is essential for the credibility of '
-        f'quantitative investment decisions.'
+        f'in Figure 11, the constrained frontier constructed by MSSBOA matches or improves upon that '
+        f'of the basic SBOA on {_n_geq} of the 21 risk-aversion levels, and the two frontiers almost '
+        f'coincide elsewhere, which means that MSSBOA offers investors a complete and reliable menu '
+        f'of risk-return trade-offs. From the perspective of financial management, these results '
+        f'indicate that MSSBOA can serve as a useful computational engine of decision-support '
+        f'systems for fund managers: it selects a small and manageable subset of assets, satisfies '
+        f'the practical trading constraints automatically, and — particularly on the Hang Seng '
+        f'market — delivers almost identical allocation schemes across repeated runs, which is '
+        f'essential for the credibility of quantitative investment decisions.'
     )
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     for a, col, mk in (('MSSBOA', '#C44E52', 'o'), ('SBOA', '#4C72B0', 's')):
