@@ -6,7 +6,7 @@ rem
 rem  脚本会自动完成：
 rem    1) 安装 WSL2（Windows 的 Linux 子系统，需重启一次）
 rem    2) 安装 Ubuntu 24.04
-rem    3) 在 Ubuntu 中安装 Claude Science
+rem    3) 在 Ubuntu 中安装 Claude Science 及沙箱依赖
 rem    4) 在桌面生成 ClaudeScience.bat 启动器
 rem
 rem  注意：本文件必须保持 UTF-8 编码与 CRLF 换行，请勿转换。
@@ -110,13 +110,25 @@ echo           Ubuntu 已就绪。
 wsl.exe --set-version %DISTRO% 2 >nul 2>&1
 
 rem ---------- 第 3 步：安装 Claude Science ----------
-echo [第 3 步] 在 Ubuntu 中安装 Claude Science ，需要几分钟，取决于网速...
-wsl.exe -d %DISTRO% -u root -- bash -lc "apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y curl ca-certificates bubblewrap procps"
+echo [第 3 步] 在 Ubuntu 中安装依赖组件（bubblewrap、socat 等）...
+wsl.exe -d %DISTRO% -u root -- bash -lc "apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y curl ca-certificates bubblewrap socat ripgrep procps"
 if %errorlevel% neq 0 (
     echo [出错] Ubuntu 软件源更新失败，请检查网络后重新双击本文件。
     pause
     exit /b 1
 )
+rem ---- 沙箱自检：Ubuntu 24.04 的 AppArmor 可能限制 bubblewrap ----
+wsl.exe -d %DISTRO% -- bash -lc "bwrap --ro-bind / / true" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo           检测到沙箱受限，正在放开用户命名空间限制...
+    wsl.exe -d %DISTRO% -u root -- bash -lc "printf 'kernel.apparmor_restrict_unprivileged_userns=0\n' > /etc/sysctl.d/99-claude-science-userns.conf; sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 >/dev/null 2>&1; true"
+)
+wsl.exe -d %DISTRO% -- bash -lc "bwrap --ro-bind / / true" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [警告] 沙箱自检未通过，Claude Science 可能无法正常启动。
+    echo        若稍后启动失败，请将窗口截图发给协助你的人。
+)
+echo           正在下载安装 Claude Science 本体，需要几分钟，取决于网速...
 wsl.exe -d %DISTRO% -- bash -lc "curl -fsSL https://claude.ai/install-claude-science.sh | bash"
 if %errorlevel% neq 0 (
     echo [出错] Claude Science 下载安装失败。

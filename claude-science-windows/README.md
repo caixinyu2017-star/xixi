@@ -49,6 +49,10 @@ WSL2 → Ubuntu 24.04 → Claude Science 的安装，并在桌面生成 `ClaudeS
 - **出现 `Wsl/Service/WSL_E_DISTRO_NOT_FOUND`**：说明 Ubuntu-24.04 尚未安装成功
   （旧版脚本因 wsl.exe 返回 -1 退出码而漏检了这种失败）。请重新下载并运行最新的
   `ClaudeScience-Install.bat`，这次它会真正安装 Ubuntu 并引导你创建 Linux 用户。
+- **日志报 `socat is required for Linux sandbox networking`**：沙箱依赖缺失
+  （旧版脚本只装了 bubblewrap）。重新运行最新的 `ClaudeScience-Install.bat` 即可，
+  它现在会安装 bubblewrap + socat 并自检沙箱可用性（参见
+  [官方沙箱文档](https://code.claude.com/docs/en/sandboxing)）。
 - **WSL 安装失败**：多为 Windows 版本过旧（请先更新系统）或 BIOS 未开启虚拟化。
 - **Claude Science 下载失败**：确认当前网络能访问 `claude.ai` 后重试。
 - **登录后提示无法使用**：确认你的 Claude 账号有 Pro / Max / Team / Enterprise 订阅。
@@ -64,7 +68,7 @@ wsl --install -d Ubuntu-24.04
 
 ```bash
 # 重启并创建用户后，在 Ubuntu 终端中：
-sudo apt-get update && sudo apt-get install -y curl ca-certificates bubblewrap
+sudo apt-get update && sudo apt-get install -y curl ca-certificates bubblewrap socat ripgrep
 curl -fsSL https://claude.ai/install-claude-science.sh | bash
 ~/.local/bin/claude-science serve --port 8765 --no-browser
 # 然后把终端里打印的 http://localhost:8765/?token=… 网址复制到 Windows 浏览器打开
