@@ -170,19 +170,21 @@ rem ============================================================
 :::    pause
 :::    exit /b 1
 :::)
-:::wsl.exe -d %DISTRO% -- bash -lc "pgrep -f 'claude-science serve' >/dev/null 2>&1"
-:::if not errorlevel 1 (
-:::    echo Claude Science 已在后台运行，正在打开浏览器...
-:::    start "" "http://localhost:%PORT%/"
-:::    echo 若页面提示无权限或打不开，请先在命令提示符运行 wsl --shutdown 再双击本启动器。
-:::    timeout /t 8 /nobreak >nul
-:::    exit /b 0
-:::)
+:::rem ---- 通过探测端口判断服务是否已在运行 ----
+:::wsl.exe -d %DISTRO% -- bash -lc "timeout 2 bash -c 'exec 3<>/dev/tcp/127.0.0.1/%PORT%' 2>/dev/null" >nul 2>&1
+:::if errorlevel 1 goto start_server
+:::echo Claude Science 已在后台运行。
+:::set "URL="
+:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -m1 -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+'"`) do set "URL=%%U"
+:::if not defined URL set "URL=http://localhost:%PORT%/"
+:::goto openurl
+::::start_server
+:::echo 正在启动服务，首次启动可能需要一点时间...
 :::wsl.exe -d %DISTRO% -- bash -lc "rm -f ~/claude-science-server.log; setsid nohup $HOME/.local/bin/claude-science serve --port %PORT% --no-browser >~/claude-science-server.log 2>&1 & sleep 2"
 :::set "URL="
 :::set /a TRIES=0
 ::::waiturl
-:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -m1 -oE 'https?://[^[:space:]]+'"`) do set "URL=%%U"
+:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -m1 -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+'"`) do set "URL=%%U"
 :::if defined URL goto openurl
 :::set /a TRIES+=1
 :::if %TRIES% geq 60 goto failed
@@ -193,13 +195,14 @@ rem ============================================================
 :::echo 正在打开浏览器："%URL%"
 :::start "" "%URL%"
 :::echo.
-:::echo 已启动。若浏览器没有自动打开，请手动复制上面引号里的网址到浏览器地址栏。
+:::echo 若浏览器没有自动打开，请手动复制上面引号里的网址到浏览器地址栏。
+:::echo 若页面提示无权限或登录过期，请在命令提示符运行 wsl --shutdown 后再双击本启动器。
 :::echo 首次使用需要登录你的 Claude 账号。关闭本窗口不影响后台服务。
 :::echo 如需彻底停止服务，可在命令提示符中运行： wsl --shutdown
 :::pause
 :::exit /b 0
 ::::failed
-:::echo [出错] 启动超时。以下是日志内容，可截图求助：
-:::wsl.exe -d %DISTRO% -- bash -lc "tail -n 20 ~/claude-science-server.log 2>/dev/null"
+:::echo [出错] 启动超时。以下是日志内容，请截图发给协助你的人：
+:::wsl.exe -d %DISTRO% -- bash -lc "tail -n 40 ~/claude-science-server.log 2>/dev/null"
 :::pause
 :::exit /b 1
