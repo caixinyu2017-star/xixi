@@ -13,7 +13,7 @@ os.makedirs(RESULTS, exist_ok=True)
 
 RUNS = 30
 POP = 30
-FES = 20000
+FES = 50000
 
 ALGOS_A = ['MSSBOA', 'SBOA', 'GWO', 'WOA', 'SCA', 'PSO', 'HHO', 'DBO', 'COA', 'RIME']
 ALGOS_B = ['MSBKA', 'BKA', 'SSA', 'COA', 'GWO', 'SCA', 'PSO', 'DE', 'HHO', 'RIME']
@@ -52,7 +52,7 @@ def frontier_task(args):
     prob, mu, cov = portfolio_problem(1, lam=lam, K=10, eps=0.01)
     seed = 97 + run * 4013 + lam_idx * 211 + (zlib.crc32(algo_name.encode()) % 997)
     rng = np.random.default_rng(seed)
-    bf, bx, _ = algos[algo_name](prob, 10000, POP, rng)
+    bf, bx, _ = algos[algo_name](prob, 25000, POP, rng)
     w = decode_portfolio(bx, mu, cov)
     return ('frontier', algo_name, lam, run, bf, float(w @ cov @ w), float(w @ mu))
 

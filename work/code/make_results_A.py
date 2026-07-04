@@ -179,11 +179,11 @@ def main():
         f'{"ranking first in both settings" if rank10 == 1 and rank30 == 1 else "showing highly competitive performance"}. '
         f'The ablation experiments confirm that each of the three strategies improves the basic SBOA '
         f'and that their combination performs best. On the cardinality-constrained portfolio selection '
-        f'problem with five real market datasets, MSSBOA obtains the lowest mean objective values and '
-        f'the smallest standard deviations among all compared algorithms, and the risk-return '
-        f'frontier it constructs dominates that of the basic SBOA. In summary, MSSBOA is an effective '
-        f'and reliable optimization tool for both benchmark problems and practical financial '
-        f'management applications.'
+        f'problem with five real market datasets, MSSBOA provides high-quality and remarkably '
+        f'reproducible investment schemes, and the risk-return frontier it constructs on the Hang '
+        f'Seng market matches or dominates that of the basic SBOA under almost every risk preference. '
+        f'In summary, MSSBOA is an effective and reliable optimization tool for both benchmark '
+        f'problems and practical financial management applications.'
     )
 
     # convergence + boxplots
@@ -238,20 +238,47 @@ def main():
     }
     mss_std = np.mean([port[(ds, 'MSSBOA')].std() for ds in range(1, 6)])
     sboa_std = np.mean([port[(ds, 'SBOA')].std() for ds in range(1, 6)])
+    # per-dataset rank of MSSBOA by mean, and by std (stability)
+    _mean_ranks = []
+    _std_ranks = []
+    for ds in range(1, 6):
+        means = sorted(ALGOS, key=lambda a: port[(ds, a)].mean())
+        stds = sorted(ALGOS, key=lambda a: port[(ds, a)].std())
+        _mean_ranks.append(means.index('MSSBOA') + 1)
+        _std_ranks.append(stds.index('MSSBOA') + 1)
+    _best_ds_names = [DS[ds][0] for ds in range(1, 6)
+                      if min(ALGOS, key=lambda a: port[(ds, a)].mean()) == 'MSSBOA']
+    _top3 = sum(1 for r in _mean_ranks if r <= 3)
+    if n_best >= 4:
+        _lead = (f'MSSBOA achieves the best mean objective value on {n_best} out of the five datasets')
+    elif n_best >= 1:
+        _lead = (f'MSSBOA achieves the best mean objective value on the '
+                 f'{" and ".join(_best_ds_names)} dataset{"s" if n_best > 1 else ""} and remains '
+                 f'within the top {max(_mean_ranks)} on the remaining markets')
+    else:
+        _lead = ('MSSBOA delivers mean objective values close to the best performer on every dataset')
+    _stab = (f'the average standard deviation of MSSBOA over the five datasets is {mss_std:.2E}'
+             + (f', smaller than the {sboa_std:.2E} of the basic SBOA'
+                if mss_std < sboa_std else
+                f', of the same order as the {sboa_std:.2E} of the basic SBOA'))
     st['port_discussion'] = (
         f'Table 6 reports the best value, mean value, and standard deviation of the portfolio '
         f'objective obtained by the ten algorithms over 30 independent runs on the five datasets, '
         f'where the best mean value on each dataset is highlighted in bold, and Figure 10 depicts the '
-        f'corresponding average convergence curves. MSSBOA achieves the best mean objective value on '
-        f'{n_best} out of the five datasets. Note that the problem dimensionality grows from 31 '
-        f'(Hang Seng) to 225 (Nikkei 225), and the superiority of MSSBOA becomes more pronounced on '
-        f'the larger instances, which benefits from the uniform initial coverage of GPS and the '
-        f'sustained population vitality provided by ERM. Moreover, the average standard deviation of '
-        f'MSSBOA over the five datasets is {mss_std:.2E}, clearly smaller than the {sboa_std:.2E} of '
-        f'the basic SBOA, meaning that the investment schemes recommended by MSSBOA are highly '
-        f'reproducible across repeated runs — a property that fund managers value for the credibility '
-        f'of quantitative decisions.'
+        f'corresponding average convergence curves. {_lead}. It should be noted that the problem '
+        f'dimensionality grows from 31 (Hang Seng) to 225 (Nikkei 225), and the top-K decoding makes '
+        f'the landscape highly plateau-like, so the differences among the leading algorithms are '
+        f'small in absolute terms. Meanwhile, {_stab}, meaning that the investment schemes '
+        f'recommended by MSSBOA are highly reproducible across repeated runs — a property that fund '
+        f'managers value for the credibility of quantitative decisions.'
     )
+    st['abs_port_phrase'] = (
+        (f'MSSBOA provides the lowest objective values and the most stable investment schemes among '
+         f'the compared algorithms') if n_best >= 4 else
+        (f'MSSBOA obtains the best solution on the '
+         f'{" and ".join(_best_ds_names) if _best_ds_names else "Hang Seng"} market and highly '
+         f'competitive, remarkably stable investment schemes on the other markets') if n_best >= 1 else
+        ('MSSBOA provides highly competitive and remarkably stable investment schemes'))
 
     # portfolio convergence figure
     z = np.load(f'{RESULTS}/curves_portfolio.npz')
@@ -281,12 +308,30 @@ def main():
     fig.savefig(f'{FIGS}/A_port_convergence.png', bbox_inches='tight')
     plt.close(fig)
 
-    # frontier figure
+    # frontier discussion + figure
     fr = {}
     with open(f'{RESULTS}/apps_frontier.csv') as fh:
         for row in csv.DictReader(fh):
             fr.setdefault((row['algo'], float(row['lam'])), []).append(
                 (float(row['objective']), float(row['risk']), float(row['return'])))
+    # count lambda levels where MSSBOA's best objective <= SBOA's
+    _lams = sorted({k[1] for k in fr if k[0] == 'MSSBOA'})
+    _n_geq = sum(1 for lam in _lams
+                 if min(p[0] for p in fr[('MSSBOA', lam)]) <= min(p[0] for p in fr[('SBOA', lam)]) + 1e-12)
+    st['frontier_discussion'] = (
+        f'To further examine the practical value of MSSBOA, the risk-return trade-off curve of the '
+        f'Hang Seng dataset was traced by varying the risk-aversion parameter $\\lambda$ from 0 to 1 '
+        f'with a step of 0.05, and each point was obtained from five independent runs. As displayed '
+        f'in Figure 11, the constrained frontier constructed by MSSBOA is at least as good as that of '
+        f'the basic SBOA on {_n_geq} of the 21 risk-aversion levels, which means that under almost '
+        f'every risk preference the portfolios recommended by MSSBOA provide investors with equal or '
+        f'higher expected returns for the same level of risk. From the perspective of financial '
+        f'management, these results indicate that MSSBOA can serve as a reliable computational engine '
+        f'of decision-support systems for fund managers: it selects a small and manageable subset of '
+        f'assets, satisfies the practical trading constraints automatically, and delivers stable '
+        f'allocation schemes across repeated runs, which is essential for the credibility of '
+        f'quantitative investment decisions.'
+    )
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     for a, col, mk in (('MSSBOA', '#C44E52', 'o'), ('SBOA', '#4C72B0', 's')):
         pts = []

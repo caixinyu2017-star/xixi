@@ -45,8 +45,7 @@ def abstract(st):
         'experiments confirm the contribution of every strategy. Furthermore, MSBKA was applied to '
         'customer segmentation on two real-world business datasets, the mall customers dataset and the '
         'wholesale customers dataset. Compared with the classical K-means and K-means++ algorithms as well '
-        'as nine metaheuristic competitors, MSBKA achieves the lowest intra-cluster sum of squared errors with '
-        'the smallest variance across independent runs, and the resulting segments provide clear '
+        f'as nine metaheuristic competitors, {st.get("abs_clust_phrase", "MSBKA delivers high-quality and remarkably stable segmentation schemes")}, and the resulting segments provide clear '
         'managerial insights for differentiated marketing strategies.'
     )
 
@@ -481,7 +480,7 @@ def blocks_experiments(st):
         'segments was set to $K=3$. Table 5 summarizes the two datasets. MSBKA was compared with the '
         'classical K-means and K-means++ algorithms {ref:macqueen,kmeanspp} as well as the nine '
         'metaheuristics used in Section 4. For all metaheuristic algorithms, the population size was '
-        '30, the maximum number of function evaluations was 20,000, and 30 independent runs were '
+        '30, the maximum number of function evaluations was 50,000, and 30 independent runs were '
         'executed; for K-means and K-means++, a single random initialization was used in each of the 30 '
         'runs to reflect their sensitivity to the starting centroids.'
     )})

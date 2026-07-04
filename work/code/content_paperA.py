@@ -48,8 +48,7 @@ def abstract(st):
         f'rank-sum test. MSSBOA achieves {st.get("abs_rank_phrase", "a highly competitive overall ranking")} '
         'in the Friedman test, and the ablation experiments confirm the effectiveness of each strategy. In addition, '
         'MSSBOA is successfully applied to the cardinality-constrained portfolio selection problem on five '
-        'real-world capital market datasets from the OR-Library. In all cases, MSSBOA provides the lowest '
-        'objective values and the most stable investment schemes among the compared algorithms, indicating '
+        f'real-world capital market datasets from the OR-Library. {st.get("abs_port_phrase", "MSSBOA provides high-quality and stable investment schemes among the compared algorithms")}, indicating '
         'its practical value as a decision-support tool in financial management.'
     )
 
@@ -634,7 +633,7 @@ def blocks_experiments(st):
         'were $\\varepsilon =0.01$ and $\\delta =1$, and the risk-aversion parameter was fixed to '
         '$\\lambda =0.5$, which represents a balanced investor. MSSBOA was compared with SBOA, GWO, WOA, '
         'SCA, PSO, HHO, DBO, RIME, and COA. For all algorithms, the population size was 30, the '
-        'maximum number of function evaluations was 20,000, and 30 independent runs were performed on '
+        'maximum number of function evaluations was 50,000, and 30 independent runs were performed on '
         'each dataset.'
     )})
     ap({'table': st['tab_portdata']})
@@ -644,19 +643,7 @@ def blocks_experiments(st):
     ap({'fig': f'{FIGS}/A_port_convergence.png',
         'caption': '**Figure 10.** Convergence curves of all algorithms on the five portfolio datasets '
                    '($\\lambda =0.5$).', 'width_cm': 14.5})
-    ap({'p': (
-        'To further examine the practical value of MSSBOA, the risk-return trade-off curve of the Hang '
-        'Seng dataset was traced by varying the risk-aversion parameter $\\lambda$ from 0 to 1 with a '
-        'step of 0.05, and each point was obtained from five independent runs. As displayed in Figure 11, '
-        'the constrained frontier constructed by MSSBOA strictly dominates that of the basic SBOA in the '
-        'middle-risk region and almost coincides with it at the two extreme ends, which means that under '
-        'the same level of risk, the portfolios recommended by MSSBOA provide investors with higher '
-        'expected returns. From the perspective of financial management, the experimental results '
-        'indicate that MSSBOA can serve as a reliable computational engine of decision-support systems '
-        'for fund managers: it selects a small and manageable subset of assets, satisfies the practical '
-        'trading constraints automatically, and delivers stable allocation schemes across repeated runs, '
-        'which is essential for the credibility of quantitative investment decisions.'
-    )})
+    ap({'p': st['frontier_discussion']})
     ap({'fig': f'{FIGS}/A_frontier.png',
         'caption': '**Figure 11.** Cardinality-constrained risk-return frontiers obtained by MSSBOA and '
                    'SBOA on the Hang Seng dataset.', 'width_cm': 11.0})

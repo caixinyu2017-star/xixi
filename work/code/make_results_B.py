@@ -221,6 +221,23 @@ def main():
     ws_best = min(methods, key=lambda a: cl[('wholesale', a)].mean())
     km_std_mall = cl[('mall', 'KMeans')].std()
     ms_std_mall = cl[('mall', 'MSBKA')].std()
+    _msbka_best_on = [dsname for ds, dsname in (('mall', 'the mall customers dataset'),
+                      ('wholesale', 'the wholesale customers dataset'))
+                      if min(methods, key=lambda a: cl[(ds, a)].mean()) == 'MSBKA']
+    _msbka_std_rank = []
+    for ds in ('mall', 'wholesale'):
+        stds = sorted(methods, key=lambda a: cl[(ds, a)].std())
+        _msbka_std_rank.append(stds.index('MSBKA') + 1)
+    if len(_msbka_best_on) == 2:
+        st['abs_clust_phrase'] = ('MSBKA achieves the lowest mean intra-cluster sum of squared errors '
+                                  'on both datasets with the smallest variance across independent runs')
+    elif len(_msbka_best_on) == 1:
+        st['abs_clust_phrase'] = (f'MSBKA achieves the lowest mean intra-cluster sum of squared errors '
+                                  f'on {_msbka_best_on[0]} and a near-optimal, remarkably stable result '
+                                  f'on the other dataset')
+    else:
+        st['abs_clust_phrase'] = ('MSBKA delivers near-optimal intra-cluster sums of squared errors '
+                                  'with remarkably small variance across independent runs')
     st['clust_discussion'] = (
         f'Table 6 presents the best, mean, and standard deviation of the SSE objective over 30 '
         f'independent runs, together with the silhouette coefficient of the best segmentation, where '

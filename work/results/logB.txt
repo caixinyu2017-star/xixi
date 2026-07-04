@@ -45,3 +45,6 @@
   3800/4680 done, 57.1 min elapsed, ETA 13.2 min
   4000/4680 done, 59.9 min elapsed, ETA 10.2 min
   4200/4680 done, 63.0 min elapsed, ETA 7.2 min
+  4400/4680 done, 66.4 min elapsed, ETA 4.2 min
+  4600/4680 done, 69.7 min elapsed, ETA 1.2 min
+[cec2022 20D] complete.
