@@ -47,3 +47,5 @@
   7200/9980 done, 110.6 min elapsed, ETA 42.7 min
   7400/9980 done, 113.4 min elapsed, ETA 39.5 min
   7600/9980 done, 116.1 min elapsed, ETA 36.4 min
+  7800/9980 done, 119.1 min elapsed, ETA 33.3 min
+  8000/9980 done, 122.0 min elapsed, ETA 30.2 min
