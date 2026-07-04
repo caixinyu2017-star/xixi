@@ -46,6 +46,9 @@ WSL2 → Ubuntu 24.04 → Claude Science 的安装，并在桌面生成 `ClaudeS
 - **浏览器直接打开 `localhost:8765` 并提示"拒绝连接"**：桌面上的启动器是旧版
   （旧版误判服务已在运行）。请重新下载并运行最新的 `ClaudeScience-Install.bat`，
   它会在桌面重新生成修复后的 `ClaudeScience.bat`。
+- **出现 `Wsl/Service/WSL_E_DISTRO_NOT_FOUND`**：说明 Ubuntu-24.04 尚未安装成功
+  （旧版脚本因 wsl.exe 返回 -1 退出码而漏检了这种失败）。请重新下载并运行最新的
+  `ClaudeScience-Install.bat`，这次它会真正安装 Ubuntu 并引导你创建 Linux 用户。
 - **WSL 安装失败**：多为 Windows 版本过旧（请先更新系统）或 BIOS 未开启虚拟化。
 - **Claude Science 下载失败**：确认当前网络能访问 `claude.ai` 后重试。
 - **登录后提示无法使用**：确认你的 Claude 账号有 Pro / Max / Team / Enterprise 订阅。
