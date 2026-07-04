@@ -56,3 +56,6 @@
   9000/9980 done, 172.8 min elapsed, ETA 18.8 min
   9200/9980 done, 182.3 min elapsed, ETA 15.5 min
   9400/9980 done, 198.2 min elapsed, ETA 12.2 min
+  9600/9980 done, 212.7 min elapsed, ETA 8.4 min
+  9800/9980 done, 221.2 min elapsed, ETA 4.1 min
+[cec2017 30D] complete.

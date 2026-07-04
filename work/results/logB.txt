@@ -1,0 +1,8 @@
+[cec2022 10D] 4680 tasks remaining (0 done)
+  200/4680 done, 0.2 min elapsed, ETA 4.4 min
+  400/4680 done, 0.4 min elapsed, ETA 4.7 min
+  600/4680 done, 0.7 min elapsed, ETA 4.5 min
+  800/4680 done, 1.0 min elapsed, ETA 4.7 min
+  1000/4680 done, 1.4 min elapsed, ETA 5.0 min
+  1200/4680 done, 1.8 min elapsed, ETA 5.3 min
+  1400/4680 done, 2.4 min elapsed, ETA 5.7 min
