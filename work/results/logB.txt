@@ -6,3 +6,10 @@
   1000/4680 done, 1.4 min elapsed, ETA 5.0 min
   1200/4680 done, 1.8 min elapsed, ETA 5.3 min
   1400/4680 done, 2.4 min elapsed, ETA 5.7 min
+  1600/4680 done, 3.0 min elapsed, ETA 5.7 min
+  1800/4680 done, 3.3 min elapsed, ETA 5.2 min
+  2000/4680 done, 3.6 min elapsed, ETA 4.8 min
+  2200/4680 done, 3.9 min elapsed, ETA 4.5 min
+  2400/4680 done, 5.0 min elapsed, ETA 4.8 min
+  2600/4680 done, 7.7 min elapsed, ETA 6.2 min
+  2800/4680 done, 10.6 min elapsed, ETA 7.1 min
