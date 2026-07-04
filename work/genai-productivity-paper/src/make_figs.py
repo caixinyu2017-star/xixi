@@ -54,7 +54,7 @@ ax.tick_params(labelsize=9)
 for s in ("top", "right"):
     ax.spines[s].set_visible(False)
 fig.tight_layout()
-fig.savefig(f"{OUT}/fig1_event_study.png", dpi=300)
+fig.savefig(f"{OUT}/fig_event.png", dpi=300)
 plt.close(fig)
 
 # ---------- 图2：分位数处理效应 ----------
@@ -87,6 +87,6 @@ ax.tick_params(labelsize=9)
 for s in ("top", "right"):
     ax.spines[s].set_visible(False)
 fig.tight_layout()
-fig.savefig(f"{OUT}/fig2_qte.png", dpi=300)
+fig.savefig(f"{OUT}/fig_qte.png", dpi=300)
 plt.close(fig)
 print("figures done")
