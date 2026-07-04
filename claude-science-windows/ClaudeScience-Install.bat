@@ -193,7 +193,7 @@ rem ============================================================
 :::if %errorlevel% neq 0 goto start_server
 :::echo Claude Science 已在后台运行。
 :::set "URL="
-:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -m1 -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+'"`) do set "URL=%%U"
+:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+' | awk -v pat=:%PORT% '/token/{print;t=1;exit} index($0,pat){if(length(p)==0)p=$0} END{if(t==0&&length(p)>0)print p}'"`) do set "URL=%%U"
 :::if defined URL if not "%URL:~0,4%"=="http" set "URL="
 :::if not defined URL set "URL=http://localhost:%PORT%/"
 :::goto openurl
@@ -203,7 +203,7 @@ rem ============================================================
 :::set "URL="
 :::set /a TRIES=0
 ::::waiturl
-:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -m1 -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+'"`) do set "URL=%%U"
+:::for /f "usebackq delims=" %%U in (`wsl.exe -d %DISTRO% -- bash -lc "tr -d '\r' < ~/claude-science-server.log 2>/dev/null | sed -e 's/\x1b\[[0-9;]*m//g' | grep -oE 'https?://localhost[^[:space:]]+|https?://127\.0\.0\.1[^[:space:]]+' | awk -v pat=:%PORT% '/token/{print;t=1;exit} index($0,pat){if(length(p)==0)p=$0} END{if(t==0&&length(p)>0)print p}'"`) do set "URL=%%U"
 :::if defined URL if not "%URL:~0,4%"=="http" set "URL="
 :::if defined URL goto openurl
 :::set /a TRIES+=1

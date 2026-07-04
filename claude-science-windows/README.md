@@ -53,6 +53,9 @@ WSL2 → Ubuntu 24.04 → Claude Science 的安装，并在桌面生成 `ClaudeS
   （旧版脚本只装了 bubblewrap）。重新运行最新的 `ClaudeScience-Install.bat` 即可，
   它现在会安装 bubblewrap + socat 并自检沙箱可用性（参见
   [官方沙箱文档](https://code.claude.com/docs/en/sandboxing)）。
+- **浏览器打开的是 `localhost:8766/mcp_apps` 之类的空白页**：服务日志里会打印多个
+  内部网址，旧版启动器抓了第一个。新版启动器会优先挑选带登录令牌（token）的网址，
+  其次是 8765 主端口的网址。重新生成/替换桌面启动器即可。
 - **WSL 安装失败**：多为 Windows 版本过旧（请先更新系统）或 BIOS 未开启虚拟化。
 - **Claude Science 下载失败**：确认当前网络能访问 `claude.ai` 后重试。
 - **登录后提示无法使用**：确认你的 Claude 账号有 Pro / Max / Team / Enterprise 订阅。
