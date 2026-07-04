@@ -1,2 +1,4 @@
 portfolio done 1455s
 frontier done 1492s
+clustering done 2088s
+kmeans baselines done 2090s

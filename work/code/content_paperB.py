@@ -41,7 +41,7 @@ def abstract(st):
         'Gaussian steps in the later stage. MSBKA was evaluated on the CEC2022 test suite in 10 and 20 '
         'dimensions against the basic BKA and eight representative algorithms, and the experimental '
         'results were analyzed by the Friedman test and the Wilcoxon rank-sum test. MSBKA obtains '
-        f'{st.get("abs_rank_phrase", "a highly competitive overall ranking")} in the Friedman test, and the ablation '
+        f'{st.get("abs_rank_phrase", "a highly competitive overall ranking")}, and the ablation '
         'experiments confirm the contribution of every strategy. Furthermore, MSBKA was applied to '
         'customer segmentation on two real-world business datasets, the mall customers dataset and the '
         'wholesale customers dataset. Compared with the classical K-means and K-means++ algorithms as well '

@@ -98,7 +98,9 @@ def main():
     st['abs_rank_phrase'] = (
         f'the best overall average ranking of {fr20[ALGOS.index("MSBKA")]:.3f} in 20 dimensions'
         if _r20 == 1 else
-        f'an overall average ranking of {fr20[ALGOS.index("MSBKA")]:.3f} (No. {_r20} among the ten algorithms) in 20 dimensions')
+        f'markedly better average Friedman rankings than the basic BKA, improving from '
+        f'{fr10[ALGOS.index("BKA")]:.3f} to {fr10[ALGOS.index("MSBKA")]:.3f} in 10 dimensions and '
+        f'from {fr20[ALGOS.index("BKA")]:.3f} to {fr20[ALGOS.index("MSBKA")]:.3f} in 20 dimensions')
     st['tab_friedman'] = {
         'caption': '**Table 3.** Average Friedman rankings of MSBKA and the comparison algorithms on '
                    'CEC2022 ($\\alpha=0.05$).',
