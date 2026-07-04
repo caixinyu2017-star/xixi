@@ -39,3 +39,7 @@
   2600/4680 done, 20.8 min elapsed, ETA 16.6 min
   2800/4680 done, 30.9 min elapsed, ETA 20.7 min
   3000/4680 done, 43.4 min elapsed, ETA 24.3 min
+  3200/4680 done, 51.3 min elapsed, ETA 23.7 min
+  3400/4680 done, 53.1 min elapsed, ETA 20.0 min
+  3600/4680 done, 55.1 min elapsed, ETA 16.5 min
+  3800/4680 done, 57.1 min elapsed, ETA 13.2 min
