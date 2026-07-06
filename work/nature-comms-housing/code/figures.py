@@ -33,8 +33,8 @@ BLUE="#2166AC"; LBLUE="#5aa0d6"; REDO="#D6604D"; DRED="#B2182B"
 GREEN="#1A9850"; GREY="#8a8a8a"; GOLD="#E8A33D"; NAVY="#1b3a5c"
 TIERCOL={1:BLUE,2:GOLD,3:DRED}
 MM=1/25.4
-def panel_label(ax,s,x=-0.14,y=1.06):
-    ax.text(x,y,s,transform=ax.transAxes,fontsize=9,fontweight="bold",va="bottom",ha="right")
+def panel_label(ax,s,x=-0.14,y=1.06,ha="right"):
+    ax.text(x,y,s,transform=ax.transAxes,fontsize=10,fontweight="bold",va="bottom",ha=ha)
 
 mk=df["markup"].values; lov=df["loss_over_V"].values; uw=df["underwater"].values
 sold=df["sold"].values.astype(bool); tier=df["tier"].values
@@ -112,20 +112,20 @@ gs=fig.add_gridspec(1,2,width_ratios=[1.0,1.25],wspace=0.28)
 ax=fig.add_subplot(gs[0])
 vals=lov*100
 gain_edges=np.arange(-42,0.001,2.5); loss_edges=np.arange(0,52.001,2.5)
-ax.hist(vals,bins=gain_edges,color=BLUE,alpha=0.85,label="Capital gain (above water)")
-ax.hist(vals,bins=loss_edges,color=DRED,alpha=0.85,label="Paper loss (under water)")
+ax.hist(vals,bins=gain_edges,color=BLUE,alpha=0.85,label="Above water (gain)")
+ax.hist(vals,bins=loss_edges,color=DRED,alpha=0.85,label="Under water (loss)")
 ax.axvline(0,color="#222",lw=1.0,ls="--")
-ax.set_xlim(-42,52)
+ax.set_xlim(-42,52); ax.set_ylim(0,52000)
 ax.set_xlabel("Potential gain/loss vs. purchase price (% of current value)")
 ax.set_ylabel("Number of listings")
-ax.legend(loc="upper right",fontsize=6.0)
+ax.legend(loc="upper right",fontsize=6.0,handlelength=1.1,borderpad=0.4)
 ax.annotate(f"{S['share_underwater']}% of would-be\nsellers under water",
-        xy=(18,0.30*ax.get_ylim()[1]),xytext=(20,0.60*ax.get_ylim()[1]),
+        xy=(19,15000),xytext=(21,31000),
         fontsize=6.6,color=DRED,va="top",ha="left",fontweight="bold",
         arrowprops=dict(arrowstyle="->",color=DRED,lw=0.8))
-ax.set_title("Distribution of homeowners' paper gains and losses")
+ax.set_title("Homeowners' paper gains and losses",pad=10)
 ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda x,_:f"{x/1000:.0f}k"))
-panel_label(ax,"a")
+panel_label(ax,"a",x=-0.02,y=1.05,ha="right")
 # by city horizontal bars
 ax=fig.add_subplot(gs[1])
 cc=CT.sort_values("share_uw")
@@ -137,8 +137,8 @@ ax.set_xlim(0,68); ax.set_ylim(-0.6,len(cc)-0.4)
 from matplotlib.patches import Patch
 ax.legend(handles=[Patch(color=TIERCOL[1],label="Tier 1"),Patch(color=TIERCOL[2],label="Tier 2"),
                    Patch(color=TIERCOL[3],label="Tier 3")],loc="lower right")
-ax.set_title("Under-water share across 40 major cities")
-panel_label(ax,"b",x=-0.28)
+ax.set_title("Under-water share by city",pad=10)
+panel_label(ax,"b",x=-0.02,y=1.05,ha="right")
 fig.savefig(os.path.join(FIG,"fig2.png")); plt.close(fig)
 print("fig2 done")
 
@@ -187,8 +187,11 @@ ax.set_xlabel("Listing price / original purchase price")
 ax.set_ylabel("Number of listings")
 ax.set_title("Bunching at the nominal purchase price")
 ax.legend(loc="upper right",fontsize=6.0)
-ax.text(0.03,0.78,f"{S['share_listed_at_purchase_uw']}% of under-water\nsellers list within\n±1.5% of purchase\nprice (bunching\nratio {S['bunching_ratio']:.1f}×)",
-        transform=ax.transAxes,va="top",fontsize=6.0,color=DRED)
+_spk=h[excl].max()
+ax.annotate(f"{S['share_listed_at_purchase_uw']}% list within ±1.5%\nof the purchase price\n({S['bunching_ratio']:.1f}× bunching)",
+        xy=(1.0,_spk*0.98), xytext=(0.805,_spk*0.58), textcoords="data",
+        va="center",ha="left",fontsize=6.0,color=DRED,
+        arrowprops=dict(arrowstyle="->",color=DRED,lw=0.9,connectionstyle="arc3,rad=0.25"))
 panel_label(ax,"b")
 fig.tight_layout(w_pad=2.5)
 fig.savefig(os.path.join(FIG,"fig3.png")); plt.close(fig)
@@ -205,8 +208,8 @@ g=pd.DataFrame({"d":dm,"sold":sold,"mk":mk}).groupby("d").agg(sold=("sold","mean
 ax.plot(g["mk"]*100,g["sold"]*100,marker="o",ms=3.5,color=BLUE,lw=1.4)
 ax.set_xlabel("Listing markup over value (%)"); ax.set_ylabel("12-month sale probability (%)")
 ax.set_title("Higher asks, fewer sales")
-ax.text(0.95,0.9,f"+10 pp markup\n→ −{S['sale_prob_drop_10pp_markup_pp']} pp sale prob.",transform=ax.transAxes,
-        ha="right",va="top",fontsize=6.0,color=DRED)
+ax.text(0.96,0.94,f"A 10 pp higher markup lowers the\n12-month sale probability by {S['sale_prob_drop_10pp_markup_pp']} pp",
+        transform=ax.transAxes,ha="right",va="top",fontsize=5.8,color=DRED)
 panel_label(ax,"a")
 # (b) sale rate + TOM by loss decile
 ax=axs[1]
@@ -254,12 +257,13 @@ x=np.arange(2); wd=0.36
 ax.bar(x-wd/2,act,wd,color=DRED,label="Actual (with loss aversion)")
 ax.bar(x+wd/2,cf,wd,color=GREEN,label="No reference dependence")
 ax.set_xticks(x); ax.set_xticklabels(grp); ax.set_ylabel("12-month sale probability (%)")
-ax.set_ylim(0,60)
+ax.set_ylim(0,72)
 for xi,(a,c) in enumerate(zip(act,cf)):
     ax.text(xi-wd/2,a+1,f"{a:.0f}",ha="center",fontsize=6)
     ax.text(xi+wd/2,c+1,f"{c:.0f}",ha="center",fontsize=6)
-ax.legend(loc="upper left",fontsize=5.8)
-ax.set_title("Counterfactual liquidity")
+ax.legend(loc="upper center",bbox_to_anchor=(0.5,1.02),ncol=1,fontsize=5.6,
+          handlelength=1.1,borderpad=0.3,labelspacing=0.3)
+ax.set_title("Counterfactual liquidity",pad=10)
 panel_label(ax,"a")
 # (b) reference-price gap
 ax=axs[1]
