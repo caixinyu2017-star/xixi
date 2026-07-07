@@ -59,8 +59,14 @@ def parse_runs(text):
 
 
 def char_section(size_in, color):
-    """Character formatting: Microsoft YaHei, bold. Row 0 normal, row 1 subscript."""
-    sub = round(size_in * 0.62, 5)
+    """Character formatting: Microsoft YaHei, bold. Row 0 normal, row 1 subscript.
+
+    The subscript row keeps the *base* Size and relies on Pos=2 to shrink+lower the
+    glyphs, exactly as Visio authors subscripts. Setting a separately reduced Size
+    would compound with Visio's automatic ~60% super/subscript scaling and render
+    the subscript far too small.
+    """
+    sub = size_in
     return (
         '<Section N="Character">'
         f'<Row IX="0">'
