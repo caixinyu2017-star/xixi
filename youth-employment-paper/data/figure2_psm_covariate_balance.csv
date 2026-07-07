@@ -1,0 +1,12 @@
+covariate,std_mean_diff_unmatched,std_mean_diff_matched
+Age,0.28,0.04
+Size,-0.31,-0.05
+Lev,-0.19,-0.03
+RoA,0.17,0.02
+Cash,-0.12,-0.02
+Growth,0.14,0.03
+Top10,0.09,0.01
+Board,-0.11,-0.02
+Separation,0.06,0.01
+SOE,-0.24,-0.03
+lngdp,0.21,0.02

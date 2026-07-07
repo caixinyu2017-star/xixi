@@ -1,0 +1,10 @@
+Variables,(1) / First Stage L.AI,(2) / Second Stage YEMP,(3) / First Stage L.AI,(4) / Second Stage YEMP
+IV1 (peer AI),0.412 *** (0.061),,,
+IV2 (infrastructure),,,0.267 *** (0.048),
+L.AI (fitted),,0.0231 *** (0.0074),,0.0258 *** (0.0089)
+Controls,Yes,Yes,Yes,Yes
+Firm FE,Yes,Yes,Yes,Yes
+Year FE,Yes,Yes,Yes,Yes
+Observations,"28,974","28,974","28,974","28,974"
+First-stage F,45.63,,31.09,
+R-squared,0.287,0.079,0.241,0.072

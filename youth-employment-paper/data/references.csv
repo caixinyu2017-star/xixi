@@ -1,0 +1,58 @@
+ref_no,authors,title,journal_abbrev,year,volume,issue,pages,doi
+1,"Ogbonna, A.E.; Adediran, I.A.; Oloko, T.F.; Isah, K.O.",Information and Communication Technology (ICT) and youth unemployment in Africa,Qual. Quant.,2023,57,6,5055–5077,10.1007/s11135-022-01600-9
+2,"Azu, N.P.; Jelivov, G.; Aras, O.N.; Işik, A.",Influence of digital economy on youth unemployment in West Africa,Transnatl. Corp. Rev.,2021,13,1,32–42,10.1080/19186444.2020.1849936
+3,"Başol, O.; Sevgi, H.; Yalçın, E.C.",The Effect of Digitalization on Youth Unemployment for EU Countries: Treat or Threat?,Sustainability,2023,15,14,11080,10.3390/su151411080
+4,"Acemoglu, D.; Restrepo, P.",Automation and New Tasks: How Technology Displaces and Reinstates Labor,J. Econ. Perspect.,2019,33,2,3–30,10.1257/jep.33.2.3
+5,"Acemoglu, D.; Restrepo, P.","Tasks, Automation, and the Rise in U.S. Wage Inequality",Econometrica,2022,90,5,1973–2016,10.3982/ECTA19815
+6,"Huo, Q.; Ruan, J.; Cui, Y.","""Machine replacement"" or ""job creation"": How does artificial intelligence impact employment patterns in China's manufacturing industry?",Front. Artif. Intell.,2024,7,,1337264,10.3389/frai.2024.1337264
+7,"Lábaj, M.; Oleš, T.; Procházka, G.",Impact of Robots and Artificial Intelligence on Labor and Skill Demand: Evidence from the UK,Eurasian Bus. Rev.,2025,15,4,953–1001,10.1007/s40821-025-00314-w
+8,"Frey, C.B.; Osborne, M.A.",The future of employment: How susceptible are jobs to computerisation?,Technol. Forecast. Soc. Change,2017,114,,254–280,10.1016/j.techfore.2016.08.019
+9,"Rammer, C.; Fernández, G.P.; Czarnitzki, D.",Artificial intelligence and industrial innovation: Evidence from German firm-level data,Res. Policy,2022,51,,104555,10.1016/j.respol.2022.104555
+10,"Xie, M.; Ding, L.; Xia, Y.; Guo, J.; Pan, J.; Wang, H.",Does artificial intelligence affect the pattern of skill demand? Evidence from Chinese manufacturing firms,Econ. Model.,2021,96,,295–309,10.1016/j.econmod.2021.01.009
+11,"Wu, Y.; Lin, Z.; Zhang, Q.; Wang, W.","Artificial intelligence, wage dynamics, and inequality: Empirical evidence from Chinese listed firms",Int. Rev. Econ. Financ.,2024,96,PC,103739,10.1016/j.iref.2024.103739
+12,"Manny, L.; Angst, M.; Rieckermann, J.; Fischer, M.","Socio-technical networks of infrastructure management: Network concepts and motifs for studying digitalization, decentralization, and integrated management",J. Environ. Manag.,2022,318,,115596,10.1016/j.jenvman.2022.115596
+13,"Heininger, R.; Jost, T.E.; Stary, C.",Enriching socio-technical sustainability intelligence through sharing autonomy,Sustainability,2023,15,,2590,10.3390/su15032590
+14,"Makarius, E.E.; Mukherjee, D.; Fox, J.D.; Fox, A.K.",Rising with the machines: A sociotechnical framework for bringing artificial intelligence into the organization,J. Bus. Res.,2020,120,,262–273,10.1016/j.jbusres.2020.07.045
+15,"Ang, K.C.S.; Sankaran, S.; Liu, D.",Advancing sociotechnical systems theory: New principles for human-robot team design and development,Appl. Ergon.,2025,129,,104604,10.1016/j.apergo.2025.104604
+16,"Kudina, O.; van de Poel, I.",A sociotechnical system perspective on AI,Minds Mach.,2024,34,,21,10.1007/s11023-024-09680-2
+17,"Iden, J.; Bygstad, B.",Sociotechnical micro-foundations for digital transformation,Eur. J. Inf. Syst.,2025,34,2,367–382,10.1080/0960085X.2024.2347950
+18,"Jia, S.; Ma, C.; Chi, O.H.; Fan, A.",A socio-technical exploration of bias in generative AI travel planners,Tour. Manag.,2026,116,,105442,10.1016/j.tourman.2025.105442
+19,"Liang, F.; Liu, Y.",Sustainable youth employment quality management: The impact of robotization in China,PLoS ONE,2024,19,4,e0298081,10.1371/journal.pone.0298081
+20,"Xiong, B.; Yu, B.",The Impact of Internet Development on Youth's Job Quality in the Digital Economy Era: Transmission Mechanism and Empirical Test,Soc. Indic. Res.,2024,175,1,269–294,10.1007/s11205-024-03439-z
+21,"Anser, M.K.; Adebayo, T.S.",AI-driven renaissance: Revolutionizing technology through industrial artificial intelligence in European economies,Technol. Soc.,2025,84,,103129,10.1016/j.techsoc.2025.103129
+22,"Xu, G.; Qiu, Y.; Qi, J.",Artificial intelligence and labor demand: An empirical analysis of Chinese small and micro enterprises,Heliyon,2024,10,13,e33893,10.1016/j.heliyon.2024.e33893
+23,"Acemoglu, D.; Restrepo, P.",Robots and Jobs: Evidence from US Labor Markets,J. Polit. Econ.,2020,128,6,2188–2244,10.1086/705716
+24,"Deng, L.; Müller, S.; Plümpe, V.; Stegmaier, J.","Robots, Occupations, and Worker Age: A Production-Unit Analysis of Employment",Eur. Econ. Rev.,2024,170,,104881,10.1016/j.euroecorev.2024.104881
+25,"Adachi, D.; Kawaguchi, D.; Saito, Y.U.","Robots and Employment: Evidence from Japan, 1978-2017",J. Labor Econ.,2024,42,2,591–634,10.1086/723205
+26,"de Klerk, S.; Buick, F.; Ranasinghe, G.",Unlocking the power of youth: harnessing technology to break through market barriers,J. Innov. Entrep.,2025,14,1,79,10.1186/s13731-025-00531-7
+27,"Ancillai, C.; Sabatini, A.; Gatti, M.; Perna, A.",Digital technology and business model innovation: A systematic literature review and future research agenda,Technol. Forecast. Soc. Change,2023,188,,122307,10.1016/j.techfore.2022.122307
+28,"Teoh, M.F.; Ahmad, N.H.; Abdul-Halim, H.; Kan, W.H.",Digital business model innovation among small and medium-sized enterprises (SMEs),Glob. Bus. Organ. Excell.,2023,42,6,5–18,10.1002/joe.22200
+29,"van Tonder, C.; Bossink, B.; Schachtebeck, C.; Nieuwenhuizen, C.",The effect of digitally-driven business model innovation on business performance,J. Small Bus. Entrep.,2024,36,6,944–977,10.1080/08276331.2023.2239039
+30,"Wang, T.; Zhang, Y.; Liu, C.",Robot adoption and employment adjustment: Firm-level evidence from China,China Econ. Rev.,2024,84,,102137,10.1016/j.chieco.2024.102137
+31,"Liang, H.; Fan, J.; Wang, Y.","Artificial Intelligence, Technological Innovation, and Employment Transformation for Sustainable Development: Evidence from China",Sustainability,2025,17,9,3842,10.3390/su17093842
+32,"Zhu, G.; Nie, A.",How industrial robots affect employment: firm-level evidence from China,J. Asia Pac. Econ.,2026,31,1,31–61,10.1080/13547860.2024.2403399
+33,"Liu, J.; Chang, H.; Forrest, J.Y.L.; Yang, B.",Influence of artificial intelligence on technological innovation: Evidence from the panel data of China’s manufacturing sectors,Technol. Forecast. Soc. Change,2020,158,,120142,10.1016/j.techfore.2020.120142
+34,"Teece, D.J.",Explicating dynamic capabilities: The nature and microfoundations of (sustainable) enterprise performance,Strateg. Manag. J.,2007,28,,1319–1350,10.1002/smj.640
+35,"Trigeorgis, L.; Reuer, J.J.",Real options theory in strategic management,Strateg. Manag. J.,2017,38,,42–63,10.1002/smj.2593
+36,"Coffay, M.; Tveteras, R.; Bocken, N.; Bogers, M.L.A.M.","Sustainable business model innovation, dynamic capabilities, and organizational design: Insights from Norwegian aquaculture",Bus. Strategy Environ.,2024,33,6,5386–5404,10.1002/bse.3762
+37,"Jorzik, P.; Klein, S.P.; Kanbach, D.K.; Kraus, S.",AI-driven business model innovation: A systematic review and research agenda,J. Bus. Res.,2024,182,,114764,10.1016/j.jbusres.2024.114764
+38,"Åström, J.; Reim, W.; Parida, V.",Value creation and value capture for AI business model innovation: a three-phase process framework,Rev. Manag. Sci.,2022,16,7,2111–2133,10.1007/s11846-022-00521-z
+39,"Teng, D.; Ye, C.; Martinez, V.",Gen-AI's effects on new value propositions in business model innovation: Evidence from information technology industry,Technovation,2025,143,,103191,10.1016/j.technovation.2025.103191
+40,"Bejjani, M.; Göcke, L.; Menter, M.",Digital entrepreneurial ecosystems: A systematic literature review,Technol. Forecast. Soc. Change,2023,189,,122372,10.1016/j.techfore.2023.122372
+41,"Paul, J.; Alhassan, I.; Binsaif, N.; Singh, P.",Digital entrepreneurship research: A systematic review,J. Bus. Res.,2023,156,,113507,10.1016/j.jbusres.2022.113507
+42,"Nguyen, P.N.-D.; Nguyen, H.H.",Unveiling the link between digital entrepreneurship education and intention among university students in an emerging economy,Technol. Forecast. Soc. Change,2024,203,,123330,10.1016/j.techfore.2024.123330
+43,"Milone, F.L.; Paolucci, E.; Raguseo, E.",Do digital platforms create entrepreneurial opportunities? Evidence from marginal areas,Strateg. Entrep. J.,2025,,,1–34,10.1002/sej.1542
+44,"Tushman, M.L.; Nadler, D.A.",Information processing as an integrating concept in organizational design,Acad. Manag. Rev.,1978,3,,613–624,10.5465/amr.1978.4305791
+45,"Yang, X.; Wang, C.; Liu, B.",ESG performance and corporate labor investment efficiency: Evidence from China,Int. Rev. Econ. Finance,2025,98,,103910,10.1016/j.iref.2025.103910
+46,"Shen, L.; Li, Z.; Liang, Y.; Feng, Y.; Zhang, Z.",Artificial intelligence adoption and corporate ESG performance: Evidence from a refined large language model,Front. Artif. Intell.,2025,8,,1691468,10.3389/frai.2025.1691468
+47,"Gregori, P.; Holzmann, P.; Audretsch, D.B.",Sustainable entrepreneurship on digital platforms and the enactment of digital connectivity through business models,Bus. Strategy Environ.,2024,33,2,1173–1190,10.1002/bse.3551
+48,"Chaudhary, S.; Kaur, P.; Alofaysan, H.; Halberstadt, J.; Dhir, A.",Connecting the dots? Entrepreneurial ecosystems and sustainable entrepreneurship as pathways to sustainability,Bus. Strategy Environ.,2023,32,8,5935–5951,10.1002/bse.3466
+49,"Allal-Chérif, O.; Costa Climent, J.; Berenguer, K.J.U.","Born to be sustainable: How to combine strategic disruption, open innovation, and process digitization to create a sustainable business",J. Bus. Res.,2023,154,,113379,10.1016/j.jbusres.2022.113379
+50,"Chistov, V.; Aramburu, N.; Fabra Florit, M.E.; Peña-Legazkue, I.; Weritz, P.",Sustainability orientation and firm growth as ventures mature,Bus. Strategy Environ.,2023,32,8,5314–5331,10.1002/bse.3418
+51,"Huang, Y.; Liu, S.; Gan, J.; Liu, B.; Wu, Y.",How does the construction of new generation of national AI innovative development pilot zones drive enterprise ESG development? Empirical evidence from China,Energy Econ.,2024,140,,108011,10.1016/j.eneco.2024.108011
+52,"Omol, E.J.",Organizational digital transformation: from evolution to future trends,Digit. Transform. Soc.,2024,3,3,240–256,10.1108/DTS-08-2023-0061
+53,"Lu, R.; Peng, X.; Reve, T.","Firms’ digital transformation, competitive strategies, and innovation: Evidence from Chinese listed companies",J. Manag. Organ.,2025,31,,575–601,10.1017/jmo.2023.34
+54,"Fang, L.; Li, Z.",Corporate digitalization and green innovation: Evidence from textual analysis of firm annual reports and corporate green patent data in China,Bus. Strategy Environ.,2024,33,,3936–3964,10.1002/bse.3691
+55,"Baker, S.R.; Bloom, N.; Davis, S.J.",Measuring economic policy uncertainty,Q. J. Econ.,2016,131,,1593–1636,10.1093/qje/qjw024
+56,"Wellman, L.A.",Mitigating political uncertainty,Rev. Account. Stud.,2017,22,,217–250,10.1007/s11142-016-9385-8
+57,"Goldsmith-Pinkham, P.; Sorkin, I.; Swift, H.","Bartik instruments: What, when, why, and how",Am. Econ. Rev.,2020,110,,2586–2624,10.1257/aer.20181047
