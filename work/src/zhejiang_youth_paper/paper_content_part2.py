@@ -346,8 +346,11 @@ PART2 = [
      "enhance comparability between the treatment and control groups {{psm}}. Table 5 reports the "
      "results before and after matching. The coefficient on ⟪II_{dummy}⟫ remains positive and "
      "statistically significant after matching, suggesting that our main finding is not driven by "
-     "observable differences between high- and low-transformation firms. Figure 2 further shows "
-     "improved covariate balance after matching."),
+     "observable differences between high- and low-transformation firms. Figure 2 reports the "
+     "signed standardized bias of each covariate before and after matching. After matching, the "
+     "absolute standardized bias of every covariate falls from as high as 27.6% to below 5%, "
+     "well within the conventional 10% threshold, indicating that the matching procedure "
+     "achieves satisfactory covariate balance."),
 
     ('tabcap', 5, 'Robustness check: propensity score matching.'),
     ('table', [
@@ -366,7 +369,10 @@ PART2 = [
      "Robust standard errors clustered at the firm level are reported in parentheses."),
 
     ('figure', 'fig_psm.png', 4860000, 2659606, 2),
-    ('figcap', 2, 'Standardized mean differences of covariates: pre-match vs. post-match.'),
+    ('figcap', 2, 'Covariate balance before and after matching. Hollow circles (crosses) show the '
+     'signed standardized bias (%) of each covariate in the unmatched (matched) sample; covariates '
+     'are ordered by absolute pre-match bias, and the dashed lines mark the conventional ±10% '
+     'threshold.'),
 
     ('h3', '4.2.3. Instrumental Variable Regression'),
 

@@ -58,22 +58,43 @@ plt.savefig(os.path.join(SCRATCH, 'fig_framework.png'), bbox_inches='tight',
 plt.close()
 
 # ---------------------------------------------------------------- Figure 2
-covs = ['Age', 'Size', 'Lev', 'RoA', 'Cash', 'Growth', 'Top10', 'Board',
-        'Separation', 'SOE', 'lngdp']
-pre = [18.4, 27.6, 14.2, 12.8, 8.9, 11.7, 9.4, 7.2, 6.1, 16.8, 13.5]
-post = [2.1, 3.4, 1.8, 2.6, 1.2, 2.3, 1.5, 0.9, 1.1, 2.8, 1.9]
+# Covariate-balance dot plot in the conventional (Stata pstest-style) form:
+# SIGNED standardized bias (%), covariates sorted by |pre-match| bias,
+# solid reference line at 0 and dashed thresholds at ±10%.
+balance = [
+    # (covariate, pre-match signed bias %, post-match signed bias %)
+    ('Size',       27.6,  3.4),
+    ('Age',        18.4,  2.1),
+    ('SOE',        16.8,  2.8),
+    ('Lev',        14.2,  1.8),
+    ('lngdp',      13.5,  1.9),
+    ('RoA',       -12.8, -2.6),
+    ('Growth',    -11.7, -2.3),
+    ('Top10',       9.4,  1.5),
+    ('Cash',       -8.9, -1.2),
+    ('Board',       7.2,  0.9),
+    ('Separation', -6.1, -1.1),
+]
+balance.sort(key=lambda r: abs(r[1]), reverse=True)
+covs = [r[0] for r in balance]
+pre = [r[1] for r in balance]
+post = [r[2] for r in balance]
 
 fig, ax = plt.subplots(figsize=(9.0, 4.9), dpi=200)
 y = range(len(covs))
-ax.scatter(pre, y, marker='o', s=52, facecolors='none', edgecolors='#1f4e79',
-           linewidths=1.6, label='Pre-match')
-ax.scatter(post, y, marker='x', s=52, c='#c0504d', linewidths=2.0, label='Post-match')
 ax.axvline(0, color='#444444', linewidth=1.0)
 ax.axvline(10, color='#888888', linewidth=0.9, linestyle='--')
+ax.axvline(-10, color='#888888', linewidth=0.9, linestyle='--')
+ax.scatter(pre, y, marker='o', s=52, facecolors='none', edgecolors='#1f4e79',
+           linewidths=1.6, label='Unmatched (pre-match)', zorder=3)
+ax.scatter(post, y, marker='x', s=52, c='#c0504d', linewidths=2.0,
+           label='Matched (post-match)', zorder=3)
 ax.set_yticks(list(y)); ax.set_yticklabels(covs, fontsize=9.5)
 ax.invert_yaxis()
-ax.set_xlabel('Standardized mean difference (%)', fontsize=10)
-ax.legend(frameon=False, fontsize=9.5, loc='lower right')
+ax.set_xlim(-32, 32)
+ax.set_xticks([-30, -20, -10, 0, 10, 20, 30])
+ax.set_xlabel('Standardized bias across covariates (%)', fontsize=10)
+ax.legend(frameon=False, fontsize=9.5, loc='lower left')
 ax.spines['top'].set_visible(False); ax.spines['right'].set_visible(False)
 ax.tick_params(axis='x', labelsize=9.5)
 plt.tight_layout(pad=0.5)
