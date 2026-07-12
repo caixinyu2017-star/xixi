@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of six skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, and cyber-ppt.",
-    "version": "1.1.0"
+    "description": "A bundled Claude Code marketplace of seven skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, cyber-ppt, and dashiai-ppt.",
+    "version": "1.2.0"
   },
   "plugins": [
     {
@@ -50,6 +50,13 @@
       "description": "CyberPPT — evidence-based, editable consulting-style PPT generation (1 skill): a three-stage pipeline (MBB evidence analysis + SCR storyline → 8 fixed visual styles + per-page ImageGen blueprints → hybrid high-fidelity editable PPTX) with render-based QA gates, an 11k+ SVG icon library, and PPTX validation scripts.",
       "version": "1.0.0",
       "license": "MIT"
+    },
+    {
+      "name": "dashiai-ppt",
+      "source": "./plugins/dashiai-ppt",
+      "description": "DashiAI PPT — theme-based presentation generation (1 skill): turns natural-language requirements into a JSON plan, then renders an offline, browser-editable HTML deck from preset visual themes via a bundled local generator (React + pptxgenjs), with PPTX / PDF export.",
+      "version": "0.2.5",
+      "license": "AGPL-3.0"
     }
   ]
 }
