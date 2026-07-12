@@ -1,0 +1,20 @@
+{
+  "name": "codex-visio-paper-figure",
+  "version": "1.0.0",
+  "description": "Codex 科研论文绘图 Skill (visio-image-rebuilder) — rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files. Recreates paper figures, model/framework diagrams, and multi-panel scientific figures as native Visio shapes, text, connectors, and groups instead of embedding a flat reference image. Ships rebuild guidelines and PowerShell/COM Visio automation scaffolds for Windows.",
+  "author": {
+    "name": "Codex 科研论文绘图 Skill"
+  },
+  "homepage": "https://github.com/caixinyu2017-star/xixi",
+  "license": "See skill README",
+  "keywords": [
+    "visio",
+    "vsdx",
+    "paper-figures",
+    "image-rebuild",
+    "scientific-figures",
+    "diagrams",
+    "powershell",
+    "codex-skill"
+  ]
+}
