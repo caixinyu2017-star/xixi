@@ -1,16 +1,18 @@
 # xixi — 科研 Skills 集合 / Research Skills Marketplace
 
-本仓库把 **5 套科研类 Claude Code Skill 包** 打包成一个本地 **plugin marketplace（插件市场）**，
-安装后即可在 Claude Code 中按需启用。每套包都保留了作者原始的目录结构与相对路径引用，
-因此知识库、脚本、模板、`_shared`/`shared`/`databases` 等内部资源都能正确加载。
+本仓库把 **6 套 Claude Code Skill 包**（5 套科研类 + 1 套 PPT 制作）打包成一个本地
+**plugin marketplace（插件市场）**，安装后即可在 Claude Code 中按需启用。每套包都保留了
+作者原始的目录结构与相对路径引用，因此知识库、脚本、模板、`_shared`/`shared`/`databases`
+等内部资源都能正确加载。
 
-This repo bundles **five academic-research skill packages** into a single local **Claude Code plugin
-marketplace**. Each package keeps its original directory layout and relative-path references intact, so
-its knowledge bases, scripts, templates and shared folders all resolve correctly once installed.
+This repo bundles **six skill packages** (five academic-research packs plus one PPT-production pack)
+into a single local **Claude Code plugin marketplace**. Each package keeps its original directory
+layout and relative-path references intact, so its knowledge bases, scripts, templates and shared
+folders all resolve correctly once installed.
 
 ---
 
-## 📦 包含的 5 个插件 / The 5 plugins
+## 📦 包含的 6 个插件 / The 6 plugins
 
 | 插件 / Plugin | 技能数 / Skills | 说明 / What it does |
 | --- | --- | --- |
@@ -19,8 +21,9 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 | **nature-skills** | 12 | Nature 风格科研技能：学术检索、引用、数据、图表、论文转专利、论文转 PPT、润色、阅读/翻译、审稿回复、同行评审、科研写作，外加 OpenClaw 医学模块。 |
 | **econ-top-journal-writing** | 5 | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | 1 | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
+| **cyber-ppt** | 1 | CyberPPT：把 DOCX/PDF/TXT/XLSX、研究报告或原始数据转成高密度、可编辑、咨询风格 PPTX。三阶段流水线（MBB 证据分析 + SCR 论证 → 8 种固定视觉风格样张 + 逐页 ImageGen 蓝图 → 混合还原 PPTX），内置渲染质检门、11k+ SVG 图标库与 PPTX 验证脚本。 |
 
-合计 **50 个 skill**。
+合计 **51 个 skill**。
 
 ---
 
@@ -43,6 +46,7 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 /plugin install nature-skills@xixi-research-skills
 /plugin install econ-top-journal-writing@xixi-research-skills
 /plugin install writing-ai-paper@xixi-research-skills
+/plugin install cyber-ppt@xixi-research-skills
 ```
 
 也可以直接运行 `/plugin` 打开交互式菜单，浏览并勾选要安装的插件。
@@ -66,16 +70,27 @@ Some packages ship their own installer (e.g. `plugins/light/install.sh` symlinks
 
 ```text
 xixi/
+├── .claude/
+│   └── skills/
+│       └── cyber-ppt -> ../../plugins/cyber-ppt/skills/cyber-ppt  # 项目级技能，本仓库会话自动加载
 ├── .claude-plugin/
-│   └── marketplace.json          # 列出全部 5 个插件 / lists all 5 plugins
+│   └── marketplace.json          # 列出全部 6 个插件 / lists all 6 plugins
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
 │   ├── academic-research-skills/ # 4 skills (+ shared/, agents/, hooks/, modes)
 │   ├── nature-skills/            # 12 skills (+ skills/_shared/)
 │   ├── econ-top-journal-writing/ # 5 skills
-│   └── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
+│   ├── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
+│   └── cyber-ppt/                # 1 skill (+ references/, scripts/, assets/icons 11k+ SVG)
 └── README.md
 ```
+
+> 说明：`cyber-ppt` 同时通过 `.claude/skills/` 符号链接注册为**项目级技能**——在本仓库目录中启动的
+> Claude Code 会话无需安装插件即可自动发现并按需触发它（Windows 下如符号链接不可用，请改用方式 A 安装插件）。
+>
+> Note: `cyber-ppt` is also registered as a **project-level skill** via a symlink under `.claude/skills/`,
+> so Claude Code sessions started inside this repo auto-discover and auto-trigger it without installing
+> the plugin (on Windows, if symlinks are unavailable, use method A instead).
 
 每个插件目录都含有 `.claude-plugin/plugin.json` 与 `skills/`。其中 `light` 与
 `academic-research-skills` 由作者自带插件清单；`nature-skills`、`econ-top-journal-writing`
@@ -92,5 +107,6 @@ xixi/
 - **nature-skills** — Apache-2.0（袁一哲 / nature-skills community）
 - **econ-top-journal-writing** — 分层许可，见插件内 `LICENSE`
 - **writing-ai-paper** — 见 https://github.com/hzwer/WritingAIPaper（hzwer、DingXiaoH）
+- **cyber-ppt** — MIT（CyberPPT contributors）
 
 请在使用时遵循各自许可（尤其 academic-research-skills 为非商业 CC-BY-NC-4.0）。

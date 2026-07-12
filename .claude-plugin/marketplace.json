@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of five academic-research skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, and writing-ai-paper.",
-    "version": "1.0.0"
+    "description": "A bundled Claude Code marketplace of six skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, and cyber-ppt.",
+    "version": "1.1.0"
   },
   "plugins": [
     {
@@ -43,6 +43,13 @@
       "description": "Writing AI Conference Papers — the beginner's handbook by hzwer and DingXiaoH, packaged as an invocable skill for planning, drafting, and revising NeurIPS/ICML/ICLR/CVPR-style papers.",
       "version": "1.0.0",
       "license": "See plugin"
+    },
+    {
+      "name": "cyber-ppt",
+      "source": "./plugins/cyber-ppt",
+      "description": "CyberPPT — evidence-based, editable consulting-style PPT generation (1 skill): a three-stage pipeline (MBB evidence analysis + SCR storyline → 8 fixed visual styles + per-page ImageGen blueprints → hybrid high-fidelity editable PPTX) with render-based QA gates, an 11k+ SVG icon library, and PPTX validation scripts.",
+      "version": "1.0.0",
+      "license": "MIT"
     }
   ]
 }
