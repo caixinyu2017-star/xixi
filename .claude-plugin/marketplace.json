@@ -5,7 +5,7 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of academic-research and scientific-figure skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, codex-visio-paper-figure, and frontend-slides.",
+    "description": "A bundled Claude Code marketplace of academic-research and scientific-figure skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, and frontend-slides.",
     "version": "1.1.0"
   },
   "plugins": [
@@ -52,10 +52,10 @@
       "license": "MIT"
     },
     {
-      "name": "codex-visio-paper-figure",
-      "source": "./plugins/codex-visio-paper-figure",
-      "description": "Codex 科研论文绘图 Skill (1 skill: visio-image-rebuilder) — rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files, recreating paper figures as native shapes/text/connectors instead of embedding a flat image. Ships rebuild guidelines and Visio PowerShell/COM automation scaffolds.",
-      "version": "1.0.0",
+      "name": "visio-image-rebuilder",
+      "source": "./plugins/visio-image-rebuilder",
+      "description": "Visio 图重建 Skill (1 skill: visio-image-rebuilder) — rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files, then export .vsdx/PNG/SVG/PDF/PPTX. Recreates paper figures as native shapes/text/connectors instead of embedding a flat image, with panel calibration and a default Chinese technical-bid flowchart mode (SimSun 12pt, fixed page box, VSDX-only batch output). Ships rebuild guidelines and Visio PowerShell/COM automation scaffolds.",
+      "version": "1.1.0",
       "license": "See plugin README"
     },
     {
