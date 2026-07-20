@@ -1,0 +1,19 @@
+Variable,Definition
+YEMP,Youth employment. Share of employees aged 30 years and below in total employees.
+AI,Firm AI adoption. Natural logarithm of one plus the frequency of AI-related keywords in the annual report.
+BMI,"Business model innovation. Length-adjusted frequency of business-model-innovation terms in the annual report, min–max normalized to [0, 1]."
+SKILL,Firm skill structure. Share of employees holding a bachelor’s degree or above.
+DEO,"Digital entrepreneurial orientation. Length-adjusted frequency of entrepreneurial-orientation and digital terms, min–max normalized to [0, 1]."
+ESG,Sustainability performance. Huazheng (SinoSecurities) ESG rating converted to a 1–9 numerical scale.
+GOV,"Public AI and digital-economy governance. Dummy equal to 1 if the firm’s city is a national big-data or AI innovation pilot zone, and 0 otherwise."
+Age,Firm age. Natural logarithm of the current year minus the year of incorporation plus one.
+Size,Firm size. Natural logarithm of total assets at year-end.
+Lev,Leverage. Total liabilities divided by total assets.
+RoA,Return on assets. Net profit divided by total assets.
+Cash,Net cash flow from operating activities divided by total assets.
+Growth,Sales growth. Growth rate of operating revenue.
+Top10,Ownership concentration. Shares held by the top ten shareholders divided by total shares.
+Board,Board size. Natural logarithm of the number of board directors.
+Separation,"CEO–chair separation. Dummy equal to 1 if the CEO and board chair are different persons, and 0 otherwise."
+SOE,"State ownership. Dummy equal to 1 if the firm is state-owned, and 0 otherwise."
+lngdp,Natural logarithm of the GDP of the city where the firm is registered.

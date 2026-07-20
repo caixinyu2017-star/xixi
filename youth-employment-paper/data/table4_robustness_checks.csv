@@ -1,0 +1,9 @@
+Variables,(1) / Alt. DV (YEMP_2),(2) / Alt. IV (AI patents),(3) / Excl. 2020,(4) / Excl. municip.,(5) / Manuf. only,(6) / Two-way cluster,(7) / Prov.×Year FE
+L.AI,0.0173 *** (0.0047),0.0091 *** (0.0028),0.0151 *** (0.0043),0.0144 *** (0.0045),0.0162 *** (0.0051),0.0147 *** (0.0052),0.0138 *** (0.0041)
+Controls,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Firm FE,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Year FE,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Prov. × Year FE,No,No,No,No,No,No,Yes
+Observations,"27,861","28,974","26,743","25,902","17,338","28,974","28,974"
+R-squared,0.081,0.084,0.089,0.086,0.092,0.087,0.104
+F,28.94,30.17,29.63,27.85,19.62,24.13,18.77

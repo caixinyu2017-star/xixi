@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+build/_*.docx
+build/*.pdf
+build/_eqs.*
+*.log

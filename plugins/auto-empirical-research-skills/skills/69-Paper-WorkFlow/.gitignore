@@ -1,0 +1,20 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+__pycache__/
+.idea/
+.vscode/
+
+# Generated workspaces (this is an orchestrator, not a project)
+paper_workspace/
+
+# Local-only demo build artifacts (not shipped to remote)
+# - build scripts and the PPTX output stay local; the PDF export is the shipped copy
+# - pandas tutorial is a generic, off-topic teaching notebook
+build_pptx.py
+build_notebook.py
+社科实证论文工作流.pptx
+pandas_30_core_features.ipynb
+
+CLAUDE.md

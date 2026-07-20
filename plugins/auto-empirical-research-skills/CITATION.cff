@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If Auto-Empirical Research Skills helps your research workflow, please cite it."
+title: "Auto-Empirical Research Skills (AERS)"
+type: software
+authors:
+  - family-names: "Wang"
+    given-names: "Bryce"
+    affiliation: "Stanford REAP / CoPaper.AI"
+abstract: "A curated, security-audited catalog of AI agent skills for empirical research, covering literature review, data work, causal inference, replication, paper writing, submission, and review response."
+repository-code: "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills"
+url: "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills"
+license: "CC-BY-SA-4.0"
+date-released: "2026-05-31"
+keywords:
+  - "agent skills"
+  - "empirical research"
+  - "causal inference"
+  - "econometrics"
+  - "reproducibility"
