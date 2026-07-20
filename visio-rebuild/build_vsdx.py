@@ -1,288 +1,274 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Emit a NATIVE, editable Microsoft Visio (.vsdx) file from scene.py.
+Emit the methodology flowchart as a NATIVE, fully editable Visio drawing
+(.vsdx = Office Open XML / OPC package).  Every box, arrow and label is a real
+Visio shape with real text runs -- nothing is a rasterised image.  All text uses
+the Microsoft YaHei (微软雅黑) font in bold at large point sizes.
 
-Output is a Visio 2013+ Open-Packaging-Conventions package whose single page
-holds native Visio shapes (rectangles, poly-line connectors, formatted text
-runs).  Nothing is an embedded image: every shape has real geometry, fill/line
-formatting and a Character section, so it is fully selectable and editable in
-Visio.  All text is Microsoft YaHei, bold.
+Layout comes from layout.build_shapes(); this module only serialises it.
 """
+
+import math
 import os
 import zipfile
-from xml.sax.saxutils import escape
 
-import scene as SC
+import layout as LY
 
-# ---- coordinate mapping: image px -> Visio inches (Y flips) --------------- #
-SCALE = 0.01
-PAGE_W = SC.IMG_W * SCALE      # 14.0 in
-PAGE_H = SC.IMG_H * SCALE      # 10.4 in
+SCALE = LY.SCALE
+PAGE_W = LY.DESIGN_W / SCALE
+PAGE_H = LY.DESIGN_H / SCALE
+FONT = LY.FONT
 
-def vx(px):
-    return round(px * SCALE, 4)
-
-def vy(py):
-    return round((SC.IMG_H - py) * SCALE, 4)
-
-NS_MAIN = "http://schemas.microsoft.com/office/visio/2012/main"
-NS_R    = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+def X(px):  return round(px / SCALE, 4)
+def Yh(py): return round(PAGE_H - py / SCALE, 4)
+def Ln(px): return round(px / SCALE, 4)
+def pt(p):  return round(p / 72.0, 5)
 
 _id = [0]
 def nid():
     _id[0] += 1
     return _id[0]
 
-VALIGN = {"top": 0, "middle": 1, "bottom": 2}
+def esc(s):
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
+# --- text section builder --------------------------------------------------
+def build_text(paras):
+    chars, parags, lines = [], [], []
+    def cix(size, color):
+        k = (round(pt(size), 5), color)
+        if k not in chars: chars.append(k)
+        return chars.index(k)
+    def pix(align, spafter):
+        k = (align, round(spafter, 4))
+        if k not in parags: parags.append(k)
+        return parags.index(k)
+    for p in paras:
+        ci = cix(p["size"], p["color"])
+        pi = pix(p.get("align", 0), p.get("spafter", 0.0))
+        lines.append(f"<pp IX='{pi}'/><cp IX='{ci}'/>{esc(p['text'])}")
+    text_body = "\n".join(lines)
 
-def char_section(paras):
-    rows = []
-    for i, (style, _txt) in enumerate(paras):
-        st = SC.STYLES[style]
-        size_in = round(st["size"] / 72.0, 5)
-        rows.append(
-            f'<Row IX="{i}">'
-            f'<Cell N="Font" V="{SC.FONT}"/>'
-            f'<Cell N="Color" V="{st["color"]}"/>'
-            f'<Cell N="Style" V="1"/>'
-            f'<Cell N="Size" V="{size_in}"/>'
-            f'<Cell N="AsianFont" V="{SC.FONT}"/>'
-            f'<Cell N="ComplexScriptFont" V="{SC.FONT}"/>'
-            f'<Cell N="ComplexScriptSize" V="{size_in}"/>'
-            f'</Row>'
-        )
-    return '<Section N="Character">' + "".join(rows) + "</Section>"
+    crows = "".join(
+        f"<Row IX='{i}'><Cell N='Font' V='{FONT}'/><Cell N='AsianFont' V='{FONT}'/>"
+        f"<Cell N='Color' V='{color}'/><Cell N='Size' V='{size}'/>"
+        f"<Cell N='Style' V='1'/><Cell N='RTLText' V='0'/></Row>"
+        for i, (size, color) in enumerate(chars))
+    prows = "".join(
+        f"<Row IX='{i}'><Cell N='HorzAlign' V='{align}'/><Cell N='SpBefore' V='0'/>"
+        f"<Cell N='SpAfter' V='{spafter}'/><Cell N='SpLine' V='-1.1'/>"
+        f"<Cell N='Bullet' V='0'/></Row>"
+        for i, (align, spafter) in enumerate(parags))
+    return (f"<Section N='Character'>{crows}</Section>"
+            f"<Section N='Paragraph'>{prows}</Section>", text_body)
 
-
-def para_section(paras):
-    rows = []
-    for i, (style, _txt) in enumerate(paras):
-        st = SC.STYLES[style]
-        rows.append(
-            f'<Row IX="{i}">'
-            f'<Cell N="HorzAlign" V="{st["align"]}"/>'
-            f'<Cell N="SpLine" V="-1.2"/>'
-            f'<Cell N="SpBefore" V="0"/><Cell N="SpAfter" V="0"/>'
-            f'</Row>'
-        )
-    return '<Section N="Paragraph">' + "".join(rows) + "</Section>"
-
-
-def text_body(paras):
-    parts = [f'<pp IX="{i}"/><cp IX="{i}"/>' + escape(t) for i, (_s, t) in enumerate(paras)]
-    return "<Text>" + "\n".join(parts) + "</Text>"
-
-
-def rect_shape(b):
-    sid = nid()
-    l, t, r, bot = b["px"]
-    L, R = vx(l), vx(r)
-    T, B = vy(t), vy(bot)
-    w = round(R - L, 4)
-    h = round(T - B, 4)
-    cx = round((L + R) / 2, 4)
-    cy = round((T + B) / 2, 4)
-    fill = b["fill"] or SC.WHITE
-    fill_pat = 1 if b["fill"] else 0
-    line = b["line"] or SC.WHITE
-    line_pat = 1 if b["line"] else 0
-    line_w = round(b["line_w"] / 72.0, 4)     # pt -> in
-    rounding = round(b["rounding"] * SCALE, 4)
-    valign = VALIGN[b["valign"]]
-
+def rect_geom(w, h):
     return (
-        f'<Shape ID="{sid}" NameU="{b["name"]}" Name="{b["name"]}" Type="Shape" '
-        f'LineStyle="3" FillStyle="3" TextStyle="3">'
-        f'<Cell N="ObjType" V="1"/>'
-        f'<Cell N="PinX" V="{cx}"/><Cell N="PinY" V="{cy}"/>'
-        f'<Cell N="Width" V="{w}"/><Cell N="Height" V="{h}"/>'
-        f'<Cell N="LocPinX" V="{round(w/2,4)}" F="Width*0.5"/>'
-        f'<Cell N="LocPinY" V="{round(h/2,4)}" F="Height*0.5"/>'
-        f'<Cell N="Angle" V="0"/>'
-        f'<Cell N="FillForegnd" V="{fill}"/><Cell N="FillBkgnd" V="{fill}"/>'
-        f'<Cell N="FillPattern" V="{fill_pat}"/>'
-        f'<Cell N="LineColor" V="{line}"/><Cell N="LineWeight" V="{line_w}"/>'
-        f'<Cell N="LinePattern" V="{line_pat}"/><Cell N="Rounding" V="{rounding}"/>'
-        f'<Cell N="VerticalAlign" V="{valign}"/>'
-        f'<Cell N="TxtPinX" V="{round(w/2,4)}" F="Width*0.5"/>'
-        f'<Cell N="TxtPinY" V="{round(h/2,4)}" F="Height*0.5"/>'
-        f'<Cell N="TxtWidth" V="{w}" F="Width*1"/>'
-        f'<Cell N="TxtHeight" V="{h}" F="Height*1"/>'
-        f'<Cell N="LeftMargin" V="0.05"/><Cell N="RightMargin" V="0.05"/>'
-        f'<Cell N="TopMargin" V="0.03"/><Cell N="BottomMargin" V="0.03"/>'
-        + char_section(b["paras"]) + para_section(b["paras"])
-        + '<Section N="Geometry" IX="0">'
-          f'<Cell N="NoFill" V="{0 if b["fill"] else 1}"/>'
-          f'<Cell N="NoLine" V="{0 if b["line"] else 1}"/>'
-          '<Row T="RelMoveTo" IX="1"><Cell N="X" V="0"/><Cell N="Y" V="0"/></Row>'
-          '<Row T="RelLineTo" IX="2"><Cell N="X" V="1"/><Cell N="Y" V="0"/></Row>'
-          '<Row T="RelLineTo" IX="3"><Cell N="X" V="1"/><Cell N="Y" V="1"/></Row>'
-          '<Row T="RelLineTo" IX="4"><Cell N="X" V="0"/><Cell N="Y" V="1"/></Row>'
-          '<Row T="RelLineTo" IX="5"><Cell N="X" V="0"/><Cell N="Y" V="0"/></Row>'
-          '</Section>'
-        + text_body(b["paras"])
-        + '</Shape>'
-    )
+        "<Section N='Geometry' IX='0'>"
+        "<Cell N='NoFill' V='0'/><Cell N='NoLine' V='0'/>"
+        "<Cell N='NoShow' V='0'/><Cell N='NoSnap' V='0'/>"
+        f"<Row T='MoveTo' IX='1'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row>"
+        f"<Row T='LineTo' IX='2'><Cell N='X' V='{w}'/><Cell N='Y' V='0'/></Row>"
+        f"<Row T='LineTo' IX='3'><Cell N='X' V='{w}'/><Cell N='Y' V='{h}'/></Row>"
+        f"<Row T='LineTo' IX='4'><Cell N='X' V='0'/><Cell N='Y' V='{h}'/></Row>"
+        f"<Row T='LineTo' IX='5'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row>"
+        "</Section>")
 
+def emit_box(s):
+    w, h = Ln(s["w"]), Ln(s["h"])
+    pinx, piny = X(s["x"] + s["w"] / 2), Yh(s["y"] + s["h"] / 2)
+    fill = s.get("fill", LY.WHITE)
+    border = s.get("border", LY.BORDER)
+    valign = s.get("valign", 0)
+    rounding = s.get("rounding", 0.09)
+    lw = s.get("lw", 0.016)
+    sec, body = build_text(s["paras"])
+    return f"""<Shape ID='{nid()}' Name='{s['name']}' NameU='{s['name']}' Type='Shape'>
+<Cell N='PinX' V='{pinx}'/><Cell N='PinY' V='{piny}'/>
+<Cell N='Width' V='{w}'/><Cell N='Height' V='{h}'/>
+<Cell N='LocPinX' V='{round(w/2,4)}' F='Width*0.5'/>
+<Cell N='LocPinY' V='{round(h/2,4)}' F='Height*0.5'/>
+<Cell N='Angle' V='0'/>
+<Cell N='FillForegnd' V='{fill}'/><Cell N='FillPattern' V='1'/>
+<Cell N='LineColor' V='{border}'/><Cell N='LineWeight' V='{lw}'/>
+<Cell N='LinePattern' V='1'/><Cell N='Rounding' V='{rounding}'/>
+<Cell N='VerticalAlign' V='{valign}'/>
+<Cell N='LeftMargin' V='0.09'/><Cell N='RightMargin' V='0.09'/>
+<Cell N='TopMargin' V='0.07'/><Cell N='BottomMargin' V='0.05'/>
+{sec}{rect_geom(w, h)}
+<Text>{body}</Text>
+</Shape>"""
 
-def conn_shape(c):
-    sid = nid()
-    vpts = [(vx(px), vy(py)) for px, py in c["points"]]
-    xs = [p[0] for p in vpts]
-    ys = [p[1] for p in vpts]
-    L, R = min(xs), max(xs)
-    B, T = min(ys), max(ys)
-    w = round(R - L, 4) or 0.0001
-    h = round(T - B, 4) or 0.0001
-    cx = round((L + R) / 2, 4)
-    cy = round((T + B) / 2, 4)
+def emit_label(s):
+    w, h = Ln(s["w"]), Ln(s["h"])
+    pinx, piny = X(s["x"] + s["w"] / 2), Yh(s["y"] + s["h"] / 2)
+    valign = s.get("valign", 1)
+    sec, body = build_text(s["paras"])
+    return f"""<Shape ID='{nid()}' Name='{s['name']}' NameU='{s['name']}' Type='Shape'>
+<Cell N='PinX' V='{pinx}'/><Cell N='PinY' V='{piny}'/>
+<Cell N='Width' V='{w}'/><Cell N='Height' V='{h}'/>
+<Cell N='LocPinX' V='{round(w/2,4)}' F='Width*0.5'/>
+<Cell N='LocPinY' V='{round(h/2,4)}' F='Height*0.5'/>
+<Cell N='Angle' V='0'/>
+<Cell N='FillForegnd' V='#FFFFFF'/><Cell N='FillPattern' V='0'/>
+<Cell N='LineColor' V='#FFFFFF'/><Cell N='LineWeight' V='0'/><Cell N='LinePattern' V='0'/>
+<Cell N='VerticalAlign' V='{valign}'/>
+<Cell N='LeftMargin' V='0.02'/><Cell N='RightMargin' V='0.02'/>
+<Cell N='TopMargin' V='0.02'/><Cell N='BottomMargin' V='0.02'/>
+{sec}
+<Text>{body}</Text>
+</Shape>"""
 
-    geo = ['<Section N="Geometry" IX="0"><Cell N="NoFill" V="1"/><Cell N="NoLine" V="0"/>']
-    for i, (x, y) in enumerate(vpts):
-        typ = "MoveTo" if i == 0 else "LineTo"
-        geo.append(f'<Row T="{typ}" IX="{i+1}"><Cell N="X" V="{round(x-L,4)}"/>'
-                   f'<Cell N="Y" V="{round(y-B,4)}"/></Row>')
-    geo.append('</Section>')
+def emit_line(s):
+    ax1, ay1, ax2, ay2 = X(s["x1"]), Yh(s["y1"]), X(s["x2"]), Yh(s["y2"])
+    dx, dy = ax2 - ax1, ay2 - ay1
+    length = round(math.hypot(dx, dy), 4)
+    angle = round(math.atan2(dy, dx), 6)
+    pinx, piny = round((ax1 + ax2) / 2, 4), round((ay1 + ay2) / 2, 4)
+    color = s.get("color", LY.BLK)
+    lw = s.get("lw", 0.015)
+    pattern = s.get("pattern", 1)
+    ba = s.get("begin_arrow", 0)
+    ea = s.get("end_arrow", 0)
+    asz = s.get("arrow_size", 2)
+    return f"""<Shape ID='{nid()}' Name='{s['name']}' NameU='{s['name']}' Type='Shape'>
+<Cell N='PinX' V='{pinx}'/><Cell N='PinY' V='{piny}'/>
+<Cell N='Width' V='{length}'/><Cell N='Height' V='0'/>
+<Cell N='LocPinX' V='{round(length/2,4)}' F='Width*0.5'/>
+<Cell N='LocPinY' V='0' F='Height*0.5'/>
+<Cell N='Angle' V='{angle}'/>
+<Cell N='BeginX' V='{ax1}'/><Cell N='BeginY' V='{ay1}'/>
+<Cell N='EndX' V='{ax2}'/><Cell N='EndY' V='{ay2}'/>
+<Cell N='LineColor' V='{color}'/><Cell N='LineWeight' V='{lw}'/>
+<Cell N='LinePattern' V='{pattern}'/>
+<Cell N='BeginArrow' V='{ba}'/><Cell N='EndArrow' V='{ea}'/>
+<Cell N='BeginArrowSize' V='{asz}'/><Cell N='EndArrowSize' V='{asz}'/>
+<Section N='Geometry' IX='0'>
+<Cell N='NoFill' V='1'/><Cell N='NoLine' V='0'/>
+<Row T='MoveTo' IX='1'><Cell N='X' V='0'/><Cell N='Y' V='0'/></Row>
+<Row T='LineTo' IX='2'><Cell N='X' V='{length}'/><Cell N='Y' V='0'/></Row>
+</Section>
+</Shape>"""
 
-    line_w = round(c["w"] / 72.0, 4)
-    pattern = 2 if c["dash"] else 1
-    ba = 4 if c["begin"] else 0
-    ea = 4 if c["end"] else 0
-    return (
-        f'<Shape ID="{sid}" NameU="{c["name"]}" Name="{c["name"]}" Type="Shape" '
-        f'LineStyle="3" FillStyle="3" TextStyle="3">'
-        f'<Cell N="ObjType" V="1"/>'
-        f'<Cell N="PinX" V="{cx}"/><Cell N="PinY" V="{cy}"/>'
-        f'<Cell N="Width" V="{w}"/><Cell N="Height" V="{h}"/>'
-        f'<Cell N="LocPinX" V="{round(w/2,4)}" F="Width*0.5"/>'
-        f'<Cell N="LocPinY" V="{round(h/2,4)}" F="Height*0.5"/>'
-        f'<Cell N="Angle" V="0"/>'
-        f'<Cell N="LineColor" V="{c["color"]}"/><Cell N="LineWeight" V="{line_w}"/>'
-        f'<Cell N="LinePattern" V="{pattern}"/><Cell N="FillPattern" V="0"/>'
-        f'<Cell N="BeginArrow" V="{ba}"/><Cell N="EndArrow" V="{ea}"/>'
-        f'<Cell N="BeginArrowSize" V="2"/><Cell N="EndArrowSize" V="2"/>'
-        + "".join(geo) + '</Shape>'
-    )
-
-
-def shapes_xml():
+def emit_shapes():
     out = []
-    for b in SC.BOXES:
-        out.append(rect_shape(b))
-    for c in SC.CONNS:
-        out.append(conn_shape(c))
-    return "".join(out)
+    for s in LY.build_shapes():
+        if s["kind"] == "box":
+            out.append(emit_box(s))
+        elif s["kind"] == "label":
+            out.append(emit_label(s))
+        elif s["kind"] == "line":
+            out.append(emit_line(s))
+    return out
 
+# --- OPC package -----------------------------------------------------------
+NS = "http://schemas.microsoft.com/office/visio/2012/main"
+RNS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
-# ---- OPC parts ----------------------------------------------------------- #
-def content_types():
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
-        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
-        '<Default Extension="xml" ContentType="application/xml"/>'
-        '<Override PartName="/visio/document.xml" ContentType="application/vnd.ms-visio.drawing.main+xml"/>'
-        '<Override PartName="/visio/pages/pages.xml" ContentType="application/vnd.ms-visio.pages+xml"/>'
-        '<Override PartName="/visio/pages/page1.xml" ContentType="application/vnd.ms-visio.page+xml"/>'
-        '<Override PartName="/visio/windows.xml" ContentType="application/vnd.ms-visio.windows+xml"/>'
-        '<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>'
-        '<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>'
-        '</Types>')
-
-def root_rels():
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-        '<Relationship Id="rId1" Type="http://schemas.microsoft.com/visio/2010/relationships/document" Target="visio/document.xml"/>'
-        '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>'
-        '<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>'
-        '</Relationships>')
-
-def core_props():
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
-        'xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" '
-        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
-        '<dc:title>Research methodology flowchart</dc:title>'
-        '<dc:creator>visio-rebuild</dc:creator>'
-        '<cp:lastModifiedBy>visio-rebuild</cp:lastModifiedBy>'
-        '</cp:coreProperties>')
-
-def app_props():
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" '
-        'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">'
-        '<Application>Microsoft Visio</Application><AppVersion>15.0000</AppVersion></Properties>')
-
-_HERE = os.path.dirname(os.path.abspath(__file__))
-
-def document_xml():
-    # Authentic Visio-authored document-level part (DocumentSettings, Colors,
-    # FaceNames incl. Microsoft YaHei, StyleSheets 0-7, DocumentSheet).  Reusing
-    # Visio's own structures maximises real-Visio openability.
-    with open(os.path.join(_HERE, "assets", "document.xml"), encoding="utf-8") as f:
-        return f.read()
-
-def document_rels():
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-        '<Relationship Id="rId1" Type="http://schemas.microsoft.com/visio/2010/relationships/pages" Target="pages/pages.xml"/>'
-        '<Relationship Id="rId2" Type="http://schemas.microsoft.com/visio/2010/relationships/windows" Target="windows.xml"/>'
-        '</Relationships>')
-
-def windows_xml():
-    with open(os.path.join(_HERE, "assets", "windows.xml"), encoding="utf-8") as f:
-        return f.read()
-
-def pages_xml():
-    return (f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        f'<Pages xmlns="{NS_MAIN}" xmlns:r="{NS_R}" xml:space="preserve">'
-        '<Page ID="0" NameU="Page-1" Name="Page-1" ViewScale="-1" '
-        f'ViewCenterX="{round(PAGE_W/2,3)}" ViewCenterY="{round(PAGE_H/2,3)}">'
-        '<PageSheet>'
-        f'<Cell N="PageWidth" V="{PAGE_W}"/><Cell N="PageHeight" V="{PAGE_H}"/>'
-        '<Cell N="ShdwOffsetX" V="0.125"/><Cell N="ShdwOffsetY" V="-0.125"/>'
-        '<Cell N="PageScale" V="1"/><Cell N="DrawingScale" V="1"/>'
-        '<Cell N="DrawingSizeType" V="3"/><Cell N="DrawingScaleType" V="0"/>'
-        '<Cell N="InhibitSnap" V="0"/><Cell N="XRulerOrigin" V="0"/><Cell N="YRulerOrigin" V="0"/>'
-        '</PageSheet>'
-        '<Rel r:id="rId1"/>'
-        '</Page></Pages>')
-
-def pages_rels():
-    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-        '<Relationship Id="rId1" Type="http://schemas.microsoft.com/visio/2010/relationships/page" Target="page1.xml"/>'
-        '</Relationships>')
-
-def page1_xml():
-    return (f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-        f'<PageContents xmlns="{NS_MAIN}" xmlns:r="{NS_R}" xml:space="preserve">'
-        '<Shapes>' + shapes_xml() + '</Shapes></PageContents>')
-
-
-def write_vsdx(path):
-    _id[0] = 0
-    parts = {
-        "_rels/.rels": root_rels(),
-        "docProps/core.xml": core_props(),
-        "docProps/app.xml": app_props(),
-        "visio/document.xml": document_xml(),
-        "visio/_rels/document.xml.rels": document_rels(),
-        "visio/windows.xml": windows_xml(),
-        "visio/pages/pages.xml": pages_xml(),
-        "visio/pages/_rels/pages.xml.rels": pages_rels(),
-        "visio/pages/page1.xml": page1_xml(),
+def package(shapes):
+    content_types = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+<Default Extension="xml" ContentType="application/xml"/>
+<Override PartName="/visio/document.xml" ContentType="application/vnd.ms-visio.drawing.main+xml"/>
+<Override PartName="/visio/pages/pages.xml" ContentType="application/vnd.ms-visio.pages+xml"/>
+<Override PartName="/visio/pages/page1.xml" ContentType="application/vnd.ms-visio.page+xml"/>
+<Override PartName="/visio/windows.xml" ContentType="application/vnd.ms-visio.windows+xml"/>
+<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
+<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
+</Types>"""
+    root_rels = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Id="rId1" Type="http://schemas.microsoft.com/visio/2010/relationships/document" Target="visio/document.xml"/>
+<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/core-properties" Target="docProps/core.xml"/>
+<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>
+</Relationships>"""
+    document = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<VisioDocument xmlns="{NS}" xmlns:r="{RNS}" xml:space="preserve">
+<DocumentSettings TopPage="0" DefaultTextStyle="0" DefaultLineStyle="0" DefaultFillStyle="0">
+<GlueSettings>9</GlueSettings><SnapSettings>65847</SnapSettings>
+</DocumentSettings>
+<Colors/>
+<FaceNames>
+<FaceName ID="1" Name="{FONT}" UnicodeRanges="-536859905 -1073732485 9 0" CharSets="-2147483609 0" Panose="2 11 5 3 2 2 4 2 2 4" Flags="325"/>
+</FaceNames>
+<StyleSheets>
+<StyleSheet ID="0" NameU="No Style" Name="No Style">
+<Cell N="LineWeight" V="0.01"/><Cell N="LineColor" V="0"/><Cell N="LinePattern" V="1"/>
+<Cell N="FillForegnd" V="1"/><Cell N="FillPattern" V="1"/>
+<Cell N="Font" V="{FONT}"/><Cell N="Color" V="0"/><Cell N="Size" V="0.1667"/>
+<Cell N="Style" V="0"/><Cell N="HorzAlign" V="1"/><Cell N="VerticalAlign" V="1"/>
+</StyleSheet>
+</StyleSheets>
+</VisioDocument>"""
+    document_rels = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Id="rId1" Type="http://schemas.microsoft.com/visio/2010/relationships/pages" Target="pages/pages.xml"/>
+<Relationship Id="rId2" Type="http://schemas.microsoft.com/visio/2010/relationships/windows" Target="windows.xml"/>
+</Relationships>"""
+    cx, cy = round(PAGE_W / 2, 3), round(PAGE_H / 2, 3)
+    pages = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Pages xmlns="{NS}" xmlns:r="{RNS}" xml:space="preserve">
+<Page ID="0" NameU="Methodology" Name="Methodology" ViewScale="-1" ViewCenterX="{cx}" ViewCenterY="{cy}">
+<PageSheet LineStyle="0" FillStyle="0" TextStyle="0">
+<Cell N="PageWidth" V="{PAGE_W}"/><Cell N="PageHeight" V="{PAGE_H}"/>
+<Cell N="ShdwOffsetX" V="0.125"/><Cell N="ShdwOffsetY" V="-0.125"/>
+<Cell N="PageScale" V="1" U="IN_F"/><Cell N="DrawingScale" V="1" U="IN_F"/>
+<Cell N="DrawingScaleType" V="0"/><Cell N="DrawingSizeType" V="3"/>
+<Cell N="InhibitSnap" V="0"/><Cell N="UIVisibility" V="0"/>
+</PageSheet>
+<Rel r:id="rId1"/>
+</Page>
+</Pages>"""
+    pages_rels = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Id="rId1" Type="http://schemas.microsoft.com/visio/2010/relationships/page" Target="page1.xml"/>
+</Relationships>"""
+    page1 = (f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PageContents xmlns="{NS}" xmlns:r="{RNS}" xml:space="preserve">
+<Shapes>
+""" + "\n".join(shapes) + """
+</Shapes>
+</PageContents>""")
+    windows = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Windows xmlns="{NS}" xmlns:r="{RNS}" ClientWidth="1600" ClientHeight="900">
+<Window ID="0" WindowType="Drawing" WindowState="1073741824" WindowLeft="0" WindowTop="0" WindowWidth="1600" WindowHeight="900" ContainerType="Page" Page="0" ViewScale="-1" ViewCenterX="{cx}" ViewCenterY="{cy}"/>
+</Windows>"""
+    core = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc:title>Career-narrative study methodology</dc:title>
+<dc:creator>Visio rebuild</dc:creator>
+<cp:lastModifiedBy>Visio rebuild</cp:lastModifiedBy>
+</cp:coreProperties>"""
+    app = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
+<Application>Microsoft Visio</Application><Company></Company>
+</Properties>"""
+    return {
+        "[Content_Types].xml": content_types,
+        "_rels/.rels": root_rels,
+        "docProps/core.xml": core,
+        "docProps/app.xml": app,
+        "visio/document.xml": document,
+        "visio/_rels/document.xml.rels": document_rels,
+        "visio/pages/pages.xml": pages,
+        "visio/pages/_rels/pages.xml.rels": pages_rels,
+        "visio/pages/page1.xml": page1,
+        "visio/windows.xml": windows,
     }
-    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
-        z.writestr("[Content_Types].xml", content_types())
+
+def main():
+    shapes = emit_shapes()
+    parts = package(shapes)
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                       "method_flowchart.vsdx")
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("[Content_Types].xml", parts.pop("[Content_Types].xml"))
         for name, data in parts.items():
             z.writestr(name, data)
-    return path
-
+    print("wrote", out)
+    print("shapes:", len(shapes), "| page:", PAGE_W, "x", PAGE_H, "in")
 
 if __name__ == "__main__":
-    here = os.path.dirname(os.path.abspath(__file__))
-    out = os.path.join(here, "research_methodology_flowchart.vsdx")
-    write_vsdx(out)
-    print("wrote", out, os.path.getsize(out), "bytes,", _id[0], "shapes")
+    main()

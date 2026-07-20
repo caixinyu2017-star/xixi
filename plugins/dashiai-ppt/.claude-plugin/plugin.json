@@ -1,0 +1,22 @@
+{
+  "name": "dashiai-ppt",
+  "version": "0.2.5",
+  "description": "DashiAI PPT — 制作 PPT、演示文稿、幻灯片、汇报材料时使用。基于预置视觉主题组合页面，把自然语言需求整理成 JSON 计划后调用本地生成器，输出可离线打开、可在浏览器编辑的 HTML 演示，支持导出 PPTX / PDF 文件。",
+  "author": {
+    "name": "大师的AI小灶",
+    "url": "https://github.com/chuspeeism/dashiAI-ppt-skill"
+  },
+  "homepage": "https://github.com/chuspeeism/dashiAI-ppt-skill",
+  "license": "AGPL-3.0",
+  "keywords": [
+    "ppt",
+    "pptx",
+    "presentation",
+    "slides",
+    "html-deck",
+    "themes",
+    "pdf-export",
+    "pptxgenjs",
+    "react"
+  ]
+}
