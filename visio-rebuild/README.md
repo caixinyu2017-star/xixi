@@ -1,63 +1,52 @@
-# Research-methodology flowchart — native Visio rebuild
+# Visio rebuild — career-narrative study methodology flowchart
 
-A faithful, **natively editable** Microsoft Visio rebuild of the reference
-research-methodology flowchart (cross-sectional survey → data collection →
-narrative preprocessing → narrative analysis → psychometric & substantive
-evaluation).
+Native, fully editable **Visio** reconstruction of the reference methodology
+diagram (5-stage research pipeline: Sample → Data collection → Narrative
+preprocessing → Narrative analysis → Psychometric & substantive evaluation).
 
 ## Deliverable
 
-| file | what it is |
-|------|------------|
-| **`research_methodology_flowchart.vsdx`** | the rebuild — a Visio 2013+ package of **native, editable shapes** (rectangles, connectors, text runs). Nothing is a flattened image. |
-| `preview.png` | a raster preview of the diagram (for quick viewing / comparison). |
+- **`method_flowchart.vsdx`** — the Visio drawing. Open and edit it directly in
+  Microsoft Visio.
 
-Open the `.vsdx` in Microsoft Visio; every box, arrow and text run can be
-selected, moved, recoloured and re-typed.
+### Key properties
 
-## Design choices (per request)
-
-- **Native shapes, not an embedded picture.** Each element is a real Visio
-  `Shape` with geometry, fill/line formatting and a `Character` section.
-- **Font: Microsoft YaHei, bold** (微软雅黑加粗) on every text run.
-- **Larger type** than the source, kept proportionally close (labels ~17 pt,
-  titles ~13.5–15 pt, body ~11.5 pt).
-- Layout, colours, the dashed validation-criteria connector and the
-  double-headed ↔ arrows between the four evaluation boxes mirror the original.
+- **Native editable shapes**, not an embedded picture. Every box, arrow, label
+  and connector is a real Visio `Shape` with its own geometry and text runs, so
+  you can move, restyle, retype or recolour anything.
+- **No raster/image parts** in the package (verified — the `.vsdx` contains only
+  XML parts, zero `media/` entries).
+- **Fonts:** all text uses **Microsoft YaHei (微软雅黑), bold**, at deliberately
+  large point sizes, kept close to the reference (row labels 15.5 pt, box titles
+  13–16.5 pt, bullets 11.5–12.5 pt).
+- Single custom landscape page (14.56 × 11.2 in) laid out to mirror the
+  reference proportions.
 
 ## How it is built
 
-Everything is generated from one source of truth so the preview always
-matches the `.vsdx`:
+Layout and rendering share one source of truth so what you preview is exactly
+what ships:
 
-```
-scene.py          # the diagram as data: BOXES + CONNS (image-pixel coords)
-build_vsdx.py     # emits research_methodology_flowchart.vsdx from scene.py
-make_preview.py   # emits preview.html from scene.py (screenshot -> preview.png)
-assets/           # authentic Visio-authored document.xml + windows.xml
-                  #   (DocumentSettings / StyleSheets / DocumentSheet / FaceNames,
-                  #    with a Microsoft YaHei FaceName added) — reused verbatim so
-                  #    the package matches what Visio itself writes.
-```
+| file | role |
+| --- | --- |
+| `layout.py` | the single layout spec (all shapes, positions, text, colours, sizes) in design-pixel space |
+| `build_vsdx.py` | serialises the spec into the `.vsdx` OPC package (this is the deliverable generator) |
+| `preview.py` | renders `preview.png` from the **same** spec for visual QA |
+| `preview.png` | raster preview of the diagram |
 
 Regenerate:
 
 ```bash
-python3 build_vsdx.py        # -> research_methodology_flowchart.vsdx
-python3 make_preview.py      # -> preview.html
-# optional raster preview (headless Chromium):
-chromium --headless --force-device-scale-factor=2 \
-  --window-size=1400,1040 --screenshot=preview.png \
-  "file://$PWD/preview.html"
+python3 build_vsdx.py     # -> method_flowchart.vsdx
+python3 preview.py        # -> preview.png  (needs matplotlib; QA only)
 ```
 
-To tweak the diagram, edit `scene.py` (text, coordinates, colours, connectors)
-and re-run `build_vsdx.py`.
+Editing the diagram programmatically: change coordinates/text in `layout.py`
+and re-run both commands.
 
-## Validation
+## Notes
 
-- Package passes ZIP integrity and XML well-formedness on every part.
-- Re-parsed with the `vsdx` reader library: 1 page, 39 native shapes, text
-  round-trips correctly.
-- Document-level parts (StyleSheets, DocumentSheet, FaceNames) are Visio's own,
-  which maximises real-Visio openability.
+- The preview uses a substitute sans font, so in `preview.png` the round bullet
+  glyph is drawn as `-` and text is regular weight; the actual `.vsdx` uses
+  Microsoft YaHei bold with proper `•` bullets.
+- The reference image was not committed; the layout was transcribed from it.
