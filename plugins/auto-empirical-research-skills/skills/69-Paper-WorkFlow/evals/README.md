@@ -1,0 +1,161 @@
+# Held-out evaluation harness (`evals/`)
+
+Automated, reproducible scoring for the SkillOpt-style improvement loop in
+[`../references/skillopt-improvement-loop.md`](../references/skillopt-improvement-loop.md).
+
+## Why this exists
+
+The improvement loop and [`../templates/SKILLOPT_PACKET.md`](../templates/SKILLOPT_PACKET.md)
+gate every maintenance edit on a **held-out selection score**, but leave that
+score to be filled in by hand. In real [SkillOpt](https://github.com/microsoft/SkillOpt)
+the selection score is computed by an `evaluator.py` over frozen train/val/test
+splits — that automated substrate is what made the gate trustworthy.
+
+This directory supplies the missing half: a mechanical scorer over a frozen
+scenario suite, so the "held-out selection score" is a measured number instead
+of a vibe. It is the validation set, not a replacement for the loop's judgment.
+
+It is **standalone on purpose** — it imports nothing from the skill, so it never
+collides with maintenance edits in flight on the core skill files. The full
+scored run remains an explicit maintenance command, while `validate_skill.py`
+now runs the scorer self-test plus the complexity ratchet so the local gate
+catches broken eval machinery and always-loaded-layer regrowth.
+
+## What it measures
+
+A skill is a *document*, so the "rollout outcome" that matters is whether the
+documented procedure still satisfies its own contracts on each task archetype.
+The dimensions are the ones named in the improvement loop plus the ARS-inspired
+claim-integrity checkpoint added for long paper workflows:
+
+| Dimension | Scope | Signal |
+|---|---|---|
+| `routing_fidelity` | per-scenario | design → child-skill → tool anchors are documented in the routing references (`skill-map.md`, `analysis-backends.md`, `statspai-analysis.md`, …) |
+| `gate_integrity` | per-scenario | the gate self-test passes **and** the design has a Design Gate Card |
+| `context_protection` | global | subagent contract present: write outputs to disk, return a concise summary |
+| `reproducibility` | global | a fresh workspace passes `scripts/smoke_workspace.py --quiet` |
+| `user_burden` | global | `SKILL.md` documents autonomy gears + a minimal-question / authorization discipline |
+| `integrity_checkpoint` | global | `SKILL.md`, `references/integrity-and-claim-audit.md`, the template, and the gate checker preserve the Stage 7 `pre-review` and Stage 9 `final-check` claim-integrity contract |
+| `citation_temporal_integrity` | global | the complementary citation-existence + temporal-integrity layer is present: `references/citation-and-temporal-integrity.md`, `templates/citation_integrity_log.md`, `scripts/check_citation_integrity.py`, the look-ahead/vintage discipline, and the `--final` gate |
+
+A scenario's total is the mean of the seven dimensions in `[0, 1]` (two
+per-scenario + five global). A scenario is `success` at `total >= 0.70` (the
+rubric's "meets bar"). The **selection-split mean** is the number a candidate
+edit must strictly beat.
+
+## Scenario splits
+
+[`scenarios.json`](scenarios.json) freezes 14 research-task archetypes split
+the SkillOpt way — do not move a scenario between splits to flatter a number:
+
+- **train** (`did_staggered`, `iv_2sls`, `rdd_sharp`, `synthetic_control`) — may
+  motivate an edit; never gate on these alone.
+- **selection** (`panel_fe`, `ml_hte`, `time_series_var`, `psm_did_china`, `spatial_did_china`, `threshold_panel_china`) — held out; gates
+  acceptance. **3 个中文场景（PSM-DID / 空间计量 / 门槛面板）** 反映国内顶刊常用方法。
+- **regression** (`dml_highdim`, `causal_graph`, `policy_pilot_china`, `digital_transformation_china`) — held out; guards designs the
+  current edit does not target. **2 个中文场景（政策试点 / 数字化转型）** 反映国内"中国故事"实证典型。
+
+**中文场景对照**（`scenarios.json` 第 11-15 项）：
+
+| Scenario | 中国实证典型应用 | 主要门卡 |
+|---|---|---|
+| `psm_did_china` | 最低工资 / 户籍改革 / 一次性政策评估 | §10 PSM-DID |
+| `spatial_did_china` | GDP 锦标赛 / 环境溢出 / 区域协同 | §11 空间计量 |
+| `threshold_panel_china` | 环境规制门槛 / 金融发展门槛 | §12 门槛面板 |
+| `policy_pilot_china` | 数字经济试验区 / 智慧城市 / 自贸区 | §1 交错 DiD |
+| `digital_transformation_china` | 年报词频法 + TFP（赵剑波 2020 类） | §1 交错 DiD 或 §10 PSM-DID |
+
+**配套 replication case**（`replication_cases/`）：
+
+| Case | 设计 | Gold 来源 |
+|---|---|---|
+| `card_krueger_1994_minwage.json` | PSM-DID 黄金标准（NJ min-wage） | Card-Krueger 1994 AER Table 3 |
+| `threshold_panel_simulation.json` | Hansen 1999 门槛 | Own DGP, TRUE_γ=1.0, β差=1.0 |
+| `spatial_sdm_simulation.json` | SDM + LeSage-Pace 分解 | Own DGP, ρ=0.3, indirect=0.5 |
+| `digital_economy_pilot_simulation.json` | 交错 DiD 政策试点 | Own DGP, TRUE_ATT=0.08 |
+| `digital_transformation_psm_did_simulation.json` | PSM-DID 数字化转型 | Own DGP, TRUE_ATT=0.05 |
+| `regional_compete_threshold_simulation.json` | Hansen 1999 地方竞争门槛 | Own DGP, TRUE_γ=log(60000)≈11.0 |
+
+**中国场景的相关文档**：
+
+- 数据源：见 [`../references/china-data-sources.md`](../references/china-data-sources.md)
+- 期刊投稿：见 [`../references/chinese-journals.md`](../references/chinese-journals.md)
+- Design Gate Cards（10-12）：见 [`../references/design-gate-cards.md`](../references/design-gate-cards.md)
+
+## Usage
+
+```bash
+# Full scored run (runs smoke + gate self-test): the canonical baseline view
+python3 evals/score_skill.py
+
+# Structural-only, fast (skips the subprocess checks)
+python3 evals/score_skill.py --no-scripts
+
+# Machine-readable
+python3 evals/score_skill.py --json
+
+# Rollout lines ready to paste into a SKILLOPT_PACKET.md (default: selection)
+python3 evals/score_skill.py --packet-lines selection
+
+# Invariant self-test (no skill content required to pass)
+python3 evals/score_skill.py --selftest
+```
+
+`--packet-lines` emits lines in exactly the format
+`scripts/check_skillopt_packet.py` expects (`evidence=` + `score=`), so a
+maintenance packet's Rollout Split can be populated from measured scores rather
+than guessed ones.
+
+## How it plugs into the loop
+
+1. Before an edit, run the scorer and record the **baseline selection score**.
+2. Propose a bounded patch (SkillOpt loop step 4).
+3. After the edit, run the scorer again on a clean tree. Adopt only if the
+   **selection mean strictly increases** and the **regression mean does not
+   drop** — then paste the before/after into the packet's Gate Decision.
+   When the score is already saturated at `1.000`, do not manufacture a score
+   increase; use the complexity ratchet, validation gates, and worklog evidence
+   to justify maintenance edits whose value is measurement or consolidation.
+
+## Current baseline & active guardrails
+
+See [`baseline_scorecard.md`](baseline_scorecard.md) for the captured baseline.
+The first held-out miss has been resolved: `time_series_var` now has a matching
+Design Gate Card, and the current train / selection / regression means are all
+`1.000` under the seven-dimension scorer.
+
+The active guardrail is now bidirectional: `validate_skill.py` runs
+[`check_complexity_budget.py`](check_complexity_budget.py), which blocks
+unjustified growth of `SKILL.md` or the reference-file count. That ratchet keeps
+the saturated quality score from becoming an additive-only incentive.
+
+## Sibling harnesses in this directory (output-correctness, not procedure score)
+
+`score_skill.py` scores whether the *documented procedure* holds together. Two
+sibling harnesses, ported from the systems surveyed in the project's competitive
+analysis, measure things the procedure score structurally cannot see:
+
+- [`check_replication_accuracy.py`](check_replication_accuracy.py) — the **Stage 3
+  replication-accuracy benchmark** (after Econometrics-Agent, arXiv 2506.00856).
+  Scores a candidate's produced estimates against a frozen **gold truth** on three
+  nested rates — sign-correct / perfect / partial. This is the only eval here that
+  fails a run whose paperwork is immaculate but whose numbers are wrong. Cases live
+  in [`replication_cases/`](replication_cases/); the self-contained DiD case is
+  anchored on the demo's `TRUE_ATT = 2.0`.
+- [`check_quality_judge.py`](check_quality_judge.py) — the **reproducible
+  LLM-as-judge harness** for the Stage 7 quality gate (after open_deep_research's
+  gold-standard judge). Recomputes the PASS/NOT_PASS verdict deterministically
+  from the rubric rule and calibrates it against gold anchors in
+  [`quality_calibration.json`](quality_calibration.json), so a self-contradicting
+  scorecard (bad arithmetic, fudged verdict, red-flag-cap violation) is caught
+  mechanically.
+
+Both are wired into `validate_skill.py` via their `--selftest`, and both are
+standalone (import nothing from the skill), so they never collide with edits in
+flight on the core files.
+
+## Extending the suite
+
+Add a scenario to `scenarios.json` with a distinctive (case-sensitive)
+`routing_anchors` list and a `gate_card_keyword`. Keep anchors specific enough
+not to false-positive on common words. Re-run `--selftest` after any change.

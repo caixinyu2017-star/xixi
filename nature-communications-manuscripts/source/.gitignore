@@ -1,0 +1,7 @@
+*_final.md
+*_preview.html
+*_preview.pdf
+*.pdf
+reference.docx
+__pycache__/
+figs/*.npy

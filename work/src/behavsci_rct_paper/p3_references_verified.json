@@ -1,0 +1,1114 @@
+{
+ "records": {
+  "abdurahman2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Abdurahman, S., Atari, M., Karimi-Malekabadi, F., Xue, M. J., Trager, J., Park, P. S., Golazizian, P., Omrani, A., & Dehghani, M.",
+    "year": "2024",
+    "title": "Perils and opportunities in using large language models in psychological research",
+    "journal": "PNAS Nexus",
+    "volume": "3",
+    "issue": "7",
+    "pages": "pgae245",
+    "doi": "10.1093/pnasnexus/pgae245"
+   },
+   "corrections": "Candidate data was accurate but incomplete: \"Abdurahman, S., et al.\" expanded to the full nine-author APA list (Abdurahman, Atari, Karimi-Malekabadi, Xue, Trager, Park, Golazizian, Omrani, & Dehghani); added article number pgae245 and DOI 10.1093/pnasnexus/pgae245. Journal (PNAS Nexus), year (2024), volume (3), and issue (7) all confirmed as given.",
+   "evidence": "Oxford Academic (academic.oup.com/pnasnexus/article/3/7/pgae245/7712371): \"Perils and opportunities in using large language models in psychological research | PNAS Nexus\" — URL encodes volume 3, issue 7, article pgae245; issue page academic.oup.com/pnasnexus/issue/3/7 lists the article in Volume 3 Issue 7, July 2024. PubMed (pubmed.ncbi.nlm.nih.gov/39015547) and PMC (PMC11249969) index the same record. Search for exact DOI string \"10.1093/pnasnexus/pgae245\" resolves to the same Oxford Academic article and its PDF (academic.oup.com/pnasnexus/article-pdf/3/7/pgae245/58645406/pgae245.pdf). Author list per Oxford Academic/PubMed/Semantic Scholar: Suhaib Abdurahman, Mohammad Atari, Farzan Karimi-Malekabadi, Mona J Xue, Jackson Trager, Peter S Park, Preni Golazizian, Ali Omrani, Morteza Dehghani."
+  },
+  "ai_career1": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Pandya, S. S., & Wang, J.",
+    "year": "2024",
+    "title": "Artificial intelligence in career development: a scoping review",
+    "journal": "Human Resource Development International",
+    "volume": "27",
+    "issue": "3",
+    "pages": "324-344",
+    "doi": "10.1080/13678868.2024.2336881"
+   },
+   "corrections": "None — all candidate fields (authors, year, title, journal, volume 27, issue 3, pages 324-344, DOI) were confirmed exactly as given.",
+   "evidence": "(1) Taylor & Francis official page: \"Artificial intelligence in career development: a scoping review: Human Resource Development International: Vol 27, No 3\" at tandfonline.com/doi/abs/10.1080/13678868.2024.2336881; doi.org/10.1080/13678868.2024.2336881 resolves to the same page. (2) DOI search summary: \"corresponds to an article titled 'Artificial intelligence in career development: a scoping review' by Shyamal S. Pandya and Jia Wang, published in Human Resource Development International in 2024, volume 27, pages 324-344.\" (3) Author+pages search: \"Pandya, S. S., & Wang, J. (2024). Artificial intelligence in career development: A scoping review. Human Resource Development International, 27(3), 324–344 ... published on 9 April 2024 ... Texas A&M University ... scoping review of 101 journal publications.\" (4) Semantic Scholar record with Pandya-Wang author slug (paper e5381d30bee1ecc8c1da9cccfad2581d67521a0e) and ResearchGate publication 379721225 corroborate."
+  },
+  "ai_career2": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Xiao, Y., & Zheng, L.",
+    "year": "2025",
+    "title": "Can ChatGPT Boost Students' Employment Confidence? A Pioneering Booster for Career Readiness",
+    "journal": "Behavioral Sciences",
+    "volume": "15",
+    "issue": "3",
+    "pages": "362",
+    "doi": "10.3390/bs15030362"
+   },
+   "corrections": "None. All candidate fields verified exactly: authors (Yu Xiao, Li Zheng), year 2025, journal Behavioral Sciences (MDPI), volume 15, issue 3, article number 362, DOI 10.3390/bs15030362.",
+   "evidence": "(1) Exact-title search returned MDPI official page mdpi.com/2076-328X/15/3/362 titled \"Can ChatGPT Boost Students' Employment Confidence? A Pioneering Booster for Career Readiness\" and PMC record pmc.ncbi.nlm.nih.gov/articles/PMC11939219/. (2) DOI search for \"10.3390/bs15030362\" resolved to the same MDPI article: \"Published in Behavioral Sciences, volume 15, issue 3, article 362 on March 14, 2025; authors Yu Xiao (Institute of Education, Tsinghua University) and Li Zheng (School of Education, Shanghai Normal University)\"; also matched Semantic Scholar PDF pdfs.semanticscholar.org/168b/1149658974e1758dcf7ff7be7170c7f45832.pdf. (3) Author+year+journal search confirmed \"published in 2025 in Behavioral Sciences, volume 15, issue 3, page 362\" with study using regression, IPW, and SEM on ChatGPT use and students' employment confidence."
+  },
+  "ai_career3": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Dahri, N. A., Yahaya, N., & Al-Rahmi, W. M.",
+    "year": "2025",
+    "title": "Exploring the influence of ChatGPT on student academic success and career readiness",
+    "journal": "Education and Information Technologies",
+    "volume": "30",
+    "issue": "7",
+    "pages": "8877-8921",
+    "doi": "10.1007/s10639-024-13148-2"
+   },
+   "corrections": "None. All candidate fields confirmed exactly: authors (Nisar Ahmed Dahri, Noraffandy Yahaya, Waleed Mugahed Al-Rahmi), year 2025 (published online Nov 2024, issue dated May 2025), title, journal, volume 30, issue 7, pages 8877-8921, and DOI all match.",
+   "evidence": "(1) Exact-title search: Springer Nature Link article page link.springer.com/article/10.1007/s10639-024-13148-2 titled \"Exploring the influence of ChatGPT on student academic success and career readiness | Education and Information Technologies\". (2) DOI search: \"DOI 10.1007/s10639-024-13148-2 ... published in Education and Information Technologies ... pages 8877-8921 by Springer Science and Business Media LLC, with authors Nisar Ahmed Dahri, Noraffandy Yahaya, and Waleed Mugahed Al-Rahmi\"; indexed in Scopus and Web of Science. (3) Author+volume search: \"published in Education and Information Technologies, volume 30, issue 7, pages 8877-8921 (2025)\". (4) ERIC record EJ1470422: \"Exploring the Influence of ChatGPT on Student Academic Success and Career Readiness, Education and Information Technologies, 2025-May\". (5) Springer issue index link.springer.com/journal/10639/volumes-and-issues/30-7: \"Volume 30, Issue 7 of Education and Information Technologies was published in May 2025\". Study of 290 students at Universiti Teknologi Malaysia using SOR theory, TAM constructs, and SEM."
+  },
+  "bankins2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Bankins, S., Jooss, S., Restubog, S. L. D., Marrone, M., Ocampo, A. C., & Shoss, M.",
+    "year": "2024",
+    "title": "Navigating career stages in the age of artificial intelligence: A systematic interdisciplinary review and agenda for future research",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "153",
+    "issue": "",
+    "pages": "104011",
+    "doi": "10.1016/j.jvb.2024.104011"
+   },
+   "corrections": "No corrections needed — all candidate fields verified as-is. Added the DOI (10.1016/j.jvb.2024.104011), which was missing from the candidate. Journal uses article numbers, not issues, so issue is empty; 104011 is an article number, not a page range.",
+   "evidence": "1) Full-text PDF header (dau.url.edu repository copy): \"Journal of Vocational Behavior 153 (2024) 104011 Available online 27 June 2024\". 2) ScienceDirect (PII S0001879124000526): \"Navigating career stages in the age of artificial intelligence: A systematic interdisciplinary review and agenda for future research - ScienceDirect\", Journal of Vocational Behavior, Volume 153, September 2024, 104011. 3) DOI search for \"10.1016/j.jvb.2024.104011\" returned the same ScienceDirect article plus Illinois Experts institutional record listing authors Sarah Bankins, Stefan Jooss, Simon Lloyd D. Restubog, Mauricio Marrone, Anna Carmella Ocampo, Mindy Shoss. 4) Semantic Scholar record \"Navigating career stages in the age of artificial... Bankins-Jooss\" corroborates."
+  },
+  "bgem3": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Chen, J., Xiao, S., Zhang, P., Luo, K., Lian, D., & Liu, Z.",
+    "year": "2024",
+    "title": "BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation",
+    "journal": "arXiv preprint",
+    "volume": "",
+    "issue": "",
+    "pages": "arXiv:2402.03216",
+    "doi": "10.48550/arXiv.2402.03216"
+   },
+   "corrections": "Candidate data is essentially correct as an arXiv-preprint citation; added the DOI (10.48550/arXiv.2402.03216). Notes: (1) the candidate title matches arXiv versions v1-v4 exactly, but the latest arXiv version (v5, Dec 2025) and the peer-reviewed publication drop \"BGE\" and use \"M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation\". (2) A published version exists and may be preferable to cite: Findings of the Association for Computational Linguistics: ACL 2024, pages 2318-2335, Bangkok, Thailand (https://aclanthology.org/2024.findings-acl.137/), where the first author is spelled \"Jianlyu Chen\" (arXiv: \"Jianlv Chen\"); APA initials unchanged either way.",
+   "evidence": "arxiv.org/abs/2402.03216v3: \"[2402.03216v3] BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation\". arxiv.org/abs/2402.03216: \"M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation ... submitted on February 5, 2024 ... authors are Jianlv Chen, Shitao Xiao, Peitian Zhang, Kun Luo, Defu Lian, and Zheng Liu\". aclanthology.org/2024.findings-acl.137/: \"published in Findings of the Association for Computational Linguistics: ACL 2024, pages 2318-2335, Bangkok, Thailand, by authors Jianlyu Chen, Shitao Xiao, Peitian Zhang, Kun Luo, Defu Lian, and Zheng Liu\". DOI search: \"the DOI 10.48550/arXiv.2402.03216 corresponds to the paper 'BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation'\". Also confirmed at huggingface.co/papers/2402.03216."
+  },
+  "bh1995": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Benjamini, Y., & Hochberg, Y.",
+    "year": "1995",
+    "title": "Controlling the false discovery rate: A practical and powerful approach to multiple testing",
+    "journal": "Journal of the Royal Statistical Society: Series B (Methodological)",
+    "volume": "57",
+    "issue": "1",
+    "pages": "289-300",
+    "doi": "10.1111/j.2517-6161.1995.tb02031.x"
+   },
+   "corrections": "All candidate fields are correct. The only change is adding the DOI, which was missing from the candidate: 10.1111/j.2517-6161.1995.tb02031.x. Volume 57, Issue 1, pages 289-300 all verified. Authors' full names are Yoav Benjamini and Yosef Hochberg, consistent with the given APA initials.",
+   "evidence": "Wiley Online Library (rss.onlinelibrary.wiley.com/doi/10.1111/j.2517-6161.1995.tb02031.x): \"Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing - Benjamini - 1995 - Journal of the Royal Statistical Society: Series B (Methodological).\" Oxford Academic (academic.oup.com/jrsssb/article/57/1/289/7035855) confirms Volume 57, Issue 1, page 289 via the URL path \"57/1/289\" and states \"Volume 57, Issue 1, January 1995, Pages 289-300.\" SCIRP reference: \"Benjamini, Y. and Hochberg, Y. (1995) Controlling the False Discovery Rate A Practical and Powerful Approach to Multiple Testing. Journal of the Royal Statistical Society Series B (Methodological), 57, 289-300.\" Author full names Yoav Benjamini and Yosef Hochberg confirmed by Oxford Academic. DOI 10.1111/j.2517-6161.1995.tb02031.x confirmed by Wiley URL."
+  },
+  "boyd2021": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Boyd, R. L., & Schwartz, H. A.",
+    "year": "2021",
+    "title": "Natural Language Analysis and the Psychology of Verbal Behavior: The Past, Present, and Future States of the Field",
+    "journal": "Journal of Language and Social Psychology",
+    "volume": "40",
+    "issue": "1",
+    "pages": "21-41",
+    "doi": "10.1177/0261927X20967028"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 40, issue 1, pages 21-41) verified as correct. Added the DOI (10.1177/0261927X20967028), which was missing from the candidate.",
+   "evidence": "1) SAGE Journals (journals.sagepub.com/doi/10.1177/0261927X20967028): \"Natural Language Analysis and the Psychology of Verbal Behavior: The Past, Present, and Future States of the Field - Ryan L. Boyd, H. Andrew Schwartz, 2021\". 2) PubMed (PMID 34413563) / PMC8373026: article indexed under J Lang Soc Psychol, \"published January 2021, Volume 40(1), Pages 21-41, DOI: 10.1177/0261927x20967028\". 3) Google Scholar lookup string confirms: author=R.+L.+Boyd & author=H.+A.+Schwartz, publication_year=2021, journal=J.+Lang.+Soc.+Psychol., pages=21-41, doi=10.1177/0261927X20967028, pmid=34413563."
+  },
+  "brynjolfsson2025": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Brynjolfsson, E., Li, D., & Raymond, L.",
+    "year": "2025",
+    "title": "Generative AI at Work",
+    "journal": "The Quarterly Journal of Economics",
+    "volume": "140",
+    "issue": "2",
+    "pages": "889-942",
+    "doi": "10.1093/qje/qjae044"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 140, issue 2, pages 889-942) verified exactly. Added DOI 10.1093/qje/qjae044, which was missing from the candidate. Published May 2025 (advance access February 4, 2025).",
+   "evidence": "Oxford Academic (publisher, academic.oup.com/qje/article/140/2/889/7990658): \"Generative AI at Work* | The Quarterly Journal of Economics ... Erik Brynjolfsson, Danielle Li, Lindsey Raymond ... Volume 140, Issue 2, May 2025, Pages 889–942\". DOI resolver doi.org/10.1093/qje/qjae044 resolves to the same article. RePEc/IDEAS (ideas.repec.org/a/oup/qjecon/v140y2025i2p889-942..html): \"Generative AI at Work ... The Quarterly Journal of Economics, vol. 140(2), pages 889-942\". Publisher PDF at academic.oup.com/qje/article-pdf/140/2/889/61701561/qjae044.pdf titled \"GENERATIVE AI AT WORK — ERIK BRYNJOLFSSON, DANIELLE LI, LINDSEY RAYMOND\". Also corroborated by Stanford GSB publication page and arXiv:2304.11771 preprint."
+  },
+  "cn_stress1": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Mao, E. Z., & Zhao, L.",
+    "year": "2023",
+    "title": "The influence of job search stress on college students' addictive social media use: Seeking of social support and perceived social support as serial mediators and sense of coherence as a moderator",
+    "journal": "Frontiers in Psychology",
+    "volume": "14",
+    "issue": "",
+    "pages": "Article 1101674",
+    "doi": "10.3389/fpsyg.2023.1101674"
+   },
+   "corrections": "None — every candidate field matched the evidence (title, authors Mao EZ & Zhao L, journal, volume 14, article number 1101674, DOI, year 2023, no issue number as Frontiers in Psychology uses continuous article numbers).",
+   "evidence": "Frontiers article page (frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1101674/full) confirms exact title. Frontiers PDF (public-pages-files-2025.frontiersin.org/.../10.3389/fpsyg.2023.1101674/pdf): 'TYPE Original Research PUBLISHED 22 February 2023', filename 'fpsyg-14-1101674' confirming Volume 14, Article 1101674. PubMed Central PMC9992423 hosts the same article. Search result: 'authored by Eric (Zeqing) Mao and Lishou Zhao from the School of Cultural Creativity and Management at Communication University of Zhejiang in Hangzhou, China... published in Frontiers in Psychology, Volume 14, article 1101674... on February 22, 2023.' ResearchGate publication 368692290 cross-confirms."
+  },
+  "cn_stress2": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Peng, Y., Lv, S. B., Low, S. R., & Bono, S. A.",
+    "year": "2024",
+    "title": "The impact of employment stress on college students: Psychological well-being during COVID-19 pandemic in China",
+    "journal": "Current Psychology",
+    "volume": "43",
+    "issue": "20",
+    "pages": "18647-18658",
+    "doi": "10.1007/s12144-023-04785-w"
+   },
+   "corrections": "None. All candidate fields verified as correct. Note: article first published online May 2023; assigned to 2024 print issue (Vol. 43, Issue 20), so citing year 2024 is correct.",
+   "evidence": "Springer Nature Link (link.springer.com/article/10.1007/s12144-023-04785-w): 'The impact of employment stress on college students: psychological well-being during COVID-19 pandemic in China | Current Psychology'. PubMed Central PMC10228455 hosts the same article. Search snippet: 'published in Current Psychology, Volume 43, pages 18647-18658 (2024)'; another snippet: 'published in Current Psychology in 2024, volume 43(20), pages 18647-18658... DOI: 10.1007/s12144-023-04785-w'. Author full names confirmed: 'authored by Yan Peng, Shao Bo Lv, Su Rou Low, and Suzanna A. Bono, and was published in 2024'. Study details match: 2,627 final year college students; 13.2% depressed; 53.3% considered employment situation severe."
+  },
+  "cn_stress3": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Zheng, S., Wu, G., Zhao, J., & Chen, W.",
+    "year": "2022",
+    "title": "Impact of the COVID-19 epidemic anxiety on college students' employment confidence and employment situation perception in China",
+    "journal": "Frontiers in Psychology",
+    "volume": "13",
+    "issue": "",
+    "pages": "Article 980634",
+    "doi": "10.3389/fpsyg.2022.980634"
+   },
+   "corrections": "None. All candidate fields verified exactly: authors (Sining Zheng, Guizhen Wu, Jiahao Zhao, Weiqi Chen = Zheng, S., Wu, G., Zhao, J., & Chen, W.), year 2022, title, journal Frontiers in Psychology, volume 13, article number 980634, DOI 10.3389/fpsyg.2022.980634. No issue number — Frontiers in Psychology uses continuous volumes with article numbers, consistent with the candidate's empty issue field.",
+   "evidence": "1) Frontiers official article page (frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.980634/full): \"Impact of the COVID-19 epidemic anxiety on college students' employment confidence and employment situation perception in China\" — title search in quotes returned this as an exact match. 2) PubMed Central (pmc.ncbi.nlm.nih.gov/articles/PMC9501885/): same exact title, confirming indexing as PMC9501885, \"published in Frontiers in Psychology in September 2022, Volume 13, Article number 980634.\" 3) PhilPapers record (philpapers.org/rec/ZHEIOT-4): \"Sining Zheng, Guizhen Wu, Jiahao Zhao & Weiqi Chen, Impact of the COVID-19 epidemic anxiety on college students' employment confidence and employment situation perception in China\" — confirms full author names and order. 4) DOI search snippet: \"Zheng S, Wu G, Zhao J and Chen W (2022)... Frontiers in Psychology, Volume 13... DOI 10.3389/fpsyg.2022.980634; received June 28, 2022, accepted August 10, 2022.\" Frontiers XML/NLM record at the same DOI also surfaced. Semantic Scholar record also matched (semanticscholar.org/paper/...Zheng-Wu/ddca0b16...)."
+  },
+  "cohen1960": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Cohen, J.",
+    "year": "1960",
+    "title": "A coefficient of agreement for nominal scales",
+    "journal": "Educational and Psychological Measurement",
+    "volume": "20",
+    "issue": "1",
+    "pages": "37-46",
+    "doi": "10.1177/001316446002000104"
+   },
+   "corrections": "No corrections needed. All candidate fields (author, year, title, journal, volume 20, issue 1, pages 37-46) were confirmed by multiple independent sources. Added the DOI (10.1177/001316446002000104), which was missing from the candidate.",
+   "evidence": "SAGE Journals (journals.sagepub.com/doi/10.1177/001316446002000104): \"A Coefficient of Agreement for Nominal Scales - Jacob Cohen, 1960\". SCIRP (scirp.org/reference/referencespapers?referenceid=987285): \"J. Cohen, 'A Coefficient of Agreement For Nominal Scales,' Educational and Psychological Measurement, Vol. 20, No. 1, 1960, pp. 37-46.\" OpenAIRE (oamonitor.ireland.openaire.eu): record \"A Coefficient of Agreement for Nominal Scales\" indexed under pid=10.1177/001316446002000104. Garfield Citation Classic (garfield.library.upenn.edu/classics1986/A1986AXF2600001.pdf) also documents the paper as the most-cited article in the journal."
+  },
+  "creed2016": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Creed, P. A., Hood, M., Praskova, A., & Makransky, G.",
+    "year": "2016",
+    "title": "The Career Distress Scale: Using Rasch measurement theory to evaluate a brief measure of career distress",
+    "journal": "Journal of Career Assessment",
+    "volume": "24",
+    "issue": "4",
+    "pages": "732-746",
+    "doi": "10.1177/1069072715616126"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume 24, issue 4, pages 732-746) confirmed. Added the missing DOI: 10.1177/1069072715616126.",
+   "evidence": "(1) ResearchGate record (publication/283789559): \"The Career Distress Scale: Using Rasch Measurement Theory to Evaluate a Brief Measure of Career Distress\" — Creed, Hood, Praskova, Makransky, Journal of Career Assessment. (2) Search-result synthesis of exact-title query: \"authored by Creed, P. A., Hood, M., Praskova, A., & Makransky, G. and published in the Journal of Career Assessment in 2016, volume 24, pages 732–746.\" (3) Author+year query result: \"Journal of Career Assessment, volume 24(4), pages 732–746 ... The DOI for this article is 10.1177/1069072715616126.\" (4) DOI-string query independently resolved to the same record: \"Creed, Hood, Praskova, and Makransky (2016) ... Journal of Career Assessment, volume 24(4), pages 732–746.\" Also corroborated by Springer reference entry \"Career Distress Scale (CDS)\" (10.1007/978-3-030-89738-3_37-1) describing the 9-item CDS validated via Rasch analysis."
+  },
+  "delong1988": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "DeLong, E. R., DeLong, D. M., & Clarke-Pearson, D. L.",
+    "year": "1988",
+    "title": "Comparing the areas under two or more correlated receiver operating characteristic curves: A nonparametric approach",
+    "journal": "Biometrics",
+    "volume": "44",
+    "issue": "3",
+    "pages": "837-845",
+    "doi": "10.2307/2531595"
+   },
+   "corrections": "No bibliographic fields were wrong. The candidate had no DOI; the correct DOI is 10.2307/2531595 (added). All other fields (authors, year, title, journal, volume 44, issue 3, pages 837-845) are confirmed exactly as given. Note: title capitalization per APA sentence case retained; source records render \"nonparametric\" (sometimes \"non-parametric\") — the candidate's form is correct.",
+   "evidence": "PubMed (PMID 3203132, pubmed.ncbi.nlm.nih.gov/3203132) lists: \"Comparing the areas under two or more correlated receiver operating characteristic curves: a nonparametric approach\" by DeLong ER, DeLong DM, Clarke-Pearson DL, Biometrics 1988;44(3):837-845. Scientific Research Publishing (scirp.org reference 739438) gives full citation: \"DeLong, E.R., DeLong, D.M. and Clarke-Pearson, D.L. (1988) ... Biometrics, 44, 837-845. doi:10.2307/2531595\". Scholars@Duke publication record (scholars.duke.edu/publication/712661) and Semantic Scholar both confirm authors, title, journal, and year. Google Scholar lookup link encodes volume=44, pages=837-845, journal=Biometrics, publication_year=1988 with the three named authors. Issue 3 (September 1988) is corroborated by JSTOR volume listing showing Vol. 44 No. 2 was June 1988, placing pp. 837-845 in the later No. 3 issue."
+  },
+  "demszky2023": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Demszky, D., Yang, D., Yeager, D. S., Bryan, C. J., Clapper, M., Chandhok, S., Eichstaedt, J. C., Hecht, C., Jamieson, J., Johnson, M., Jones, M., Krettek-Cobb, D., Lai, L., JonesMitchell, N., Ong, D. C., Dweck, C. S., Gross, J. J., & Pennebaker, J. W.",
+    "year": "2023",
+    "title": "Using large language models in psychology",
+    "journal": "Nature Reviews Psychology",
+    "volume": "2",
+    "issue": "11",
+    "pages": "688-701",
+    "doi": "10.1038/s44159-023-00241-5"
+   },
+   "corrections": "All candidate fields verified correct (journal, volume 2, issue 11, pages 688-701, year 2023). Only change: replaced \"et al.\" with the full 18-author APA list and added the DOI (10.1038/s44159-023-00241-5), which the candidate lacked.",
+   "evidence": "nature.com/articles/s44159-023-00241-5: \"Using large language models in psychology | Nature Reviews Psychology\" — search summary confirms \"published on October 13, 2023, in Nature Reviews Psychology, volume 2, issue 11, pages 688–701\". NSF PAR (par.nsf.gov/servlets/purl/10575508) result title: \"Nature Reviews Psychology | Volume 2 | November 2023 | 688–701\". Semantic Scholar / publisher-derived author list: \"Demszky, D., Yang, D., Yeager, D. S., Bryan, C. J., Clapper, M., Chandhok, S., Eichstaedt, J. C., Hecht, C., Jamieson, J., Johnson, M., Jones, M., Krettek-Cobb, D., Lai, L., JonesMitchell, N., Ong, D. C., Dweck, C. S., Gross, J. J., & Pennebaker, J. W. (2023)\"; DOI confirmed as https://doi.org/10.1038/s44159-023-00241-5 in two separate searches."
+  },
+  "diener1985": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Diener, E., Emmons, R. A., Larsen, R. J., & Griffin, S.",
+    "year": "1985",
+    "title": "The Satisfaction With Life Scale",
+    "journal": "Journal of Personality Assessment",
+    "volume": "49",
+    "issue": "1",
+    "pages": "71-75",
+    "doi": "10.1207/s15327752jpa4901_13"
+   },
+   "corrections": "No corrections needed — all candidate fields verified as-is (authors, year, title, journal, volume 49, issue 1, pages 71-75). Added the missing DOI: 10.1207/s15327752jpa4901_13.",
+   "evidence": "(1) Publisher page tandfonline.com/doi/abs/10.1207/s15327752jpa4901_13 titled \"The Satisfaction With Life Scale: Journal of Personality Assessment: Vol 49, No 1\", confirming title, journal, volume 49, issue 1 and DOI. (2) SCIRP reference entries: \"Diener, E., Emmons, R.A., Larsen, R.J. and Griffin, S. (1985) The Satisfaction with Life Scale. Journal of Personality Assessment, 49, 71-75.\" confirming full author list, year, and pages 71-75. (3) Semantic Scholar and ResearchGate records \"The Satisfaction with Life Scale — Diener, Emmons...\" plus upenn.edu Positive Psychology Center and eddiener.com SWLS pages all citing the identical record. Abstract snippet: \"This article reports the development and validation of a scale to measure global life satisfaction, the Satisfaction With Life Scale (SWLS).\""
+  },
+  "duffy2016": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Duffy, R. D., Blustein, D. L., Diemer, M. A., & Autin, K. L.",
+    "year": "2016",
+    "title": "The psychology of working theory",
+    "journal": "Journal of Counseling Psychology",
+    "volume": "63",
+    "issue": "2",
+    "pages": "127-148",
+    "doi": "10.1037/cou0000140"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 63, issue 2, pages 127-148) confirmed exactly. Added the missing DOI: 10.1037/cou0000140.",
+   "evidence": "Search 1 (title in quotes + authors + year): first search result summary states \"published in the Journal of Counseling Psychology, 2016, Vol. 63, pages 127-148\"; corroborated by the author's own hosted PDF (drryanduffy.com \"duffy_et_al.__2016__pwt.pdf\") and Semantic Scholar entry \"The Psychology of Working Theory. Duffy-Blustein\". Search 2 (journal + volume + DOI): Ovid journal record URL \"ovid.com/journals/jcoup/abstract/10.1037/cou0000140~the-psychology-of-working-theory\" confirms DOI 10.1037/cou0000140; result summary: \"published in the Journal of Counseling Psychology, Volume 63, Number 2, pages 127-148, in March 2016, with DOI: 10.1037/cou0000140\". Search 3 (exact APA author string): confirmed citation string \"Duffy, R. D., Blustein, D. L., Diemer, M. A., & Autin, K. L. (2016). The psychology of working theory. Journal of Counseling Psychology, 63(2), 127-148\" appearing in citing works (Springer, BC.edu PDF, ScienceDirect)."
+  },
+  "eichstaedt2018": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Eichstaedt, J. C., Smith, R. J., Merchant, R. M., Ungar, L. H., Crutchley, P., Preoţiuc-Pietro, D., Asch, D. A., & Schwartz, H. A.",
+    "year": "2018",
+    "title": "Facebook language predicts depression in medical records",
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "volume": "115",
+    "issue": "44",
+    "pages": "11203-11208",
+    "doi": "10.1073/pnas.1802331115"
+   },
+   "corrections": "Candidate data was accurate. Only change: replaced 'et al.' with the full 8-author APA list (Eichstaedt, Smith, Merchant, Ungar, Crutchley, Preoţiuc-Pietro, Asch, & Schwartz) and added the DOI (10.1073/pnas.1802331115), which was absent from the candidate. Journal name expanded to its formal full form.",
+   "evidence": "PNAS (pnas.org/doi/10.1073/pnas.1802331115): 'Facebook language predicts depression in medical records | PNAS' — article page confirms title and DOI. Search-result summary of PNAS/PubMed records: 'by Johannes C Eichstaedt, Robert J Smith, Raina M Merchant, Lyle H Ungar, Patrick Crutchley, Daniel Preoţiuc-Pietro, David A Asch, and H Andrew Schwartz, published in Proceedings of the National Academy of Sciences in 2018, volume 115(44), pages 11203-11208.' ADS bibcode '2018PNAS..11511203E' independently confirms year 2018, volume 115, start page 11203. PubMed PMID 30322910 and PMC6217418 also list the same record. DOI search confirmed: 'volume 115(44), pages 11203–11208, with DOI 10.1073/pnas.1802331115.'"
+  },
+  "eloundou2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Eloundou, T., Manning, S., Mishkin, P., & Rock, D.",
+    "year": "2024",
+    "title": "GPTs are GPTs: Labor market impact potential of LLMs",
+    "journal": "Science",
+    "volume": "384",
+    "issue": "6702",
+    "pages": "1306-1308",
+    "doi": "10.1126/science.adj0998"
+   },
+   "corrections": "No corrections needed to the candidate fields — title, authors, journal, volume, issue, and pages all confirmed exactly. Added the DOI (10.1126/science.adj0998), which was missing from the candidate. Note: this is the Science Policy Forum version; the longer 2023 arXiv preprint has a different title (\"GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models\", arXiv:2303.10130) and should not be conflated with it.",
+   "evidence": "science.org: \"GPTs are GPTs: Labor market impact potential of LLMs | Science\" at https://www.science.org/doi/10.1126/science.adj0998. PubMed (PMID 38900883) search summary: \"published in Science on June 21, 2024, volume 384, issue 6702, pages 1306-1308, with DOI 10.1126/science.adj0998. The authors are Tyna Eloundou, Sam Manning, Pamela Mishkin, and Daniel Rock.\" NASA ADS bibcode \"2024Sci...384.1306E\" confirms Science vol 384 starting page 1306. A second search result independently stated \"Science 384 (6702): 1306–08 in 2024 ... published on June 20-21, 2024\". Distinct from the 2023 arXiv preprint arXiv:2303.10130 with the longer title."
+  },
+  "elyoseph2023": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Elyoseph, Z., Hadar-Shoval, D., Asraf, K., & Lvovsky, M.",
+    "year": "2023",
+    "title": "ChatGPT outperforms humans in emotional awareness evaluations",
+    "journal": "Frontiers in Psychology",
+    "volume": "14",
+    "issue": "",
+    "pages": "1199058",
+    "doi": "10.3389/fpsyg.2023.1199058"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume, article number) verified exactly. Added DOI 10.3389/fpsyg.2023.1199058, which was absent from the candidate. Frontiers in Psychology does not use issue numbers; 1199058 is the article number.",
+   "evidence": "1) Frontiers article page (frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1199058/full): \"ChatGPT outperforms humans in emotional awareness evaluations\" — DOI embedded in URL confirms 10.3389/fpsyg.2023.1199058, Frontiers in Psychology. 2) Author+year search result: \"The study is titled 'ChatGPT outperforms humans in emotional awareness evaluations' by Elyoseph, Hadar-Shoval, Asraf, and Lvovsky, and it was published in Frontiers in Psychology, volume 14, article 1199058... published on May 26, 2023.\" 3) DOI search / Israeli Research Community Portal (cris.iucc.ac.il): \"Authors: Elyoseph, Zohar; Hadar-Shoval, Dorit; Asraf, Kfir; and Lvovsky, M. — Journal: Frontiers in Psychology, Volume 14, Article Number 1199058, DOI: 10.3389/fpsyg.2023.1199058.\" Also indexed on PubMed (pubmed.ncbi.nlm.nih.gov/37303897/) and PMC (PMC10254409)."
+  },
+  "gariepy2022": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Gariépy, G., Danna, S. M., Hawke, L., Henderson, J., & Iyer, S. N.",
+    "year": "2022",
+    "title": "The mental health of young people who are not in education, employment, or training: a systematic review and meta-analysis",
+    "journal": "Social Psychiatry and Psychiatric Epidemiology",
+    "volume": "57",
+    "issue": "6",
+    "pages": "1107-1121",
+    "doi": "10.1007/s00127-021-02212-8"
+   },
+   "corrections": "No substantive corrections. All candidate fields confirmed: authors (Gariépy, G., Danna, S. M., Hawke, L., Henderson, J., & Iyer, S. N.), year 2022, journal Social Psychiatry and Psychiatric Epidemiology, volume 57, issue 6, pages 1107-1121. Added DOI 10.1007/s00127-021-02212-8 (suffix contains 2021 because online-first publication was December 2021; print issue is June 2022). Journal's published title uses lowercase after the colon (\"a systematic review...\"), a trivial capitalization difference from the candidate.",
+   "evidence": "Springer Link (link.springer.com/article/10.1007/s00127-021-02212-8): \"The mental health of young people who are not in education, employment, or training: a systematic review and meta-analysis | Social Psychiatry and Psychiatric Epidemiology\" — citation: Soc Psychiatry Psychiatr Epidemiol 57, 1107–1121 (2022). PubMed PMID 34931257: \"Gariépy G, Danna SM, Hawke L, Henderson J, Iyer SN. Soc Psychiatry Psychiatr Epidemiol. 2022 Jun;57(6):1107-1121.\" PMC8687877 full text lists authors Geneviève Gariépy, Sofia M. Danna, Lisa Hawke, Joanna Henderson, Srividya N. Iyer; search covered Medline, EMBASE, Web of Science, ERIC, PsycINFO, ProQuest (1999–2020)."
+  },
+  "gilardi2023": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Gilardi, F., Alizadeh, M., & Kubli, M.",
+    "year": "2023",
+    "title": "ChatGPT outperforms crowd workers for text-annotation tasks",
+    "journal": "Proceedings of the National Academy of Sciences",
+    "volume": "120",
+    "issue": "30",
+    "pages": "e2305016120",
+    "doi": "10.1073/pnas.2305016120"
+   },
+   "corrections": "None — all candidate fields (authors, year, title, journal, volume 120, issue 30, article number e2305016120) match the published record. DOI 10.1073/pnas.2305016120 added (was absent from candidate). Note the PNAS published title uses \"crowd workers\" (as in candidate); the arXiv preprint variant \"Crowd-Workers\" (arXiv:2303.15056) is a different version. Fully expanded journal name in some indexes is \"Proceedings of the National Academy of Sciences of the United States of America\".",
+   "evidence": "pnas.org (https://www.pnas.org/doi/10.1073/pnas.2305016120): \"ChatGPT outperforms crowd workers for text-annotation tasks | PNAS\" — article e2305016120, volume 120, issue 30, published July 18, 2023; authors Fabrizio Gilardi, Meysam Alizadeh, Maël Kubli, Dept. of Political Science, University of Zurich. PubMed (https://pubmed.ncbi.nlm.nih.gov/37463210/): PMID 37463210, DOI 10.1073/pnas.2305016120. Google Scholar lookup: \"journal=Proc Natl Acad Sci U S A&volume=120&pages=e2305016120\". PMC full text: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10372638/. Search summary: \"Volume: 120, Issue: 30, Article: e2305016120... published on July 18, 2023.\""
+  },
+  "grootendorst2022": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Grootendorst, M.",
+    "year": "2022",
+    "title": "BERTopic: Neural topic modeling with a class-based TF-IDF procedure",
+    "journal": "arXiv preprint",
+    "volume": "",
+    "issue": "",
+    "pages": "arXiv:2203.05794",
+    "doi": "10.48550/arXiv.2203.05794"
+   },
+   "corrections": "No corrections needed to the candidate fields — author, year, title, and arXiv identifier all verified exactly. Added the arXiv-assigned DOI (10.48550/arXiv.2203.05794), which the candidate lacked. This is a preprint (cs.CL, submitted 11 Mar 2022), so no volume/issue/page range exists; it was never published in a peer-reviewed journal.",
+   "evidence": "arxiv.org: \"[2203.05794] BERTopic: Neural topic modeling with a class-based TF-IDF procedure\" — official abstract page, author Maarten Grootendorst, submitted 11 Mar 2022 (arXiv:2203.05794v1 [cs.CL]). Semantic Scholar: \"BERTopic: Neural topic modeling with a class-based TF-IDF procedure — Grootendorst\". NASA ADS record: \"2022arXiv220305794G\". SCIRP reference record: \"Grootendorst, M. (2022) BERTopic Neural Topic Modeling with a Class-Based TF-IDF Procedure. arXiv2203.05794.\" PDF header from mirrored copy: \"BERTopic: Neural topic modeling with a class-based TF-IDF procedure — Maarten Grootendorst — arXiv:2203.05794v1 [cs.CL] 11 Mar 2022\"."
+  },
+  "hayes2020": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Hayes, A. F., & Coutts, J. J.",
+    "year": "2020",
+    "title": "Use omega rather than Cronbach's alpha for estimating reliability. But…",
+    "journal": "Communication Methods and Measures",
+    "volume": "14",
+    "issue": "1",
+    "pages": "1-24",
+    "doi": "10.1080/19312458.2020.1718629"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume 14, issue 1, pages 1-24) verified as correct. Added the missing DOI: 10.1080/19312458.2020.1718629.",
+   "evidence": "(1) tandfonline.com (publisher): \"Use Omega Rather than Cronbach's Alpha for Estimating Reliability. But…: Communication Methods and Measures: Vol 14, No 1\" at https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1718629, \"Pages 1-24, published January 2, 2020\". (2) sciepub.com reference: \"Hayes, A. F. and Coutts, J. J., 'Use omega rather than Cronbach's alpha for estimating reliability. But….', Communication Methods and Measures, 14(1), 1-24. 2020.\" (3) DOI-string search independently resolved to the same article on Semantic Scholar, CiNii, Scinapse, and ResearchGate, authors Andrew F. Hayes and Jacob J. Coutts."
+  },
+  "hou2012": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Hou, Z.-J., Leung, S. A., Li, X., Li, X., & Xu, H.",
+    "year": "2012",
+    "title": "Career Adapt-Abilities Scale—China Form: Construction and initial validation",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "80",
+    "issue": "3",
+    "pages": "686-691",
+    "doi": "10.1016/j.jvb.2012.01.006"
+   },
+   "corrections": "No corrections needed; candidate matched the published record. Added DOI 10.1016/j.jvb.2012.01.006 (not in candidate). Note: some third-party citations (e.g., SCIRP) list only four authors, but the Scholar lookup record confirms five authors with two 'Li, X.' entries as in the candidate.",
+   "evidence": "ScienceDirect (sciencedirect.com/science/article/abs/pii/S0001879112000085): \"Career Adapt-Abilities Scale—China Form: Construction and initial validation - ScienceDirect\". ERIC EJ971792: \"Career Adapt-Abilities Scale--China Form: Construction and Initial Validation, Journal of Vocational Behavior, 2012-Jun\" (June 2012 = Vol 80, Issue 3). Google Scholar lookup URL embeds full record: authors Z. Hou, S.A. Leung, X. Li, X. Li, H. Xu; Journal of Vocational Behavior; 2012; pages 686-691; doi=10.1016/j.jvb.2012.01.006. Search summary: \"published in the Journal of Vocational Behavior in June 2012, volume 80, issue 3, pages 686-691\" by \"Hou, Z.-J., Leung, S. A., Li, X., Li, X., & Xu, H. (2012)\"."
+  },
+  "ilo2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "International Labour Organization",
+    "year": "2024",
+    "title": "Global Employment Trends for Youth 2024: Decent work, brighter futures",
+    "journal": "International Labour Office, Geneva",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": ""
+   },
+   "corrections": "Reference confirmed essentially as given. Minor fixes: (1) publisher expanded from \"ILO, Geneva\" to the full imprint \"International Labour Office, Geneva\"; (2) dropped the \"(report)\" annotation from the title — the exact title is \"Global Employment Trends for Youth 2024: Decent work, brighter futures\". It is a standalone ILO flagship report (12th edition, 20th anniversary of the GET for Youth series, released 12 August 2024), so there is no volume/issue/pages. ISBN 978-92-2-040675-5 was reported for the publication. No DOI could be confirmed for the main report — the only DOIs found (e.g., 10.54394/PPEG7881) belong to its regional companion briefs, so the DOI field is left empty.",
+   "evidence": "(1) ilo.org publication page \"Global Employment Trends for Youth 2024 | International Labour Organization\" (https://www.ilo.org/publications/major-publications/global-employment-trends-youth-2024): \"the 20th anniversary publication of the International Labour Organization's Global Employment Trends for Youth... published on August 12, 2024\". (2) Official full-report PDF hosted by ILO titled \"Global Employment Trends for Youth 2024 Decent work, brighter futures\" (https://www.ilo.org/sites/default/files/2024-11/GET_2024_EN_web4.pdf). (3) UN Digital Library record \"Global employment trends for youth 2024\" (https://digitallibrary.un.org/record/4059299): citation \"International Labour Organization. Global employment trends for youth 2024. ILO; Geneva. 2024.\" (4) Search result confirming \"published by the ILO in Geneva with ISBN 978-92-2040-675-5\". (5) ICSF repository record \"Global employment trends for youth 2024: Decent work, brighter futures by ILO, 2024\" (https://icsfarchives.net/20325/)."
+  },
+  "insel2017": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Insel, T. R.",
+    "year": "2017",
+    "title": "Digital phenotyping: Technology for a new science of behavior",
+    "journal": "JAMA",
+    "volume": "318",
+    "issue": "13",
+    "pages": "1215-1216",
+    "doi": "10.1001/jama.2017.11295"
+   },
+   "corrections": "No corrections needed. All candidate fields (author, year, title, journal, volume 318, issue 13, pages 1215-1216) verified exactly. Added DOI 10.1001/jama.2017.11295 (PMID 28973224), which was missing from the candidate. Note: JAMA is the journal's official full name (not an abbreviation since 2013); article is a Viewpoint published October 3, 2017.",
+   "evidence": "PubMed (pubmed.ncbi.nlm.nih.gov/28973224): \"Digital Phenotyping: Technology for a New Science of Behavior... Insel TR... JAMA... 2017 Oct 3;318(13):1215-1216. doi: 10.1001/jama.2017.11295.\" | JAMA Network (jamanetwork.com/journals/jama/fullarticle/2654782): Viewpoint by Thomas R. Insel, Mindstrong Health, Palo Alto, CA — \"sensor, keyboard, and voice and speech data from smartphones might be used as a digital phenotype to improve patient-specific measurement-based behavioral care.\" | Search summaries from three distinct queries (title-in-quotes, DOI, PMID+volume) all independently confirm JAMA volume 318, issue 13, pages 1215-1216, October 3, 2017."
+  },
+  "involution1": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Zhang, W., Wang, Y., Liu, X., Guo, C., Lin, Z., Zhou, M., & Mu, Y.",
+    "year": "2025",
+    "title": "The Psychology of Involution: Taxonomy, Sociocultural Predictors, and Psychological Outcomes",
+    "journal": "Journal of Happiness Studies",
+    "volume": "26",
+    "issue": "7",
+    "pages": "Article 127",
+    "doi": "10.1007/s10902-025-00954-9"
+   },
+   "corrections": "None — every candidate field was independently confirmed (title, authors, year, journal, volume 26, issue 7, article number 127, DOI).",
+   "evidence": "Springer Nature Link (link.springer.com/article/10.1007/s10902-025-00954-9): 'The Psychology of Involution: Taxonomy, Sociocultural Predictors, and Psychological Outcomes | Journal of Happiness Studies'; search summary gives citation 'Journal of Happiness Studies, Volume 26, article number 127 (2025)' with authors Wen Zhang, Yuwei Wang, Xiaotao Liu, Chen Guo, Zhicheng Lin, Mingjie Zhou, and Yan Mu. IDEAS/RePEc (ideas.repec.org/a/spr/jhappi/v26y2025i7d10.1007_s10902-025-00954-9.html): same title, 'Journal of Happiness Studies, vol. 26(7), October 2025', same author list, article on 'involution (neijuan), a recent, widespread phenomenon in China characterized by societal hyper-competition and individual experiences of burnout, anxiety, and disillusionment with success.' Also indexed by R Discovery. DOI search independently resolved to the same Springer page."
+  },
+  "involution2": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Tong, X., & Liu, J.",
+    "year": "2023",
+    "title": "\"Lying Flat\": Chinese Youths' Resistance to Overwork and the Practice of Stratification",
+    "journal": "Youth and Globalization",
+    "volume": "5",
+    "issue": "2",
+    "pages": "231-251",
+    "doi": "10.1163/25895745-05020002"
+   },
+   "corrections": "None. All candidate fields confirmed exactly: title, journal (Youth and Globalization), volume 5, issue 2, pages 231-251, DOI 10.1163/25895745-05020002, and authors Tong Xin (Professor, Dept. of Sociology, Peking University) and Liu Jian (PhD candidate, same dept.), which in APA surname-first form is \"Tong, X., & Liu, J.\" The issue is dated 2023 though Brill released the article online on March 4, 2024 (delayed publication), as the candidate already noted; citing the year as 2023 per the issue date is correct.",
+   "evidence": "(1) Brill (publisher) search hit: '\"Lying Flat\": Chinese Youths' Resistance to Overwork and the Practice of Stratification in: Youth and Globalization Volume 5 Issue 2 (2023)' at brill.com/view/journals/yogo/5/2/article-p231_002.xml — confirms title, journal, volume, issue, year, and start page 231. (2) Exact-DOI search for \"10.1163/25895745-05020002\" returned the same Brill page plus scite.ai and ResearchGate (publication 378860218) records stating the article spans \"Volume 5, Issue 2, pages 231-251\" — confirms DOI and page range. (3) Author search: \"Tong Xin is a Professor in the Department of Sociology at Peking University, China, and Liu Jian is a PhD candidate in the Department of Sociology at Peking University, China... published on March 4, 2024\" — confirms authors and the delayed online release of the 2023 issue. (4) Independent citation form found in search: '\"Lying Flat\": Chinese Youths' Resistance to Overwork and the Practice of Stratification.\" Youth and Globalization 5 (2): 231-251' — cross-confirms volume/issue/pages."
+  },
+  "involution3": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Zhang, L., Hui, B. P. H., Kong, F., Lu, H., & Chen, S. X.",
+    "year": "2025",
+    "title": "Why People \"Lie Flat\"? An Integrative Framework of Social-Psychological Pathways in China",
+    "journal": "Personality and Social Psychology Review",
+    "volume": "29",
+    "issue": "4",
+    "pages": "371-382",
+    "doi": "10.1177/10888683251358516"
+   },
+   "corrections": "None. All candidate fields verified as correct: authors (Linting Zhang, Bryant P. H. Hui, Feng Kong, Huanhua Lu, Sylvia Xiaohua Chen), year 2025, journal Personality and Social Psychology Review, volume 29, issue 4, pages 371-382, DOI 10.1177/10888683251358516.",
+   "evidence": "SAGE Journals (journals.sagepub.com/doi/10.1177/10888683251358516): 'Why People \"Lie Flat\"? An Integrative Framework of Social-Psychological Pathways in China - Linting Zhang, Bryant P. H. Hui, Feng Kong, Huanhua Lu, Sylvia Xiaohua Chen, 2025'. DOI search confirmed the same record, 'published in Personality and Social Psychology Review... Volume 29, Issue 4, pages 371-382, first published online July 29, 2025'. Independently indexed on PubMed (pubmed.ncbi.nlm.nih.gov/40728129: 'Why People \"Lie Flat\"? An Integrative Framework of Social-...'), Semantic Scholar (paper Zhang-Hui/4d6feee4ffcbe176a50f02ba30d2b9b29fc7aa17), and the Hong Kong PolyU Institutional Research Archive (ira.lib.polyu.edu.hk/handle/10397/117683, full-text PDF at bitstream/10397/117683/1/Zhang_Why_People_Lie.pdf)."
+  },
+  "jones2025": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Jones, M. K., Kaya, E., & Nan, J.",
+    "year": "2025",
+    "title": "Overeducation, earnings and job satisfaction among graduates in China",
+    "journal": "China Economic Review",
+    "volume": "93",
+    "issue": "",
+    "pages": "102448",
+    "doi": "10.1016/j.chieco.2025.102448"
+   },
+   "corrections": "No corrections needed to candidate fields. Added the missing DOI (10.1016/j.chieco.2025.102448). Journal uses article numbers, not page ranges, and no issue number (Volume 93, October 2025).",
+   "evidence": "ScienceDirect (sciencedirect.com/science/article/abs/pii/S1043951X25001063): \"Overeducation, earnings and job satisfaction among graduates in China\". IDEAS/RePEc (ideas.repec.org/a/eee/chieco/v93y2025ics1043951x25001063.html): \"published in Volume 93 of the China Economic Review in 2025 by Jones, Melanie & Kaya, Ezgi & Nan, Jiarui\". DOI search confirmed 10.1016/j.chieco.2025.102448 resolves to this article, \"China Economic Review, Volume 93, October 2025\", article 102448. SSRN abstract 4905199 lists authors \"Melanie K. Jones, Ezgi Kaya, Jiarui Nan\" (Cardiff University), confirming middle initial K. for Jones. Cardiff ORCA record orca.cardiff.ac.uk/178541 also confirms the published version."
+  },
+  "kjell2019": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Kjell, O. N. E., Kjell, K., Garcia, D., & Sikström, S.",
+    "year": "2019",
+    "title": "Semantic measures: Using natural language processing to measure, differentiate, and describe psychological constructs",
+    "journal": "Psychological Methods",
+    "volume": "24",
+    "issue": "1",
+    "pages": "92-115",
+    "doi": "10.1037/met0000191"
+   },
+   "corrections": "No corrections needed to the candidate fields — authors, year, title, journal, volume 24, issue 1, and pages 92-115 all verified. Added the missing DOI: 10.1037/met0000191. Note the article appeared online first in 2018 (PubMed epub date), but the final journal publication is 2019 as cited.",
+   "evidence": "PubMed (https://pubmed.ncbi.nlm.nih.gov/29963879/): \"Psychological Methods, 2019 Feb;24(1):92-115. doi: 10.1037/met0000191\" with authors \"Oscar N E Kjell, Katarina Kjell, Danilo Garcia, Sverker Sikström\". DOI-specific search confirmed \"10.1037/met0000191 was published in Psychological Methods in February 2019\" for the same title. Corroborated by Lund University publication portal (portal.research.lu.se) and the author's own PDF (oscarkjell.se/Kjell_et_al_2019_semantic_measures.pdf); search for journal+volume+pages independently returned \"Psychological Methods, Volume 24, Issue 1, Pages 92–115 in 2019. The DOI is 10.1037/met0000191.\""
+  },
+  "kjell2022": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Kjell, O. N. E., Sikström, S., Kjell, K., & Schwartz, H. A.",
+    "year": "2022",
+    "title": "Natural language analyzed with AI-based transformers predict traditional subjective well-being measures approaching the theoretical upper limits in accuracy",
+    "journal": "Scientific Reports",
+    "volume": "12",
+    "issue": "1",
+    "pages": "3918",
+    "doi": "10.1038/s41598-022-07520-w"
+   },
+   "corrections": "Candidate data was fully correct; verification added the DOI (10.1038/s41598-022-07520-w) and issue number (1, per the citation format \"Scientific Reports, 12(1), 3918\" — Scientific Reports assigns article numbers within a single annual issue). Pages field is an article number (3918), not a page range.",
+   "evidence": "nature.com (https://www.nature.com/articles/s41598-022-07520-w): \"Natural language analyzed with AI-based transformers predict traditional subjective well-being measures approaching the theoretical upper limits in accuracy | Scientific Reports\". Search summary: \"2022 study published in Scientific Reports by Oscar N. E. Kjell, Sverker Sikström, Katarina Kjell, and H. Andrew Schwartz ... published on March 10, 2022 in Scientific Reports with DOI: 10.1038/s41598-022-07520-w\". DOI search: \"The article with DOI 10.1038/s41598-022-07520-w is published in Scientific Reports, Volume 12, Article number 3918, dated March 10, 2022, with Oscar N E Kjell as one of the authors\" — corroborated by PubMed (https://pubmed.ncbi.nlm.nih.gov/35273198/), PMC (PMC8913644), and Lund University research portal. Second search cited it as \"Scientific Reports, 12(1), 3918\"."
+  },
+  "kjell2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Kjell, O. N. E., Kjell, K., & Schwartz, H. A.",
+    "year": "2024",
+    "title": "Beyond rating scales: With targeted evaluation, large language models are poised for psychological assessment",
+    "journal": "Psychiatry Research",
+    "volume": "333",
+    "issue": "",
+    "pages": "115667",
+    "doi": "10.1016/j.psychres.2023.115667"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume, article number) verified as correct. Added DOI 10.1016/j.psychres.2023.115667 (missing from candidate). No issue number — Psychiatry Research Vol 333 (March 2024) uses continuous article numbers without issues. PMID 38290286; PMC11911012; open access CC BY.",
+   "evidence": "(1) PubMed (pubmed.ncbi.nlm.nih.gov/38290286/): \"Beyond rating scales: With targeted evaluation, large language models are poised for psychological assessment\" — Psychiatry Res, 2024, 333:115667, DOI 10.1016/j.psychres.2023.115667. (2) ScienceDirect (sciencedirect.com/science/article/pii/S0165178123006170): article listed under \"Psychiatry Research | Vol 333, March 2024\"; authors Oscar N.E. Kjell, Katarina Kjell, H. Andrew Schwartz (Lund University; Stony Brook University). (3) PMC (PMC11911012) and Lund University Publications (lup.lub.lu.se) both list the identical title and bibliographic record; search summary: \"The DOI is https://doi.org/10.1016/j.psychres.2023.115667\" and \"Volume 333, pages 115667 in 2024\"."
+  },
+  "koo2016": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Koo, T. K., & Li, M. Y.",
+    "year": "2016",
+    "title": "A guideline of selecting and reporting intraclass correlation coefficients for reliability research",
+    "journal": "Journal of Chiropractic Medicine",
+    "volume": "15",
+    "issue": "2",
+    "pages": "155-163",
+    "doi": "10.1016/j.jcm.2016.02.012"
+   },
+   "corrections": "No corrections needed — every candidate field verified. Added the DOI (10.1016/j.jcm.2016.02.012), which was absent from the candidate. Note: a 2017 erratum to this article exists (J Chiropr Med 2017;16(4):346, PMC5731844), but the original citation details are unchanged.",
+   "evidence": "PMC (pmc.ncbi.nlm.nih.gov/articles/PMC4913118/): \"A Guideline of Selecting and Reporting Intraclass Correlation Coefficients for Reliability Research\" by Koo and Li, Journal of Chiropractic Medicine, June 2016. Erratum title on PMC5731844 confirms exact bibliographic string: \"Erratum to 'A Guideline of Selecting and Reporting Intraclass Correlation Coefficients for Reliability Research' [J Chiropr Med 2016;15(2):155-163]\" — confirming volume 15, issue 2, pages 155-163. ScienceDirect record S1556370716000158 lists the article in Journal of Chiropractic Medicine. Ovid PDF URL (ovid.com/journals/jcme/pdf/10.1016/j.jcm.2016.02.012~...) and Scirp/sciepub reference entries confirm DOI 10.1016/j.jcm.2016.02.012 and citation \"Koo TK, Li MY. J Chiropr Med 2016; 15: 155–63.\" SciSpace confirms author full names Terry K. Koo and Mae Y. Li (~20,000+ citations)."
+  },
+  "kroenke2009": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Kroenke, K., Strine, T. W., Spitzer, R. L., Williams, J. B. W., Berry, J. T., & Mokdad, A. H.",
+    "year": "2009",
+    "title": "The PHQ-8 as a measure of current depression in the general population",
+    "journal": "Journal of Affective Disorders",
+    "volume": "114",
+    "issue": "1-3",
+    "pages": "163-173",
+    "doi": "10.1016/j.jad.2008.06.026"
+   },
+   "corrections": "None. All candidate fields matched the published record exactly; the DOI (10.1016/j.jad.2008.06.026), absent from the candidate, was confirmed and added.",
+   "evidence": "PubMed (pubmed.ncbi.nlm.nih.gov/18752852): \"The PHQ-8 as a measure of current depression in the general population\" — authors Kurt Kroenke, Tara W. Strine, Robert L. Spitzer, Janet B W Williams, Joyce T. Berry, Ali H. Mokdad; J Affect Disord, April 2009;114(1-3):163-73. Search-result summary for DOI query: \"published in the Journal of Affective Disorders in April 2009, volume 114(1-3), pages 163-73... DOI is: https://doi.org/10.1016/j.jad.2008.06.026\". ScienceDirect hosts the article at journal page S0165032708002826 (Journal of Affective Disorders). Semantic Scholar record matches title and authors Kroenke-Strine."
+  },
+  "maggiori2017": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Maggiori, C., Rossier, J., & Savickas, M. L.",
+    "year": "2017",
+    "title": "Career Adapt-Abilities Scale–Short Form (CAAS-SF): Construction and Validation",
+    "journal": "Journal of Career Assessment",
+    "volume": "25",
+    "issue": "2",
+    "pages": "312-325",
+    "doi": "10.1177/1069072714565856"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 25, issue 2, pages 312-325) verified as correct. DOI added: 10.1177/1069072714565856.",
+   "evidence": "(1) journals.sagepub.com/doi/abs/10.1177/1069072714565856 — \"Career Adapt-Abilities Scale–Short Form (CAAS-SF) - Christian Maggiori, Jérôme Rossier, Mark L. Savickas, 2017\" (official SAGE record for the DOI). (2) Search for DOI 10.1177/1069072714565856 confirms: \"Career Adapt-Abilities Scale-Short Form (CAAS-SF): Construction and validation, Journal of Career Assessment, volume 25, pages 312–325, authored by Maggiori C., Rossier J., and Savickas M. L., published 2017.\" (3) Third search confirms \"Journal of Career Assessment, volume 25, issue 2, pages 312–325\"; corroborated by ResearchGate publication 273167790, scite.ai report, and a PDF hosted on marksavickas.com. Abstract matches: 12-item short form developed from 2,800 French- and German-speaking Swiss adults."
+  },
+  "mcgorry2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "McGorry, P. D., Mei, C., Dalal, N., Alvarez-Jimenez, M., Blakemore, S.-J., Browne, V., Dooley, B., Hickie, I. B., Jones, P. B., McDaid, D., Mihalopoulos, C., Wood, S. J., El Azzouzi, F. A., Fazio, J., Gow, E., Hanjabam, S., Hayes, A., Morris, A., Pang, E., ... Killackey, E.",
+    "year": "2024",
+    "title": "The Lancet Psychiatry Commission on youth mental health",
+    "journal": "The Lancet Psychiatry",
+    "volume": "11",
+    "issue": "9",
+    "pages": "731-774",
+    "doi": "10.1016/S2215-0366(24)00163-9"
+   },
+   "corrections": "Candidate bibliographic fields were all correct (journal, year, volume 11, issue 9, pages 731-774). Added missing DOI 10.1016/S2215-0366(24)00163-9. Expanded 'et al.' to proper APA 7 author list: the Commission has 54 authors, so the first 19 are listed followed by an ellipsis and the final author (Killackey, E.).",
+   "evidence": "PubMed (pubmed.ncbi.nlm.nih.gov/39147461/): 'The Lancet Psychiatry Commission on youth mental health', authors Patrick D McGorry, Cristina Mei, Naeem Dalal, Mario Alvarez-Jimenez, Sarah-Jayne Blakemore, ... Eóin Killackey (54 authors total). Publisher (thelancet.com/journals/lanpsy/article/PIIS2215-0366(24)00163-9/): published September 2024, The Lancet Psychiatry, volume 11, issue 9, pages 731-774, DOI 10.1016/S2215-0366(24)00163-9. Corroborated by institutional repositories (Maastricht University, University of Birmingham, King's College London, University of Canberra) all citing Lancet Psychiatry 2024;11(9):731-774."
+  },
+  "mcinnes2018": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "McInnes, L., Healy, J., & Melville, J.",
+    "year": "2018",
+    "title": "UMAP: Uniform manifold approximation and projection for dimension reduction",
+    "journal": "arXiv preprint",
+    "volume": "",
+    "issue": "",
+    "pages": "arXiv:1802.03426",
+    "doi": "10.48550/arXiv.1802.03426"
+   },
+   "corrections": "No substantive corrections needed. All candidate fields verified as correct: authors (Leland McInnes, John Healy, James Melville → APA form correct), year (2018, submitted Feb 9 2018), title, and arXiv identifier 1802.03426. Added the arXiv DOI (10.48550/arXiv.1802.03426), which was missing from the candidate.",
+   "evidence": "arXiv (arxiv.org/abs/1802.03426): \"[1802.03426] UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction\" — authored by Leland McInnes, John Healy, and James Melville, submitted February 9, 2018. ADS (ui.adsabs.harvard.edu/abs/2018arXiv180203426M): bibcode 2018arXiv180203426M confirms 2018 and identifier 1802.03426. Semantic Scholar and ResearchGate (publication/323141395) both list the same title, authors, and 2018 date. DOI 10.48550/arXiv.1802.03426 confirmed via search matching the arXiv identifier. Two versions exist (v1, v2) but the citation to the arXiv preprint is stable."
+  },
+  "noy2023": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Noy, S., & Zhang, W.",
+    "year": "2023",
+    "title": "Experimental evidence on the productivity effects of generative artificial intelligence",
+    "journal": "Science",
+    "volume": "381",
+    "issue": "6654",
+    "pages": "187-192",
+    "doi": "10.1126/science.adh2586"
+   },
+   "corrections": "None. All candidate fields (authors, year, title, journal, volume, issue, pages) confirmed exactly. Added DOI 10.1126/science.adh2586, which was missing from the candidate.",
+   "evidence": "science.org: \"Experimental evidence on the productivity effects of generative artificial intelligence | Science\" at https://www.science.org/doi/10.1126/science.adh2586. PubMed (PMID 37440646): \"Science, 2023 Jul 14;381(6654):187-192\" by \"Shakked Noy and Whitney Zhang from the Department of Economics, Massachusetts Institute of Technology\". Science TOC page confirms issue: \"Contents | Science 381, 6654\" (https://www.science.org/toc/science/381/6654). SSRN: \"Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence by Shakked Noy, Whitney Zhang\" (abstract_id=4375283). Search summary: \"published in Science on July 14, 2023, volume 381, issue 6654, pages 187-192, with DOI 10.1126/science.adh2586\"."
+  },
+  "openai_gpt4o": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "OpenAI",
+    "year": "2024",
+    "title": "GPT-4o System Card",
+    "journal": "arXiv preprint",
+    "volume": "",
+    "issue": "",
+    "pages": "arXiv:2410.21276",
+    "doi": "10.48550/arXiv.2410.21276"
+   },
+   "corrections": "No corrections needed to the candidate fields; all confirmed. Added the DOI (10.48550/arXiv.2410.21276). Note: the document's own byline is the corporate author \"OpenAI\" (dated August 8, 2024), while arXiv metadata enumerates 417 individual authors (Aaron Hurst, Adam Lerer, et al.); citing as \"OpenAI\" is correct APA practice for this system card. Submitted to arXiv October 25, 2024.",
+   "evidence": "1) arxiv.org: \"[2410.21276] GPT-4o System Card\" — https://arxiv.org/abs/2410.21276, \"submitted to arXiv on October 25, 2024\". 2) arXiv PDF first page: \"GPT-4o System Card OpenAI∗ August 8, 2024 1 Introduction\" — https://arxiv.org/pdf/2410.21276, confirming corporate author byline \"OpenAI\". 3) DOI search: \"The GPT-4o System Card has DOI: 10.48550/arXiv.2410.21276\". 4) arXiv author metadata: \"the paper lists Aaron Hurst and 416 other authors\" (Aaron Hurst, Adam Lerer, et al.). 5) ADS record bibcode \"2024arXiv241021276O\" (https://ui.adsabs.harvard.edu/abs/2024arXiv241021276O/abstract) indexes it under OpenAI. 6) OpenAI page: \"GPT-4o System Card | OpenAI\" — https://openai.com/index/gpt-4o-system-card/. 7) Semantic Scholar and Hugging Face paper pages also list \"GPT-4o System Card\" for 2410.21276."
+  },
+  "ou2022": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Ou, D., & Zhao, Z.",
+    "year": "2022",
+    "title": "Higher Education Expansion in China, 1999–2003: Impact on Graduate Employability",
+    "journal": "China & World Economy",
+    "volume": "30",
+    "issue": "2",
+    "pages": "117-141",
+    "doi": "10.1111/cwe.12412"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 30, issue 2, pages 117-141) confirmed exactly. Added the DOI, which was missing from the candidate: 10.1111/cwe.12412.",
+   "evidence": "Wiley Online Library: \"Higher Education Expansion in China, 1999–2003: Impact on Graduate Employability - Ou - 2022 - China & World Economy\" at https://onlinelibrary.wiley.com/doi/10.1111/cwe.12412. IDEAS/RePEc: \"authored by Dongshu Ou & Zhong Zhao, published in 2022 in China & World Economy... vol. 30(2), pages 117-141, March\" at https://ideas.repec.org/a/bla/chinae/v30y2022i2p117-141.html (URL encodes v30, i2, p117-141). vLex also lists the same title/record. Three independent searches (exact title in quotes; author+journal+year+volume; DOI string) all returned the same bibliographic record."
+  },
+  "paul2009": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Paul, K. I., & Moser, K.",
+    "year": "2009",
+    "title": "Unemployment impairs mental health: Meta-analyses",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "74",
+    "issue": "3",
+    "pages": "264-282",
+    "doi": "10.1016/j.jvb.2009.01.001"
+   },
+   "corrections": "No corrections needed. All candidate fields verified as correct; DOI (10.1016/j.jvb.2009.01.001), previously absent from the candidate, was added from the evidence.",
+   "evidence": "ScienceDirect (sciencedirect.com/science/article/abs/pii/S0001879109000037): \"Unemployment impairs mental health: Meta-analyses\" in Journal of Vocational Behavior. ERIC (eric.ed.gov/?id=EJ836788): \"Unemployment Impairs Mental Health: Meta-Analyses, Journal of Vocational Behavior, 2009-Jun\" — June 2009 corresponds to volume 74, issue 3. SCIRP reference listing: \"Paul, K. I., & Moser, K. (2009). Unemployment impairs mental health... Journal of Vocational Behaviour, 74, 264-282. doi10.1016/j.jvb.2009.01.001\". Third search summary: \"volume 74, issue 3, pages 264-282 (2009), with DOI 10.1016/j.jvb.2009.01.001\". Also corroborated by Semantic Scholar, FAU CRIS (author Karsten Ingmar Paul's institution), and ScienceOpen."
+  },
+  "peters2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Peters, H., & Matz, S. C.",
+    "year": "2024",
+    "title": "Large language models can infer psychological dispositions of social media users",
+    "journal": "PNAS Nexus",
+    "volume": "3",
+    "issue": "6",
+    "pages": "pgae231",
+    "doi": "10.1093/pnasnexus/pgae231"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 3, issue 6, article number pgae231) confirmed exactly. Added the DOI (10.1093/pnasnexus/pgae231), which was absent from the candidate record.",
+   "evidence": "Oxford Academic (academic.oup.com/pnasnexus/article/3/6/pgae231/7692212): \"Large language models can infer psychological dispositions of social media users | PNAS Nexus\" — URL itself encodes volume 3, issue 6, pgae231. Search summary: \"by Heinrich Peters and Sandra C Matz, published in PNAS Nexus, Volume 3, Issue 6, June 2024, pgae231, with DOI https://doi.org/10.1093/pnasnexus/pgae231\". Corroborated by PMC (PMC11211928), Semantic Scholar (Peters-Matz), and arXiv preprint 2309.08631 with identical title. Published June 13, 2024; authors affiliated with Columbia Business School."
+  },
+  "qwen25": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Yang, A., Yang, B., Zhang, B., Hui, B., Zheng, B., Yu, B., Li, C., Liu, D., Huang, F., Wei, H., Lin, H., Yang, J., Tu, J., Zhang, J., Yang, J., Yang, J., Zhou, J., Lin, J., Dang, K., . . . Qiu, Z. [Qwen Team]",
+    "year": "2024",
+    "title": "Qwen2.5 Technical Report",
+    "journal": "arXiv preprint",
+    "volume": "",
+    "issue": "",
+    "pages": "arXiv:2412.15115",
+    "doi": "10.48550/arXiv.2412.15115"
+   },
+   "corrections": "Author field corrected: candidate listed only the group author \"Qwen Team (Alibaba)\", but the arXiv/dblp record credits ~42 individual authors (An Yang, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, ..., Zihan Qiu) under the Qwen collaboration; APA 7 form uses first 19 authors, ellipsis, final author. Citing as group author \"Qwen Team\" is an acceptable alternative. Added DOI 10.48550/arXiv.2412.15115. All other fields (title, year 2024, arXiv preprint, arXiv:2412.15115) confirmed exactly; v1 submitted 2024-12-19, v2 revised 2025-01-03. No volume/issue (preprint).",
+   "evidence": "arxiv.org: \"[2412.15115] Qwen2.5 Technical Report\" — \"submitted on December 19, 2024, with a revised version (v2) on January 3, 2025\"; arXiv author listing: \"An Yang, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chengyuan Li, Dayiheng Liu, Fei Huang, Haoran Wei ... Zeyu Cui, Zhenru Zhang, Zihan Qiu (additional authors not shown)\"; dblp.org/rec/journals/corr/abs-2412-15115.html: \"Qwen2.5 Technical Report ... CoRR abs/2412.15115 (2024)\"; DOI search \"10.48550/arXiv.2412.15115\" resolves to arxiv.org/pdf/2412.15115 (\"arXiv:2412.15115v2 [cs.CL] 3 Jan 2025\"); also indexed at huggingface.co/papers/2412.15115 and Semantic Scholar."
+  },
+  "rahmani2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Rahmani, H., Groot, W., & Rahmani, A. M.",
+    "year": "2024",
+    "title": "Unravelling the NEET phenomenon: a systematic literature review and meta-analysis of risk factors for youth not in education, employment, or training",
+    "journal": "International Journal of Adolescence and Youth",
+    "volume": "29",
+    "issue": "1",
+    "pages": "2331576",
+    "doi": "10.1080/02673843.2024.2331576"
+   },
+   "corrections": "Candidate title was truncated: full title continues \"...and meta-analysis of risk factors for youth not in education, employment, or training\". All other fields (authors, year, journal, volume 29, issue 1, article number 2331576) were correct. DOI added: 10.1080/02673843.2024.2331576.",
+   "evidence": "tandfonline.com: \"Unravelling the NEET phenomenon: a systematic literature review and meta-analysis of risk factors for youth not in education, employment, or training: International Journal of Adolescence and Youth: Vol 29, No 1\" (https://www.tandfonline.com/doi/abs/10.1080/02673843.2024.2331576). DOI search result: \"the article with DOI 10.1080/02673843.2024.2331576 ... was authored by Hamed Rahmani, Wim Groot, and Amir Mohammad Rahmani in 2024 ... published online on March 24, 2024, Open Access\". Corroborated by Semantic Scholar (paper/Unravelling-the-NEET-phenomenon...-Rahmani-Groot), CEDEFOP PDF (cedefop.europa.eu/files/unravelling_the_neet_phenomenon.pdf), and VOCEDplus (voced.edu.au/content/ngv:100935)."
+  },
+  "rathje2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Rathje, S., Mirea, D.-M., Sucholutsky, I., Marjieh, R., Robertson, C. E., & Van Bavel, J. J.",
+    "year": "2024",
+    "title": "GPT is an effective tool for multilingual psychological text analysis",
+    "journal": "Proceedings of the National Academy of Sciences",
+    "volume": "121",
+    "issue": "34",
+    "pages": "e2308950121",
+    "doi": "10.1073/pnas.2308950121"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 121, issue 34, article number e2308950121) verified exactly. Added the DOI (10.1073/pnas.2308950121), which was absent from the candidate. Note: PNAS's full formal name is \"Proceedings of the National Academy of Sciences of the United States of America\".",
+   "evidence": "1) pnas.org search result: \"GPT is an effective tool for multilingual psychological text analysis | PNAS\" at https://www.pnas.org/doi/10.1073/pnas.2308950121. 2) Author+year search summary: \"Rathje, S., D.-M. Mirea, I. Sucholutsky, R. Marjieh, C. E. Robertson, and J. J. Van Bavel (2024)... Proceedings of the National Academy of Sciences of the United States of America (PNAS) 121 (34): e2308950121. DOI: https://doi.org/10.1073/pnas.2308950121\". 3) DOI search summary: \"published in the Proceedings of the National Academy of Sciences, volume 121, issue 34, e2308950121 (2024)... published on August 12, 2024, with an issue date of August 20, 2024\". Corroborated by PMC (PMC11348013), Semantic Scholar, and the lead author's site (stevenrathje.com)."
+  },
+  "reimers2019": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Reimers, N., & Gurevych, I.",
+    "year": "2019",
+    "title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+    "journal": "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)",
+    "volume": "",
+    "issue": "",
+    "pages": "3982-3992",
+    "doi": "10.18653/v1/D19-1410"
+   },
+   "corrections": "Candidate data was essentially correct but incomplete. (1) journal_full expanded from the informal abbreviation \"Proceedings of EMNLP-IJCNLP 2019\" to the official proceedings title \"Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)\". (2) DOI added: 10.18653/v1/D19-1410 (ACL Anthology ID D19-1410). Authors, year, title, and pages 3982-3992 all confirmed. Venue location: Hong Kong, China; publisher: Association for Computational Linguistics. Conference proceedings, so no volume/issue.",
+   "evidence": "ACL Anthology (aclanthology.org/D19-1410/): \"Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks - ACL Anthology\" — search summary confirms \"by Nils Reimers and Iryna Gurevych, published in 2019 in the Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), pages 3982–3992, Hong Kong, China, published by the Association for Computational Linguistics\" with \"DOI is 10.18653/v1/D19-1410\". SCIRP reference record (scirp.org/reference/referencespapers?referenceid=3422225): \"Reimers, N. and Gurevych, I. (2019) Sentence-BERT Sentence Embeddings Using Siamese BERT-Networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP), Hong Kong, November 2019, 3982-3992.\" Preprint also on arXiv: 1908.10084. A targeted search for the exact DOI string \"10.18653/v1/D19-1410\" independently returned the same ACL Anthology record."
+  },
+  "rothwell2007": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Rothwell, A., & Arnold, J.",
+    "year": "2007",
+    "title": "Self-perceived employability: Development and validation of a scale",
+    "journal": "Personnel Review",
+    "volume": "36",
+    "issue": "1",
+    "pages": "23-41",
+    "doi": "10.1108/00483480710716704"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume 36, issue 1, pages 23-41) were confirmed. Added the previously missing DOI: 10.1108/00483480710716704.",
+   "evidence": "(1) Emerald Insight (publisher of record): \"Self‐perceived employability: development and validation of a scale | Emerald Insight\" at https://www.emerald.com/insight/content/doi/10.1108/00483480710716704/full/html — URL embeds the DOI 10.1108/00483480710716704. (2) Search-result citation string: \"Rothwell, A. and Arnold, J. (2007), 'Self‐perceived employability: development and validation of a scale', Personnel Review, Vol. 36 No. 1, pp. 23-41.\" (3) Scientific Research Publishing reference entry: \"Rothwell, A. and Arnold, J. (2007) Self-Perceived Employability Development and Validation of a Scale. Personnel Review, 36, 23-41.\" (4) Also indexed on Semantic Scholar and ResearchGate (\"Self-perceived employability: Development and validation of a scale\", Rothwell & Arnold). Third search confirmed \"Personnel Review volume 36, issue 1, pages 23-41\"."
+  },
+  "rousseeuw1987": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Rousseeuw, P. J.",
+    "year": "1987",
+    "title": "Silhouettes: A graphical aid to the interpretation and validation of cluster analysis",
+    "journal": "Journal of Computational and Applied Mathematics",
+    "volume": "20",
+    "issue": "",
+    "pages": "53-65",
+    "doi": "10.1016/0377-0427(87)90125-7"
+   },
+   "corrections": "None — all candidate fields verified as correct. Added the DOI (10.1016/0377-0427(87)90125-7), which was missing from the candidate. Volume 20 (November 1987) is cited without an issue number; the original journal header reads \"Journal of Computational and Applied Mathematics 20 (1987) 53-65\".",
+   "evidence": "1) KU Leuven open archive PDF of the original article (wis.kuleuven.be/stat/robust/papers/publications-1987/rousseeuw-silhouettes-jcam-sciencedirectopenarchiv.pdf) — header: \"Journal of Computational and Applied Mathematics 20 (1987) 53-65 North-Holland\". 2) ACM Digital Library / ScienceDirect (dl.acm.org/doi/abs/10.1016/0377-0427(87)90125-7; sciencedirect.com/science/article/pii/0377042787901257): \"Silhouettes: a graphical aid to the interpretation and validation of cluster analysis | Journal of Computational and Applied Mathematics\", published November 1, 1987, DOI 10.1016/0377-0427(87)90125-7. 3) Semantic Scholar and SciSpace records: author Peter J. Rousseeuw, 1987, ~18,750 citations. 4) SCIRP reference entry: \"Rousseeuw, P.J. (1987) ... Journal of Computational and Applied Mathematics, 20, 53-65.\""
+  },
+  "rudolph2017": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Rudolph, C. W., Lavigne, K. N., & Zacher, H.",
+    "year": "2017",
+    "title": "Career adaptability: A meta-analysis of relationships with measures of adaptivity, adapting responses, and adaptation results",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "98",
+    "issue": "",
+    "pages": "17-34",
+    "doi": "10.1016/j.jvb.2016.09.002"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume, pages) were confirmed exactly as given. Added the DOI (10.1016/j.jvb.2016.09.002), which was missing from the candidate. Journal of Vocational Behavior uses continuous volume pagination with no issue numbers for volume 98, so no issue is cited.",
+   "evidence": "1) QUT ePrints (eprints.qut.edu.au/98891): \"Career adaptability: A meta-analysis of relationships with measures of adaptivity, adapting responses, and adaptation results\" — \"Rudolph, Cort, Lavigne, Kristi, & Zacher, Hannes ... Journal of Vocational Behavior, 98, pp. 17-34 (2017)\". 2) ScienceDirect (sciencedirect.com/science/article/abs/pii/S0001879116300604): article page for the same title with DOI 10.1016/j.jvb.2016.09.002, authors Cort W. Rudolph, Kristi N. Lavigne, Hannes Zacher. 3) Scientific Research Publishing reference entry (scirp.org/reference/referencespapers?referenceid=3012395): \"Rudolph, C. W., Lavigne, K. N., & Zacher, H. (2017). Career Adaptability: A Meta-Analysis ... Journal of Vocational Behavior, 98, 17-34.\" 4) Search on the exact DOI string \"10.1016/j.jvb.2016.09.002\" returned the same ScienceDirect and ResearchGate records for this article."
+  },
+  "savickas2012": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Savickas, M. L., & Porfeli, E. J.",
+    "year": "2012",
+    "title": "Career Adapt-Abilities Scale: Construction, reliability, and measurement equivalence across 13 countries",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "80",
+    "issue": "3",
+    "pages": "661-673",
+    "doi": "10.1016/j.jvb.2012.01.011"
+   },
+   "corrections": "None — all candidate fields (authors, year, title, journal, volume 80, issue 3, pages 661-673) confirmed; DOI 10.1016/j.jvb.2012.01.011 added.",
+   "evidence": "ScienceDirect (sciencedirect.com/science/article/abs/pii/S0001879112000139): \"Career Adapt-Abilities Scale: Construction, reliability, and measurement equivalence across 13 countries - ScienceDirect\". Search result citation: \"Savickas, M. L., & Porfeli, E. J. (2012). Career adapt-abilities scale: Construction, reliability, and measurement equivalence across 13 countries. Journal of Vocational Behavior, 80(3), 661–673 ... The DOI for this article is: https://doi.org/10.1016/j.jvb.2012.01.011\". Author's own PDF (marksavickas.com): \"Savickas, M.L., & Porfeli, E.J., Career Adapt-Abilities Scale: Construction, reliability, and measurement equivalence across 13 countries, Journal of Vocational Behavior (2012), doi:10.1016/j.jvb.2012.01.011\". SCIRP reference: \"Journal of Vocational Behavior, 80, 661-673.\""
+  },
+  "savickas2013": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Savickas, M. L.",
+    "year": "2013",
+    "title": "Career construction theory and practice",
+    "journal": "In S. D. Brown & R. W. Lent (Eds.), Career development and counseling: Putting theory and research to work (2nd ed.). Hoboken, NJ: John Wiley & Sons",
+    "volume": "",
+    "issue": "",
+    "pages": "147-183",
+    "doi": ""
+   },
+   "corrections": "Candidate was essentially correct. Cleaned up: title is just \"Career construction theory and practice\" (edition/editor info moved to book field); added page range pp. 147-183; publisher is John Wiley & Sons (Hoboken, NJ). No DOI exists for this 2013 2nd-edition print chapter (the Wiley Online Library DOI 10.1002/9781394258994.ch6 found in searches belongs to a later edition's rewritten chapter, \"Career Construction Theory and Counseling Model\"). No volume/issue — book chapter.",
+   "evidence": "SCIRP citation record (scirp.org referenceid=4040136): \"Savickas, M. L. (2013). Career Construction Theory and Practice. In S. D. Brown, & R. W. Lent, Career Development and Counseling Putting Theory and Research to Work (2nd ed., pp. 147-183). John Wiley & Sons.\" | Second SCIRP record (referenceid=4118320): same chapter \"(2nd ed., pp. 147-183). Wiley.\" | Wiley product page: \"Career Development and Counseling: Putting Theory and Research to Work, 2nd Edition\" (ISBN 9781118063354), edited by Brown & Lent. | ConnectedPapers query snippet: \"Savickas, M. L. (2013). Career construction theory and practice. In S. D. Brown & R. W. Lent (Eds.), Career development and counseling: Putting theory and research to work (pp. 147-183). Hoboken, NJ: Wiley.\" | ResearchGate publication page: \"Career construction theory and practice\" (Savickas)."
+  },
+  "shrout1979": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Shrout, P. E., & Fleiss, J. L.",
+    "year": "1979",
+    "title": "Intraclass correlations: Uses in assessing rater reliability",
+    "journal": "Psychological Bulletin",
+    "volume": "86",
+    "issue": "2",
+    "pages": "420-428",
+    "doi": "10.1037/0033-2909.86.2.420"
+   },
+   "corrections": "None. All candidate fields (authors, year, title, journal, volume 86, issue 2, pages 420-428) were confirmed; the DOI 10.1037/0033-2909.86.2.420 was added (missing from candidate).",
+   "evidence": "ResearchGate scan of original article header: \"Psychological Bulletin 1979, Vol. 86, No. 2, 420-428\" (researchgate.net PostFileLoader). SCIRP reference page: \"Shrout, P. E., & Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. Psychological Bulletin, 86, 420-428. doi:10.1037/0033-2909.86.2.420\" (scirp.org ReferenceID=440603). Semantic Scholar: \"Intraclass correlations: uses in assessing rater reliability. Shrout & Fleiss, Psychological Bulletin 1979\". Sciepub: \"Psychological bulletin, 86(2), p.420\". Search-summary metadata: published March 1979, volume 86, issue 2, pages 420-428, ~23,000+ citations."
+  },
+  "sikstrom2020": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Sikström, S., & Garcia, D. (Eds.)",
+    "year": "2020",
+    "title": "Statistical Semantics: Methods and Applications",
+    "journal": "Springer, Cham (edited book)",
+    "volume": "",
+    "issue": "",
+    "pages": "XVI, 262 pp.",
+    "doi": "10.1007/978-3-030-37250-7"
+   },
+   "corrections": "Candidate data essentially correct; this is an edited book, not a journal article, so volume/issue do not apply. Refinements: publisher location is Cham (Springer, Cham / Springer International Publishing); DOI 10.1007/978-3-030-37250-7 added; hardcover ISBN 978-3-030-37249-1, eBook ISBN 978-3-030-37250-7 (published June 8-9, 2020). Editors' full names: Sverker Sikström and Danilo Garcia.",
+   "evidence": "Springer Nature Link (link.springer.com/book/10.1007/978-3-030-37250-7): \"Statistical Semantics: Methods and Applications | Springer Nature Link\" — \"hardcover ISBN is 978-3-030-37249-1 (published June 9, 2020) ... eBook ISBN is 978-3-030-37250-7 (published June 8, 2020). The book has XVI, 262 pages.\" SpringerLink chapter citation: \"Sikström, S., Garcia, D. (2020). Introduction to Statistical Semantics. In: Sikström, S., Garcia, D. (eds) Statistical Semantics. Springer, Cham.\" Amazon UK: \"Statistical Semantics: Methods and Applications: Sikström, Sverker, Garcia, Danilo: 9783030372491\". Lund University research portal also lists \"Statistical semantics: Methods and applications\" (2020)."
+  },
+  "spitzer2006": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Spitzer, R. L., Kroenke, K., Williams, J. B. W., & Löwe, B.",
+    "year": "2006",
+    "title": "A brief measure for assessing generalized anxiety disorder: The GAD-7",
+    "journal": "Archives of Internal Medicine",
+    "volume": "166",
+    "issue": "10",
+    "pages": "1092-1097",
+    "doi": "10.1001/archinte.166.10.1092"
+   },
+   "corrections": "No corrections needed to the candidate fields; all matched (authors, year, title, journal, volume 166, issue 10, pages 1092-1097). Added the missing DOI: 10.1001/archinte.166.10.1092. Note: many secondary citations abbreviate the third author as \"Williams, J. B.\" but the full form \"Williams, J. B. W.\" (Janet B. W. Williams) as given in the candidate is correct per the original article.",
+   "evidence": "1) DOI https://doi.org/10.1001/archinte.166.10.1092 resolves to JAMA Network page titled \"A Brief Measure for Assessing Generalized Anxiety Disorder: The GAD-7 | Anxiety Disorders | JAMA Network\". 2) Search summary for the DOI: \"published in Archives of Internal Medicine on May 22, 2006, volume 166, issue 10, pages 1092-7\" by \"Spitzer RL, Kroenke K, Williams JB, and Lowe B\". 3) SCIRP reference record: \"Spitzer, R. L., Kroenke, K., Williams, J. B., & Lowe, B. (2006). A brief measure for assessing generalized anxiety disorder The GAD-7. Archives of Internal Medicine, 166, 1092-1097. doi10.1001/archinte.166.10.1092\". 4) Semantic Scholar record: \"A brief measure for assessing generalized anxiety disorder: the GAD-7. Spitzer-Kroenke\". Multiple independent sources (JAMA, Semantic Scholar, ResearchGate, SCIRP) agree on all bibliographic fields."
+  },
+  "tausczik2010": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Tausczik, Y. R., & Pennebaker, J. W.",
+    "year": "2010",
+    "title": "The psychological meaning of words: LIWC and computerized text analysis methods",
+    "journal": "Journal of Language and Social Psychology",
+    "volume": "29",
+    "issue": "1",
+    "pages": "24-54",
+    "doi": "10.1177/0261927X09351676"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume 29, issue 1, pages 24-54) verified as correct. Added the DOI (10.1177/0261927X09351676), which was missing from the candidate.",
+   "evidence": "1) SAGE publisher page (journals.sagepub.com/doi/10.1177/0261927X09351676): \"The Psychological Meaning of Words: LIWC and Computerized Text Analysis Methods - Yla R. Tausczik, James W. Pennebaker, 2010\" — confirms title, authors, DOI, and publication in Journal of Language and Social Psychology, Vol. 29, No. 1, March 2010, pp. 24-54. 2) Author-hosted PDF (cs.cmu.edu/~ylataus/files/TausczikPennebaker2010.pdf) whose header reads \"Journal of Language and Social Psychology 29(1) 24 –54 © 2010 SAGE Publications\" — confirms volume, issue, and pages. 3) DOI-quoted search independently resolved to the same record via Semantic Scholar and ScienceOpen; SCIRP reference entry: \"Tausczik, Y.R. and Pennebaker, J.W. (2010) ... Journal of Language and Social Psychology, 29, 24-54.\""
+  },
+  "vanhooft2021": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "van Hooft, E. A. J., Kammeyer-Mueller, J. D., Wanberg, C. R., Kanfer, R., & Basbug, G.",
+    "year": "2021",
+    "title": "Job search and employment success: A quantitative review and future research agenda",
+    "journal": "Journal of Applied Psychology",
+    "volume": "106",
+    "issue": "5",
+    "pages": "674-713",
+    "doi": "10.1037/apl0000675"
+   },
+   "corrections": "No discrepancies found. All candidate fields (authors, year, title, journal, volume 106, issue 5, pages 674-713) verified as correct. Added the DOI (10.1037/apl0000675), which was missing from the candidate record.",
+   "evidence": "PubMed (pubmed.ncbi.nlm.nih.gov/32658493): \"Job Search and Employment Success: A Quantitative Review and Future Research Agenda ... Edwin A J van Hooft, John D Kammeyer-Mueller, Connie R Wanberg, Ruth Kanfer, Gokce Basbug ... 2021 May, volume 106, issue 5, pages 674-713.\" Search result summary citing Durham/Experts@Minnesota records: \"van Hooft, E. A. J., Kammeyer-Mueller, J. D., Wanberg, C. R., Kanfer, R., & Basbug, G. (2021). Job search and employment success: A quantitative review and future research agenda. Journal of Applied Psychology, 106(5), 674-713. https://doi.org/10.1037/apl0000675.\" APA supplemental material URL confirms article ID: supp.apa.org/psycarticles/supplemental/apl0000675/apl0000675_supp.html. Full-text PDF hosted by Carlson School (carlsonschool.umn.edu ... VanHooftKammeyerMuellerWanbergKanferBasbug_JAP 2021.pdf)."
+  },
+  "wanberg2020": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Wanberg, C. R., Ali, A. A., & Csillag, B.",
+    "year": "2020",
+    "title": "Job Seeking: The Process and Experience of Looking for a Job",
+    "journal": "Annual Review of Organizational Psychology and Organizational Behavior",
+    "volume": "7",
+    "issue": "",
+    "pages": "315-337",
+    "doi": "10.1146/annurev-orgpsych-012119-044939"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume 7, pages 315-337) confirmed. Added the DOI, which was missing from the candidate. Annual Reviews volumes are typically cited without an issue number (the publisher's URL structure shows 7/1, but standard APA citations for this journal omit the issue).",
+   "evidence": "annualreviews.org (article landing page at DOI 10.1146/annurev-orgpsych-012119-044939): \"Job Seeking: The Process and Experience of Looking for a Job | Annual Reviews\", listed in Volume 7, 2020 of Annual Review of Organizational Psychology and Organizational Behavior (annualreviews.org/content/journals/orgpsych/7/1). SSRN abstract 3550373: \"Job Seeking: The Process and Experience of Looking for a Job by Connie R. Wanberg, Abdifatah A. Ali, Borbala Csillag\". Search-result synthesis across annualreviews.org/SSRN/Carlson School PDF: \"The article appears in Volume 7 of Annual Review of Organizational Psychology and Organizational Behavior, pages 315-337, with a volume publication date of January 2020.\""
+  },
+  "xiong2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Xiong, B., & Yu, B.",
+    "year": "2024",
+    "title": "The Impact of Internet Development on Youth's Job Quality in the Digital Economy Era: Transmission Mechanism and Empirical Test",
+    "journal": "Social Indicators Research",
+    "volume": "175",
+    "issue": "1",
+    "pages": "269-294",
+    "doi": "10.1007/s11205-024-03439-z"
+   },
+   "corrections": "Title subtitle was wrong: candidate had \"Evidence from China\" but the actual published subtitle is \"Transmission Mechanism and Empirical Test\". Added missing issue number (1) and DOI (10.1007/s11205-024-03439-z). Authors (Xiong, B., & Yu, B. = Bin Xiong, Baocheng Yu), year 2024, journal Social Indicators Research, volume 175, and pages 269-294 all confirmed as correct.",
+   "evidence": "Springer (link.springer.com/article/10.1007/s11205-024-03439-z): \"The Impact of Internet Development on Youth's Job Quality in the Digital Economy Era: Transmission Mechanism and Empirical Test | Social Indicators Research\"; search summary: \"published in Social Indicators Research, volume 175, pages 269–294 in 2024. The authors are Xiong, B., and Yu, B.\" IDEAS/RePEc (ideas.repec.org/a/spr/soinre/v175y2024i1d10.1007_s11205-024-03439-z.html): confirms \"Bin Xiong and Baocheng Yu... Social Indicators Research, Volume 175(1), pages 269-294, October 2024\". Semantic Scholar record also lists the same title with authors Xiong and Yu. No source found supporting the \"Evidence from China\" subtitle."
+  },
+  "xu2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Xu, X., Yao, B., Dong, Y., Gabriel, S., Yu, H., Hendler, J., Ghassemi, M., Dey, A. K., & Wang, D.",
+    "year": "2024",
+    "title": "Mental-LLM: Leveraging Large Language Models for Mental Health Prediction via Online Text Data",
+    "journal": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies",
+    "volume": "8",
+    "issue": "1",
+    "pages": "Article 31",
+    "doi": "10.1145/3643540"
+   },
+   "corrections": "Candidate data was accurate; corrections were additive only: (1) expanded \"et al.\" to the full 9-author APA list (Xu, X., Yao, B., Dong, Y., Gabriel, S., Yu, H., Hendler, J., Ghassemi, M., Dey, A. K., & Wang, D.); (2) added missing DOI 10.1145/3643540. Article No. 31 spans pp. 1-32 (i.e., 31:1-31:32), published March 6, 2024.",
+   "evidence": "ACM Digital Library (dl.acm.org/doi/10.1145/3643540): \"Mental-LLM: Leveraging Large Language Models for Mental Health Prediction via Online Text Data: Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies: Vol 8, No 1\"; search result confirms \"written by Xuhai Xu, Bingsheng Yao, Yuanzhe Dong, Saadia Gabriel, Hong Yu, James Hendler, Marzyeh Ghassemi, Anind K. Dey, and Dakuo Wang ... published on March 6, 2024 ... Volume 8, Issue 1, Article No. 31, pages 1-32\". IMWUT Vol 8, No 1 TOC (dl.acm.org/toc/imwut/2024/8/1?id=31) lists the article. Corroborated by arXiv:2307.14385, NSF PAR biblio 10533974, and PMC11806945."
+  },
+  "ziems2024": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Ziems, C., Held, W., Shaikh, O., Chen, J., Zhang, Z., & Yang, D.",
+    "year": "2024",
+    "title": "Can Large Language Models Transform Computational Social Science?",
+    "journal": "Computational Linguistics",
+    "volume": "50",
+    "issue": "1",
+    "pages": "237-291",
+    "doi": "10.1162/coli_a_00502"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume 50, issue 1, pages 237-291) verified as correct. Added the missing DOI: 10.1162/coli_a_00502.",
+   "evidence": "MIT Press (direct.mit.edu/coli/article/50/1/237/118498): \"Can Large Language Models Transform Computational Social Science? | Computational Linguistics | MIT Press\" — URL path confirms volume 50, issue 1, start page 237. ACL Anthology (aclanthology.org/2024.cl-1.8/): lists the paper by Caleb Ziems, William Held, Omar Shaikh, Jiaao Chen, Zhehao Zhang, Diyi Yang, \"published in Computational Linguistics, volume 50, issue 1, pages 237–291 in 2024. The DOI is 10.1162/coli_a_00502.\" MIT Press PDF filename \"coli_a_00502.pdf\" independently confirms the DOI suffix. Also indexed at arXiv (2305.03514), Semantic Scholar, dblp, and NSF PAR (par.nsf.gov/biblio/10552877)."
+  }
+ },
+ "finder_candidates": {
+  "cn_stress1": {
+   "authors_apa": "Mao, E. Z., & Zhao, L.",
+   "year": "2023",
+   "title": "The influence of job search stress on college students' addictive social media use: Seeking of social support and perceived social support as serial mediators and sense of coherence as a moderator",
+   "journal_full": "Frontiers in Psychology",
+   "volume": "14",
+   "issue": "",
+   "pages": "Article 1101674",
+   "doi": "10.3389/fpsyg.2023.1101674",
+   "evidence": "Frontiers page (frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1101674/full): 'stress in relation to job search and employment is becoming an increasingly noticeable issue in China due to an enlarged number of graduating college students and shrinkage of work opportunities.' Cross-checked via PubMed Central PMC9992423 and ResearchGate (publication 368692290). Search snippet: 'published in Frontiers in Psychology, Volume 14, Article 1101674, on February 22, 2023 (doi: 10.3389/fpsyg.2023.1101674)... authored by Mao EZ and Zhao L... affiliations: School of Cultural Creativity and Management, Communication University of Zhejiang, Hangzhou, China.' Frontiers in Psychology publishes by continuous volume with article numbers, no issue numbers."
+  },
+  "cn_stress2": {
+   "authors_apa": "Peng, Y., Lv, S. B., Low, S. R., & Bono, S. A.",
+   "year": "2024",
+   "title": "The impact of employment stress on college students: Psychological well-being during COVID-19 pandemic in China",
+   "journal_full": "Current Psychology",
+   "volume": "43",
+   "issue": "20",
+   "pages": "18647-18658",
+   "doi": "10.1007/s12144-023-04785-w",
+   "evidence": "Springer Nature Link (link.springer.com/article/10.1007/s12144-023-04785-w): 'The impact of employment stress on college students: psychological well-being during COVID-19 pandemic in China | Current Psychology.' Cross-checked via PubMed Central PMC10228455. Search snippets: 'by Peng Y, Lv SB, Low SR, and Bono SA, published in Current Psychology in 2024, Volume 43(20), pages 18647-18658' and independently: 'published in Current Psychology volume 43, pages 18647-18658 (2024)... A total of 2,627 final year college students were recruited... approximately 13.2% of participants depressed and 53.3% considering the current employment situation as severe.'"
+  },
+  "cn_stress3": {
+   "authors_apa": "Zheng, S., Wu, G., Zhao, J., & Chen, W.",
+   "year": "2022",
+   "title": "Impact of the COVID-19 epidemic anxiety on college students' employment confidence and employment situation perception in China",
+   "journal_full": "Frontiers in Psychology",
+   "volume": "13",
+   "issue": "",
+   "pages": "Article 980634",
+   "doi": "10.3389/fpsyg.2022.980634",
+   "evidence": "Frontiers page (frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.980634/full) and PhilPapers record (philpapers.org/rec/ZHEIOT-4): 'Sining Zheng, Guizhen Wu, Jiahao Zhao & Weiqi Chen, Impact of the COVID-19 epidemic anxiety on college students' employment confidence and employment situation perception in China.' Cross-checked via PubMed Central PMC9501885 and Semantic Scholar. Search snippet: 'published by Zheng S, Wu G, Zhao J and Chen W in Frontiers in Psychology, Volume 13:980634, published on September 9, 2022... COVID-19 anxiety has a negative impact on Chinese college students' employment confidence and employment situation perception.' Frontiers in Psychology uses continuous volumes with article numbers, no issue numbers."
+  },
+  "involution1": {
+   "authors_apa": "Zhang, W., Wang, Y., Liu, X., Guo, C., Lin, Z., Zhou, M., & Mu, Y.",
+   "year": "2025",
+   "title": "The Psychology of Involution: Taxonomy, Sociocultural Predictors, and Psychological Outcomes",
+   "journal_full": "Journal of Happiness Studies",
+   "volume": "26",
+   "issue": "7",
+   "pages": "Article 127",
+   "doi": "10.1007/s10902-025-00954-9",
+   "evidence": "Springer Nature Link page: 'The Psychology of Involution: Taxonomy, Sociocultural Predictors, and Psychological Outcomes | Journal of Happiness Studies' (link.springer.com/article/10.1007/s10902-025-00954-9). Independently confirmed by RePEc record 'ideas.repec.org/a/spr/jhappi/v26y2025i7d10.1007_s10902-025-00954-9.html' (volume 26, year 2025, issue 7); citation given as 'J Happiness Stud 26, 127 (2025)', authors Wen Zhang, Yuwei Wang, Xiaotao Liu, Chen Guo, Zhicheng Lin, Mingjie Zhou, and Yan Mu; article addresses 'involution (neijuan), a recent, widespread phenomenon in China characterized by societal hyper-competition and individual experiences of burnout, anxiety, and disillusionment with success.'"
+  },
+  "involution2": {
+   "authors_apa": "Tong, X., & Liu, J.",
+   "year": "2023",
+   "title": "\"Lying Flat\": Chinese Youths' Resistance to Overwork and the Practice of Stratification",
+   "journal_full": "Youth and Globalization",
+   "volume": "5",
+   "issue": "2",
+   "pages": "231-251",
+   "doi": "10.1163/25895745-05020002",
+   "evidence": "Brill page: '\"Lying Flat\": Chinese Youths' Resistance to Overwork and the Practice of Stratification in: Youth and Globalization Volume 5 Issue 2 (2023)' (brill.com/view/journals/yogo/5/2/article-p231_002.xml). Cross-checked via ResearchGate record 378860218 and scite.ai: 'by authors Tong Xin and Liu Jian, with DOI: 10.1163/25895745-05020002. Tong Xin is a Professor in the Department of Sociology at Peking University, and Liu Jian is a PhD candidate at the same institution'; pages 231-251 confirmed. Note: the 5(2) 2023 issue was released online by Brill in March 2024 (delayed publication); the issue itself is dated 2023."
+  },
+  "involution3": {
+   "authors_apa": "Zhang, L., Hui, B. P. H., Kong, F., Lu, H., & Chen, S. X.",
+   "year": "2025",
+   "title": "Why People \"Lie Flat\"? An Integrative Framework of Social-Psychological Pathways in China",
+   "journal_full": "Personality and Social Psychology Review",
+   "volume": "29",
+   "issue": "4",
+   "pages": "371-382",
+   "doi": "10.1177/10888683251358516",
+   "evidence": "SAGE Journals page: 'Why People \"Lie Flat\"? An Integrative Framework of Social-Psychological Pathways in China - Linting Zhang, Bryant P. H. Hui, Feng Kong, Huanhua Lu, Sylvia Xiaohua Chen, 2025' (journals.sagepub.com/doi/10.1177/10888683251358516). Independently confirmed by Semantic Scholar record and the Hong Kong PolyU institutional repository preprint (ira.lib.polyu.edu.hk/bitstream/10397/117683): published in Personality and Social Psychology Review, Volume 29, Issue 4, pages 371-382; article proposes an integrative model of how Taoism/Buddhism, social expectations, and involution drive 'lying flat' among Chinese youth."
+  },
+  "ai_career1": {
+   "authors_apa": "Pandya, S. S., & Wang, J.",
+   "year": "2024",
+   "title": "Artificial intelligence in career development: a scoping review",
+   "journal_full": "Human Resource Development International",
+   "volume": "27",
+   "issue": "3",
+   "pages": "324-344",
+   "doi": "10.1080/13678868.2024.2336881",
+   "evidence": "Cross-checked in 3+ independent sources: (1) Taylor & Francis official article page titled 'Artificial intelligence in career development: a scoping review: Human Resource Development International: Vol 27, No 3' at tandfonline.com/doi/abs/10.1080/13678868.2024.2336881; (2) Semantic Scholar record 'Artificial intelligence in career development: a scoping review | Semantic Scholar' with author slug 'Pandya-Wang' (semanticscholar.org/paper/...-Pandya-Wang/e5381d30bee1ecc8c1da9cccfad2581d67521a0e); (3) CoLab record at colab.ws/articles/10.1080/13678868.2024.2336881 and ResearchGate publication 379721225. Search snippets confirm: authors Shyamal S. Pandya & Jia Wang, published online April 9, 2024, Volume 27, Issue 3, pages 324-344; a scoping review of 101 journal publications on AI in career development."
+  },
+  "ai_career2": {
+   "authors_apa": "Xiao, Y., & Zheng, L.",
+   "year": "2025",
+   "title": "Can ChatGPT Boost Students' Employment Confidence? A Pioneering Booster for Career Readiness",
+   "journal_full": "Behavioral Sciences",
+   "volume": "15",
+   "issue": "3",
+   "pages": "362",
+   "doi": "10.3390/bs15030362",
+   "evidence": "Cross-checked in 3 independent sources: (1) MDPI official article page mdpi.com/2076-328X/15/3/362 with citation 'Behav. Sci. 2025, 15(3), 362', DOI https://doi.org/10.3390/bs15030362, published March 14, 2025; (2) PubMed Central record PMC11939219 (pmc.ncbi.nlm.nih.gov/articles/PMC11939219/) with citation 'Behav Sci (Basel). 2025 Mar 14;15(3):362. doi: 10.3390/bs15030362', listing authors Yu Xiao and Li Zheng (Li Zheng as corresponding author); (3) Semantic Scholar PDF record pdfs.semanticscholar.org/168b/1149658974e1758dcf7ff7be7170c7f45832.pdf. Study used regression, Inverse Probability Weighting, and SEM to show regular ChatGPT use enhances university students' employment confidence and career readiness."
+  },
+  "ai_career3": {
+   "authors_apa": "Dahri, N. A., Yahaya, N., & Al-Rahmi, W. M.",
+   "year": "2025",
+   "title": "Exploring the influence of ChatGPT on student academic success and career readiness",
+   "journal_full": "Education and Information Technologies",
+   "volume": "30",
+   "issue": "7",
+   "pages": "8877-8921",
+   "doi": "10.1007/s10639-024-13148-2",
+   "evidence": "Cross-checked in 4 independent sources: (1) Springer Nature Link official article page link.springer.com/article/10.1007/s10639-024-13148-2 ('Education and Information Technologies, Volume 30, pages 8877-8921 (2025)', authors Dahri, N.A., Yahaya, N. & Al-Rahmi, W.M.); (2) Springer volume index link.springer.com/journal/10639/volumes-and-issues/30-7 confirming Volume 30, Issue 7, pages 8877-8921, published online November 22, 2024; (3) ERIC record EJ1470422 'Exploring the Influence of ChatGPT on Student Academic Success and Career Readiness, Education and Information Technologies, 2025-May'; (4) ResearchGate publication 386046261. Study of 290 students at Universiti Teknologi Malaysia using SOR theory, TAM constructs, and SEM, showing ChatGPT output quality enhances career-relevant knowledge and career readiness."
+  }
+ },
+ "problems": []
+}
