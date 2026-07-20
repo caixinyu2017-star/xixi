@@ -399,9 +399,9 @@ for ax, (k, ttl) in zip(axes.flat, PANELS):
     for s_ in ('top', 'right'):
         ax.spines[s_].set_visible(False)
 handles, labels_ = axes[0, 0].get_legend_handles_labels()
-fig.legend(handles, labels_, loc='upper center', ncol=2, frameon=False,
-           bbox_to_anchor=(0.5, 1.0), fontsize=8.4, handletextpad=0.6, columnspacing=2.2)
-fig.tight_layout(rect=[0, 0, 1, 0.955])
+fig.legend(handles, labels_, loc='lower center', ncol=2, frameon=False,
+           bbox_to_anchor=(0.5, 0.0), fontsize=8.4, handletextpad=0.6, columnspacing=2.2)
+fig.tight_layout(rect=[0, 0.05, 1, 1])
 fig.savefig('p4_fig2.png', dpi=300, bbox_inches='tight'); plt.close(fig)
 
 # Figure 3 — mediation path diagram (edge-anchored arrows, offset labels)
