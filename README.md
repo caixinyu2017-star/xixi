@@ -1,12 +1,12 @@
 # xixi — 科研 Skills 集合 / Research Skills Marketplace
 
-本仓库把 **11 套 Claude Code Skill 包**（6 套科研类 + 3 套科研绘图/演示 + 2 套 PPT 制作）打包成一个本地
+本仓库把 **12 套 Claude Code Skill 包**（6 套科研类 + 3 套科研绘图/演示 + 3 套 PPT 制作）打包成一个本地
 **plugin marketplace（插件市场）**，安装后即可在 Claude Code 中按需启用。每套包都保留了
 作者原始的目录结构与相对路径引用，因此知识库、脚本、模板、`_shared`/`shared`/`databases`/`catalog`
 等内部资源都能正确加载。
 
-This repo bundles **eleven skill packages** (six academic-research packs, three scientific-figure /
-web-slides packs, and two PPT-production packs) into a single local **Claude Code plugin marketplace**.
+This repo bundles **twelve skill packages** (six academic-research packs, three scientific-figure /
+web-slides packs, and three PPT-production packs) into a single local **Claude Code plugin marketplace**.
 Each package keeps its original directory layout and relative-path references intact, so its knowledge
 bases, scripts, templates and shared folders all resolve correctly once installed.
 
@@ -24,17 +24,18 @@ bases, scripts, templates and shared folders all resolve correctly once installe
 | **auto-empirical-research-skills (AERS)** | `aer-skills` (9→14 skills), `empirical-analysis-python`, `empirical-analysis-stata`, `empirical-analysis-r` | Stanford REAP × CoPaper.AI 的实证研究技能栈。**4 个开箱即用插件**：顶刊经济学 AER/AEJ 全流程写作（选题、DiD/IV/RDD/SCM/Bartik 因果识别、稳健性、AER 表格、openICPSR 存档、R&R 回复）+ 显式 **8 步计量流水线**（清洗→变量→Table 1→诊断→估计 OLS/IV/DID/RDD/PSM/SCM/DML/Causal Forest→稳健性→机制/异质性/中介→出版级表图）的 Python / Stata / R 三套实现。此外仓库内附带**可浏览的 73 套第三方技能 catalog（约 1,150 个 SKILL.md）** 与一个 router `SKILL.md`。 |
 | **cyber-ppt** | `cyber-ppt` (1 skill) | CyberPPT：把 DOCX/PDF/TXT/XLSX、研究报告或原始数据转成高密度、可编辑、咨询风格 PPTX。三阶段流水线（MBB 证据分析 + SCR 论证 → 8 种固定视觉风格样张 + 逐页 ImageGen 蓝图 → 混合还原 PPTX），内置渲染质检门、11k+ SVG 图标库与 PPTX 验证脚本。 |
 | **dashiai-ppt** | `dashiai-ppt` (1 skill) | DashiAI PPT：基于预置视觉主题组合页面，把自然语言需求整理成 JSON 计划后调用内置本地生成器（React + pptxgenjs），输出可离线打开、可在浏览器编辑的 HTML 演示，支持导出 PPTX / PDF。 |
+| **ppt-master** | `ppt-master` (1 skill) | 把 PDF/DOCX/URL/Markdown 转成原生可编辑 PPTX（真实 DrawingML 形状/文本框/图表/动画），AI 多角色 SVG 生成流水线；内置大型图标/模板/参考图库。**首次使用前需在 `skills/ppt-master/` 下 `pip install -r requirements.txt`。** |
 | **auto-visio-helper** | `auto-visio-helper` (1 skill) | Auto Visio Helper：把方法描述、论文截图或手绘草图转成可编辑的 Microsoft Visio `.vsdx` 图。先产出可审阅的 JSON 绘图 spec，再经本地 Visio COM 自动化渲染，保持形状/连线/文本/图层可编辑；附参考文档、demo、可复用 Visio 模板与 PNG/PDF/SVG 预览导出。 |
 | **visio-image-rebuilder** | `visio-image-rebuilder` (1 skill) | Visio 图重建 Skill：从参考图片或已有 `.vsdx` 重建/改版可编辑的 Visio 图，并可导出 `.vsdx`/PNG/SVG/PDF/PPTX；用原生形状/文本/连线复刻多面板科学图而非整图嵌入，含面板坐标校准与中文技术标流程图默认模式（宋体 12pt、固定样式/页面框、只输出主 `.vsdx` 的批量出图）；附重建指南、Visio PowerShell/COM 自动化脚手架与 CJK Unicode 转义指引。 |
 | **frontend-slides** | `frontend-slides` (1 skill) | Frontend Slides：零依赖、动画丰富的 HTML 演示文稿生成器，可从零搭建或将 PPT/PPTX 转成网页，含安全预设、bold 模板库、固定 16:9 舞台与反 “AI slop” 设计理念。 |
 
-**可直接安装的插件共 14 个**（`light` / `academic-research-skills` / `nature-skills` /
+**可直接安装的插件共 15 个**（`light` / `academic-research-skills` / `nature-skills` /
 `econ-top-journal-writing` / `writing-ai-paper` / `aer-skills` /
 `empirical-analysis-python` / `empirical-analysis-stata` / `empirical-analysis-r` /
-`cyber-ppt` / `dashiai-ppt` / `auto-visio-helper` / `visio-image-rebuilder` / `frontend-slides`）；
+`cyber-ppt` / `dashiai-ppt` / `ppt-master` / `auto-visio-helper` / `visio-image-rebuilder` / `frontend-slides`）；
 AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 
-**14 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
+**15 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
 
 ---
 
@@ -62,6 +63,7 @@ AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 /plugin install frontend-slides@xixi-research-skills
 /plugin install cyber-ppt@xixi-research-skills
 /plugin install dashiai-ppt@xixi-research-skills
+/plugin install ppt-master@xixi-research-skills
 
 # —— AERS 的 4 个开箱即用插件 / the 4 first-party AERS plugins ——
 /plugin install aer-skills@xixi-research-skills
@@ -144,7 +146,7 @@ xixi/
 │       ├── cyber-ppt   -> ../../plugins/cyber-ppt/skills/cyber-ppt      # 项目级技能，本仓库会话自动加载
 │       └── dashiai-ppt -> ../../plugins/dashiai-ppt/skills/dashiai-ppt  # 项目级技能，本仓库会话自动加载
 ├── .claude-plugin/
-│   └── marketplace.json          # 列出全部 14 个可安装插件 / lists all 14 installable plugins
+│   └── marketplace.json          # 列出全部 15 个可安装插件 / lists all 15 installable plugins
 ├── claude-science-windows/       # Windows 一键安装 Claude Science / one-click installer
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
@@ -157,6 +159,7 @@ xixi/
 │   ├── frontend-slides/          # 1 skill (+ bold-template-pack/, scripts/)
 │   ├── cyber-ppt/                # 1 skill (+ references/, scripts/, assets/icons 11k+ SVG)
 │   ├── dashiai-ppt/              # 1 skill (+ project/ 本地 HTML→PPTX/PDF 生成器)
+│   ├── ppt-master/               # 1 skill (doc→native PPTX pipeline, large icon/template library)
 │   └── auto-empirical-research-skills/   # AERS — Stanford REAP × CoPaper.AI
 │       ├── .claude-plugin/marketplace.json   # AERS 自带市场清单（4 first-party plugins）
 │       ├── SKILL.md              # 根 router / catalog-router skill
@@ -204,6 +207,7 @@ AERS 作为完整技能包整体 vendored 进来，保留其 `SKILL.md` 路由�
 - **frontend-slides** — MIT（zarazhangrui / Zara Zhang，https://github.com/zarazhangrui/frontend-slides），见插件内 `LICENSE`
 - **cyber-ppt** — MIT（CyberPPT contributors）
 - **dashiai-ppt** — AGPL-3.0（大师的AI小灶，https://github.com/chuspeeism/dashiAI-ppt-skill）
+- **ppt-master** — MIT（Hugo He，https://github.com/hugohe3/ppt-master）
 - **auto-empirical-research-skills (AERS)** — Stanford REAP × CoPaper.AI（Bryce Wang，https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills）；
   `aer-skills` 为 MIT，`empirical-analysis-{python,stata,r}` 为 CC-BY-SA-4.0；catalog 内 73 套第三方技能各自保留其原始许可，请逐个查阅子目录的 `LICENSE`。
 

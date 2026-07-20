@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of research, figure, and presentation skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, cyber-ppt, dashiai-ppt, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
-    "version": "1.4.0"
+    "description": "A bundled Claude Code marketplace of research, figure, and presentation skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, cyber-ppt, dashiai-ppt, ppt-master, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
+    "version": "1.5.0"
   },
   "plugins": [
     {
@@ -78,6 +78,13 @@
       "description": "DashiAI PPT — theme-based presentation generation (1 skill): turns natural-language requirements into a JSON plan, then renders an offline, browser-editable HTML deck from preset visual themes via a bundled local generator (React + pptxgenjs), with PPTX / PDF export.",
       "version": "0.2.5",
       "license": "AGPL-3.0"
+    },
+    {
+      "name": "ppt-master",
+      "source": "./plugins/ppt-master",
+      "description": "Generate natively editable PPTX from PDF/DOCX/URL/Markdown — real DrawingML shapes, text boxes, charts, and animations via an AI multi-role SVG generation pipeline. Ships a large icon/template/reference library; run `pip install -r requirements.txt` inside skills/ppt-master/ for the Python post-processing scripts.",
+      "version": "2.7.0",
+      "license": "MIT"
     },
     {
       "name": "aer-skills",

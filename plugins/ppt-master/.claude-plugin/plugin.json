@@ -1,0 +1,24 @@
+{
+  "name": "ppt-master",
+  "version": "2.7.0",
+  "description": "Generate natively editable PPTX from PDF / DOCX / URL / Markdown — real DrawingML shapes, text boxes, charts, and animations, via an AI-driven multi-format SVG content generation pipeline (Strategist -> Executor live preview -> quality check -> post-processing -> export). Ships a large icon/template/reference library. Note: run `pip install -r requirements.txt` inside skills/ppt-master/ for the Python post-processing scripts to work.",
+  "author": {
+    "name": "Hugo He",
+    "email": "heyug3@gmail.com",
+    "url": "https://www.hehugo.com/"
+  },
+  "homepage": "https://github.com/hugohe3/ppt-master",
+  "repository": "https://github.com/hugohe3/ppt-master",
+  "license": "MIT",
+  "keywords": [
+    "pptx",
+    "presentation",
+    "powerpoint",
+    "svg",
+    "drawingml",
+    "ai",
+    "skill",
+    "office",
+    "document-conversion"
+  ]
+}
