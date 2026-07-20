@@ -383,7 +383,7 @@ BLUE = '#2a78d6'; GRAY = '#52514e'; LG = '#e8e6df'
 # Figure 2 — trajectories 2x2
 PANELS = [('CDS', '(a) Career distress (CDS)'), ('CAAS', '(b) Career adaptability (CAAS-SF)'),
           ('PHQ8', '(c) Depressive symptoms (PHQ-8)'), ('WEMWBS', '(d) Mental well-being (WEMWBS)')]
-fig, axes = plt.subplots(2, 2, figsize=(6.9, 5.0))
+fig, axes = plt.subplots(2, 2, figsize=(6.9, 5.2))
 for ax, (k, ttl) in zip(axes.flat, PANELS):
     for a, lab, col, mk in [(1, 'CareerMate', BLUE, 'o'), (0, 'Waitlist control', GRAY, 's')]:
         ms_, cis = [], []
@@ -394,41 +394,68 @@ for ax, (k, ttl) in zip(axes.flat, PANELS):
                     lw=1.8 if a else 1.6, ls='-' if a else '--', capsize=3, label=lab)
     ax.set_xticks([0, 1, 2], ['Baseline', 'Week 4\n(post)', 'Week 8\n(follow-up)'])
     ax.set_title(ttl, fontsize=8.8, loc='left')
+    ax.set_xlim(-0.25, 2.25)
     ax.grid(axis='y', color=LG, lw=0.7); ax.set_axisbelow(True)
     for s_ in ('top', 'right'):
         ax.spines[s_].set_visible(False)
-axes[0, 0].legend(frameon=False, loc='upper right')
-fig.tight_layout()
+handles, labels_ = axes[0, 0].get_legend_handles_labels()
+fig.legend(handles, labels_, loc='upper center', ncol=2, frameon=False,
+           bbox_to_anchor=(0.5, 1.0), fontsize=8.4, handletextpad=0.6, columnspacing=2.2)
+fig.tight_layout(rect=[0, 0, 1, 0.955])
 fig.savefig('p4_fig2.png', dpi=300, bbox_inches='tight'); plt.close(fig)
 
-# Figure 3 — mediation path diagram
+# Figure 3 — mediation path diagram (edge-anchored arrows, offset labels)
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
-fig, ax = plt.subplots(figsize=(6.2, 2.9))
-ax.set_xlim(0, 100); ax.set_ylim(0, 46); ax.axis('off')
-def mbox(x, y, w, h, lines, fc='#eef4fc', ec=BLUE):
-    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle='round,pad=0.5,rounding_size=1.4',
-                                fc=fc, ec=ec, lw=1.2))
-    cy = y + h - 3.4
-    for ln in lines:
-        ax.text(x + w / 2, cy, ln, ha='center', va='center', fontsize=8.0, fontweight='bold' if cy == y + h - 3.4 else 'normal')
-        cy -= 4.2
-def marrow(x1, y1, x2, y2, lab, above=True):
-    ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle='-|>', mutation_scale=12,
-                                 lw=1.4, color='#0b0b0b', shrinkA=2, shrinkB=2))
-    mx, my = (x1 + x2) / 2, (y1 + y2) / 2 + (2.6 if above else -3.0)
-    ax.text(mx, my, lab, ha='center', fontsize=8.0, style='italic')
+fig, ax = plt.subplots(figsize=(6.4, 3.0))
+ax.set_xlim(0, 100); ax.set_ylim(0, 52); ax.axis('off')
+_fz = lambda v, nd=2: f'{v:.{nd}f}'.replace('-0.', '\u2212.').replace('0.', '.').replace('-', '\u2212')
 mp = OUT['med_paths']; md = OUT['mediation']
 star = lambda p: '***' if p < .001 else ('**' if p < .01 else ('*' if p < .05 else ''))
-_fz = lambda v, nd=2: f'{v:.{nd}f}'.replace('-0.', '\u2212.').replace('0.', '.').replace('-', '\u2212')
-mbox(1, 18, 28, 10, ['Group', '(CareerMate vs. control)'])
-mbox(38, 33, 26, 10, ['Δ Need satisfaction', '(T0 → T1)'], fc='#eceafd', ec='#4a3aa7')
-mbox(72, 18, 26, 10, ['Δ Career distress', '(T0 → T2)'])
-marrow(22, 28, 42, 38, f"a = {_fz(mp['a'][0])}{star(mp['a'][2])}")
-marrow(60, 38, 82, 28, f"b = {_fz(mp['b'][0])}{star(mp['b'][2])}")
-marrow(29, 22, 72, 22, f"c′ = {_fz(mp['cprime'][0])}{star(mp['cprime'][2])}   (c = {_fz(mp['c'][0])}{star(mp['c'][2])})", above=False)
-ax.text(50, 6, f"Indirect effect a × b = {_fz(md['ab'],3)}, 95% bootstrap CI [{_fz(md['ci'][0],3)}, {_fz(md['ci'][1],3)}]; "
-               f"{md['prop_mediated']*100:.0f}% of the total effect mediated",
-        ha='center', fontsize=7.8, color='#52514e')
+
+def mbox(x0, y0, w, h, lines, fc='#eef4fc', ec=BLUE):
+    ax.add_patch(FancyBboxPatch((x0, y0), w, h, boxstyle='round,pad=0.5,rounding_size=1.4',
+                                fc=fc, ec=ec, lw=1.2))
+    n = len(lines)
+    for li, ln in enumerate(lines):
+        cy = y0 + h / 2 + (n - 1) * 2.3 - li * 4.6
+        ax.text(x0 + w / 2, cy, ln, ha='center', va='center', fontsize=7.8,
+                fontweight='bold' if li == 0 else 'normal')
+
+# box geometry: (x0, y0, w, h)
+GB = (2, 12, 30, 11)      # Group (left)
+MB = (36, 36, 28, 11)     # Mediator (top center)
+OB = (68, 12, 30, 11)     # Outcome (right)
+mbox(*GB, ['Group', '(CareerMate vs. control)'])
+mbox(*MB, ['Δ Need satisfaction', '(T0 → T1)'], fc='#eceafd', ec='#4a3aa7')
+mbox(*OB, ['Δ Career distress', '(T0 → T2)'])
+
+def marrow(p1, p2):
+    ax.add_patch(FancyArrowPatch(p1, p2, arrowstyle='-|>', mutation_scale=12,
+                                 lw=1.4, color='#0b0b0b', shrinkA=0, shrinkB=0))
+
+# path a: Group top edge -> Mediator left edge
+a1 = (GB[0] + GB[2] * 0.62, GB[1] + GB[3] + 0.6)      # (20.6, 23.6)
+a2 = (MB[0] - 0.6, MB[1] + MB[3] * 0.38)              # (35.4, 40.2)
+marrow(a1, a2)
+ax.text((a1[0] + a2[0]) / 2 - 4.5, (a1[1] + a2[1]) / 2 + 1.6,
+        f"a = {_fz(mp['a'][0])}{star(mp['a'][2])}", ha='right', fontsize=8.2, style='italic')
+# path b: Mediator right edge -> Outcome top edge
+b1 = (MB[0] + MB[2] + 0.6, MB[1] + MB[3] * 0.38)      # (64.6, 40.2)
+b2 = (OB[0] + OB[2] * 0.38, OB[1] + OB[3] + 0.6)      # (79.4, 23.6)
+marrow(b1, b2)
+ax.text((b1[0] + b2[0]) / 2 + 4.5, (b1[1] + b2[1]) / 2 + 1.6,
+        f"b = {_fz(mp['b'][0])}{star(mp['b'][2])}", ha='left', fontsize=8.2, style='italic')
+# path c': Group right edge -> Outcome left edge (horizontal)
+c1 = (GB[0] + GB[2] + 0.6, GB[1] + GB[3] * 0.5)       # (32.6, 17.5)
+c2 = (OB[0] - 0.6, OB[1] + OB[3] * 0.5)               # (67.4, 17.5)
+marrow(c1, c2)
+ax.text(50, c1[1] - 3.6,
+        f"c′ = {_fz(mp['cprime'][0])}{star(mp['cprime'][2])}    (c = {_fz(mp['c'][0])}{star(mp['c'][2])})",
+        ha='center', fontsize=8.2, style='italic')
+ax.text(50, 4.5, f"Indirect effect a × b = {_fz(md['ab'],3)}, 95% bootstrap CI "
+                 f"[{_fz(md['ci'][0],3)}, {_fz(md['ci'][1],3)}]; "
+                 f"{md['prop_mediated']*100:.0f}% of the total effect mediated",
+        ha='center', fontsize=7.6, color='#52514e')
 fig.savefig('p4_fig3.png', dpi=300, bbox_inches='tight'); plt.close(fig)
 
 # Figure 4 — dose-response + sentiment slopes
