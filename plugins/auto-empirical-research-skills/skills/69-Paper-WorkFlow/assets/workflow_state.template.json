@@ -1,0 +1,117 @@
+{
+  "schema_version": 10,
+  "project": {
+    "short_name": "",
+    "created_at_beijing": "",
+    "entry_stage": null,
+    "mode": "",
+    "target_journal": "",
+    "language": ""
+  },
+  "orchestration": {
+    "status": "pending",
+    "entry_routing": "00_meta/entry_routing.md",
+    "stage_passport": "00_meta/stage_passport.md",
+    "pipeline_status": "00_meta/pipeline_status.md",
+    "handoff_dir": "00_meta/handoff",
+    "latest_handoff": "",
+    "checkpoint_policy": "full-at-hard-gates",
+    "reset_boundaries": [],
+    "fresh_evidence_required": true,
+    "last_recovery_probe": "",
+    "self_review_gate": "pending",
+    "ethics_gate": "pending",
+    "revision_rounds_cap": 2
+  },
+  "analysis_backend": {
+    "primary": "",
+    "secondary_validation": "",
+    "script_extension": "",
+    "child_skill": "",
+    "environment_status": "pending",
+    "version_report": "00_meta/analysis_backend.md",
+    "capability_report": "00_meta/backend_capabilities.json",
+    "backend_parity_report": "00_meta/backend_parity.json"
+  },
+  "empirical_audit": {
+    "status": "pending",
+    "sample_audit": "02_data/sample_audit.md",
+    "estimand_alignment": "pending",
+    "missingness_balance": "pending",
+    "construct_validity": "pending",
+    "blocking_issues": [],
+    "last_audit": ""
+  },
+  "stages": {
+    "0_intake_setup": "pending",
+    "1_topic_design": "pending",
+    "2_data": "pending",
+    "3_identification_estimation": "pending",
+    "4_tables_figures": "pending",
+    "5_draft": "pending",
+    "6_polish": "pending",
+    "7_language_dehumanize": "pending",
+    "8_review_revision": "pending",
+    "9_submission": "pending"
+  },
+  "method_gate": {
+    "status": "pending",
+    "primary_design": "",
+    "primary_estimator": "",
+    "design_register": "03_analysis/design_register.md",
+    "method_gate_report": "03_analysis/method_gate.md",
+    "required_artifacts": [],
+    "missing_artifacts": [],
+    "last_audit": ""
+  },
+  "evidence_governance": {
+    "status": "pending",
+    "evidence_ledger": "00_meta/evidence_ledger.md",
+    "design_gate_card": "03_analysis/method_gate.md#design-gate-card",
+    "claim_strength": "pending",
+    "open_discrepancies": [],
+    "last_claim_audit": ""
+  },
+  "integrity_audit": {
+    "status": "pending",
+    "claim_integrity_audit": "00_meta/claim_integrity_audit.md",
+    "claim_locator_manifest": "00_meta/claim_integrity_audit.md#claim-locator-manifest",
+    "audit_mode": "pre-review",
+    "checked_claims": 0,
+    "unsupported_claims": 0,
+    "unverified_citations": 0,
+    "blocking_findings": [],
+    "last_audit": ""
+  },
+  "design_risk": {
+    "status": "pending",
+    "risk_ledger": "03_analysis/design_risk_ledger.md",
+    "threats_reviewed": [],
+    "blocking_threats": [],
+    "external_validity": "pending",
+    "specification_search": "pending",
+    "spillover_interference": "pending",
+    "selection_attrition": "pending",
+    "last_review": ""
+  },
+  "quality_gate": {
+    "draft_milestone": "pending",
+    "status": "pending",
+    "rounds": 0,
+    "last_total_score": null,
+    "last_dimension_scores": {},
+    "scorecard": "00_meta/quality_scorecard.md"
+  },
+  "replication_pack": {
+    "status": "pending",
+    "readme": "REPLICATION.md",
+    "master_script": "",
+    "data_availability_statement": "09_submission/DAS.md",
+    "archive_plan": "",
+    "runtime_minutes": null,
+    "last_rebuild_check": ""
+  },
+  "artifacts": {},
+  "decisions": [],
+  "last_updated_beijing": ""
+}
