@@ -118,6 +118,23 @@ launcher on your desktop.
 
 ---
 
+## 🔌 可选：MCP 服务器 / Optional: MCP servers
+
+除技能外，本仓库还附带即插即用的 MCP 服务器配置，供上述科研技能调用外部工具。
+
+Beyond skills, the repo ships ready-to-use MCP server configs that the research skills above can call.
+
+| 服务器 / Server | 用途 / What it does | 安装 / Install |
+| --- | --- | --- |
+| **markitdown** | 把 PDF / Word / PPT / Excel / 图片 / HTML 等转换为 Markdown，便于文献阅读、数据抽取与写作。/ Convert PDF, Word, PPT, Excel, images, HTML and more to Markdown for reading, extraction and writing. | `bash mcp/markitdown/install.sh` — 详见 [`mcp/markitdown/`](./mcp/markitdown/) |
+
+安装后**重启 Claude Code**，即可让 Claude 直接读取并转换文档（例如 `convert file:///path/to/paper.pdf`）。
+
+Restart Claude Code after installing, and Claude can read/convert documents directly
+(e.g. `convert file:///path/to/paper.pdf`).
+
+---
+
 ## 🗂 目录结构 / Layout
 
 ```text
@@ -147,6 +164,8 @@ xixi/
 │       ├── docs/                 # 安装、分类法、golden workflows 等文档
 │       ├── plugins/              # empirical-analysis-{python,stata,r}（已注册）
 │       └── skills/               # 73 套 catalog（00…69），含 50-brycewang-aer-skills（已注册）
+├── mcp/
+│   └── markitdown/               # MarkItDown MCP server (文档→Markdown / doc→Markdown)
 └── README.md
 ```
 
