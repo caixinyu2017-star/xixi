@@ -1,12 +1,14 @@
 # xixi — 科研 Skills 集合 / Research Skills Marketplace
 
-本仓库把 **6 套科研类 Claude Code Skill 包** 打包成一个本地 **plugin marketplace（插件市场）**，
-安装后即可在 Claude Code 中按需启用。每套包都保留了作者原始的目录结构与相对路径引用，
-因此知识库、脚本、模板、`_shared`/`shared`/`databases`/`catalog` 等内部资源都能正确加载。
+本仓库把 **8 套 Claude Code Skill 包**（6 套科研类 + 2 套 PPT 制作）打包成一个本地
+**plugin marketplace（插件市场）**，安装后即可在 Claude Code 中按需启用。每套包都保留了
+作者原始的目录结构与相对路径引用，因此知识库、脚本、模板、`_shared`/`shared`/`databases`/`catalog`
+等内部资源都能正确加载。
 
-This repo bundles **six academic-research skill packages** into a single local **Claude Code plugin
-marketplace**. Each package keeps its original directory layout and relative-path references intact, so
-its knowledge bases, scripts, templates and shared folders all resolve correctly once installed.
+This repo bundles **eight skill packages** (six academic-research packs plus two PPT-production packs)
+into a single local **Claude Code plugin marketplace**. Each package keeps its original directory
+layout and relative-path references intact, so its knowledge bases, scripts, templates and shared
+folders all resolve correctly once installed.
 
 ---
 
@@ -20,13 +22,16 @@ its knowledge bases, scripts, templates and shared folders all resolve correctly
 | **econ-top-journal-writing** | `econ-top-journal-writing` (5 skills) | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | `writing-ai-paper` (1 skill) | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
 | **auto-empirical-research-skills (AERS)** | `aer-skills` (9→14 skills), `empirical-analysis-python`, `empirical-analysis-stata`, `empirical-analysis-r` | Stanford REAP × CoPaper.AI 的实证研究技能栈。**4 个开箱即用插件**：顶刊经济学 AER/AEJ 全流程写作（选题、DiD/IV/RDD/SCM/Bartik 因果识别、稳健性、AER 表格、openICPSR 存档、R&R 回复）+ 显式 **8 步计量流水线**（清洗→变量→Table 1→诊断→估计 OLS/IV/DID/RDD/PSM/SCM/DML/Causal Forest→稳健性→机制/异质性/中介→出版级表图）的 Python / Stata / R 三套实现。此外仓库内附带**可浏览的 73 套第三方技能 catalog（约 1,150 个 SKILL.md）** 与一个 router `SKILL.md`。 |
+| **cyber-ppt** | `cyber-ppt` (1 skill) | CyberPPT：把 DOCX/PDF/TXT/XLSX、研究报告或原始数据转成高密度、可编辑、咨询风格 PPTX。三阶段流水线（MBB 证据分析 + SCR 论证 → 8 种固定视觉风格样张 + 逐页 ImageGen 蓝图 → 混合还原 PPTX），内置渲染质检门、11k+ SVG 图标库与 PPTX 验证脚本。 |
+| **dashiai-ppt** | `dashiai-ppt` (1 skill) | DashiAI PPT：基于预置视觉主题组合页面，把自然语言需求整理成 JSON 计划后调用内置本地生成器（React + pptxgenjs），输出可离线打开、可在浏览器编辑的 HTML 演示，支持导出 PPTX / PDF。 |
 
-**可直接安装的插件共 9 个**（`light` / `academic-research-skills` / `nature-skills` /
+**可直接安装的插件共 11 个**（`light` / `academic-research-skills` / `nature-skills` /
 `econ-top-journal-writing` / `writing-ai-paper` / `aer-skills` /
-`empirical-analysis-python` / `empirical-analysis-stata` / `empirical-analysis-r`）；
+`empirical-analysis-python` / `empirical-analysis-stata` / `empirical-analysis-r` /
+`cyber-ppt` / `dashiai-ppt`）；
 AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 
-**9 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
+**11 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
 
 ---
 
@@ -49,6 +54,8 @@ AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 /plugin install nature-skills@xixi-research-skills
 /plugin install econ-top-journal-writing@xixi-research-skills
 /plugin install writing-ai-paper@xixi-research-skills
+/plugin install cyber-ppt@xixi-research-skills
+/plugin install dashiai-ppt@xixi-research-skills
 
 # —— AERS 的 4 个开箱即用插件 / the 4 first-party AERS plugins ——
 /plugin install aer-skills@xixi-research-skills
@@ -109,8 +116,12 @@ launcher on your desktop.
 
 ```text
 xixi/
+├── .claude/
+│   └── skills/
+│       ├── cyber-ppt   -> ../../plugins/cyber-ppt/skills/cyber-ppt      # 项目级技能，本仓库会话自动加载
+│       └── dashiai-ppt -> ../../plugins/dashiai-ppt/skills/dashiai-ppt  # 项目级技能，本仓库会话自动加载
 ├── .claude-plugin/
-│   └── marketplace.json          # 列出全部 9 个可安装插件 / lists all 9 installable plugins
+│   └── marketplace.json          # 列出全部 11 个可安装插件 / lists all 11 installable plugins
 ├── claude-science-windows/       # Windows 一键安装 Claude Science / one-click installer
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
@@ -118,6 +129,8 @@ xixi/
 │   ├── nature-skills/            # 12 skills (+ skills/_shared/)
 │   ├── econ-top-journal-writing/ # 5 skills
 │   ├── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
+│   ├── cyber-ppt/                # 1 skill (+ references/, scripts/, assets/icons 11k+ SVG)
+│   ├── dashiai-ppt/              # 1 skill (+ project/ 本地 HTML→PPTX/PDF 生成器)
 │   └── auto-empirical-research-skills/   # AERS — Stanford REAP × CoPaper.AI
 │       ├── .claude-plugin/marketplace.json   # AERS 自带市场清单（4 first-party plugins）
 │       ├── SKILL.md              # 根 router / catalog-router skill
@@ -128,10 +141,21 @@ xixi/
 └── README.md
 ```
 
-每个已注册插件目录都含有 `.claude-plugin/plugin.json` 与 `skills/`。AERS 作为完整技能包整体 vendored 进来，
-保留其 `SKILL.md` 路由器、`catalog/`、`docs/` 与 73 套子技能；市场里注册的是它自己声明的 4 个开箱即用插件。
-（vendoring 时已剔除与技能运行无关的 `images/`、`demo-notebooks/`、`benchmark/`、`eval-harness/`、`tests/`
-等体积负担；`skills/69-Paper-WorkFlow` 的 submodule 已就地展开为普通文件。）
+> 说明：`cyber-ppt` 与 `dashiai-ppt` 同时通过 `.claude/skills/` 符号链接注册为**项目级技能**——在本仓库
+> 目录中启动的 Claude Code 会话无需安装插件即可自动发现并按需触发它们（Windows 下如符号链接不可用，
+> 请改用方式 A 安装插件）。
+>
+> Note: `cyber-ppt` and `dashiai-ppt` are also registered as **project-level skills** via symlinks under
+> `.claude/skills/`, so Claude Code sessions started inside this repo auto-discover and auto-trigger them
+> without installing the plugins (on Windows, if symlinks are unavailable, use method A instead).
+
+每个插件目录都含有 `.claude-plugin/plugin.json` 与 `skills/`。其中 `light` 与
+`academic-research-skills` 由作者自带插件清单；`nature-skills`、`econ-top-journal-writing`
+的清单在本次部署中按其结构补全；`writing-ai-paper` 由原手册文档封装为可调用 skill。
+AERS 作为完整技能包整体 vendored 进来，保留其 `SKILL.md` 路由器、`catalog/`、`docs/` 与
+73 套子技能；市场里注册的是它自己声明的 4 个开箱即用插件。（vendoring 时已剔除与技能运行无关的
+`images/`、`demo-notebooks/`、`benchmark/`、`eval-harness/`、`tests/` 等体积负担；
+`skills/69-Paper-WorkFlow` 的 submodule 已就地展开为普通文件。）
 
 ---
 
@@ -144,6 +168,8 @@ xixi/
 - **nature-skills** — Apache-2.0（袁一哲 / nature-skills community）
 - **econ-top-journal-writing** — 分层许可，见插件内 `LICENSE`
 - **writing-ai-paper** — 见 https://github.com/hzwer/WritingAIPaper（hzwer、DingXiaoH）
+- **cyber-ppt** — MIT（CyberPPT contributors）
+- **dashiai-ppt** — AGPL-3.0（大师的AI小灶，https://github.com/chuspeeism/dashiAI-ppt-skill）
 - **auto-empirical-research-skills (AERS)** — Stanford REAP × CoPaper.AI（Bryce Wang，https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills）；
   `aer-skills` 为 MIT，`empirical-analysis-{python,stata,r}` 为 CC-BY-SA-4.0；catalog 内 73 套第三方技能各自保留其原始许可，请逐个查阅子目录的 `LICENSE`。
 

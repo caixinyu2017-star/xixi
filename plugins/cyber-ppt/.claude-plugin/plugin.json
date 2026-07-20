@@ -1,0 +1,22 @@
+{
+  "name": "cyber-ppt",
+  "version": "1.0.0",
+  "description": "CyberPPT — 把 DOCX/PDF/TXT/XLSX、研究报告、业务材料或原始数据转成高密度、可编辑、咨询风格 PPTX 的三阶段流水线：MBB 证据分析 + SCR 论证 → 8 种固定视觉风格样张 + 逐页 ImageGen 蓝图 → 混合还原 PPTX（复杂视觉保真 + 主要文字可编辑），内置渲染质检门、11k+ SVG 图标库与 PPTX 验证脚本。",
+  "author": {
+    "name": "CyberPPT contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ppt",
+    "pptx",
+    "presentation",
+    "slides",
+    "consulting",
+    "mbb",
+    "scr",
+    "storyline",
+    "imagegen",
+    "pptxgenjs",
+    "quality-assurance"
+  ]
+}

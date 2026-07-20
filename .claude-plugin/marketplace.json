@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of academic-research skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
-    "version": "1.1.0"
+    "description": "A bundled Claude Code marketplace of research and presentation skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, cyber-ppt, dashiai-ppt, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
+    "version": "1.3.0"
   },
   "plugins": [
     {
@@ -43,6 +43,20 @@
       "description": "Writing AI Conference Papers — the beginner's handbook by hzwer and DingXiaoH, packaged as an invocable skill for planning, drafting, and revising NeurIPS/ICML/ICLR/CVPR-style papers.",
       "version": "1.0.0",
       "license": "See plugin"
+    },
+    {
+      "name": "cyber-ppt",
+      "source": "./plugins/cyber-ppt",
+      "description": "CyberPPT — evidence-based, editable consulting-style PPT generation (1 skill): a three-stage pipeline (MBB evidence analysis + SCR storyline → 8 fixed visual styles + per-page ImageGen blueprints → hybrid high-fidelity editable PPTX) with render-based QA gates, an 11k+ SVG icon library, and PPTX validation scripts.",
+      "version": "1.0.0",
+      "license": "MIT"
+    },
+    {
+      "name": "dashiai-ppt",
+      "source": "./plugins/dashiai-ppt",
+      "description": "DashiAI PPT — theme-based presentation generation (1 skill): turns natural-language requirements into a JSON plan, then renders an offline, browser-editable HTML deck from preset visual themes via a bundled local generator (React + pptxgenjs), with PPTX / PDF export.",
+      "version": "0.2.5",
+      "license": "AGPL-3.0"
     },
     {
       "name": "aer-skills",
