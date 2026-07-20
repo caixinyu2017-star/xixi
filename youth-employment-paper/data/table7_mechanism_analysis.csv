@@ -1,0 +1,10 @@
+Variables,(1) / BMI,(2) / YEMP,(3) / SKILL,(4) / YEMP
+L.AI,0.087 *** (0.011),0.0134 *** (0.0042),0.061 *** (0.009),0.0126 *** (0.0041)
+BMI,,0.152 *** (0.028),,
+SKILL,,,,0.203 *** (0.031)
+Controls,Yes,Yes,Yes,Yes
+Firm FE,Yes,Yes,Yes,Yes
+Year FE,Yes,Yes,Yes,Yes
+Observations,"28,974","28,974","28,974","28,974"
+R-squared,0.318,0.104,0.402,0.121
+F,41.27,33.86,52.13,38.42
