@@ -1,0 +1,292 @@
+{
+ "records": {
+  "ryan2000": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Ryan, R. M., & Deci, E. L.",
+    "year": "2000",
+    "title": "Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being",
+    "journal": "American Psychologist",
+    "volume": "55",
+    "issue": "1",
+    "pages": "68-78",
+    "doi": "10.1037/0003-066X.55.1.68"
+   },
+   "corrections": "No discrepancies found. All candidate fields (authors, year, title, journal, volume 55, issue 1, pages 68-78) verified as correct. Added the missing DOI: 10.1037/0003-066X.55.1.68.",
+   "evidence": "selfdeterminationtheory.org (official SDT site) hosts the paper PDF \"2000_RyanDeci_SDT.pdf\" titled \"Self-Determination Theory and the Facilitation of Intrinsic Motivation, Social Development, and Well-Being\". SciEP reference record: \"Ryan, R. M., & Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. American Psychologist, 55(1), 68-78.\" SCIRP reference record: \"Ryan, R. M., & Deci, E. L. (2000). ... American Psychologist, 55, 68-78.\" DOI search for \"10.1037/0003-066X.55.1.68\" returned Wikipedia's Self-determination theory article and other sources citing this exact DOI for the Ryan & Deci 2000 American Psychologist 55(1) 68-78 paper, published in the January 2000 positive psychology special issue."
+  },
+  "ryan2017": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Ryan, R. M., & Deci, E. L.",
+    "year": "2017",
+    "title": "Self-determination theory: Basic psychological needs in motivation, development, and wellness",
+    "journal": "New York, NY: Guilford Press (book, not a journal)",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "10.1521/978.14625/28806"
+   },
+   "corrections": "Title: removed the \"(book)\" annotation, which is not part of the actual title. Confirmed this is a book (756 pp., ISBN 9781462528769 hardcover / 9781462538966 paperback, published Feb 14, 2017), so \"journal_full\" is actually the publisher: Guilford Press, New York. No volume/issue/pages apply. Added the Guilford DOI 10.1521/978.14625/28806, which is widely used in citations of this book.",
+   "evidence": "Guilford Press (publisher's own site, guilford.com/excerpts/ryan.pdf): \"Sample Chapter: Self-Determination Theory\". Amazon: \"Self-Determination Theory: Basic Psychological Needs in Motivation, Development, and Wellness: 9781462528769: Ryan, Richard M., Deci, Edward L.: Books\". ResearchGate: \"Ryan, R. M. et Deci, E. L. (2017). Self-determination theory. Basic psychological needs in motivation, development and wellness. New York, NY : Guilford Press\". SciRP reference record: \"Ryan, R. M., & Deci, E. L. (2017). Self-Determination Theory: Basic Psychological Needs in Motivation, Development, and Wellness. The Guilford Press.\" Routledge listing (ISBN 9781462538966 paperback). BibBase record: \"Self-Determination Theory - Basic Psychological Needs in Motivation, Development, and Wellness ... 2017\" associated with DOI 10.1521/978.14625/28806. Search summaries confirm publication date Feb 14, 2017 and 756 pages."
+  },
+  "chen2015": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Chen, B., Vansteenkiste, M., Beyers, W., Boone, L., Deci, E. L., Van der Kaap-Deeder, J., Duriez, B., Lens, W., Matos, L., Mouratidis, A., Ryan, R. M., Sheldon, K. M., Soenens, B., Van Petegem, S., & Verstuyf, J.",
+    "year": "2015",
+    "title": "Basic psychological need satisfaction, need frustration, and need strength across four cultures",
+    "journal": "Motivation and Emotion",
+    "volume": "39",
+    "issue": "2",
+    "pages": "216-236",
+    "doi": "10.1007/s11031-014-9450-1"
+   },
+   "corrections": "No corrections needed. All candidate fields (authors, year, title, journal, volume, issue, pages) verified as correct. Added the previously missing DOI: 10.1007/s11031-014-9450-1.",
+   "evidence": "1) Springer article page (link.springer.com/article/10.1007/s11031-014-9450-1): \"Basic psychological need satisfaction, need frustration, and need strength across four cultures | Motivation and Emotion\" — confirms exact title, journal, and DOI. 2) SCIRP reference (scirp.org referenceid=2555566): \"Chen, B., Vansteenkiste, M., Beyers, W., Boone, L., Deci, E., Van der Kaap-Deeder, J., Duriez, B., Lens, W., Matos, L., Mouratidis, A., Ryan, R., Sheldon, K., Soenens, B., Van Petegem, S., & Verstuyf, J. (2015). ... Motivation and Emotion, 39, 216-236\" — confirms full 15-author list, volume, and pages. 3) Springer journal index (link.springer.com/journal/11031/volumes-and-issues/39-2): \"Motivation and Emotion | Volume 39, issue 2\" containing the Chen, Vansteenkiste, ... Verstuyf article at pages 216-236 (April 2015 issue, published online Nov 12, 2014) — confirms issue 2. 4) Official SDT site record: selfdeterminationtheory.org/download/chen-vanteenkiste-et-al-2015/."
+  },
+  "tennant2007": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Tennant, R., Hiller, L., Fishwick, R., Platt, S., Joseph, S., Weich, S., Parkinson, J., Secker, J., & Stewart-Brown, S.",
+    "year": "2007",
+    "title": "The Warwick-Edinburgh Mental Well-being Scale (WEMWBS): development and UK validation",
+    "journal": "Health and Quality of Life Outcomes",
+    "volume": "5",
+    "issue": "",
+    "pages": "63",
+    "doi": "10.1186/1477-7525-5-63"
+   },
+   "corrections": "Candidate data was accurate. Added missing DOI (10.1186/1477-7525-5-63). No issue number — this BMC/Springer open-access journal uses volume + article number (Article 63; occasionally databases cite it as 5(1)). Author \"Weich, S.\" confirmed correct (Scott Weich); the \"Welch\" spelling seen in some third-party citation lists is an error.",
+   "evidence": "Springer Nature (link.springer.com/article/10.1186/1477-7525-5-63): \"The Warwick-Edinburgh Mental Well-being Scale (WEMWBS): development and UK validation | Health and Quality of Life Outcomes\" — volume 5, Article number: 63 (2007), DOI 10.1186/1477-7525-5-63. PMC (pmc.ncbi.nlm.nih.gov/articles/PMC2222612/): same title, open-access full text. Warwick Research Archive (wrap.warwick.ac.uk/543/) author record: \"Tennant, Ruth, Hiller, Louise, Fishwick, Ruth, Platt, Stephen, Joseph, Stephen, Weich, Scott, Parkinson, Jane, Secker, Jenny and Stewart-Brown, Sarah L.\" University of Edinburgh Research Explorer also lists the publication."
+  },
+  "fitzpatrick2017": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Fitzpatrick, K. K., Darcy, A., & Vierhile, M.",
+    "year": "2017",
+    "title": "Delivering cognitive behavior therapy to young adults with symptoms of depression and anxiety using a fully automated conversational agent (Woebot): A randomized controlled trial",
+    "journal": "JMIR Mental Health",
+    "volume": "4",
+    "issue": "2",
+    "pages": "e19",
+    "doi": "10.2196/mental.7785"
+   },
+   "corrections": "No corrections needed to candidate fields — authors, year, title, journal, volume 4, issue 2, article number e19 all verified exactly. Added the missing DOI: 10.2196/mental.7785. (Note: one aggregator, scirp.org, mislabels the article number as \"e7785\", but the publisher's own site and Google Scholar metadata confirm e19.)",
+   "evidence": "1) Publisher (mental.jmir.org): article URL \"https://mental.jmir.org/2017/2/e19/\" titled \"JMIR Mental Health - Delivering Cognitive Behavior Therapy to Young Adults With Symptoms of Depression and Anxiety Using a Fully Automated Conversational Agent (Woebot): A Randomized Controlled Trial\" — URL encodes 2017, issue 2, e19. 2) Google Scholar lookup URL: \"author=KK.+Fitzpatrick&author=A.+Darcy&author=M.+Vierhile&journal=JMIR+Ment+Health.&volume=4&issue=2&pages=e19&publication_year=2017&doi=10.2196%2Fmental.7785\". 3) PubMed: \"https://pubmed.ncbi.nlm.nih.gov/28588005/\" and PMC5478797 list the same title/authors; search result states \"published on June 6, 2017, with the DOI 10.2196/mental.7785\". 4) ScienceDirect listing \"JMIR Mental Health | Vol 4, Issue 2, 2017\" includes the article."
+  },
+  "li2023": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Li, H., Zhang, R., Lee, Y.-C., Kraut, R. E., & Mohr, D. C.",
+    "year": "2023",
+    "title": "Systematic review and meta-analysis of AI-based conversational agents for promoting mental health and well-being",
+    "journal": "npj Digital Medicine",
+    "volume": "6",
+    "issue": "1",
+    "pages": "236",
+    "doi": "10.1038/s41746-023-00979-5"
+   },
+   "corrections": "Candidate data was correct as far as it went; added missing issue number (1) and DOI (10.1038/s41746-023-00979-5). Pages field is an article number (236), standard for npj Digital Medicine.",
+   "evidence": "nature.com: \"Systematic review and meta-analysis of AI-based conversational agents for promoting mental health and well-being | npj Digital Medicine\" at https://www.nature.com/articles/s41746-023-00979-5 (DOI suffix matches 10.1038/s41746-023-00979-5). Search citation record: \"Li, H., Zhang, R., Lee, Y. C., Kraut, R. E., & Mohr, D. C. (2023) ... published in NPJ Digital Medicine, 6(1), 236.\" DOI search: \"The article with DOI 10.1038/s41746-023-00979-5 was published in npj Digital Medicine (2023) 6:236\"; authors listed as Han Li, Renwen Zhang, Yi-Chieh Lee, Robert E. Kraut (plus David C. Mohr). PMC mirror: PMC10730549. Published December 2023; 35 studies reviewed, 15 RCTs meta-analyzed."
+  },
+  "heinz2025": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Heinz, M. V., Mackin, D. M., Trudeau, B. M., Bhattacharya, S., Wang, Y., Banta, H. A., Jewett, A. D., Salzhauer, A. J., Griffin, T. Z., & Jacobson, N. C.",
+    "year": "2025",
+    "title": "Randomized Trial of a Generative AI Chatbot for Mental Health Treatment",
+    "journal": "NEJM AI",
+    "volume": "2",
+    "issue": "4",
+    "pages": "AIoa2400802",
+    "doi": "10.1056/AIoa2400802"
+   },
+   "corrections": "All candidate fields (year 2025, journal NEJM AI, volume 2, issue 4, title) were correct. Expanded \"Heinz, M. V., et al.\" to the full 10-author APA list; added the DOI 10.1056/AIoa2400802 and article number AIoa2400802 (NEJM AI uses article IDs rather than page ranges), which were missing from the candidate.",
+   "evidence": "1) ai.nejm.org: \"Randomized Trial of a Generative AI Chatbot for Mental Health Treatment | NEJM AI\" at https://ai.nejm.org/doi/full/10.1056/AIoa2400802 — publisher page confirms title and DOI. 2) Search summary of publisher/index records: \"The article was published in NEJM AI 2025 Volume 2, Issue 4 ... authored by Michael V. Heinz, M.D., Daniel M. Mackin, Ph.D., and Nicholas C. Jacobson, Ph.D. ... DOI 10.1056/aioa2400802.\" 3) Citation-format search: \"The study was authored by Heinz MV, Mackin DM, Trudeau BM, Bhattacharya S, Wang Y, Banta HA, Jewett AD, Salzhauer AJ, Griffin TZ, and Jacobson NC, and titled 'Randomized trial of a generative AI chatbot for mental health treatment' published in NEJM AI.\" 4) NEJM AI correspondence \"A Letter about 'Randomized Trial of a Generative AI Chatbot for Mental Health Treatment'\" (10.1056/AIp2500390) and \"Response to Letters...\" (10.1056/AIp2500680) independently confirm the article exists in NEJM AI. 5) Ovid record at ovid.com/journals/neai/abstract/10.1056/aioa2400802 corroborates the DOI and journal."
+  },
+  "liu2014": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Liu, S., Huang, J. L., & Wang, M.",
+    "year": "2014",
+    "title": "Effectiveness of job search interventions: A meta-analytic review",
+    "journal": "Psychological Bulletin",
+    "volume": "140",
+    "issue": "4",
+    "pages": "1009-1041",
+    "doi": "10.1037/a0035923"
+   },
+   "corrections": "No discrepancies found. All candidate fields (authors, year, title, journal, volume 140, issue 4, pages 1009-1041) verified as correct. Only addition: the DOI (10.1037/a0035923), which was missing from the candidate.",
+   "evidence": "(1) PubMed 24588365: \"Effectiveness of job search interventions: a meta-analytic review\" — confirms title and indexing in Psychological Bulletin. (2) Search-result citation snippet: \"Liu, S., Huang, J. L., & Wang, M. (2014). Effectiveness of job search interventions: A meta-analytic review. Psychological Bulletin, 140(4), 1009–1041. https://doi.org/10.1037/a0035923\" — confirms full APA record including issue 4 and DOI. (3) Scirp reference page: \"Liu, S., Huang, J. L., & Wang, M. (2014). ... Psychological Bulletin, 140, 1009-1041.\" (4) Author's own site hosts the PDF: jasonhuangatwork.com/papers/Liu Huang & Wang 2014_PsycBull.pdf; SSRN lists authors as Songqi Liu, Jason Huang, Mo Wang. Content matches: meta-analysis of 47 interventions, odds of employment 2.67x higher for participants."
+  },
+  "koen2012": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Koen, J., Klehe, U.-C., & Van Vianen, A. E. M.",
+    "year": "2012",
+    "title": "Training career adaptability to facilitate a successful school-to-work transition",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "81",
+    "issue": "3",
+    "pages": "395-408",
+    "doi": "10.1016/j.jvb.2012.10.003"
+   },
+   "corrections": "No discrepancies found — all candidate fields (authors, year, title, journal, volume 81, issue 3, pages 395-408) verified. Added missing DOI: 10.1016/j.jvb.2012.10.003.",
+   "evidence": "ScienceDirect article page (sciencedirect.com/science/article/abs/pii/S000187911200139X): \"Training career adaptability to facilitate a successful school-to-work transition - ScienceDirect\". ERIC EJ988621: \"Training Career Adaptability to Facilitate a Successful School-to-Work Transition, Journal of Vocational Behavior, 2012-Dec\". Scholars Portal record URL encodes volume/issue/start page: \"00018791/v81i0003/395_tcatfasst\" (ISSN 0001-8791, v81, issue 3, p. 395). ScienceDirect issue TOC: \"Journal of Vocational Behavior | Vol 81, Issue 3, Pages 307-408 (December 2012)\" — pages 395-408 fall within this issue. Citation records returned in search: \"Koen, J., Klehe, U.-C., & Van Vianen, A. E. M. (2012). Training career adaptability to facilitate a successful school-to-work transition. Journal of Vocational Behavior, 81, 395-408. DOI 10.1016/j.jvb.2012.10.003\". Also corroborated by UvA DARE institutional repository record and ResearchGate publication 244486320."
+  },
+  "caplan1989": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Caplan, R. D., Vinokur, A. D., Price, R. H., & van Ryn, M.",
+    "year": "1989",
+    "title": "Job seeking, reemployment, and mental health: A randomized field experiment in coping with job loss",
+    "journal": "Journal of Applied Psychology",
+    "volume": "74",
+    "issue": "5",
+    "pages": "759-769",
+    "doi": "10.1037/0021-9010.74.5.759"
+   },
+   "corrections": "No corrections needed — all candidate fields (authors, year, title, journal, volume 74, issue 5, pages 759-769) match the published record. Added the missing DOI: 10.1037/0021-9010.74.5.759.",
+   "evidence": "PubMed (pubmed.ncbi.nlm.nih.gov/2793774/): \"Job seeking, reemployment, and mental health: a randomized field experiment in coping with job loss\" — exact-title search returned this as the top hit. APA PsycNet record 1990-06244-001 lists the article in Journal of Applied Psychology. Search summary confirming full citation: \"The 1989 study by Caplan, Vinokur, Price, and van Ryn ... was published in the Journal of Applied Psychology, volume 74, issue 5, pages 759-769\" (JOBS I intervention, 928 unemployed adults in southeastern Michigan). DOI search: \"published in the Journal of Applied Psychology, 74(5), 759-769, with DOI 10.1037/0021-9010.74.5.759,\" corroborated by Mayo Clinic Elsevier Pure publication page."
+  },
+  "whiston2017": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Whiston, S. C., Li, Y., Goodrich Mitts, N., & Wright, L.",
+    "year": "2017",
+    "title": "Effectiveness of career choice interventions: A meta-analytic replication and extension",
+    "journal": "Journal of Vocational Behavior",
+    "volume": "100",
+    "issue": "",
+    "pages": "175-184",
+    "doi": "10.1016/j.jvb.2017.03.010"
+   },
+   "corrections": "No discrepancies found. All candidate fields (authors, year, title, journal, volume, pages) verified as correct. Added missing DOI: 10.1016/j.jvb.2017.03.010. No issue number — JVB volume 100 is a single continuous volume (June 2017).",
+   "evidence": "Search 1 (exact title in quotes) returned the article on ScienceDirect (sciencedirect.com/science/article/abs/pii/S0001879117300283): \"published in the Journal of Vocational Behavior in June 2017 by Whiston, Li, Goodrich Mitts, and Wright... replication of Brown and Ryan Krane's (2000) meta-analysis... 57 published and unpublished studies... weighted mean effect size of 0.352.\" Search 2 (author+year+journal+volume) confirmed the full citation: \"Whiston, S. C., Li, Y., Goodrich Mitts, N., & Wright, L. (2017). Effectiveness of career choice interventions: A meta-analytic replication and extension. Journal of Vocational Behavior, 100, 175-184. https://doi.org/10.1016/j.jvb.2017.03.010\" (corroborated by Ohio State Elsevier Pure and Semantic Scholar records). Search 3 (DOI in quotes) resolved 10.1016/j.jvb.2017.03.010 to the same article: \"Journal of Vocational Behavior, Volume 100, pages 175-184.\""
+  },
+  "betz1996": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Betz, N. E., Klein, K. L., & Taylor, K. M.",
+    "year": "1996",
+    "title": "Evaluation of a Short Form of the Career Decision-Making Self-Efficacy Scale",
+    "journal": "Journal of Career Assessment",
+    "volume": "4",
+    "issue": "1",
+    "pages": "47-57",
+    "doi": "10.1177/106907279600400103"
+   },
+   "corrections": "No fields differed from the candidate. Only addition: DOI 10.1177/106907279600400103, which was absent from the candidate record. Middle author's full name is Karla L. Klein, matching the candidate's \"Klein, K. L.\" initials.",
+   "evidence": "SAGE Journals (journals.sagepub.com/doi/10.1177/106907279600400103): \"Evaluation of a Short Form of the Career Decision-Making Self-Efficacy Scale - Nancy E. Betz, Karla L. Klein, Karen M. Taylor, 1996\". Search summary confirming full record: \"published in the Journal of Career Assessment, volume 4, issue 1, pages 47-57 ... The DOI for this article is 10.1177/106907279600400103, and it was published in 1996.\" Abstract detail matching the article: \"development and evaluation of a short form of the widely used Career Decision-Making Self-Efficacy Scale (CDMSE; Taylor & Betz, 1983) ... examined in a sample of 180 college students.\" Independent citation found in search results: \"Betz, N.E., Klein, K., & Taylor, K.M. (1996). Evaluation of a short form of the Career Decision-Making Self-Efficacy Scale. Journal of Career Assessment, 4, 47-57.\""
+  },
+  "consort2010": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Schulz, K. F., Altman, D. G., & Moher, D.",
+    "year": "2010",
+    "title": "CONSORT 2010 statement: Updated guidelines for reporting parallel group randomised trials",
+    "journal": "BMJ",
+    "volume": "340",
+    "issue": "",
+    "pages": "c332",
+    "doi": "10.1136/bmj.c332"
+   },
+   "corrections": "No errors in the candidate. Added the DOI (10.1136/bmj.c332), which was missing. BMJ uses continuous article numbers (elocator c332) rather than page ranges, and standard citations omit an issue number. Note the article was authored \"for the CONSORT Group\", which some styles append after the three named authors.",
+   "evidence": "1) Scientific Research Publishing reference listing: \"Schulz, K.F., Altman, D.G. and Moher, D. (2010) CONSORT 2010 Statement Updated Guidelines for Reporting Parallel Group Randomised Trials. British Medical Journal, 340, c332.\" 2) OpenAIRE monitor record resolves the exact DOI: \"CONSORT 2010 Statement: updated guidelines for reporting parallel group randomised trials\" at pid=10.1136/bmj.c332. 3) Search summary of PubMed/BMJ records: \"published in BMJ 2010;340:c332, with DOI 10.1136/bmj.c332. The PubMed ID is 20332509\" (the co-publication in Trials has PMID 20334633). 4) LSHTM Research Online eprint 3887 lists the same BMJ record. Article was simultaneously co-published in Lancet, PLoS Medicine, Annals of Internal Medicine, BMC Medicine, J Clin Epidemiol, Trials, etc., but the BMJ 340:c332 version cited here is the canonical one."
+  },
+  "preacher2008": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Preacher, K. J., & Hayes, A. F.",
+    "year": "2008",
+    "title": "Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models",
+    "journal": "Behavior Research Methods",
+    "volume": "40",
+    "issue": "3",
+    "pages": "879-891",
+    "doi": "10.3758/BRM.40.3.879"
+   },
+   "corrections": "None. All candidate fields (authors, year, title, journal, volume, issue, pages) match the published record exactly; only the DOI (10.3758/BRM.40.3.879) was missing and has been added.",
+   "evidence": "Springer Nature Link (link.springer.com/article/10.3758/BRM.40.3.879): \"Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models | Behavior Research Methods\" — DOI encodes volume 40, issue 3, first page 879. PubMed (pubmed.ncbi.nlm.nih.gov/18697684): indexes the same title. Sciepub reference: \"Preacher, K. J., & Hayes, A. F. (2008). Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models. Behavior research methods, 40(3), 879-891.\" SCIRP reference: \"Behavior Research Methods, 40, 879-891. doi 10.3758/BRM.40.3.879\". Author PDF also hosted at quantpsy.org/pubs/preacher_hayes_2008b.pdf."
+  },
+  "darcy2021": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Darcy, A., Daniels, J., Salinger, D., Wicks, P., & Robinson, A.",
+    "year": "2021",
+    "title": "Evidence of Human-Level Bonds Established With a Digital Conversational Agent: Cross-sectional, Retrospective Observational Study",
+    "journal": "JMIR Formative Research",
+    "volume": "5",
+    "issue": "5",
+    "pages": "e27868",
+    "doi": "10.2196/27868"
+   },
+   "corrections": "No substantive corrections needed. All candidate fields (authors, year, title, journal, volume 5, issue 5, article e27868) verified as correct. Added the missing DOI: 10.2196/27868. Note: publisher styles the title with capitalized words (\"Evidence of Human-Level Bonds Established With a Digital Conversational Agent: Cross-sectional, Retrospective Observational Study\"); candidate's sentence-case rendering is the standard APA transformation of the same title.",
+   "evidence": "1) formative.jmir.org/2021/5/e27868 — \"JMIR Formative Research - Evidence of Human-Level Bonds Established With a Digital Conversational Agent: Cross-sectional, Retrospective Observational Study\" (URL itself encodes 2021, vol 5, issue 5, article e27868). 2) PubMed (pubmed.ncbi.nlm.nih.gov/33973854): \"published in JMIR Formative Research on May 11, 2021;5(5):e27868... The authors are Alison Darcy, Jade Daniels, David Salinger, Paul Wicks, and Athena Robinson, all from Woebot Health in San Francisco, CA.\" 3) Search confirmed DOI 10.2196/27868 associated with the article; PMC full text at PMC8150389. Study analyzed 36,070 Woebot users, Nov 2019-Aug 2020."
+  },
+  "torous2021": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Torous, J., Bucci, S., Bell, I. H., Kessing, L. V., Faurholt-Jepsen, M., Whelan, P., Carvalho, A. F., Keshavan, M., Linardon, J., & Firth, J.",
+    "year": "2021",
+    "title": "The growing field of digital psychiatry: current evidence and the future of apps, social media, chatbots, and virtual reality",
+    "journal": "World Psychiatry",
+    "volume": "20",
+    "issue": "3",
+    "pages": "318-335",
+    "doi": "10.1002/wps.20883"
+   },
+   "corrections": "Candidate was accurate; only the DOI was missing (10.1002/wps.20883). Minor styling note: the published title uses lowercase \"current\" (\"...psychiatry: current evidence...\") rather than \"Current\". Confirmed identifiers: PMID 34505369, PMCID PMC8429349, October 2021 issue.",
+   "evidence": "Wiley Online Library: \"The growing field of digital psychiatry: current evidence and the future of apps, social media, chatbots, and virtual reality - Torous - 2021 - World Psychiatry\" (https://onlinelibrary.wiley.com/doi/10.1002/wps.20883). PubMed search summary: \"by Torous J, Bucci S, Bell IH, Kessing LV, Faurholt-Jepsen M, Whelan P, Carvalho AF, Keshavan M, Linardon J, and Firth J, published in World Psychiatry in October 2021, Volume 20, Issue 3... PubMed ID is 34505369 with PMCID PMC8429349, and the DOI is 10.1002/wps.20883\". Europe PMC PDF header: \"SPECIAL ARTICLE 318 World Psychiatry 20:3 - October 2021\". Google Scholar lookup URL encodes journal=World+Psychiatry, pages=318-335, doi=10.1002/wps.20883, pmid=34505369."
+  },
+  "cohen1988": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Cohen, J.",
+    "year": "1988",
+    "title": "Statistical power analysis for the behavioral sciences",
+    "journal": "N/A (book, not a journal) — Publisher: Lawrence Erlbaum Associates, Hillsdale, NJ (2nd ed.; later reissued by Routledge/Taylor & Francis)",
+    "volume": "N/A (book; 2nd edition)",
+    "issue": "N/A",
+    "pages": "N/A (whole book, xxi + 567 pp.)",
+    "doi": "10.4324/9780203771587"
+   },
+   "corrections": "Candidate is essentially correct but is a BOOK, not a journal article: the \"journal_full\" field held the publisher name (Lawrence Erlbaum Associates), which is the correct original publisher (Hillsdale, NJ). Exact title should not embed \"(2nd ed., book)\" — the edition is a separate element. Added missing identifiers: ISBN-10 0805802835 / ISBN-13 978-0805802832, and the DOI 10.4324/9780203771587 assigned to the Routledge/Taylor & Francis electronic reissue of the same 2nd edition. Proper APA 7 reference: Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.",
+   "evidence": "1) scirp.org reference entry: \"Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Hillsdale, NJ: Lawrence Erlbaum Associates, Publishers.\" 2) Amazon listing: \"Statistical Power Analysis for the Behavioral Sciences (2nd Edition): Cohen, Jacob: 9780805802832 ... ISBN-10: 0805802835 ... Publication date: July 1, 1988 ... 590 pages.\" 3) Taylor & Francis book page: \"Statistical Power Analysis for the Behavioral Sciences | Jacob Cohen | DOI 10.4324/9780203771587 — 2nd Edition, first published in 1988.\" 4) Routledge product page for ISBN 9780805802832 confirms the same 2nd edition. 5) Internet Archive holds a scan: \"Statistical power analysis for the behavioral sciences : Cohen, Jacob, 1923-1998.\" No refuting evidence found in any of the three searches."
+  },
+  "savickas1997": {
+   "verdict": "CONFIRMED",
+   "confidence": "high",
+   "final": {
+    "authors": "Savickas, M. L.",
+    "year": "1997",
+    "title": "Career adaptability: An integrative construct for life-span, life-space theory",
+    "journal": "The Career Development Quarterly",
+    "volume": "45",
+    "issue": "3",
+    "pages": "247-259",
+    "doi": "10.1002/j.2161-0045.1997.tb00469.x"
+   },
+   "corrections": "Candidate data was fully accurate (author, year, title, journal, volume 45, issue 3, pages 247-259). Only addition: DOI 10.1002/j.2161-0045.1997.tb00469.x, which was missing from the candidate record.",
+   "evidence": "Wiley Online Library: \"Career Adaptability: An Integrative Construct for Life-Span, Life-Space Theory - Savickas - 1997 - The Career Development Quarterly\" at doi 10.1002/j.2161-0045.1997.tb00469.x. Wiley journal TOC URL confirms issue: \"The Career Development Quarterly: Volume 45, Issue 3\" (onlinelibrary.wiley.com/toc/21610045/1997/45/3). ERIC record EJ551753: \"Career Adaptability: An Integrative Construct for Life-Span, Life-Space Theory., Career Development Quarterly, 1997\". EBSCO/SCIRP citations: \"Savickas, M. L. (1997). ... Career Development Quarterly, 45, 247-259.\" APA PsycNet record 1997-03512-004 also lists the article."
+  }
+ }
+}
