@@ -1,0 +1,535 @@
+[
+ {
+  "requested": "1. Genetic algorithm: Holland, Adaptation in Natural and Artificial Systems (book)",
+  "verified": true,
+  "mdpi": "Holland, J.H. Adaptation in Natural and Artificial Systems: An Introductory Analysis with Applications to Biology, Control, and Artificial Intelligence; University of Michigan Press: Ann Arbor, MI, USA, 1975.",
+  "notes": "Confirmed via University of Michigan Press/MIT Press and multiple citation indexes. A 2nd edition was published by MIT Press (Cambridge, MA, USA) in 1992; cite that instead if the paper references the reissued edition. No DOI for the 1975 original."
+ },
+ {
+  "requested": "2. Differential evolution: Storn & Price 1997, Journal of Global Optimization",
+  "verified": true,
+  "mdpi": "Storn, R.; Price, K. Differential Evolution\u2014A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces. J. Glob. Optim. 1997, 11, 341\u2013359. https://doi.org/10.1023/A:1008202821328",
+  "doi": "10.1023/A:1008202821328",
+  "notes": "Confirmed via Springer (link.springer.com). Metadata matches the request exactly."
+ },
+ {
+  "requested": "3. Evolution strategies: Beyer & Schwefel 2002, Natural Computing",
+  "verified": true,
+  "mdpi": "Beyer, H.-G.; Schwefel, H.-P. Evolution Strategies\u2014A Comprehensive Introduction. Nat. Comput. 2002, 1, 3\u201352. https://doi.org/10.1023/A:1015059928466",
+  "doi": "10.1023/A:1015059928466",
+  "notes": "Confirmed via Springer and ACM DL. Volume 1, pages 3\u201352."
+ },
+ {
+  "requested": "4. CMA-ES: Hansen & Ostermeier 2001, Evolutionary Computation",
+  "verified": true,
+  "mdpi": "Hansen, N.; Ostermeier, A. Completely Derandomized Self-Adaptation in Evolution Strategies. Evol. Comput. 2001, 9, 159\u2013195. https://doi.org/10.1162/106365601750190398",
+  "doi": "10.1162/106365601750190398",
+  "notes": "Confirmed via MIT Press (direct.mit.edu) and PubMed. Volume 9, issue 2, pages 159\u2013195."
+ },
+ {
+  "requested": "5. PSO: Kennedy & Eberhart 1995, Proceedings of ICNN 95",
+  "verified": true,
+  "mdpi": "Kennedy, J.; Eberhart, R. Particle Swarm Optimization. In Proceedings of the ICNN'95\u2014International Conference on Neural Networks, Perth, WA, Australia, 27 November\u20131 December 1995; Volume 4, pp. 1942\u20131948. https://doi.org/10.1109/ICNN.1995.488968",
+  "doi": "10.1109/ICNN.1995.488968",
+  "notes": "Confirmed via IEEE Xplore (document 488968). Conference held in Perth, WA, Australia; paper in Volume 4, pp. 1942\u20131948."
+ },
+ {
+  "requested": "6. ACO: Dorigo, Maniezzo, Colorni 1996, IEEE Transactions on Systems Man and Cybernetics Part B",
+  "verified": true,
+  "mdpi": "Dorigo, M.; Maniezzo, V.; Colorni, A. Ant System: Optimization by a Colony of Cooperating Agents. IEEE Trans. Syst. Man Cybern. B Cybern. 1996, 26, 29\u201341. https://doi.org/10.1109/3477.484436",
+  "doi": "10.1109/3477.484436",
+  "notes": "Confirmed via IEEE/Semantic Scholar. Exact title is 'Ant system: Optimization by a colony of cooperating agents' (not 'The Ant System' as some secondary sources render it). Volume 26, issue 1, pages 29\u201341."
+ },
+ {
+  "requested": "7. GWO: Mirjalili, Mirjalili, Lewis 2014, Advances in Engineering Software",
+  "verified": true,
+  "mdpi": "Mirjalili, S.; Mirjalili, S.M.; Lewis, A. Grey Wolf Optimizer. Adv. Eng. Softw. 2014, 69, 46\u201361. https://doi.org/10.1016/j.advengsoft.2013.12.007",
+  "doi": "10.1016/j.advengsoft.2013.12.007",
+  "notes": "Confirmed via Elsevier DOI and institutional records (Torrens University). Volume 69, pages 46\u201361."
+ },
+ {
+  "requested": "8. WOA: Mirjalili & Lewis 2016, Advances in Engineering Software",
+  "verified": true,
+  "mdpi": "Mirjalili, S.; Lewis, A. The Whale Optimization Algorithm. Adv. Eng. Softw. 2016, 95, 51\u201367. https://doi.org/10.1016/j.advengsoft.2016.01.008",
+  "doi": "10.1016/j.advengsoft.2016.01.008",
+  "notes": "Confirmed via ACM DL and Elsevier DOI. Volume 95, pages 51\u201367."
+ },
+ {
+  "requested": "1. Multi-verse optimizer MVO: Mirjalili, Mirjalili, Hatamlou 2016, Neural Computing and Applications",
+  "verified": true,
+  "mdpi": "Mirjalili, S.; Mirjalili, S.M.; Hatamlou, A. Multi-Verse Optimizer: A Nature-Inspired Algorithm for Global Optimization. Neural Comput. Appl. 2016, 27, 495\u2013513. https://doi.org/10.1007/s00521-015-1870-7",
+  "doi": "10.1007/s00521-015-1870-7",
+  "notes": "Confirmed via Springer (link.springer.com/article/10.1007/s00521-015-1870-7). Metadata matches the requested description exactly."
+ },
+ {
+  "requested": "2. Equilibrium optimizer EO: Faramarzi et al 2020, Knowledge-Based Systems",
+  "verified": true,
+  "mdpi": "Faramarzi, A.; Heidarinejad, M.; Stephens, B.; Mirjalili, S. Equilibrium Optimizer: A Novel Optimization Algorithm. Knowl.-Based Syst. 2020, 191, 105190. https://doi.org/10.1016/j.knosys.2019.105190",
+  "doi": "10.1016/j.knosys.2019.105190",
+  "notes": "Confirmed; full author list is Faramarzi, Heidarinejad, Stephens, Mirjalili. Article number 105190, volume 191."
+ },
+ {
+  "requested": "3. Teaching-learning-based optimization TLBO: Rao, Savsani, Vakharia 2011, Computer-Aided Design",
+  "verified": true,
+  "mdpi": "Rao, R.V.; Savsani, V.J.; Vakharia, D.P. Teaching\u2013Learning-Based Optimization: A Novel Method for Constrained Mechanical Design Optimization Problems. Comput.-Aided Des. 2011, 43, 303\u2013315. https://doi.org/10.1016/j.cad.2010.12.015",
+  "doi": "10.1016/j.cad.2010.12.015",
+  "notes": "Confirmed via ScienceDirect (Volume 43, Issue 3, March 2011, pp. 303\u2013315). Matches the requested description."
+ },
+ {
+  "requested": "4. Manta ray foraging optimization MRFO: Zhao, Zhang, Wang 2020, Engineering Applications of Artificial Intelligence",
+  "verified": true,
+  "mdpi": "Zhao, W.; Zhang, Z.; Wang, L. Manta Ray Foraging Optimization: An Effective Bio-Inspired Optimizer for Engineering Applications. Eng. Appl. Artif. Intell. 2020, 87, 103300. https://doi.org/10.1016/j.engappai.2019.103300",
+  "doi": "10.1016/j.engappai.2019.103300",
+  "notes": "Confirmed; authors Weiguo Zhao, Zhenxing Zhang, Liying Wang. Volume 87 (January 2020), article number 103300. Note the DOI carries a 2019 prefix (accepted 2019, published in the 2020 volume)."
+ },
+ {
+  "requested": "5. Tuna swarm optimization TSO: Xie et al 2021, Computational Intelligence and Neuroscience",
+  "verified": true,
+  "mdpi": "Xie, L.; Han, T.; Zhou, H.; Zhang, Z.-R.; Han, B.; Tang, A. Tuna Swarm Optimization: A Novel Swarm-Based Metaheuristic Algorithm for Global Optimization. Comput. Intell. Neurosci. 2021, 2021, 9210050. https://doi.org/10.1155/2021/9210050",
+  "doi": "10.1155/2021/9210050",
+  "notes": "Confirmed via Wiley Online Library and PMC. Full author list: Lei Xie, Tong Han, Huan Zhou, Zhuo-Ran Zhang, Bo Han, Andi Tang. Journal uses volume 2021 with article ID 9210050."
+ },
+ {
+  "requested": "6. Slime mould algorithm SMA: Li, Chen, Wang, Heidari, Mirjalili 2020, Future Generation Computer Systems",
+  "verified": true,
+  "mdpi": "Li, S.; Chen, H.; Wang, M.; Heidari, A.A.; Mirjalili, S. Slime Mould Algorithm: A New Method for Stochastic Optimization. Future Gener. Comput. Syst. 2020, 111, 300\u2013323. https://doi.org/10.1016/j.future.2020.03.055",
+  "doi": "10.1016/j.future.2020.03.055",
+  "notes": "Confirmed; volume 111, pp. 300\u2013323. Author order Li, Chen, Wang, Heidari, Mirjalili matches the requested description."
+ },
+ {
+  "requested": "7. No free lunch theorems for optimization: Wolpert & Macready 1997, IEEE Transactions on Evolutionary Computation",
+  "verified": true,
+  "mdpi": "Wolpert, D.H.; Macready, W.G. No Free Lunch Theorems for Optimization. IEEE Trans. Evol. Comput. 1997, 1, 67\u201382. https://doi.org/10.1109/4235.585893",
+  "doi": "10.1109/4235.585893",
+  "notes": "Confirmed via ACM DL / IEEE. Volume 1, Issue 1, pp. 67\u201382 (a minority of secondary sources list 67\u201383, but the publisher record is 67\u201382)."
+ },
+ {
+  "requested": "8. LSHADE: Tanabe & Fukunaga 2014, IEEE Congress on Evolutionary Computation, success-history based parameter adaptation with linear population size reduction",
+  "verified": true,
+  "mdpi": "Tanabe, R.; Fukunaga, A.S. Improving the Search Performance of SHADE Using Linear Population Size Reduction. In Proceedings of the 2014 IEEE Congress on Evolutionary Computation (CEC), Beijing, China, 6\u201311 July 2014; pp. 1658\u20131665. https://doi.org/10.1109/CEC.2014.6900380",
+  "doi": "10.1109/CEC.2014.6900380",
+  "notes": "Confirmed. Exact title is 'Improving the search performance of SHADE using linear population size reduction' (not 'success-history based parameter adaptation...' \u2014 that phrasing belongs to the earlier SHADE paper, Tanabe & Fukunaga CEC 2013). The 2014 CEC paper is the correct LSHADE reference."
+ },
+ {
+  "requested": "1. SCA sine cosine algorithm: Mirjalili 2016, Knowledge-Based Systems",
+  "verified": true,
+  "mdpi": "Mirjalili, S. SCA: A Sine Cosine Algorithm for Solving Optimization Problems. Knowl.-Based Syst. 2016, 96, 120\u2013133. https://doi.org/10.1016/j.knosys.2015.12.022",
+  "doi": "10.1016/j.knosys.2015.12.022",
+  "notes": "Confirmed via Elsevier/Semantic Scholar/Torrens records: volume 96, pages 120\u2013133, 2016. Description was accurate."
+ },
+ {
+  "requested": "2. Arithmetic optimization algorithm AOA: Abualigah et al 2021, Computer Methods in Applied Mechanics and Engineering",
+  "verified": true,
+  "mdpi": "Abualigah, L.; Diabat, A.; Mirjalili, S.; Abd Elaziz, M.; Gandomi, A.H. The Arithmetic Optimization Algorithm. Comput. Methods Appl. Mech. Eng. 2021, 376, 113609. https://doi.org/10.1016/j.cma.2020.113609",
+  "doi": "10.1016/j.cma.2020.113609",
+  "notes": "Confirmed: volume 376, article number 113609 (no page range), 2021. Five authors: Abualigah, Diabat, Mirjalili, Abd Elaziz, Gandomi."
+ },
+ {
+  "requested": "3. Harris hawks optimization HHO: Heidari et al 2019, Future Generation Computer Systems",
+  "verified": true,
+  "mdpi": "Heidari, A.A.; Mirjalili, S.; Faris, H.; Aljarah, I.; Mafarja, M.; Chen, H. Harris Hawks Optimization: Algorithm and Applications. Future Gener. Comput. Syst. 2019, 97, 849\u2013872. https://doi.org/10.1016/j.future.2019.02.028",
+  "doi": "10.1016/j.future.2019.02.028",
+  "notes": "Confirmed via ACM DL/publisher records: volume 97, pages 849\u2013872, 2019. Six authors as listed."
+ },
+ {
+  "requested": "4. Sparrow search algorithm SSA: Xue & Shen 2020, Systems Science & Control Engineering",
+  "verified": true,
+  "mdpi": "Xue, J.; Shen, B. A Novel Swarm Intelligence Optimization Approach: Sparrow Search Algorithm. Syst. Sci. Control Eng. 2020, 8, 22\u201334. https://doi.org/10.1080/21642583.2019.1708830",
+  "doi": "10.1080/21642583.2019.1708830",
+  "notes": "Confirmed via Taylor & Francis: volume 8, issue 1, pages 22\u201334, 2020. Note the DOI carries a 2019 prefix (online first) but the issue year is 2020 as described."
+ },
+ {
+  "requested": "5. Dung beetle optimizer DBO: Xue & Shen 2023, Journal of Supercomputing",
+  "verified": true,
+  "mdpi": "Xue, J.; Shen, B. Dung Beetle Optimizer: A New Meta-Heuristic Algorithm for Global Optimization. J. Supercomput. 2023, 79, 7305\u20137336. https://doi.org/10.1007/s11227-022-04959-6",
+  "doi": "10.1007/s11227-022-04959-6",
+  "notes": "Confirmed via Springer: volume 79, pages 7305\u20137336, 2023. DOI has a 2022 suffix (published online Nov 2022) but the issue year is 2023 as described."
+ },
+ {
+  "requested": "6. Crayfish optimization algorithm COA: Jia et al 2023, Artificial Intelligence Review",
+  "verified": true,
+  "mdpi": "Jia, H.; Rao, H.; Wen, C.; Mirjalili, S. Crayfish Optimization Algorithm. Artif. Intell. Rev. 2023, 56 (Suppl. S2), 1919\u20131979. https://doi.org/10.1007/s10462-023-10567-4",
+  "doi": "10.1007/s10462-023-10567-4",
+  "notes": "Confirmed via Springer/ACM DL: full author list is Heming Jia, Honghua Rao, Changsheng Wen, Seyedali Mirjalili. Published in volume 56, Supplement 2, pages 1919\u20131979, 2023."
+ },
+ {
+  "requested": "7. RIME algorithm: Su et al 2023, Neurocomputing, \"RIME: A physics-based optimization\"",
+  "verified": true,
+  "mdpi": "Su, H.; Zhao, D.; Heidari, A.A.; Liu, L.; Zhang, X.; Mafarja, M.; Chen, H. RIME: A Physics-Based Optimization. Neurocomputing 2023, 532, 183\u2013214. https://doi.org/10.1016/j.neucom.2023.02.010",
+  "doi": "10.1016/j.neucom.2023.02.010",
+  "notes": "Confirmed via ScienceDirect/ACM DL: volume 532, pages 183\u2013214, 2023. Seven authors: Su, Zhao, Heidari, Liu, Zhang, Mafarja, Chen."
+ },
+ {
+  "requested": "8. Snow ablation optimizer SAO: Deng & Liu 2023, Expert Systems with Applications",
+  "verified": true,
+  "mdpi": "Deng, L.; Liu, S. Snow Ablation Optimizer: A Novel Metaheuristic Technique for Numerical Optimization and Engineering Design. Expert Syst. Appl. 2023, 225, 120069. https://doi.org/10.1016/j.eswa.2023.120069",
+  "doi": "10.1016/j.eswa.2023.120069",
+  "notes": "Confirmed via ScienceDirect/ACM DL: volume 225, article number 120069 (no page range), 2023. Authors: Lingyun Deng, Sanyang Liu."
+ },
+ {
+  "requested": "1. Secretary bird optimization algorithm SBOA (Fu, Liu, Chen, He 2024, Artificial Intelligence Review)",
+  "verified": true,
+  "mdpi": "Fu, Y.; Liu, D.; Chen, J.; He, L. Secretary Bird Optimization Algorithm: A New Metaheuristic for Solving Global Optimization Problems. Artif. Intell. Rev. 2024, 57, 123. https://doi.org/10.1007/s10462-024-10729-y",
+  "doi": "10.1007/s10462-024-10729-y",
+  "notes": "Confirmed via Springer (link.springer.com/article/10.1007/s10462-024-10729-y). Authors Youfa Fu, Dan Liu, Jiadui Chen, Ling He; Artif. Intell. Rev. vol. 57 (issue 5), article 123, published 23 April 2024. Requested metadata was exactly correct."
+ },
+ {
+  "requested": "2. Black-winged kite algorithm BKA (Wang, Wang, Hu, Qiu, Zang 2024, Artificial Intelligence Review)",
+  "verified": true,
+  "mdpi": "Wang, J.; Wang, W.-C.; Hu, X.-X.; Qiu, L.; Zang, H.-F. Black-Winged Kite Algorithm: A Nature-Inspired Meta-Heuristic for Solving Benchmark Functions and Engineering Problems. Artif. Intell. Rev. 2024, 57, 98. https://doi.org/10.1007/s10462-024-10723-4",
+  "doi": "10.1007/s10462-024-10723-4",
+  "notes": "Confirmed via Springer (link.springer.com/article/10.1007/s10462-024-10723-4). Authors Jun Wang, Wen-Chuan Wang, Xiao-Xue Hu, Lin Qiu, Hong-Fei Zang; Artif. Intell. Rev. 57(4), article 98, 2024. Requested metadata was exactly correct."
+ },
+ {
+  "requested": "3. Crested porcupine optimizer CPO (Abdel-Basset, Mohamed, Abouhawwash 2024, Knowledge-Based Systems)",
+  "verified": true,
+  "mdpi": "Abdel-Basset, M.; Mohamed, R.; Abouhawwash, M. Crested Porcupine Optimizer: A New Nature-Inspired Metaheuristic. Knowl.-Based Syst. 2024, 284, 111257. https://doi.org/10.1016/j.knosys.2023.111257",
+  "doi": "10.1016/j.knosys.2023.111257",
+  "notes": "Confirmed via ScienceDirect/ACM DL. Volume 284, article 111257, issue dated 25 January 2024. Note the DOI carries 2023 (online first Dec 2023) but the journal volume/citation year is 2024."
+ },
+ {
+  "requested": "4. Hippopotamus optimization algorithm (Amiri et al 2024, Scientific Reports)",
+  "verified": true,
+  "mdpi": "Amiri, M.H.; Mehrabi Hashjin, N.; Montazeri, M.; Mirjalili, S.; Khodadadi, N. Hippopotamus Optimization Algorithm: A Novel Nature-Inspired Optimization Algorithm. Sci. Rep. 2024, 14, 5032. https://doi.org/10.1038/s41598-024-54910-3",
+  "doi": "10.1038/s41598-024-54910-3",
+  "notes": "Confirmed via nature.com (s41598-024-54910-3). Full author list: Mohammad Hussein Amiri, Nastaran Mehrabi Hashjin, Mohsen Montazeri, Seyedali Mirjalili, Nima Khodadadi. Sci. Rep. 2024, vol. 14, article 5032, published 29 February 2024."
+ },
+ {
+  "requested": "5. Parrot optimizer PO (Lian et al 2024, Computers in Biology and Medicine)",
+  "verified": true,
+  "mdpi": "Lian, J.; Hui, G.; Ma, L.; Zhu, T.; Wu, X.; Heidari, A.A.; Chen, Y.; Chen, H. Parrot Optimizer: Algorithm and Applications to Medical Problems. Comput. Biol. Med. 2024, 172, 108064. https://doi.org/10.1016/j.compbiomed.2024.108064",
+  "doi": "10.1016/j.compbiomed.2024.108064",
+  "notes": "Confirmed via ScienceDirect/ACM DL. Eight authors: Junbo Lian, Guohua Hui, Ling Ma, Ting Zhu, Xincan Wu, Ali Asghar Heidari, Yi Chen, Huiling Chen. Volume 172, article 108064, 2024."
+ },
+ {
+  "requested": "6. Cuckoo search (Yang & Deb 2009, NaBIC)",
+  "verified": true,
+  "mdpi": "Yang, X.-S.; Deb, S. Cuckoo Search via L\u00e9vy Flights. In Proceedings of the 2009 World Congress on Nature & Biologically Inspired Computing (NaBIC), Coimbatore, India, 9\u201311 December 2009; IEEE: Piscataway, NJ, USA, 2009; pp. 210\u2013214. https://doi.org/10.1109/NABIC.2009.5393690",
+  "doi": "10.1109/NABIC.2009.5393690",
+  "notes": "Confirmed: NaBIC 2009, Coimbatore, India, 9-11 December 2009, pp. 210-214, IEEE, DOI 10.1109/NABIC.2009.5393690. Exact published title is 'Cuckoo Search via L\u00e9vy Flights' (L\u00e9vy with accent)."
+ },
+ {
+  "requested": "7. Golden sine algorithm Gold-SA (Tanyildizi & Demir 2017) \u2014 find real journal",
+  "verified": true,
+  "mdpi": "Tanyildizi, E.; Demir, G. Golden Sine Algorithm: A Novel Math-Inspired Algorithm. Adv. Electr. Comput. Eng. 2017, 17, 71\u201378. https://doi.org/10.4316/AECE.2017.02010",
+  "doi": "10.4316/AECE.2017.02010",
+  "notes": "Journal confirmed as Advances in Electrical and Computer Engineering (the guess in the request was correct), vol. 17, issue 2, pp. 71-78, 2017. Verified via IngentaConnect, DOAJ, and Semantic Scholar. Authors: Erkan Tanyildizi, Gokhan Demir."
+ },
+ {
+  "requested": "8. Kepler optimization algorithm KOA (Abdel-Basset et al 2023, Knowledge-Based Systems)",
+  "verified": true,
+  "mdpi": "Abdel-Basset, M.; Mohamed, R.; Abdel Azeem, S.A.; Jameel, M.; Abouhawwash, M. Kepler Optimization Algorithm: A New Metaheuristic Algorithm Inspired by Kepler's Laws of Planetary Motion. Knowl.-Based Syst. 2023, 268, 110454. https://doi.org/10.1016/j.knosys.2023.110454",
+  "doi": "10.1016/j.knosys.2023.110454",
+  "notes": "Confirmed via ScienceDirect (S0950705123002046). Full author list: Mohamed Abdel-Basset, Reda Mohamed, Shaimaa A. Abdel Azeem, Mohammed Jameel, Mohamed Abouhawwash. Volume 268, article 110454, 2023."
+ },
+ {
+  "requested": "1. Good point set theory: Hua & Wang, Applications of Number Theory to Numerical Analysis, Springer, 1981",
+  "verified": true,
+  "mdpi": "Hua, L.K.; Wang, Y. Applications of Number Theory to Numerical Analysis; Springer: Berlin/Heidelberg, Germany, 1981.",
+  "doi": "10.1007/978-3-642-67829-5",
+  "notes": "Confirmed on Springer (link.springer.com/book/10.1007/978-3-642-67829-5). English edition jointly published by Springer-Verlag (Berlin/Heidelberg) and Science Press (Beijing), 1981; ISBN 978-3-540-10382-0. This is the canonical citation used by good-point-set initialization papers."
+ },
+ {
+  "requested": "2. Fitness-distance balance FDB selection: Kahraman, Aras, Gedikli 2020, Knowledge-Based Systems",
+  "verified": true,
+  "mdpi": "Kahraman, H.T.; Aras, S.; Gedikli, E. Fitness-Distance Balance (FDB): A New Selection Method for Meta-Heuristic Search Algorithms. Knowl.-Based Syst. 2020, 190, 105169.",
+  "doi": "10.1016/j.knosys.2019.105169",
+  "notes": "Confirmed via ScienceDirect (S0950705119305167) and ACM DL. Volume 190 (February 2020), article 105169; first published online November 2019, so it is correctly cited with year 2020."
+ },
+ {
+  "requested": "3. Real improved metaheuristic paper using adaptive t-distribution mutation (improved sparrow search)",
+  "verified": true,
+  "mdpi": "Yang, X.; Liu, J.; Liu, Y.; Xu, P.; Yu, L.; Zhu, L.; Chen, H.; Deng, W. A Novel Adaptive Sparrow Search Algorithm Based on Chaotic Mapping and T-Distribution Mutation. Appl. Sci. 2021, 11, 11192.",
+  "doi": "10.3390/app112311192",
+  "notes": "Found and verified a real, well-cited example (CWTSSA; MDPI Applied Sciences, vol. 11, issue 23, article 11192, 2021). It uses an adaptive t-distribution mutation operator whose degree-of-freedom parameter is the iteration number, exactly matching the requested description. Confirmed via mdpi.com, DOAJ, and ResearchGate records."
+ },
+ {
+  "requested": "4. Real improved metaheuristic paper using Tent chaotic map initialization",
+  "verified": true,
+  "mdpi": "Li, Y.; Han, M.; Guo, Q. Modified Whale Optimization Algorithm Based on Tent Chaotic Mapping and Its Application in Structural Optimization. KSCE J. Civ. Eng. 2020, 24, 3703\u20133713.",
+  "doi": "10.1007/s12205-020-0504-5",
+  "notes": "Found and verified a real, well-cited example: modified WOA (MWOA) that uses the Tent chaos map for population initialization plus tournament selection. Confirmed on Springer (KSCE Journal of Civil Engineering, vol. 24, pp. 3703-3713, 2020)."
+ },
+ {
+  "requested": "5. Real improved metaheuristic paper using Cauchy-Gaussian hybrid mutation",
+  "verified": true,
+  "mdpi": "Li, K.; Li, S.; Huang, Z.; Zhang, M.; Xu, Z. Grey Wolf Optimization Algorithm Based on Cauchy-Gaussian Mutation and Improved Search Strategy. Sci. Rep. 2022, 12, 18961.",
+  "doi": "10.1038/s41598-022-23713-9",
+  "notes": "Found and verified a real example (CG-GWO): grey wolf optimizer with a hybrid Cauchy-Gaussian mutation operator applied to leader wolves. Confirmed on nature.com and PMC (PMC9643465); Scientific Reports, vol. 12, article 18961, published 8 November 2022. Improved GWO rather than sea horse/sparrow, but it matches the requested Cauchy-Gaussian hybrid mutation strategy and is well cited."
+ },
+ {
+  "requested": "6. Statistical tests for comparing metaheuristics: Derrac, Garcia, Molina, Herrera 2011, Swarm and Evolutionary Computation",
+  "verified": true,
+  "mdpi": "Derrac, J.; Garc\u00eda, S.; Molina, D.; Herrera, F. A Practical Tutorial on the Use of Nonparametric Statistical Tests as a Methodology for Comparing Evolutionary and Swarm Intelligence Algorithms. Swarm Evol. Comput. 2011, 1, 3\u201318.",
+  "doi": "10.1016/j.swevo.2011.02.002",
+  "notes": "Confirmed via ScienceDirect (S2210650211000034) and the publisher-formatted PDF (Swarm and Evolutionary Computation 1 (2011) 3-18)."
+ },
+ {
+  "requested": "7. CEC2017 benchmark technical report: Awad, Ali, Liang, Qu, Suganthan 2016",
+  "verified": true,
+  "mdpi": "Awad, N.H.; Ali, M.Z.; Liang, J.J.; Qu, B.Y.; Suganthan, P.N. Problem Definitions and Evaluation Criteria for the CEC 2017 Special Session and Competition on Single Objective Real-Parameter Numerical Optimization; Technical Report; Nanyang Technological University: Singapore, 2016.",
+  "notes": "Confirmed as a technical report (November 2016), Nanyang Technological University, Singapore, distributed via P.N. Suganthan's NTU/GitHub benchmark pages. No DOI exists for this technical report."
+ },
+ {
+  "requested": "8. CEC2022 benchmark technical report: Kumar, Price, Mohamed, Hadi, Suganthan 2021/2022",
+  "verified": true,
+  "mdpi": "Kumar, A.; Price, K.V.; Mohamed, A.W.; Hadi, A.A.; Suganthan, P.N. Problem Definitions and Evaluation Criteria for the CEC 2022 Special Session and Competition on Single Objective Bound Constrained Numerical Optimization; Technical Report; Nanyang Technological University: Singapore, 2021.",
+  "notes": "Confirmed: technical report dated 2021 for the WCCI/CEC 2022 and GECCO 2022 competitions; PDF hosted at github.com/P-N-Suganthan/2022-SO-BO (CEC2022 TR.pdf). Some sources title it '...for the 2022 Special Session...' without 'CEC'; the widely used citation form includes 'CEC 2022'. No DOI exists for this technical report."
+ },
+ {
+  "requested": "9. Levy flight foraging: Viswanathan et al 1999 Nature, Optimizing the success of random searches",
+  "verified": true,
+  "mdpi": "Viswanathan, G.M.; Buldyrev, S.V.; Havlin, S.; da Luz, M.G.E.; Raposo, E.P.; Stanley, H.E. Optimizing the Success of Random Searches. Nature 1999, 401, 911\u2013914.",
+  "doi": "10.1038/44831",
+  "notes": "Confirmed via nature.com/articles/44831 and PubMed (PMID 10553906): Nature, vol. 401, issue 6756, pp. 911-914, October 1999. Note the first author's initials are G.M. (Gandhimohan M. Viswanathan); some third-party reference lists incorrectly show G.N."
+ },
+ {
+  "requested": "1. Markowitz 1952, Portfolio Selection, Journal of Finance",
+  "verified": true,
+  "mdpi": "Markowitz, H. Portfolio Selection. J. Financ. 1952, 7, 77\u201391.",
+  "doi": "10.1111/j.1540-6261.1952.tb01525.x",
+  "notes": "Confirmed via Wiley Online Library and RePEc: The Journal of Finance, Vol. 7, No. 1 (March 1952), pp. 77\u201391."
+ },
+ {
+  "requested": "2. Chang, Meade, Beasley, Sharaiha 2000, Computers & Operations Research, cardinality constrained portfolio heuristics",
+  "verified": true,
+  "mdpi": "Chang, T.-J.; Meade, N.; Beasley, J.E.; Sharaiha, Y.M. Heuristics for cardinality constrained portfolio optimisation. Comput. Oper. Res. 2000, 27, 1271\u20131302.",
+  "doi": "10.1016/S0305-0548(99)00074-X",
+  "notes": "Confirmed via ScienceDirect and ACM DL: Vol. 27, Issue 13, pp. 1271\u20131302. Title uses British spelling 'optimisation'."
+ },
+ {
+  "requested": "3. Beasley 1990, JORS, OR-Library",
+  "verified": true,
+  "mdpi": "Beasley, J.E. OR-Library: Distributing Test Problems by Electronic Mail. J. Oper. Res. Soc. 1990, 41, 1069\u20131072.",
+  "doi": "10.1057/jors.1990.166",
+  "notes": "Confirmed via Springer/Taylor & Francis records: Vol. 41, No. 11, pp. 1069\u20131072."
+ },
+ {
+  "requested": "4. Fernandez & Gomez 2007, Computers & Operations Research, portfolio selection using neural networks",
+  "verified": true,
+  "mdpi": "Fern\u00e1ndez, A.; G\u00f3mez, S. Portfolio selection using neural networks. Comput. Oper. Res. 2007, 34, 1177\u20131191.",
+  "doi": "10.1016/j.cor.2005.06.017",
+  "notes": "Confirmed via ScienceDirect (PII S0305054805002042) and the authors' own PDF: Vol. 34, Issue 4, pp. 1177\u20131191. Hopfield network heuristic for the cardinality/bounding constrained Markowitz model. Author surnames carry accents: Fern\u00e1ndez, G\u00f3mez."
+ },
+ {
+  "requested": "5. Cura 2009, PSO approach to portfolio optimization, Nonlinear Analysis: Real World Applications",
+  "verified": true,
+  "mdpi": "Cura, T. Particle swarm optimization approach to portfolio optimization. Nonlinear Anal. Real World Appl. 2009, 10, 2396\u20132406.",
+  "doi": "10.1016/j.nonrwa.2008.04.023",
+  "notes": "Confirmed via ScienceDirect: Vol. 10, Issue 4, pp. 2396\u20132406."
+ },
+ {
+  "requested": "6. Deng, Lin, Lo 2012, Expert Systems with Applications, improved PSO for cardinality constrained portfolio",
+  "verified": true,
+  "mdpi": "Deng, G.-F.; Lin, W.-T.; Lo, C.-C. Markowitz-based portfolio selection with cardinality constraints using improved particle swarm optimization. Expert Syst. Appl. 2012, 39, 4558\u20134566.",
+  "doi": "10.1016/j.eswa.2011.09.129",
+  "notes": "Confirmed via ScienceDirect (PII S0957417411014527): Vol. 39, Issue 4, pp. 4558\u20134566. Authors: Guang-Feng Deng, Woo-Tsong Lin, Chih-Chung Lo."
+ },
+ {
+  "requested": "7. Kalayci, Ertenlice, Akbay 2019, Expert Systems with Applications, comprehensive review for portfolio optimization",
+  "verified": true,
+  "mdpi": "Kalayci, C.B.; Ertenlice, O.; Akbay, M.A. A comprehensive review of deterministic models and applications for mean-variance portfolio optimization. Expert Syst. Appl. 2019, 125, 345\u2013368.",
+  "doi": "10.1016/j.eswa.2019.02.011",
+  "notes": "Exact title correction: it is 'A comprehensive review of deterministic models and applications for mean-variance portfolio optimization', not 'deterministic and metaheuristic approaches' as described in the request. Confirmed Vol. 125, pp. 345\u2013368 via ResearchGate and Pamukkale University institutional repository."
+ },
+ {
+  "requested": "8. Woodside-Oriakhi, Lucas, Beasley 2011, EJOR, heuristic algorithms for cardinality constrained efficient frontier",
+  "verified": true,
+  "mdpi": "Woodside-Oriakhi, M.; Lucas, C.; Beasley, J.E. Heuristic algorithms for the cardinality constrained efficient frontier. Eur. J. Oper. Res. 2011, 213, 538\u2013550.",
+  "doi": "10.1016/j.ejor.2011.03.030",
+  "notes": "Confirmed via RePEc and Google Scholar record: Vol. 213, Issue 3, pp. 538\u2013550."
+ },
+ {
+  "requested": "9. A real 2022-2025 paper applying a recent metaheuristic to cardinality-constrained portfolio optimization in a reputable journal",
+  "verified": true,
+  "mdpi": "Zheng, X.; Zhang, C.; Zhang, B. A Mayfly algorithm for cardinality constrained portfolio optimization. Expert Syst. Appl. 2023, 230, 120656.",
+  "doi": "10.1016/j.eswa.2023.120656",
+  "notes": "Found and verified via ScienceDirect (PII S0957417423011582) and Semantic Scholar. Authors: Xuanyu Zheng, Changsheng Zhang, Bin Zhang; Expert Systems with Applications, Vol. 230 (2023), Article 120656. Applies the Mayfly algorithm (a recent 2020 swarm metaheuristic) to the cardinality constrained mean-variance model with a dedicated constraint-handling strategy, tested on the standard OR-Library benchmarks. I could not verify a well-cited 2022-2025 WOA/GWO paper specifically on the cardinality-constrained Markowitz problem in a top journal (searches surfaced only tangential or lower-tier venues), so this Mayfly ESWA paper is offered as the verified example matching the description."
+ },
+ {
+  "requested": "1. MacQueen 1967, Berkeley Symposium",
+  "verified": true,
+  "mdpi": "MacQueen, J. Some Methods for Classification and Analysis of Multivariate Observations. In Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, Berkeley, CA, USA, 21 June\u201318 July 1965; University of California Press: Berkeley, CA, USA, 1967; Volume 1, pp. 281\u2013297.",
+  "notes": "Confirmed via Project Euclid and multiple citation indexes. Volume 1 (Statistics), pp. 281\u2013297. No DOI exists; the symposium sessions were held in 1965\u20131966 with the proceedings published in 1967."
+ },
+ {
+  "requested": "2. Jain 2010, Pattern Recognition Letters",
+  "verified": true,
+  "mdpi": "Jain, A.K. Data Clustering: 50 Years Beyond K-Means. Pattern Recognit. Lett. 2010, 31, 651\u2013666. https://doi.org/10.1016/j.patrec.2009.09.011",
+  "doi": "10.1016/j.patrec.2009.09.011",
+  "notes": "Confirmed: Vol. 31, Issue 8, pp. 651\u2013666."
+ },
+ {
+  "requested": "3. Arthur & Vassilvitskii 2007, SODA",
+  "verified": true,
+  "mdpi": "Arthur, D.; Vassilvitskii, S. k-means++: The Advantages of Careful Seeding. In Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA '07), New Orleans, LA, USA, 7\u20139 January 2007; pp. 1027\u20131035.",
+  "notes": "Confirmed via ACM DL and Google Research. No Crossref DOI (ACM DL uses internal identifier 10.5555/1283383.1283494, which is not a resolvable DOI, so it is omitted)."
+ },
+ {
+  "requested": "4. Rousseeuw 1987, silhouettes",
+  "verified": true,
+  "mdpi": "Rousseeuw, P.J. Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis. J. Comput. Appl. Math. 1987, 20, 53\u201365. https://doi.org/10.1016/0377-0427(87)90125-7",
+  "doi": "10.1016/0377-0427(87)90125-7",
+  "notes": "Confirmed: Vol. 20, pp. 53\u201365."
+ },
+ {
+  "requested": "5. Jos\u00e9-Garc\u00eda & G\u00f3mez-Flores 2016, Applied Soft Computing",
+  "verified": true,
+  "mdpi": "Jos\u00e9-Garc\u00eda, A.; G\u00f3mez-Flores, W. Automatic Clustering Using Nature-Inspired Metaheuristics: A Survey. Appl. Soft Comput. 2016, 41, 192\u2013213. https://doi.org/10.1016/j.asoc.2015.12.001",
+  "doi": "10.1016/j.asoc.2015.12.001",
+  "notes": "Confirmed: Vol. 41, pp. 192\u2013213. Note the accents in the author names (Jos\u00e9-Garc\u00eda, G\u00f3mez-Flores)."
+ },
+ {
+  "requested": "6. Smith 1956, Journal of Marketing",
+  "verified": true,
+  "mdpi": "Smith, W.R. Product Differentiation and Market Segmentation as Alternative Marketing Strategies. J. Mark. 1956, 21, 3\u20138. https://doi.org/10.1177/002224295602100102",
+  "doi": "10.1177/002224295602100102",
+  "notes": "Confirmed: Vol. 21, No. 1 (July 1956), pp. 3\u20138. Two DOIs exist: the legacy JSTOR DOI 10.2307/1247695 and the current SAGE DOI 10.1177/002224295602100102 (used here)."
+ },
+ {
+  "requested": "7. Wedel & Kamakura 2000, Market Segmentation book",
+  "verified": true,
+  "mdpi": "Wedel, M.; Kamakura, W.A. Market Segmentation: Conceptual and Methodological Foundations, 2nd ed.; International Series in Quantitative Marketing; Kluwer Academic Publishers: Boston, MA, USA, 2000. https://doi.org/10.1007/978-1-4615-4651-1",
+  "doi": "10.1007/978-1-4615-4651-1",
+  "notes": "Confirmed as 2nd edition, 2000, Kluwer Academic Publishers (now Springer), 382 pp., ISBN 978-0-7923-8635-3. Publisher location appears as Boston or Norwell, MA in different sources; Boston is the most commonly cited. Springer eBook DOI verified."
+ },
+ {
+  "requested": "8. Real paper on customer segmentation using K-means + RFM (2018-2024)",
+  "verified": true,
+  "mdpi": "Anitha, P.; Patil, M.M. RFM Model for Customer Purchase Behavior Using K-Means Algorithm. J. King Saud Univ. Comput. Inf. Sci. 2022, 34, 1785\u20131792. https://doi.org/10.1016/j.jksuci.2019.12.011",
+  "doi": "10.1016/j.jksuci.2019.12.011",
+  "notes": "Found and verified a genuinely existing, well-cited example: published in Journal of King Saud University - Computer and Information Sciences (Elsevier, open access), Vol. 34, Issue 5 (May 2022), pp. 1785\u20131792; available online December 2019 (hence 2019 in the DOI) but the citable issue year is 2022. Confirmed via ScienceDirect listing, Semantic Scholar, and ResearchGate."
+ },
+ {
+  "requested": "9. Van der Merwe & Engelbrecht 2003, CEC, PSO data clustering",
+  "verified": true,
+  "mdpi": "Van der Merwe, D.W.; Engelbrecht, A.P. Data Clustering Using Particle Swarm Optimization. In Proceedings of the 2003 Congress on Evolutionary Computation (CEC '03), Canberra, Australia, 8\u201312 December 2003; Volume 1, pp. 215\u2013220. https://doi.org/10.1109/CEC.2003.1299577",
+  "doi": "10.1109/CEC.2003.1299577",
+  "notes": "Confirmed: IEEE CEC 2003, Canberra, Australia, Vol. 1, pp. 215\u2013220, DOI verified via Semantic Scholar/IEEE records."
+ },
+ {
+  "requested": "10. UCI Machine Learning Repository current recommended citation",
+  "verified": true,
+  "mdpi": "Kelly, M.; Longjohn, R.; Nottingham, K. The UCI Machine Learning Repository. Available online: https://archive.ics.uci.edu (accessed on 3 July 2026).",
+  "notes": "The current recommended general citation (per archive.ics.uci.edu/citation) is Kelly, Longjohn & Nottingham, superseding Dua & Graff (2019). The official citation carries no year; academic usage commonly adds 2023. The UCI site itself returned HTTP 403 to direct fetch, so the format was verified through the site's indexed citation page and multiple published papers quoting it. If the paper cites a specific dataset, UCI recommends citing that dataset's own citation/DOI instead."
+ },
+ {
+  "requested": "Item 1 (example 1 of 3): improved SBOA variant 2024-2025",
+  "verified": true,
+  "mdpi": "Qin, S.; Liu, J.; Bai, X.; Hu, G. A Multi-Strategy Improvement Secretary Bird Optimization Algorithm for Engineering Optimization Problems. Biomimetics 2024, 9, 478. https://doi.org/10.3390/biomimetics9080478",
+  "doi": "10.3390/biomimetics9080478",
+  "notes": "MISBOA variant (feedback regulation mechanism, golden sine guidance, cooperative camouflage strategy). Published in MDPI Biomimetics itself (Vol. 9, Issue 8, Article 478, August 2024). Confirmed via MDPI DOI record and PubMed Central (PMC11351321)."
+ },
+ {
+  "requested": "Item 1 (example 2 of 3): improved SBOA variant 2024-2025",
+  "verified": true,
+  "mdpi": "Wang, X.; Wei, P.; Li, Y. Enhanced Secretary Bird Optimization Algorithm with Multi-Strategy Fusion and Cauchy\u2013Gaussian Crossover. Sci. Rep. 2025, 15, 23163. https://doi.org/10.1038/s41598-025-04469-4",
+  "doi": "10.1038/s41598-025-04469-4",
+  "notes": "UTFSBOA variant (adaptive nonlinear directional search, HHO-inspired energy escape factor, Cauchy-Gaussian crossover). Published 2 July 2025. Article number 23163 confirmed via Nature listing, PubMed 40603358 and PMC12223234."
+ },
+ {
+  "requested": "Item 1 (example 3 of 3): improved SBOA variant 2024-2025",
+  "verified": true,
+  "mdpi": "Zhu, Y.; Zhang, M.; Huang, Q.; Wu, X.; Wan, L.; Huang, J. Secretary Bird Optimization Algorithm Based on Quantum Computing and Multiple Strategies Improvement for KELM Diabetes Classification. Sci. Rep. 2025, 15, 3774. https://doi.org/10.1038/s41598-025-87285-0",
+  "doi": "10.1038/s41598-025-87285-0",
+  "notes": "QHSBOA variant (PSO search mechanism, dynamic boundary adjustment, quantum-computing-based t-distribution mutation) coupled with KELM for diabetes classification. Published 30 January 2025; Sci. Rep. 15(1):3774 confirmed via Nature and PMC11782485."
+ },
+ {
+  "requested": "Item 2 (example 1 of 2): SBOA application to an engineering/energy problem 2024-2025",
+  "verified": true,
+  "mdpi": "Maurya, P.; Tiwari, P.; Pratap, A. Enhanced Secretary Bird Optimization Algorithm for Enhanced DG Deployment and Reconfiguration in Electrical Distribution Networks to Improve Power System Efficiency. Evol. Intell. 2025, 18, 52. https://doi.org/10.1007/s12065-025-01033-x",
+  "doi": "10.1007/s12065-025-01033-x",
+  "notes": "Hybrid SBO (Cauchy mutation + opposition-based learning) applied to distributed generation placement and network reconfiguration on 85-, 141- and 415-node systems. Springer Evolutionary Intelligence, Vol. 18, Article 52 (2025), confirmed via link.springer.com. Note: this paper is both an improved variant and an energy application."
+ },
+ {
+  "requested": "Item 2 (example 2 of 2): SBOA application to an engineering/energy problem 2024-2025",
+  "verified": true,
+  "mdpi": "Badreldin, O.G.; Ali, M.H.; Ahmed, M.K.; Nassar, I.A. Optimizing Renewable DG Allocation with the Secretary Bird Algorithm for Enhanced Power System Stability and Efficiency. Sci. Afr. 2025, 30, e02967. https://doi.org/10.1016/j.sciaf.2025.e02967",
+  "doi": "10.1016/j.sciaf.2025.e02967",
+  "notes": "Standard SBOA applied to optimal siting/sizing of renewable distributed generation on IEEE 14-bus and 57-bus systems. Scientific African (Elsevier), Vol. 30, article e02967, dated December 2025 (published online 2025). Confirmed via ScienceDirect record S2468227625004375; volume/article number corroborated in two independent searches."
+ },
+ {
+  "requested": "Item 1 - improved BKA variant paper (example 1 of 3)",
+  "verified": true,
+  "mdpi": "Zhang, Z.; Wang, X.; Yue, Y. Heuristic Optimization Algorithm of Black-Winged Kite Fused with Osprey and Its Engineering Application. Biomimetics 2024, 9, 595. https://doi.org/10.3390/biomimetics9100595",
+  "doi": "10.3390/biomimetics9100595",
+  "notes": "Verified via MDPI page (mdpi.com/2313-7673/9/10/595), PMC11505413, Scilit, and Gale. Proposes OCBKA: logistic chaotic-map initialization plus fusion with the osprey optimization algorithm, tested on benchmarks and engineering design problems. Authors Zheng Zhang, Xiangkun Wang, Yinggao Yue (Wenzhou Business College / Wenzhou University of Technology). Published in Biomimetics (same journal as the target paper), Volume 9, Issue 10, Article 595, October 2024."
+ },
+ {
+  "requested": "Item 1 - improved BKA variant paper (example 2 of 3)",
+  "verified": true,
+  "mdpi": "Li, Y.; Shi, B.; Qiao, W.; Du, Z. A Black-Winged Kite Optimization Algorithm Enhanced by Osprey Optimization and Vertical and Horizontal Crossover Improvement. Sci. Rep. 2025, 15, 6737. https://doi.org/10.1038/s41598-025-90660-6",
+  "doi": "10.1038/s41598-025-90660-6",
+  "notes": "Verified via Nature.com listing, PubMed (PMID 40000799), PMC11861893, NASA ADS (bibcode 2025NatSR..15.6737L confirming Sci. Rep. 2025, vol. 15, art. 6737), and Scilit (author list Li, Y.; Shi, B.; Qiao, W.; Du, Z.). Proposes DKCBKA: adaptive index factor, osprey-optimization fusion, stochastic differential variation, and vertical/horizontal (longitudinal-transversal) crossover. Journal title published in sentence case: 'A black-winged kite optimization algorithm enhanced by osprey optimization and vertical and horizontal crossover improvement'."
+ },
+ {
+  "requested": "Item 1 - improved BKA variant paper (example 3 of 3)",
+  "verified": true,
+  "mdpi": "Mansouri, H.; Elkhanchouli, K.; Elghouate, N.; Bencherqui, A.; Tahiri, M.A.; Karmouni, H.; Sayyouri, M.; Moustabchir, H.; Askar, S.S.; Abouhawwash, M. A Modified Black-Winged Kite Optimizer Based on Chaotic Maps for Global Optimization of Real-World Applications. Knowl.-Based Syst. 2025, 318, 113558. https://doi.org/10.1016/j.knosys.2025.113558",
+  "doi": "10.1016/j.knosys.2025.113558",
+  "notes": "Verified via ScienceDirect (pii S0950705125006045), ACM Digital Library, and ResearchGate. M-BWKO integrates six enhancements (top-k elite leader strategy, adaptive chaos weighting, diversity-aware chaos reactivation, chaotic index-based selection, adaptive Cauchy mutation, hybrid migration rule). Knowledge-Based Systems Volume 318 (June 2025), Article 113558. Ten-author list confirmed from search-index records; ScienceDirect page itself was not directly fetchable through the sandbox proxy."
+ },
+ {
+  "requested": "Item 2 - BKA application to engineering/energy/forecasting (example 1 of 2): power load forecasting",
+  "verified": true,
+  "mdpi": "Luo, Y.; Guo, C.; Pan, M.; Zhou, H. A Hybrid AI Model Integrating BKA-VMD and Deep Neural Networks for Industrial Power Load Prediction. PLoS ONE 2025, 20, e0329630. https://doi.org/10.1371/journal.pone.0329630",
+  "doi": "10.1371/journal.pone.0329630",
+  "notes": "Verified via PLOS ONE journal page, PMC12352651, RePEc (vol. 20(8), August 2025), and ResearchGate. Uses the Black-Winged Kite Algorithm to optimize VMD decomposition, feeding a 1DCNN-BiTCN-BiGRU-attention network for industrial power load prediction. Authors: Yin Luo, Chaofan Guo, Minfeng Pan, Hong Zhou. Published title is in sentence case: 'A hybrid AI model integrating BKA-VMD and deep neural networks for industrial power load prediction'."
+ },
+ {
+  "requested": "Item 2 - BKA application to engineering/energy/forecasting (example 2 of 2): renewable energy system sizing",
+  "verified": true,
+  "mdpi": "Mohapatra, S.; Kaliyaperumal, D.; Porselvi, T.; Tresa Sangeetha, S.V.; Alroobaea, R.; Emara, A. Optimal Sizing of Hybrid Renewable Energy Systems Relying on the Black Winged Kite Algorithm for Performance Evaluation. Sci. Rep. 2025, 15, 20568. https://doi.org/10.1038/s41598-025-06442-7",
+  "doi": "10.1038/s41598-025-06442-7",
+  "notes": "Verified via Nature.com listing (Sci. Rep. vol. 15, article 20568, 2025), PMC12217151, and ResearchGate. Applies BKA to optimal sizing of a PV/wind/battery hybrid system for an educational institution in Puri, Odisha, India, minimizing total annual cost and LCOE. Full author list (Sarada Mohapatra; Deepa Kaliyaperumal; T. Porselvi; S. V. Tresa Sangeetha; Roobaea Alroobaea; Ahmed Emara) assembled from PMC/search index records; author ordering confirmed across two independent records but the publisher page itself was not directly fetchable through the sandbox proxy."
+ },
+ {
+  "requested": "1. Metaheuristics for UAV path planning (2021-2024)",
+  "verified": true,
+  "mdpi": "Phung, M.D.; Ha, Q.P. Safety-Enhanced UAV Path Planning with Spherical Vector-Based Particle Swarm Optimization. Appl. Soft Comput. 2021, 107, 107376. https://doi.org/10.1016/j.asoc.2021.107376",
+  "doi": "10.1016/j.asoc.2021.107376",
+  "notes": "Confirmed via ScienceDirect/arXiv/Semantic Scholar. Winner of Applied Soft Computing 2023 Best Paper Award; highly cited and squarely on-topic."
+ },
+ {
+  "requested": "2. Metaheuristics for feature selection (2020-2024)",
+  "verified": true,
+  "mdpi": "Agrawal, P.; Abutarboush, H.F.; Ganesh, T.; Mohamed, A.W. Metaheuristic Algorithms on Feature Selection: A Survey of One Decade of Research (2009-2019). IEEE Access 2021, 9, 26766-26791. https://doi.org/10.1109/ACCESS.2021.3056407",
+  "doi": "10.1109/ACCESS.2021.3056407",
+  "notes": "Confirmed via IEEE/Semantic Scholar; widely cited survey of metaheuristic feature selection."
+ },
+ {
+  "requested": "3. Metaheuristics for image segmentation / multilevel thresholding (2020-2024)",
+  "verified": true,
+  "mdpi": "Houssein, E.H.; Helmy, B.E.-D.; Oliva, D.; Elngar, A.A.; Shaban, H. A Novel Black Widow Optimization Algorithm for Multilevel Thresholding Image Segmentation. Expert Syst. Appl. 2021, 167, 114159. https://doi.org/10.1016/j.eswa.2020.114159",
+  "doi": "10.1016/j.eswa.2020.114159",
+  "notes": "Confirmed via ScienceDirect (PII S0957417420309003) and ResearchGate; volume 167, article 114159, published online 2020, issue dated April 2021 (cite as 2021 per journal issue)."
+ },
+ {
+  "requested": "4. Metaheuristics for job shop / flow shop scheduling (2019-2024)",
+  "verified": true,
+  "mdpi": "Gao, K.; Cao, Z.; Zhang, L.; Chen, Z.; Han, Y.; Pan, Q. A Review on Swarm Intelligence and Evolutionary Algorithms for Solving Flexible Job Shop Scheduling Problems. IEEE/CAA J. Autom. Sin. 2019, 6, 904-916. https://doi.org/10.1109/JAS.2019.1911540",
+  "doi": "10.1109/JAS.2019.1911540",
+  "notes": "Confirmed via official IEEE/CAA JAS site and Semantic Scholar; vol. 6, no. 4, pp. 904-916, July 2019. Full author names: Kaizhou Gao, Zhiguang Cao, Le Zhang, Zhenghua Chen, Yuyan Han, Quanke Pan."
+ },
+ {
+  "requested": "5. Metaheuristics for wireless sensor network coverage optimization (2020-2024)",
+  "verified": true,
+  "mdpi": "Miao, Z.; Yuan, X.; Zhou, F.; Qiu, X.; Song, Y.; Chen, K. Grey Wolf Optimizer with an Enhanced Hierarchy and Its Application to the Wireless Sensor Network Coverage Optimization Problem. Appl. Soft Comput. 2020, 96, 106602. https://doi.org/10.1016/j.asoc.2020.106602",
+  "doi": "10.1016/j.asoc.2020.106602",
+  "notes": "Confirmed via ScienceDirect (PII S1568494620305408); Applied Soft Computing, vol. 96, Nov 2020, article 106602. Authors: Zhaoming Miao, Xianfeng Yuan, Fengyu Zhou, Xuanjie Qiu, Yong Song, Ke Chen."
+ },
+ {
+  "requested": "6. Metaheuristic hyperparameter tuning of ML/SVM models (2020-2024)",
+  "verified": true,
+  "mdpi": "Zhou, J.; Qiu, Y.; Zhu, S.; Armaghani, D.J.; Li, C.; Nguyen, H.; Yagiz, S. Optimization of Support Vector Machine through the Use of Metaheuristic Algorithms in Forecasting TBM Advance Rate. Eng. Appl. Artif. Intell. 2021, 97, 104015. https://doi.org/10.1016/j.engappai.2020.104015",
+  "doi": "10.1016/j.engappai.2020.104015",
+  "notes": "Confirmed via ScienceDirect (PII S0952197620303018); vol. 97, Jan 2021, article 104015. SVM hyperparameters tuned with GWO, WOA, and MFO \u2014 directly matches the requested topic."
+ },
+ {
+  "requested": "7. Canonical EDA citation (Larranaga & Lozano book)",
+  "verified": true,
+  "mdpi": "Larra\u00f1aga, P.; Lozano, J.A. (Eds.) Estimation of Distribution Algorithms: A New Tool for Evolutionary Computation; Genetic Algorithms and Evolutionary Computation, Vol. 2; Kluwer Academic Publishers: Boston, MA, USA, 2001. https://doi.org/10.1007/978-1-4615-1539-5",
+  "doi": "10.1007/978-1-4615-1539-5",
+  "notes": "Book confirmed (ISBN 978-0-7923-7466-4, Kluwer/Springer, DOI 10.1007/978-1-4615-1539-5). Year discrepancy exists in the literature: the hardcover appeared in late 2001 (widely cited as 2001, matching the request), while Springer's copyright page and some sources list 2002. If MDPI requests the publisher copyright year, use 2002 instead of 2001."
+ }
+]

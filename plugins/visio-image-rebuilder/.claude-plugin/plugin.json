@@ -1,20 +1,21 @@
 {
   "name": "visio-image-rebuilder",
-  "version": "1.0.0",
-  "description": "Rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files, for scientific-paper figures. Recreates references as native Visio shapes, text, connectors, and groups instead of embedding a flat picture; supports multi-panel figure reconstruction, layout/color/font restyling of existing .vsdx files, and .vsdx inspection to catch accidental whole-image embedding. Requires Windows + a licensed local Microsoft Visio install.",
+  "version": "1.1.0",
+  "description": "Visio 图重建 Skill (visio-image-rebuilder) — rebuild or restyle editable Microsoft Visio diagrams from reference images and existing .vsdx files, then export deliverables as .vsdx/PNG/SVG/PDF/PPTX. Recreates paper figures and model diagrams as native shapes/text/connectors instead of embedding a flat image, with panel-calibration helpers to avoid drifted or overlapping submodules. Includes a default Chinese technical-bid flowchart mode (SimSun 12pt, fixed style/page box, VSDX-only batch output) and ships PowerShell/COM automation scaffolds plus CJK-safe Unicode-escape guidance.",
   "author": {
-    "name": "pengjunchi0"
+    "name": "visio-image-rebuilder (Codex 科研论文绘图 / Visio 图重建 Skill)"
   },
-  "homepage": "https://github.com/pengjunchi0/codex-visio-paper-figure-skill",
-  "repository": "https://github.com/pengjunchi0/codex-visio-paper-figure-skill",
-  "license": "See repository",
+  "homepage": "https://github.com/caixinyu2017-star/xixi",
+  "license": "See skill README",
   "keywords": [
     "visio",
     "vsdx",
-    "diagrams",
-    "scientific-figures",
     "paper-figures",
-    "windows",
-    "com-automation"
+    "image-rebuild",
+    "scientific-figures",
+    "flowchart",
+    "technical-bid",
+    "powershell",
+    "codex-skill"
   ]
 }

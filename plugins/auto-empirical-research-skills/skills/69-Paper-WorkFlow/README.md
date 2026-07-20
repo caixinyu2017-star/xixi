@@ -1,0 +1,594 @@
+<div align="center">
+
+<br/>
+
+# Paper-WorkFlow
+
+**经管 / 社科实证论文的研究级 Workflow**
+
+<samp>idea&nbsp;&nbsp;→&nbsp;&nbsp;design&nbsp;&nbsp;→&nbsp;&nbsp;evidence&nbsp;&nbsp;→&nbsp;&nbsp;manuscript&nbsp;&nbsp;→&nbsp;&nbsp;submission&nbsp;pack</samp>
+
+<br/>
+
+![Pipeline](https://img.shields.io/badge/pipeline-Stage_0%E2%80%939-4F46E5?style=flat&labelColor=0D1117)
+![Gates](https://img.shields.io/badge/gates-method_%2B_draft_quality-4F46E5?style=flat&labelColor=0D1117)
+[![Rigor](https://img.shields.io/badge/rigor-29%2F29_executable_gates-16A34A?style=flat&labelColor=0D1117)](RIGOR.md)
+![State](https://img.shields.io/badge/state-schema_v10-4F46E5?style=flat&labelColor=0D1117)
+![Type](https://img.shields.io/badge/type-meta--orchestrator-4F46E5?style=flat&labelColor=0D1117)
+![Runs on](https://img.shields.io/badge/runs_on-Claude_%C2%B7_Codex_%C2%B7_Cursor_%C2%B7_Gemini-4F46E5?style=flat&labelColor=0D1117&logo=anthropic&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-4F46E5?style=flat&labelColor=0D1117)
+
+<br/>
+
+<samp><b>10</b>&nbsp;阶段&nbsp;&nbsp;·&nbsp;&nbsp;<b>47</b>&nbsp;技能&nbsp;&nbsp;·&nbsp;&nbsp;<b>2</b>&nbsp;道硬闸门&nbsp;&nbsp;·&nbsp;&nbsp;<b>3</b>&nbsp;套分析后端&nbsp;&nbsp;·&nbsp;&nbsp;<b>1</b>&nbsp;个可审计工作区</samp>
+
+<br/>
+
+[一图看懂](#一图看懂)&nbsp;·&nbsp;[研究级标准](#研究级标准)&nbsp;·&nbsp;[怎么用](#怎么用)&nbsp;·&nbsp;[产物清单](#跑完你会得到什么)&nbsp;·&nbsp;[English](README.en.md)
+
+<br/>
+<br/>
+
+**你给一个研究方向，它交付一套可审计的实证论文工程。**
+
+<sub>从选题、数据、识别设计、估计、表图、写作、打磨、去 AI 味、模拟评审，到投稿包<br/>—— 全部沉淀在一个可断点续跑、可审计的工作区里。</sub>
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://copaper.ai"><img src="assets/copaper-logo.png" alt="CoPaper.AI" width="220" /></a>
+    </td>
+    <td width="56"></td>
+    <td align="center">
+      <a href="https://sccei.fsi.stanford.edu/reap"><img src="assets/stanford-reap-logo.png" alt="Stanford REAP · Center on China's Economy and Institutions" width="320" /></a>
+    </td>
+  </tr>
+</table>
+
+<sub><strong>Stanford REAP × CoPaper.AI</strong> · 面向实证研究的产学 AI 工具箱 · Paper-WorkFlow 是其中的论文总编排器</sub>
+
+</div>
+
+---
+
+## 一图看懂
+
+一篇实证论文不是一段文字，而是一套工程：研究设计、数据 provenance、识别假设、估计脚本、表图、稿件、审稿回应和 replication package 必须互相咬合。
+Paper-WorkFlow 是这套工程的总编排器——它不亲自做每一步，而是在对的时点、用对的上下文、在对的人类决策点，把既有 skill、并行 subagent 和方法证据闸门串成一条完整 workflow。
+
+```mermaid
+flowchart TD
+    IDEA(["一句话研究 idea"]):::io
+    IDEA --> A
+
+    subgraph A ["① 构思 · CONCEIVE"]
+      direction LR
+      S1["<b>Stage 1 · 选题与设计</b><br/>idea-finder → novelty-check<br/>→ significance → proposal"]
+    end
+
+    subgraph B ["② 实证 · EVIDENCE"]
+      direction LR
+      S2["<b>Stage 2</b><br/>数据<br/>fetch + clean"] --> S3["<b>Stage 3</b><br/>识别与估计<br/>DiD/IV/RDD/SC…"] --> MG{"方法闸门<br/>design register · evidence bundle"} --> S4["<b>Stage 4</b><br/>表与图<br/>出版级 exhibits"]
+    end
+
+    subgraph C ["③ 成文 · COMPOSE"]
+      direction LR
+      S5["<b>Stage 5</b><br/>写作初稿<br/>main.tex"] --> S6["<b>Stage 6</b><br/>全流程打磨<br/>polish pipeline"] --> S7["<b>Stage 7</b><br/>去 AI 味<br/>de-slop"]
+    end
+
+    subgraph D ["④ 出门 · SUBMIT"]
+      direction LR
+      S8["<b>Stage 8</b><br/>模拟评审与修订<br/>referee + response"] --> S9["<b>Stage 9</b><br/>选刊与投稿<br/>shortlist + cover letter"]
+    end
+
+    A --> B --> C
+    C --> QG{"初稿质量门<br/>7 维评分卡 · 达标才放行"}
+    QG -.->|未达标 · 自动回炉| C
+    QG ==>|达标 = 可投稿级初稿| D
+    D --> PAPER(["可投稿全文 · main.tex + 投稿包"]):::io
+
+    classDef io fill:#4F46E5,stroke:#312E81,color:#fff,font-weight:bold;
+    classDef gate fill:#FFF7ED,stroke:#D97706,color:#7C2D12,font-weight:bold,stroke-width:2px;
+    class MG,QG gate;
+    style A fill:#F8FAFC,stroke:#CBD5E1,color:#0F172A
+    style B fill:#F8FAFC,stroke:#CBD5E1,color:#0F172A
+    style C fill:#F8FAFC,stroke:#CBD5E1,color:#0F172A
+    style D fill:#F8FAFC,stroke:#CBD5E1,color:#0F172A
+```
+
+> [!IMPORTANT]
+> **Stage 0（Intake & Setup）静默前置** — 建工作区、判入口、问档位、写状态文件，不打断你。
+> **两道硬闸门** — Stage 3 后过方法闸门，Stage 7 后过初稿质量门：一个拦方法硬伤，一个拦稿件硬伤。任一不过，都按「短板 → 回退阶段」自动回炉。
+
+### 从 30 页讲义整合到当前版本
+
+原来的 PDF 讲义把这套系统讲成 8 个教学阶段：选题、设计、数据、估计、呈现、写作、评审、投稿。当前版本把这条教学主线升级成可执行的 `Stage 0–9` 协议：增加 Stage 0 的工作区与状态初始化，把估计后的方法闸门和初稿后的质量闸门写成硬约束，并把复现包、数据治理和最终交付写入 `workflow_state.json`。
+
+| 讲义阶段 | 当前执行位置 | 核心问题 | 关键技能 / 产物 |
+|---|---|---|---|
+| ① 选题 | Stage 1 | 问题是否有新意、重要、可识别 | `econfin-idea-finder`、`novelty-check`、`significance-search` → 选题卡片 |
+| ② 设计 | Stage 1 | 因果问题、反事实、变异来源、目标期刊是否清楚 | `econfin-proposal`、`journal-digest` → `proposal.md` |
+| ③ 数据 | Stage 2 | 数据源、键、频率、清洗口径和估计样本是否可复跑 | `data-fetcher`、`data-cleaning` → `clean.parquet`、`codebook.md`、`sample_audit.md`、数据日志 |
+| ④ 估计 | Stage 3 | 反事实从哪里来，样本/estimand、设计卡与最低诊断证据是否齐全 | **三后端分析路由**：Python/StatsPAI（默认 MCP 优先）/ Stata `.do` / R `fixest`+Quarto + `did-analysis` 等 → `analysis_backend.md`、`sample_audit.md`、`design_register.md`、`method_gate.md`、`evidence_ledger.md` |
+| ⑤ 呈现 | Stage 4 | 审稿人能否一眼读懂结果和识别直觉 | 按所选后端出 Word/Excel/LaTeX 三格式表 + PDF/PNG 图：StatsPAI / `esttab`+`outreg2` / `modelsummary`+Quarto |
+| ⑥ 写作 | Stage 5–7 | 初稿是否结构完整、论证克制、引用真实、没有 AI 味 | `paper-writer`、`paper-pipeline`、`readability` / `fix-chinese` → `main.tex`、质量评分卡 |
+| ⑦ 评审 | Stage 8 | 在投稿前先暴露识别威胁、稳健性缺口和叙事问题 | `referee-report`、`paper-referee-revise` → 审稿意见、回应信、修订稿 |
+| ⑧ 投稿 | Stage 9 | 期刊是否匹配，格式和材料是否一次准备齐 | `paper-submission`、`reference-verify` → journal shortlist、cover letter、投稿包 |
+
+贯穿全程的横向能力包括 `web-research` / `arxiv` 查文献，`stata` / `stats` 做计量底座，`reference-verify` 核验引用，`markitdown` / `md-to-docx` 做文档互转。它们不是独立阶段，而是每个阶段的验证和转换工具。
+
+---
+
+## 为什么是「总编排器」，而不是又一个写作工具
+
+| 普通 AI 写作工具 | Paper-WorkFlow |
+|---|---|
+| 帮你润色 / 续写某一段 | 帮你把整条流水线从选题跑到投稿 |
+| 你得自己记得下一步该干嘛 | 用 `workflow_state.json` 记住进度，可断点续跑 |
+| 一个大模型硬扛全部脏活 | 多代理 + 上下文保护：子代理写盘、只回传摘要，主代理上下文极省 |
+| 容易在长任务里编造结果 | 真实优先：引用核验、数据取数、计量稳健性都交给可验证的工具 |
+| 一路狂奔到底 | 失败会回退：平行趋势不过 / 弱工具 / 撞车，自动切备选并标红告知 |
+
+核心纪律一句话：能调用就不要重写。流水线里每一步都调用既有成熟 skill，编排器只负责在对的时点把对的 skill 喂对的输入。
+
+---
+
+## 完整 Workflow 的三层架构
+
+Paper-WorkFlow 不是单点写作助手，而是一个面向实证论文的研究操作系统：
+
+| 层 | 负责什么 | 关键产物 |
+|---|---|---|
+| Orchestration Layer | Stage 0–9 的入口路由、断点续跑、dashboard、handoff、subagent 派发、阶段闸门 | `workflow_state.json`、`entry_routing.md`、`stage_passport.md`、`pipeline_status.md`、`handoff/`、`logs/stage_<N>.md` |
+| Evidence Layer | 数据、样本/estimand 审计、识别设计、分析后端、估计、稳健性、方法证据包、claim 证据治理 | `analysis_backend.md`、`sample_audit.md`、`design_register.md`、`method_gate.md`、`evidence_ledger.md`、`main_results.json`、`robustness/` |
+| Manuscript Layer | 表图、初稿、打磨、去 AI 味、claim/citation 忠实度审计、模拟评审、投稿材料 | `main.tex`、`quality_scorecard.md`、`claim_integrity_audit.md`、`response_letter.md`、`journal_shortlist.md` |
+
+[`research-grade-methods.md`](references/research-grade-methods.md) 把现代应用计量与因果推断的 reviewer 标准前置到 Stage 3：交错 DiD、RDD、Synthetic DiD、DML、EconML/DoubleML、GRF、DoWhy refuter、PyFixest、AEA replication policy 都按「何时用、要交付什么证据、失败怎么回退」接入 workflow。[`design-gate-cards.md`](references/design-gate-cards.md) 进一步把每种设计的 required artifacts、hard fail 和 claim 降级规则写成可填入 `method_gate.md` 的设计卡。
+
+[`empirical-audit.md`](references/empirical-audit.md) 把 Stage 2–3 之间最容易出事的样本/变量口径显性化：raw→clean→estimation sample 的流失、treated/control 数、treatment timing、missingness/balance/overlap、cluster/weights 必须写进 `sample_audit.md`，否则 Method Gate 不能放行。
+
+Stage 3–4 现在先走 [`analysis-backends.md`](references/analysis-backends.md) 的三语言路由：默认 **Python/StatsPAI**，也可切到 **Stata**（`00.2-Full-empirical-analysis-skill_Stata`，`.do` + `reghdfe`/`ivreg2`/`csdid`/`esttab`/`outreg2`）或 **R**（`00.3-Full-empirical-analysis-skill_R`，tidyverse + `fixest`/`did`/`grf`/`modelsummary`/Quarto）。默认 StatsPAI 路径见 [`statspai-analysis.md`](references/statspai-analysis.md)：MCP 做 agent-native 拍板 / 拟合 / 诊断 / 稳健性自检 / 取引用；需要出版级 bundle 时切 `statspai` 包。三种后端共享同一套 Method Gate，不因语言不同降低证据标准。
+
+### 47 个技能如何被编排
+
+PDF 讲义里的技能地图已经合并到当前 README：`Paper-WorkFlow` 自己只做编排，真正的研究动作来自母仓库 `67-econfin-workflow-toolkit/` 等技能集合。
+
+| 能力组 | 代表技能 | 在流水线里的位置 |
+|---|---|---|
+| 选题与设计 | `econfin-idea-finder`、`novelty-check`、`significance-search`、`journal-digest`、`econfin-proposal` | Stage 1，把兴趣变成可执行 proposal |
+| 数据 | `data-fetcher`、`data-cleaning` | Stage 2，把分散数据变成可审计主表 |
+| 计量估计 | **Python/StatsPAI、Stata、R 三后端** + `ols-regression`、`panel-data`、`iv-estimation`、`did-analysis`、`rdd-analysis`、`synthetic-control`、`time-series`、`ml-causal` | Stage 3，按识别策略生成证据包 |
+| 表与图 | StatsPAI `regtable`/`collect`、Stata `esttab`/`outreg2`、R `modelsummary`/Quarto、`table`、`figure` | Stage 4，生成出版级 exhibits |
+| 写作与润色 | `paper-writer`、`paper-style`、`paper-polish`、`paper-self-revise`、`paper-pipeline`、`readability` | Stage 5–7，从初稿到目标期刊风格 |
+| 评审与引用 | `referee-report`、`paper-referee-revise`、`reference-verify` | Stage 8 和终审，做模拟审稿、修订与引用核验 |
+| 投稿 | `paper-submission` | Stage 9，生成期刊清单、cover letter 与投稿材料 |
+| 横向工具 | `web-research`、`arxiv`、`agent-browser`、`markitdown`、`md-to-docx`、`fix-chinese`、`marp-slides-creator`、`chinese-ppt` | 按需穿插，用于检索、转换、中文修订和展示材料 |
+
+---
+
+## 研究级标准
+
+「跑完十个阶段」不等于「过得了顶刊 reviewer」。Paper-WorkFlow 用多道显式的研究级标准贯穿证据 → 写作 → 复现 → 投稿，让每一步都有可验收的门槛，而不是靠主代理自我感觉良好：
+
+| 研究级标准 | 管什么（reviewer 会盯的） | 在哪生效 | 标准文件 |
+|---|---|---|---|
+| 样本与 estimand 审计 | 样本流失、变量构造、missingness/balance/overlap、cluster/weights 是否支撑目标 estimand | Stage 2→3 · 方法闸门 | [`empirical-audit.md`](references/empirical-audit.md) |
+| 方法证据标准 | 识别设计注册、按方法的最低证据包、稳健性矩阵、复现脚本 | Stage 3 · 方法闸门 | [`research-grade-methods.md`](references/research-grade-methods.md) |
+| 设计风险总账 | OVB、选择、bad controls、spillover/SUTVA、external validity、attrition、specification search 和选择性报告是否逐项关闭或降级 | Stage 1/3/5/8 · 方法闸门/质量门 | [`design-risk-ledger.md`](references/design-risk-ledger.md) + `03_analysis/design_risk_ledger.md` |
+| Claim 证据治理 | manuscript claim 是否有 estimand、结果、稳健性、表图和脚本支撑；措辞是否超过设计卡允许等级 | Stage 3→9 · 方法闸门/质量门/投稿终审 | [`design-gate-cards.md`](references/design-gate-cards.md) + `00_meta/evidence_ledger.md` |
+| Claim 忠实度审计 | 稿件里的数字、引用、因果措辞和 forbidden wording 是否忠实于 evidence ledger、源文献和项目估计 | Stage 7→8 / Stage 9 · 质量门/投稿终审 | [`integrity-and-claim-audit.md`](references/integrity-and-claim-audit.md) + `00_meta/claim_integrity_audit.md` |
+| 引用与时序完整性 | 引用是否真实、引对、未撤稿，数据和文献叙述是否存在 look-ahead / vintage / 样本期外推风险 | Stage 1/2/5/9 · 质量门/投稿终审 | [`citation-and-temporal-integrity.md`](references/citation-and-temporal-integrity.md) + `00_meta/citation_integrity_log.md` |
+| 学者写作标准 | 引言五段公式、贡献锋利度、经济量级解读、目标期刊房风 | Stage 1/5/6 · 质量门 ①④⑤ | [`writing-craft.md`](references/writing-craft.md) |
+| 复现打包标准 | data provenance、复现包 README、数据可得性声明、一键重跑 | Stage 2→收尾 · 质量门 ⑦ | [`reproducibility-pack.md`](references/reproducibility-pack.md) |
+| 评审与投稿标准 | 模拟评审深度、逐条 response letter、选刊决策序、cover letter | Stage 8/9 | [`peer-review-and-submission.md`](references/peer-review-and-submission.md) |
+
+证据为真、表达到位、可被复跑、投得专业，才是这条流水线对「研究级」的完整定义。两道硬闸门正是前三道标准的强制落地：方法闸门验识别与稳健，初稿质量门验写作与复现；投稿标准守住最后一公里。
+
+外加多道深化层和一条可照抄的范例，把研究级标准压到「reviewer 真正会问的那几刀」上：
+
+| 深化层 | 把哪一刀前置成作者自检 | 配合标准 |
+|---|---|---|
+| [识别威胁与审稿异议](references/threats-to-validity.md) | 坏控制 · 预趋势功效 · 弱工具 · 溢出…逐条「威胁 → 诊断 → 预防 → 回应」 | 方法证据 |
+| [设计分支证据卡](references/design-gate-cards.md) | DiD/IV/RDD/SC-SDID/Panel FE/DML-HTE 等逐卡列 required artifact、hard fail 与 claim 降级 | 方法证据 + Claim 治理 |
+| [设计透明度与预分析](references/design-transparency.md) | 预分析计划 · 空结果报 MDE · 预趋势功效 + HonestDiD · 设定曲线 · 研究者自由度 | 方法 + 复现 |
+| [文献检索与贡献定位](references/literature-and-positioning.md) | 滚雪球 + 引用图找全文献 · 文献矩阵看 whitespace · 定位句式钉贡献 | 写作 |
+
+还附一条 [端到端「黄金路径」示例](references/worked-example.md)：用「绿色信贷 → 企业创新」逐阶段演示每步产物、两道闸门如何触发、`NOT PASS → 回退 → PASS` 的完整循环。既给人看「跑完得到什么」，也给编排器当填空范本。
+
+<details>
+<summary><b>再加两条工程护栏 + 一组可复用 artifact 模板（9 项 · 点击展开）</b></summary>
+
+<br/>
+
+把 workflow 从“会跑”压到“可移交、可审计”：
+
+| 护栏 | 防什么 | 文件 |
+|---|---|---|
+| [数据治理与公开包边界](references/data-governance.md) | restricted/confidential/PII、IRB/DUA、许可证、DAS 与 archive boundary 漏写 | `00_meta/data_governance.md`、`09_submission/DAS.md` |
+| [运行时退化路径](references/runtime-fallbacks.md) | Skill/Agent/网络/MCP/Stata/R/Python/Zotero 缺失时假装验证成功 | `logs/stage_<N>.md`、`workflow_state.json.decisions` |
+| [编排与断点交接](references/orchestration-and-handoff.md) | 长任务靠聊天记忆续跑、阶段完成但没有 fresh evidence、并行 agent 接手时重做或覆盖 | `00_meta/entry_routing.md`、`00_meta/stage_passport.md`、`00_meta/handoff/`、`workflow_state.json.orchestration` |
+| [Pipeline status dashboard](templates/pipeline_status.md) | 用户或并行 agent 问「现在到哪了」时重扫长日志 | `00_meta/pipeline_status.md`、`workflow_state.json.orchestration.pipeline_status` |
+| [Design risk ledger](templates/design_risk_ledger.md) | 识别威胁、选择性报告、external validity、SUTVA/溢出或 attrition 风险没有逐项 artifact 和 claim consequence | `03_analysis/design_risk_ledger.md`、`workflow_state.json.design_risk` |
+| [Claim evidence ledger](templates/evidence_ledger.md) | 摘要/引言/结果/cover letter 的 claim 没有对应数据、估计、表图、脚本或措辞越界 | `00_meta/evidence_ledger.md`、`workflow_state.json.evidence_governance` |
+| [Claim integrity audit](templates/claim_integrity_audit.md) | 引用存在但 claim 不忠实、数字漂移、因果措辞超过证据强度 | `00_meta/claim_integrity_audit.md`、`workflow_state.json.integrity_audit` |
+| [Citation integrity log](templates/citation_integrity_log.md) | 幻觉引用、撤稿/版本错配、look-ahead 或 vintage 时序穿越没有在终审前清零 | `00_meta/citation_integrity_log.md`、`scripts/check_citation_integrity.py --final` |
+| [SkillOpt-style 改进包](templates/SKILLOPT_PACKET.md) | 维护本 skill 时只凭训练样例或单次失败就大改说明文档 | `templates/SKILLOPT_PACKET.md`、`scripts/check_skillopt_packet.py` |
+| [可复用 artifact 模板](templates/) | 每次临场自创 sample audit、design register、method gate、scorecard、REPLICATION、FINAL_REPORT | `templates/*.md`、`templates/run_all.sh` |
+
+</details>
+
+---
+
+## 你带什么进来，就从哪一站上车
+
+不用每次都从头跑。Paper-WorkFlow 会根据你手头已有的东西自动选择入口：
+
+| 你带来的 | 从哪进入 |
+|---|---|
+| 只有一句话想法 / 一个研究方向 | Stage 1 · 完整走选题漏斗 |
+| 一份成形的 proposal（X→M→Y、识别策略、样本） | Stage 2 · 直接取数 |
+| 已清洗好的数据 + 设计 | Stage 3 · 直接估计 |
+| 已有回归结果 / 表图 | Stage 5 · 直接写初稿 |
+| 一份 `main.tex` 初稿 | Stage 6 · 直接进打磨流水线 |
+| 初稿 + 审稿意见 | Stage 8 · 直接按意见修订 |
+| 一份成稿要投稿 | Stage 9 · 直接选刊 |
+
+---
+
+## 怎么用
+
+> [!TIP]
+> 带什么进来，就从哪一站上车 —— 在 [Claude Code](https://claude.com/claude-code) 里直接说触发语，把手头已有的东西告诉它即可。
+
+```text
+/paper-workflow 我想做「绿色信贷政策对企业创新的影响」，目标期刊《经济研究》
+/paper-workflow 这是我的计划书 ./proposal.md，帮我一条龙做到投稿
+/paper-workflow 数据在 ./panel.csv，设计是 DiD，先把基准和稳健性跑出来
+/paper-workflow 数据在 ./panel.dta，用 Stata 跑完整 .do 复现
+/paper-workflow 数据在 ./panel.csv，用 R/fixest + modelsummary 跑
+/paper-workflow 初稿在 ./paper/main.tex，从打磨开始
+```
+
+开跑前只问一次，四件套搞定（之后不再来回打断）：
+
+| 选项 | 含义 |
+|---|---|
+| `全自动` | 无人值守，只在最终交付时汇报 |
+| `阶段确认`（推荐） | 每阶段末给摘要卡，等你放行再进下一阶段 |
+| `全程交互` | 每个子 skill 跑自己原生的逐项审批，投稿前终版用 |
+| `python-statspai` / `stata` / `r` | Stage 3–4 的分析后端；缺省 `python-statspai` |
+
+外加目标期刊、稿件语言（中 / 英 / 双语）与分析后端——一次问清，全程不卡。
+
+---
+
+## 跑完你会得到什么
+
+运行后所有产物沉淀在 `paper_workspace/<研究短名>_<时间戳>/`，可打包、可复现、可断点续跑：
+
+```text
+paper_workspace/<short>_<YYYYMMDD-HHMM>/
+├── 00_meta/workflow_state.json      唯一权威进度文件（断点续跑依据）
+│   ├── entry_routing.md             Stage 0 入口路由、材料清点与推断假设
+│   ├── stage_passport.md            阶段产物台账：做到哪、证据在哪、返修轮次
+│   ├── pipeline_status.md           紧凑 dashboard：当前状态、材料、checkpoint、下一步
+│   ├── handoff/                     长任务/换 agent/阶段切换时的交接卡
+│   ├── analysis_backend.md          Python/StatsPAI、Stata、R 后端选择与环境检查
+│   ├── backend_parity.json          fallback/secondary validation 的结果等价性报告
+│   ├── quality_scorecard.md         初稿质量门 7 维评分卡（放行/回炉判定）
+│   ├── data_governance.md           数据分级、PII、IRB/DUA、公开包边界
+│   ├── evidence_ledger.md           estimand→claim→data→estimate→exhibit→script 总账
+│   ├── claim_integrity_audit.md      claim/citation/number 忠实度审计
+│   └── citation_integrity_log.md     引用存在性 + 时序完整性审计
+├── 01_proposal/proposal.md          定稿计划书：后续所有阶段的「合同」
+├── 02_data/clean.parquet + codebook.md + sample_audit.md
+├── 03_analysis/design_register.md   识别设计注册：estimand、假设、估计量、回退
+│   ├── design_risk_ledger.md        识别威胁、选择性报告、外部效度与 SUTVA/attrition 风险总账
+│   ├── method_gate.md               方法闸门：最低证据包是否齐全
+│   └── results/ + robustness/
+├── 04_results/*.{tex,docx,xlsx} + *.pdf/*.png  出版级表与图
+├── 05_draft/main.tex + ref.bib      结构完整的初稿
+├── 06_polish/  07_dehumanize/  08_review/  09_submission/
+│   └── submission_checklist.md + DAS.md
+├── REPLICATION.md + run_all.sh      复现包 README + 一键重跑入口
+├── logs/  backups/                  审计轨迹 + 每阶段快照（回滚路径）
+└── FINAL_REPORT.md                  复盘表 + 交付清单 + 一键重跑命令
+```
+
+含计划书、清洗后数据 + codebook、识别设计注册、设计风险总账、方法闸门报告、分析代码、出版级表图、`main.tex` + `ref.bib`、response letter、期刊清单 + cover letter、复现包 README / DAS，以及一份 `FINAL_REPORT.md` 全程复盘。
+
+---
+
+## 配套演示物料
+
+仓库内保留一套开箱即用的教学 / 汇报物料：README 负责讲清楚整条工作流，Notebook 负责把其中「计量估计」这一步真正跑给观众看。原 30 页 PDF 讲义的 durable 内容已经整合进本 README，不再作为单独文件维护。
+
+| 物料 | 内容 | 打开 |
+|---|---|---|
+| 工作流速读 | 8 个教学阶段 → `Stage 0–9` 执行协议、47 个技能地图、两道硬闸门、复现包要求 | 本 README |
+| DiD 演示 | 6 个教学步骤 / 22 cells，一键跑通双重差分基准 + 事件研究 + 稳健性 | [`did_demo.ipynb`](did_demo.ipynb) |
+
+Notebook 生成的图、表与结果资产均可重跑；演示用 PPTX / PDF 属于本地展示产物，不再入库。
+
+### DiD 教学焦点
+
+PDF 里的 DiD 部分已压缩成这组自检点，并和 `did_demo.ipynb` 对齐：
+
+| 主题 | README / Notebook 里保留的要点 |
+|---|---|
+| 方法选型 | 先问处理如何分配：政策冲击走 DiD / 事件研究，阈值规则走 RDD，外生工具走 IV，单一处理单元走 SCM，观测性设计才走 Panel FE / OLS / ML。 |
+| 2×2 DiD | `Treat × Post` 的系数是 ATT；面板设计优先用双向固定效应和按处理层级聚类的稳健标准误。 |
+| 平行趋势 | 事件研究把单个 `Post` 拆成相对时间动态系数；处理前系数应接近 0，并配合 pre-trend joint test。 |
+| 交错 DiD | 处理时点交错且效应异质时不能无脑 TWFE；先做 Goodman-Bacon 分解，再考虑 Callaway-Sant'Anna、Sun-Abraham、BJS / imputation、`did_multiplegt` 等现代估计量。 |
+| 稳健性 | 平行趋势、伪处理时点、伪处理组、替换对照组、交错偏误、聚类 / wild bootstrap、anticipation、spillover、dose response。 |
+| 表图标准 | 回归表要有系数、聚类标准误、固定效应、样本量、显著性脚注；事件研究图要有 95% CI、相对时间、清楚的 0 线和题注。 |
+
+### DiD 演示一眼看懂
+
+<table>
+<tr>
+<td width="50%"><img src="assets/fig_raw_trends.png" alt="原始趋势：处理组与对照组处理前平行、处理后分叉"/></td>
+<td width="50%"><img src="assets/fig_event_study.png" alt="事件研究：处理前系数≈0（平行趋势），处理后显著跳升"/></td>
+</tr>
+<tr>
+<td align="center"><sub><b>① 原始趋势</b> · 处理组与对照组处理前平行、处理后分叉</sub></td>
+<td align="center"><sub><b>② 事件研究</b> · 处理前系数 ≈ 0（平行趋势成立），处理后显著跳升</sub></td>
+</tr>
+</table>
+
+基准回归（[`assets/did_table.tex`](assets/did_table.tex)）：处理效应稳健显著，加上双向固定效应后系数不变。
+
+| | (1) OLS | (2) TWFE |
+|---|---|---|
+| Treat × Post | `1.953***` | `1.953***` |
+| | (0.083) | (0.087) |
+| 个体固定效应 | No | Yes |
+| 年份固定效应 | No | Yes |
+| $N$ | 2,400 | 2,400 |
+
+---
+
+## 十条设计纪律
+
+1. 能调用就不要重写——编排器只在对的时点把对的 skill 喂对的输入，绝不复制其逻辑。
+2. 上下文保护优先——任何要灌大段文本回主代理的操作，一律改成「子代理写盘 + 回传摘要」。
+3. 真实优先，绝不编造——引用核验、数据来源、计量结论都以可验证的真实运行结果为准。
+4. 方法标签必须有证据包——DiD / IV / RDD / SDID / DML / causal forest 等必须通过
+   `design_register.md` + `method_gate.md`，缺最低诊断证据就不能写成主因果发现。
+5. 失败要回退而非硬写成功——平行趋势不过 / 弱工具 / 不显著时自动切备选，并在闸门标红。
+6. 人类决策点守在阶段闸门——定标题、定期刊、识别策略拍板、投稿前终审，必须经人放行。
+7. 调用要稳，不靠运气——子 skill 是仓库文件夹、不保证已注册；调用优先 `Skill(<注册名>)`，
+   报 not found 就退回 `Read <folder>/SKILL.md` 内联执行，并把硬编码 Windows 输出路径的 skill 重定向
+   进工作区。不让 subagent 凭记忆脑补子 skill。（细则见 [skill 路由表 §0](references/skill-map.md)。）
+8. 「高质量」是可验收的闸门，不是口号——Stage 7 后强制过初稿质量门：独立 critic 按 7 维 rubric
+   打分，达标（每维 ≥7、总分 ≥56/70、识别·稳健·引用无致命红旗）才放行，不达标按映射自动回炉。
+   让「高质量初稿」有阈值、可回退、可审计。（评分卡见 [quality-rubric.md](references/quality-rubric.md)。）
+9. 复现包从第一天开始——Stage 2 起记录 data provenance、访问限制、随机种子与重跑成本；收尾必须有
+   `REPLICATION.md`、DAS（如需）和 master script，状态写进 `replication_pack`。
+10. 本 skill 自身的改动要过 SkillOpt-style 改进包——先有 rollout 证据，拆分 train / held-out
+    selection，再做有界 patch；候选改动没有提高 held-out selection score 或回归检查失败，就不能接受。
+
+---
+
+## 仓库结构
+
+<details>
+<summary><b>展开完整目录树（SKILL · scripts · templates · references · assets）</b></summary>
+
+<br/>
+
+```text
+Paper-WorkFlow/
+├── SKILL.md                          # 总编排器（入口 · 完整执行协议）
+├── README.md                         # 中文说明（已整合原 PDF 讲义要点）
+├── README.en.md                      # English README（与中文版同步的最新版）
+├── RIGOR.md                          # 自动生成的 gate-coverage report（checker suite 全绿）
+├── RELATED-WORK.md                   # 竞品/同类 skills 库对比与差异化证据
+├── validate_skill.py                 # 本目录主自检：模板、链接、workspace init、demo 执行、rigor/maintenance gates
+├── scripts/
+│   ├── smoke_workspace.py            # 临时最小工作区 + 模板实例化 smoke test
+│   ├── check_demo_execution.py       # 执行 did_demo.ipynb 并验证表图/核心教学不变量
+│   ├── check_backend_parity.py       # Python/StatsPAI、Stata、R 后端 fallback/secondary parity fixture
+│   ├── check_stage_scenario.py       # Stage 0–9 完整场景 fixture + gate/reconcile 校验
+│   ├── check_stage_adversarial.py    # Stage 0–9 反例场景：缺产物、旧 handoff、闸门倒挂等
+│   ├── check_design_gate_contract.py # 设计分支证据卡 × method_gate 模板同步校验
+│   ├── check_method_specific_failures.py # 9 类设计的 Method Gate 方法特定失败 fixture
+│   ├── check_method_gate_card.py     # 工作区 method_gate.md Design Gate Card 运行期校验
+│   ├── check_runtime_fallbacks.py    # 工具/网络/MCP/后端退化路径的日志与闸门诚实性校验
+│   ├── check_workspace_gates.py      # 运行期 Method/Quality/Replication gate 机械校验
+│   ├── check_state_template_paths.py # workflow_state 默认路径 × init 骨架一致性
+│   ├── check_citation_integrity.py   # 引用存在性、撤稿/版本、look-ahead/vintage 检查
+│   ├── check_review_scorecard.py     # Draft Quality Gate 评分卡 L1/L2 机械校验
+│   ├── check_preregistration.py      # 预注册锁与 exploratory 标注校验
+│   ├── check_gate_integration.py     # 真实 init + 真实模板 + gate checker 集成测试
+│   ├── check_reproducibility_scaffold.py # run_all + check_outputs 复现脚手架测试
+│   ├── check_cross_references.py     # 内部链接、路径、checker wiring、Stage/table 合约
+│   ├── check_bilingual_docs.py       # 中英文 README 用户入口与门禁说明同步校验
+│   ├── check_final_report_contract.py # FINAL_REPORT 交付证据与 remote/parity 状态模板校验
+│   ├── check_contract_matrix.py      # 月度质量主题 owner/validator/docs 覆盖矩阵
+│   ├── check_monthly_worklog.py      # 一个月质量目标 worklog 结构与证据完整性
+│   ├── check_rigor_registry.py       # RIGOR registry 覆盖所有 checker 的防漂移校验
+│   ├── check_skillopt_packet.py      # 维护期 SkillOpt-style 改进包机械校验
+│   ├── check_verification_log.py     # 方法 claim verification log 校验
+│   └── generate_rigor_report.py      # 生成/检查 RIGOR.md
+├── evals/
+│   ├── contract_matrix.json          # 长期质量主题 → owner files / validators / docs
+│   ├── backend_parity_cases.json     # 三后端 fallback/secondary validation parity 夹具
+│   ├── design_gate_contract.json     # 设计分支证据卡 contract（9 类设计 + G1–G10 护栏）
+│   ├── method_failure_cases.json     # 9 类设计的 Method Gate 方法特定反例
+│   ├── stage_scenario_contract.json  # Stage 0–9 golden-path 场景契约
+│   ├── stage_adversarial_cases.json  # Stage 0–9 反例场景清单
+│   ├── score_skill.py                # SkillOpt selection-gate 评分 harness
+│   ├── check_complexity_budget.py    # always-loaded layer 复杂度棘轮
+│   ├── check_replication_accuracy.py # Stage 3 输出正确性 fixture
+│   ├── check_quality_judge.py        # Draft Quality Gate judge calibration
+│   └── scenarios.json · quality_calibration.json · complexity_baseline.json
+├── templates/                        # 关键 artifact 模板
+│   ├── design_register.md
+│   ├── design_risk_ledger.md
+│   ├── analysis_backend.md
+│   ├── backend_parity.json
+│   ├── sample_audit.md
+│   ├── method_gate.md
+│   ├── pipeline_status.md
+│   ├── evidence_ledger.md
+│   ├── claim_integrity_audit.md
+│   ├── quality_scorecard.md
+│   ├── data_governance.md
+│   ├── DAS.md
+│   ├── REPLICATION.md
+│   ├── SKILLOPT_PACKET.md
+│   ├── submission_checklist.md
+│   ├── FINAL_REPORT.md
+│   ├── entry_routing.md
+│   ├── stage_passport.md
+│   ├── pipeline_status.md
+│   ├── handoff_card.md
+│   ├── handoff_prompt.md
+│   └── run_all.sh
+├── references/
+│   ├── stage-playbook.md             # 10 阶段逐阶段操作手册
+│   ├── skill-map.md                  # 「任务 → 用哪个 skill」全量路由表
+│   ├── worked-example.md             # 端到端「黄金路径」示例（含两道闸门触发 + 回退）
+│   ├── research-grade-methods.md     # 现代因果推断 / 应用计量方法增强包 + 方法闸门
+│   ├── design-risk-ledger.md         # 设计风险总账：识别威胁 · 选择性报告 · 外部效度 · SUTVA/attrition
+│   ├── design-gate-cards.md          # 设计分支证据卡：required artifacts + hard fail + claim 降级
+│   ├── empirical-audit.md            # 样本、变量与 estimand 对齐审计
+│   ├── analysis-backends.md          # Stage 3–4 三语言后端：Python/StatsPAI、Stata、R
+│   ├── statspai-analysis.md          # Stage 3–4 StatsPAI 引擎：MCP + 包、三模式、估计量路由、三格式出表、七块稳健性闸门
+│   ├── threats-to-validity.md        # 识别威胁 × 审稿异议预案（坏控制 · 预趋势 · 弱工具）
+│   ├── design-transparency.md        # 设计透明度：预分析 · 功效/MDE · 设定曲线 · 研究者自由度
+│   ├── writing-craft.md              # 学者写作标准：引言公式 · 贡献锋利度 · 量级 · 房风
+│   ├── literature-and-positioning.md # 文献检索与贡献定位：滚雪球 · 文献矩阵 · 定位句式
+│   ├── reproducibility-pack.md       # 复现打包标准：provenance · 复现包 README · DAS
+│   ├── peer-review-and-submission.md # 评审与投稿标准：模拟评审 · response · 选刊 · cover letter
+│   ├── quality-rubric.md             # 初稿质量门 7 维评分卡（达标阈值 + 短板→回退映射）
+│   ├── integrity-and-claim-audit.md  # claim/citation/number 忠实度审计
+│   ├── data-governance.md            # 敏感/受限数据、IRB/DUA、DAS、公开包边界
+│   ├── runtime-fallbacks.md          # 工具/网络/MCP/统计软件缺失时的退化路径
+│   ├── orchestration-and-handoff.md  # Stage 0 路由、stage passport、fresh evidence、handoff
+│   ├── skillopt-improvement-loop.md  # 维护本 skill 的 SkillOpt-style rollout/gate/update 协议
+│   ├── subagent-templates.md         # subagent 派发模板（含上下文保护契约）
+│   └── workspace-and-state.md        # 工作区布局 + 状态字段 + 子代理 I/O 约定
+├── assets/
+│   ├── init_workspace.sh             # 一键铺出工作区骨架（拒绝覆盖已存在路径）
+│   ├── workflow_state.template.json  # 进度状态文件模板（v10：含 orchestration + pipeline_status + integrity_audit + design_risk + evidence_governance + empirical_audit + analysis_backend + method_gate + quality_gate + replication_pack）
+│   ├── workflow.svg                  # 全流程流水线示意图
+│   ├── did_table.tex                 # 演示 · DiD 基准回归表（OLS / TWFE）
+│   ├── fig_event_study.png · fig_raw_trends.png   # 演示 · 事件研究 / 原始趋势图
+│   └── copaper-logo.png · stanford-reap-logo.png · copaper-qrcode.png · copaper-wechat.jpg  # CoPaper.AI × Stanford REAP 品牌物料
+│
+│   —— 以下为配套演示物料 ——
+└── did_demo.ipynb                    # DiD 快速演示 Notebook
+```
+
+</details>
+
+进一步阅读（按需加载）：[`SKILL.md`](SKILL.md) ｜
+[阶段操作手册](references/stage-playbook.md) ｜
+[skill 路由表](references/skill-map.md) ｜
+[研究级方法增强包](references/research-grade-methods.md) ｜
+[设计风险总账](references/design-risk-ledger.md) ｜
+[设计分支证据卡](references/design-gate-cards.md) ｜
+[样本与 estimand 审计](references/empirical-audit.md) ｜
+[三语言分析后端](references/analysis-backends.md) ｜
+[StatsPAI 估计与出表引擎](references/statspai-analysis.md) ｜
+[学者写作标准](references/writing-craft.md) ｜
+[复现打包标准](references/reproducibility-pack.md) ｜
+[评审与投稿标准](references/peer-review-and-submission.md) ｜
+[质量门评分卡](references/quality-rubric.md) ｜
+[claim 忠实度审计](references/integrity-and-claim-audit.md) ｜
+[subagent 模板](references/subagent-templates.md) ｜
+[工作区与状态](references/workspace-and-state.md) ｜
+[编排与断点交接](references/orchestration-and-handoff.md) ｜
+[端到端示例](references/worked-example.md) ｜
+[识别威胁与审稿异议](references/threats-to-validity.md) ｜
+[设计透明度与预分析](references/design-transparency.md) ｜
+[文献检索与定位](references/literature-and-positioning.md) ｜
+[数据治理](references/data-governance.md) ｜
+[运行时退化](references/runtime-fallbacks.md) ｜
+[SkillOpt-style 改进协议](references/skillopt-improvement-loop.md) ｜
+[artifact 模板](templates/)
+
+### 本地自检
+
+维护或改造本 skill 后，先在本目录运行：
+
+```bash
+python3 validate_skill.py
+python3 scripts/smoke_workspace.py
+python3 scripts/check_skillopt_packet.py --selftest
+```
+
+它会检查本地 Markdown 链接、`workflow_state` schema、Stage 0 route/passport/pipeline-status/handoff 模板、claim integrity 与 data-governance 模板、`init_workspace.sh` 的拒绝覆盖行为、核心资产、模板契约、设计分支证据卡 contract、9 类设计的 Method Gate 方法特定失败 fixture、Method Gate Design Gate Card 运行期自测、runtime fallback 日志/decision/闸门诚实性、三后端 backend parity fixture、最小工作区 smoke fixture、Stage 0–9 完整场景 fixture、filled FINAL_REPORT 交付包与反例场景、DiD Notebook 结构与临时执行、复现脚手架、中英文 README parity、FINAL_REPORT 交付证据 contract、月度质量 worklog、RIGOR registry 覆盖，以及 SkillOpt-style 改进包 checker 的自测。若本次维护有实际改进包，再跑 `python3 scripts/check_skillopt_packet.py <packet>`。母仓库发布前再从仓库根目录跑：
+
+```bash
+make catalog
+make validate
+make check
+```
+
+---
+
+## 关于母仓库
+
+Paper-WorkFlow 是 [Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)（一套面向经管 / 社科实证研究的 skill 合集，含 69 个编号集合）中的总编排器。它本身不内置任何被编排的子 skill，运行时按需调用母仓库 `67-econfin-workflow-toolkit/` 等集合里的能力。
+
+- 执行范式采用「多代理 + 上下文保护」：子代理自己写盘、只回传状态摘要，主代理只持有指针与状态。
+- 编排范式来自 `67-econfin-workflow-toolkit/paper-pipeline`（固定顺序 + 断点续跑 + 交互档位）。
+- 混合来源集合的再分发请各自核对其上游许可。
+
+---
+
+## 许可
+
+本仓库（编排器 skill + 配套演示物料）以 [MIT License](LICENSE) 发布，可自由使用、修改、再分发。
+被编排的子 skill 不在本仓库内，运行时按需调用母仓库
+[`Auto-Empirical-Research-Skills`](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)；
+那些混合来源集合的再分发，请各自核对其上游许可。
+
+<div align="center">
+
+<br/>
+
+### 从一句话想法到可投稿全文
+
+<sub>让流水线替你跑完中间那一百步。如果它帮到你，欢迎点个 ⭐ Star。</sub>
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://copaper.ai"><img src="assets/copaper-logo.png" alt="CoPaper.AI" width="200" /></a>
+    </td>
+    <td width="40"></td>
+    <td align="center">
+      <a href="https://sccei.fsi.stanford.edu/reap"><img src="assets/stanford-reap-logo.png" alt="Stanford REAP" width="300" /></a>
+    </td>
+  </tr>
+</table>
+
+<sub><strong>Stanford REAP × CoPaper.AI</strong> · 面向实证研究的产学 AI 工具箱</sub>
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://copaper.ai"><img src="assets/copaper-qrcode.png" alt="访问 copaper.ai" width="170" /></a><br/>
+      <strong>访问 <a href="https://copaper.ai">copaper.ai</a></strong>
+    </td>
+    <td width="40"></td>
+    <td align="center">
+      <img src="assets/copaper-wechat.jpg" alt="CoPaper.AI 微信" width="170" /><br/>
+      <strong>微信：CoPaper.AI</strong>
+    </td>
+  </tr>
+</table>
+
+由 <a href="https://copaper.ai"><strong>CoPaper.AI</strong></a> 维护，孵化于 <a href="https://sccei.fsi.stanford.edu/reap"><strong>Stanford REAP / SCCEI</strong></a> · 实证研究 AI 助手
+
+</div>

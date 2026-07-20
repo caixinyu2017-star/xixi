@@ -1,9 +1,9 @@
 {
   "name": "auto-visio-helper",
   "version": "1.0.0",
-  "description": "Plan, generate, reproduce, and refine editable Microsoft Visio scientific diagrams. Converts natural-language method descriptions, paper screenshots, PPT screenshots, or hand-drawn sketches into a reviewable JSON drawing spec, then renders it into an editable .vsdx via local Visio COM automation. Supports model architecture, workflow, system architecture, experiment, pseudo-code, sequence, and module-interaction diagrams. Requires Windows + a licensed local Microsoft Visio install.",
+  "description": "Auto Visio Helper — plan, generate, reproduce, and refine editable Microsoft Visio scientific diagrams. Converts a natural-language method description, paper screenshot, or hand-drawn sketch into a reviewable JSON drawing spec first, then renders the confirmed spec into an editable .vsdx via local Visio COM automation (scripts/render_visio.py), keeping shapes, connectors, text, layers, and groups fully editable. Ships references, demos, a reusable Visio template, and preview/export tooling.",
   "author": {
-    "name": "0Antique"
+    "name": "0Antique (Auto-Visio-Helper)"
   },
   "homepage": "https://github.com/0Antique/Auto-Visio-Helper",
   "repository": "https://github.com/0Antique/Auto-Visio-Helper",
@@ -11,10 +11,11 @@
   "keywords": [
     "visio",
     "vsdx",
-    "diagrams",
     "scientific-figures",
-    "paper-figures",
-    "windows",
-    "com-automation"
+    "diagrams",
+    "model-architecture",
+    "research",
+    "figure-reproduction",
+    "codex-skill"
   ]
 }
