@@ -62,12 +62,27 @@ Some packages ship their own installer (e.g. `plugins/light/install.sh` symlinks
 
 ---
 
+## 🧪 Windows 一键安装 Claude Science
+
+想在 Windows 上使用 Anthropic 的科研工作台 **Claude Science**（在浏览器中打开）？
+参见 [claude-science-windows/](claude-science-windows/)：下载其中的
+`ClaudeScience-Install.bat` 双击运行，即可自动完成 WSL2 + Ubuntu 24.04 + Claude Science
+的安装，并在桌面生成一键启动器。
+
+Want Anthropic's **Claude Science** research workbench on Windows (opened in your browser)?
+See [claude-science-windows/](claude-science-windows/) — download `ClaudeScience-Install.bat`
+and double-click it; it installs WSL2 + Ubuntu 24.04 + Claude Science automatically and drops a
+launcher on your desktop.
+
+---
+
 ## 🗂 目录结构 / Layout
 
 ```text
 xixi/
 ├── .claude-plugin/
 │   └── marketplace.json          # 列出全部 5 个插件 / lists all 5 plugins
+├── claude-science-windows/       # Windows 一键安装 Claude Science / one-click installer
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
 │   ├── academic-research-skills/ # 4 skills (+ shared/, agents/, hooks/, modes)
