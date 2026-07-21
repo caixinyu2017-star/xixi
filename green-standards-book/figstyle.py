@@ -6,7 +6,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 
-_FP = '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc'
+_FP = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
 font_manager.fontManager.addfont(_FP)
 CJK = font_manager.FontProperties(fname=_FP).get_name()
 
