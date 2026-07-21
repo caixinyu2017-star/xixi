@@ -82,7 +82,7 @@ PROMPTS = {
 
 def generate(key, model_pref):
     fname, prompt = PROMPTS[key]
-    api_key = os.environ.get('OPENAI_API_KEY')
+    api_key = os.environ.get('CHEDANKJ_API_KEY') or os.environ.get('OPENAI_API_KEY')
     if not api_key:
         sys.exit('错误：环境变量 OPENAI_API_KEY 未配置（需在配置后新启动的会话中运行）。')
     os.makedirs(OUT, exist_ok=True)
