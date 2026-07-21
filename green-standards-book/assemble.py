@@ -1,0 +1,78 @@
+# -*- coding: utf-8 -*-
+"""组装完整专著 docx。按章节顺序登记引用，末尾按顺序编码制生成参考文献。"""
+import importlib
+import os
+import sys
+
+from docxbuilder import BookBuilder, count_chars, SIZE, SONG, HEI
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+import references as refs
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+CHAPTERS = [f'content_ch{i:02d}' for i in range(1, 15)]
+
+TITLE = '“双碳”目标下中国绿色低碳标准体系研究'
+SUBTITLE = '——动态演化、体系构建与适配性评估'
+OUTNAME = '双碳目标下中国绿色低碳标准体系研究.docx'
+
+
+def title_page(bk):
+    doc = bk.doc
+    for _ in range(3):
+        doc.add_paragraph()
+    p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    bk._append_rich(p, TITLE, HEI, SIZE['小二'], bold=True)
+    p2 = doc.add_paragraph(); p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    bk._append_rich(p2, SUBTITLE, HEI, SIZE['三号'])
+    for _ in range(6):
+        doc.add_paragraph()
+    p3 = doc.add_paragraph(); p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    bk._append_rich(p3, '蔡鑫宇  著', SONG, SIZE['四号'])
+    bk.add_pagebreak()
+
+
+def load_blocks():
+    all_blocks = []
+    import content_front
+    all_blocks += content_front.abstract_blocks()
+    all_blocks.append({'pagebreak': True})
+    all_blocks += content_front.preface_blocks()
+    all_blocks.append({'pagebreak': True})
+    counts = {}
+    refs.reset()
+    for mod in CHAPTERS:
+        m = importlib.import_module(mod)
+        blks = m.blocks()
+        counts[mod] = count_chars(blks)
+        all_blocks += blks
+        all_blocks.append({'pagebreak': True})
+    return all_blocks, counts
+
+
+def main():
+    bk = BookBuilder(os.path.join(HERE, 'build'))
+    all_blocks, counts = load_blocks()
+    total_chars = count_chars(all_blocks)
+    title_page(bk)
+    bk.build(all_blocks)
+    bk.add_references(refs.gb_ordered())
+    # 后记
+    import content_front
+    post = content_front.postscript_blocks()
+    bk.add_pagebreak()
+    bk.build(post)
+    out = os.path.join(HERE, 'build', OUTNAME)
+    bk.save(out)
+    print('=== 字数统计 ===')
+    for m in CHAPTERS:
+        print(f'  {m}: {counts[m]:>7} 字')
+    print(f'  正文合计（含前言摘要后记）: {total_chars + count_chars(post)} 字')
+    print(f'  参考文献: {refs.n_used()} 条（已引用） / {len(refs.REFS)} 条（库）')
+    print('  saved:', out)
+    return total_chars
+
+
+if __name__ == '__main__':
+    main()
