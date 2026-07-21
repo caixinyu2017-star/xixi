@@ -99,13 +99,13 @@ def fig1_1():
   Q1 -> M11 [lhead=cluster_m1];
   Q2 -> M22 [lhead=cluster_m2];
   Q3 -> M31 [lhead=cluster_m3];
-  M12 -> M23 [label="Â 矩阵→溢出矩阵 Φ", style=dashed, constraint=false];
+  M12 -> M23 [label="Â 矩阵→溢出矩阵 Φ", style=dashed, color="{C['purple']}", fontcolor="{C['purple']}", constraint=false];
   M14 -> M22 [label="演化规律→三项构建原则", ltail=cluster_m1, lhead=cluster_m2];
   M23 -> M31 [label="体系方案→评估对象", ltail=cluster_m2, lhead=cluster_m3];
-  M31 -> M21 [label="评估结果反馈优化体系", style=dashed, color="{C['red']}", fontcolor="{C['red']}", ltail=cluster_m3, lhead=cluster_m2, constraint=false];
+  M31 -> M21 [headlabel="评估结果反馈优化体系", labeldistance=7.5, labelangle=-16, style=dashed, color="{C['red']}", fontcolor="{C['red']}", constraint=false];
   M33 -> CC [ltail=cluster_m3];
 '''
-    render(d, 'fig1_1')
+    render(d, 'fig1_1', splines='polyline')
 
 
 # --------------------------------------------------- 图1.2 全书结构（graphviz 树形）
@@ -162,7 +162,7 @@ def fig2_2():
   F3 -> F2 [label="反馈优化", style=dashed, color="{C['red']}", fontcolor="{C['red']}"];
   F1 -> G; F2 -> G; F3 -> G;
 '''
-    render(d, 'fig2_2')
+    render(d, 'fig2_2', splines='polyline')
 
 
 # --------------------------------------------------- 图3.1 国际演进时间轴（matplotlib）
@@ -210,21 +210,21 @@ def fig3_3():
        fc=C['ltgold'], ec=PAL['gold'], fs=8.5, lw=1.4)
     bx(ax, 32, 30, 36, 14, '中　国\n全球最大碳排放国与制造业中心\n从“跟随”走向“并跑”、争取“领跑”',
        fc=C['ltred'], ec=PAL['red'], fs=9, lw=1.6, bold=True)
-    # 三方博弈（灰色双向）
-    arr(ax, (34, 63), (16, 20.5), c=PAL['gray'], lw=1.2, style='<|-|>', rad=0.08)
-    txt(ax, 18.5, 44, '规则主导权竞争\n（碳定价 vs 产业补贴）', fs=7, c=PAL['gray'], rot=52)
-    arr(ax, (66, 63), (84, 20.5), c=PAL['gray'], lw=1.2, style='<|-|>', rad=-0.08)
-    txt(ax, 82.5, 44, 'CBAM 单边规制传导\nvs 合规压力与诉求', fs=7, c=PAL['gray'], rot=-52)
+    # 三方博弈（灰色双向，直线）
+    arr(ax, (34, 63), (16, 20.5), c=PAL['gray'], lw=1.2, style='<|-|>')
+    txt(ax, 18.5, 44, '规则主导权竞争\n（碳定价 vs 产业补贴）', fs=7, c=PAL['gray'], rot=66)
+    arr(ax, (66, 63), (84, 20.5), c=PAL['gray'], lw=1.2, style='<|-|>')
+    txt(ax, 82.5, 44, 'CBAM 单边规制传导\nvs 合规压力与诉求', fs=7, c=PAL['gray'], rot=-66)
     arr(ax, (36.5, 12.5), (63.5, 12.5), c=PAL['gray'], lw=1.2, style='<|-|>')
     txt(ax, 50, 9.3, '产业链竞争与合作', fs=7, c=PAL['gray'])
     # 中国的突破方向（红色实线）
     arr(ax, (50, 45), (50, 61), c=PAL['red'], lw=1.6)
-    txt(ax, 38.5, 53.4, '对接互认：ISO 14064/14067\nCBAM 核算规则衔接', fs=7, c=PAL['red'],
+    txt(ax, 40, 53.5, '对接互认\nISO 14064/14067\nCBAM 核算规则衔接', fs=7, c=PAL['red'],
         ha='center')
     arr(ax, (33, 33), (21, 20.5), c=PAL['red'], lw=1.6)
-    txt(ax, 20, 28.5, '技术与市场竞合\n新能源产业优势', fs=7, c=PAL['red'])
+    txt(ax, 9.5, 23.5, '技术与市场竞合\n新能源产业优势', fs=7, c=PAL['red'])
     arr(ax, (67, 33), (79, 20.5), c=PAL['red'], lw=1.6)
-    txt(ax, 80.5, 28.5, '“一带一路”绿色标准合作\n引领集体突破', fs=7, c=PAL['red'])
+    txt(ax, 90.5, 23.5, '“一带一路”绿色标准合作\n引领集体突破', fs=7, c=PAL['red'])
     txt(ax, 50, 24.5, '突破方向：实线（红）＝中国主动作为；灰双向箭头＝三方战略互动',
         fs=6.5, c='#666666')
     save(fig, f'{FIG}/fig3_3.png')
@@ -309,19 +309,21 @@ def fig6_1():
        fc=C['ltblue'], ec=PAL['blue'], fs=8.6, lw=1.6, bold=False)
     bx(ax, 59, 30, 33, 17, '制度系统 I_t\n标准体系完善度\n速率 r_I·容量 K_I·调整成本 C_I',
        fc=C['ltteal'], ec=PAL['teal'], fs=8.6, lw=1.6)
-    # 自增长回路
-    arr(ax, (12, 47.6), (24, 47.6), c=PAL['blue'], lw=1.1, rad=-1.7, ms=9)
-    txt(ax, 18, 54.4, 'r_T·T(1－T/K_T)', fs=7.5, c=PAL['blue'])
-    arr(ax, (76, 47.6), (88, 47.6), c=PAL['teal'], lw=1.1, rad=-1.7, ms=9)
-    txt(ax, 82, 54.4, 'r_I·I(1－I/K_I)', fs=7.5, c=PAL['teal'])
-    # 互馈双箭头
-    arr(ax, (41.5, 42), (58.5, 42), c=PAL['orange'], lw=1.9, rad=-0.25, ms=15)
+    # 自增长回路（矩形折线自环）
+    ax.plot([14, 14, 22], [47.7, 52.5, 52.5], color=PAL['blue'], lw=1.1, zorder=1)
+    arr(ax, (22, 52.5), (22, 48.1), c=PAL['blue'], lw=1.1, ms=9)
+    txt(ax, 18, 54.3, 'r_T·T(1－T/K_T)', fs=7.5, c=PAL['blue'])
+    ax.plot([78, 78, 86], [47.7, 52.5, 52.5], color=PAL['teal'], lw=1.1, zorder=1)
+    arr(ax, (86, 52.5), (86, 48.1), c=PAL['teal'], lw=1.1, ms=9)
+    txt(ax, 82, 54.3, 'r_I·I(1－I/K_I)', fs=7.5, c=PAL['teal'])
+    # 互馈双箭头（直线）
+    arr(ax, (41.5, 42), (58.5, 42), c=PAL['orange'], lw=1.9, ms=15)
     txt(ax, 50, 49.5, 'α：技术进步催生标准需求\nα：%.3f → %.3f（“双碳”后）' % (a0, a1),
         fs=7.8, c=PAL['orange'], bold=True)
-    arr(ax, (58.5, 34), (41.5, 34), c=PAL['green'], lw=1.9, rad=-0.25, ms=15)
+    arr(ax, (58.5, 34), (41.5, 34), c=PAL['green'], lw=1.9, ms=15)
     txt(ax, 50, 27.0, 'β：标准引导技术研发方向\nβ：%.3f → %.3f' % (b0, b1),
         fs=7.8, c=PAL['green'], bold=True)
-    txt(ax, 76.5, 26.8, '制度调整阻尼 γ：%.2f → %.2f' % (g0, g1), fs=7.2, c=PAL['teal'])
+    txt(ax, 83, 25.3, '制度调整阻尼 γ：%.2f → %.2f' % (g0, g1), fs=7.2, c=PAL['teal'])
     # 综合状态
     bx(ax, 31, 6, 38, 11, '标准体系综合状态\nS_t = T_t^ω · I_t^(1－ω)　（ω：%.2f → %.2f）' % (w0, w1),
        fc=C['ltgold'], ec=PAL['gold'], fs=9, lw=1.6, bold=True)
@@ -345,27 +347,27 @@ def fig7_1():
        fc=C['ltteal'], ec=PAL['teal'], fs=8.5, lw=1.6)
     bx(ax, 58, 6, 40, 15, '国际组织　O\n策略：接纳衔接（z）／排斥壁垒（1－z）\n参数：互认收益 R_O·排斥损失 L_O',
        fc=C['ltgold'], ec=PAL['gold'], fs=8.5, lw=1.6)
-    # G—E
-    arr(ax, (33, 61.5), (18, 21.5), c=PAL['blue'], lw=1.4, rad=0.12)
-    txt(ax, 15.5, 44, '政策工具：补贴 s\n处罚 F·标准约束', fs=7.2, c=PAL['blue'], rot=65)
-    arr(ax, (25, 21.5), (40, 61.5), c=PAL['teal'], lw=1.4, rad=0.12)
-    txt(ax, 26.3, 41, '响应程度影响\n声誉收益 R_G', fs=7.0, c=PAL['teal'], rot=70)
-    # E—O
-    arr(ax, (43, 15.5), (57, 15.5), c=PAL['teal'], lw=1.4, rad=0.35)
-    txt(ax, 50, 24.5, '达标产品出口·申请认证互认', fs=7.2, c=PAL['teal'])
-    arr(ax, (57, 10.5), (43, 10.5), c=PAL['gold'], lw=1.4, rad=0.35)
-    txt(ax, 50, 2.6, '碳关税减免 ΔT·市场准入·竞争力提升 ΔM', fs=7.2, c=PAL['gold'])
-    # G—O
-    arr(ax, (67, 61.5), (82, 21.5), c=PAL['blue'], lw=1.4, rad=-0.12)
-    txt(ax, 85, 44, '标准互认谈判\n国际标准化参与', fs=7.2, c=PAL['blue'], rot=-65)
-    arr(ax, (75, 21.5), (60, 61.5), c=PAL['gold'], lw=1.4, rad=-0.12)
-    txt(ax, 73.7, 41, '规则约束\n衔接要求传导', fs=7.0, c=PAL['gold'], rot=-70)
+    # G—E（直线，双向拆成两条平行线）
+    arr(ax, (30, 61.5), (12, 21.5), c=PAL['blue'], lw=1.4)
+    txt(ax, 16.9, 43.3, '政策工具：补贴 s\n处罚 F·标准约束', fs=7.0, c=PAL['blue'], rot=66)
+    arr(ax, (20, 21.5), (37, 61.5), c=PAL['teal'], lw=1.4)
+    txt(ax, 24.7, 41.5, '响应程度影响\n声誉收益 R_G', fs=7.0, c=PAL['teal'], rot=67)
+    # E—O（水平直线）
+    arr(ax, (42.5, 15.5), (57.5, 15.5), c=PAL['teal'], lw=1.4)
+    txt(ax, 50, 19.3, '达标产品出口\n申请认证互认', fs=7.0, c=PAL['teal'])
+    arr(ax, (57.5, 10.5), (42.5, 10.5), c=PAL['gold'], lw=1.4)
+    txt(ax, 50, 5.3, '碳关税减免 ΔT\n市场准入\n竞争力提升 ΔM', fs=7.0, c=PAL['gold'])
+    # G—O（直线）
+    arr(ax, (70, 61.5), (88, 21.5), c=PAL['blue'], lw=1.4)
+    txt(ax, 83.1, 43.3, '标准互认谈判\n国际标准化参与', fs=7.0, c=PAL['blue'], rot=-66)
+    arr(ax, (80, 21.5), (63, 61.5), c=PAL['gold'], lw=1.4)
+    txt(ax, 75.3, 41.5, '规则约束\n衔接要求传导', fs=7.0, c=PAL['gold'], rot=-67)
     # 中心：复制动态系统
-    bx(ax, 31, 33, 38, 14, '复制动态系统（dx/dt, dy/dt, dz/dt）\n均衡跃迁：“被动跟跑”→“主动领跑”\n关键条件：ΔT＋ΔM＞2.0（阈值）',
+    bx(ax, 34, 33, 32, 14, '复制动态系统（dx/dt, dy/dt, dz/dt）\n均衡跃迁：“被动跟跑”→“主动领跑”\n关键条件：ΔT＋ΔM＞2.0（阈值）',
        fc=C['ltred'], ec=PAL['red'], fs=8, lw=1.4, ls='dashed', bold=True)
-    for p1, p2 in [((41, 61.5), (44, 47.6)), ((30, 21.5), (37, 32.4)), ((70, 21.5), (63, 32.4))]:
+    for p1, p2 in [((43, 61.5), (45, 48.2)), ((30, 21.7), (38, 32.3)), ((70, 21.7), (62, 32.3))]:
         arr(ax, p1, p2, c=PAL['red'], lw=1.0, ls='--', ms=10)
-    txt(ax, 50, 29.5, '三方策略互动（虚线）共同决定演化均衡', fs=6.8, c=PAL['red'])
+    txt(ax, 50, 29.8, '三方策略互动（虚线）共同决定演化均衡', fs=6.8, c=PAL['red'])
     save(fig, f'{FIG}/fig7_1.png')
 
 
@@ -405,11 +407,11 @@ def fig8_1():
 # --------------------------------------------------- 图9.1 总体架构（matplotlib，核心图）
 def fig9_1():
     ahp = R['ahp']['module']
-    fig, ax = canvas(11.2, 7.4, 122, 82)
+    fig, ax = canvas(11.2, 7.8, 122, 86)
     # 顶部：目标
-    bx(ax, 24, 74, 72, 7, '“双碳”目标（2030 碳达峰·2060 碳中和）→ 构建国际认可的中国绿色低碳标准体系',
+    bx(ax, 24, 78, 72, 7, '“双碳”目标（2030 碳达峰·2060 碳中和）→ 构建国际认可的中国绿色低碳标准体系',
        fc=C['ltred'], ec=PAL['red'], fs=9.5, lw=1.6, bold=True, pad=0.4)
-    arr(ax, (60, 73.6), (60, 69.2), c=PAL['red'], lw=1.6)
+    arr(ax, (59.7, 77.5), (59.7, 74.1), c=PAL['red'], lw=1.6)
     # 五大功能模块（列）
     mods = [('碳排放核算', ahp['acct'], C['ltblue'], PAL['blue']),
             ('碳足迹认证', ahp['fp'], C['ltteal'], PAL['teal']),
@@ -423,7 +425,7 @@ def fig9_1():
         '团体': ['数字化碳监测\n在线核算', '碳标签与\n快速认证', '先进值引领\n（“领跑者”）', 'CCUS·负排放\n技术标准', '转型金融与\n碳金融产品']}
     rows = [('国家标准', '基础通用·兜底', 55.5, 66.5), ('行业标准', '行业细化·深化', 43.5, 54.5),
             ('地方标准', '先行先试·适配', 31.5, 42.5), ('团体标准', '市场创新·引领', 19.5, 30.5)]
-    x0, cw, gap = 35, 11.6, 0.9
+    x0, cw, gap = 35, 11.2, 0.9
     # 列头
     for i, (nm, w, fc, ec) in enumerate(mods):
         xx = x0 + i * (cw + gap)
@@ -455,8 +457,8 @@ def fig9_1():
             ('第三方核查与\n认证结果互认', 33), ('MRV 数据质量\n国际对标', 23)]
     for lab, yy in intf:
         bx(ax, 100.5, yy, 20, 8, lab, fc=C['ltteal'], ec=PAL['teal'], fs=6.8, pad=0.35)
-    arr(ax, (97.5, 44), (100.2, 44), c=PAL['teal'], lw=1.6, style='<|-|>')
-    txt(ax, 98.8, 47.5, '衔接\n互认', fs=6.5, c=PAL['teal'])
+    arr(ax, (95.5, 44), (100.0, 44), c=PAL['teal'], lw=1.6, style='<|-|>')
+    txt(ax, 97.7, 47.5, '衔接\n互认', fs=6.5, c=PAL['teal'])
     # 底部：反馈优化
     bx(ax, 24.5, 9, 71.5, 7,
        '动态反馈优化：SSDMI 错配识别（第8章）·SFA-PEL 政策适配（第11章）·ISGI-CIAI 国际适配（第12章）→ 补短板·调权重·促衔接',
@@ -555,7 +557,7 @@ def fig10_1():
     edge('A', 'B', '+', rad=0.15, lab='核算奠定认证基础', labp=(38, 60.0), sp=(44.5, 58.5), shB=34)
     edge('B', 'CN', '+', rad=0.15, lab='认证支撑产品评价', labp=(68, 60.0), sp=(70, 55.8), shB=48)
     edge('CN', 'E', '+', rad=0.15, lab='覆盖完整性提升', labp=(93.5, 38.5), sp=(90.5, 31.5), shB=24)
-    edge('E', 'SI', '+', rad=-0.15, lab='效能显现→政策与市场加大投入', labp=(50, 32.8), sp=(24, 35.5), shB=38)
+    edge('E', 'SI', '+', rad=-0.05, lab='效能显现→政策与市场加大投入', labp=(50, 32.8), sp=(23, 33.6), shB=38)
     # R2：E→T→SI（技术—标准互促回路）
     edge('E', 'T', '+', rad=0.12, lab='效能引导创新', labp=(80, 13.0), sp=(69.5, 10.2), shB=38)
     edge('T', 'SI', '+', rad=0.14, lab='技术进步催生新标准需求', labp=(45, 12.6), sp=(20.5, 26.5), shB=32)
@@ -567,14 +569,15 @@ def fig10_1():
         ax.text(x, y, lab, fontsize=8.5, color='#1a1a1a', fontweight='bold',
                 ha='center', va='center', linespacing=1.3, zorder=5,
                 bbox=dict(boxstyle='round,pad=0.32', fc='white', ec='none', alpha=0.92))
-    # 回路标注
-    for xx, yy, rl, rn, cc in [(53, 42, 'R1', '标准链增强回路', PAL['blue']),
-                               (57, 22, 'R2', '技术—标准互促回路', PAL['teal']),
-                               (15, 25, 'B1', '资源约束平衡回路', PAL['red'])]:
-        cir = Ellipse((xx, yy + 0.4), 5.6, 4.6, fc='white', ec=cc, lw=1.3, zorder=3)
+    # 回路标注（徽标置于回路空白中心，名称置于近旁空白处，避免压线）
+    for xx, yy, ew, eh, rl, cc, (nx, ny), rn in [
+            (53, 42.4, 5.6, 4.6, 'R1', PAL['blue'], (53, 38.2), '标准链增强回路'),
+            (57, 22.4, 5.6, 4.6, 'R2', PAL['teal'], (57, 18.4), '技术—标准互促回路'),
+            (14, 22.0, 4.0, 3.4, 'B1', PAL['red'], (15, 7.6), '资源约束平衡回路')]:
+        cir = Ellipse((xx, yy), ew, eh, fc='white', ec=cc, lw=1.3, zorder=3)
         ax.add_patch(cir)
-        txt(ax, xx, yy + 0.4, rl, fs=9, c=cc, bold=True)
-        txt(ax, xx, yy - 3.8, rn, fs=6.8, c=cc, z=5)
+        txt(ax, xx, yy, rl, fs=8.5, c=cc, bold=True)
+        txt(ax, nx, ny, rn, fs=6.8, c=cc, z=5)
     txt(ax, 50, 1.2, '注：＋＝同向变动，－＝反向变动；R＝增强回路，B＝平衡回路；（延迟）＝存量累积滞后效应',
         fs=7, c='#666666')
     save(fig, f'{FIG}/fig10_1.png')
@@ -612,11 +615,11 @@ def fig10_2():
     txt(ax, 75, yF + 5.6, '标准淘汰流量 SO_kt\n（废止·整合）', fs=7.8, c=PAL['gray'], bold=True)
     # 溢出与政策驱动
     bx(ax, 2, 55, 22, 8, '其他模块标准存量\nSS_jt（j≠k）', fc=C['ltteal'], ec=PAL['teal'], fs=7.5)
-    arr(ax, (14, 54.6), (23.5, yF + 2.6), c=PAL['teal'], lw=1.5, rad=-0.08)
+    arr(ax, (14, 54.6), (22.5, yF + 2.6), c=PAL['teal'], lw=1.5)
     txt(ax, 8.5, 47.5, '协同溢出 φ_kj\n（源于第5章Â矩阵）', fs=6.8, c=PAL['teal'])
     bx(ax, 34, 55, 28, 8, '政策驱动 u_t\n（“双碳”政策·碳市场·CBAM）', fc=C['ltorange'], ec=PAL['orange'], fs=7.5)
-    arr(ax, (40, 54.6), (27, yF + 2.8), c=PAL['orange'], lw=1.5, rad=0.1)
-    txt(ax, 36, 49.2, '政策推力', fs=7.0, c=PAL['orange'])
+    arr(ax, (40, 54.6), (28.5, yF + 2.8), c=PAL['orange'], lw=1.5)
+    txt(ax, 30.5, 48.3, '政策推力', fs=7.0, c=PAL['orange'])
     # 技术—政策偏离度机制
     bx(ax, 12, 17, 22, 8, '技术前沿水平 TL_kt', fc=C['ltgreen'], ec=PAL['green'], fs=8)
     bx(ax, 44, 17, 22, 8, '标准技术水平 SL_kt', fc=C['ltblue'], ec=PAL['blue'], fs=8)
@@ -634,11 +637,14 @@ def fig10_2():
                          fc=C['ltred'], ec=PAL['red'], lw=1.4, zorder=2))
     txt(ax, 86.5, 12.5, '触发判断\nTPD_kt＞TPD*？\n（TPD*=%.2f）' % R['sd']['tpd_star'], fs=7, c=PAL['red'], bold=True)
     arr(ax, (50.5, 6.5), (75.4, 11), c=PAL['gold'], lw=1.3)
-    # 反馈虚线：修订与淘汰
-    arr(ax, (84, 18.6), (26.5, yF - 2.8), c=PAL['red'], lw=1.4, ls='--', rad=-0.22)
-    txt(ax, 41, 27.8, '是→触发新订/修订（虚线反馈）', fs=7.2, c=PAL['red'])
-    arr(ax, (91, 18.6), (76.5, yF - 2.6), c=PAL['red'], lw=1.4, ls='--', rad=0.2)
-    txt(ax, 91.5, 27.5, '是→触发\n废止淘汰', fs=7.2, c=PAL['red'])
+    # 反馈虚线（正交折线）：修订与淘汰
+    ax.plot([97, 98.5, 98.5, 25.5, 25.5], [12.5, 12.5, 65, 65, 45],
+            color=PAL['red'], lw=1.4, ls='--', zorder=1)
+    arr(ax, (25.5, 45), (25.5, yF + 2.7), c=PAL['red'], lw=1.4, ls='--')
+    txt(ax, 29.8, 52, '是→触发\n新订/修订', fs=7.0, c=PAL['red'])
+    ax.plot([86.5, 86.5, 75], [18, 33, 33], color=PAL['red'], lw=1.4, ls='--', zorder=1)
+    arr(ax, (75, 33), (75, yF - 2.3), c=PAL['red'], lw=1.4, ls='--')
+    txt(ax, 90, 27, '是→触发\n废止淘汰', fs=7.0, c=PAL['red'])
     txt(ax, 50, 0.8, '注：矩形＝存量；蝶形阀＝流量；虚线椭圆＝系统边界外源/汇；虚线箭头＝动态更新反馈',
         fs=7, c='#666666')
     save(fig, f'{FIG}/fig10_2.png')
@@ -710,7 +716,7 @@ def fig12_1():
   CIAI -> TH; TH -> IO; IO -> OUT;
   OUT -> FB [style=dashed, color="{C['red']}"];
 '''
-    render(d, 'fig12_1')
+    render(d, 'fig12_1', splines='polyline')
 
 
 # --------------------------------------------------- 图13.1 比较制度分析框架（matplotlib）
@@ -772,10 +778,11 @@ def fig13_3():
   P1 -> P2 [color="{C['green']}", penwidth=1.6];
   P2 -> P3 [color="{C['green']}", penwidth=1.6];
   P3 -> P4 [color="{C['green']}", penwidth=1.6];
-  P4 -> P1 [style=dashed, color="{C['red']}", fontcolor="{C['red']}", label="话语权反哺\n数据规则制定", constraint=false];
+  P4 -> P1 [style=invis, label="话语权反哺\\n数据规则制定", constraint=false];
+  P4:e -> P1:e [style=dashed, color="{C['red']}", fontcolor="{C['red']}", xlabel="话语权反哺\\n数据规则制定", constraint=false];
   AX -> SAT [style=dotted, dir=none];
 '''
-    render(d, 'fig13_3')
+    render(d, 'fig13_3', splines='polyline')
 
 
 # --------------------------------------------------- 图14.1 政策体系框架（graphviz）
@@ -807,7 +814,7 @@ def fig14_1():
   S3 -> OUT [ltail=cluster_s]; E3 -> OUT [ltail=cluster_e]; I3 -> OUT [ltail=cluster_i];
   OUT -> GOAL [style=dashed, color="{C['red']}", fontcolor="{C['red']}", label="评估—反馈—迭代", constraint=false];
 '''
-    render(d, 'fig14_1')
+    render(d, 'fig14_1', splines='polyline')
 
 
 ALL = [fig1_1, fig1_2, fig2_2, fig3_1, fig3_3, fig4_2, fig5_1, fig6_1, fig7_1,
