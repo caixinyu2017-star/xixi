@@ -23,8 +23,9 @@ C = dict(blue='#1F4E79', ltblue='#DCE6F1', orange='#C55A11', ltorange='#FCE4D6',
 
 
 # ============================ graphviz 通用 ============================
-def render(dot, name, engine='dot', dpi=300):
-    dot = f'digraph G {{\n  graph [fontname="{FN}", dpi={dpi}];\n' \
+def render(dot, name, engine='dot', dpi=300, splines='ortho'):
+    """学术风格：正交直线连线（splines=ortho），不用曲线；避免交叠。"""
+    dot = f'digraph G {{\n  graph [fontname="{FN}", dpi={dpi}, splines={splines}];\n' \
           f'  node [fontname="{FN}"];\n  edge [fontname="{FN}"];\n' + dot + '\n}\n'
     p = os.path.join(FIG, name + '.dot')
     with open(p, 'w', encoding='utf-8') as f:
@@ -133,8 +134,8 @@ def fig1_2():
     render('\n'.join(lines), 'fig1_2')
 
 
-# --------------------------------------------------- 图2.1 理论基础与研究框架（graphviz）
-def fig2_1():
+# --------------------------------------------------- 图2.2 理论基础与研究框架（graphviz）
+def fig2_2():
     d = f'''
   rankdir=TB; nodesep=0.45; ranksep=0.85; compound=true; newrank=true;
   node [shape=box, style="rounded,filled", fontsize=12.5, margin="0.15,0.09"];
@@ -161,7 +162,7 @@ def fig2_1():
   F3 -> F2 [label="反馈优化", style=dashed, color="{C['red']}", fontcolor="{C['red']}"];
   F1 -> G; F2 -> G; F3 -> G;
 '''
-    render(d, 'fig2_1')
+    render(d, 'fig2_2')
 
 
 # --------------------------------------------------- 图3.1 国际演进时间轴（matplotlib）
@@ -229,8 +230,8 @@ def fig3_3():
     save(fig, f'{FIG}/fig3_3.png')
 
 
-# --------------------------------------------------- 图4.1 四层级金字塔（matplotlib）
-def fig4_1():
+# --------------------------------------------------- 图4.2 四层级金字塔（matplotlib）
+def fig4_2():
     cum = R['std_counts']['cum']
     n = {k: cum[k]['2025'] for k in ('gb', 'hb', 'db', 'tb')}
     fig, ax = canvas(7.6, 5.6, 100, 74)
@@ -259,7 +260,7 @@ def fig4_1():
     arr(ax, (10.5, 62), (10.5, 14), c=PAL['gray'], lw=1.6, ms=13)
     txt(ax, 13.0, 38, '灵活性·创新性增强', fs=7.5, c=PAL['gray'], rot=270)
     txt(ax, 50, 3.5, '注：数量为截至 2025 年累计有效标准数（标准文本数据库）', fs=7, c='#666666')
-    save(fig, f'{FIG}/fig4_1.png')
+    save(fig, f'{FIG}/fig4_2.png')
 
 
 # --------------------------------------------------- 图5.1 状态空间模型逻辑（graphviz）
@@ -731,14 +732,14 @@ def fig13_1():
             bx(ax, x, y, cw, 10, cell, fc=fc, ec=ec, fs=7, lw=0.9, pad=0.35)
     for _, x, fc, ec in hdrs:
         arr(ax, (x + cw / 2, 63.6), (x + cw / 2, 62.6), c=ec, lw=1.2, ms=9)
-    bx(ax, 23, 3, 66, 8, '四维度逐项比较 → 识别中外制度差异与国际适配障碍\n（衔接扎根理论访谈编码，见图13.2）',
+    bx(ax, 23, 3, 66, 8, '四维度逐项比较 → 识别中外制度差异与国际适配障碍\n（衔接扎根理论访谈编码，见图13.3）',
        fc=C['ltgold'], ec=PAL['gold'], fs=8, pad=0.4)
     arr(ax, (56, 15.6), (56, 11.6), c=PAL['gold'], lw=1.5)
     save(fig, f'{FIG}/fig13_1.png')
 
 
-# --------------------------------------------------- 图13.2 扎根理论编码结构（graphviz）
-def fig13_2():
+# --------------------------------------------------- 图13.3 扎根理论编码结构（graphviz）
+def fig13_3():
     cs = R['cases']
     iv = cs['interviews']
     cd = cs['coding']
@@ -774,7 +775,7 @@ def fig13_2():
   P4 -> P1 [style=dashed, color="{C['red']}", fontcolor="{C['red']}", label="话语权反哺\n数据规则制定", constraint=false];
   AX -> SAT [style=dotted, dir=none];
 '''
-    render(d, 'fig13_2')
+    render(d, 'fig13_3')
 
 
 # --------------------------------------------------- 图14.1 政策体系框架（graphviz）
@@ -809,9 +810,9 @@ def fig14_1():
     render(d, 'fig14_1')
 
 
-ALL = [fig1_1, fig1_2, fig2_1, fig3_1, fig3_3, fig4_1, fig5_1, fig6_1, fig7_1,
+ALL = [fig1_1, fig1_2, fig2_2, fig3_1, fig3_3, fig4_2, fig5_1, fig6_1, fig7_1,
        fig8_1, fig9_1, fig9_2, fig9_4, fig10_1, fig10_2, fig11_1, fig12_1,
-       fig13_1, fig13_2, fig14_1]
+       fig13_1, fig13_3, fig14_1]
 
 if __name__ == '__main__':
     for f in ALL:
