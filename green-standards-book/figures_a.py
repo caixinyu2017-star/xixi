@@ -67,7 +67,7 @@ REG_C = {'east': PAL['blue'], 'central': PAL['orange'], 'west': PAL['red']}
 
 
 # ============================ 第2章 ============================
-def fig2_2():
+def fig2_1():
     """WOS/CNKI 年度发文趋势（2000—2025）：“双碳”后爆发式增长、中文反超。"""
     xw, yw = ser('biblio.wos')
     xc, yc = ser('biblio.cnki')
@@ -86,7 +86,7 @@ def fig2_2():
     ax.set_xlabel('年份')
     ax.set_ylabel('年度发文量（篇）')
     ax.set_xticks(np.arange(2000, 2026, 5))
-    save(fig, f'{FIG}/fig2_2.png')
+    save(fig, f'{FIG}/fig2_1.png')
 
 
 # ============================ 第3章 ============================
@@ -96,7 +96,7 @@ def fig3_2():
     xc, yc = ser('drivers.ets')
     fig, ax1 = plt.subplots(figsize=(6.6, 3.7))
     ax1.plot(xe, ye, color=PAL['blue'], marker='o', ms=4, lw=1.9)
-    ax1.set_ylabel('欧盟碳市场 EUA 年均价（欧元/吨）', color=PAL['blue'])
+    ax1.set_ylabel('欧元/吨', color=PAL['blue'])
     ax1.set_xlabel('年份')
     ax1.tick_params(axis='y', labelcolor=PAL['blue'])
     ax1.set_ylim(0, 100)
@@ -104,7 +104,10 @@ def fig3_2():
     ax2 = ax1.twinx()
     ax2.spines['top'].set_visible(False)
     ax2.plot(xc, yc, color=PAL['orange'], marker='s', ms=4, lw=1.9)
-    ax2.set_ylabel('全国碳市场 CEA 年均价（元/吨）', color=PAL['orange'])
+    ax2.set_ylabel('元/吨', color=PAL['orange'])
+    ax2.spines['right'].set_visible(True)
+    ax2.spines['right'].set_color(PAL['orange'])
+    ax2.spines['right'].set_linewidth(0.9)
     ax2.tick_params(axis='y', labelcolor=PAL['orange'])
     ax2.set_ylim(20, 120)
     ax2.grid(False)
@@ -169,7 +172,7 @@ def fig3_4():
 
 
 # ============================ 第4章 ============================
-def fig4_2():
+def fig4_1():
     """历年发布数量分层级堆积柱状（1993—2025）。"""
     levels = [('gb', '国家标准', PAL['blue']), ('hb', '行业标准', PAL['teal']),
               ('db', '地方标准', PAL['gold']), ('tb', '团体标准', PAL['orange'])]
@@ -197,7 +200,7 @@ def fig4_2():
     h, l = ax.get_legend_handles_labels()
     ax.legend(h[::-1], l[::-1], loc='upper left', fontsize=8)
     ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=9))
-    save(fig, f'{FIG}/fig4_2.png')
+    save(fig, f'{FIG}/fig4_1.png')
 
 
 def fig4_3():
@@ -384,7 +387,7 @@ def _lv_field(T, I, p, a, b):
     return dT, dI
 
 
-def fig6_2():
+def fig6_3():
     """技术—制度系统相位图：零增长线、向量场、轨线收敛至均衡点。"""
     p = R['lv']['post']
     eq = R['lv']['eq']
@@ -441,10 +444,10 @@ def fig6_2():
     ax.set_ylabel('制度完善度 I')
     ax.legend(loc='upper left', fontsize=8, frameon=True, facecolor='white',
               edgecolor='none', framealpha=0.9)
-    save(fig, f'{FIG}/fig6_2.png')
+    save(fig, f'{FIG}/fig6_3.png')
 
 
-def fig6_3():
+def fig6_2():
     """T/I 观测与拟合轨迹（2004—2025）＋“双碳”前后互馈系数对比。"""
     xT, vT = ser('lv.T')
     xI, vI = ser('lv.I')
@@ -499,7 +502,7 @@ def fig6_3():
     ax2.legend(fontsize=8, loc='upper left')
     panel_label(ax2, '（b）', x=-0.30)
     fig.tight_layout()
-    save(fig, f'{FIG}/fig6_3.png')
+    save(fig, f'{FIG}/fig6_2.png')
 
 
 # ============================ 第7章 ============================
@@ -604,14 +607,14 @@ def fig7_4():
 
 
 if __name__ == '__main__':
-    fig2_2()
-    print('ok fig2_2')
+    fig2_1()
+    print('ok fig2_1')
     fig3_2()
     print('ok fig3_2')
     fig3_4()
     print('ok fig3_4')
-    fig4_2()
-    print('ok fig4_2')
+    fig4_1()
+    print('ok fig4_1')
     fig4_3()
     print('ok fig4_3')
     fig4_4()
@@ -624,10 +627,10 @@ if __name__ == '__main__':
     print('ok fig5_3')
     fig5_4()
     print('ok fig5_4')
-    fig6_2()
-    print('ok fig6_2')
     fig6_3()
     print('ok fig6_3')
+    fig6_2()
+    print('ok fig6_2')
     fig7_2()
     print('ok fig7_2')
     fig7_3()

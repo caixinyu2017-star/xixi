@@ -329,7 +329,7 @@ class BookBuilder:
         return p
 
     # ------------------------------------------------------------- 图
-    def add_figure(self, img_path, caption, width_cm=13.0):
+    def add_figure(self, img_path, caption, width_cm=13.0, note=None):
         p = self.doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p.paragraph_format.space_before = Pt(6)
@@ -338,9 +338,16 @@ class BookBuilder:
         run.add_picture(img_path, width=Cm(width_cm))
         cp = self.doc.add_paragraph()
         cp.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        cp.paragraph_format.space_after = Pt(10)
+        cp.paragraph_format.space_after = Pt(2 if note else 10)
         cp.paragraph_format.keep_with_next = False
         self._append_rich(cp, caption, HEI, SIZE['五号'])
+        if note:
+            # 图注：图题下方，字号比图题小1号（小五），宋体，无缩进，两端对齐
+            np_ = self.doc.add_paragraph()
+            np_.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            np_.paragraph_format.space_after = Pt(10)
+            np_.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+            self._append_rich(np_, note, SONG, SIZE['小五'])
         return p
 
     # ------------------------------------------------------------- 表（三线表，表名在上）
@@ -507,7 +514,8 @@ class BookBuilder:
             elif 'eq' in b:
                 self.add_equation(b['eq'], b['num'])
             elif 'fig' in b:
-                self.add_figure(b['fig'], b['caption'], b.get('width_cm', 13.0))
+                self.add_figure(b['fig'], b['caption'], b.get('width_cm', 13.0),
+                                note=b.get('note'))
             elif 'table' in b:
                 tb = b['table']
                 self.add_table(tb['caption'], tb['header'], tb['rows'],
@@ -522,6 +530,50 @@ class BookBuilder:
 
     def save(self, path):
         self.doc.save(path)
+
+
+def enforce_fig_after_mention(blocks):
+    """排版规则：先文后图/表。
+
+    若某图/表块出现在其编号（图N.M/表N.M）首次被正文提及的段落之前，
+    则将该块移动到首次提及段之后。装配时强制执行，保证全书合规。
+    """
+    def label_of(b):
+        if 'fig' in b:
+            m = re.match(r'(图\d+\.\d+)', b.get('caption', ''))
+            return m.group(1) if m else None
+        if 'table' in b:
+            m = re.match(r'(表\d+\.\d+)', b['table'].get('caption', ''))
+            return m.group(1) if m else None
+        return None
+
+    def text_of(b):
+        for k in ('p', 'lead', 'h2', 'h3', 'h4'):
+            if k in b:
+                return b[k]
+        if 'items' in b:
+            return ' '.join(b['items'])
+        return ''
+
+    out = list(blocks)
+    guard = 0
+    changed = True
+    while changed and guard < 300:
+        changed = False
+        guard += 1
+        for i, b in enumerate(out):
+            lab = label_of(b)
+            if not lab:
+                continue
+            mentions = [j for j, ob in enumerate(out)
+                        if label_of(ob) is None and lab in text_of(ob)]
+            if mentions and min(mentions) > i:
+                j = min(mentions)
+                blk = out.pop(i)
+                out.insert(j, blk)
+                changed = True
+                break
+    return out
 
 
 def count_chars(blocks):

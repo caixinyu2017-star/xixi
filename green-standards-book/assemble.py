@@ -4,7 +4,7 @@ import importlib
 import os
 import sys
 
-from docxbuilder import BookBuilder, count_chars, SIZE, SONG, HEI
+from docxbuilder import BookBuilder, count_chars, enforce_fig_after_mention, SIZE, SONG, HEI
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import references as refs
@@ -61,7 +61,7 @@ def load_blocks():
     refs.reset()
     for mod in CHAPTERS:
         m = importlib.import_module(mod)
-        blks = m.blocks()
+        blks = enforce_fig_after_mention(m.blocks())
         counts[mod] = count_chars(blks)
         all_blocks += blks
         all_blocks.append({'pagebreak': True})

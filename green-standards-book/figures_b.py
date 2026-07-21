@@ -271,7 +271,7 @@ def fig11_2():
     save(fig, f'{FIG}/fig11_2.png')
 
 
-def fig11_3():
+def fig11_4():
     """政策有效性损失 PEL 三源分解（全国与三大区域，100%堆积）。"""
     nat = R['sfa']['pel']
     regs = R['sfa']['pel_region']
@@ -299,10 +299,10 @@ def fig11_3():
     ax.set_ylabel('占政策有效性损失 PEL 的比重（%）')
     ax.set_ylim(0, 116)
     ax.legend(loc='upper center', ncol=3, fontsize=8)
-    save(fig, f'{FIG}/fig11_3.png')
+    save(fig, f'{FIG}/fig11_4.png')
 
 
-def fig11_4():
+def fig11_3():
     """30省标准执行效率排名（2025），按东部/中部/西部分色。"""
     prov, val = ser('sfa.prov2025', numeric=False)
     regmap = R['sfa']['te']['prov_region']
@@ -330,7 +330,7 @@ def fig11_4():
                              label=f'{REG_CN[k]}（均值 {rmean[k]:.3f}）')
                        for k in ['east', 'central', 'west']],
               loc='lower right', fontsize=8)
-    save(fig, f'{FIG}/fig11_4.png')
+    save(fig, f'{FIG}/fig11_3.png')
 
 
 # ============================ 第12章 ============================
@@ -442,7 +442,7 @@ def fig12_4():
 
 
 # ============================ 第13章 ============================
-def fig13_3():
+def fig13_2():
     """三行业国际适配关键指标（CIAI、ISGI）＋核心障碍范畴编码频次。"""
     inds = [('steel', '钢铁'), ('alu', '铝'), ('fert', '化肥')]
     ciai = [R['isgi']['industry_ciai'][k] for k, _ in inds]
@@ -483,7 +483,7 @@ def fig13_3():
     panel_label(ax1, '（a）国际适配指数', dx=-0.13)
     panel_label(ax2, '（b）障碍编码频次', dx=-0.30)
     fig.tight_layout()
-    save(fig, f'{FIG}/fig13_3.png')
+    save(fig, f'{FIG}/fig13_2.png')
 
 
 
@@ -501,16 +501,16 @@ if __name__ == '__main__':
     print('ok fig10_4')
     fig11_2()
     print('ok fig11_2')
-    fig11_3()
-    print('ok fig11_3')
     fig11_4()
     print('ok fig11_4')
+    fig11_3()
+    print('ok fig11_3')
     fig12_2()
     print('ok fig12_2')
     fig12_3()
     print('ok fig12_3')
     fig12_4()
     print('ok fig12_4')
-    fig13_3()
-    print('ok fig13_3')
+    fig13_2()
+    print('ok fig13_2')
     print('done: 12 figures (B)')

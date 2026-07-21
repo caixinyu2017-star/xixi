@@ -323,14 +323,20 @@ def c(key, paren=True, prefix='', suffix=''):
 
 
 def cc(*keys):
-    parts = []
+    """多篇合引：按发表年份从先到后排序（同年保持传入顺序）。"""
+    import re as _re
     for k in keys:
         if k not in REFS:
             raise KeyError(f'未知文献 key: {k}')
         if k not in _ORDER:
             _ORDER.append(k)
-        parts.append(REFS[k]['intext'])
-    return '（' + '；'.join(parts) + '）'
+
+    def _year(k):
+        m = _re.search(r'(\d{4})', REFS[k]['intext'])
+        return int(m.group(1)) if m else 9999
+
+    ordered = sorted(keys, key=_year)
+    return '（' + '；'.join(REFS[k]['intext'] for k in ordered) + '）'
 
 
 def gb_ordered():
