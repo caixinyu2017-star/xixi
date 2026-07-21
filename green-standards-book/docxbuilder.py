@@ -69,8 +69,49 @@ def latex_batch_to_omml(latex_list, workdir):
     for i in range(len(latex_list)):
         if i not in results:
             raise RuntimeError(f'公式 {i} pandoc OMML 转换失败: {latex_list[i][:80]}')
-        out.append(results[i])
+        out.append(_fix_omml_order(results[i]))
     return out
+
+
+def _fix_omml_order(om):
+    """修正 pandoc 输出中不符合 ECMA-376 顺序的 OMML 子元素。
+
+    - m:mcPr 序列应为 (count?, mcJc?)，pandoc 输出为 mcJc, count；
+    - m:rPr(数学) 序列应为 (lit?, (nor|(scr?, sty?)), brk?, aln?)，
+      pandoc 输出 sty 在 scr 之前。
+    """
+    def resort(el, rank):
+        children = list(el)
+        ranked = [(rank.get(etree.QName(ch).localname, 99), idx, ch)
+                  for idx, ch in enumerate(children)]
+        if ranked == sorted(ranked):
+            return
+        for ch in children:
+            el.remove(ch)
+        for _, _, ch in sorted(ranked):
+            el.append(ch)
+
+    RANKS = {
+        'mcPr': {'count': 0, 'mcJc': 1},
+        'rPr': {'lit': 0, 'nor': 1, 'scr': 1, 'sty': 2, 'brk': 3, 'aln': 4},
+        'dPr': {'begChr': 0, 'sepChr': 1, 'endChr': 2, 'grow': 3, 'shp': 4, 'ctrlPr': 5},
+        'naryPr': {'chr': 0, 'limLoc': 1, 'grow': 2, 'subHide': 3, 'supHide': 4, 'ctrlPr': 5},
+        'mPr': {'baseJc': 0, 'plcHide': 1, 'rSpRule': 2, 'cGpRule': 3, 'rSp': 4,
+                'cSp': 5, 'cGp': 6, 'mcs': 7, 'ctrlPr': 8},
+        'fPr': {'type': 0, 'ctrlPr': 1},
+        'accPr': {'chr': 0, 'ctrlPr': 1},
+        'barPr': {'pos': 0, 'ctrlPr': 1},
+        'groupChrPr': {'chr': 0, 'pos': 1, 'vertJc': 2, 'ctrlPr': 3},
+        'radPr': {'degHide': 0, 'ctrlPr': 1},
+        'eqArrPr': {'baseJc': 0, 'maxDist': 1, 'objDist': 2, 'rSpRule': 3, 'rSp': 4,
+                    'ctrlPr': 5},
+        'boxPr': {'opEmu': 0, 'noBreak': 1, 'diff': 2, 'brk': 3, 'aln': 4, 'ctrlPr': 5},
+        'limLowPr': {'ctrlPr': 0}, 'limUppPr': {'ctrlPr': 0},
+    }
+    for tag, rank in RANKS.items():
+        for el in om.iter('{%s}%s' % (M_NS, tag)):
+            resort(el, rank)
+    return om
 
 
 # 行内标记：$latex$  **粗**  *斜*  {sup:x} {sub:x}
@@ -140,6 +181,13 @@ class BookBuilder:
         self.text_width_cm = 21.0 - left - right  # 正文区宽度
 
     def _setup_default_style(self):
+        # settings.xml 中 zoom 需 percent 属性（XSD 校验）
+        try:
+            zoom = self.doc.settings.element.find(qn('w:zoom'))
+            if zoom is not None and zoom.get(qn('w:percent')) is None:
+                zoom.set(qn('w:percent'), '100')
+        except Exception:
+            pass
         st = self.doc.styles['Normal']
         st.font.name = TNR
         st.font.size = Pt(SIZE['小四'])
@@ -300,6 +348,7 @@ class BookBuilder:
                        align='center', cn_font=SONG):
         cell.text = ''
         p = cell.paragraphs[0]
+        align = {'l': 'left', 'c': 'center', 'r': 'right'}.get(align, align)
         p.alignment = {'center': WD_ALIGN_PARAGRAPH.CENTER,
                        'left': WD_ALIGN_PARAGRAPH.LEFT,
                        'right': WD_ALIGN_PARAGRAPH.RIGHT}[align]
@@ -366,23 +415,26 @@ class BookBuilder:
         tblPr = tbl.tblPr
         # 移除样式默认边框
         borders = OxmlElement('w:tblBorders')
-        for name, sz in (('top', 12), ('bottom', 12)):
+        spec = (('top', 'single', 12), ('left', 'none', None), ('bottom', 'single', 12),
+                ('right', 'none', None), ('insideH', 'none', None), ('insideV', 'none', None))
+        for name, val, sz in spec:
             el = OxmlElement(f'w:{name}')
-            el.set(qn('w:val'), 'single')
-            el.set(qn('w:sz'), str(sz))
-            el.set(qn('w:color'), '000000')
+            el.set(qn('w:val'), val)
+            if sz:
+                el.set(qn('w:sz'), str(sz))
+                el.set(qn('w:color'), '000000')
             borders.append(el)
-        for name in ('left', 'right', 'insideV'):
-            el = OxmlElement(f'w:{name}')
-            el.set(qn('w:val'), 'none')
-            borders.append(el)
-        iv = OxmlElement('w:insideH')
-        iv.set(qn('w:val'), 'none')
-        borders.append(iv)
         old = tblPr.find(qn('w:tblBorders'))
         if old is not None:
             tblPr.remove(old)
-        tblPr.append(borders)
+        # 按 CT_TblPrBase 序列插入：tblBorders 须位于 shd/tblLayout/tblCellMar/tblLook 之前
+        after = [qn(f'w:{n}') for n in ('shd', 'tblLayout', 'tblCellMar', 'tblLook',
+                                        'tblCaption', 'tblDescription')]
+        anchor = next((ch for ch in tblPr if ch.tag in after), None)
+        if anchor is not None:
+            anchor.addprevious(borders)
+        else:
+            tblPr.append(borders)
         # 表头行下细线
         first = table.rows[0]._tr
         for tc in first.findall(qn('w:tc')):
@@ -396,7 +448,14 @@ class BookBuilder:
             bot.set(qn('w:sz'), '6')
             bot.set(qn('w:color'), '000000')
             tcB.append(bot)
-            tcPr.append(tcB)
+            # CT_TcPrBase 序列：tcBorders 须位于 shd/vAlign 等之前
+            late = [qn(f'w:{n}') for n in ('shd', 'noWrap', 'tcMar', 'textDirection',
+                                           'tcFitText', 'vAlign', 'hideMark')]
+            anchor = next((ch for ch in tcPr if ch.tag in late), None)
+            if anchor is not None:
+                anchor.addprevious(tcB)
+            else:
+                tcPr.append(tcB)
 
     # ------------------------------------------------------------- 参考文献
     def add_references(self, refs, heading='参考文献'):

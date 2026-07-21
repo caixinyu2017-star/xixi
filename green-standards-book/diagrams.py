@@ -750,7 +750,7 @@ def fig13_2():
   edge [color="{C['gray']}", arrowsize=0.75, fontsize=10.5, fontcolor="{C['gray']}"];
   SRC [label="访谈资料\\n钢铁 {iv['steel']} 人·铝 {iv['alu']} 人·化肥 {iv['fert']} 人\\n（共 {ntot} 位，NVivo 14）", fillcolor="{C['ltgray']}", color="{C['gray']}"];
   OPEN [label="开放式编码\\n逐句概念化\\n{cd['open_codes']} 个初始概念", fillcolor="{C['ltblue']}", color="{C['blue']}"];
-  AX [label="主轴编码\\n归并聚类\\n{cd['axial']} 个副范畴", fillcolor="{C['ltteal']}", color="{C['teal']}"];
+  AX [label="主轴编码\\n归并聚类\\n{cd['axial']} 个主轴范畴", fillcolor="{C['ltteal']}", color="{C['teal']}"];
   subgraph cluster_core {{ label="选择性编码：{cd['core']} 大核心范畴（括号内为参考点频次）"; style=dashed; color="{C['red']}"; fontcolor="{C['red']}"; fontsize=12;
     G1 [label="数据基础障碍（{ct['data']}）\\n计量体系不全·因子库缺失", fillcolor="{C['ltred']}", color="{C['red']}"];
     G2 [label="制度衔接障碍（{ct['inst']}）\\n规则不互认·核查体系差异", fillcolor="{C['ltred']}", color="{C['red']}"];
@@ -761,7 +761,7 @@ def fig13_2():
     P2 [label="② 核算能力提升", fillcolor="{C['ltgreen']}", color="{C['green']}"];
     P3 [label="③ 认证互认突破", fillcolor="{C['ltgreen']}", color="{C['green']}"];
     P4 [label="④ 话语权提升", fillcolor="{C['ltgreen']}", color="{C['green']}"]; }}
-  SAT [label="理论饱和度检验：预留 6 份\\n访谈复检，未出现新范畴", shape=note, style=filled, fillcolor="{C['ltgray']}", color="{C['gray']}", fontsize=10.5];
+  SAT [label="理论饱和检验：第 44 份访谈后\\n无新范畴，补访 5 份确认", shape=note, style=filled, fillcolor="{C['ltgray']}", color="{C['gray']}", fontsize=10.5];
   {{rank=same; G1; G3; G2; G4;}}
   {{rank=same; P1; P2; P3; P4;}}
   SRC -> OPEN -> AX;

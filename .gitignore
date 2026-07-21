@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+green-standards-book/build/_*
+green-standards-book/build/eqchk_*
+green-standards-book/build/*.md
