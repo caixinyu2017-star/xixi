@@ -36,3 +36,12 @@
 - 修改 docx 只替换图片与版式，正文文字不动；改后用 LibreOffice 渲染 PDF 逐页目检改动处
   （环境若报 “source file could not be loaded”，需先 `apt-get install libreoffice-writer libreoffice-draw poppler-utils`）。
 - 成果放在 `双碳标准体系专著-图表修订/`（修订稿 docx、figures/ 按图号命名的 PNG、scripts/、README.md）。
+
+### 图片格式转换（SVG / Visio）
+
+- SVG：`scripts/tosvg.py` —— 图片先 2 倍放大再用 vtracer 矢量化（filter_speckle=1、color_precision=8、path_precision=1，
+  精度再低会丢失负号等细小笔画）。
+- Visio：`scripts/tovsdx.py` —— SVG 经 Inkscape 转 EMF（不能用 LibreOffice：会按 A4 页面裁切图形），
+  再嵌入自组装的 .vsdx（Foreign 形状 + EnhMetaFile）。两个坑：
+  ① page1.xml 的 ForeignData 与 <Rel> 之间不能有任何空白字符（libvisio 只读紧邻的下一个节点找 r:id）；
+  ② 验证方法是用 LibreOffice 把 .vsdx 转 PDF 检查渲染，其预览中图片外缘的浅蓝细框是查看器装饰，非文件问题。
