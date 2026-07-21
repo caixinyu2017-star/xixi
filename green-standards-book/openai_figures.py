@@ -8,7 +8,7 @@
     python3 openai_figures.py fig_cover --model gpt-image-1   # 指定模型
 
 说明：
-- 默认依次尝试模型 gpt-image-2、gpt-image-1（以账户实际可用为准）。
+- 默认依次尝试模型 gpt-image-2、gpt-image-1；端点默认中转服务 https://www.chedankj.com，可用环境变量 OPENAI_BASE_URL 覆盖。
 - 输出 PNG 到 figs_ai/ 目录（不覆盖 figs/ 下的矢量图；替换书稿中的图需
   修改对应章节 content_chNN.py 的 fig 路径后重新 assemble）。
 - 中文文字渲染是图像模型的弱项，提示词默认要求“无文字/极少文字”，
@@ -90,8 +90,9 @@ def generate(key, model_pref):
     for model in model_pref:
         body = json.dumps({'model': model, 'prompt': prompt,
                            'size': '1536x1024', 'quality': 'high'}).encode()
+        base = os.environ.get('OPENAI_BASE_URL', 'https://www.chedankj.com').rstrip('/')
         req = urllib.request.Request(
-            'https://api.openai.com/v1/images/generations', data=body,
+            f'{base}/v1/images/generations', data=body,
             headers={'Authorization': f'Bearer {api_key}',
                      'Content-Type': 'application/json'})
         try:
