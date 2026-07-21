@@ -12,19 +12,23 @@ OUT = os.path.join(SP, "gen", "out")
 # media 文件名 -> 新图 key（.png 在 gen/out/ 下，可被 final 覆盖：优先 <key>_final.png）
 MAPPING = {
     "image1.png": "fig1_1",  "image2.png": "fig1_2",  "image3.png": "fig2_1",
-    "image5.png": "fig3_1",  "image7.png": "fig3_3",  "image14.png": "fig5_1",
+    "image4.png": "fig2_2",  "image5.png": "fig3_1",  "image7.png": "fig3_3",
+    "image10.png": "fig4_2", "image14.png": "fig5_1",
     "image18.png": "fig6_1", "image21.png": "fig7_1", "image25.png": "fig8_1",
-    "image28.png": "fig9_1", "image32.png": "fig10_1","image33.png": "fig10_2",
+    "image28.png": "fig9_1", "image29.png": "fig9_2", "image31.png": "fig9_4",
+    "image32.png": "fig10_1","image33.png": "fig10_2",
     "image36.png": "fig11_1","image40.png": "fig12_1","image44.png": "fig13_1",
-    "image45.png": "fig13_2","image47.png": "fig14_1",
+    "image45.png": "fig13_2","image46.png": "fig13_3","image47.png": "fig14_1",
 }
+N_EXPECTED = len(MAPPING)
 MAX_H_EMU = Emu(int(8.2 * 914400))
 
 def pick(key):
-    for suffix in ("_final.png", ".png"):
-        p = os.path.join(OUT, key + suffix)
-        if os.path.exists(p):
-            return p
+    for cand in (os.path.join(OUT, "ins", key + ".png"),
+                 os.path.join(OUT, key + "_final.png"),
+                 os.path.join(OUT, key + ".png")):
+        if os.path.exists(cand):
+            return cand
     return None
 
 def main(src, dst):
@@ -58,7 +62,7 @@ def main(src, dst):
     doc.save(dst)
     for m, k in sorted(replaced.items()):
         print(f"{m:14s} <- {k[1]}")
-    print(f"replaced {len(replaced)}/17 -> {dst}")
+    print(f"replaced {len(replaced)}/{N_EXPECTED} -> {dst}")
 
 if __name__ == "__main__":
     src = sys.argv[1] if len(sys.argv) > 1 else os.path.join(SP, "src", "draft.docx")

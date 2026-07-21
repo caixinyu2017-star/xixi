@@ -15,7 +15,8 @@ KEY = os.environ["CHEDANKJ_API_KEY"]
 
 def gen_one(fig):
     k = fig["key"]
-    req = {"model": "gpt-image-2", "prompt": fig["prompt"], "size": fig["size"], "n": 1}
+    req = {"model": "gpt-image-2", "prompt": fig["prompt"], "size": fig["size"], "n": 1,
+           "quality": "high"}
     reqf = os.path.join(OUT, k + ".req.json")
     respf = os.path.join(OUT, k + ".resp.json")
     with open(reqf, "w") as f:
