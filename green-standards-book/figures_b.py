@@ -14,6 +14,32 @@ from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.ticker import MaxNLocator
 from figstyle import save, PAL, SERIES, CJK
 
+# 局部样式辅助（仅本文件使用，不改动 figstyle）
+from matplotlib import font_manager as _fm
+
+_BOLD_FP = '/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc'
+_fm.fontManager.addfont(_BOLD_FP)
+CJK_BOLD = _fm.FontProperties(fname=_BOLD_FP)
+
+
+def panel_label(ax, s, dx=0.0, dy=1.02):
+    """多面板图的面板标签（a）（b）…：黑体、左上角。"""
+    ax.text(dx, dy, s, transform=ax.transAxes, fontproperties=CJK_BOLD,
+            fontsize=11, ha='left', va='bottom')
+
+
+def _spread(vals, gap):
+    """直接标注去重叠：按升序推开，使相邻标签间距≥gap（数据坐标）。"""
+    vals = np.asarray(vals, float)
+    order = np.argsort(vals)
+    out = vals.copy()
+    last = -np.inf
+    for i in order:
+        out[i] = max(out[i], last + gap)
+        last = out[i]
+    return out
+
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 FIG = os.path.join(HERE, 'figs')
 os.makedirs(FIG, exist_ok=True)
@@ -58,37 +84,55 @@ def fig8_2():
     fig, ax = plt.subplots(figsize=(6.8, 3.7))
     im = ax.imshow(M, cmap=cmap, aspect='auto', vmin=0.15, vmax=0.60)
     ax.set_xticks(range(len(years)))
-    ax.set_xticklabels(years, fontsize=7.5)
+    ax.set_xticklabels(years, fontsize=8)
     ax.set_yticks(range(len(IND_ORDER)))
     ax.set_yticklabels(IND_ORDER, fontsize=8)
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):
             ax.annotate(f'{M[i, j]:.2f}', (j, i), ha='center', va='center',
-                        fontsize=6, color='black' if M[i, j] < 0.5 else 'white')
+                        fontsize=7, color='black' if M[i, j] < 0.47 else 'white')
+    # 白色单元格分隔线 + 四周细边框（浅色格与白底可分）
+    for i in range(1, M.shape[0]):
+        ax.axhline(i - 0.5, color='white', lw=0.8)
+    for j in range(1, M.shape[1]):
+        ax.axvline(j - 0.5, color='white', lw=0.8)
+    for sp in ax.spines.values():
+        sp.set_visible(True)
+        sp.set_linewidth(0.8)
+        sp.set_color('#404040')
     cb = fig.colorbar(im, ax=ax, pad=0.015, fraction=0.04)
     cb.set_label('供需错配指数 SSDMI', fontsize=8)
-    cb.ax.tick_params(labelsize=7)
+    cb.ax.tick_params(labelsize=7.5)
     ax.set_xlabel('年份')
     ax.grid(False)
     save(fig, f'{FIG}/fig8_2.png')
 
 
 def fig8_3():
-    """分行业错配指数细线＋加权综合错配指数粗线。"""
-    fig, ax = plt.subplots(figsize=(6.6, 3.8))
+    """分行业错配指数细线＋加权综合错配指数粗线（右端直接标注，不用图例框）。"""
+    fig, ax = plt.subplots(figsize=(6.8, 3.8))
     cols = SERIES + [PAL['red'], PAL['ltblue']]
+    ends = []
     for ind, c in zip(IND_ORDER, cols):
         x, v = ser(f'ssdmi.{ind}')
-        ax.plot(x, v, color=c, lw=1.1, alpha=0.75, label=ind)
+        ax.plot(x, v, color=c, lw=1.2, alpha=0.85)
+        ends.append([ind, c, v[-1], False])
     xc, vc = ser('ssdmi.composite')
-    ax.plot(xc, vc, color='black', lw=2.6, label='加权综合错配指数')
+    ax.plot(xc, vc, color='black', lw=2.6)
     ax.annotate(f'{vc[0]:.2f}', (xc[0], vc[0]), textcoords='offset points',
-                xytext=(-2, 6), fontsize=7.5)
-    ax.annotate(f'{vc[-1]:.2f}', (xc[-1], vc[-1]), textcoords='offset points',
-                xytext=(2, 6), fontsize=7.5)
+                xytext=(-2, 7), fontsize=8)
+    ends.append(['加权综合指数', 'black', vc[-1], True])
+    # 右端直接标注（替代图例框），标签垂直去重叠
+    ypos = _spread([e[2] for e in ends], 0.016)
+    for (name, c, val, bold), yy in zip(ends, ypos):
+        txt = f'{name} {val:.2f}' if bold else name
+        ax.annotate(txt, (xc[-1] + 0.18, yy), va='center', ha='left',
+                    fontsize=8.5 if bold else 8, color=c,
+                    fontproperties=CJK_BOLD if bold else None,
+                    annotation_clip=False)
     ax.set_xlabel('年份')
     ax.set_ylabel('供需错配指数 SSDMI')
-    ax.legend(fontsize=7, ncol=3, loc='upper right')
+    ax.set_xlim(xc[0] - 0.4, xc[-1] + 0.15)
     ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=11))
     save(fig, f'{FIG}/fig8_3.png')
 
@@ -131,6 +175,8 @@ def fig9_3():
     ax2.set_xlim(0, 0.33)
     ax2.annotate(f"CR={mod['CR']:.3f}<0.1", (0.97, 0.04), xycoords='axes fraction',
                  ha='right', fontsize=7.5, color=PAL['gray'])
+    panel_label(ax1, '（a）准则层', dx=-0.34)
+    panel_label(ax2, '（b）方案层', dx=-0.20)
     fig.tight_layout()
     save(fig, f'{FIG}/fig9_3.png')
 
@@ -145,15 +191,23 @@ def fig10_3():
     for key, lab, c in scen:
         x, v = ser(f'sd_stock.{key}')
         ax1.plot(x, v, color=c, marker='o', ms=3, lw=1.8, label=lab)
+        ax1.annotate(f'{v[-1]:.0f}', (x[-1], v[-1]), textcoords='offset points',
+                     xytext=(4, 0), va='center', ha='left', fontsize=7.5,
+                     color=c, annotation_clip=False)
         x2, v2 = ser(f'sd_eff.{key}')
         ax2.plot(x2, v2, color=c, marker='o', ms=3, lw=1.8, label=lab)
+        ax2.annotate(f'{v2[-1]:.2f}', (x2[-1], v2[-1]), textcoords='offset points',
+                     xytext=(4, 0), va='center', ha='left', fontsize=7.5,
+                     color=c, annotation_clip=False)
     ax1.set_ylabel('有效标准存量 SS（项）')
     ax2.set_ylabel('标准体系综合效能（0—1）')
     for ax in (ax1, ax2):
         ax.set_xlabel('年份')
         ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
-        ax.legend(fontsize=7, loc='upper left')
-    fig.tight_layout()
+    ax1.legend(fontsize=7.5, loc='upper left')
+    panel_label(ax1, '（a）', dx=-0.17)
+    panel_label(ax2, '（b）', dx=-0.15)
+    fig.tight_layout(w_pad=2.4)
     save(fig, f'{FIG}/fig10_3.png')
 
 
@@ -169,14 +223,15 @@ def fig10_4():
     ax.plot(x, v, color=PAL['blue'], marker='o', ms=6, lw=2)
     for xi, vi in zip(x, v):
         ax.annotate(f'{vi:.2f}', (xi, vi), textcoords='offset points',
-                    xytext=(0, 7), ha='center', fontsize=7.5)
+                    xytext=(0, 9 if xi == star else 7), ha='center', fontsize=8)
     ax.axvline(star, color=PAL['red'], ls='--', lw=1.2)
     ax.plot(star, grid[f'{star:.2f}'], '*', color=PAL['red'], ms=15, zorder=5)
     ax.annotate(f'最优阈值 TPD*={star:.2f}\n（综合效能峰值 {grid[f"{star:.2f}"]:.2f}）',
-                (star + 0.008, 0.715), fontsize=8, color=PAL['red'])
-    ax.annotate('阈值过低：\n修订频繁、成本高', (x[0], v[0] - 0.018), fontsize=7,
+                (star + 0.008, 0.715), fontsize=8.5, color=PAL['red'],
+                fontproperties=CJK_BOLD)
+    ax.annotate('阈值过低：\n修订频繁、成本高', (x[0], v[0] - 0.018), fontsize=7.5,
                 color=PAL['gray'], ha='left', va='top')
-    ax.annotate('阈值过高：\n标准滞后、效能损失', (x[-1], v[-1] - 0.018), fontsize=7,
+    ax.annotate('阈值过高：\n标准滞后、效能损失', (x[-1], v[-1] - 0.018), fontsize=7.5,
                 color=PAL['gray'], ha='right', va='top')
     ax.set_xlabel('技术—政策偏离度触发阈值 TPD*')
     ax.set_ylabel('2035年标准体系综合效能')
@@ -210,7 +265,7 @@ def fig11_2():
     ax.set_xlabel('标准执行效率 TE')
     ax.set_ylabel('核密度')
     ax.set_xlim(0.30, 1.05)
-    ax.legend(fontsize=7.5, loc='upper left')
+    ax.legend(fontsize=8, loc='upper left')
     fig.text(0.01, -0.03, '注：基于校准复算的省级面板数据，采用正态核近似（σ≈0.09）。',
              fontsize=6.6, color=PAL['gray'])
     save(fig, f'{FIG}/fig11_2.png')
@@ -233,13 +288,17 @@ def fig11_3():
         ax.bar(x, v, bottom=bottom, color=c, width=0.5, label=lab)
         for i, (b, vv) in enumerate(zip(bottom, v)):
             ax.annotate(f'{vv:.1f}%', (i, b + vv / 2), ha='center', va='center',
-                        fontsize=7.5, color='white')
+                        fontsize=8, color='black' if key == 'coordinate' else 'white')
         bottom += v
+    ax.axvline(0.5, ymax=0.86, color=PAL['gray'], lw=0.9, ls=(0, (4, 3)), alpha=0.8)
     ax.set_xticks(x)
     ax.set_xticklabels([g[0] for g in groups])
+    for t in ax.get_xticklabels()[:1]:
+        t.set_fontproperties(CJK_BOLD)
+        t.set_fontsize(9)
     ax.set_ylabel('占政策有效性损失 PEL 的比重（%）')
     ax.set_ylim(0, 116)
-    ax.legend(loc='upper center', ncol=3, fontsize=7.5)
+    ax.legend(loc='upper center', ncol=3, fontsize=8)
     save(fig, f'{FIG}/fig11_3.png')
 
 
@@ -255,17 +314,20 @@ def fig11_4():
     y = np.arange(len(prov))
     ax.barh(y, val, color=cols, height=0.7)
     ax.set_yticks(y)
-    ax.set_yticklabels(prov, fontsize=7.5)
+    ax.set_yticklabels(prov, fontsize=8)
     ax.invert_yaxis()
     ax.axvline(natl, color=PAL['gray'], ls='--', lw=1.1)
     ax.annotate(f'全国平均 {natl:.3f}', (natl, len(prov) - 1.2), rotation=90,
-                fontsize=7, color=PAL['gray'], ha='right', va='bottom')
+                fontsize=7.5, color=PAL['gray'], ha='right', va='bottom')
     for i, v in enumerate(val):
         ax.annotate(f'{v:.3f}', (v, i), textcoords='offset points',
-                    xytext=(3, 0), va='center', fontsize=6.4)
+                    xytext=(3, 0), va='center', fontsize=7)
     ax.set_xlabel('标准执行效率 TE（2025年）')
     ax.set_xlim(0.55, 0.87)
-    ax.legend(handles=[Patch(color=REG_C[k], label=REG_CN[k])
+    rmean = {k: val[np.array([regmap[p] == k for p in prov])].mean()
+             for k in ['east', 'central', 'west']}
+    ax.legend(handles=[Patch(color=REG_C[k],
+                             label=f'{REG_CN[k]}（均值 {rmean[k]:.3f}）')
                        for k in ['east', 'central', 'west']],
               loc='lower right', fontsize=8)
     save(fig, f'{FIG}/fig11_4.png')
@@ -289,15 +351,19 @@ def fig12_2():
     ax.plot(a, v, color=PAL['blue'], lw=2, marker='o', ms=4)
     ax.fill(a, v, color=PAL['blue'], alpha=0.18)
     ax.plot(a, [mean] * len(a), color=PAL['gray'], lw=1.2, ls='--')
-    for aa, vv, lab in zip(ang, vals, labs):
+    # 数值标签：白色衬垫防遮挡；核算边界/数据质量两处沿切向微移避开曲线与轴标签
+    off = {'boundary': (-4, 10), 'data': (10, 8)}
+    for (key, _), aa, vv in zip(DIM_CN, ang, vals):
         ax.annotate(f'{vv:.2f}', (aa, vv), textcoords='offset points',
-                    xytext=(0, 7), ha='center', fontsize=7.5,
-                    color=PAL['red'] if vv >= 0.42 else PAL['blue'])
+                    xytext=off.get(key, (0, 8)), ha='center', fontsize=8,
+                    color=PAL['red'] if vv >= 0.42 else PAL['blue'], zorder=6,
+                    bbox=dict(boxstyle='round,pad=0.12', fc='white', ec='none',
+                              alpha=0.85))
     ax.set_xticks(ang)
     ax.set_xticklabels(labs, fontsize=8.5)
     ax.set_ylim(0, 0.52)
     ax.set_yticks([0.1, 0.2, 0.3, 0.4, 0.5])
-    ax.set_yticklabels(['0.1', '0.2', '0.3', '0.4', '0.5'], fontsize=6.5)
+    ax.set_yticklabels(['0.1', '0.2', '0.3', '0.4', '0.5'], fontsize=7)
     ax.grid(alpha=0.4)
     ax.legend(handles=[Line2D([], [], color=PAL['blue'], marker='o', ms=4,
                               label='差距指数 ISGI$_k$'),
@@ -330,7 +396,7 @@ def fig12_3():
         for i, y in enumerate(years):
             ax.annotate(f'{bottom[i]:.0f}', (y + off, bottom[i]),
                         textcoords='offset points', xytext=(0, 2), ha='center',
-                        fontsize=6.8)
+                        fontsize=7.5)
     cut = R['isgi']['io']['tariff_improve_cut']
     ax.annotate(f'适配改进情景较基准\n累计减负约 {cut * 100:.0f}%',
                 (2026.6, 165), fontsize=8, color=PAL['red'],
@@ -341,7 +407,7 @@ def fig12_3():
     hnd = [Patch(color=c, label=lab) for _, lab, c in CBAM_IND]
     hnd += [Patch(fc='#BFBFBF', label='基准情景（左柱）'),
             Patch(fc='#BFBFBF', alpha=0.55, hatch='///', label='适配改进情景（右柱）')]
-    ax.legend(handles=hnd, fontsize=7, ncol=2, loc='upper left')
+    ax.legend(handles=hnd, fontsize=7.5, ncol=2, loc='upper left')
     save(fig, f'{FIG}/fig12_3.png')
 
 
@@ -356,14 +422,14 @@ def fig12_4():
     x = np.arange(len(keys))
     w = 0.36
     fig, ax = plt.subplots(figsize=(6.0, 3.5))
-    b1 = ax.bar(x - w / 2, vb, w, color=PAL['red'], alpha=0.88, label='基准情景')
-    b2 = ax.bar(x + w / 2, vi, w, color=PAL['teal'], alpha=0.88, label='适配改进情景')
+    b1 = ax.bar(x - w / 2, vb, w, color=PAL['blue'], alpha=0.92, label='基准情景')
+    b2 = ax.bar(x + w / 2, vi, w, color=PAL['green'], alpha=0.92, label='适配改进情景')
     for bars in (b1, b2):
         for bb in bars:
             ax.annotate(f'{bb.get_height():.2f}',
                         (bb.get_x() + bb.get_width() / 2, bb.get_height()),
                         textcoords='offset points', xytext=(0, -10),
-                        ha='center', fontsize=7.5)
+                        ha='center', fontsize=8)
     ax.axhline(0, color='black', lw=0.9)
     ax.set_xticks(x)
     ax.set_xticklabels(labs)
@@ -400,20 +466,22 @@ def fig13_3():
     ax1.set_ylabel('指数值（0—1）')
     ax1.set_ylim(0, 0.78)
     ax1.legend(fontsize=7.2, loc='upper right')
-    # 右：扎根理论核心范畴编码频次
-    cats = [('data', '数据基础障碍', PAL['blue']), ('inst', '制度衔接障碍', PAL['teal']),
-            ('cap', '认知—能力障碍', PAL['gold']), ('voice', '话语权障碍', PAL['orange'])]
-    vals = [R['cases']['categories'][k] for k, _, _ in cats]
+    # 右：扎根理论核心范畴编码频次（单色，长度承载信息）
+    cats = [('data', '数据基础障碍'), ('inst', '制度衔接障碍'),
+            ('cap', '认知—能力障碍'), ('voice', '话语权障碍')]
+    vals = [R['cases']['categories'][k] for k, _ in cats]
     y = np.arange(len(cats))
-    ax2.barh(y, vals, color=[c for _, _, c in cats], height=0.58)
+    ax2.barh(y, vals, color=PAL['teal'], height=0.58)
     ax2.set_yticks(y)
-    ax2.set_yticklabels([lab for _, lab, _ in cats], fontsize=8)
+    ax2.set_yticklabels([lab for _, lab in cats], fontsize=8)
     ax2.invert_yaxis()
     for i, v in enumerate(vals):
         ax2.annotate(f'{v}', (v, i), textcoords='offset points', xytext=(3, 0),
                      va='center', fontsize=8)
     ax2.set_xlabel('核心范畴编码参考点频次（次）')
     ax2.set_xlim(0, 168)
+    panel_label(ax1, '（a）国际适配指数', dx=-0.13)
+    panel_label(ax2, '（b）障碍编码频次', dx=-0.30)
     fig.tight_layout()
     save(fig, f'{FIG}/fig13_3.png')
 
