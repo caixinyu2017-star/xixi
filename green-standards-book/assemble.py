@@ -33,6 +33,23 @@ def title_page(bk):
     bk.add_pagebreak()
 
 
+def toc_page(bk):
+    """目录页：插入 Word TOC 域（打开文档后按 F9 或更新域生成页码）。"""
+    from docx.oxml.ns import qn
+    from docx.oxml import OxmlElement
+    bk.add_heading('目  录', 1)
+    p = bk.doc.add_paragraph()
+    fld = OxmlElement('w:fldSimple')
+    fld.set(qn('w:instr'), r'TOC \o "1-2" \h \z \u')
+    r = OxmlElement('w:r')
+    t = OxmlElement('w:t')
+    t.text = '（在 Word 中右键此处选择“更新域”生成目录）'
+    r.append(t)
+    fld.append(r)
+    p._p.append(fld)
+    bk.add_pagebreak()
+
+
 def load_blocks():
     all_blocks = []
     import content_front
@@ -56,6 +73,7 @@ def main():
     all_blocks, counts = load_blocks()
     total_chars = count_chars(all_blocks)
     title_page(bk)
+    toc_page(bk)
     bk.build(all_blocks)
     bk.add_references(refs.gb_ordered())
     # 后记

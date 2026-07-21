@@ -211,6 +211,11 @@ class BookBuilder:
         pf.space_after = Pt(8 if level == 1 else 6)
         pf.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
         pf.keep_with_next = True
+        # 大纲级别（供 TOC 域与导航窗格识别）
+        pPr = p._p.get_or_add_pPr()
+        ol = OxmlElement('w:outlineLvl')
+        ol.set(qn('w:val'), str(level - 1))
+        pPr.append(ol)
         if level == 1:
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             self._append_rich(p, text, HEI, SIZE['小三'], bold=True)
