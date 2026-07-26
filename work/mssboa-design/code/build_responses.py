@@ -42,7 +42,8 @@ def _findings():
     f = dict(k_finding=PENDING, param_finding=PENDING, weights_finding=PENDING,
              scale_finding=PENDING, variants_finding=PENDING,
              factorial_finding=PENDING, wilcoxon_finding=PENDING,
-             loss_finding=PENDING, gap_finding=PENDING)
+             loss_finding=PENDING, gap_finding=PENDING,
+             mssboa_honest=PENDING)
     nar = Narrative()
 
     ex = nar.extra
@@ -103,6 +104,16 @@ def _findings():
             + '; '.join(parts) + f'. By average Friedman rank MSSBOA places '
             f'{_nth(pos)} of {len(ordered)}. We present these numbers exactly '
             f'as they came out, including where they are unfavourable.')
+    if nar.t6 and nar.t7:
+        _, m6 = nar.t6
+        _, m7 = nar.t7
+        s_ = m7['detail'].get('SBOA', [0, 0, 0])
+        ordered = sorted(m6['avg'], key=m6['avg'].get)
+        f['mssboa_honest'] = (
+            f'Against the basic SBOA the Wilcoxon rank-sum outcome is '
+            f'{s_[0]} wins, {s_[1]} ties and {s_[2]} losses over '
+            f'{m7["cases"]} cases, and by average Friedman rank the field '
+            f'orders as ' + ' > '.join(ordered) + '.')
     if nar.loss:
         _, m = nar.loss
         tot = {a: sum(v.values()) for a, v in m['per'].items()}

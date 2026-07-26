@@ -17,3 +17,6 @@
   main: 16000/19140 733s (eta 144s)
   main: 17000/19140 811s (eta 102s)
   main: 18000/19140 899s (eta 57s)
+  main: 19000/19140 980s (eta 7s)
+main DONE: 19140 runs in 991s
+=== ablation: 13920 runs ===
