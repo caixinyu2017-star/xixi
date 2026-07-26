@@ -136,34 +136,50 @@ def build():
     body = body_style(doc)
     log = []
 
+    # ======================================================================
+    # Repositioning on the design contribution (Reviewer 2, comment 2).
+    # The reviewer's own reading was that the algorithmic novelty is limited
+    # while the application is interesting; the paper is refocused on the
+    # formulation and the benchmark rather than on the variant.
+    # ======================================================================
+    strike_and_replace(doc.paragraphs[1], T.PIVOT_TITLE_OLD,
+                       T.PIVOT_TITLE_NEW, BLUE)
+    set_paragraph_text(doc.paragraphs[7], T.PIVOT_ABSTRACT, BLUE)
+    log.append('R2: title and abstract repositioned on the design contribution')
+
+    # contribution list
+    c1 = para_by(doc, '(1) An improved SBOA variant')
+    strike_paragraph(c1, BLUE)
+    cur = insert_para_after(c1, T.PIVOT_CONTRIBUTIONS[0], BLUE, template=body)
+    for old_needle, new_txt in (
+            ('(2) The performance of MSSBOA is comprehensively examined',
+             T.PIVOT_CONTRIBUTIONS[1]),
+            ('(3) MSSBOA is successfully applied to aesthetic',
+             T.PIVOT_CONTRIBUTIONS[2])):
+        j = find_para(doc, old_needle)
+        if j is not None:
+            strike_paragraph(doc.paragraphs[j], BLUE)
+            insert_para_after(doc.paragraphs[j], new_txt, BLUE, template=body)
+    log.append('R2: contribution list reordered, design formulation first')
+
+    # section framing
+    j = find_para(doc, 'In this section, the performance of MSSBOA is comprehensively')
+    if j is not None:
+        set_paragraph_text(doc.paragraphs[j], T.PIVOT_SECTION4_INTRO, BLUE)
+    j = find_para(doc, 'In this section, MSSBOA is applied to two representative')
+    if j is not None:
+        set_paragraph_text(doc.paragraphs[j], T.PIVOT_SECTION5_INTRO, BLUE)
+    log.append('R2: Sections 4 and 5 reframed')
+
     # =============================================== REVIEWER 2: why SBOA
     p = para_by(doc, 'The secretary bird optimization algorithm (SBOA) is a bio-inspired')
     insert_paras_after(p, T.R2_WHY_SBOA, BLUE, template=body)
     log.append('R2: rationale for choosing SBOA')
 
     # =============================================== REVIEWER 1: novelty framing
-    replace_in_para(doc.paragraphs[7], T.R1_ABSTRACT_OLD, T.R1_ABSTRACT_NEW, RED)
-    # The submitted abstract asserted an outcome and a set of dimensions that
-    # the regenerated runs must be allowed to overrule.
-    abs_result = nar.abstract_result() or (
-        'The full experimental protocol was regenerated for this revision from '
-        'a single public implementation, and the outcome is reported as '
-        'measured.')
-    strike_and_replace(
-        doc.paragraphs[7],
-        'In all cases, MSSBOA outperforms the basic SBOA and the competing '
-        'algorithms in terms of convergence speed, stability and solution '
-        'quality, confirming its effectiveness for computational-aesthetics '
-        'applications in art design.',
-        abs_result, RED)
-    if nar.t6:
-        from narrative import _series
-        dims = nar.t6[1]['dims']
-        replace_in_para(doc.paragraphs[7], '10, 30, 50 and 100 dimensions',
-                        _series([str(x) for x in dims]) + ' dimensions', RED)
-    strike_and_replace(para_by(doc, '(1) An improved SBOA variant'),
-                       T.R1_CONTRIB_OLD, T.R1_CONTRIB_NEW, RED)
-    log.append('R1: contribution reframed as an integration framework')
+    # (the abstract was rewritten above; the outcome sentence it used to carry
+    # is gone with it, so nothing is left to strike here)
+    log.append('R1: novelty framing carried by the new Section 3.6')
 
     # =============================================== Section 3.2 derivation
     p = para_by(doc, 'Opposition-based learning evaluates a candidate solution')
@@ -491,13 +507,17 @@ def build():
         log.append('R1: Section 5.3 scalability added')
 
     # =============================================== Conclusions
-    strike_and_replace(para_by(doc, 'This paper proposed a multi-strategy secretary bird'),
-                       T.R1_CONCL_FRAMING_OLD, T.R1_CONCL_FRAMING_NEW, RED)
+    cp = para_by(doc, 'This paper proposed a multi-strategy secretary bird')
+    strike_paragraph(cp, BLUE)
+    insert_para_after(cp, T.PIVOT_CONCLUSION_OPEN, BLUE, template=body)
     concl = nar.conclusion_results()
     if concl:
-        rewrite(doc, 'On the CEC2017 benchmark suite in 10, 30, 50 and 100 dimensions',
-                concl, RED)
-        log.append('R1: Conclusions results paragraph regenerated')
+        cur = rewrite(doc, 'On the CEC2017 benchmark suite in 10, 30, 50 and 100 dimensions',
+                      concl, RED)
+        if cur is not None:
+            cur = insert_para_after(cur, T.PIVOT_CONCLUSION_HONEST, BLUE,
+                                    template=body)
+        log.append('R1/R2: Conclusions regenerated and stated honestly')
     p = para_by(doc, 'Nevertheless, MSSBOA has some limitations.')
     set_paragraph_text(p, '', RED)
     lims = list(T.R1_LIMITATIONS)

@@ -1,12 +1,12 @@
 Competitor,Unimodal,Multimodal,Hybrid,Composition,Total losses
-SBOA,1,0,1,5,7
+SBOA,1,0,0,4,5
 GWO,0,0,0,0,0
 COA,2,0,4,0,6
 SCA,0,0,0,0,0
 SMA,0,0,0,1,1
 RIME,2,0,0,0,2
-QIO,2,4,9,8,23
-MRFO,1,0,0,0,1
+QIO,2,5,9,9,25
+MRFO,1,0,1,0,2
 GKSO,0,0,1,0,1
-LSHADE,4,7,17,14,42
+LSHADE,3,9,17,14,43
 Cases available,4,14,20,20,58

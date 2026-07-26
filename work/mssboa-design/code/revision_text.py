@@ -513,3 +513,133 @@ TEMPLATE_TABLE = [
     ['X-type', '(0 deg, 93.6 deg) and (180 deg, 93.6 deg)',
      'two broad opposite bands'],
 ]
+
+
+# =====================================================================
+#  Repositioning the paper on the design contribution
+#  (Reviewer 2, comment 2: "the novelty of the new algorithm is limited ...
+#   but the application is interesting")
+# =====================================================================
+
+PIVOT_TITLE_OLD = ('A Multi-Strategy Secretary Bird Optimization Algorithm for '
+                   'Aesthetic Color and Layout Optimization in Visual Art Design')
+PIVOT_TITLE_NEW = ('Computational Aesthetics as an Optimization Problem: A '
+                   'Reproducible Colour-Harmony and Graphic-Layout Formulation '
+                   'and a Benchmark of Bio-Inspired Optimizers')
+
+PIVOT_ABSTRACT = (
+    'Visual art and graphic design tasks such as choosing a harmonious colour '
+    'palette or arranging the elements of a page can be posed as optimization '
+    'problems, but the objective functions that make this possible are rarely '
+    'stated in full, which makes results difficult to reproduce and impossible '
+    'to compare across papers. This article contributes, first, a complete and '
+    'openly implemented formulation of two such problems: an aesthetic '
+    'colour-harmony objective built on Matsuda\'s harmonic templates in the '
+    'parameterization of Cohen-Or et al., in which the best-fitting template '
+    'and its rotation are outputs of the evaluation rather than inputs chosen '
+    'by the designer; and a graphic-layout objective built on the quantitative '
+    'aesthetic measures of Ngo et al. Every variable, the colour space and the '
+    'reason for choosing it, and every weight are specified. Second, it uses '
+    'that formulation as a testbed: eleven bio-inspired and evolutionary '
+    'optimizers, including the recent secretary bird optimization algorithm '
+    '(SBOA) and a multi-strategy variant of it (MSSBOA) developed here, are '
+    'compared on the two design problems and on the CEC2017 suite under an '
+    'identical evaluation budget, with every auxiliary function evaluation '
+    'charged to that budget. Third, it reports how far the conclusions depend '
+    'on the modelling choices, through a sensitivity analysis over the '
+    'aesthetic weight vector and a scalability study that extends the layout '
+    'problem from six to thirty elements. The emphasis throughout is on '
+    'reproducibility: the objectives, the optimizers, the raw results and the '
+    'analysis scripts are all released.')
+
+PIVOT_CONTRIBUTIONS = [
+    '(1) Two visual-design optimization problems are formulated completely and '
+    'released as executable code. For colour harmony, the hue-wheel geodesic, '
+    'the saturation-weighted disharmony energy over the seven chromatic '
+    'templates of Matsuda, the hue-diversity term and the tonal-contrast term '
+    'are each given in closed form, and the choice of the HSV space is argued '
+    'from the structure of the objective rather than asserted. For graphic '
+    'layout, the balance, non-overlap, alignment, symmetry and density '
+    'measures of Ngo et al. are specified together with the canvas penalty. '
+    'Stating these models in full is the prerequisite for anyone else to '
+    'reproduce or contest the results, and it is the gap this paper is '
+    'primarily meant to close.',
+
+    '(2) The two problems are used to benchmark eleven optimizers, which to '
+    'our knowledge is the first comparison of this breadth on explicitly '
+    'stated computational-aesthetics objectives. The study includes a '
+    'multi-strategy SBOA variant (MSSBOA) that integrates good point set '
+    'initialization, lens opposition-based learning and an adaptive '
+    'Cauchy-Gaussian mutation, and the same protocol is applied to the '
+    'CEC2017 suite so that behaviour on the design problems can be read '
+    'against behaviour on a standard suite. Results are reported as measured, '
+    'including where the proposed variant does not lead.',
+
+    '(3) The robustness of the conclusions to the modelling choices is '
+    'quantified. The aesthetic weight vector of Equation (22) is varied over '
+    'five configurations and the resulting orderings of the algorithms are '
+    'compared by rank correlation; the layout problem is scaled from six to '
+    'thirty elements, that is from twelve to sixty decision variables, to '
+    'establish that neither the formulation nor the optimizers break down at '
+    'realistic design sizes.',
+]
+
+PIVOT_SECTION4_INTRO = (
+    'The purpose of this section is not to establish that any one algorithm is '
+    'universally superior, which the no free lunch theorem forbids in any case, '
+    'but to answer a practical question for the design problems of Section 5: '
+    'given a fixed evaluation budget, which class of optimizer should a '
+    'practitioner reach for, and does behaviour on a standard suite predict '
+    'behaviour on an aesthetic objective? The CEC2017 suite is used because it '
+    'is standard, its function classes are well characterized, and its results '
+    'can be compared with the wider literature. Every algorithm is charged for '
+    'every function evaluation it performs, including those consumed by '
+    'auxiliary operators, and all results below are reported as measured.')
+
+PIVOT_SECTION5_INTRO = (
+    'This section presents the main contribution of the paper: two visual-design '
+    'problems stated completely enough to be reproduced, and what happens when '
+    'a representative set of optimizers is applied to them. Both are formulated '
+    'as continuous maximization problems over a fixed evaluation budget, and '
+    'both are released as executable code together with the raw results. '
+    'Interestingly, both the optimizers considered here and the colour-harmony '
+    'objective itself are bio-inspired: the harmonic templates formalize '
+    'regularities first catalogued in natural colour schemes, which makes the '
+    'pairing a natural one for biomimetic design.')
+
+PIVOT_CONCLUSION_OPEN = (
+    'This paper set out to make two computational-aesthetics problems '
+    'reproducible and then to use them as a testbed. The colour-harmony and '
+    'graphic-layout objectives are stated in full - every term, every variable, '
+    'the colour space and the reason for it, and the provenance of the harmonic '
+    'templates - and are released as executable code alongside the raw results '
+    'of every run reported here. A multi-strategy variant of the secretary bird '
+    'optimization algorithm was developed in the course of the study and is '
+    'included in the comparison.')
+
+PIVOT_CONCLUSION_HONEST = (
+    'We want to be explicit about what the benchmark does and does not show. '
+    'The three strategies integrated into MSSBOA are individually well '
+    'established, and under the fair-budget protocol used here they do not '
+    'produce a statistically significant improvement over the basic SBOA on the '
+    'CEC2017 suite. We report this rather than omit it, because a negative '
+    'result obtained under a stated protocol is more useful to the field than '
+    'an unreproducible positive one, and because the released code allows the '
+    'measurement to be checked. The value of the study lies in the formulation '
+    'and the comparison rather than in the variant.')
+
+PIVOT_FUTURE = (
+    'Two directions follow naturally. The first is perceptual validation: the '
+    'objectives used here are computational models, and although the harmonic '
+    'templates and the layout measures were each calibrated against human '
+    'judgements in the studies that introduced them, that grounding transfers '
+    'only as far as the models do. A controlled experiment in which trained '
+    'designers and naive participants rank generated palettes and layouts, with '
+    'agreement measured against the computational scores, is the necessary next '
+    'step and is planned. The second is interactive design: the problems studied '
+    'here are offline, whereas a designer in practice supplies subjective '
+    'feedback while the search runs. Replacing the analytic objective by a '
+    'surrogate fitted to accumulated user judgements, so that only a few '
+    'candidates are ever shown, would adapt the present framework to that '
+    'setting; the interactive genetic protocols for colour matching in '
+    'cultural-creative design provide the experimental design.')
