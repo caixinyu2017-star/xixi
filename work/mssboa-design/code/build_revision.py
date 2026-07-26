@@ -566,13 +566,17 @@ def _load_all():
     s = MT.table_scale()
     if s:
         SCALE_TABLE, meta = s
+        sizes = ', '.join(str(n) for n in meta['ns'])
         SCALE_PARAS = [
             'The eight problems of Table 9 involve at most six elements, so the '
             'largest decision vector has 12 components. To establish whether '
             'the method scales, the layout problem was instantiated with 8, 12, '
             '20 and 30 elements, giving problems of 16 to 60 dimensions, with '
             'total element area held at about half the canvas so that the '
-            'density term remains comparable. Table 17 reports the outcome.']
+            'density term remains comparable across sizes. Each setting is '
+            f'solved by six algorithms over {meta["runs"]} independent runs '
+            f'with a budget of 1000D evaluations. Table 18 reports the sizes '
+            f'completed so far ({sizes} elements).']
     else:
         SCALE_TABLE = [['Status'], [PENDING]]
         SCALE_PARAS = [

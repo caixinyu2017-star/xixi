@@ -139,11 +139,17 @@ def _summarise_scale(rows, meta):
             continue
         lines.append(f'{r[0].split()[0]} elements (D = {r[0].split("=")[1].strip(" )")}): '
                      f'MSSBOA {vals[0]:.2f}, rank {r[-2]} of {len(algos)}')
+    missing = [n for n in (8, 12, 20, 30) if n not in meta['ns']]
+    tail = ''
+    if missing:
+        tail = (' ' + PENDING + ' Sizes still to be completed at the time this '
+                'draft was generated: '
+                + ', '.join(str(n) for n in missing) + ' elements.')
     return (f'Over {meta["runs"]} independent runs per setting: '
             + '; '.join(lines) + '. The aesthetic score does not collapse as '
-            'the problem grows, so the method does scale to the sizes you ask '
-            'about; the relative standing of the algorithms at each size is '
-            'reported exactly as measured.')
+            'the problem grows, so the method does scale to the sizes '
+            'measured so far; the relative standing of the algorithms at each '
+            'size is reported exactly as measured.' + tail)
 
 
 # --------------------------------------------------------------- rendering
