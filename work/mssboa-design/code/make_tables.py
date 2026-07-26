@@ -290,16 +290,16 @@ def table_scale(min_runs=20):
     ns = [n for n in ns if all(len(d[(n, a)]) >= min_runs for a in algos)]
     if not ns:
         return None
-    rows = [['Elements n (D = 2n)'] + algos + ['MSSBOA rank']]
+    rows = [['Elements n (D = 2n)'] + algos
+            + ['MSSBOA rank', 'MSSBOA std. dev.']]
     for n in ns:
         means = [np.mean(d[(n, a)]) * 100 for a in algos]
         rk = stats.rankdata([-m for m in means])
         rows.append([f'{n} (D = {2 * n})'] + [f'{m:.2f}' for m in means]
-                    + [str(int(rk[algos.index("MSSBOA")]))])
-    rows.append(['Std. dev. of MSSBOA']
-                + [f'{np.std(d[(n, "MSSBOA")]) * 100:.2f}' if a == 'MSSBOA'
-                   else '' for a in algos][:len(algos)] + [''])
-    return _save('scale', rows), {'ns': ns}
+                    + [str(int(rk[algos.index("MSSBOA")])),
+                       f'{np.std(d[(n, "MSSBOA")]) * 100:.2f}'])
+    runs = min(len(d[(n, a)]) for n in ns for a in algos)
+    return _save('scale', rows), {'ns': ns, 'runs': runs, 'algos': algos}
 
 
 if __name__ == '__main__':

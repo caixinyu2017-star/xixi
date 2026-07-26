@@ -143,6 +143,22 @@ implementation before the revision is submitted.** Placing them next to the
 existing Tables 5–7 as they stand would put two mutually contradictory sets of
 numbers in the same paper.
 
+### Status of each new experiment
+
+| Study | Script | State |
+|---|---|---|
+| Loss distribution by function class | `analyze_losses.py` | **complete** — computed from the manuscript's own published Tables A5–A8, so it is unaffected by the issue above and can be used as it stands |
+| Layout scalability, 8–30 elements | `run_design.py scale` | complete for the sizes recorded in `results/design_scale.csv` |
+| SBOA variants / MS-TSA / I-CPA | `run_cec.py variants@10` | partial — `results/cec_variants.csv` |
+| 2^3 factorial ablation | `run_cec.py factorial@10` | not run to completion |
+| Extended parameter grids | `run_cec.py params@10` | not run to completion |
+| Aesthetic weight sensitivity | `run_design.py weights` | not run to completion |
+
+The runners write in run-major order, so a partial CSV is a complete
+experiment with fewer repetitions rather than a complete one for the first few
+algorithms only. `make_tables.py` reports the usable run count and refuses to
+emit a table until every algorithm covers every function.
+
 The recommended order of work is:
 
 1. Recover the implementation used for the submitted version.

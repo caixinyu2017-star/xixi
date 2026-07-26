@@ -72,10 +72,17 @@ curl -L -o code/cec2017/data.pkl \
 cd code
 python3 run_cec.py variants@10,30 params@10 factorial@10   # CEC2017 studies
 python3 run_design.py scale weights palette                # design studies
+python3 diagnose.py 10 4                                   # reproducibility check
 python3 analyze_losses.py                                  # loss breakdown
 python3 make_tables.py                                     # derived tables
 python3 draw_figs.py                                       # figures
+python3 build_revision.py && python3 build_responses.py    # documents
 ```
+
+The CEC2017 studies are the expensive ones: `variants` at D = 30 is roughly
+9 algorithms x 29 functions x 30 runs x 30 000 evaluations. Studies write
+their CSV in run-major order, so they can be stopped and the partial file is
+still a complete experiment with fewer repetitions.
 
 Every run is seeded deterministically from
 `(algorithm, function, dimension, run index)`, so the CSVs in `results/` are
