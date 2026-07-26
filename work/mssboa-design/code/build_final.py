@@ -594,6 +594,10 @@ def build():
     _appendix(doc, log)
 
     # =============================================== housekeeping
+    import polish
+    n = polish.polish_document(doc, RED)
+    log.append(f'R1: academic-English pass, {n} run(s) revised '
+               '(methods to past tense, register and spelling harmonized)')
     fix_typography(doc)
     fix_algorithm1(doc)
     add_references(doc)
