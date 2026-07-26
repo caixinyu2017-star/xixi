@@ -299,10 +299,38 @@ class Narrative:
             f'{_dims(m["dims"])} over {m["n"]} independent runs. The overall '
             f'order by average Friedman rank is ' + ' > '.join(ordered) +
             f', with MSSBOA {_nth(pos)} of {len(ordered)} at '
-            f'{m["avg"]["MSSBOA"]:.3f}. Both MS-TSA and I-CPA improve on their '
-            f'own base algorithms, which confirms that the re-implementations '
-            f'reproduce the behaviour their authors describe.',
+            f'{m["avg"]["MSSBOA"]:.3f}. ' + self._variant_reading(m),
         ]
+
+    def _variant_reading(self, m):
+        avg = m['avg']
+        beats = [a for a in avg if a != 'MSSBOA' and avg[a] > avg['MSSBOA']]
+        loses = [a for a in avg if a != 'MSSBOA' and avg[a] < avg['MSSBOA']]
+        parts = []
+        if beats:
+            parts.append('MSSBOA obtains a better average rank than '
+                         + _series(beats))
+        if loses:
+            parts.append('a worse one than ' + _series(loses))
+        txt = _series(parts, 'and') + '. ' if parts else ''
+        # whether each external variant improves on its own base is a
+        # property of the re-implementation and must be read off, not assumed
+        checks = []
+        for var, base in (('MS-TSA', 'TSA'), ('I-CPA', 'CPA')):
+            if var in avg and base in avg:
+                if avg[var] < avg[base]:
+                    checks.append(f'{var} improves on {base}')
+                else:
+                    checks.append(f'{var} does not improve on {base} in our '
+                                  f're-implementation')
+        if checks:
+            joined_checks = _series(checks)
+            txt += (joined_checks[0].upper() + joined_checks[1:]
+                    + '; where a variant does not reproduce the gain its '
+                      'authors report, the most likely cause is our reading of '
+                      'the published description rather than the method itself, '
+                      'and the released code is the means to check that.')
+        return txt
 
     # ------------------------------------------------------------ 5.1
     def color(self):
