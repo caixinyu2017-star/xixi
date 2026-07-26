@@ -46,3 +46,30 @@ ablation DONE: 13920 runs in 754s
   extra: 13000/29580 379s (eta 483s)
   extra: 14000/29580 406s (eta 452s)
   extra: 15000/29580 454s (eta 442s)
+  extra: 16000/29580 557s (eta 473s)
+  extra: 17000/29580 658s (eta 487s)
+  extra: 18000/29580 760s (eta 489s)
+  extra: 19000/29580 865s (eta 482s)
+  extra: 20000/29580 970s (eta 465s)
+  extra: 21000/29580 1071s (eta 438s)
+  extra: 22000/29580 1174s (eta 405s)
+  extra: 23000/29580 1278s (eta 366s)
+  extra: 24000/29580 1381s (eta 321s)
+  extra: 25000/29580 1484s (eta 272s)
+  extra: 26000/29580 1588s (eta 219s)
+  extra: 27000/29580 1688s (eta 161s)
+  extra: 28000/29580 1793s (eta 101s)
+  extra: 29000/29580 1898s (eta 38s)
+extra DONE: 29580 runs in 1959s
+=== weights: 3200 runs ===
+  weights: 1000/3200 114s (eta 251s)
+  weights: 2000/3200 226s (eta 136s)
+  weights: 3000/3200 334s (eta 22s)
+weights DONE: 3200 runs in 356s
+=== scale: 720 runs ===
+scale DONE: 720 runs in 669s
+1740 run(s) for N=30
+  500/1740
+  1000/1740
+  1500/1740
+appended 1740 run(s) to r_extra.csv

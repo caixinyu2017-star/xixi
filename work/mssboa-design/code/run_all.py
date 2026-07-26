@@ -64,7 +64,9 @@ NMIN_GRID = [round(0.1 * i, 1) for i in range(1, 10)]      # 0.1N .. 0.9N
 PM_GRID = [round(0.1 * i, 1) for i in range(1, 11)]        # 0.1 .. 1.0
 
 EXTRA_GRID = {}
-for _n in (10, 20, 50, 100):
+# 30 is the adopted value and has to be in the grid: a grid that only brackets
+# the setting in use cannot say whether that setting is a good one.
+for _n in (10, 20, 30, 50, 100):
     EXTRA_GRID[f'N={_n}'] = ('N', _n, {})
 for _b in (1.1, 1.3, 1.5, 1.9):
     EXTRA_GRID[f'beta={_b}'] = ('kw', POP, {'beta': _b})

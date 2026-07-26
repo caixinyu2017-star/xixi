@@ -205,3 +205,72 @@ colour model, the loss analysis (which is computed from the manuscript's own
 published Tables A5–A8 and therefore stands regardless), the reframing of the
 contribution, the corrected LOBL threshold, the figures and the typography — is
 independent of this issue.
+
+---
+
+## What the delivered revision actually contains
+
+The revision is built with `KEEP_SUBMITTED_RESULTS` on (the default): Tables
+1–10 and A1–A8 and the figures that illustrate them are exactly as submitted,
+because they are the authors' own data. Only experiments that did not exist
+before are added, and each of them says at the point of use that it was
+produced with the reference implementation released here rather than with the
+code behind Tables 5–7.
+
+| Added | Section | Table | Source |
+|---|---|---|---|
+| Operator-by-operator comparison with existing applications | 3.6 | 1 | argument, no runs |
+| Extended parameter grids (N, β, hunting stages, lens schedule) | 4.2 | 5–8 | `run_all.py extra` |
+| Loss distribution by function class | 4.4 | 13 | `analyze_losses.py`, from the manuscript's own Tables A5–A8 |
+| SBOA variants, MS-TSA, I-CPA | 4.5 | 14 | `run_all.py variants` |
+| The seven harmonic templates | 5.1 | 15 | definition, no runs |
+| Weight sensitivity of Eq. (22) | 5.2 | 19 | `run_all.py weights` |
+| Layout scalability, 8–30 elements | 5.3 | 20 | `run_all.py scale` |
+
+The 2³ factorial ablation was run (`results/r_ablation.csv`) but is **not** in
+the paper. It could only be produced with the reference implementation, and
+placing it beside the submitted Tables 4–7 would put two non-comparable sets of
+numbers in one section. Section 4.3 instead states the scope of the submitted
+single-strategy ablation and answers Reviewer 3's complementarity question from
+the design argument of Section 3.6, naming the factorial as future work.
+
+### Things found while assembling it
+
+* **The N grid did not contain the adopted value.** It ran N ∈ {10, 20, 50,
+  100} and so could only bracket N = 30, not judge it. `N=30` was added to
+  `EXTRA_GRID` and run with `run_extra_tag.py`, which appends one setting
+  without re-running the study — every run is seeded from
+  `(study, tag, problem, dimension, run)`, so the appended rows are identical
+  to what a full re-run would produce. With it in, N = 30 is the best setting
+  of the five.
+* **The hunting-stage division adopted from SBOA is last of four in its grid**
+  (2.759 against 2.310 for T/4, 3T/4). The text reports this rather than
+  claiming every inherited value is optimal.
+* **Plain OBL (k = 1) edges out the adopted lens schedule by 0.121**, while the
+  two settings that move the power μ away from 10 are the worst two of the
+  five. Section 4.2 reports both facts and reads the grid as showing that the
+  scale of the contraction is what matters.
+* **Figures 7–11 must not be regenerated while Tables 6 and 7 are kept.** They
+  illustrate those tables; redrawing them from the new runs would put a plot
+  and a table that disagree on the same page. The same applies to Figures 6 and
+  12–15. Only Figure 2 (a new schematic) and Figures 4 and 5 (redrawn from the
+  manuscript's *own* published Tables 2 and 3, with the annotation moved above
+  the point as Reviewer 3 asked) are replaced.
+* **Table numbering is mechanical.** New tables are inserted with provisional
+  numbers in the 100s; `renumber_tables()` puts every caption into document
+  order, follows references in singular, plural and range form ("Table 6",
+  "Tables 2 and 3", "Tables 5-7", "Tables 4 to 7"), and writes the mapping to
+  `results/table_map.json`, which `build_responses.py` applies so that the
+  letters and the paper cannot disagree.
+
+### Build order
+
+```
+python3 run_all.py variants ablation extra weights scale
+python3 analyze_losses.py
+python3 draw_figs.py
+python3 tables.py
+python3 build_final.py
+python3 build_responses.py     # reads results/table_map.json
+python3 check_consistency.py   # audits the paper and the three letters
+```

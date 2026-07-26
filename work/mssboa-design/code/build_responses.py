@@ -119,8 +119,8 @@ def _submitted_findings(f):
 def _findings():
     """Fill the data-dependent sentences of the letters from the regenerated runs."""
     import tables as TB
-    from narrative import (Narrative, _card, _dims, _nth, _series,
-                           lc_title)
+    from narrative import (Narrative, _card, _dims, _lens_reading, _nth,
+                           _series, lc_title)
     f = dict(k_finding=PENDING, param_finding=PENDING, weights_finding=PENDING,
              scale_finding=PENDING, variants_finding=PENDING,
              factorial_finding=PENDING, wilcoxon_finding=PENDING,
@@ -128,24 +128,23 @@ def _findings():
              mssboa_honest=PENDING)
     nar = Narrative()
 
+    # The letters quote the paragraphs the manuscript generates from the same
+    # metadata, so a reply cannot state a reading the paper does not state.
     ex = nar.extra
     if ex:
         for title, rows, meta in ex:
             if title.startswith('Lens'):
                 f['k_finding'] = (
-                    f'Over the {len(meta["labels"])} exponent pairs tested, the '
-                    f'best mean rank is obtained by "{meta["best"]}" on the '
-                    f'CEC2017 suite in {_dims(meta["dims"])} '
-                    f'with {meta["n"]} runs per setting. The grid '
-                    f'therefore supports the adopted exponents as a reasonable '
-                    f'rather than a uniquely optimal choice, and the text now '
-                    f'says so instead of presenting them as given.')
-        parts = [f'for the {lc_title(t)} the best setting is "{m["best"]}"'
-                 for t, _, m in ex]
-        f['param_finding'] = ('Across the four grids, ' + _series(parts) +
-                              '. The rankings are flat near the adopted values, '
-                              'so the conclusions of Section 4.4 do not depend '
-                              'on them.')
+                    f'It was run in {_dims(meta["dims"])} with {meta["n"]} '
+                    f'runs per setting. '
+                    + _lens_reading(meta, note=False) +
+                    ' We report the grid as it came out: it supports the '
+                    'adopted exponents as a reasonable rather than a uniquely '
+                    'optimal choice, and Section 3.2 now says exactly that '
+                    'instead of presenting them as given.')
+        paras = nar.extra_params() or []
+        if len(paras) > 2:
+            f['param_finding'] = paras[2]
 
     if nar.var:
         _, m = nar.var
@@ -230,9 +229,10 @@ def _findings():
         bests = {r[-2] for r in rows[1:]}
         f['weights_finding'] = (
             f'The Kendall rank correlations against W0 are {", ".join(taus)}, '
-            + ('and the best-performing algorithm is the same in every '
-               'configuration; the absolute scores shift with the weights, as '
-               'they must, but the comparison between algorithms does not.'
+            + (f'and the highest score is obtained by {sorted(bests)[0]} under '
+               'every configuration; the absolute scores shift with the '
+               'weights, as they must, but the ordering of the algorithms does '
+               'not, which is what your comment asks about.'
                if len(bests) == 1 else
                'and the best-performing algorithm is not the same in every '
                'configuration, so the ranking is itself weight-dependent and '

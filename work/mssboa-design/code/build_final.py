@@ -144,10 +144,23 @@ def swap_table(doc, caption_needle, result, color, caption=None, force=False):
     return True
 
 
-def swap_figure(doc, caption_needle, png, color, caption=None, width=6.2):
-    """Replace the image preceding a figure caption."""
-    path = os.path.join(FIGS, png)
-    if not os.path.exists(path):
+def swap_figure(doc, caption_needle, png, color, caption=None, width=6.2,
+                required=False):
+    """Replace the image preceding a figure caption.
+
+    `png` may be a list of candidates, the first existing one being used, since
+    a figure can be drawn either from the new runs or from the manuscript's own
+    published values depending on the mode.  A missing file is reported rather
+    than skipped silently when the figure answers a specific comment: a caption
+    that still promises a redraw the reader cannot see is worse than no change.
+    """
+    for cand in ([png] if isinstance(png, str) else list(png)):
+        path = os.path.join(FIGS, cand)
+        if os.path.exists(path):
+            break
+    else:
+        if required:
+            print(f'  ! figure file missing, {caption_needle[:40]} NOT redrawn')
         return False
     i = find_para(doc, caption_needle)
     if i is None:
@@ -370,16 +383,22 @@ def build():
     swap_table(doc, 'Table 3. Rankings of MSSBOA with different', TB.t3_pm(), RED,
                caption='Table 3. Friedman rankings of MSSBOA with different '
                        'p_m (alpha = 0.05).')
+    # Reviewer 3, comment 4: the "best" annotation moved above the point and
+    # enlarged.  When the submitted tables are kept, the redraw must show the
+    # submitted values, which is what draw_figs.py plots from the manuscript's
+    # own Tables 2 and 3; the *_ranking.png files are therefore preferred.
     swap_figure(doc, 'Figure 4. Friedman rankings of MSSBOA with different',
-                'fig04_nmin.png', GREEN,
+                ['fig04_nmin_ranking.png', 'fig04_nmin.png'], GREEN,
                 caption='Figure 4. Friedman rankings of MSSBOA with different '
                         'N_min (alpha = 0.05). The best setting is marked '
-                        'above the corresponding point.', width=5.6)
+                        'above the corresponding point.', width=5.6,
+                required=True)
     swap_figure(doc, 'Figure 5. Friedman rankings of MSSBOA with different p',
-                'fig05_pm.png', GREEN,
+                ['fig05_pm_ranking.png', 'fig05_pm.png'], GREEN,
                 caption='Figure 5. Friedman rankings of MSSBOA with different '
                         'p_m (alpha = 0.05). The best setting is marked above '
-                        'the corresponding point.', width=5.6)
+                        'the corresponding point.', width=5.6,
+                required=True)
     # extended grids
     extra = nar.extra_params()
     if extra:
@@ -400,10 +419,12 @@ def build():
     swap_table(doc, 'Table 4. Descriptions of MSSBOA', TB.t4_strategies(), RED)
     swap_table(doc, 'Table 5. Friedman rankings of MSSBOA with different strategies',
                TB.t5_ablation(), RED)
-    swap_figure(doc, 'Figure 6. Friedman rankings of MSSBOA with different strategies',
-                'fig06_ablation.png', RED,
-                caption='Figure 6. Friedman rankings of MSSBOA with different '
-                        'strategies (alpha = 0.05).', width=5.8)
+    if not KEEP_SUBMITTED_RESULTS:
+        swap_figure(doc,
+                    'Figure 6. Friedman rankings of MSSBOA with different strategies',
+                    'fig06_ablation.png', RED,
+                    caption='Figure 6. Friedman rankings of MSSBOA with '
+                            'different strategies (alpha = 0.05).', width=5.8)
     anchor_i = find_para(doc, 'According to Table 5 and Figure 6')
     abl_concl = nar.ablation()
     if abl_concl and len(abl_concl) > 1 and not KEEP_SUBMITTED_RESULTS:
@@ -436,14 +457,21 @@ def build():
     swap_table(doc, 'Table 6. Friedman rankings of MSSBOA and the comparison',
                TB.t6_friedman(), RED)
     swap_table(doc, 'Table 7. Wilcoxon rank-sum test results', TB.t7_wilcoxon(), RED)
-    for cap, png, w in (
-            ('Figure 7. Ranking heatmaps', 'fig07_heatmaps.png', 6.4),
-            ('Figure 8. Convergence curves', 'fig08_convergence.png', 6.4),
-            ('Figure 9. Friedman rankings of MSSBOA and the comparison',
-             'fig09_friedman.png', 6.0),
-            ('Figure 10. Nemenyi post-hoc', 'fig10_nemenyi.png', 6.2),
-            ('Figure 11. Visualization of the Wilcoxon', 'fig11_wilcoxon.png', 6.0)):
-        swap_figure(doc, cap, png, RED, width=w)
+    # Figures 7-11 illustrate Tables 6 and 7.  When those tables are kept as
+    # submitted, redrawing the figures from the new runs would put a plot and a
+    # table that disagree on the same page, so they are left alone; they are
+    # regenerated only when the tables are.
+    if not KEEP_SUBMITTED_RESULTS:
+        for cap, png, w in (
+                ('Figure 7. Ranking heatmaps', 'fig07_heatmaps.png', 6.4),
+                ('Figure 8. Convergence curves', 'fig08_convergence.png', 6.4),
+                ('Figure 9. Friedman rankings of MSSBOA and the comparison',
+                 'fig09_friedman.png', 6.0),
+                ('Figure 10. Nemenyi post-hoc', 'fig10_nemenyi.png', 6.2),
+                ('Figure 11. Visualization of the Wilcoxon',
+                 'fig11_wilcoxon.png', 6.0)):
+            swap_figure(doc, cap, png, RED, width=w)
+        log.append('R1: Figures 7-11 regenerated from the new runs')
 
     # loss distribution and dimensional trend
     after_stats = None
@@ -572,22 +600,27 @@ def build():
     if rewrite(doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains the highest',
                col, RED):
         log.append('R1: Section 5.1 results regenerated')
-    elif find_para(doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains') is not None:
+    elif not KEEP_SUBMITTED_RESULTS and find_para(
+            doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains') is not None:
+        # only strike the submitted reading when the table under it has changed
         strike_paragraph(doc.paragraphs[find_para(
             doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains')], RED)
     swap_table(doc, 'Table 8. Harmony scores', TB.t8_color(), RED)
-    swap_figure(doc, 'Figure 12. Color-harmony palettes', 'fig12_palettes.png',
-                RED, width=6.4)
-    swap_figure(doc, 'Figure 13. Performance on the color-harmony problem',
-                'fig13_color.png', RED, width=6.4)
 
     # =============================================== Section 5.2 layout
     swap_table(doc, 'Table 9. The eight graphic-layout', TB.t9_layout_problems(), RED)
     swap_table(doc, 'Table 10. Mean aesthetic scores', TB.t10_layout(), RED)
-    swap_figure(doc, 'Figure 14. Ranking heatmap', 'fig14_layout_heatmap.png',
-                RED, width=6.0)
-    swap_figure(doc, 'Figure 15. Representative layouts', 'fig15_layouts.png',
-                RED, width=6.0)
+    # Figures 12-15 illustrate Tables 8 and 10 and follow them: replaced only
+    # when those tables are regenerated.
+    if not KEEP_SUBMITTED_RESULTS:
+        swap_figure(doc, 'Figure 12. Color-harmony palettes',
+                    'fig12_palettes.png', RED, width=6.4)
+        swap_figure(doc, 'Figure 13. Performance on the color-harmony problem',
+                    'fig13_color.png', RED, width=6.4)
+        swap_figure(doc, 'Figure 14. Ranking heatmap',
+                    'fig14_layout_heatmap.png', RED, width=6.0)
+        swap_figure(doc, 'Figure 15. Representative layouts',
+                    'fig15_layouts.png', RED, width=6.0)
     if rewrite(doc, 'As shown in Table 10 and Figure 14, MSSBOA achieves the best',
                nar.layout(), RED):
         log.append('R1: Section 5.2 results regenerated')

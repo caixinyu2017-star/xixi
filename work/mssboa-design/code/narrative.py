@@ -23,13 +23,14 @@ def _card(n):
             11: 'eleven'}.get(n, str(n))
 
 
-def _series(items, conj='and'):
+def _series(items, conj='and', sep=', '):
+    """A, B and C.  `sep` becomes '; ' when the items contain commas."""
     items = list(items)
     if len(items) == 1:
         return items[0]
     if len(items) == 2:
         return f'{items[0]} {conj} {items[1]}'
-    return ', '.join(items[:-1]) + f', {conj} ' + items[-1]
+    return sep.join(items[:-1]) + f'{sep}{conj} ' + items[-1]
 
 
 def _dims(ds):
@@ -44,6 +45,101 @@ def lc_title(s):
     noun at the start is left alone.
     """
     return s if s.startswith(('Levy', 'Cauchy', 'Friedman')) else s[0].lower() + s[1:]
+
+
+def _cap(s):
+    return s[0].upper() + s[1:] if s else s
+
+
+# The setting the paper actually uses, per extended grid.  A grid that does not
+# contain the adopted value cannot say whether that value is a good one, so the
+# reading below states explicitly when the adopted setting is absent.
+ADOPTED = {
+    'Population size N': 'N=30',
+    'Levy stability index beta': 'beta=1.5',
+    'Hunting-stage time division': 'stage=T/3,2T/3',
+    'Lens scaling schedule': 'k: nu=1/2,mu=10',
+}
+
+
+# Every experiment added in this revision was made with the reference
+# implementation released with the article, because the code used for the
+# submitted experiments could not be published.  Each new subsection says so at
+# the point of use, so that no number of one provenance is read against a
+# number of the other.
+REIMPL_NOTE = (
+    '{what} was produced with the reference implementation released with this '
+    'article rather than with the code that produced Tables 5-7, so its '
+    'figures are to be compared with one another within this subsection and '
+    'not with those absolute values.')
+
+
+def _grid_reading(title, meta):
+    """One sentence per extended grid, plus the adopted setting's shortfall.
+
+    The sentence reports the best setting, where the adopted one stands and by
+    how much, and the spread of the whole grid, so that a difference can be
+    read against the scale on which it occurs instead of being described as
+    large or small by assertion.
+    """
+    labels, avg = list(meta['labels']), list(meta['avg'])
+    order = sorted(range(len(avg)), key=lambda i: avg[i])
+    best_i = order[0]
+    spread = max(avg) - min(avg)
+    lead = (f'for the {lc_title(title)} the best mean rank is '
+            f'{avg[best_i]:.3f} at {labels[best_i]}')
+    adopted = ADOPTED.get(title)
+    if adopted not in labels:
+        return lead + f', over a spread of {spread:.3f} across the grid', None
+    a = labels.index(adopted)
+    pos = order.index(a) + 1
+    gap = avg[a] - avg[best_i]
+    if a == best_i:
+        return (lead + f', which is the adopted setting, over a spread of '
+                f'{spread:.3f} across the grid'), 0.0
+    return (lead + f', against {avg[a]:.3f} for the adopted {adopted}, which '
+            f'places it {_nth(pos)} of {_card(len(labels))} at a distance of '
+            f'{gap:.3f} on a spread of {spread:.3f}'), gap
+
+
+def _lens_reading(meta, note=True):
+    """What the lens grid says about the two exponents of Equation (12).
+
+    This is the one grid whose parameter belongs to this paper, so the reading
+    distinguishes the effect of the power from the effect of the root instead
+    of reporting only which row won.  `note=False` returns the reading without
+    the provenance sentence, for the response letters, which carry their own.
+    """
+    labels, avg = list(meta['labels']), list(meta['avg'])
+    order = sorted(range(len(avg)), key=lambda i: avg[i])
+    worst2 = {labels[i] for i in order[-2:]}
+    mis_scaled = {lab for lab in labels
+                  if 'mu=5' in lab or 'mu=20' in lab}
+    txt = ('The lens schedule is the one parameter of the four that belongs to '
+           'this paper, and its grid separates the two exponents. ')
+    if mis_scaled and mis_scaled == worst2:
+        txt += ('The two settings that move the power mu away from 10 are the '
+                'worst two of the five, which is what the derivation predicts: '
+                'mu fixes the terminal contraction k(T) = 2^mu, so it '
+                'determines whether the operator ends the run refracting into '
+                'a neighbourhood of the interval midpoint or barely '
+                'contracting at all. ')
+    plain = next((i for i, lab in enumerate(labels) if lab.startswith('k=1')),
+                 None)
+    adopted = ADOPTED['Lens scaling schedule']
+    if plain is not None and adopted in labels:
+        a = labels.index(adopted)
+        d = abs(avg[a] - avg[plain])
+        better = 'plain opposition-based learning' if avg[plain] < avg[a] \
+            else 'the adopted schedule'
+        txt += (f'Between the adopted pair and the constant k = 1, however, the '
+                f'mean ranks differ by only {d:.3f} in favour of {better}, so '
+                f'at these dimensions the schedule earns its place through the '
+                f'scale of the contraction rather than by beating exact '
+                f'opposition outright. ')
+    if not note:
+        return txt.rstrip()
+    return txt + REIMPL_NOTE.format(what='The parameter study above')
 
 
 class Narrative:
@@ -103,10 +199,36 @@ class Narrative:
     def extra_params(self):
         if not self.extra:
             return None
-        parts = []
+        parts, gaps = [], {}
         for title, rows, meta in self.extra:
-            parts.append(f'for the {lc_title(title)} the best mean rank is '
-                         f'obtained by {meta["best"]}')
+            sentence, gap = _grid_reading(title, meta)
+            parts.append(sentence)
+            if gap is not None:
+                gaps[title] = gap
+        close = ''
+        if gaps:
+            near = [t for t, g in gaps.items() if g <= 0.15]
+            far = [t for t, g in gaps.items() if g > 0.15]
+            if not far:
+                close = (f'In every grid the adopted setting is within '
+                         f'{max(gaps.values()):.3f} of the best one, so none of '
+                         f'the four is a critical choice at these dimensions.')
+            else:
+                close = (
+                    'The adopted setting is within 0.15 of the best one for '
+                    + _series([lc_title(t) for t in near]) + ', and further '
+                    'from it for ' + _series([lc_title(t) for t in far]) +
+                    '. We report this as it came out rather than claim that '
+                    'every inherited value is optimal: what the grids show is '
+                    'that the differences are of the order of a fraction of a '
+                    'rank position, not that the settings could not be '
+                    'improved.') if near else (
+                    'None of the adopted settings is the best one in its own '
+                    'grid, and we report this rather than claim otherwise; the '
+                    'differences are nevertheless of the order of a fraction '
+                    'of a rank position.')
+        lens = next((m for t, _, m in self.extra if t.startswith('Lens')), None)
+        lens_txt = _lens_reading(lens) if lens else ''
         return [
             'Four further quantities were fixed rather than tuned in the '
             'submitted version, and a reviewer rightly asked why. Three of them '
@@ -121,13 +243,15 @@ class Narrative:
             'The fourth, the exponent pair of the lens schedule, belongs to '
             'this paper and is examined below.',
 
-            'To confirm that these choices are not harmful, each was varied '
-            'while the remainder of the configuration was held fixed, on the '
-            f'CEC2017 suite in {_dims(self.extra[0][2]["dims"])} over '
-            f'{self.extra[0][2]["n"]} independent runs. Across the four grids, '
-            + _series(parts) + '. The rankings are flat in the neighbourhood '
-            'of the adopted values, so the conclusions of Section 4.4 do not '
-            'depend on them.',
+            'Each was varied while the remainder of the configuration was held '
+            'fixed, on the CEC2017 suite in '
+            f'{_dims(self.extra[0][2]["dims"])} over '
+            f'{self.extra[0][2]["n"]} independent runs, and the settings are '
+            'compared by the Friedman mean rank within each grid.',
+
+            _cap(_series(parts, conj='and', sep='; ')) + '. ' + close,
+
+            lens_txt,
         ]
 
     # ------------------------------------------------------------ 4.3
@@ -259,7 +383,7 @@ class Narrative:
             parts.append(f'against {a} the {tot[a]} losses fall mainly on the '
                          f'{cls.lower()} functions ({per[a][cls]} of {tot[a]})')
         return [
-            f'A count of wins alone would overstate the result, so Table 11 '
+            f'A count of wins alone would overstate the result, so Table 105 '
             f'breaks the losses down by CEC2017 function class. '
             + _series(parts) + f'. The distribution identifies where the method '
             f'is weakest rather than merely how often it loses, and the '
@@ -280,7 +404,7 @@ class Narrative:
         g1 = m['rank'][dims[-1]][top] - m['rank'][dims[-1]]['MSSBOA']
         trend = 'narrows' if g1 < g0 else 'widens'
         return [
-            f'The dimensional behaviour is reported in Table 12. Relative to '
+            f'The dimensional behaviour is reported in Table 111. Relative to '
             f'{top}, the strongest competitor by average rank, the gap {trend} '
             f'from {g0:+.3f} at {dims[0]} dimensions to {g1:+.3f} at '
             f'{dims[-1]} dimensions. '
@@ -360,7 +484,7 @@ class Narrative:
         return [
             f'Palettes of K = 5, 7 and 10 colours were optimized by every '
             f'algorithm over {m["n"]} independent runs, and the harmony score '
-            f'is reported as 100 f(P) per cent. Table 14 summarizes the '
+            f'is reported as 100 f(P) per cent. Table 8 summarizes the '
             f'results. For the seven-colour palette the best mean score is '
             f'{means[best]:.2f}% obtained by {best}, while MSSBOA attains '
             f'{means["MSSBOA"]:.2f}% and the basic SBOA {means["SBOA"]:.2f}%. '
@@ -378,7 +502,7 @@ class Narrative:
         ordered = sorted(ar, key=ar.get)
         return [
             f'Each of the eight problems was solved {m["n"]} times by every '
-            f'algorithm. Table 16 reports the mean aesthetic score and Figure '
+            f'algorithm. Table 10 reports the mean aesthetic score and Figure '
             f'14 the ranking heat map. By average rank across the eight '
             f'problems the order is ' + ' > '.join(ordered) +
             f', with MSSBOA at {ar["MSSBOA"]:.2f} and the basic SBOA at '
@@ -408,17 +532,21 @@ class Narrative:
             f'To establish how far the conclusions depend on it, the eight '
             f'problems were re-optimized under five weight configurations: the '
             f'Ngo-based setting W0, equal weights, and three configurations '
-            f'each promoting one term. Table 17 reports the mean score of each '
+            f'each promoting one term. Table 108 reports the mean score of each '
             f'algorithm under each configuration together with Kendall\'s tau '
             f'between the resulting ordering of the algorithms and the ordering '
             f'under W0. The rank correlations are {", ".join(taus)}, and the '
-            + (f'best-performing algorithm is the same in every configuration. '
-               f'The absolute scores shift with the weights, as they must, but '
-               f'the comparison between algorithms does not.'
+            + (f'highest score is obtained by {sorted(bests)[0]} under every '
+               f'configuration. The absolute scores shift with the weights, as '
+               f'they must, but the ordering of the algorithms does not, which '
+               f'is what the question asks: the conclusions drawn from this '
+               f'objective do not rest on the particular weights adopted.'
                if stable else
                f'best-performing algorithm is not the same in every '
                f'configuration, so the ranking of the algorithms on this '
                f'problem is itself weight-dependent and is reported as such.'),
+
+            REIMPL_NOTE.format(what='This weight study'),
         ]
 
     # ------------------------------------------------------------ 5.3
@@ -432,7 +560,7 @@ class Narrative:
             vals = [float(v) for v in r[1:1 + len(algos)]]
             lines.append(f'{r[0]}: {vals[0]:.2f} (rank {r[-2]})')
         return [
-            f'The eight problems of Table 15 involve at most six elements, so '
+            f'The eight problems of Table 9 involve at most six elements, so '
             f'the largest decision vector has twelve components. To establish '
             f'whether the formulation and the optimizer scale, the same '
             f'objective was instantiated with '
@@ -443,11 +571,13 @@ class Narrative:
             f'algorithms over {m["runs"]} independent runs with a budget of '
             f'1000D evaluations.',
 
-            f'Table 18 reports the mean aesthetic score of MSSBOA at each size '
+            f'Table 109 reports the mean aesthetic score of MSSBOA at each size '
             f'together with its rank among the six algorithms: ' +
             '; '.join(lines) + '. The score does not collapse as the problem '
             'grows, so the method handles layouts an order of magnitude larger '
-            'than those of Table 15.',
+            'than those of Table 9.',
+
+            REIMPL_NOTE.format(what='This scalability study'),
         ]
 
     # ---------------------------------------------------------- conclusions
