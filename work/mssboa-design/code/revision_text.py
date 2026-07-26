@@ -138,6 +138,18 @@ R1_LOBL_KJUSTIFY = [
 ]
 
 # ---------------------------------------------------------------- Section 3.6
+R1_LOBL_KJUSTIFY_SHORT = (
+    'Within those constraints the two exponents are free and were selected '
+    'empirically rather than derived. The root governs where the contraction '
+    'happens: a linear root spreads it evenly over the run, whereas a square '
+    'root front-loads it, so the aggressive reversal is concentrated in the '
+    'early iterations during which the hunting strategy of SBOA is itself '
+    'exploratory (Figure 2b). The power sets the terminal contraction, which '
+    'must be small enough for the refracted point to act as a local probe but '
+    'not so small that the operator degenerates into re-evaluating the '
+    'midpoint. Section 4.2 reports a grid over both exponents, including the '
+    'constant that reduces the operator to plain opposition-based learning.')
+
 R1_NOVELTY_HEADING = '3.6. Novelty of the proposed integration framework'
 R1_NOVELTY_TEXT = [
     'The three operator families used above are established techniques, and '

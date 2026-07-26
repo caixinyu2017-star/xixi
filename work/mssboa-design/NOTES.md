@@ -112,6 +112,37 @@ behave as the text describes; the equation as printed does not.
 — but a better initial sample is worth little after 10 000 evaluations, which is
 the usual finding for low-discrepancy initialization.
 
+## Can the operators be repaired?
+
+Because the two failure mechanisms above are identifiable, the obvious next
+question is whether correcting them rescues the method. Both corrections stay
+inside the paper's own conceptual framework and neither introduces a new
+mechanism:
+
+- **lensfix** — take the optical centre from the current population,
+  `o_j(t) = (min_i x_ij + max_i x_ij)/2`, so the lens tracks where the swarm
+  actually is instead of a fixed point of the domain.
+- **acgmfix** — make the elite perturbation additive and scale it by the
+  population's own per-dimension spread, which decays as the swarm converges,
+  instead of multiplying the elite by a heavy-tailed factor.
+
+`probe_fix.py`, CEC2017, 29 functions, 10 runs, FE-matched:
+
+```
+                    Friedman mean rank        Wilcoxon vs SBOA (+/=/-)
+                    D = 10    D = 30          D = 10       D = 30
+  SBOA               2.586     2.483             -            -
+  MSSBOA-printed     3.000     2.483           0/25/4       2/25/2
+  MSSBOA-acgmfix     3.000     2.862           0/29/0       3/21/5
+  MSSBOA-lensfix     3.517     3.724           1/22/6       2/13/14
+  MSSBOA-both        2.897     3.448           1/22/6       1/14/14
+```
+
+**Neither correction helps, and together they make matters worse.** The basic
+SBOA has the best mean rank at both dimensions. This closes off the most
+hopeful explanation: the shortfall is not a repairable implementation detail of
+the two operators.
+
 ## What this does and does not mean
 
 It does **not** establish that the manuscript's results are wrong. Three
