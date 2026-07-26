@@ -14,3 +14,6 @@
   variants: 13000/15660 641s (eta 131s)
   variants: 14000/15660 730s (eta 87s)
   variants: 15000/15660 818s (eta 36s)
+variants DONE: 15660 runs in 879s
+=== ablation: 13920 runs ===
+  ablation: 1000/13920 23s (eta 292s)
