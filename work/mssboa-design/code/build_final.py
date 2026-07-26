@@ -371,6 +371,8 @@ def build():
     if fact and anchor_i is not None:
         cur = doc.paragraphs[anchor_i]
         cur = insert_paras_after(cur, fact, GREEN, template=body)
+        cur = insert_para_after(cur, T.NEW_EXPERIMENT_NOTE, RED, template=body)
+        log.append('R1/R3: methods note on the independent re-implementation')
         insert_table_after(doc, cur, TB.t_factorial()[0], GREEN,
                            caption='Table 103. Full 2^3 factorial ablation of '
                                    'the three strategies.',
@@ -471,6 +473,14 @@ def build():
         h = insert_para_after(anchor, T.R2_VARIANTS_HEADING, BLUE,
                               template=h2_style(doc))
         cur = insert_paras_after(h, var, BLUE, template=body)
+        cur = insert_para_after(
+            cur,
+            'The comparison below was produced with the same independent '
+            're-implementation described in Section 4.3, under the same '
+            'evaluation budget and the same accounting of auxiliary function '
+            'evaluations; its absolute values are therefore comparable within '
+            'this subsection and with Table 8, but not with Tables 5-7.',
+            BLUE, template=body)
         insert_table_after(doc, cur, TB.t_variants()[0], BLUE,
                            caption='Table 106. MSSBOA against three recent SBOA '
                                    'variants and two recent multi-strategy '

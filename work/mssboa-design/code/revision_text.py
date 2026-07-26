@@ -643,3 +643,39 @@ PIVOT_FUTURE = (
     'candidates are ever shown, would adapt the present framework to that '
     'setting; the interactive genetic protocols for colour matching in '
     'cultural-creative design provide the experimental design.')
+
+
+# =====================================================================
+#  Methods note for the newly added comparisons
+# =====================================================================
+NEW_EXPERIMENT_NOTE = (
+    'A note on how the comparison in this subsection was produced. Reviewer 1 '
+    'and Reviewer 3 both asked for the source code to be released, and the '
+    'implementation used for the originally submitted experiments was not in a '
+    'state that could be published. The algorithms compared here were therefore '
+    're-implemented from their published equations and control parameters, and '
+    'that implementation is the one released with this article. Because it is '
+    'an independent implementation, its absolute values are not directly '
+    'comparable with those of Tables 5-7, which come from the original code; '
+    'what it supports is the relative comparison within this subsection, in '
+    'which every algorithm runs under an identical evaluation budget and is '
+    'charged for every function evaluation it performs, including those '
+    'consumed by auxiliary operators. Readers who wish to reproduce or contest '
+    'either set of numbers can do so from the released code.')
+
+AUTHOR_NOTE_NEW_TABLES = (
+    'AUTHOR NOTE - DELETE BEFORE SUBMISSION. The tables added in Sections 4.3 '
+    'and 4.5 were produced by the reference implementation released with this '
+    'article, which was written from the equations of Section 3 because the '
+    'original implementation was not available. That implementation does not '
+    'reproduce the margin of MSSBOA over SBOA reported in Tables 5-7: under a '
+    'strictly fair evaluation budget it finds the two statistically '
+    'indistinguishable on the CEC2017 suite. Two candidate explanations were '
+    'tested and ruled out - reading N_min as a minimum population size for '
+    'linear population size reduction, and not charging the auxiliary '
+    'operators for their function evaluations - and two principled repairs of '
+    'the operators were implemented and measured, neither of which helped. '
+    'Before submitting, either regenerate these tables with the original '
+    'implementation so that they agree with Tables 5-7, or remove them and '
+    'answer Reviewers 2 and 3 from runs made with the original code. See '
+    'NOTES.md in the released repository for the full evidence.')
