@@ -284,6 +284,56 @@ def replace_table(doc, para, rows, color, font_size=8.0, header_bold=True):
     return new
 
 
+# ------------------------------------------------------- three-line tables
+def _border(kind, sz):
+    from docx.oxml import OxmlElement
+    el = OxmlElement(f'w:{kind}')
+    el.set(qn('w:val'), 'single' if sz else 'nil')
+    el.set(qn('w:sz'), str(sz))
+    el.set(qn('w:space'), '0')
+    el.set(qn('w:color'), '000000')
+    return el
+
+
+def booktabs(table, header_rows=1):
+    """Set a table in the three-line style used by scientific journals.
+
+    A rule above the header, a rule below it and a rule below the last row;
+    no vertical rules and no rules between the body rows.  Word has no table
+    style for this, so the borders are written on the table itself: the
+    table-level element clears everything, and the three rules are then set on
+    the individual cells that carry them, which also survives the row-level
+    borders that an inherited style may impose.
+    """
+    from docx.oxml import OxmlElement
+    tblPr = table._tbl.tblPr
+    for old in tblPr.findall(qn('w:tblBorders')):
+        tblPr.remove(old)
+    borders = OxmlElement('w:tblBorders')
+    for kind in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+        borders.append(_border(kind, 0))
+    tblPr.append(borders)
+
+    rows = table.rows
+    if not len(rows):
+        return table
+    last_head = min(header_rows, len(rows)) - 1
+    for i, row in enumerate(rows):
+        for cell in row.cells:
+            tcPr = cell._tc.get_or_add_tcPr()
+            for old in tcPr.findall(qn('w:tcBorders')):
+                tcPr.remove(old)
+            b = OxmlElement('w:tcBorders')
+            b.append(_border('left', 0))
+            b.append(_border('right', 0))
+            b.append(_border('top', 12 if i == 0 else 0))
+            b.append(_border(
+                'bottom',
+                8 if i == last_head else (12 if i == len(rows) - 1 else 0)))
+            tcPr.append(b)
+    return table
+
+
 def set_paragraph_text(para, text, color, keep_style=True):
     """Replace a paragraph's whole content with new coloured text."""
     for r in list(para.runs):

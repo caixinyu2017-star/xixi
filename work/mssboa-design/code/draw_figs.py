@@ -100,11 +100,13 @@ def fig_lens():
         ax.semilogy(tt, (1 + tt ** nu) ** mu, lw=2.0 if mu == 10 and nu == 0.5 else 1.3,
                     color=c, label=lab)
     ax.axhline(1, color='0.5', lw=0.8, ls='--')
-    ax.text(0.03, 1.9, r'$k=1$: classical OBL', fontsize=8.5, color='0.35')
+    ax.text(0.97, 1.25, r'$k=1$: classical OBL', fontsize=8.5, color='0.35',
+            ha='right', va='bottom')
     ax.set_xlabel(r'$t/T$')
     ax.set_ylabel(r'$k(t)$')
-    ax.legend(fontsize=8, loc='upper left', framealpha=0.92,
-              bbox_to_anchor=(0.02, 0.98))
+    # panels (b) and (c) draw the same four settings, so they share one legend
+    # placed below them; a legend inside either panel covers its own curves
+    handles, labels = ax.get_legend_handles_labels()
     ax.set_title(r'(b) scaling factor $k(t)=(1+(t/T)^{\nu})^{\mu}$',
                  fontsize=10.5, pad=10)
     ax.grid(alpha=0.25, which='both')
@@ -122,13 +124,21 @@ def fig_lens():
     ax.set_title('(c) refraction radius about $o_j$', fontsize=10.5, pad=10)
     ax.grid(alpha=0.25)
     ax.set_ylim(-0.03, 1.03)
-    ax.annotate('wide reversal\n(exploration)', xy=(0.02, 0.95), xytext=(0.16, 0.72),
-                fontsize=8.5, color='0.3',
+    # every curve decays towards zero, so the free space is the upper right;
+    # both labels go there rather than on top of the slowest-decaying curve
+    ax.annotate('wide reversal\n(exploration)', xy=(0.02, 0.95), xytext=(0.30, 0.86),
+                fontsize=8.5, color='0.3', va='center',
                 arrowprops=dict(arrowstyle='->', color='0.5', lw=0.9))
     ax.annotate('image collapses onto $o_j$\n(fine, local probing)',
-                xy=(0.72, 0.02), xytext=(0.28, 0.24), fontsize=8.5, color='0.3',
-                arrowprops=dict(arrowstyle='->', color='0.5', lw=0.9))
+                xy=(0.80, 0.03), xytext=(0.52, 0.52), fontsize=8.5, color='0.3',
+                ha='center', va='center',
+                arrowprops=dict(arrowstyle='->', color='0.5', lw=0.9,
+                                connectionstyle='arc3,rad=-0.15'))
 
+    fig.legend(handles, labels, loc='upper center', ncol=4, fontsize=9,
+               bbox_to_anchor=(0.70, 0.045), frameon=True, framealpha=1.0,
+               title='exponent pair of the lens schedule', title_fontsize=9)
+    fig.subplots_adjust(bottom=0.20)
     fig.savefig(os.path.join(FIGS, 'fig02_lens_imaging.png'), bbox_inches='tight')
     plt.close(fig)
     print('wrote fig02_lens_imaging.png')
@@ -141,6 +151,32 @@ def _read_rank_table(path):
     header = rows[0][1:]
     data = {r[0]: [float(v) for v in r[1:]] for r in rows[1:]}
     return header, data
+
+
+def _free_spot(xs, series, ylim, box=(0.30, 0.20)):
+    """Where to put a callout box so that it does not cover any curve.
+
+    The candidate centres are scanned on a coarse grid in data coordinates and
+    scored by the distance from the box to the nearest plotted point, measured
+    after normalizing both axes to [0, 1] so that the two scales are
+    comparable.  The best-scoring candidate is returned.  Placing the box by a
+    fixed offset from the marked point, as before, put it on top of the curves
+    whenever the marked point happened to sit in a crowded part of the plot.
+    """
+    y0, y1 = ylim
+    span_x = max(xs) - min(xs) or 1.0
+    pts = [((x - min(xs)) / span_x, (y - y0) / (y1 - y0))
+           for s in series for x, y in zip(xs, s)]
+    bw, bh = box
+    best, best_score = None, -1.0
+    for cx in np.linspace(0.12, 0.88, 25):
+        for cy in np.linspace(0.12, 0.88, 25):
+            # distance from the point to the box, zero when inside it
+            d = min(max(abs(px - cx) - bw / 2, 0.0, abs(py - cy) - bh / 2)
+                    for px, py in pts)
+            if d > best_score:
+                best, best_score = (cx, cy), d
+    return (min(xs) + best[0] * span_x, y0 + best[1] * (y1 - y0))
 
 
 def _rank_figure(path, out, xlabel, title, skip_first=True):
@@ -159,27 +195,33 @@ def _rank_figure(path, out, xlabel, title, skip_first=True):
     ax.plot(xs, avg, marker='*', ms=13, lw=2.4, color='#e67e22', label='Average',
             zorder=5)
 
-    # -- the "best" annotation: above the point, boxed and enlarged --
-    j = int(np.argmin(avg))
-    ax.scatter([xs[j]], [avg[j]], s=210, facecolor='none', edgecolor='#e67e22',
-               lw=2.0, zorder=6)
-    ax.annotate(f'best: {cols[j]}\n(mean rank {avg[j]:.3f})',
-                xy=(xs[j], avg[j]), xytext=(xs[j], avg[j] + 3.0),
-                ha='center', va='center', fontsize=13, fontweight='bold',
-                color='#b9531a',
-                bbox=dict(fc='#fdf3e7', ec='#e67e22', lw=1.4,
-                          boxstyle='round,pad=0.45'),
-                arrowprops=dict(arrowstyle='-|>', color='#e67e22', lw=1.8,
-                                shrinkA=6, shrinkB=8))
     ax.set_xticks(xs)
     ax.set_xticklabels(cols, fontsize=10)
     ax.set_xlabel(xlabel, fontsize=11)
     ax.set_ylabel('Friedman mean rank', fontsize=11)
-    ax.set_title(title, fontsize=11.5, pad=8)
+    ax.set_title(title, fontsize=11.5, pad=26)
     ax.grid(alpha=0.28, ls=':')
-    ax.set_ylim(0.0, max(max(v[1:]) for v in data.values()) + 2.2)
-    ax.legend(fontsize=9, ncol=5, loc='upper center', frameon=True,
-              bbox_to_anchor=(0.5, 1.005), framealpha=0.95)
+    ymax = max(max(v[1:]) for v in data.values())
+    ax.set_ylim(0.0, ymax * 1.12)
+    # the legend sits above the axes, outside the data region entirely: inside
+    # it covered the top of the curves at the ends of the grid
+    ax.legend(fontsize=9, ncol=5, loc='lower center', frameon=True,
+              bbox_to_anchor=(0.5, 1.005), framealpha=1.0, borderaxespad=0.0)
+
+    # -- the "best" annotation, placed where the data leaves room --
+    j = int(np.argmin(avg))
+    ax.scatter([xs[j]], [avg[j]], s=210, facecolor='none', edgecolor='#e67e22',
+               lw=2.0, zorder=6)
+    series = [data[d][1:] if skip_first else data[d] for d in dims] + [list(avg)]
+    ax.annotate(f'best: {cols[j]}\n(mean rank {avg[j]:.3f})',
+                xy=(xs[j], avg[j]),
+                xytext=_free_spot(xs, series, ax.get_ylim()),
+                ha='center', va='center', fontsize=12.5, fontweight='bold',
+                color='#b9531a', zorder=7,
+                bbox=dict(fc='#fdf3e7', ec='#e67e22', lw=1.4,
+                          boxstyle='round,pad=0.45'),
+                arrowprops=dict(arrowstyle='-|>', color='#e67e22', lw=1.8,
+                                shrinkA=10, shrinkB=10))
     fig.savefig(os.path.join(FIGS, out), bbox_inches='tight')
     plt.close(fig)
     print('wrote', out)

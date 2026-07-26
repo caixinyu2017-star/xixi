@@ -170,6 +170,27 @@ def t3_pm():
     return _grid_table(d, tags, [str(v) for v in PM_GRID], DIMS_SHORT, 't3')
 
 
+def pretty_tag(tag):
+    """A grid tag as it should be set in a table header.
+
+    The tags are identifiers chosen to be safe in file names and CSV keys;
+    printing them unchanged would put "beta=1.1" and "k: nu=1/2,mu=10" in the
+    manuscript, which is neither typeset mathematics nor readable prose.
+    """
+    if tag.startswith('N='):
+        return f'N = {tag[2:]}'
+    if tag.startswith('beta='):
+        return f'β = {tag[5:]}'
+    if tag.startswith('stage='):
+        return tag[6:].replace(',', ', ')
+    if tag.startswith('k: '):
+        body = tag[3:].replace('nu=', 'ν = ').replace('mu=', 'μ = ')
+        return body.replace(',', ', ')
+    if tag.startswith('k=1'):
+        return 'k ≡ 1 (classical OBL)'
+    return tag
+
+
 def t_extra():
     """Extended grids: N, beta, hunting-stage division, lens schedule."""
     d = load('extra')
@@ -184,7 +205,7 @@ def t_extra():
         tags = [t for t in EXTRA_GRID if t.startswith(prefix)]
         if not tags:
             continue
-        res = _grid_table(d, tags, tags, DIMS_SHORT,
+        res = _grid_table(d, tags, [pretty_tag(t) for t in tags], DIMS_SHORT,
                           'extra_' + prefix.strip('=').replace('/', ''))
         if res:
             out.append((title, res[0], res[1]))
@@ -399,8 +420,12 @@ def t_variants():
     dims = [dm for dm in DIMS_SHORT if usable(d, VARIANT_ORDER, probs, dm)]
     if not dims:
         return None
-    rows = [['Algorithm'] + [f'{dm}D rank' for dm in dims]
-            + ['Average', 'Rank'] + [f'MSSBOA vs. ({dm}D)' for dm in dims]]
+    # A Friedman ranking and a pairwise Wilcoxon outcome are different
+    # quantities over different units of analysis, and putting them in one
+    # table forces a blank cell where MSSBOA would be compared with itself.
+    # They are reported as two tables, exactly as Tables 6 and 7 do for the
+    # main comparison.
+    rows = [['Algorithm'] + [f'{dm}D' for dm in dims] + ['Average', 'Rank']]
     rk = {}
     for dm in dims:
         n = usable(d, VARIANT_ORDER, probs, dm)
@@ -409,19 +434,41 @@ def t_variants():
     avg = {a: float(np.mean([rk[dm][a] for dm in dims])) for a in VARIANT_ORDER}
     order = {a: i + 1 for i, a in enumerate(sorted(VARIANT_ORDER, key=lambda x: avg[x]))}
     for a in VARIANT_ORDER:
-        row = [a] + [f'{rk[dm][a]:.3f}' for dm in dims] \
-            + [f'{avg[a]:.3f}', str(order[a])]
-        for dm in dims:
-            if a == 'MSSBOA':
-                row.append('-')
-            else:
-                n = usable(d, VARIANT_ORDER, probs, dm)
-                w, e, l = _wil(d, 'MSSBOA', a, probs, dm, n)
-                row.append(f'{w}/{e}/{l}')
-        rows.append(row)
+        rows.append([a] + [f'{rk[dm][a]:.3f}' for dm in dims]
+                    + [f'{avg[a]:.3f}', str(order[a])])
     n = usable(d, VARIANT_ORDER, probs, dims[0])
     return _save('variants', rows), {'avg': avg, 'order': order,
                                      'dims': dims, 'n': n, 'rank': rk}
+
+
+def t_variants_wilcoxon():
+    """Pairwise Wilcoxon rank-sum outcome of MSSBOA against each variant."""
+    d = load('variants')
+    if d is None:
+        return None
+    probs = [f'F{f}' for f in CEC2017_IDS]
+    dims = [dm for dm in DIMS_SHORT if usable(d, VARIANT_ORDER, probs, dm)]
+    if not dims:
+        return None
+    others = [a for a in VARIANT_ORDER if a != 'MSSBOA']
+    rows = [['MSSBOA vs.'] + [f'{dm}D (+/=/−)' for dm in dims]
+            + ['Total (+/=/−)']]
+    detail = {}
+    for a in others:
+        tot = [0, 0, 0]
+        row = [a]
+        for dm in dims:
+            n = usable(d, VARIANT_ORDER, probs, dm)
+            w, e, l = _wil(d, 'MSSBOA', a, probs, dm, n)
+            tot = [tot[0] + w, tot[1] + e, tot[2] + l]
+            row.append(f'{w}/{e}/{l}')
+        row.append('/'.join(str(v) for v in tot))
+        detail[a] = tot
+        rows.append(row)
+    n = usable(d, VARIANT_ORDER, probs, dims[0])
+    cases = len(probs) * len(dims)
+    return _save('variants_wilcoxon', rows), {'dims': dims, 'n': n,
+                                              'detail': detail, 'cases': cases}
 
 
 # ============================================================= design tables
@@ -476,15 +523,20 @@ def t_scale():
     ns = [n for n in SCALE_N if usable(d, SCALE_ALGOS, [f'N{n}'], 2 * n)]
     if not ns:
         return None
-    rows = [['Elements n (D = 2n)'] + SCALE_ALGOS + ['MSSBOA rank', 'MSSBOA std']]
+    # every column is the same quantity for a different algorithm, reported as
+    # mean and standard deviation; a column carrying MSSBOA's rank among the
+    # others would be a second table sharing the first one's rows
+    rows = [['Elements n (D = 2n)'] + SCALE_ALGOS]
+    ranks = {}
     for n in ns:
         k = usable(d, SCALE_ALGOS, [f'N{n}'], 2 * n)
         means = [np.mean(d[(a, f'N{n}', 2 * n)][:k]) * 100 for a in SCALE_ALGOS]
+        sds = [np.std(d[(a, f'N{n}', 2 * n)][:k]) * 100 for a in SCALE_ALGOS]
         rk = stats.rankdata([-m for m in means])
-        rows.append([f'{n} (D = {2 * n})'] + [f'{m:.2f}' for m in means]
-                    + [str(int(rk[SCALE_ALGOS.index("MSSBOA")])),
-                       f'{np.std(d[("MSSBOA", f"N{n}", 2 * n)][:k]) * 100:.2f}'])
-    return _save('scale', rows), {'ns': ns, 'algos': SCALE_ALGOS,
+        ranks[n] = int(rk[SCALE_ALGOS.index('MSSBOA')])
+        rows.append([f'{n} (D = {2 * n})']
+                    + [f'{m:.2f} ± {s:.2f}' for m, s in zip(means, sds)])
+    return _save('scale', rows), {'ns': ns, 'algos': SCALE_ALGOS, 'ranks': ranks,
                                   'runs': usable(d, SCALE_ALGOS, [f'N{ns[0]}'], 2 * ns[0])}
 
 
@@ -496,9 +548,11 @@ def t_weights():
     n = usable(d, WEIGHT_ALGOS, probs, 0)
     if not n:
         return None
-    rows = [['Weight configuration'] + [f'{a} (x100)' for a in WEIGHT_ALGOS]
-            + ['Best', 'Kendall tau vs. W0']]
-    base = None
+    # the best algorithm per row is readable from the row itself, so it is
+    # metadata for the text rather than a column; Kendall's tau is not
+    # readable from a single row and stays in the table
+    rows = [['Weight configuration'] + WEIGHT_ALGOS + ['Kendall τ vs. W0']]
+    base, bests, taus = None, [], []
     for w in WEIGHT_SETS:
         means = [np.mean([np.mean(d[(a, f'{w}|{c}', 0)][:n])
                           for c in LAYOUT_PROBLEMS]) for a in WEIGHT_ALGOS]
@@ -507,16 +561,19 @@ def t_weights():
             base, tau = rk, 1.0
         else:
             tau = stats.kendalltau(base, rk).statistic
-        rows.append([w] + [f'{m * 100:.2f}' for m in means]
-                    + [WEIGHT_ALGOS[int(np.argmax(means))], f'{tau:.3f}'])
-    return _save('weights', rows), {'n': n, 'algos': WEIGHT_ALGOS}
+        bests.append(WEIGHT_ALGOS[int(np.argmax(means))])
+        taus.append(f'{tau:.3f}')
+        rows.append([w] + [f'{m * 100:.2f}' for m in means] + [f'{tau:.3f}'])
+    return _save('weights', rows), {'n': n, 'algos': WEIGHT_ALGOS,
+                                    'bests': bests, 'taus': taus}
 
 
 ALL = {
     't1': t1_parameters, 't2': t2_nmin, 't3': t3_pm, 't4': t4_strategies,
     't5': t5_ablation, 't6': t6_friedman, 't7': t7_wilcoxon,
     't8': t8_color, 't9': t9_layout_problems, 't10': t10_layout,
-    'factorial': t_factorial, 'variants': t_variants, 'loss': t_loss_distribution,
+    'factorial': t_factorial, 'variants': t_variants,
+    'variants_wilcoxon': t_variants_wilcoxon, 'loss': t_loss_distribution,
     'gap': t_dimension_gap, 'scale': t_scale, 'weights': t_weights,
 }
 

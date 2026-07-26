@@ -32,7 +32,7 @@ from narrative import Narrative, lc_title                         # noqa: E402
 from docx_edit import (para_by, find_para, insert_para_after,      # noqa: E402
                        insert_paras_after, insert_table_after, replace_table,
                        replace_in_para, strike_and_replace, strike_paragraph,
-                       set_paragraph_text, append_run, COLORS)
+                       set_paragraph_text, append_run, booktabs, COLORS)
 
 RED, BLUE, GREEN = 'R1', 'R2', 'R3'
 
@@ -59,6 +59,7 @@ NEW_TBL = {
     'factorial': 103,      # Section 4.3, full 2^3 factorial
     'loss':      105,      # Section 4.4, where MSSBOA is outranked
     'variants':  106,      # Section 4.5, SBOA variants, MS-TSA, I-CPA
+    'variants_wil': 110,   # Section 4.5, the pairwise Wilcoxon outcome
     'templates': 107,      # Section 5.1, the seven harmonic templates
     'weights':   108,      # Section 5.2, weight sensitivity
     'scale':     109,      # Section 5.3, layout scalability
@@ -408,7 +409,9 @@ def build():
             cur = insert_table_after(
                 doc, cur, rows, RED,
                 caption=f'Table {NEW_TBL["extra"] + i}. Friedman rankings for '
-                        f'the {lc_title(title)} (alpha = 0.05).',
+                        f'the {lc_title(title)} on the CEC2017 suite '
+                        f'(alpha = 0.05). Entries are Friedman mean ranks '
+                        f'within the grid; a lower value is better.',
                 template_style='Table Grid')
         log.append('R1: extended parameter grids added')
 
@@ -493,20 +496,21 @@ def build():
             set_paragraph_text(cur, txt[0], RED)
             cur = insert_paras_after(cur, txt[1:], RED, template=body)
             if rows:
-                insert_table_after(doc, cur, rows, RED,
-                                   caption=f'Table {NEW_TBL["loss"]}. '
-                                           'Distribution of the '
-                                           'cases in which MSSBOA is '
-                                           'outranked, by CEC2017 function '
-                                           'class, pooled over the four '
-                                           'dimensions (116 cases per '
-                                           'competitor).',
-                                   template_style='Table Grid')
+                # chain from the paragraph that trails the table, never from
+                # its caption: anchoring on the caption puts everything that
+                # follows between the caption and the table it introduces
+                cur = insert_table_after(doc, cur, rows, RED,
+                                         caption=f'Table {NEW_TBL["loss"]}. '
+                                                 'Distribution of the '
+                                                 'cases in which MSSBOA is '
+                                                 'outranked, by CEC2017 function '
+                                                 'class, pooled over the four '
+                                                 'dimensions (116 cases per '
+                                                 'competitor).',
+                                         template_style='Table Grid')
                 log.append('R1: balanced statistics and loss breakdown '
                            '(from the submitted appendix)')
-            after_stats = doc.paragraphs[find_para(
-                doc, f'Table {NEW_TBL["loss"]}. Distribution')] if find_para(
-                doc, f'Table {NEW_TBL["loss"]}. Distribution') is not None else cur
+            after_stats = cur
         else:
             losses = nar.losses()
             if losses:
@@ -546,15 +550,31 @@ def build():
             anchor = doc.paragraphs[j]
         h = insert_para_after(anchor, T.R2_VARIANTS_HEADING, BLUE,
                               template=h2_style(doc))
-        cur = insert_paras_after(h, var, BLUE, template=body)
+        # ranking first, then the pairwise test, each under its own table
+        cur = insert_paras_after(h, [t for t in var[:2] if t], BLUE, template=body)
         cur = insert_para_after(cur, T.NEW_EXPERIMENT_NOTE, BLUE, template=body)
         log.append('R1/R3: methods note on the independent re-implementation')
-        insert_table_after(doc, cur, TB.t_variants()[0], BLUE,
-                           caption=f'Table {NEW_TBL["variants"]}. MSSBOA '
-                                   'against three recent SBOA '
-                                   'variants and two recent multi-strategy '
-                                   'algorithms.',
-                           template_style='Table Grid')
+        cur = insert_table_after(
+            doc, cur, TB.t_variants()[0], BLUE,
+            caption=f'Table {NEW_TBL["variants"]}. Friedman mean ranks of '
+                    'MSSBOA, three recent SBOA variants, two recent '
+                    'multi-strategy algorithms and their base algorithms on '
+                    'the CEC2017 suite (alpha = 0.05). A lower mean rank is '
+                    'better; the last column gives the position by average '
+                    'rank.',
+            template_style='Table Grid')
+        wil = TB.t_variants_wilcoxon()
+        if wil and len(var) > 2 and var[2]:
+            cur = insert_paras_after(cur, [var[2]], BLUE, template=body)
+            insert_table_after(
+                doc, cur, wil[0], BLUE,
+                caption=f'Table {NEW_TBL["variants_wil"]}. Wilcoxon rank-sum '
+                        'test results of MSSBOA versus the algorithms of Table '
+                        f'{NEW_TBL["variants"]} (alpha = 0.05). A triple '
+                        'w/t/l counts the functions on which MSSBOA is '
+                        'significantly better, not significantly different, '
+                        'and significantly worse.',
+                template_style='Table Grid')
         log.append('R2/R3: Section 4.5 comparison with variants, MS-TSA, I-CPA')
 
     # =============================================== Section 5.1 colour model
@@ -630,22 +650,27 @@ def build():
         cur = insert_paras_after(cur, wts, RED, template=body)
         cur = insert_table_after(doc, cur, TB.t_weights()[0], RED,
                                  caption=f'Table {NEW_TBL["weights"]}. Mean '
-                                         'layout aesthetic '
-                                         'score under five weight '
-                                         'configurations of Equation (22).',
+                                         'layout aesthetic score (x100) over '
+                                         'the eight design problems under '
+                                         'five weight configurations of '
+                                         'Equation (22); a higher value is '
+                                         'better. The last column is '
+                                         "Kendall's tau between the ordering "
+                                         'of the algorithms under the '
+                                         'configuration and under W0.',
                                  template_style='Table Grid')
         log.append('R1: weight sensitivity added')
     sc = nar.scalability()
     if sc:
-        _w = find_para(doc, f'Table {NEW_TBL["weights"]}. Mean layout aesthetic')
-        cur = doc.paragraphs[_w] if _w is not None else cur
+        # `cur` is already the paragraph trailing the weight table
         cur = insert_para_after(cur, '5.3. Scalability of the layout problem',
                                 RED, template=h2_style(doc))
         cur = insert_paras_after(cur, sc, RED, template=body)
         insert_table_after(doc, cur, TB.t_scale()[0], RED,
                            caption=f'Table {NEW_TBL["scale"]}. Mean aesthetic '
-                                   'score on layout '
-                                   'problems with 8 to 30 elements.',
+                                   'score (x100) plus or minus one standard '
+                                   'deviation on layout problems with 8 to 30 '
+                                   'elements; a higher value is better.',
                            template_style='Table Grid')
         log.append('R1: Section 5.3 scalability added')
 
@@ -689,7 +714,10 @@ def build():
     fix_algorithm1(doc)
     add_references(doc)
     add_colour_key(doc)
+    import mathify
+    mathify.mathify_document(doc)
     renumber_tables(doc)
+    apply_booktabs(doc)
 
     out = os.path.join(OUT, 'MSSBOA_revised_marked.docx')
     doc.save(out)
@@ -834,6 +862,36 @@ def add_colour_key(doc):
     key.runs[0].font.size = Pt(9)
 
 
+def apply_booktabs(doc):
+    """Set every data table in the three-line style.
+
+    A data table is one introduced by a "Table N." caption.  The criterion
+    matters: the file also contains one-row layout tables that carry the
+    numbered display equations and the box holding Algorithm 1, and ruling
+    those would put lines through the mathematics.
+    """
+    import re
+    from docx.oxml.ns import qn
+    from docx.table import Table
+    from docx.text.paragraph import Paragraph
+    cap_re = re.compile(r'^Table\s+A?\d+\s*\.')
+    pending, done = False, 0
+    for child in doc.element.body.iterchildren():
+        if child.tag == qn('w:p'):
+            text = Paragraph(child, doc).text.strip()
+            if cap_re.match(text):
+                pending = True
+            elif text:
+                pending = False
+        elif child.tag == qn('w:tbl'):
+            if pending:
+                booktabs(Table(child, doc))
+                done += 1
+            pending = False
+    print(f'  three-line format applied to {done} tables')
+    return done
+
+
 def renumber_tables(doc):
     """Put every table caption into document order and follow the references.
 
@@ -867,12 +925,20 @@ def renumber_tables(doc):
     for p in doc.paragraphs:
         m = cap_re.match(p.text.strip())
         if m and int(m.group(1)) in mapping:
-            old = int(m.group(1))
+            # a caption may also cite another table ("...the algorithms of
+            # Table 106"), so the leading number is rewritten first and the
+            # rest of the caption is then treated as ordinary references
+            old, done = int(m.group(1)), False
             for r in p.runs:
-                if f'Table {old}.' in r.text:
-                    r.text = r.text.replace(
-                        f'Table {old}.', f'Table {mapping[old]}.', 1)
-                    break
+                if not done and f'Table {old}.' in r.text:
+                    head, sep, tail = r.text.partition(f'Table {old}.')
+                    r.text = (head + f'Table {mapping[old]}.'
+                              + map_table_refs(tail, mapping))
+                    done = True
+                elif 'Table' in r.text:
+                    new = map_table_refs(r.text, mapping)
+                    if new != r.text:
+                        r.text, n = new, n + 1
             continue
         for r in p.runs:
             if 'Table' in r.text:

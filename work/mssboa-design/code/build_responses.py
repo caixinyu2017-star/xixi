@@ -224,9 +224,8 @@ def _findings():
                 f'elite-centred and take a share of the budget that does not '
                 f'grow with the dimension.')
     if nar.wtbl:
-        rows, _ = nar.wtbl
-        taus = [r[-1] for r in rows[1:]]
-        bests = {r[-2] for r in rows[1:]}
+        rows, wm = nar.wtbl
+        taus, bests = wm['taus'], set(wm['bests'])
         f['weights_finding'] = (
             f'The Kendall rank correlations against W0 are {", ".join(taus)}, '
             + (f'and the highest score is obtained by {sorted(bests)[0]} under '
@@ -241,8 +240,9 @@ def _findings():
     if nar.scale:
         rows, m = nar.scale
         algos = m['algos']
-        lines = [f'{r[0]}: {float(r[1]):.2f} (rank {r[-2]} of {len(algos)})'
-                 for r in rows[1:]]
+        col = 1 + algos.index('MSSBOA')
+        lines = [f'{r[0]}: {r[col]} (rank {m["ranks"][n]} of {_card(len(algos))})'
+                 for r, n in zip(rows[1:], m['ns'])]
         f['scale_finding'] = (
             f'Over {m["runs"]} independent runs per setting the mean aesthetic '
             f'score of MSSBOA is ' + '; '.join(lines) + '. The score does not '
@@ -332,6 +332,8 @@ def build_letter(key, comments, filename, findings):
     _p(doc, 'We hope these revisions address your concerns, and we thank you '
             'again for a review that has clearly improved the paper.',
        space_after=6)
+    import mathify
+    mathify.mathify_document(doc)
     path = os.path.join(OUT, filename)
     doc.save(path)
     print('wrote', path)

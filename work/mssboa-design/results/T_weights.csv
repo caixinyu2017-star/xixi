@@ -1,6 +1,6 @@
-Weight configuration,MSSBOA (x100),SBOA (x100),RIME (x100),LSHADE (x100),Best,Kendall tau vs. W0
-W0 (Ngo),90.60,90.70,86.56,91.27,LSHADE,1.000
-W1 (equal),88.02,88.12,84.57,88.64,LSHADE,1.000
-W2 (balance),93.15,93.05,89.03,93.92,LSHADE,0.667
-W3 (overlap),92.83,92.91,89.80,93.61,LSHADE,1.000
-W4 (structure),92.19,92.31,88.81,92.96,LSHADE,1.000
+Weight configuration,MSSBOA,SBOA,RIME,LSHADE,Kendall τ vs. W0
+W0 (Ngo),90.60,90.70,86.56,91.27,1.000
+W1 (equal),88.02,88.12,84.57,88.64,1.000
+W2 (balance),93.15,93.05,89.03,93.92,0.667
+W3 (overlap),92.83,92.91,89.80,93.61,1.000
+W4 (structure),92.19,92.31,88.81,92.96,1.000

@@ -55,10 +55,10 @@ def _cap(s):
 # contain the adopted value cannot say whether that value is a good one, so the
 # reading below states explicitly when the adopted setting is absent.
 ADOPTED = {
-    'Population size N': 'N=30',
-    'Levy stability index beta': 'beta=1.5',
-    'Hunting-stage time division': 'stage=T/3,2T/3',
-    'Lens scaling schedule': 'k: nu=1/2,mu=10',
+    'Population size N': 'N = 30',
+    'Levy stability index beta': 'β = 1.5',
+    'Hunting-stage time division': 'T/3, 2T/3',
+    'Lens scaling schedule': 'ν = 1/2, μ = 10',
 }
 
 
@@ -114,7 +114,7 @@ def _lens_reading(meta, note=True):
     order = sorted(range(len(avg)), key=lambda i: avg[i])
     worst2 = {labels[i] for i in order[-2:]}
     mis_scaled = {lab for lab in labels
-                  if 'mu=5' in lab or 'mu=20' in lab}
+                  if 'μ = 5' in lab or 'μ = 20' in lab}
     txt = ('The lens schedule is the one parameter of the four that belongs to '
            'this paper, and its grid separates the two exponents. ')
     if mis_scaled and mis_scaled == worst2:
@@ -124,7 +124,7 @@ def _lens_reading(meta, note=True):
                 'determines whether the operator ends the run refracting into '
                 'a neighbourhood of the interval midpoint or barely '
                 'contracting at all. ')
-    plain = next((i for i, lab in enumerate(labels) if lab.startswith('k=1')),
+    plain = next((i for i, lab in enumerate(labels) if lab.startswith('k ≡ 1')),
                  None)
     adopted = ADOPTED['Lens scaling schedule']
     if plain is not None and adopted in labels:
@@ -155,6 +155,7 @@ class Narrative:
         self.t10 = TB.t10_layout()
         self.fact = TB.t_factorial()
         self.var = TB.t_variants()
+        self.varw = TB.t_variants_wilcoxon()
         self.loss = TB.t_loss_distribution()
         self.gap = TB.t_dimension_gap()
         self.scale = TB.t_scale()
@@ -436,12 +437,44 @@ class Narrative:
             f'control parameters and pseudo-code of the corresponding paper; '
             f'the implementations are released with this article.',
 
-            f'Table 106 reports the outcome on the CEC2017 suite in '
-            f'{_dims(m["dims"])} over {m["n"]} independent runs. The overall '
-            f'order by average Friedman rank is ' + ' > '.join(ordered) +
+            f'Table 106 reports the Friedman mean ranks on the CEC2017 suite '
+            f'in {_dims(m["dims"])} over {m["n"]} independent runs, and Table '
+            f'110 the pairwise Wilcoxon rank-sum outcome of MSSBOA against '
+            f'each of the other eight algorithms at a significance level of '
+            f'0.05. The overall order by average Friedman rank is '
+            + ' > '.join(ordered) +
             f', with MSSBOA {_nth(pos)} of {_card(len(ordered))} at '
             f'{m["avg"]["MSSBOA"]:.3f}. ' + self._variant_reading(m),
+
+            self._variant_wilcoxon() or '',
         ]
+
+    def _variant_wilcoxon(self):
+        """The pairwise outcome, read off Table 110 rather than asserted."""
+        if not self.varw:
+            return None
+        _, m = self.varw
+        det = m['detail']
+        tot = m['cases']
+        wins = [a for a, (w, e, l) in det.items() if w > l]
+        loses = [a for a, (w, e, l) in det.items() if l > w]
+        ties = [a for a, (w, e, l) in det.items() if l == w]
+        parts = []
+        if wins:
+            parts.append('MSSBOA is significantly better more often than it is '
+                         'worse against ' + _series(wins))
+        if loses:
+            parts.append('the reverse holds against ' + _series(loses))
+        if ties:
+            parts.append('the two counts are equal against ' + _series(ties))
+        biggest = max(det, key=lambda a: det[a][1])
+        return (_cap(_series(parts, 'and')) + '. Over the ' + str(tot) +
+                ' algorithm-function cases per competitor the great majority '
+                'of comparisons are not significant at all - '
+                f'{det[biggest][1]} of {tot} against {biggest}, the largest '
+                'such count - so the ranking above should be read as a '
+                'tendency over the suite rather than as a series of decisive '
+                'pairwise victories.')
 
     def _variant_reading(self, m):
         avg = m['avg']
@@ -516,8 +549,7 @@ class Narrative:
         if not self.wtbl:
             return None
         rows, m = self.wtbl
-        taus = [r[-1] for r in rows[1:]]
-        bests = {r[-2] for r in rows[1:]}
+        taus, bests = m['taus'], set(m['bests'])
         stable = len(bests) == 1
         return [
             f'The weights of Equation (22) carry the designer\'s priorities '
@@ -555,10 +587,12 @@ class Narrative:
             return None
         rows, m = self.scale
         algos = m['algos']
+        # the table carries "mean ± sd" per algorithm; the rank of MSSBOA is
+        # metadata for this sentence rather than a column of its own
         lines = []
-        for r in rows[1:]:
-            vals = [float(v) for v in r[1:1 + len(algos)]]
-            lines.append(f'{r[0]}: {vals[0]:.2f} (rank {r[-2]})')
+        for r, n in zip(rows[1:], m['ns']):
+            lines.append(f'{r[0]}: {r[1 + algos.index("MSSBOA")]} '
+                         f'(rank {m["ranks"][n]} of {_card(len(algos))})')
         return [
             f'The eight problems of Table 9 involve at most six elements, so '
             f'the largest decision vector has twelve components. To establish '
