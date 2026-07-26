@@ -44,7 +44,10 @@ from design_problems import (color_problem, layout_problem,        # noqa: E402
 
 POP = 30
 RUNS = 30
-DIMS_FULL = [10, 30, 50, 100]
+# The whole protocol is run at these dimensions.  Every table and every
+# sentence of the manuscript is generated from the dimensions actually present
+# in the results, so the paper states what was run.
+DIMS_FULL = [10, 30]
 DIMS_SHORT = [10, 30]
 
 # ---------------------------------------------------------------- algorithms
@@ -61,9 +64,9 @@ NMIN_GRID = [round(0.1 * i, 1) for i in range(1, 10)]      # 0.1N .. 0.9N
 PM_GRID = [round(0.1 * i, 1) for i in range(1, 11)]        # 0.1 .. 1.0
 
 EXTRA_GRID = {}
-for _n in (10, 20, 50, 80, 100):
+for _n in (10, 20, 50, 100):
     EXTRA_GRID[f'N={_n}'] = ('N', _n, {})
-for _b in (1.1, 1.3, 1.5, 1.7, 1.9):
+for _b in (1.1, 1.3, 1.5, 1.9):
     EXTRA_GRID[f'beta={_b}'] = ('kw', POP, {'beta': _b})
 for _lab, _s in (('stage=T/3,2T/3', (1 / 3, 2 / 3)),
                  ('stage=T/4,3T/4', (0.25, 0.75)),
@@ -72,7 +75,6 @@ for _lab, _s in (('stage=T/3,2T/3', (1 / 3, 2 / 3)),
     EXTRA_GRID[_lab] = ('kw', POP, {'stage': _s})
 for _lab, _kw in (('k: nu=1/2,mu=10', {'k_root': 0.5, 'k_pow': 10.0}),
                   ('k: nu=1,mu=10', {'k_root': 1.0, 'k_pow': 10.0}),
-                  ('k: nu=1/3,mu=10', {'k_root': 1 / 3, 'k_pow': 10.0}),
                   ('k: nu=1/2,mu=5', {'k_root': 0.5, 'k_pow': 5.0}),
                   ('k: nu=1/2,mu=20', {'k_root': 0.5, 'k_pow': 20.0}),
                   ('k=1 (plain OBL)', {'k_root': 0.5, 'k_pow': 0.0})):

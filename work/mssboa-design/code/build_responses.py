@@ -86,8 +86,8 @@ def _findings():
             f'{m["interaction"]:+.3f} (CEC2017, D = {m["dim"]}, {m["n"]} runs). '
             f'These numbers are reported as they came out.')
 
-    if nar.weights:
-        rows, _ = nar.weights
+    if nar.wtbl:
+        rows, _ = nar.wtbl
         taus = [r[-1] for r in rows[1:]]
         bests = {r[-2] for r in rows[1:]}
         f['weights_finding'] = (

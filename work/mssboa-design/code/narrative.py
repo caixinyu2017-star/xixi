@@ -45,7 +45,7 @@ class Narrative:
         self.loss = TB.t_loss_distribution()
         self.gap = TB.t_dimension_gap()
         self.scale = TB.t_scale()
-        self.weights = TB.t_weights()
+        self.wtbl = TB.t_weights()
         self.extra = TB.t_extra()
 
     # ------------------------------------------------------------ 4.2
@@ -344,9 +344,9 @@ class Narrative:
         ]
 
     def weights(self):
-        if not self.weights:
+        if not self.wtbl:
             return None
-        rows, m = self.weights
+        rows, m = self.wtbl
         taus = [r[-1] for r in rows[1:]]
         bests = {r[-2] for r in rows[1:]}
         stable = len(bests) == 1

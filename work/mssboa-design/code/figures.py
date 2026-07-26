@@ -226,26 +226,28 @@ def fig10_nemenyi():
     q_alpha = {2: 1.960, 3: 2.343, 4: 2.569, 5: 2.728, 6: 2.850, 7: 2.949,
                8: 3.031, 9: 3.102, 10: 3.164, 11: 3.219, 12: 3.268}.get(k, 3.219)
     cd = q_alpha * np.sqrt(k * (k + 1) / (6.0 * N))
-    fig, axes = plt.subplots(len(dims), 1, figsize=(8.0, 2.3 * len(dims)),
+    fig, axes = plt.subplots(len(dims), 1, figsize=(8.6, 2.9 * len(dims)),
                              squeeze=False)
     for ax, dm in zip(axes[:, 0], dims):
         r = np.array([m['rank'][dm][a] for a in MAIN_ORDER])
         order = np.argsort(r)
-        ax.set_xlim(0.5, k + 0.5)
-        ax.set_ylim(0, 1)
+        ax.set_xlim(-1.6, k + 2.6)
+        ax.set_ylim(0.62 - 0.052 * int(np.ceil(k / 2)) - 0.05, 1)
         ax.axis('off')
         ax.plot([0.8, k + 0.2], [0.75, 0.75], 'k-', lw=1.1)
         for x in range(1, k + 1):
             ax.plot([x, x], [0.72, 0.78], 'k-', lw=0.9)
             ax.text(x, 0.83, str(x), ha='center', fontsize=7.5)
-        for rank_i, i in enumerate(order):
-            y = 0.60 - 0.045 * (rank_i % 6)
-            ax.plot([r[i], r[i]], [0.72, y], color=PAL[i % len(PAL)], lw=1.0)
-            side = -1 if rank_i < k / 2 else 1
-            ax.plot([r[i], r[i] + side * 0.35], [y, y],
-                    color=PAL[i % len(PAL)], lw=1.0)
-            ax.text(r[i] + side * 0.4, y, MAIN_ORDER[i], fontsize=7.5,
-                    ha='left' if side > 0 else 'right', va='center')
+        half = int(np.ceil(k / 2))
+        left, right = order[:half], order[half:][::-1]
+        for group, side in ((left, -1), (right, 1)):
+            for slot, i in enumerate(group):
+                y = 0.62 - 0.052 * slot
+                anchor = 0.7 if side < 0 else k + 0.3
+                ax.plot([r[i], r[i]], [0.72, y], color=PAL[i % len(PAL)], lw=1.0)
+                ax.plot([r[i], anchor], [y, y], color=PAL[i % len(PAL)], lw=1.0)
+                ax.text(anchor + side * 0.12, y, MAIN_ORDER[i], fontsize=7.5,
+                        ha='right' if side < 0 else 'left', va='center')
         # cliques of statistically indistinguishable algorithms
         y = 0.68
         used = []
@@ -258,7 +260,7 @@ def fig10_nemenyi():
                         solid_capstyle='butt')
                 used.append((a, b))
                 y -= 0.035
-        ax.text(0.8, 0.93, f'{dm}D   CD = {cd:.3f}', fontsize=9,
+        ax.text(0.7, 0.94, f'{dm}D   CD = {cd:.3f}', fontsize=9,
                 fontweight='bold')
     _save(fig, 'fig10_nemenyi.png')
 
