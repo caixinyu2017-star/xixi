@@ -308,10 +308,8 @@ def build():
         append_run(cp, newcap, 'R3')
         path = os.path.join(FIGS, png)
         if os.path.exists(path):
-            holder = insert_para_after(cp, '', 'R3')
-            holder.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            holder.add_run().add_picture(path, width=Inches(5.4))
-            holder._p.addprevious(cp._p)
+            # replace the old plot in place - do not leave both versions in
+            replace_picture_before(doc, cp, path, Inches(5.6), 'R3')
 
     # ------------------------------------------------- typography and notes
     fix_typography(doc)
@@ -319,6 +317,7 @@ def build():
     add_new_references(doc)
     add_colour_key(doc)
     renumber_tables(doc)
+    add_author_note(doc)
 
     out = os.path.join(OUT, 'MSSBOA_revised_marked.docx')
     doc.save(out)
@@ -457,6 +456,36 @@ def add_new_references(doc):
     for ref, col in zip(NEW_REFS, colors):
         p = insert_para_after(p, ref, col, template=doc.paragraphs[i])
     print('  added 3 references')
+
+
+AUTHOR_NOTE = (
+    'AUTHOR NOTE - DELETE THIS PARAGRAPH BEFORE SUBMISSION. The tables added '
+    'in Sections 4.2, 4.3, 4.5, 5.2 and 5.3 of this draft were produced by the '
+    'reference implementation released with the paper, which was written from '
+    'the equations of Section 3 because the original implementation was not '
+    'available. That implementation does NOT reproduce the margin of MSSBOA '
+    'over SBOA reported in Tables 7, 9, 10 and 16: on CEC2017 at 10 dimensions '
+    'it gives 1 win / 22 ties / 4 losses against the basic SBOA, where Table 10 '
+    'reports 29/0/0. Reading N_min as a minimum population size for linear '
+    'population size reduction, and not charging the auxiliary operators for '
+    'their function evaluations, were both tested and neither explains the '
+    'difference. The new tables must therefore be regenerated with the original '
+    'implementation before this revision is submitted, or the paper will '
+    'contain two mutually contradictory sets of numbers. See NOTES.md in the '
+    'code release for the evidence and the recommended order of work.')
+
+
+def add_author_note(doc):
+    """A conspicuous, removable banner so the draft cannot be submitted as is."""
+    from docx.shared import Pt
+    first = doc.paragraphs[0]
+    note = insert_para_after(first, AUTHOR_NOTE, 'R1', template=doc.paragraphs[11])
+    r = note.runs[0]
+    r.font.bold = True
+    r.font.size = Pt(9)
+    r.font.highlight_color = 7          # yellow
+    note._p.addprevious(first._p)       # keep it above the article type line
+    print('  added the removable author note')
 
 
 def add_colour_key(doc):
