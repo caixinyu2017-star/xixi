@@ -70,6 +70,48 @@ Neither reading of `N_min`, nor the generous evaluation accounting, produces
 an improvement over the basic SBOA. LPSR makes matters worse here, so the
 Table 1 reading is not the explanation.
 
+## Why the operators, as specified, do very little
+
+The null result is not mysterious. Reading the two search operators against the
+CEC2017 domain explains it, and this is worth knowing whichever way the
+discrepancy is eventually resolved.
+
+**LOBL.** The CEC2017 search domain is `[-100, 100]` in every dimension, so the
+interval midpoint of Eq. (11) is `o_j = 0` and the equation collapses to
+
+```
+x*_j = -x_j / k
+```
+
+At `k = 1` this is the mirror point, which is a reasonable exploratory move. But
+Eq. (12) drives `k` up fast — `k = 57.7` at `t = T/4` and `k > 200` by `t = T/2`
+— after which `x*` lies within a few units of the origin. The optima of the
+CEC2017 functions are *shifted* away from the origin (the shift vectors are
+drawn from roughly `[-80, 80]`), so from about a quarter of the way through the
+run the operator is repeatedly evaluating points near a fixed location that is
+known not to be the optimum. Greedy selection discards them, so the operator
+costs `0.2N` evaluations per iteration and returns almost nothing.
+
+This is exactly the variant-specific limitation now stated in the revised
+Conclusions, and the fix suggested there — refract about the per-dimension
+extrema of the *current population* rather than the static bounds, so the
+optical centre tracks the population centroid — would make the late-stage
+operator meaningful. That is a change to Eq. (11), not to its parameters.
+
+**ACGM.** Eq. (13) is multiplicative: `x_best' = x_best * (1 + λ1 C + λ2 G)`.
+With `x_best` components of order 50 and a standard Cauchy `C`, the early-stage
+perturbation is a heavy-tailed *relative* displacement of order 100% or more, so
+the mutant is almost always far outside the basin the population has found. Late
+in the run `λ2 → 1` and the perturbation becomes Gaussian, but still relative:
+a standard normal multiplying a coordinate of magnitude 50 is a displacement of
+about 50, which is not a refinement step. An additive perturbation scaled by a
+decaying step size, or a multiplicative one with a decaying coefficient, would
+behave as the text describes; the equation as printed does not.
+
+**GPSI** does what it claims — the initial population is measurably more uniform
+— but a better initial sample is worth little after 10 000 evaluations, which is
+the usual finding for low-discrepancy initialization.
+
 ## What this does and does not mean
 
 It does **not** establish that the manuscript's results are wrong. Three

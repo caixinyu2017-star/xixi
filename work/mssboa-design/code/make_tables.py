@@ -39,6 +39,19 @@ def complete(d, algos, dim, min_runs=30):
             if all(len(d[(a, dim, f)]) >= min_runs for a in algos)]
 
 
+def usable_runs(d, algos, dim, target=30, floor=10):
+    """Largest run count for which every algorithm covers every function.
+
+    The runners write results in run-major order, so an interrupted study is a
+    complete experiment with fewer repetitions.  This reports how many.
+    """
+    funcs = sorted({k[2] for k in d if k[1] == dim})
+    if not funcs:
+        return 0
+    n = min(len(d[(a, dim, f)]) for a in algos for f in funcs)
+    return n if n >= floor else 0
+
+
 def friedman(d, algos, dim, funcs):
     """Mean Friedman rank per algorithm plus the test p-value."""
     R = np.zeros((len(funcs), len(algos)))
@@ -91,6 +104,10 @@ def table_variants(min_runs=30):
     # table is meaningless until at least most of the field is present.
     if len(algos) < len(VARIANT_ORDER):
         return None
+    min_runs = min((usable_runs(d, algos, dm, min_runs) for dm in dims),
+                   default=0)
+    if not min_runs:
+        return None
     rows = [['Algorithm'] + [f'{dm}D rank' for dm in dims]
             + ['Average rank', 'Overall rank']
             + [f'MSSBOA vs. ({dm}D, +/=/-)' for dm in dims]]
@@ -122,7 +139,7 @@ def table_variants(min_runs=30):
     rows.append(['Friedman p-value'] + [f'{pvals[dm]:.3E}' for dm in used]
                 + ['N/A', 'N/A'] + ['N/A'] * len(used))
     meta = {'funcs': {dm: len(complete(d, algos, dm, min_runs)) for dm in used},
-            'dims': used}
+            'dims': used, 'runs': min_runs}
     return _save('variants', rows), meta
 
 
@@ -136,7 +153,10 @@ def table_factorial(min_runs=30):
     names = [n for n in names if any(k[0] == n for k in d)]
     dims = sorted({k[1] for k in d})
     dm = dims[0]
-    funcs = complete(d, names, dm, min_runs)
+    if len(names) < 8:
+        return None
+    min_runs = usable_runs(d, names, dm, min_runs)
+    funcs = complete(d, names, dm, min_runs) if min_runs else []
     if not funcs:
         return None
     r, p = friedman(d, names, dm, funcs)
@@ -176,7 +196,7 @@ def table_factorial(min_runs=30):
     inter = (rk(1, 1, 1) - rk(1, 1, 0) - rk(1, 0, 1) - rk(0, 1, 1)
              + rk(1, 0, 0) + rk(0, 1, 0) + rk(0, 0, 1) - rk(0, 0, 0))
     meta = {'dim': dm, 'nfuncs': len(funcs), 'effects': eff,
-            'interaction': float(inter), 'rank': rank}
+            'interaction': float(inter), 'rank': rank, 'runs': min_runs}
     return _save('factorial', rows), meta
 
 

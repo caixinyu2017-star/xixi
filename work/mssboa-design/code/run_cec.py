@@ -97,8 +97,12 @@ def _task(args):
 def run_study(study, tags, dims, pool):
     path = os.path.join(RESULTS, f'cec_{study}.csv')
     runs = RUNS_BY_STUDY.get(study, RUNS)
+    # Run-major order: every algorithm gets run 0 on every function before any
+    # algorithm starts run 1.  The partial CSV is then a complete experiment
+    # with fewer repetitions rather than a complete one for the first few
+    # algorithms only, so the study degrades gracefully if it has to be stopped.
     tasks = [(study, t, f, d, r)
-             for d in dims for t in tags for f in CEC2017_IDS for r in range(runs)]
+             for d in dims for r in range(runs) for t in tags for f in CEC2017_IDS]
     t0 = time.time()
     done = 0
     with open(path, 'w', newline='') as fh:
