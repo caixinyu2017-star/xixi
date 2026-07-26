@@ -1,160 +1,146 @@
-"""Comparison algorithms added during revision.
+"""Comparison algorithms added during revision, in batched form.
 
-Group 1 - recent SBOA variants (requested by Reviewer 2, comment 3)
+Group 1 - recent SBOA variants (Reviewer 2, comment 3)
     MISBOA  Qin et al.  - incremental-PID feedback regulation + cooperative camouflage
     CGSBOA  Wang et al. - multi-strategy fusion + Cauchy-Gaussian crossover
     LTSBOA  Mai et al.  - logistic-tent chaotic initialization + crossover
 
-Group 2 - recent multi-strategy metaheuristics (requested by Reviewer 3, comment 3)
-    MS-TSA  Beskirli, A.; Dag, I.; Kiran, M.S. A tree seed algorithm with
-            multi-strategy for parameter estimation of solar photovoltaic models.
-            Appl. Soft Comput. 2024, 167, 112220.
+Group 2 - recent multi-strategy metaheuristics (Reviewer 3, comment 3)
+    MS-TSA  Beskirli, A.; Dag, I.; Kiran, M.S., Appl. Soft Comput. 2024, 167, 112220
             (self-adaptive weighting + chaotic elite learning + experience-based learning)
-    I-CPA   Beskirli, A.; Dag, I. I-CPA: An Improved Carnivorous Plant Algorithm
-            for Solar Photovoltaic Parameter Identification Problem.
-            Biomimetics 2023, 8, 569.
+    I-CPA   Beskirli, A.; Dag, I., Biomimetics 2023, 8, 569
             (carnivorous plant algorithm + teaching-factor exploitation)
 
-The source codes of these methods are not publicly distributed, so each one was
-re-implemented here strictly following the equations, control parameters and
-pseudo-code reported in the corresponding publication.  The base algorithms
-(TSA: Kiran 2015; CPA: Ong et al. 2021) are implemented first and the published
-modifications are then layered on top, so that the improvement of each variant
-over its own base is reproduced rather than assumed.
+The source codes of these methods are not publicly distributed, so each was
+re-implemented following the equations, control parameters and pseudo-code of
+the corresponding publication.  The base algorithms TSA (Kiran 2015) and CPA
+(Ong et al. 2021) are implemented first and the published modifications layered
+on top, so each variant's gain over its own base is reproduced rather than
+assumed.
 """
 import numpy as np
 
-from framework import Recorder, init_pop, clipx, levy
+from framework import Recorder, init_pop, greedy, levy
 from algos_mssboa import good_point_set
 
 
 # =========================================================================
-#  Group 1: SBOA variants
+#  Shared SBOA skeleton
 # =========================================================================
-def _sboa_core(prob, max_fes, N, rng, X, hunt_hook=None, escape_hook=None,
-               post_hook=None, extra_per_iter=0):
-    """Shared SBOA skeleton so that every variant differs only by its hooks."""
+def _sboa_skeleton(prob, max_fes, N, rng, X0, hunt=None, escape=None,
+                   post=None, extra_per_iter=0):
     rec = Recorder(prob, max_fes)
     D = prob.dim
-    F = rec.eval_pop(X)
+    X = X0
+    F = rec.evaluate(X)
+    X = X[:len(F)]
     gb = int(np.argmin(F))
-    Xbest, fbest = X[gb].copy(), F[gb]
+    Xbest, fbest = X[gb].copy(), float(F[gb])
     T = max(1, int(max_fes / (2 * N + extra_per_iter)))
-    t = 0
     state = {}
+    t = 0
+    idx = np.arange(N)
     while rec.budget_left():
         t += 1
         tt = min(t / T, 1.0)
-        for i in range(N):
-            if not rec.budget_left():
-                break
-            nx = None
-            if hunt_hook is not None:
-                nx = hunt_hook(X, F, Xbest, i, t, T, tt, rng, D, N, state)
-            if nx is None:
-                if tt < 1 / 3:
-                    cand = [j for j in range(N) if j != i]
-                    a, b = rng.choice(cand, 2, replace=False)
-                    nx = X[i] + (X[a] - X[b]) * rng.random(D)
-                elif tt < 2 / 3:
-                    RB = rng.normal(0, 1, D)
-                    nx = Xbest + np.exp(tt ** 4) * (RB - 0.5) * (Xbest - X[i])
-                else:
-                    nx = Xbest + ((1 - tt) ** (2 * tt)) * X[i] * (0.5 * levy(rng, D))
-            nx = clipx(nx, prob)
-            f = rec.eval(nx)
-            if f <= F[i]:
-                X[i], F[i] = nx, f
-                if f < fbest:
-                    Xbest, fbest = nx.copy(), f
-        for i in range(N):
-            if not rec.budget_left():
-                break
-            nx = None
-            if escape_hook is not None:
-                nx = escape_hook(X, F, Xbest, i, t, T, tt, rng, D, N, state)
-            if nx is None:
-                if rng.random() < 0.5:
-                    RB = rng.normal(0, 1, D)
-                    nx = Xbest + (1 - tt) ** 2 * (2 * RB - 1) * X[i]
-                else:
-                    R2 = rng.random(D)
-                    K = int(np.round(1 + rng.random()))
-                    nx = X[i] + R2 * (X[rng.integers(N)] - K * X[i])
-            nx = clipx(nx, prob)
-            f = rec.eval(nx)
-            if f <= F[i]:
-                X[i], F[i] = nx, f
-                if f < fbest:
-                    Xbest, fbest = nx.copy(), f
-        if post_hook is not None and rec.budget_left():
-            Xbest, fbest = post_hook(rec, prob, X, F, Xbest, fbest, t, T, tt,
-                                     rng, D, N, state)
+        # ---- hunting ----
+        Xn = None
+        if hunt is not None:
+            Xn = hunt(X, F, Xbest, t, T, tt, rng, D, N, state, idx)
+        if Xn is None:
+            if tt < 1 / 3:
+                a = rng.integers(0, N, N)
+                b = rng.integers(0, N, N)
+                a = np.where(a == idx, (a + 1) % N, a)
+                b = np.where(b == a, (b + 1) % N, b)
+                Xn = X + (X[a] - X[b]) * rng.random((N, D))
+            elif tt < 2 / 3:
+                RB = rng.normal(0, 1, (N, D))
+                Xn = Xbest + np.exp(tt ** 4) * (RB - 0.5) * (Xbest - X)
+            else:
+                Xn = Xbest + ((1 - tt) ** (2 * tt)) * X * (0.5 * levy(rng, (N, D)))
+        Fn = rec.evaluate(Xn)
+        X, F = greedy(X, F, Xn, Fn)
+        # ---- escape ----
+        Xn = None
+        if escape is not None:
+            Xn = escape(X, F, Xbest, t, T, tt, rng, D, N, state, idx)
+        if Xn is None:
+            use_c1 = rng.random(N) < 0.5
+            RB = rng.normal(0, 1, (N, D))
+            C1 = Xbest + (1 - tt) ** 2 * (2 * RB - 1) * X
+            K = np.round(1 + rng.random((N, 1)))
+            C2 = X + rng.random((N, D)) * (X[rng.integers(0, N, N)] - K * X)
+            Xn = np.where(use_c1[:, None], C1, C2)
+        Fn = rec.evaluate(Xn)
+        X, F = greedy(X, F, Xn, Fn)
+        j = int(np.argmin(F))
+        if F[j] < fbest:
+            Xbest, fbest = X[j].copy(), float(F[j])
+        if post is not None and rec.budget_left():
+            Xbest, fbest = post(rec, X, F, Xbest, fbest, t, T, tt, rng, D, N, state)
     return rec.finalize()
 
 
 def misboa(prob, max_fes, N, rng):
-    """MISBOA - Qin et al.: incremental-PID feedback regulation applied to the
-    hunting phase plus a cooperative camouflage strategy in the escape phase.
+    """MISBOA - incremental-PID feedback regulation in the first hunting stage
+    plus a co-operative camouflage branch in the escape phase.
 
-    Incremental PID (velocity form):
-        e_t   = X_best - X_i(t)
-        du_i  = Kp (e_t - e_{t-1}) + Ki e_t + Kd (e_t - 2 e_{t-1} + e_{t-2})
-        X_i'  = X_i + du_i
-    Cooperative camouflage: an individual hides by blending the elite with the
-    centroid of two co-operating neighbours.
+        e_t  = X_best - X_i(t)
+        du_i = Kp (e_t - e_{t-1}) + Ki e_t + Kd (e_t - 2 e_{t-1} + e_{t-2})
     """
     Kp, Ki, Kd = 0.6, 0.2, 0.1
-    X = good_point_set(N, prob.dim, prob.lb, prob.ub)
-    err = {'e1': np.zeros((N, prob.dim)), 'e2': np.zeros((N, prob.dim))}
+    D = prob.dim
+    X0 = good_point_set(N, D, prob.lb, prob.ub)
+    err = {'e1': np.zeros((N, D)), 'e2': np.zeros((N, D))}
 
-    def hunt(X, F, Xbest, i, t, T, tt, rng, D, N, state):
+    def hunt(X, F, Xbest, t, T, tt, rng, D, N, state, idx):
         if tt >= 1 / 3:
-            return None                       # PID drives the first stage only
-        e0 = Xbest - X[i]
-        du = (Kp * (e0 - err['e1'][i]) + Ki * e0
-              + Kd * (e0 - 2 * err['e1'][i] + err['e2'][i]))
-        err['e2'][i] = err['e1'][i].copy()
-        err['e1'][i] = e0.copy()
-        return X[i] + du * rng.random(D)
+            return None
+        e0 = Xbest - X
+        du = (Kp * (e0 - err['e1']) + Ki * e0
+              + Kd * (e0 - 2 * err['e1'] + err['e2']))
+        err['e2'] = err['e1'].copy()
+        err['e1'] = e0.copy()
+        return X + du * rng.random((N, D))
 
-    def escape(X, F, Xbest, i, t, T, tt, rng, D, N, state):
-        if rng.random() >= 0.5:
-            return None                       # keep the original C2 branch
-        cand = [j for j in range(N) if j != i]
-        a, b = rng.choice(cand, 2, replace=False)
-        w = (1 - tt) ** 2
-        return Xbest + w * (2 * rng.random(D) - 1) * (X[a] + X[b]) / 2
+    def escape(X, F, Xbest, t, T, tt, rng, D, N, state, idx):
+        a = rng.integers(0, N, N)
+        b = rng.integers(0, N, N)
+        camo = Xbest + (1 - tt) ** 2 * (2 * rng.random((N, D)) - 1) \
+            * (X[a] + X[b]) / 2
+        use = (rng.random(N) < 0.5)[:, None]
+        R2 = rng.random((N, D))
+        K = np.round(1 + rng.random((N, 1)))
+        C2 = X + R2 * (X[rng.integers(0, N, N)] - K * X)
+        return np.where(use, camo, C2)
 
-    return _sboa_core(prob, max_fes, N, rng, X, hunt, escape)
+    return _sboa_skeleton(prob, max_fes, N, rng, X0, hunt, escape)
 
 
 def cgsboa(prob, max_fes, N, rng):
-    """CGSBOA - Wang et al.: multi-strategy fusion with a Cauchy-Gaussian
-    crossover applied to the elite once per iteration.
+    """CGSBOA - multi-strategy fusion with a Cauchy-Gaussian crossover applied
+    to the elite once per iteration.
 
-        X' = X_best + (sigma1 Cauchy(0,1) + sigma2 Gauss(0,1)) * X_best
-        sigma1 = 1 - t/T ,  sigma2 = t/T
-    combined with a dimension-wise crossover against the elite (CR = 0.9).
+        X' = X_best + (sigma1 Cauchy(0,1) + sigma2 Gauss(0,1)) X_best,
+        sigma1 = 1 - t/T, sigma2 = t/T, then binomial crossover with CR = 0.9.
     """
-    X = init_pop(prob, N, rng)
+    X0 = init_pop(prob, N, rng)
 
-    def post(rec, prob, X, F, Xbest, fbest, t, T, tt, rng, D, N, state):
-        s2 = tt
-        s1 = 1.0 - tt
-        v = Xbest + (s1 * rng.standard_cauchy(D)
-                     + s2 * rng.standard_normal(D)) * Xbest
+    def post(rec, X, F, Xbest, fbest, t, T, tt, rng, D, N, state):
+        v = Xbest + ((1 - tt) * rng.standard_cauchy(D)
+                     + tt * rng.standard_normal(D)) * Xbest
         mask = rng.random(D) < 0.9
         mask[rng.integers(D)] = True
-        nx = clipx(np.where(mask, v, Xbest), prob)
-        f = rec.eval(nx)
-        if f < fbest:
+        cand = np.where(mask, v, Xbest)
+        f = rec.evaluate(cand)
+        if len(f) and f[0] < fbest:
             w = int(np.argmax(F))
-            X[w], F[w] = nx.copy(), f
-            return nx.copy(), f
+            X[w], F[w] = np.clip(cand, rec.prob.lb, rec.prob.ub), float(f[0])
+            return X[w].copy(), float(f[0])
         return Xbest, fbest
 
-    return _sboa_core(prob, max_fes, N, rng, X, post_hook=post, extra_per_iter=1)
+    return _sboa_skeleton(prob, max_fes, N, rng, X0, post=post, extra_per_iter=1)
 
 
 def _logistic_tent(N, D, rng, mu=4.0, a=0.7):
@@ -164,86 +150,84 @@ def _logistic_tent(N, D, rng, mu=4.0, a=0.7):
     for i in range(N):
         logi = mu * z * (1 - z)
         tent = np.where(z < a, z / a, (1 - z) / (1 - a))
-        z = np.mod(logi + tent, 1.0)
-        z = np.clip(z, 1e-6, 1 - 1e-6)
+        z = np.clip(np.mod(logi + tent, 1.0), 1e-6, 1 - 1e-6)
         out[i] = z
     return out
 
 
 def ltsboa(prob, max_fes, N, rng):
-    """LTSBOA - Mai et al.: logistic-tent chaotic initialization plus a
-    binomial crossover between each individual and the elite."""
+    """LTSBOA - logistic-tent chaotic initialization plus a binomial crossover
+    between each individual and the elite in the first hunting stage."""
     Z = _logistic_tent(N, prob.dim, rng)
-    X = prob.lb + Z * (prob.ub - prob.lb)
+    X0 = prob.lb + Z * (prob.ub - prob.lb)
 
-    def hunt(X, F, Xbest, i, t, T, tt, rng, D, N, state):
+    def hunt(X, F, Xbest, t, T, tt, rng, D, N, state, idx):
         if tt >= 1 / 3:
             return None
-        cand = [j for j in range(N) if j != i]
-        a, b = rng.choice(cand, 2, replace=False)
-        v = X[i] + (X[a] - X[b]) * rng.random(D)
+        a = rng.integers(0, N, N)
+        b = rng.integers(0, N, N)
+        a = np.where(a == idx, (a + 1) % N, a)
+        b = np.where(b == a, (b + 1) % N, b)
+        v = X + (X[a] - X[b]) * rng.random((N, D))
         cr = 0.9 - 0.5 * tt
-        mask = rng.random(D) < cr
-        mask[rng.integers(D)] = True
+        mask = rng.random((N, D)) < cr
+        mask[np.arange(N), rng.integers(0, D, N)] = True
         return np.where(mask, v, Xbest)
 
-    return _sboa_core(prob, max_fes, N, rng, X, hunt)
+    return _sboa_skeleton(prob, max_fes, N, rng, X0, hunt)
 
 
 # =========================================================================
-#  Group 2: MS-TSA  (Beskirli, Dag & Kiran, Appl. Soft Comput. 2024)
+#  TSA / MS-TSA
 # =========================================================================
 def _tsa_core(prob, max_fes, N, rng, multi_strategy):
     rec = Recorder(prob, max_fes)
     D, lb, ub = prob.dim, prob.lb, prob.ub
-    ST = 0.1                                   # search tendency (Kiran 2015)
+    ST = 0.1                                    # search tendency (Kiran 2015)
     X = init_pop(prob, N, rng)
-    F = rec.eval_pop(X)
-    gb = int(np.argmin(F))
-    B, fB = X[gb].copy(), F[gb]
-    P, fP = X.copy(), F.copy()                 # experience memory (MS-TSA)
-    ns_lo, ns_hi = max(1, int(0.10 * N)), max(2, int(0.25 * N))
+    F = rec.evaluate(X)
+    X = X[:len(F)]
+    B = X[int(np.argmin(F))].copy()
+    fB = float(F.min())
+    P, fP = X.copy(), F.copy()                  # experience memory (MS-TSA)
+    ns = max(2, int(0.175 * N))                 # seeds per tree, 10-25% of N
+    T = max(1, int(max_fes / (N * ns)))
     chaos = rng.random()
-    T = max(1, int(max_fes / (N * ((ns_lo + ns_hi) / 2))))
     t = 0
     while rec.budget_left():
         t += 1
         tt = min(t / T, 1.0)
-        w = 0.9 - 0.5 * tt if multi_strategy else 1.0   # self-adaptive weight
-        for i in range(N):
-            ns = rng.integers(ns_lo, ns_hi + 1)
-            for _ in range(ns):
-                if not rec.budget_left():
-                    break
-                r = rng.integers(N)
-                while r == i:
-                    r = rng.integers(N)
-                phi = (rng.random(D) - 0.5) * 2
-                if rng.random() < ST:
-                    s = w * X[i] + (B - X[r]) * phi
-                else:
-                    s = w * X[i] + (X[i] - X[r]) * phi
-                if multi_strategy and rng.random() < 0.25:
-                    # experience-based learning towards the personal best
-                    s = s + rng.random(D) * (P[i] - X[i])
-                s = clipx(s, prob)
-                f = rec.eval(s)
-                if f < F[i]:
-                    X[i], F[i] = s, f
-                    if f < fP[i]:
-                        P[i], fP[i] = s.copy(), f
-                    if f < fB:
-                        B, fB = s.copy(), f
+        w = 0.9 - 0.5 * tt if multi_strategy else 1.0
+        for _ in range(ns):
+            if not rec.budget_left():
+                break
+            r = rng.integers(0, N, N)
+            phi = (rng.random((N, D)) - 0.5) * 2
+            use_best = rng.random((N, 1)) < ST
+            S = np.where(use_best, w * X + (B - X[r]) * phi,
+                         w * X + (X - X[r]) * phi)
+            if multi_strategy:
+                exp_mask = rng.random((N, 1)) < 0.25
+                S = np.where(exp_mask, S + rng.random((N, D)) * (P - X), S)
+            Fs = rec.evaluate(S)
+            m = len(Fs)
+            if not m:
+                break
+            imp = Fs < F[:m]
+            X[:m][imp], F[:m][imp] = S[:m][imp], Fs[imp]
+            bp = F < fP
+            P[bp], fP[bp] = X[bp], F[bp]
+            j = int(np.argmin(F))
+            if F[j] < fB:
+                B, fB = X[j].copy(), float(F[j])
         if multi_strategy and rec.budget_left():
-            # chaotic elite learning (logistic map)
-            chaos = 4.0 * chaos * (1 - chaos)
-            chaos = min(max(chaos, 1e-6), 1 - 1e-6)
-            s = clipx(B + (1 - tt) * (2 * chaos - 1) * (ub - lb) * 0.1, prob)
-            f = rec.eval(s)
-            if f < fB:
-                B, fB = s.copy(), f
+            chaos = min(max(4.0 * chaos * (1 - chaos), 1e-6), 1 - 1e-6)
+            cand = B + (1 - tt) * (2 * chaos - 1) * (ub - lb) * 0.1
+            f = rec.evaluate(cand)
+            if len(f) and f[0] < fB:
+                B, fB = np.clip(cand, lb, ub), float(f[0])
                 wst = int(np.argmax(F))
-                X[wst], F[wst] = s.copy(), f
+                X[wst], F[wst] = B.copy(), fB
     return rec.finalize()
 
 
@@ -256,56 +240,53 @@ def ms_tsa(prob, max_fes, N, rng):
 
 
 # =========================================================================
-#  Group 2: I-CPA  (Beskirli & Dag, Biomimetics 2023, 8, 569)
+#  CPA / I-CPA
 # =========================================================================
 def _cpa_core(prob, max_fes, N, rng, teaching_factor):
     rec = Recorder(prob, max_fes)
     D = prob.dim
-    n_cp = max(2, int(round(0.2 * N)))          # carnivorous plants
-    attraction_rate, growth_rate, reproduction_rate = 0.8, 2.0, 1.8
+    n_cp = max(2, int(round(0.2 * N)))
+    attraction, growth_rate, repro_rate = 0.8, 2.0, 1.8
     X = init_pop(prob, N, rng)
-    F = rec.eval_pop(X)
+    F = rec.evaluate(X)
+    X = X[:len(F)]
     while rec.budget_left():
         order = np.argsort(F)
         X, F = X[order], F[order]
         CP, fCP = X[:n_cp].copy(), F[:n_cp].copy()
         Prey, fPrey = X[n_cp:].copy(), F[n_cp:].copy()
         n_prey = len(Prey)
-        groups = np.arange(n_prey) % n_cp        # prey grouped to plants
+        grp = np.arange(n_prey) % n_cp
         # ---- growth (exploration) ----
-        for j in range(n_prey):
-            if not rec.budget_left():
-                break
-            i = groups[j]
-            g = growth_rate * rng.random()
-            if rng.random() < attraction_rate:
-                new = g * CP[i] + (1 - g) * Prey[j]
-                new = clipx(new, prob)
-                f = rec.eval(new)
-                if f < fCP[i]:
-                    CP[i], fCP[i] = new, f
-            else:
-                new = g * Prey[j] + (1 - g) * CP[i]
-                new = clipx(new, prob)
-                f = rec.eval(new)
-                if f < fPrey[j]:
-                    Prey[j], fPrey[j] = new, f
+        g = growth_rate * rng.random((n_prey, 1))
+        attract = (rng.random((n_prey, 1)) < attraction)
+        new = np.where(attract, g * CP[grp] + (1 - g) * Prey,
+                       g * Prey + (1 - g) * CP[grp])
+        Fn = rec.evaluate(new)
+        m = len(Fn)
+        if m:
+            a = attract[:m, 0]
+            for i in range(m):
+                if a[i]:
+                    if Fn[i] < fCP[grp[i]]:
+                        CP[grp[i]], fCP[grp[i]] = new[i], Fn[i]
+                elif Fn[i] < fPrey[i]:
+                    Prey[i], fPrey[i] = new[i], Fn[i]
+        if not rec.budget_left():
+            X = np.vstack([CP, Prey]); F = np.concatenate([fCP, fPrey]); break
         # ---- reproduction (exploitation) ----
-        mean_cp = CP.mean(axis=0)
-        for i in range(n_cp):
-            if not rec.budget_left():
-                break
-            if teaching_factor:
-                # I-CPA: teaching-factor guided exploitation
-                TF = int(np.round(1 + rng.random()))
-                new = CP[i] + rng.random(D) * (CP[0] - TF * mean_cp)
-            else:
-                a, b = rng.choice(n_cp, 2, replace=True)
-                new = CP[0] + reproduction_rate * rng.random(D) * (CP[a] - CP[b])
-            new = clipx(new, prob)
-            f = rec.eval(new)
-            if f < fCP[i]:
-                CP[i], fCP[i] = new, f
+        if teaching_factor:
+            TF = np.round(1 + rng.random((n_cp, 1)))
+            cand = CP + rng.random((n_cp, D)) * (CP[0] - TF * CP.mean(axis=0))
+        else:
+            a = rng.integers(0, n_cp, n_cp)
+            b = rng.integers(0, n_cp, n_cp)
+            cand = CP[0] + repro_rate * rng.random((n_cp, D)) * (CP[a] - CP[b])
+        Fc = rec.evaluate(cand)
+        m = len(Fc)
+        if m:
+            imp = Fc < fCP[:m]
+            CP[:m][imp], fCP[:m][imp] = cand[:m][imp], Fc[imp]
         X = np.vstack([CP, Prey])
         F = np.concatenate([fCP, fPrey])
     return rec.finalize()
@@ -320,11 +301,6 @@ def i_cpa(prob, max_fes, N, rng):
 
 
 VARIANTS = {
-    'MISBOA': misboa,
-    'CGSBOA': cgsboa,
-    'LTSBOA': ltsboa,
-    'TSA': tsa,
-    'MS-TSA': ms_tsa,
-    'CPA': cpa,
-    'I-CPA': i_cpa,
+    'MISBOA': misboa, 'CGSBOA': cgsboa, 'LTSBOA': ltsboa,
+    'TSA': tsa, 'MS-TSA': ms_tsa, 'CPA': cpa, 'I-CPA': i_cpa,
 }

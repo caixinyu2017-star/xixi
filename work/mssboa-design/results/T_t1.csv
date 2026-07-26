@@ -1,0 +1,12 @@
+Algorithm,Parameter settings
+MSSBOA,"N = 30, N_min = 0.2N, p_m = 0.5, beta = 1.5, k(t) = (1 + (t/T)^(1/2))^10"
+SBOA,"N = 30, beta = 1.5"
+GWO,"N = 30, a decreases linearly from 2 to 0"
+COA,"N = 30, temperature-driven control parameter"
+SCA,"N = 30, a = 2"
+SMA,"N = 30, z = 0.03"
+RIME,"N = 30, W = 5"
+QIO,"N = 30, no algorithm-specific parameter"
+MRFO,"N = 30, somersault factor S = 2"
+GKSO,"N = 30, inertia weight from 0.9 to 0.4"
+LSHADE,"N_init = 18D, N_min = 4, H = 6, p = 0.11, arc rate = 2.6"

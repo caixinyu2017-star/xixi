@@ -28,12 +28,14 @@ CLASS_ORDER = ['Unimodal', 'Multimodal', 'Hybrid', 'Composition']
 
 
 def cec2017_problem(fid, dim):
-    """Return a minimization Problem for CEC2017 function `fid` in `dim` D."""
+    """Return a minimization Problem for CEC2017 function `fid` in `dim` D.
+
+    The underlying implementation is vectorized over rows, so the problem is
+    declared as batched and whole populations are evaluated in one call.
+    """
     fn = all_functions[fid - 1]
-    big = 1e30
 
-    def fobj(x):
-        v = float(fn(np.asarray(x, float).reshape(1, -1))[0])
-        return big if not np.isfinite(v) else v
+    def fobj(X):
+        return np.asarray(fn(np.atleast_2d(X)), dtype=float)
 
-    return Problem(fobj, -100.0, 100.0, dim, f'F{fid}')
+    return Problem(fobj, -100.0, 100.0, dim, f'F{fid}', batch=True)

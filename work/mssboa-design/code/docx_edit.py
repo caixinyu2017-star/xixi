@@ -191,6 +191,83 @@ def insert_table_after(doc, para, rows, color, caption=None, template_style=None
     return trailer
 
 
+def table_after(doc, para):
+    """The first table element following a caption paragraph, or None."""
+    el = para._p.getnext()
+    while el is not None:
+        if el.tag == qn('w:tbl'):
+            from docx.table import Table
+            return Table(el, para._parent)
+        if el.tag == qn('w:p') and el.xpath('.//w:t'):
+            return None                 # ran into the next paragraph of text
+        el = el.getnext()
+    return None
+
+
+def replace_table(doc, para, rows, color, font_size=8.0, header_bold=True):
+    """Replace the table following `para` with `rows`, keeping its look.
+
+    The original table's properties (borders, width, look) are carried over so
+    the regenerated table matches the MDPI template, and the cell text is
+    written in the reviewer's colour so the change is visible.
+    """
+    old = table_after(doc, para)
+    ncols = max(len(r) for r in rows)
+    rows = [list(r) + [''] * (ncols - len(r)) for r in rows]
+    new = doc.add_table(rows=len(rows), cols=ncols)
+    if old is not None:
+        old_pr = old._tbl.find(qn('w:tblPr'))
+        if old_pr is not None:
+            new_pr = new._tbl.find(qn('w:tblPr'))
+            if new_pr is not None:
+                new._tbl.remove(new_pr)
+            new._tbl.insert(0, copy.deepcopy(old_pr))
+        else:
+            try:
+                new.style = 'Table Grid'
+            except Exception:
+                pass
+    else:
+        try:
+            new.style = 'Table Grid'
+        except Exception:
+            pass
+    for i, row in enumerate(rows):
+        for j, val in enumerate(row):
+            cell = new.cell(i, j)
+            cell.text = ''
+            p = cell.paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER if j else WD_ALIGN_PARAGRAPH.LEFT
+            p.paragraph_format.space_after = Pt(0)
+            p.paragraph_format.space_before = Pt(0)
+            run = p.add_run(str(val))
+            _style_run(run, color, bold=(header_bold and i == 0), size=font_size)
+    if old is not None:
+        old._tbl.addnext(new._tbl)
+        old._tbl.getparent().remove(old._tbl)
+    else:
+        para._p.addnext(new._tbl)
+    # mark the first header row to repeat across page breaks
+    tr = new.rows[0]._tr
+    trPr = tr.get_or_add_trPr()
+    if trPr.find(qn('w:tblHeader')) is None:
+        from docx.oxml import OxmlElement
+        trPr.append(OxmlElement('w:tblHeader'))
+    return new
+
+
+def set_paragraph_text(para, text, color, keep_style=True):
+    """Replace a paragraph's whole content with new coloured text."""
+    for r in list(para.runs):
+        r._element.getparent().remove(r._element)
+    for child in list(para._p):
+        if child.tag in (qn('m:oMath'), qn('m:oMathPara')):
+            para._p.remove(child)
+    if text:
+        _style_run(para.add_run(text), color)
+    return para
+
+
 def insert_picture_after(doc, para, path, color, caption, width):
     """Insert a centred picture plus its caption after `para`."""
     holder = insert_para_after(para, '', color)

@@ -1,0 +1,13 @@
+=== main: 38280 runs ===
+  main: 1000/38280 20s (eta 746s)
+  main: 2000/38280 40s (eta 731s)
+  main: 3000/38280 61s (eta 723s)
+  main: 4000/38280 82s (eta 706s)
+  main: 5000/38280 103s (eta 683s)
+  main: 6000/38280 122s (eta 659s)
+  main: 7000/38280 142s (eta 636s)
+  main: 8000/38280 162s (eta 615s)
+  main: 9000/38280 182s (eta 593s)
+  main: 10000/38280 228s (eta 646s)
+  main: 11000/38280 355s (eta 881s)
+  main: 12000/38280 508s (eta 1114s)
