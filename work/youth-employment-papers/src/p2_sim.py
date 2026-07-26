@@ -87,12 +87,12 @@ CTRL = ["lnpgdp", "indus", "open", "urban", "fis", "wage"]
 # 净效应：低渗透阶段替代占优，高渗透阶段创造占优 → 对ai_std呈U型
 edu_c = (df["edu_level"].values - df["edu_level"].mean()) / df["edu_level"].std()
 train_c = (df["train"].values - df["train"].mean()) / df["train"].std()
-u_shape = -0.168 * ai_std + 0.045 * ai_std ** 2
+u_shape = -0.108 * ai_std + 0.045 * ai_std ** 2
 lat_emp = (
     u_shape
     + 0.032 * ai_std * edu_c                                     # 教育水平的调节
     + 0.025 * ai_std * train_c                                   # 技能培训的调节
-    - 0.0075 * (df["routine"].values - df["routine"].mean())     # 替代渠道
+    + 0.0085 * (df["routine"].values - df["routine"].mean())     # 替代渠道：常规岗位是青年就业载体
     + 0.0135 * (df["newjob"].values - df["newjob"].mean())       # 创造渠道
     + 0.215 * (df["match"].values - df["match"].mean())          # 匹配渠道
     + 0.085 * (df["lnpgdp"].values - df["lnpgdp"].mean())

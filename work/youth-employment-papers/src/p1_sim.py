@@ -190,7 +190,7 @@ base_specs = [
 baseline = []
 for k, xs in enumerate(base_specs, 1):
     r = fe_reg(panel, "yqe", list(xs))
-    row = {"col": k, "n": int(r.nobs), "r2": float(r.rsquared_within)}
+    row = {"col": k, "n": int(r.nobs), "r2": float(r.rsquared)}
     for v in xs:
         c, t, b, tv, p = fmt(r, v)
         row[v] = {"coef": c, "t": t, "b": b, "tv": tv, "p": p}
@@ -209,23 +209,23 @@ for c in ["yqe", "dig"] + CTRL:
     lo, hi = dw[c].quantile([0.01, 0.99])
     dw[c] = dw[c].clip(lo, hi)
 r = fe_reg(dw.set_index(["city", "year"]), "yqe", ["dig"] + CTRL)
-rob["winsor"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared_within))
+rob["winsor"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared))
 # (2) 剔除直辖市与省会城市
 sub = df[df["capital"] == 0]
 r = fe_reg(sub.set_index(["city", "year"]), "yqe", ["dig"] + CTRL)
-rob["drop_capital"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared_within))
+rob["drop_capital"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared))
 # (3) 调整样本区间（剔除2020—2021年疫情冲击）
 sub = df[~df["year"].isin([2020, 2021])]
 r = fe_reg(sub.set_index(["city", "year"]), "yqe", ["dig"] + CTRL)
-rob["drop_covid"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared_within))
+rob["drop_covid"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared))
 # (4) 替换被解释变量（主成分法测度）
 r = fe_reg(panel, "yqe_pca", ["dig"] + CTRL)
-rob["alt_y"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared_within))
+rob["alt_y"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared))
 # (5) 被解释变量前置一期（缓解反向因果并考察滞后影响）
 df_l = df.sort_values(["city", "year"]).copy()
 df_l["yqe_f1"] = df_l.groupby("city")["yqe"].shift(-1)
 r = fe_reg(df_l.set_index(["city", "year"]), "yqe_f1", ["dig"] + CTRL)
-rob["lead1"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared_within))
+rob["lead1"] = fmt(r, "dig") + (int(r.nobs), float(r.rsquared))
 # (6) 替换核心解释变量测度方式（主成分法测度数字经济发展水平）
 Zd = (dig_raw - dig_raw.mean()) / dig_raw.std()
 ud, sd, vtd = np.linalg.svd(Zd.values - Zd.values.mean(0), full_matrices=False)
@@ -234,7 +234,7 @@ if np.corrcoef(pcd, df["dig"].values)[0, 1] < 0:
     pcd = -pcd
 df["dig_pca"] = (pcd - pcd.min()) / (pcd.max() - pcd.min())
 r = fe_reg(df.set_index(["city", "year"]), "yqe", ["dig_pca"] + CTRL)
-rob["alt_x"] = fmt(r, "dig_pca") + (int(r.nobs), float(r.rsquared_within))
+rob["alt_x"] = fmt(r, "dig_pca") + (int(r.nobs), float(r.rsquared))
 RESULTS["robust"] = {k: {"coef": v[0], "t": v[1], "b": v[2], "tv": v[3], "p": v[4],
                          "n": v[5], "r2": v[6]} for k, v in rob.items()}
 
@@ -276,10 +276,10 @@ for m in ["entre", "upg", "hc"]:
     r2 = fe_reg(panel, "yqe", ["dig", m] + CTRL)          # X + M → Y
     med[m] = {
         "stage1": {"coef": fmt(r1, "dig")[0], "t": fmt(r1, "dig")[1], "n": int(r1.nobs),
-                   "r2": float(r1.rsquared_within)},
+                   "r2": float(r1.rsquared)},
         "stage2_dig": {"coef": fmt(r2, "dig")[0], "t": fmt(r2, "dig")[1]},
         "stage2_m": {"coef": fmt(r2, m)[0], "t": fmt(r2, m)[1]},
-        "n2": int(r2.nobs), "r2_2": float(r2.rsquared_within),
+        "n2": int(r2.nobs), "r2_2": float(r2.rsquared),
         "b1": fmt(r1, "dig")[2], "b2m": fmt(r2, m)[2], "b2x": fmt(r2, "dig")[2],
     }
     med[m]["indirect_share"] = round(med[m]["b1"] * med[m]["b2m"] /
@@ -372,7 +372,7 @@ RESULTS["threshold"] = {
     "F1": float(F1), "p1": p_th1, "F2": float(F2), "p2": p_th2,
     "single": {v: {"coef": fmt(r_single, v)[0], "t": fmt(r_single, v)[1]} for v in ["_lo", "_hi"]},
     "double": {v: {"coef": fmt(r_double, v)[0], "t": fmt(r_double, v)[1]} for v in ["_r1", "_r2", "_r3"]},
-    "n": int(r_double.nobs), "r2": float(r_double.rsquared_within),
+    "n": int(r_double.nobs), "r2": float(r_double.rsquared),
     "share_r1": float((df["hc_std"] <= lo).mean()),
     "share_r2": float(((df["hc_std"] > lo) & (df["hc_std"] <= hi)).mean()),
     "share_r3": float((df["hc_std"] > hi).mean()),
@@ -385,18 +385,18 @@ for k, nm in names.items():
     sub = df[df["region"] == k]
     r = fe_reg(sub.set_index(["city", "year"]), "yqe", ["dig"] + CTRL)
     het[nm] = {"coef": fmt(r, "dig")[0], "t": fmt(r, "dig")[1], "n": int(r.nobs),
-               "r2": float(r.rsquared_within), "b": fmt(r, "dig")[2]}
+               "r2": float(r.rsquared), "b": fmt(r, "dig")[2]}
 med_pop = df.groupby("city")["pop_scale"].first().median()
 for flag, nm in [(True, "大规模城市"), (False, "中小规模城市")]:
     sub = df[(df["pop_scale"] >= med_pop) == flag]
     r = fe_reg(sub.set_index(["city", "year"]), "yqe", ["dig"] + CTRL)
     het[nm] = {"coef": fmt(r, "dig")[0], "t": fmt(r, "dig")[1], "n": int(r.nobs),
-               "r2": float(r.rsquared_within), "b": fmt(r, "dig")[2]}
+               "r2": float(r.rsquared), "b": fmt(r, "dig")[2]}
 for flag, nm in [(1, "中心城市"), (0, "非中心城市")]:
     sub = df[df["capital"] == flag]
     r = fe_reg(sub.set_index(["city", "year"]), "yqe", ["dig"] + CTRL)
     het[nm] = {"coef": fmt(r, "dig")[0], "t": fmt(r, "dig")[1], "n": int(r.nobs),
-               "r2": float(r.rsquared_within), "b": fmt(r, "dig")[2]}
+               "r2": float(r.rsquared), "b": fmt(r, "dig")[2]}
 RESULTS["hetero"] = het
 
 # ============ 11. 描述性统计 ============
