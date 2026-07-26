@@ -145,7 +145,15 @@ def build():
     replace_in_para(doc.paragraphs[7], T.R1_ABSTRACT_OLD, T.R1_ABSTRACT_NEW, RED)
     abs_result = nar.abstract_result()
     if abs_result:
-        append_run(doc.paragraphs[7], ' ' + abs_result, RED)
+        # the submitted abstract asserted an outcome the regenerated runs do
+        # not support; replace it rather than append to it
+        strike_and_replace(
+            doc.paragraphs[7],
+            'In all cases, MSSBOA outperforms the basic SBOA and the competing '
+            'algorithms in terms of convergence speed, stability and solution '
+            'quality, confirming its effectiveness for computational-aesthetics '
+            'applications in art design.',
+            abs_result, RED)
     strike_and_replace(para_by(doc, '(1) An improved SBOA variant'),
                        T.R1_CONTRIB_OLD, T.R1_CONTRIB_NEW, RED)
     log.append('R1: contribution reframed as an integration framework')
@@ -321,6 +329,7 @@ def build():
     if rewrite(doc, 'In this subsection, MSSBOA is compared with the basic SBOA',
                nar.main_comparison(), RED):
         log.append('R1: Section 4.4 regenerated')
+    _firsts(doc, nar, log)
     swap_table(doc, 'Table 6. Friedman rankings of MSSBOA and the comparison',
                TB.t6_friedman(), RED)
     swap_table(doc, 'Table 7. Wilcoxon rank-sum test results', TB.t7_wilcoxon(), RED)
@@ -455,9 +464,18 @@ def build():
     # =============================================== Conclusions
     strike_and_replace(para_by(doc, 'This paper proposed a multi-strategy secretary bird'),
                        T.R1_CONCL_FRAMING_OLD, T.R1_CONCL_FRAMING_NEW, RED)
+    concl = nar.conclusion_results()
+    if concl:
+        rewrite(doc, 'On the CEC2017 benchmark suite in 10, 30, 50 and 100 dimensions',
+                concl, RED)
+        log.append('R1: Conclusions results paragraph regenerated')
     p = para_by(doc, 'Nevertheless, MSSBOA has some limitations.')
     set_paragraph_text(p, '', RED)
-    insert_paras_after(p, T.R1_LIMITATIONS, RED, template=body)
+    lims = list(T.R1_LIMITATIONS)
+    dim_lim = nar.limitation_dimension()
+    if dim_lim:
+        lims[1] = dim_lim
+    insert_paras_after(p, lims, RED, template=body)
     set_paragraph_text(para_by(doc, 'Data Availability Statement:'),
                        T.R1_DATA_AVAILABILITY, RED)
     log.append('R1/R3: limitations rewritten and code released')
@@ -477,6 +495,32 @@ def build():
     print('\n'.join('  ' + s for s in log))
     print('wrote', out)
     return out
+
+
+def _firsts(doc, nar, log):
+    """Replace the sentence counting the functions on which MSSBOA ranks first."""
+    import numpy as np
+    from scipy import stats as st
+    d = TB.load('main')
+    if d is None or not nar.t6:
+        return
+    _, m6 = nar.t6
+    probs = [f'F{f}' for f in TB.CEC2017_IDS]
+    parts = []
+    for dm in m6['dims']:
+        n = TB.usable(d, TB.MAIN_ORDER, probs, dm)
+        c = 0
+        for p in probs:
+            means = [np.mean(d[(a, p, dm)][:n]) for a in TB.MAIN_ORDER]
+            if int(np.argmin(means)) == TB.MAIN_ORDER.index('MSSBOA'):
+                c += 1
+        parts.append(f'{c} of the {len(probs)} functions in {dm}D')
+    txt = (f'Figure 7 shows the rank of every algorithm on every function as a '
+           f'heat map. MSSBOA attains the best mean value on ' +
+           ', '.join(parts) + '. The convergence curves of representative '
+           'functions are given in Figure 8.')
+    rewrite(doc, 'As shown in Figure 7, MSSBOA ranks first on 20 functions', [txt], 'R1')
+    log.append('R1: per-function ranking counts regenerated')
 
 
 def _appendix(doc, log):

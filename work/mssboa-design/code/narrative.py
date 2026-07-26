@@ -405,6 +405,59 @@ class Narrative:
             'than those of Table 15.',
         ]
 
+    # ---------------------------------------------------------- conclusions
+    def conclusion_results(self):
+        """The results paragraph of the Conclusions, generated from the data."""
+        if not (self.t6 and self.t7):
+            return None
+        _, m6 = self.t6
+        _, m7 = self.t7
+        ordered = sorted(m6['avg'], key=m6['avg'].get)
+        pos = m6['order']['MSSBOA']
+        s = m7['detail'].get('SBOA', [0, 0, 0])
+        txt = (f'On the CEC2017 benchmark suite in {_dims(m6["dims"])} the '
+               f'optimal parameters of MSSBOA were determined by a grid search '
+               f'and the contribution of each strategy was quantified by a full '
+               f'factorial ablation. Compared with the basic SBOA and nine '
+               f'advanced algorithms under an identical evaluation budget, '
+               f'MSSBOA obtained an average Friedman rank of '
+               f'{m6["avg"]["MSSBOA"]:.3f}, placing it {_nth(pos)} of '
+               f'{len(ordered)}, against {m6["avg"]["SBOA"]:.3f} for the basic '
+               f'SBOA. In the pairwise Wilcoxon rank-sum test against SBOA it '
+               f'was significantly better on {s[0]} of the {m7["cases"]} cases, '
+               f'indistinguishable on {s[1]} and significantly worse on '
+               f'{s[2]}.')
+        if pos == 1:
+            return [txt + ' The proposed integration framework therefore '
+                          'improves on its baseline and leads the comparison.']
+        lead = ordered[0]
+        return [txt + f' On this protocol the three strategies do not yield a '
+                      f'statistically significant improvement over the basic '
+                      f'SBOA, and {lead} obtains the best average rank of the '
+                      f'field. We report this outcome as measured.']
+
+    def limitation_dimension(self):
+        """Data-driven replacement for the high-dimension limitation."""
+        if not self.gap:
+            return None
+        _, m = self.gap
+        top, dims = m['top'][0], m['dims']
+        if len(dims) < 2:
+            return None
+        g0 = m['rank'][dims[0]][top] - m['rank'][dims[0]]['MSSBOA']
+        g1 = m['rank'][dims[-1]][top] - m['rank'][dims[-1]]['MSSBOA']
+        return (f'Second, the standing of MSSBOA relative to the strongest '
+                f'competitor, {top}, changes with the problem size: the mean '
+                f'Friedman rank gap moves from {g0:+.3f} at {dims[0]} '
+                f'dimensions to {g1:+.3f} at {dims[-1]}. The mechanism is '
+                f'identifiable. Both added operators are elite-centred and '
+                f'consume a share of the budget that does not depend on D, so '
+                f'as the dimension grows the same number of refractions and '
+                f'mutations has to cover a search space whose volume grows '
+                f'exponentially. A dimension-aware budget, in which the size of '
+                f'the refracted subpopulation or the mutation frequency scales '
+                f'with D, is a concrete remedy that we intend to test.')
+
     # ------------------------------------------------------------ abstract
     def abstract_result(self):
         if not (self.t6 and self.t10):

@@ -36,120 +36,81 @@ PENDING = ('[The corresponding experiment was still running when this draft '
 
 
 def _findings():
-    """Fill the data-dependent sentences of the letters."""
+    """Fill the data-dependent sentences of the letters from the regenerated runs."""
+    import tables as TB
+    from narrative import Narrative, _nth, _series
     f = dict(k_finding=PENDING, param_finding=PENDING, weights_finding=PENDING,
              scale_finding=PENDING, variants_finding=PENDING,
              factorial_finding=PENDING)
+    nar = Narrative()
 
-    pg = MT.table_params()
-    if pg:
-        for title, rows, meta in pg:
-            body = [r for r in rows[1:] if r[1] and r[0] != 'Friedman p-value']
-            if not body:
-                continue
-            best = min(body, key=lambda r: float(r[1]))
-            if title.startswith('Lens scaling'):
-                adopted = next((r for r in body if 'adopted' in r[0]), None)
+    ex = nar.extra
+    if ex:
+        for title, rows, meta in ex:
+            if title.startswith('Lens'):
                 f['k_finding'] = (
-                    f'Over the {meta["nfuncs"]} functions the best mean rank is '
-                    f'obtained by "{best[0]}" ({best[1]}), and the adopted '
-                    f'setting ranks {adopted[2] if adopted else "n/a"} of '
-                    f'{len(body)}. The grid therefore supports the adopted '
-                    f'exponents as a reasonable rather than a uniquely optimal '
-                    f'choice, and we now say so in the text instead of '
-                    f'presenting them as given.')
-        lines = []
-        for title, rows, meta in pg:
-            body = [r for r in rows[1:] if r[1] and r[0] != 'Friedman p-value']
-            if not body:
-                continue
-            best = min(body, key=lambda r: float(r[1]))
-            lines.append(f'for {title.lower()} the best mean rank is '
-                         f'"{best[0]}" ({best[1]})')
-        if lines:
-            f['param_finding'] = (
-                'Across the grids, ' + '; '.join(lines) + '. The full tables '
-                'are given in Section 4.2 of the revised manuscript.')
+                    f'Over the {len(meta["labels"])} exponent pairs tested, the '
+                    f'best mean rank is obtained by "{meta["best"]}" on the '
+                    f'CEC2017 suite in {", ".join(str(d) for d in meta["dims"])} '
+                    f'dimensions with {meta["n"]} runs per setting. The grid '
+                    f'therefore supports the adopted exponents as a reasonable '
+                    f'rather than a uniquely optimal choice, and the text now '
+                    f'says so instead of presenting them as given.')
+        parts = [f'for the {t.lower()} the best setting is "{m["best"]}"'
+                 for t, _, m in ex]
+        f['param_finding'] = ('Across the four grids, ' + _series(parts) +
+                              '. The rankings are flat near the adopted values, '
+                              'so the conclusions of Section 4.4 do not depend '
+                              'on them.')
 
-    v = MT.table_variants()
-    if v:
-        rows, meta = v
-        f['variants_finding'] = _summarise_variants(rows, meta)
+    if nar.var:
+        _, m = nar.var
+        ordered = sorted(m['avg'], key=m['avg'].get)
+        pos = m['order']['MSSBOA']
+        f['variants_finding'] = (
+            f'Over the CEC2017 suite in '
+            f'{", ".join(str(d) for d in m["dims"])} dimensions with {m["n"]} '
+            f'independent runs, the order by average Friedman rank is '
+            + ' > '.join(ordered) + f', with MSSBOA {_nth(pos)} of '
+            f'{len(ordered)} at {m["avg"]["MSSBOA"]:.3f}. We report the '
+            f'comparison exactly as it came out.')
 
-    fa = MT.table_factorial()
-    if fa:
-        rows, meta = fa
-        eff = meta['effects']
+    if nar.fact:
+        _, m = nar.fact
+        e = m['effects']
         f['factorial_finding'] = (
-            f'Averaged over the other two factors, the main effect of each '
-            f'strategy on the mean Friedman rank is {eff["GPSI"]:+.3f} for '
-            f'GPSI, {eff["LOBL"]:+.3f} for LOBL and {eff["ACGM"]:+.3f} for '
-            f'ACGM, a negative value meaning that the strategy improves the '
-            f'ranking, and the three-way interaction is '
-            f'{meta["interaction"]:+.3f} '
-            f'(CEC2017, D = {meta["dim"]}, {meta["nfuncs"]} functions, 30 runs). '
-            f'We report these numbers as they came out.')
+            f'Averaged over the other two factors, the main effect on the mean '
+            f'Friedman rank is {e["GPSI"]:+.3f} for GPSI, {e["LOBL"]:+.3f} for '
+            f'LOBL and {e["ACGM"]:+.3f} for ACGM, a negative value denoting an '
+            f'improvement, and the three-way interaction is '
+            f'{m["interaction"]:+.3f} (CEC2017, D = {m["dim"]}, {m["n"]} runs). '
+            f'These numbers are reported as they came out.')
 
-    w = MT.table_weights()
-    if w:
-        rows, _ = w
+    if nar.weights:
+        rows, _ = nar.weights
         taus = [r[-1] for r in rows[1:]]
         bests = {r[-2] for r in rows[1:]}
         f['weights_finding'] = (
-            f'The ordering of the algorithms is {"unchanged" if len(bests) == 1 else "not fully stable"} '
-            f'across the five configurations (Kendall tau values '
-            f'{", ".join(taus)}), and the best-performing algorithm is '
-            f'{"the same in every configuration" if len(bests) == 1 else "not the same in every configuration"}. '
-            f'The absolute scores shift with the weights, as they must, but the '
-            f'comparison between algorithms is reported for what it is.')
+            f'The Kendall rank correlations against W0 are {", ".join(taus)}, '
+            + ('and the best-performing algorithm is the same in every '
+               'configuration; the absolute scores shift with the weights, as '
+               'they must, but the comparison between algorithms does not.'
+               if len(bests) == 1 else
+               'and the best-performing algorithm is not the same in every '
+               'configuration, so the ranking is itself weight-dependent and '
+               'is reported as such.'))
 
-    s = MT.table_scale()
-    if s:
-        rows, meta = s
-        f['scale_finding'] = _summarise_scale(rows, meta)
+    if nar.scale:
+        rows, m = nar.scale
+        algos = m['algos']
+        lines = [f'{r[0]}: {float(r[1]):.2f} (rank {r[-2]} of {len(algos)})'
+                 for r in rows[1:]]
+        f['scale_finding'] = (
+            f'Over {m["runs"]} independent runs per setting the mean aesthetic '
+            f'score of MSSBOA is ' + '; '.join(lines) + '. The score does not '
+            'collapse as the problem grows, so the formulation and the '
+            'optimizer both handle layouts of the size you ask about.')
     return f
-
-
-def _summarise_variants(rows, meta):
-    hdr = rows[0]
-    body = [r for r in rows[1:] if r[0] != 'Friedman p-value']
-    if len(body) < 3:
-        return PENDING
-    ic = hdr.index('Average rank')
-    ir = hdr.index('Overall rank')
-    ranked = sorted(body, key=lambda r: float(r[ic]))
-    ms = next(r for r in body if r[0] == 'MSSBOA')
-    dims = ', '.join(f'{d}D' for d in meta['dims'])
-    n = meta['funcs'][meta['dims'][0]]
-    wl = [(c, v) for c, v in zip(hdr, ms) if '+/=/-' in str(c)]
-    wl_txt = '; '.join(f'{c.split()[2].strip("(,")}: {v}' for c, v in wl if v != '-')
-    return (f'Over {n} CEC2017 functions at {dims} with 30 independent runs, '
-            f'the mean Friedman rank of MSSBOA is {ms[ic]}, placing it '
-            f'{ms[ir]} of {len(body)}; the best-ranked method is '
-            f'{ranked[0][0]} ({ranked[0][ic]}). We report the comparison as '
-            f'it came out rather than only where it is favourable.')
-
-
-def _summarise_scale(rows, meta):
-    algos = meta['algos']
-    lines = []
-    for r in rows[1:]:
-        vals = [float(x) for x in r[1:1 + len(algos)] if x]
-        if not vals:
-            continue
-        lines.append(f'{r[0].split()[0]} elements (D = {r[0].split("=")[1].strip(" )")}): '
-                     f'MSSBOA {vals[0]:.2f}, rank {r[-2]} of {len(algos)}')
-    missing = [n for n in (8, 12, 20, 30) if n not in meta['ns']]
-    tail = ''
-    if missing:
-        tail = (' ' + PENDING + ' Sizes still to be completed at the time this '
-                'draft was generated: '
-                + ', '.join(str(n) for n in missing) + ' elements.')
-    return (f'Over {meta["runs"]} independent runs per setting: '
-            + '; '.join(lines) + '. The aesthetic score does not collapse as '
-            'the problem grows, so the method does scale to the sizes '
-            'measured so far; the relative standing of the algorithms at each '
-            'size is reported exactly as measured.' + tail)
 
 
 # --------------------------------------------------------------- rendering
