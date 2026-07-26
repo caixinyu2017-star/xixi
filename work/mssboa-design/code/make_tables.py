@@ -87,6 +87,10 @@ def table_variants(min_runs=30):
         return None
     dims = sorted({k[1] for k in d})
     algos = [a for a in VARIANT_ORDER if any(k[0] == a for k in d)]
+    # A partially finished run has data for only the first few algorithms; the
+    # table is meaningless until at least most of the field is present.
+    if len(algos) < len(VARIANT_ORDER):
+        return None
     rows = [['Algorithm'] + [f'{dm}D rank' for dm in dims]
             + ['Average rank', 'Overall rank']
             + [f'MSSBOA vs. ({dm}D, +/=/-)' for dm in dims]]

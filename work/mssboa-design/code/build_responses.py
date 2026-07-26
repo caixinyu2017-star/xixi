@@ -113,17 +113,21 @@ def _findings():
 def _summarise_variants(rows, meta):
     hdr = rows[0]
     body = [r for r in rows[1:] if r[0] != 'Friedman p-value']
-    ranked = sorted(body, key=lambda r: float(r[1]))
+    if len(body) < 3:
+        return PENDING
+    ic = hdr.index('Average rank')
+    ir = hdr.index('Overall rank')
+    ranked = sorted(body, key=lambda r: float(r[ic]))
     ms = next(r for r in body if r[0] == 'MSSBOA')
     dims = ', '.join(f'{d}D' for d in meta['dims'])
     n = meta['funcs'][meta['dims'][0]]
+    wl = [(c, v) for c, v in zip(hdr, ms) if '+/=/-' in str(c)]
+    wl_txt = '; '.join(f'{c.split()[2].strip("(,")}: {v}' for c, v in wl if v != '-')
     return (f'Over {n} CEC2017 functions at {dims} with 30 independent runs, '
-            f'the mean Friedman rank of MSSBOA is {ms[1]} and it places '
-            f'{ms[len(meta["dims"]) + 2]} of {len(body)}; the best-ranked '
-            f'method is {ranked[0][0]} ({ranked[0][1]}). The pairwise '
-            f'win/tie/loss counts are given in the table. We report the '
-            f'comparison as it came out rather than only where it is '
-            f'favourable.')
+            f'the mean Friedman rank of MSSBOA is {ms[ic]}, placing it '
+            f'{ms[ir]} of {len(body)}; the best-ranked method is '
+            f'{ranked[0][0]} ({ranked[0][ic]}). We report the comparison as '
+            f'it came out rather than only where it is favourable.')
 
 
 def _summarise_scale(rows, meta):

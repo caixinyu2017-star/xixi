@@ -30,6 +30,10 @@ os.makedirs(RESULTS, exist_ok=True)
 RUNS = 30
 POP = 30
 
+# The two headline studies keep the 30 independent runs used throughout the
+# paper; the supplementary parameter grid uses 20, which is stated in the text.
+RUNS_BY_STUDY = {'variants': 30, 'factorial': 30, 'params': 20}
+
 from bench import cec2017_problem, CEC2017_IDS          # noqa: E402
 from algos_mssboa import mssboa, sboa, FACTORIAL, _run  # noqa: E402
 from algos_variants import VARIANTS                     # noqa: E402
@@ -51,22 +55,20 @@ VARIANT_ALGOS = {
 # Parameter grids.  'MSSBOA' (the default configuration) is run once and reused
 # as the reference column of every grid.
 PARAM_GRID = {}
-for _n in (20, 50, 80, 100):
+for _n in (20, 50, 100):
     PARAM_GRID[f'N={_n}'] = ('N', _n, {})
-for _r in (0.1, 0.3, 0.4, 0.5):
+for _r in (0.1, 0.3, 0.5):
     PARAM_GRID[f'rho={_r}'] = ('kw', POP, {'rho_lobl': _r})
 for _b in (1.1, 1.3, 1.7, 1.9):
     PARAM_GRID[f'beta={_b}'] = ('kw', POP, {'beta': _b})
 for _lab, _s in (('stage=1/4,3/4', (0.25, 0.75)),
                  ('stage=1/2,3/4', (0.50, 0.75)),
-                 ('stage=1/4,1/2', (0.25, 0.50)),
                  ('stage=1/5,4/5', (0.20, 0.80))):
     PARAM_GRID[_lab] = ('kw', POP, {'stage': _s})
 for _lab, _kw in (('k: nu=1,mu=10', {'k_root': 1.0, 'k_pow': 10.0}),
                   ('k: nu=1/3,mu=10', {'k_root': 1 / 3, 'k_pow': 10.0}),
                   ('k: nu=1/2,mu=5', {'k_root': 0.5, 'k_pow': 5.0}),
                   ('k: nu=1/2,mu=20', {'k_root': 0.5, 'k_pow': 20.0}),
-                  ('k: nu=1/2,mu=2', {'k_root': 0.5, 'k_pow': 2.0}),
                   ('k=1 (plain OBL)', {'k_root': 0.5, 'k_pow': 0.0})):
     PARAM_GRID[_lab] = ('kw', POP, _kw)
 
@@ -94,8 +96,9 @@ def _task(args):
 
 def run_study(study, tags, dims, pool):
     path = os.path.join(RESULTS, f'cec_{study}.csv')
+    runs = RUNS_BY_STUDY.get(study, RUNS)
     tasks = [(study, t, f, d, r)
-             for d in dims for t in tags for f in CEC2017_IDS for r in range(RUNS)]
+             for d in dims for t in tags for f in CEC2017_IDS for r in range(runs)]
     t0 = time.time()
     done = 0
     with open(path, 'w', newline='') as fh:

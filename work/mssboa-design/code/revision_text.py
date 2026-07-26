@@ -92,6 +92,26 @@ R1_LOBL_DERIVATION = [
     'the distance to the parent, that the factor controls.',
 ]
 
+# Replaces the paragraph of the submitted version that (i) misstated what a
+# large k does and (ii) said LOBL is applied to the worst 30%, which contradicts
+# the N_min = 0.2N of Table 1 and of the sensitivity study.
+R1_LOBL_CORRECTED = (
+    'Accordingly, a small k in the early stage places the refracted solution '
+    'far from the interval midpoint, on the opposite side of the domain from '
+    'the current individual, which favours exploration; a large k in the later '
+    'stage contracts the image onto the neighbourhood of the midpoint, which '
+    'turns the operator into a fine-grained local probe and favours '
+    'exploitation. In MSSBOA the lens opposition-based learning is applied only '
+    'to the inferior individuals, that is, to the worst N_min = 0.2N members of '
+    'the population, at the end of each iteration; the value 0.2N is the one '
+    'selected by the grid search of Section 4.2. (The submitted version stated '
+    'the threshold as 30% in this paragraph and in Algorithm 1, which '
+    'contradicted the N_min = 0.2N given in Table 3 and used throughout the '
+    'experiments; the 30% was a leftover from an earlier draft and has been '
+    'corrected here and in Algorithm 1.) As illustrated in Figure 2, restricting '
+    'the operator to the inferior subpopulation lets the population escape '
+    'local optima while the greedy selection protects the elite individuals.')
+
 R1_LOBL_KJUSTIFY = [
     'The functional form of Equation (12), k(t) = (1 + (t/T)^nu)^mu with '
     'nu = 1/2 and mu = 10, is fixed by three requirements and one grid search. '
@@ -335,6 +355,15 @@ R1_LIMITATIONS = [
     'protocol, and combining that protocol with the present framework is a '
     'direction we intend to pursue.',
 ]
+
+R1_CONCL_FRAMING_OLD = ('Three improvement strategies were integrated into the '
+                        'basic SBOA:')
+R1_CONCL_FRAMING_NEW = (
+    'The contribution is an integration framework rather than three new '
+    'operators: three established operator families were re-specified for the '
+    'three-stage hunting/escape structure of SBOA, given parameter adaptations '
+    'tied to the iteration budget, and assigned to disjoint parts of the '
+    'population, namely')
 
 R1_DATA_AVAILABILITY = (
     'Data Availability Statement: The source code of MSSBOA, the '

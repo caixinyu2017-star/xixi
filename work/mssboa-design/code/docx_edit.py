@@ -128,6 +128,15 @@ def replace_in_para(para, old, new, color):
     return True
 
 
+def strike_paragraph(para, color):
+    """Mark a whole paragraph as deleted: struck through, in reviewer colour."""
+    for r in para.runs:
+        if r.text:
+            r.font.strike = True
+            r.font.color.rgb = COLORS[color]
+    return para
+
+
 def strike_and_replace(para, old, new, color):
     """Show a deletion as struck-through text followed by the new wording."""
     full = ''.join(r.text for r in para.runs)

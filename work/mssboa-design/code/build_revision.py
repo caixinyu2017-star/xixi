@@ -26,7 +26,7 @@ import revision_text as T                                          # noqa: E402
 from docx_edit import (para_by, find_para, insert_para_after,       # noqa: E402
                        insert_paras_after, insert_table_after,
                        insert_picture_after, replace_in_para,
-                       strike_and_replace, COLOR_NAMES)
+                       strike_and_replace, strike_paragraph, COLOR_NAMES)
 import make_tables as MT                                           # noqa: E402
 
 
@@ -56,6 +56,50 @@ def cap_style(doc, kind='table'):
 def add_heading_after(doc, para, text, color):
     h = insert_para_after(para, text, color, template=h2_style(doc))
     return h
+
+
+def replace_picture_before(doc, caption_para, png, width, color):
+    """Swap the image in the paragraph that precedes `caption_para`.
+
+    Falls back to inserting a new picture paragraph if no image is found.
+    """
+    from docx.text.paragraph import Paragraph
+    from docx_edit import insert_para_after
+    prev = caption_para._p.getprevious()
+    while prev is not None and prev.tag != caption_para._p.tag:
+        prev = prev.getprevious()
+    if prev is not None:
+        holder = Paragraph(prev, caption_para._parent)
+        if 'blip' in prev.xml or 'imagedata' in prev.xml:
+            for r in list(holder.runs):
+                r._element.getparent().remove(r._element)
+            holder.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            holder.add_run().add_picture(png, width=width)
+            print('  replaced the Figure 2 image in place')
+            return holder
+    holder = insert_para_after(caption_para, '', color)
+    holder.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    holder.add_run().add_picture(png, width=width)
+    holder._p.addprevious(caption_para._p)
+    print('  ! inserted Figure 2 as a new paragraph (no existing image found)')
+    return holder
+
+
+def fix_algorithm1_threshold(doc):
+    """Reviewer 1, comment 6: Algorithm 1 said 30%, the experiments used 0.2N."""
+    from docx_edit import COLORS
+    n = 0
+    for tbl in doc.tables:
+        for row in tbl.rows:
+            for cell in row.cells:
+                for p in cell.paragraphs:
+                    for r in p.runs:
+                        if 'worst 30%' in r.text:
+                            r.text = r.text.replace(
+                                'worst 30%', 'worst N_min = 0.2N individuals')
+                            r.font.color.rgb = COLORS['R1']
+                            n += 1
+    print(f'  Algorithm 1 threshold corrected in {n} run(s)')
 
 
 def data_or_note(rows, note):
@@ -97,18 +141,16 @@ def build():
     p = para_by(doc, 'Opposition-based learning evaluates a candidate solution')
     last = insert_paras_after(p, T.R1_LOBL_DERIVATION, 'R1', template=body)
 
-    # justification of the k schedule, after the paragraph that describes it
+    # The submitted paragraph misstated the effect of a large k and gave the
+    # LOBL threshold as 30%; strike it and follow it with the corrected text.
     p = para_by(doc, 'A small  in the early stage produces a refracted solution')
+    strike_paragraph(p, 'R1')
+    p = insert_para_after(p, T.R1_LOBL_CORRECTED, 'R1', template=body)
+
+    # justification of the k schedule, after the paragraph that describes it
     ktxt = [t.format(k_table_no=nums['k_table_no'],
                      k_conclusion=KCONC) for t in T.R1_LOBL_KJUSTIFY]
-    last = insert_paras_after(p, ktxt, 'R1', template=body)
-    insert_table_after(doc, last, K_TABLE, 'R1',
-                       caption=f'Table {nums["k_table_no"]}. Friedman ranking '
-                               'of alternative exponent pairs in the lens '
-                               'scaling schedule k(t) = (1 + (t/T)^nu)^mu, '
-                               'including the constant k = 1 that reduces the '
-                               'operator to plain opposition-based learning.',
-                       template_style='Table Grid')
+    insert_paras_after(p, ktxt, 'R1', template=body)
 
     # replace the (unrendered) Figure 2 with the new schematic
     fig2 = para_by(doc, 'Figure 2. Schematic of the lens opposition-based learning')
@@ -122,12 +164,17 @@ def build():
                      'scaling factor of Equation (12) for several exponent pairs; '
                      '(c) the resulting refraction radius about the interval '
                      'midpoint.', 'R1')
-    if os.path.exists(os.path.join(FIGS, 'fig02_lens_imaging.png')):
-        holder = insert_para_after(fig2, '', 'R1')
-        holder.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        holder.add_run().add_picture(os.path.join(FIGS, 'fig02_lens_imaging.png'),
-                                     width=Inches(6.3))
-        holder._p.addprevious(fig2._p)          # picture above its caption
+    # The submitted Figure 2 was an EMF object that did not render for the
+    # reviewers; replace the picture in place rather than adding a second one.
+    replace_picture_before(doc, fig2, os.path.join(FIGS, 'fig02_lens_imaging.png'),
+                           Inches(6.3), 'R1')
+    insert_table_after(doc, fig2, K_TABLE, 'R1',
+                       caption=f'Table {nums["k_table_no"]}. Friedman ranking '
+                               'of alternative exponent pairs in the lens '
+                               'scaling schedule k(t) = (1 + (t/T)^nu)^mu, '
+                               'including the constant k = 1 that reduces the '
+                               'operator to plain opposition-based learning.',
+                       template_style='Table Grid')
 
     # -- 1.1b  new Section 3.6 (before Section 4)
     anchor = para_by(doc, 'For MSSBOA, the good point set initialization has the same complexity')
@@ -212,6 +259,10 @@ def build():
                                'elements, i.e. up to D = 60.',
                        template_style='Table Grid')
 
+    # -- 1.1c  carry the integration-framework framing into the Conclusions
+    p = para_by(doc, 'This paper proposed a multi-strategy secretary bird')
+    strike_and_replace(p, T.R1_CONCL_FRAMING_OLD, T.R1_CONCL_FRAMING_NEW, 'R1')
+
     # -- 1.7  limitations, split into inherited and variant-specific
     p = para_by(doc, 'Nevertheless, MSSBOA has some limitations.')
     for r in p.runs:
@@ -264,6 +315,7 @@ def build():
 
     # ------------------------------------------------- typography and notes
     fix_typography(doc)
+    fix_algorithm1_threshold(doc)
     add_new_references(doc)
     add_colour_key(doc)
     renumber_tables(doc)
