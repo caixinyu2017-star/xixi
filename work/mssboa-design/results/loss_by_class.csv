@@ -1,0 +1,12 @@
+Competitor,Unimodal,Multimodal,Hybrid,Composition,Total
+SBOA,0,0,0,0,0
+GWO,0,0,0,0,0
+COA,0,0,0,0,0
+SCA,0,0,0,0,0
+SMA,0,0,0,0,0
+RIME,0,1,3,5,9
+QIO,0,4,4,8,16
+MRFO,0,0,0,1,1
+GKSO,0,1,2,1,4
+LSHADE,3,7,5,5,20
+Cases available,8,28,40,40,116
