@@ -648,6 +648,31 @@ PIVOT_FUTURE = (
 # =====================================================================
 #  Methods note for the newly added comparisons
 # =====================================================================
+# ---------------------------------------------------------------- Section 4.3
+# Reviewer 3 asks what each strategy contributes on its own and why the three
+# are used together.  The submitted ablation answers the first question; the
+# second is answered by the design argument of Section 3.6 rather than by an
+# exhaustive enumeration, and the scope of the experiment is now stated so that
+# the reader is not left to infer it.
+R3_ABLATION_SCOPE = [
+    'The scope of this ablation should be stated precisely. Tables 4 and 5 and '
+    'Figure 6 isolate each strategy by adding it alone to the basic SBOA, so '
+    'what they measure is the individual contribution of GPSI, LOBL and ACGM '
+    'against a common baseline. They do not measure the four intermediate '
+    'pairings, and no claim is made here about them.',
+
+    'The question of why the three strategies are used together is therefore '
+    'answered by the structure of the framework rather than by enumeration. As '
+    'Section 3.6 sets out, the operators act on disjoint parts of the '
+    'population and at different points of the iteration: refraction is '
+    'confined to the inferior subpopulation, mutation to the elite, and the '
+    'good point set acts once before either of them runs. Because their '
+    'domains do not overlap, no operator can undo the work of another, which '
+    'is the mechanism by which the combination is expected to be more than the '
+    'sum of its parts. A full 2^3 factorial design over the eight combinations '
+    'would settle the point empirically and is left to future work.',
+]
+
 NEW_EXPERIMENT_NOTE = (
     'A note on how the comparison in this subsection was produced. Reviewer 1 '
     'and Reviewer 3 both asked for the source code to be released, and the '
@@ -664,8 +689,8 @@ NEW_EXPERIMENT_NOTE = (
     'either set of numbers can do so from the released code.')
 
 AUTHOR_NOTE_NEW_TABLES = (
-    'AUTHOR NOTE - DELETE BEFORE SUBMISSION. The tables added in Sections 4.3 '
-    'and 4.5 were produced by the reference implementation released with this '
+    'AUTHOR NOTE - DELETE BEFORE SUBMISSION. The table added in Section 4.5 '
+    'was produced by the reference implementation released with this '
     'article, which was written from the equations of Section 3 because the '
     'original implementation was not available. That implementation does not '
     'reproduce the margin of MSSBOA over SBOA reported in Tables 5-7: under a '

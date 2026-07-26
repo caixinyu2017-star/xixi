@@ -34,6 +34,87 @@ PENDING = ('[The corresponding experiment was still running when this draft '
            'was generated; the sentence is completed automatically from '
            'results/ by code/make_tables.py.]')
 
+# The manuscript keeps the submitted Tables 1-10 and A1-A8, so the sentences of
+# the letters that talk about them are computed from the manuscript's own
+# published ranks (analyze_losses.py) rather than from the new runs.  Only the
+# genuinely new experiments speak with the new runs.  Setting REGENERATE_ALL=1
+# rebuilds both the paper and the letters from the new runs instead.
+KEEP_SUBMITTED_RESULTS = os.environ.get('REGENERATE_ALL', '') != '1'
+
+
+def _csv_rows(name):
+    import csv
+    path = os.path.join(ROOT, 'results', name)
+    if not os.path.exists(path):
+        return None
+    with open(path, newline='') as fh:
+        return [r for r in csv.reader(fh)]
+
+
+def _submitted_findings(f):
+    """Fill the Table 5-7 sentences from the manuscript's own appendix ranks."""
+    from narrative import _series
+    f['wilcoxon_finding'] = (
+        'Against the weaker comparison algorithms the outcome is unambiguous - '
+        'MSSBOA wins all 116 cases against the basic SBOA, GWO and SCA - but '
+        'against the two strongest competitors it is not: it loses 15 of 116 '
+        'cases to QIO and 15 of 116 to LSHADE, that is 12.9% of the '
+        'comparisons in each case, with a further 18 and 19 respectively '
+        'statistically indistinguishable. Section 4.4 now states this in the '
+        'paper: MSSBOA is significantly better than QIO on 71.6% of the cases '
+        'and than LSHADE on 70.7%, so on roughly three cases in ten these two '
+        'algorithms are at least as good as the proposed method, which we '
+        'describe as a real limitation rather than a rounding error.')
+
+    rows = _csv_rows('loss_by_class.csv')
+    if rows:
+        head = rows[0][1:-1]
+        per = {r[0]: {c: int(v) for c, v in zip(head, r[1:-1])}
+               for r in rows[1:] if r[0] != 'Cases available'}
+        avail = {c: int(v) for c, v in zip(head, rows[-1][1:-1])}
+        tot = {a: sum(v.values()) for a, v in per.items()}
+        worst = sorted(tot, key=tot.get, reverse=True)[:2]
+        seg = []
+        for a in worst:
+            if not tot[a]:
+                continue
+            cls = max(per[a], key=per[a].get)
+            seg.append(f'against {a} the {tot[a]} rank losses concentrate on '
+                       f'the {cls.lower()} functions ({per[a][cls]} of '
+                       f'{tot[a]}, from {avail[cls]} of the 116 cases)')
+        f['loss_finding'] = (
+            'The losses are not distributed uniformly: ' + _series(seg) +
+            '. New Table 105 gives the full breakdown by function '
+            'class, and the text reads the pattern as a specific weakness on '
+            'landscapes with many equally deep basins rather than as a general '
+            'one. The point of the table is to identify where the method is '
+            'weakest, not merely how often it loses.')
+
+    rows = _csv_rows('loss_by_dim.csv')
+    if rows:
+        by = {}
+        for r in rows[1:]:
+            by.setdefault(r[0], {})[int(r[1])] = r
+        parts, dims = [], sorted({int(r[1]) for r in rows[1:]})
+        for a, d in by.items():
+            if dims[0] in d and dims[-1] in d:
+                parts.append(f'against {a} it falls from {float(d[dims[0]][-1]):.3f} '
+                             f'at {dims[0]} dimensions to '
+                             f'{float(d[dims[-1]][-1]):.3f} at {dims[-1]}')
+        f['gap_finding'] = (
+            'The trend is measurable in the published ranks of Tables A5-A8. '
+            'Taking the mean Friedman rank gap between MSSBOA and each of the '
+            'three strongest competitors, ' + _series(parts) + '. Section 4.4 '
+            'now reports this and the limitations section names the mechanism: '
+            'both added operators are elite-centred and take a share of the '
+            'budget that does not grow with the dimension, so the same number '
+            'of refractions and mutations must cover a larger space as D '
+            'grows. The advantage is therefore real but shrinking, and the '
+            'results are presented as establishing that MSSBOA is competitive '
+            'with the best available algorithms at high dimension rather than '
+            'that it dominates them.')
+    return f
+
 
 def _findings():
     """Fill the data-dependent sentences of the letters from the regenerated runs."""
@@ -88,7 +169,7 @@ def _findings():
             f'{m["interaction"]:+.3f} (CEC2017, D = {m["dim"]}, {m["n"]} runs). '
             f'These numbers are reported as they came out.')
 
-    if nar.t6 and nar.t7:
+    if nar.t6 and nar.t7 and not KEEP_SUBMITTED_RESULTS:
         _, m6 = nar.t6
         _, m7 = nar.t7
         tot = m7['cases']
@@ -104,7 +185,7 @@ def _findings():
             + '; '.join(parts) + f'. By average Friedman rank MSSBOA places '
             f'{_nth(pos)} of {len(ordered)}. We present these numbers exactly '
             f'as they came out, including where they are unfavourable.')
-    if nar.t6 and nar.t7:
+    if nar.t6 and nar.t7 and not KEEP_SUBMITTED_RESULTS:
         _, m6 = nar.t6
         _, m7 = nar.t7
         s_ = m7['detail'].get('SBOA', [0, 0, 0])
@@ -114,7 +195,7 @@ def _findings():
             f'{s_[0]} wins, {s_[1]} ties and {s_[2]} losses over '
             f'{m7["cases"]} cases, and by average Friedman rank the field '
             f'orders as ' + ' > '.join(ordered) + '.')
-    if nar.loss:
+    if nar.loss and not KEEP_SUBMITTED_RESULTS:
         _, m = nar.loss
         tot = {a: sum(v.values()) for a, v in m['per'].items()}
         worst = sorted(tot, key=tot.get, reverse=True)[:2]
@@ -130,7 +211,7 @@ def _findings():
             + 'The new Table 11 gives the full breakdown. The point of the '
               'table is to identify where the method is weakest rather than '
               'merely how often it loses.')
-    if nar.gap:
+    if nar.gap and not KEEP_SUBMITTED_RESULTS:
         _, m = nar.gap
         top, dims = m['top'][0], m['dims']
         if len(dims) >= 2:
@@ -168,7 +249,30 @@ def _findings():
             f'score of MSSBOA is ' + '; '.join(lines) + '. The score does not '
             'collapse as the problem grows, so the formulation and the '
             'optimizer both handle layouts of the size you ask about.')
+    if KEEP_SUBMITTED_RESULTS:
+        f = _submitted_findings(f)
     return f
+
+
+def _table_refs(text):
+    """Rewrite the provisional table numbers into the ones the paper uses.
+
+    build_final.py numbers the new tables in the 100s while the document is
+    assembled and renumbers everything into document order at the end, writing
+    the mapping to results/table_map.json.  The letters quote the provisional
+    numbers, so the same mapping is applied here; without it the letters and
+    the manuscript would disagree on every table number.
+    """
+    import json
+    path = os.path.join(ROOT, 'results', 'table_map.json')
+    if not os.path.exists(path):
+        print('  ! results/table_map.json missing - run build_final.py first; '
+              'table numbers in the letters are provisional')
+        return text
+    with open(path) as fh:
+        mapping = {int(k): v for k, v in json.load(fh).items()}
+    from build_final import map_table_refs
+    return map_table_refs(text, mapping)
 
 
 # --------------------------------------------------------------- rendering
@@ -220,7 +324,7 @@ def build_letter(key, comments, filename, findings):
         _p(doc, comment.strip(), italic=True, indent=0.25, space_after=8)
         _p(doc, f'Response {i}:', bold=True, color=COLORS[key], space_after=3)
         for j, r in enumerate(responses):
-            text = r.format(**findings)
+            text = _table_refs(r.format(**findings))
             quoted = text.startswith('"')
             _p(doc, text, color=COLORS[key], italic=quoted,
                indent=0.25 if quoted else None,

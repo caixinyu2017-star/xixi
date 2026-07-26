@@ -17,3 +17,26 @@
 variants DONE: 15660 runs in 879s
 === ablation: 13920 runs ===
   ablation: 1000/13920 23s (eta 292s)
+  ablation: 2000/13920 45s (eta 267s)
+  ablation: 3000/13920 67s (eta 245s)
+  ablation: 4000/13920 90s (eta 222s)
+  ablation: 5000/13920 111s (eta 198s)
+  ablation: 6000/13920 133s (eta 175s)
+  ablation: 7000/13920 158s (eta 156s)
+  ablation: 8000/13920 243s (eta 180s)
+  ablation: 9000/13920 330s (eta 180s)
+  ablation: 10000/13920 417s (eta 163s)
+  ablation: 11000/13920 501s (eta 133s)
+  ablation: 12000/13920 587s (eta 94s)
+  ablation: 13000/13920 674s (eta 48s)
+ablation DONE: 13920 runs in 754s
+=== extra: 29580 runs ===
+  extra: 1000/29580 28s (eta 812s)
+  extra: 2000/29580 58s (eta 798s)
+  extra: 3000/29580 87s (eta 775s)
+  extra: 4000/29580 116s (eta 741s)
+  extra: 5000/29580 145s (eta 713s)
+  extra: 6000/29580 175s (eta 688s)
+  extra: 7000/29580 205s (eta 662s)
+  extra: 8000/29580 233s (eta 630s)
+  extra: 9000/29580 262s (eta 600s)

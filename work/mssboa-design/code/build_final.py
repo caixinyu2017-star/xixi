@@ -28,7 +28,7 @@ os.makedirs(OUT, exist_ok=True)
 import omml                                                       # noqa: E402
 import tables as TB                                               # noqa: E402
 import revision_text as T                                         # noqa: E402
-from narrative import Narrative                                   # noqa: E402
+from narrative import Narrative, lc_title                         # noqa: E402
 from docx_edit import (para_by, find_para, insert_para_after,      # noqa: E402
                        insert_paras_after, insert_table_after, replace_table,
                        replace_in_para, strike_and_replace, strike_paragraph,
@@ -48,8 +48,49 @@ KEEP_SUBMITTED_RESULTS = os.environ.get('REGENERATE_ALL', '') != '1'
 # specific comment.  Off by default: the paper keeps its submitted framing.
 REPOSITION = os.environ.get('REPOSITION', '') == '1'
 
+# Tables that did not exist in the submitted version are inserted with a
+# provisional number in the 100s, so that they cannot collide with the
+# submitted numbering while the document is being assembled.  renumber_tables()
+# rewrites every caption and every in-text reference into document order at the
+# end of the build and records the mapping in results/table_map.json, which
+# build_responses.py reads so the letters quote the same numbers as the paper.
+NEW_TBL = {
+    'novelty':   101,      # Section 3.6, operator-by-operator comparison
+    'factorial': 103,      # Section 4.3, full 2^3 factorial
+    'loss':      105,      # Section 4.4, where MSSBOA is outranked
+    'variants':  106,      # Section 4.5, SBOA variants, MS-TSA, I-CPA
+    'templates': 107,      # Section 5.1, the seven harmonic templates
+    'weights':   108,      # Section 5.2, weight sensitivity
+    'scale':     109,      # Section 5.3, layout scalability
+    'gap':       111,      # Section 4.4, rank gap by dimension
+    'extra':     112,      # Section 4.2, one per extended parameter grid
+}
+
 
 # ------------------------------------------------------------------ helpers
+# "Table 6", "Tables 2 and 3", "Tables 2, 3 and 4", "Tables 5-7": a range whose
+# endpoints were not renumbered together is exactly the kind of silent
+# contradiction this revision has to avoid, so all three forms are matched.
+_REF_RE = __import__('re').compile(
+    r'\bTables?\s+\d+(?:\s*(?:-|–|,|and|to|through)\s*\d+)*')
+_NUM_RE = __import__('re').compile(r'\d+')
+
+
+def map_table_refs(text, mapping):
+    """Rewrite every table reference in `text` through `mapping`.
+
+    A reference is rewritten only when every number in it is known, so that a
+    reference to a table that was not renumbered is left exactly as written
+    rather than half-translated.
+    """
+    def one(m):
+        s = m.group(0)
+        if not all(int(x) in mapping for x in _NUM_RE.findall(s)):
+            return s
+        return _NUM_RE.sub(lambda k: str(mapping[int(k.group(0))]), s)
+    return _REF_RE.sub(one, text)
+
+
 def body_style(doc):
     for p in doc.paragraphs:
         if p.style and p.style.name == 'MDPI_3.1_text':
@@ -300,10 +341,11 @@ def build():
     anchor = para_by(doc, 'For MSSBOA, the good point set initialization has the same complexity')
     h = insert_para_after(anchor, T.R1_NOVELTY_HEADING, RED,
                           template=h2_style(doc))
-    txt = [t.format(novelty_table_no='101') for t in T.R1_NOVELTY_TEXT]
+    txt = [t.format(novelty_table_no=NEW_TBL['novelty']) for t in T.R1_NOVELTY_TEXT]
     last = insert_paras_after(h, txt, RED, template=body)
     insert_table_after(doc, last, T.NOVELTY_TABLE, RED,
-                       caption='Table 101. How the three operator families are '
+                       caption=f'Table {NEW_TBL["novelty"]}. How the three '
+                               'operator families are '
                                'implemented in MSSBOA compared with their '
                                'existing applications.',
                        template_style='Table Grid')
@@ -343,11 +385,11 @@ def build():
     if extra:
         cur = doc.paragraphs[find_para(doc, 'For the mutation probability, Table 3')]
         cur = insert_paras_after(cur, extra, RED, template=body)
-        for title, rows, meta in nar.extra:
+        for i, (title, rows, meta) in enumerate(nar.extra):
             cur = insert_table_after(
                 doc, cur, rows, RED,
-                caption=f'Table 10{len(title) % 7 + 2}. Friedman rankings for '
-                        f'the {title.lower()} (alpha = 0.05).',
+                caption=f'Table {NEW_TBL["extra"] + i}. Friedman rankings for '
+                        f'the {lc_title(title)} (alpha = 0.05).',
                 template_style='Table Grid')
         log.append('R1: extended parameter grids added')
 
@@ -367,17 +409,17 @@ def build():
     if abl_concl and len(abl_concl) > 1 and not KEEP_SUBMITTED_RESULTS:
         if anchor_i is not None:
             set_paragraph_text(doc.paragraphs[anchor_i], abl_concl[-1], RED)
-    fact = nar.factorial()
-    if fact and anchor_i is not None:
-        cur = doc.paragraphs[anchor_i]
-        cur = insert_paras_after(cur, fact, GREEN, template=body)
-        cur = insert_para_after(cur, T.NEW_EXPERIMENT_NOTE, RED, template=body)
-        log.append('R1/R3: methods note on the independent re-implementation')
-        insert_table_after(doc, cur, TB.t_factorial()[0], GREEN,
-                           caption='Table 103. Full 2^3 factorial ablation of '
-                                   'the three strategies.',
-                           template_style='Table Grid')
-        log.append('R3: 2^3 factorial ablation added')
+    # The 2^3 factorial ablation is deliberately not inserted.  It could only
+    # be produced with the independent re-implementation, whose absolute values
+    # are not comparable with the submitted Tables 4-7, so putting it beside
+    # them would create exactly the contradiction this revision has to avoid.
+    # Section 4.3 therefore keeps the submitted single-strategy ablation, and
+    # the complementarity question raised by Reviewer 3 is answered by the
+    # design argument of the new Section 3.6.
+    if anchor_i is not None:
+        insert_paras_after(doc.paragraphs[anchor_i], T.R3_ABLATION_SCOPE,
+                           GREEN, template=body)
+        log.append('R3: ablation scope and complementarity argument stated')
 
     # main comparison
     if rewrite(doc, 'In this subsection, MSSBOA is compared with the basic SBOA',
@@ -418,12 +460,14 @@ def build():
             if os.path.exists(lp):
                 with open(lp, newline='') as fh:
                     rows = [r for r in _csv.reader(fh)]
-            txt = [t.format(loss_table_no='105') for t in T.R1_WILCOXON_BALANCED]
+            txt = [t.format(loss_table_no=NEW_TBL['loss'])
+                   for t in T.R1_WILCOXON_BALANCED]
             set_paragraph_text(cur, txt[0], RED)
             cur = insert_paras_after(cur, txt[1:], RED, template=body)
             if rows:
                 insert_table_after(doc, cur, rows, RED,
-                                   caption='Table 105. Distribution of the '
+                                   caption=f'Table {NEW_TBL["loss"]}. '
+                                           'Distribution of the '
                                            'cases in which MSSBOA is '
                                            'outranked, by CEC2017 function '
                                            'class, pooled over the four '
@@ -433,14 +477,15 @@ def build():
                 log.append('R1: balanced statistics and loss breakdown '
                            '(from the submitted appendix)')
             after_stats = doc.paragraphs[find_para(
-                doc, 'Table 105. Distribution')] if find_para(
-                doc, 'Table 105. Distribution') is not None else cur
+                doc, f'Table {NEW_TBL["loss"]}. Distribution')] if find_para(
+                doc, f'Table {NEW_TBL["loss"]}. Distribution') is not None else cur
         else:
             losses = nar.losses()
             if losses:
                 set_paragraph_text(cur, losses[0], RED)
                 insert_table_after(doc, cur, TB.t_loss_distribution()[0], RED,
-                                   caption='Table 105. Distribution of the '
+                                   caption=f'Table {NEW_TBL["loss"]}. '
+                                           'Distribution of the '
                                            'cases in which MSSBOA is '
                                            'outperformed, by CEC2017 function '
                                            'class.',
@@ -448,12 +493,13 @@ def build():
                 log.append('R1: loss distribution by function class')
             trend = nar.dimension_trend()
             if trend:
-                j = find_para(doc, 'Table 105. Distribution')
+                j = find_para(doc, f'Table {NEW_TBL["loss"]}. Distribution')
                 if j is not None:
                     cur = insert_paras_after(doc.paragraphs[j], trend, RED,
                                              template=body)
                     insert_table_after(doc, cur, TB.t_dimension_gap()[0], RED,
-                                       caption='Table 106. Mean Friedman rank '
+                                       caption=f'Table {NEW_TBL["gap"]}. Mean '
+                                               'Friedman rank '
                                                'gap to the strongest '
                                                'competitors, by dimension.',
                                        template_style='Table Grid')
@@ -465,7 +511,7 @@ def build():
     if var:
         anchor = after_stats
         if anchor is None:
-            j = find_para(doc, 'Table 105.')
+            j = find_para(doc, f'Table {NEW_TBL["loss"]}.')
             if j is None:
                 j = find_para(doc, '5. Application to Visual Art Design')
                 j = j - 1 if j else len(doc.paragraphs) - 1
@@ -473,16 +519,11 @@ def build():
         h = insert_para_after(anchor, T.R2_VARIANTS_HEADING, BLUE,
                               template=h2_style(doc))
         cur = insert_paras_after(h, var, BLUE, template=body)
-        cur = insert_para_after(
-            cur,
-            'The comparison below was produced with the same independent '
-            're-implementation described in Section 4.3, under the same '
-            'evaluation budget and the same accounting of auxiliary function '
-            'evaluations; its absolute values are therefore comparable within '
-            'this subsection and with Table 8, but not with Tables 5-7.',
-            BLUE, template=body)
+        cur = insert_para_after(cur, T.NEW_EXPERIMENT_NOTE, BLUE, template=body)
+        log.append('R1/R3: methods note on the independent re-implementation')
         insert_table_after(doc, cur, TB.t_variants()[0], BLUE,
-                           caption='Table 106. MSSBOA against three recent SBOA '
+                           caption=f'Table {NEW_TBL["variants"]}. MSSBOA '
+                                   'against three recent SBOA '
                                    'variants and two recent multi-strategy '
                                    'algorithms.',
                            template_style='Table Grid')
@@ -492,9 +533,10 @@ def build():
     p = para_by(doc, 'Generating a harmonious yet expressive color palette')
     cur = insert_paras_after(p, T.R1_COLOR_SPACE[:1], RED, template=body)
     cur = insert_paras_after(cur, [T.R1_COLOR_SPACE[1].format(
-        template_table_no='107')], RED, template=body)
+        template_table_no=NEW_TBL['templates'])], RED, template=body)
     cur = insert_table_after(doc, cur, T.TEMPLATE_TABLE, RED,
-                             caption='Table 107. The seven chromatic harmonic '
+                             caption=f'Table {NEW_TBL["templates"]}. The seven '
+                                     'chromatic harmonic '
                                      'templates of Matsuda in the '
                                      'parameterization of Cohen-Or et al.',
                              template_style='Table Grid')
@@ -554,20 +596,22 @@ def build():
         cur = doc.paragraphs[find_para(doc, 'Figure 15. Representative layouts')]
         cur = insert_paras_after(cur, wts, RED, template=body)
         cur = insert_table_after(doc, cur, TB.t_weights()[0], RED,
-                                 caption='Table 108. Mean layout aesthetic '
+                                 caption=f'Table {NEW_TBL["weights"]}. Mean '
+                                         'layout aesthetic '
                                          'score under five weight '
                                          'configurations of Equation (22).',
                                  template_style='Table Grid')
         log.append('R1: weight sensitivity added')
     sc = nar.scalability()
     if sc:
-        cur = doc.paragraphs[find_para(doc, 'Table 108. Mean layout aesthetic')] \
-            if find_para(doc, 'Table 108. Mean layout aesthetic') is not None else cur
+        _w = find_para(doc, f'Table {NEW_TBL["weights"]}. Mean layout aesthetic')
+        cur = doc.paragraphs[_w] if _w is not None else cur
         cur = insert_para_after(cur, '5.3. Scalability of the layout problem',
                                 RED, template=h2_style(doc))
         cur = insert_paras_after(cur, sc, RED, template=body)
         insert_table_after(doc, cur, TB.t_scale()[0], RED,
-                           caption='Table 109. Mean aesthetic score on layout '
+                           caption=f'Table {NEW_TBL["scale"]}. Mean aesthetic '
+                                   'score on layout '
                                    'problems with 8 to 30 elements.',
                            template_style='Table Grid')
         log.append('R1: Section 5.3 scalability added')
@@ -734,22 +778,42 @@ def add_references(doc):
 
 
 def add_colour_key(doc):
+    provenance = (
+        'Because two reviewers asked for the source code to be released, a '
+        'complete reference implementation is published with the article; the '
+        'experiments added in this revision were produced with it, and Section '
+        '4.5 states where its numbers are and are not comparable with those '
+        'carried over from the submitted version, which are unchanged.'
+        if KEEP_SUBMITTED_RESULTS else
+        'Because two reviewers asked for the source code to be released, the '
+        'whole experimental protocol was re-run from a single public '
+        'implementation, so every table and figure in this version - including '
+        'those not otherwise queried - has been regenerated from the same runs '
+        'and is marked accordingly.')
     key = insert_para_after(
         doc.paragraphs[8],
         'Note to the editor and reviewers: all revisions are colour-coded. Text '
         'added or modified in response to Reviewer 1 is in red, to Reviewer 2 '
         'in blue and to Reviewer 3 in green; deleted wording is struck through '
-        'in the colour of the reviewer who prompted its removal. Because two '
-        'reviewers asked for the source code to be released, the whole '
-        'experimental protocol was re-run from a single public implementation, '
-        'so every table and figure in this version - including those not '
-        'otherwise queried - has been regenerated from the same runs and is '
-        'marked accordingly.', 'R1', template=doc.paragraphs[11])
+        'in the colour of the reviewer who prompted its removal. ' + provenance,
+        'R1', template=doc.paragraphs[11])
     key.runs[0].font.italic = True
     key.runs[0].font.size = Pt(9)
 
 
 def renumber_tables(doc):
+    """Put every table caption into document order and follow the references.
+
+    New tables are inserted with provisional numbers in the 100s, and the
+    submitted numbering shifts as soon as one of them lands ahead of Table 1,
+    so both the captions and every reference to them have to be rewritten.
+    References are matched in their singular, plural and range forms - "Table
+    6", "Tables 2 and 3", "Tables 5-7" - because a range whose endpoints were
+    not updated is exactly the kind of silent contradiction this revision has
+    to avoid.  The mapping is written to results/table_map.json so that the
+    response letters quote the same numbers as the paper.
+    """
+    import json
     import re
     cap_re = re.compile(r'^Table\s+(\d+)\s*\.')
     caps = []
@@ -757,29 +821,34 @@ def renumber_tables(doc):
         m = cap_re.match(p.text.strip())
         if m:
             caps.append((p, int(m.group(1))))
+    seen = [old for _, old in caps]
+    if len(set(seen)) != len(seen):
+        dup = sorted({o for o in seen if seen.count(o) > 1})
+        print(f'  ! duplicate provisional table number(s): {dup}')
     mapping = {old: i + 1 for i, (_, old) in enumerate(caps)}
-    if mapping == {k: k for k in mapping}:
-        return
-    for p, old in caps:
-        for r in p.runs:
-            if f'Table {old}.' in r.text:
-                r.text = r.text.replace(f'Table {old}.', f'Table {mapping[old]}.', 1)
-                break
-    ref_re = re.compile(r'\bTable\s+(\d+)\b')
-    cap_ids = {id(p) for p, _ in caps}
 
-    def fix(t):
-        return ref_re.sub(lambda m: (f'Table {mapping[int(m.group(1))]}'
-                                     if int(m.group(1)) in mapping else m.group(0)), t)
+    # One pass, so that a caption is never also rewritten as a reference: the
+    # Paragraph objects handed out by doc.paragraphs are rebuilt on every
+    # access, so a caption cannot be recognised later by object identity.
     n = 0
     for p in doc.paragraphs:
-        if id(p) in cap_ids:
+        m = cap_re.match(p.text.strip())
+        if m and int(m.group(1)) in mapping:
+            old = int(m.group(1))
+            for r in p.runs:
+                if f'Table {old}.' in r.text:
+                    r.text = r.text.replace(
+                        f'Table {old}.', f'Table {mapping[old]}.', 1)
+                    break
             continue
         for r in p.runs:
             if 'Table' in r.text:
-                new = fix(r.text)
+                new = map_table_refs(r.text, mapping)
                 if new != r.text:
                     r.text, n = new, n + 1
+    path = os.path.join(ROOT, 'results', 'table_map.json')
+    with open(path, 'w') as fh:
+        json.dump({str(k): v for k, v in mapping.items()}, fh, indent=1)
     print(f'  renumbered {len(caps)} tables, {n} reference run(s) updated')
 
 

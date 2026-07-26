@@ -29,6 +29,16 @@ def _dims(ds):
     return _series([str(d) for d in ds]) + ' dimensions'
 
 
+def lc_title(s):
+    """A grid title as it reads mid-sentence.
+
+    Only the first letter is lowered, so that the symbols in the title keep
+    their case ("population size N", not "population size n"), and a proper
+    noun at the start is left alone.
+    """
+    return s if s.startswith(('Levy', 'Cauchy', 'Friedman')) else s[0].lower() + s[1:]
+
+
 class Narrative:
     """Collects every table's metadata and writes the paragraphs from it."""
 
@@ -88,7 +98,7 @@ class Narrative:
             return None
         parts = []
         for title, rows, meta in self.extra:
-            parts.append(f'for the {title.lower()} the best mean rank is '
+            parts.append(f'for the {lc_title(title)} the best mean rank is '
                          f'obtained by {meta["best"]}')
         return [
             'Four further quantities were fixed rather than tuned in the '
@@ -160,7 +170,7 @@ class Narrative:
             f'2^3 factorial design: all eight combinations of the three '
             f'strategies were run under identical conditions, so that the '
             f'average main effect of each strategy and the interaction between '
-            f'them can be estimated. Table 8 reports the eight configurations '
+            f'them can be estimated. Table 103 reports the eight configurations '
             f'in {m["dim"]} dimensions over {m["n"]} runs.',
 
             f'Averaged over the other two factors, the main effect on the mean '
@@ -295,7 +305,7 @@ class Narrative:
             f'control parameters and pseudo-code of the corresponding paper; '
             f'the implementations are released with this article.',
 
-            f'Table 13 reports the outcome on the CEC2017 suite in '
+            f'Table 106 reports the outcome on the CEC2017 suite in '
             f'{_dims(m["dims"])} over {m["n"]} independent runs. The overall '
             f'order by average Friedman rank is ' + ' > '.join(ordered) +
             f', with MSSBOA {_nth(pos)} of {len(ordered)} at '
