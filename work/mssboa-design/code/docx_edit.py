@@ -104,27 +104,53 @@ def append_run(para, text, color, bold=False, italic=False):
 
 
 # --------------------------------------------------------- text surgery
-def replace_in_para(para, old, new, color):
-    """Replace `old` by `new` inside a paragraph, colouring only the new text.
+def _clone_run_after(run, text):
+    """Duplicate `run` (keeping its formatting) with new text, right after it."""
+    import copy as _copy
+    new_r = _copy.deepcopy(run._element)
+    run._element.addnext(new_r)
+    from docx.text.run import Run
+    r = Run(new_r, run._parent)
+    r.text = text
+    return r
 
-    Works across run boundaries by rebuilding the paragraph's runs while
-    preserving the formatting of the run that contained the start of `old`.
+
+def _splice(para, old, make_runs):
+    """Replace the first occurrence of `old` without disturbing other runs.
+
+    Only the runs that the match actually spans are rebuilt; everything before
+    and after keeps its original formatting.  `make_runs(anchor)` is called to
+    create the replacement runs immediately after `anchor`.
     """
-    full = ''.join(r.text for r in para.runs)
-    if old not in full:
-        return False
-    head, _, tail = full.partition(old)
     runs = list(para.runs)
     if not runs:
         return False
-    keep = runs[0]
-    for r in runs[1:]:
-        r._element.getparent().remove(r._element)
-    keep.text = head
-    r_new = para.add_run(new)
-    _style_run(r_new, color)
+    offsets, pos = [], 0
+    for r in runs:
+        offsets.append((pos, pos + len(r.text)))
+        pos += len(r.text)
+    full = ''.join(r.text for r in runs)
+    i = full.find(old)
+    if i < 0:
+        return False
+    j = i + len(old)
+
+    first = next(k for k, (a, b) in enumerate(offsets) if a <= i < b or (a == b == i))
+    last = next(k for k, (a, b) in enumerate(offsets) if a < j <= b)
+
+    head = runs[first].text[:i - offsets[first][0]]
+    tail = runs[last].text[j - offsets[last][0]:]
+
+    anchor = runs[first]
+    anchor.text = head
+    for k in range(first + 1, last + 1):
+        runs[k]._element.getparent().remove(runs[k]._element)
+
+    cur = anchor
+    for r in make_runs(cur):
+        cur = r
     if tail:
-        para.add_run(tail)
+        _clone_run_after(cur, tail)
     return True
 
 
@@ -137,25 +163,27 @@ def strike_paragraph(para, color):
     return para
 
 
+def replace_in_para(para, old, new, color):
+    """Replace `old` by `new`, colouring only the new text."""
+    def mk(anchor):
+        r = _clone_run_after(anchor, new)
+        _style_run(r, color)
+        r.font.strike = False
+        return [r]
+    return _splice(para, old, mk)
+
+
 def strike_and_replace(para, old, new, color):
-    """Show a deletion as struck-through text followed by the new wording."""
-    full = ''.join(r.text for r in para.runs)
-    if old not in full:
-        return False
-    head, _, tail = full.partition(old)
-    runs = list(para.runs)
-    keep = runs[0]
-    for r in runs[1:]:
-        r._element.getparent().remove(r._element)
-    keep.text = head
-    r_del = para.add_run(old)
-    _style_run(r_del, color)
-    r_del.font.strike = True
-    r_new = para.add_run(new)
-    _style_run(r_new, color)
-    if tail:
-        para.add_run(tail)
-    return True
+    """Show a deletion struck through, followed by the replacement text."""
+    def mk(anchor):
+        r_del = _clone_run_after(anchor, old)
+        _style_run(r_del, color)
+        r_del.font.strike = True
+        r_new = _clone_run_after(r_del, new)
+        _style_run(r_new, color)
+        r_new.font.strike = False
+        return [r_del, r_new]
+    return _splice(para, old, mk)
 
 
 # ------------------------------------------------------------------ tables

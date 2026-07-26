@@ -143,17 +143,24 @@ def build():
 
     # =============================================== REVIEWER 1: novelty framing
     replace_in_para(doc.paragraphs[7], T.R1_ABSTRACT_OLD, T.R1_ABSTRACT_NEW, RED)
-    abs_result = nar.abstract_result()
-    if abs_result:
-        # the submitted abstract asserted an outcome the regenerated runs do
-        # not support; replace it rather than append to it
-        strike_and_replace(
-            doc.paragraphs[7],
-            'In all cases, MSSBOA outperforms the basic SBOA and the competing '
-            'algorithms in terms of convergence speed, stability and solution '
-            'quality, confirming its effectiveness for computational-aesthetics '
-            'applications in art design.',
-            abs_result, RED)
+    # The submitted abstract asserted an outcome and a set of dimensions that
+    # the regenerated runs must be allowed to overrule.
+    abs_result = nar.abstract_result() or (
+        'The full experimental protocol was regenerated for this revision from '
+        'a single public implementation, and the outcome is reported as '
+        'measured.')
+    strike_and_replace(
+        doc.paragraphs[7],
+        'In all cases, MSSBOA outperforms the basic SBOA and the competing '
+        'algorithms in terms of convergence speed, stability and solution '
+        'quality, confirming its effectiveness for computational-aesthetics '
+        'applications in art design.',
+        abs_result, RED)
+    if nar.t6:
+        from narrative import _series
+        dims = nar.t6[1]['dims']
+        replace_in_para(doc.paragraphs[7], '10, 30, 50 and 100 dimensions',
+                        _series([str(x) for x in dims]) + ' dimensions', RED)
     strike_and_replace(para_by(doc, '(1) An improved SBOA variant'),
                        T.R1_CONTRIB_OLD, T.R1_CONTRIB_NEW, RED)
     log.append('R1: contribution reframed as an integration framework')
@@ -272,8 +279,15 @@ def build():
     # =============================================== Section 4: regenerate
     swap_table(doc, 'Table 1. Parameter settings', TB.t1_parameters(), RED)
 
+    sens = nar.sensitivity()
     if rewrite(doc, 'Two parameters strongly affect the performance of MSSBOA',
-               nar.sensitivity(), RED):
+               sens, RED):
+        # the two original result paragraphs are superseded by the generated ones
+        for needle in ('As shown in Table 2 and Figure 4, MSSBOA achieves',
+                       'For the mutation probability, Table 3 and Figure 5'):
+            j = find_para(doc, needle)
+            if j is not None:
+                strike_paragraph(doc.paragraphs[j], RED)
         log.append('R1/R3: Section 4.2 regenerated')
     swap_table(doc, 'Table 2. Rankings of MSSBOA with different', TB.t2_nmin(), RED,
                caption='Table 2. Friedman rankings of MSSBOA with different '
@@ -315,6 +329,11 @@ def build():
                 'fig06_ablation.png', RED,
                 caption='Figure 6. Friedman rankings of MSSBOA with different '
                         'strategies (alpha = 0.05).', width=5.8)
+    abl_concl = nar.ablation()
+    if abl_concl and len(abl_concl) > 1:
+        j = find_para(doc, 'According to Table 5 and Figure 6')
+        if j is not None:
+            set_paragraph_text(doc.paragraphs[j], abl_concl[-1], RED)
     fact = nar.factorial()
     if fact:
         cur = doc.paragraphs[find_para(doc, 'According to Table 5 and Figure 6')]
@@ -330,6 +349,12 @@ def build():
                nar.main_comparison(), RED):
         log.append('R1: Section 4.4 regenerated')
     _firsts(doc, nar, log)
+    mc = nar.main_comparison()
+    if mc and len(mc) > 1:
+        j = find_para(doc, 'As shown in Table 6 and Figure 9, all Friedman')
+        if j is not None:
+            set_paragraph_text(doc.paragraphs[j], mc[1], RED)
+            log.append('R1: Friedman discussion regenerated')
     swap_table(doc, 'Table 6. Friedman rankings of MSSBOA and the comparison',
                TB.t6_friedman(), RED)
     swap_table(doc, 'Table 7. Wilcoxon rank-sum test results', TB.t7_wilcoxon(), RED)
@@ -419,9 +444,13 @@ def build():
         'percentage.'], RED)
     log.append('R1: colour model completed with native equations')
 
+    col = nar.color()
     if rewrite(doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains the highest',
-               nar.color(), RED):
+               col, RED):
         log.append('R1: Section 5.1 results regenerated')
+    elif find_para(doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains') is not None:
+        strike_paragraph(doc.paragraphs[find_para(
+            doc, 'As shown in Table 8 and Figure 12, MSSBOA obtains')], RED)
     swap_table(doc, 'Table 8. Harmony scores', TB.t8_color(), RED)
     swap_figure(doc, 'Figure 12. Color-harmony palettes', 'fig12_palettes.png',
                 RED, width=6.4)
