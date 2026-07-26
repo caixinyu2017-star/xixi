@@ -41,7 +41,8 @@ def _findings():
     from narrative import Narrative, _nth, _series
     f = dict(k_finding=PENDING, param_finding=PENDING, weights_finding=PENDING,
              scale_finding=PENDING, variants_finding=PENDING,
-             factorial_finding=PENDING)
+             factorial_finding=PENDING, wilcoxon_finding=PENDING,
+             loss_finding=PENDING, gap_finding=PENDING)
     nar = Narrative()
 
     ex = nar.extra
@@ -86,6 +87,52 @@ def _findings():
             f'{m["interaction"]:+.3f} (CEC2017, D = {m["dim"]}, {m["n"]} runs). '
             f'These numbers are reported as they came out.')
 
+    if nar.t6 and nar.t7:
+        _, m6 = nar.t6
+        _, m7 = nar.t7
+        tot = m7['cases']
+        parts = []
+        for a, (w, e, l) in m7['detail'].items():
+            parts.append(f'{a} {w}/{e}/{l}')
+        pos = m6['order']['MSSBOA']
+        ordered = sorted(m6['avg'], key=m6['avg'].get)
+        f['wilcoxon_finding'] = (
+            f'Over {tot} algorithm-function cases at '
+            f'{", ".join(str(d) for d in m6["dims"])} dimensions with '
+            f'{m6["n"]} runs each, the win/tie/loss counts of MSSBOA are: '
+            + '; '.join(parts) + f'. By average Friedman rank MSSBOA places '
+            f'{_nth(pos)} of {len(ordered)}. We present these numbers exactly '
+            f'as they came out, including where they are unfavourable.')
+    if nar.loss:
+        _, m = nar.loss
+        tot = {a: sum(v.values()) for a, v in m['per'].items()}
+        worst = sorted(tot, key=tot.get, reverse=True)[:2]
+        seg = []
+        for a in worst:
+            if not tot[a]:
+                continue
+            cls = max(m['per'][a], key=m['per'][a].get)
+            seg.append(f'against {a} the {tot[a]} losses fall mainly on the '
+                       f'{cls.lower()} functions ({m["per"][a][cls]} of {tot[a]})')
+        f['loss_finding'] = (
+            (_series(seg) + '. ' if seg else '')
+            + 'The new Table 11 gives the full breakdown. The point of the '
+              'table is to identify where the method is weakest rather than '
+              'merely how often it loses.')
+    if nar.gap:
+        _, m = nar.gap
+        top, dims = m['top'][0], m['dims']
+        if len(dims) >= 2:
+            g0 = m['rank'][dims[0]][top] - m['rank'][dims[0]]['MSSBOA']
+            g1 = m['rank'][dims[-1]][top] - m['rank'][dims[-1]]['MSSBOA']
+            f['gap_finding'] = (
+                f'Relative to {top}, the strongest competitor by average rank, '
+                f'the mean Friedman rank gap moves from {g0:+.3f} at {dims[0]} '
+                f'dimensions to {g1:+.3f} at {dims[-1]}. Table 12 reports the '
+                f'gap for the three strongest competitors, and the limitations '
+                f'section now names the mechanism: both added operators are '
+                f'elite-centred and take a share of the budget that does not '
+                f'grow with the dimension.')
     if nar.wtbl:
         rows, _ = nar.wtbl
         taus = [r[-1] for r in rows[1:]]
