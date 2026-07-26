@@ -106,10 +106,44 @@ def audit(path):
                       'tables': len(tables_present), 'figures': len(figures_present)}
 
 
+def audit_letters(manuscript):
+    """Check the three letters against the manuscript they accompany.
+
+    A letter that cites a table number the paper does not have, or that still
+    carries a placeholder from an experiment that had not finished, is exactly
+    the kind of defect the reviewer sees first.
+    """
+    tables = set()
+    for p in Document(manuscript).paragraphs:
+        m = re.match(r'^Table\s+(A?\d+)\s*\.', p.text.strip())
+        if m:
+            tables.add(m.group(1))
+    problems = []
+    for n in (1, 2, 3):
+        path = os.path.join(ROOT, 'out', f'Response_to_Reviewer_{n}.docx')
+        if not os.path.exists(path):
+            problems.append(('missing letter', n, path))
+            continue
+        for i, p in enumerate(Document(path).paragraphs):
+            t = p.text
+            if 'still running' in t:
+                problems.append(('unfilled placeholder', n, t[:120]))
+            if re.search(r'\{[a-z_]+\}', t):
+                problems.append(('unformatted field', n, t[:120]))
+            for ref in re.findall(r'\bTables?\s+(A?\d+(?:\s*(?:-|–|,|and|to)\s*'
+                                  r'A?\d+)*)', t):
+                for num in re.findall(r'A?\d+', ref):
+                    if num not in tables:
+                        problems.append(('dangling table ref', n,
+                                         f'Table {num}: {t[:90]}'))
+    return problems
+
+
 if __name__ == '__main__':
     path = sys.argv[1] if len(sys.argv) > 1 else \
         os.path.join(ROOT, 'out', 'MSSBOA_revised_marked.docx')
     probs, info = audit(path)
+    probs += [(k, f'letter R{n}', s) for k, n, s in audit_letters(path)]
     print(f'audit of {os.path.basename(path)}')
     print(f'  MSSBOA ranks first: {info["mssboa_first"]}   '
           f'dimensions run: {info["dims"]}   '

@@ -119,7 +119,8 @@ def _submitted_findings(f):
 def _findings():
     """Fill the data-dependent sentences of the letters from the regenerated runs."""
     import tables as TB
-    from narrative import Narrative, _nth, _series
+    from narrative import (Narrative, _card, _dims, _nth, _series,
+                           lc_title)
     f = dict(k_finding=PENDING, param_finding=PENDING, weights_finding=PENDING,
              scale_finding=PENDING, variants_finding=PENDING,
              factorial_finding=PENDING, wilcoxon_finding=PENDING,
@@ -134,12 +135,12 @@ def _findings():
                 f['k_finding'] = (
                     f'Over the {len(meta["labels"])} exponent pairs tested, the '
                     f'best mean rank is obtained by "{meta["best"]}" on the '
-                    f'CEC2017 suite in {", ".join(str(d) for d in meta["dims"])} '
-                    f'dimensions with {meta["n"]} runs per setting. The grid '
+                    f'CEC2017 suite in {_dims(meta["dims"])} '
+                    f'with {meta["n"]} runs per setting. The grid '
                     f'therefore supports the adopted exponents as a reasonable '
                     f'rather than a uniquely optimal choice, and the text now '
                     f'says so instead of presenting them as given.')
-        parts = [f'for the {t.lower()} the best setting is "{m["best"]}"'
+        parts = [f'for the {lc_title(t)} the best setting is "{m["best"]}"'
                  for t, _, m in ex]
         f['param_finding'] = ('Across the four grids, ' + _series(parts) +
                               '. The rankings are flat near the adopted values, '
@@ -151,11 +152,10 @@ def _findings():
         ordered = sorted(m['avg'], key=m['avg'].get)
         pos = m['order']['MSSBOA']
         f['variants_finding'] = (
-            f'Over the CEC2017 suite in '
-            f'{", ".join(str(d) for d in m["dims"])} dimensions with {m["n"]} '
+            f'Over the CEC2017 suite in {_dims(m["dims"])} with {m["n"]} '
             f'independent runs, the order by average Friedman rank is '
             + ' > '.join(ordered) + f', with MSSBOA {_nth(pos)} of '
-            f'{len(ordered)} at {m["avg"]["MSSBOA"]:.3f}. We report the '
+            f'{_card(len(ordered))} at {m["avg"]["MSSBOA"]:.3f}. We report the '
             f'comparison exactly as it came out.')
 
     if nar.fact:
@@ -179,11 +179,10 @@ def _findings():
         pos = m6['order']['MSSBOA']
         ordered = sorted(m6['avg'], key=m6['avg'].get)
         f['wilcoxon_finding'] = (
-            f'Over {tot} algorithm-function cases at '
-            f'{", ".join(str(d) for d in m6["dims"])} dimensions with '
+            f'Over {tot} algorithm-function cases at {_dims(m6["dims"])} with '
             f'{m6["n"]} runs each, the win/tie/loss counts of MSSBOA are: '
             + '; '.join(parts) + f'. By average Friedman rank MSSBOA places '
-            f'{_nth(pos)} of {len(ordered)}. We present these numbers exactly '
+            f'{_nth(pos)} of {_card(len(ordered))}. We present these numbers exactly '
             f'as they came out, including where they are unfavourable.')
     if nar.t6 and nar.t7 and not KEEP_SUBMITTED_RESULTS:
         _, m6 = nar.t6

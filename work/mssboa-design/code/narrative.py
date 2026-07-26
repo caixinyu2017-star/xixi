@@ -16,6 +16,13 @@ def _nth(i):
             10: 'tenth', 11: 'eleventh'}.get(i, f'{i}th')
 
 
+def _card(n):
+    """Cardinal in words, so that "fourth of nine" does not mix the two."""
+    return {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six',
+            7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten',
+            11: 'eleven'}.get(n, str(n))
+
+
 def _series(items, conj='and'):
     items = list(items)
     if len(items) == 1:
@@ -210,7 +217,7 @@ class Narrative:
             f'Table 6 and Figure 9 report the Friedman mean ranks. Over all '
             f'dimensions the overall order is '
             + ' > '.join(ordered) +
-            f', and MSSBOA places {_nth(pos)} of {len(ordered)} with an average '
+            f', and MSSBOA places {_nth(pos)} of {_card(len(ordered))} with an average '
             f'rank of {m6["avg"]["MSSBOA"]:.3f}, against {m6["avg"]["SBOA"]:.3f} '
             f'for the basic SBOA. All Friedman p-values are below 0.05, so the '
             f'differences among the algorithms are statistically significant.',
@@ -308,7 +315,7 @@ class Narrative:
             f'Table 106 reports the outcome on the CEC2017 suite in '
             f'{_dims(m["dims"])} over {m["n"]} independent runs. The overall '
             f'order by average Friedman rank is ' + ' > '.join(ordered) +
-            f', with MSSBOA {_nth(pos)} of {len(ordered)} at '
+            f', with MSSBOA {_nth(pos)} of {_card(len(ordered))} at '
             f'{m["avg"]["MSSBOA"]:.3f}. ' + self._variant_reading(m),
         ]
 
@@ -460,7 +467,7 @@ class Narrative:
                f'advanced algorithms under an identical evaluation budget, '
                f'MSSBOA obtained an average Friedman rank of '
                f'{m6["avg"]["MSSBOA"]:.3f}, placing it {_nth(pos)} of '
-               f'{len(ordered)}, against {m6["avg"]["SBOA"]:.3f} for the basic '
+               f'{_card(len(ordered))}, against {m6["avg"]["SBOA"]:.3f} for the basic '
                f'SBOA. In the pairwise Wilcoxon rank-sum test against SBOA it '
                f'was significantly better on {s[0]} of the {m7["cases"]} cases, '
                f'indistinguishable on {s[1]} and significantly worse on '
@@ -508,7 +515,7 @@ class Narrative:
             perf = ('MSSBOA obtains the best average Friedman rank of the '
                     'eleven algorithms compared')
         else:
-            perf = (f'MSSBOA places {_nth(pos)} of {len(ordered)} by average '
+            perf = (f'MSSBOA places {_nth(pos)} of {_card(len(ordered))} by average '
                     f'Friedman rank, behind {_series(ordered[:pos - 1])}')
         lay = sorted(m10['avg_rank'], key=m10['avg_rank'].get)[0]
         return (f'On the CEC2017 suite in {_dims(m6["dims"])}, with '
