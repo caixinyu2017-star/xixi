@@ -1,0 +1,9 @@
+=== variants: 15660 runs ===
+  variants: 1000/15660 23s (eta 330s)
+  variants: 2000/15660 46s (eta 315s)
+  variants: 3000/15660 71s (eta 298s)
+  variants: 4000/15660 94s (eta 274s)
+  variants: 5000/15660 118s (eta 252s)
+  variants: 6000/15660 143s (eta 230s)
+  variants: 7000/15660 166s (eta 205s)
+  variants: 8000/15660 201s (eta 192s)

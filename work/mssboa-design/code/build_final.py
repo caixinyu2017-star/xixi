@@ -36,6 +36,18 @@ from docx_edit import (para_by, find_para, insert_para_after,      # noqa: E402
 
 RED, BLUE, GREEN = 'R1', 'R2', 'R3'
 
+# When true, Tables 1-10 and A1-A8 and the result paragraphs that describe them
+# are left exactly as submitted: they are the authors' own data.  Only the
+# tables that did not exist before - the SBOA-variant comparison and the 2^3
+# factorial - are filled, from runs made with the released code.  Set false to
+# regenerate the whole paper from those runs instead.
+KEEP_SUBMITTED_RESULTS = os.environ.get('REGENERATE_ALL', '') != '1'
+
+# The repositioning of the paper onto the design contribution is kept behind a
+# switch, because it is a change of direction rather than a response to a
+# specific comment.  Off by default: the paper keeps its submitted framing.
+REPOSITION = os.environ.get('REPOSITION', '') == '1'
+
 
 # ------------------------------------------------------------------ helpers
 def body_style(doc):
@@ -52,9 +64,11 @@ def h2_style(doc):
     return None
 
 
-def rewrite(doc, needle, paragraphs, color, keep_first=False):
+def rewrite(doc, needle, paragraphs, color, keep_first=False, force=False):
     """Replace a paragraph with generated text; extra paragraphs follow it."""
     if paragraphs is None:
+        return None
+    if KEEP_SUBMITTED_RESULTS and not force:
         return None
     i = find_para(doc, needle)
     if i is None:
@@ -71,9 +85,11 @@ def rewrite(doc, needle, paragraphs, color, keep_first=False):
     return cur
 
 
-def swap_table(doc, caption_needle, result, color, caption=None):
+def swap_table(doc, caption_needle, result, color, caption=None, force=False):
     """Regenerate the table under a caption; returns True when data existed."""
     if result is None:
+        return False
+    if KEEP_SUBMITTED_RESULTS and not force:
         return False
     rows = result[0] if isinstance(result, tuple) else result
     i = find_para(doc, caption_needle)
@@ -136,40 +152,41 @@ def build():
     body = body_style(doc)
     log = []
 
-    # ======================================================================
-    # Repositioning on the design contribution (Reviewer 2, comment 2).
-    # The reviewer's own reading was that the algorithmic novelty is limited
-    # while the application is interesting; the paper is refocused on the
-    # formulation and the benchmark rather than on the variant.
-    # ======================================================================
-    strike_and_replace(doc.paragraphs[1], T.PIVOT_TITLE_OLD,
-                       T.PIVOT_TITLE_NEW, BLUE)
-    set_paragraph_text(doc.paragraphs[7], T.PIVOT_ABSTRACT, BLUE)
-    log.append('R2: title and abstract repositioned on the design contribution')
+    if REPOSITION:
+        # ======================================================================
+        # Repositioning on the design contribution (Reviewer 2, comment 2).
+        # The reviewer's own reading was that the algorithmic novelty is limited
+        # while the application is interesting; the paper is refocused on the
+        # formulation and the benchmark rather than on the variant.
+        # ======================================================================
+        strike_and_replace(doc.paragraphs[1], T.PIVOT_TITLE_OLD,
+                           T.PIVOT_TITLE_NEW, BLUE)
+        set_paragraph_text(doc.paragraphs[7], T.PIVOT_ABSTRACT, BLUE)
+        log.append('R2: title and abstract repositioned on the design contribution')
 
-    # contribution list
-    c1 = para_by(doc, '(1) An improved SBOA variant')
-    strike_paragraph(c1, BLUE)
-    cur = insert_para_after(c1, T.PIVOT_CONTRIBUTIONS[0], BLUE, template=body)
-    for old_needle, new_txt in (
-            ('(2) The performance of MSSBOA is comprehensively examined',
-             T.PIVOT_CONTRIBUTIONS[1]),
-            ('(3) MSSBOA is successfully applied to aesthetic',
-             T.PIVOT_CONTRIBUTIONS[2])):
-        j = find_para(doc, old_needle)
+        # contribution list
+        c1 = para_by(doc, '(1) An improved SBOA variant')
+        strike_paragraph(c1, BLUE)
+        cur = insert_para_after(c1, T.PIVOT_CONTRIBUTIONS[0], BLUE, template=body)
+        for old_needle, new_txt in (
+                ('(2) The performance of MSSBOA is comprehensively examined',
+                 T.PIVOT_CONTRIBUTIONS[1]),
+                ('(3) MSSBOA is successfully applied to aesthetic',
+                 T.PIVOT_CONTRIBUTIONS[2])):
+            j = find_para(doc, old_needle)
+            if j is not None:
+                strike_paragraph(doc.paragraphs[j], BLUE)
+                insert_para_after(doc.paragraphs[j], new_txt, BLUE, template=body)
+        log.append('R2: contribution list reordered, design formulation first')
+
+        # section framing
+        j = find_para(doc, 'In this section, the performance of MSSBOA is comprehensively')
         if j is not None:
-            strike_paragraph(doc.paragraphs[j], BLUE)
-            insert_para_after(doc.paragraphs[j], new_txt, BLUE, template=body)
-    log.append('R2: contribution list reordered, design formulation first')
-
-    # section framing
-    j = find_para(doc, 'In this section, the performance of MSSBOA is comprehensively')
-    if j is not None:
-        set_paragraph_text(doc.paragraphs[j], T.PIVOT_SECTION4_INTRO, BLUE)
-    j = find_para(doc, 'In this section, MSSBOA is applied to two representative')
-    if j is not None:
-        set_paragraph_text(doc.paragraphs[j], T.PIVOT_SECTION5_INTRO, BLUE)
-    log.append('R2: Sections 4 and 5 reframed')
+            set_paragraph_text(doc.paragraphs[j], T.PIVOT_SECTION4_INTRO, BLUE)
+        j = find_para(doc, 'In this section, MSSBOA is applied to two representative')
+        if j is not None:
+            set_paragraph_text(doc.paragraphs[j], T.PIVOT_SECTION5_INTRO, BLUE)
+        log.append('R2: Sections 4 and 5 reframed')
 
     # =============================================== REVIEWER 2: why SBOA
     p = para_by(doc, 'The secretary bird optimization algorithm (SBOA) is a bio-inspired')
@@ -345,14 +362,14 @@ def build():
                 'fig06_ablation.png', RED,
                 caption='Figure 6. Friedman rankings of MSSBOA with different '
                         'strategies (alpha = 0.05).', width=5.8)
+    anchor_i = find_para(doc, 'According to Table 5 and Figure 6')
     abl_concl = nar.ablation()
-    if abl_concl and len(abl_concl) > 1:
-        j = find_para(doc, 'According to Table 5 and Figure 6')
-        if j is not None:
-            set_paragraph_text(doc.paragraphs[j], abl_concl[-1], RED)
+    if abl_concl and len(abl_concl) > 1 and not KEEP_SUBMITTED_RESULTS:
+        if anchor_i is not None:
+            set_paragraph_text(doc.paragraphs[anchor_i], abl_concl[-1], RED)
     fact = nar.factorial()
-    if fact:
-        cur = doc.paragraphs[find_para(doc, 'According to Table 5 and Figure 6')]
+    if fact and anchor_i is not None:
+        cur = doc.paragraphs[anchor_i]
         cur = insert_paras_after(cur, fact, GREEN, template=body)
         insert_table_after(doc, cur, TB.t_factorial()[0], GREEN,
                            caption='Table 103. Full 2^3 factorial ablation of '
@@ -364,9 +381,10 @@ def build():
     if rewrite(doc, 'In this subsection, MSSBOA is compared with the basic SBOA',
                nar.main_comparison(), RED):
         log.append('R1: Section 4.4 regenerated')
-    _firsts(doc, nar, log)
+    if not KEEP_SUBMITTED_RESULTS:
+        _firsts(doc, nar, log)
     mc = nar.main_comparison()
-    if mc and len(mc) > 1:
+    if mc and len(mc) > 1 and not KEEP_SUBMITTED_RESULTS:
         j = find_para(doc, 'As shown in Table 6 and Figure 9, all Friedman')
         if j is not None:
             set_paragraph_text(doc.paragraphs[j], mc[1], RED)
@@ -384,34 +402,72 @@ def build():
         swap_figure(doc, cap, png, RED, width=w)
 
     # loss distribution and dimensional trend
+    after_stats = None
     tail = find_para(doc, 'As shown in Table 7 and Figure 11')
     if tail is not None:
         cur = doc.paragraphs[tail]
-        losses = nar.losses()
-        if losses:
-            set_paragraph_text(cur, losses[0], RED)
-            insert_table_after(doc, cur, TB.t_loss_distribution()[0], RED,
-                               caption='Table 104. Distribution of the cases in '
-                                       'which MSSBOA is outperformed, by '
-                                       'CEC2017 function class.',
-                               template_style='Table Grid')
-            log.append('R1: loss distribution by function class')
-        trend = nar.dimension_trend()
-        if trend:
-            cur = doc.paragraphs[find_para(doc, 'Table 104. Distribution')]
-            cur = insert_paras_after(cur, trend, RED, template=body)
-            insert_table_after(doc, cur, TB.t_dimension_gap()[0], RED,
-                               caption='Table 105. Mean Friedman rank gap to '
-                                       'the strongest competitors, by dimension.',
-                               template_style='Table Grid')
-            log.append('R1: dimensional trend quantified')
+        if KEEP_SUBMITTED_RESULTS:
+            # the balanced reading and the loss breakdown are computed from the
+            # manuscript's own published Tables A5-A8 by analyze_losses.py, so
+            # they are consistent with the results the reviewers are reading
+            import csv as _csv
+            lp = os.path.join(ROOT, 'results', 'loss_by_class.csv')
+            rows = []
+            if os.path.exists(lp):
+                with open(lp, newline='') as fh:
+                    rows = [r for r in _csv.reader(fh)]
+            txt = [t.format(loss_table_no='105') for t in T.R1_WILCOXON_BALANCED]
+            set_paragraph_text(cur, txt[0], RED)
+            cur = insert_paras_after(cur, txt[1:], RED, template=body)
+            if rows:
+                insert_table_after(doc, cur, rows, RED,
+                                   caption='Table 105. Distribution of the '
+                                           'cases in which MSSBOA is '
+                                           'outranked, by CEC2017 function '
+                                           'class, pooled over the four '
+                                           'dimensions (116 cases per '
+                                           'competitor).',
+                                   template_style='Table Grid')
+                log.append('R1: balanced statistics and loss breakdown '
+                           '(from the submitted appendix)')
+            after_stats = doc.paragraphs[find_para(
+                doc, 'Table 105. Distribution')] if find_para(
+                doc, 'Table 105. Distribution') is not None else cur
+        else:
+            losses = nar.losses()
+            if losses:
+                set_paragraph_text(cur, losses[0], RED)
+                insert_table_after(doc, cur, TB.t_loss_distribution()[0], RED,
+                                   caption='Table 105. Distribution of the '
+                                           'cases in which MSSBOA is '
+                                           'outperformed, by CEC2017 function '
+                                           'class.',
+                                   template_style='Table Grid')
+                log.append('R1: loss distribution by function class')
+            trend = nar.dimension_trend()
+            if trend:
+                j = find_para(doc, 'Table 105. Distribution')
+                if j is not None:
+                    cur = insert_paras_after(doc.paragraphs[j], trend, RED,
+                                             template=body)
+                    insert_table_after(doc, cur, TB.t_dimension_gap()[0], RED,
+                                       caption='Table 106. Mean Friedman rank '
+                                               'gap to the strongest '
+                                               'competitors, by dimension.',
+                                       template_style='Table Grid')
+                    log.append('R1: dimensional trend quantified')
+            after_stats = cur
 
     # =============================================== Section 4.5 (new)
     var = nar.variants()
     if var:
-        anchor_i = find_para(doc, 'Table 105. Mean Friedman rank gap')
-        anchor = doc.paragraphs[anchor_i] if anchor_i is not None else \
-            doc.paragraphs[find_para(doc, 'As shown in Table 7 and Figure 11')]
+        anchor = after_stats
+        if anchor is None:
+            j = find_para(doc, 'Table 105.')
+            if j is None:
+                j = find_para(doc, '5. Application to Visual Art Design')
+                j = j - 1 if j else len(doc.paragraphs) - 1
+            anchor = doc.paragraphs[j]
         h = insert_para_after(anchor, T.R2_VARIANTS_HEADING, BLUE,
                               template=h2_style(doc))
         cur = insert_paras_after(h, var, BLUE, template=body)
@@ -507,14 +563,19 @@ def build():
         log.append('R1: Section 5.3 scalability added')
 
     # =============================================== Conclusions
-    cp = para_by(doc, 'This paper proposed a multi-strategy secretary bird')
-    strike_paragraph(cp, BLUE)
-    insert_para_after(cp, T.PIVOT_CONCLUSION_OPEN, BLUE, template=body)
+    if REPOSITION:
+        cp = para_by(doc, 'This paper proposed a multi-strategy secretary bird')
+        strike_paragraph(cp, BLUE)
+        insert_para_after(cp, T.PIVOT_CONCLUSION_OPEN, BLUE, template=body)
+    else:
+        strike_and_replace(
+            para_by(doc, 'This paper proposed a multi-strategy secretary bird'),
+            T.R1_CONCL_FRAMING_OLD, T.R1_CONCL_FRAMING_NEW, RED)
     concl = nar.conclusion_results()
     if concl:
         cur = rewrite(doc, 'On the CEC2017 benchmark suite in 10, 30, 50 and 100 dimensions',
                       concl, RED)
-        if cur is not None:
+        if cur is not None and REPOSITION:
             cur = insert_para_after(cur, T.PIVOT_CONCLUSION_HONEST, BLUE,
                                     template=body)
         log.append('R1/R2: Conclusions regenerated and stated honestly')
@@ -573,6 +634,8 @@ def _firsts(doc, nar, log):
 
 
 def _appendix(doc, log):
+    if KEEP_SUBMITTED_RESULTS:
+        return
     abl = TB.appendix('ablation', TB.ABL_MAIN, 'A_abl')
     if abl:
         for dm, rows, n in abl:
