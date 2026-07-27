@@ -53,6 +53,10 @@ Every number in the manuscript is read from the JSON outputs, so the text, the
 tables and the figures cannot disagree. Display equations are OMML (Word's native
 equation format), as are inline symbols.
 
+Both stages are seeded (`np.random.default_rng(20260723)` for the survey,
+`20260722` for the Latin-hypercube draws), so re-running the pipeline reproduces
+`p7_survey.json` and `p7_model.json` byte for byte.
+
 ## Files
 
 | File | Purpose |
