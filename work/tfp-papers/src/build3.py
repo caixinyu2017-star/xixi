@@ -26,6 +26,7 @@ REFS = {
     "bacon2021": "Goodman-Bacon A. Difference-in-Differences with Variation in Treatment Timing[J]. Journal of Econometrics, 2021, 225(2).",
     "sun2021": "Sun L, Abraham S. Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects[J]. Journal of Econometrics, 2021, 225(2).",
     "chaise2020": "de Chaisemartin C, D'Haultfœuille X. Two-Way Fixed Effects Estimators with Heterogeneous Treatment Effects[J]. American Economic Review, 2020, 110(9).",
+    "montiel2019": "Montiel Olea J L, Plagborg-Møller M. Simultaneous Confidence Bands: Theory, Implementation, and an Application to SVARs[J]. Journal of Applied Econometrics, 2019, 34(1).",
     "hansen1999": "Hansen B E. Threshold Effects in Non-dynamic Panels: Estimation, Testing, and Inference[J]. Journal of Econometrics, 1999, 93(2).",
     "lesage2009": "LeSage J P, Pace R K. Introduction to Spatial Econometrics[M]. Boca Raton: Chapman & Hall/CRC, 2009.",
     "elhorst2014": "Elhorst J P. Spatial Econometrics: From Cross-Sectional Data to Spatial Panels[M]. Berlin: Springer, 2014.",

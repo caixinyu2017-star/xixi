@@ -449,6 +449,42 @@ b_pre = bsa[idx_pre]
 W_all = float(b_pre @ np.linalg.pinv(Vsa[np.ix_(idx_pre, idx_pre)]) @ b_pre)
 q_all = len(idx_pre)
 
+# ---- 一致置信带（sup-t band, Montiel Olea & Plagborg-Møller, 2019）----
+# 用独立的随机数发生器，以免影响主流程中其余结果的可复现性
+RNG_BAND = np.random.default_rng(90210)
+plot_es = [d["e"] for d in event if d["e"] != -1]
+Rall = []
+for e in plot_es:
+    sel = [(i, g) for i, (g, ee) in enumerate(inter_key) if ee == e]
+    tot = sum(gsize[g] for _, g in sel)
+    wv = np.zeros(len(bsa))
+    for i, g in sel:
+        wv[i] = gsize[g] / tot
+    Rall.append(wv)
+Rall = np.array(Rall)
+Vth = Rall @ Vsa @ Rall.T
+se_th = np.sqrt(np.diag(Vth))
+Dinv = np.diag(1.0 / se_th)
+Corr = Dinv @ Vth @ Dinv
+wc, Qc = np.linalg.eigh((Corr + Corr.T) / 2)
+Corr = Qc @ np.diag(np.clip(wc, 1e-10, None)) @ Qc.T
+zdraw = RNG_BAND.multivariate_normal(np.zeros(len(plot_es)), Corr,
+                                     size=20000, method="eigh")
+CSUPT_SA = float(np.quantile(np.abs(zdraw).max(axis=1), 0.95))
+for d in event:
+    if d["e"] == -1:
+        d["supt_lo"], d["supt_hi"] = 0.0, 0.0
+        continue
+    j = plot_es.index(d["e"])
+    d["supt_lo"] = round(d["coef"] - CSUPT_SA * float(se_th[j]), 4)
+    d["supt_hi"] = round(d["coef"] + CSUPT_SA * float(se_th[j]), 4)
+RES["supt_sa"] = round(CSUPT_SA, 4)
+
+# 基期（e = −1）上处理组被解释变量的均值，用于把系数换算为相对幅度
+Ygrid = df["gtfp"].to_numpy().reshape(N, T)
+base_vals = [Ygrid[i, int(g - 1 - 2011)] for i, g in enumerate(G) if g > 0]
+RES["base_period_mean"] = round(float(np.mean(base_vals)), 4)
+
 RES["pretrend_joint"] = dict(
     n_pre=len(pre),
     max_abs_t=round(max(abs(d["t"]) for d in pre), 4),
@@ -558,12 +594,21 @@ RES["cs_overall"] = dict(coef=round(cs_overall, 4), se=round(se_o, 4),
                          p=round(float(2 * stats.norm.sf(abs(cs_overall / se_o))), 4),
                          star=star(2 * stats.norm.sf(abs(cs_overall / se_o))),
                          nboot=NBOOT)
+# 一致置信带：以自助分布上各期标准化偏离的最大值的 95% 分位数为临界值
+es_sorted = sorted(cs_dyn)
+Zmat = np.column_stack([(boot_dyn[e] - cs_dyn[e]) / bse(boot_dyn[e])
+                        for e in es_sorted])
+Zmat = Zmat[np.isfinite(Zmat).all(axis=1)]
+CSUPT_CS = float(np.quantile(np.abs(Zmat).max(axis=1), 0.95))
+RES["supt_cs"] = round(CSUPT_CS, 4)
 RES["cs_dynamic"] = [
     dict(e=e, coef=round(cs_dyn[e], 4), se=round(bse(boot_dyn[e]), 4),
          t=round(cs_dyn[e] / bse(boot_dyn[e]), 4),
          lo=round(cs_dyn[e] - 1.96 * bse(boot_dyn[e]), 4),
-         hi=round(cs_dyn[e] + 1.96 * bse(boot_dyn[e]), 4))
-    for e in sorted(cs_dyn)]
+         hi=round(cs_dyn[e] + 1.96 * bse(boot_dyn[e]), 4),
+         supt_lo=round(cs_dyn[e] - CSUPT_CS * bse(boot_dyn[e]), 4),
+         supt_hi=round(cs_dyn[e] + CSUPT_CS * bse(boot_dyn[e]), 4))
+    for e in es_sorted]
 RES["cs_bygroup"] = [
     dict(g=int(g), n=gsize[g], coef=round(cs_group[g], 4),
          se=round(bse(boot_group[g]), 4),

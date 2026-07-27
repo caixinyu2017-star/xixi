@@ -32,12 +32,14 @@ EMIN, EMAX, BASE = -5, 6, -1
 ev = pd.DataFrame(p3["event_study_sa"]).sort_values("e")
 cs = pd.DataFrame(p3["cs_dynamic"]).sort_values("e")
 if BASE not in set(cs["e"]):                       # 补回被归一化的基期点
-    cs = pd.concat([cs, pd.DataFrame([{"e": BASE, "coef": 0.0, "se": 0.0}])],
+    cs = pd.concat([cs, pd.DataFrame([{"e": BASE, "coef": 0.0, "se": 0.0,
+                                       "supt_lo": 0.0, "supt_hi": 0.0}])],
                    ignore_index=True).sort_values("e")
 
 pt = p3["pretrend_joint"]["wald_aggregated"]
-lo = min((ev["coef"] - 1.96 * ev["se"]).min(), (cs["coef"] - 1.96 * cs["se"]).min())
-hi = max((ev["coef"] + 1.96 * ev["se"]).max(), (cs["coef"] + 1.96 * cs["se"]).max())
+BMEAN = p3["base_period_mean"]
+lo = min(ev["supt_lo"].min(), cs["supt_lo"].min())
+hi = max(ev["supt_hi"].max(), cs["supt_hi"].max())
 pad = 0.20 * (hi - lo)
 YLIM = (lo - 0.45 * pad, hi + pad)
 MINUS = "-"          # 绘图字体缺少 U+2212，标签统一用半角连字符
@@ -65,6 +67,9 @@ for cfg in PANELS:
     ax.axhline(0, color="k", lw=0.8, zorder=1)
     ax.axvline(-0.5, color="0.35", ls="--", lw=1.0, zorder=1)
     est = d[d["e"] != BASE]
+    for seg in (d[d["e"] <= BASE - 1], d[d["e"] >= BASE + 1]):  # 基期处断开
+        ax.fill_between(seg["e"], seg["supt_lo"], seg["supt_hi"],
+                        color=c, alpha=0.13, lw=0, zorder=1)
     ax.errorbar(est["e"], est["coef"], yerr=1.96 * est["se"], fmt="none",
                 ecolor=GREY, elinewidth=1.0, capsize=2.5, zorder=2)
     ax.plot(d["e"], d["coef"], "-", lw=1.3, color=c, zorder=3)
@@ -86,11 +91,14 @@ for cfg in PANELS:
     ax.tick_params(axis="y", labelsize=8)
     ax.set_title(cfg["title"], fontsize=9.5, y=-0.36)
 
-axes[0].set_ylabel("估计系数及95%置信区间", fontsize=9)
+axes[0].set_ylabel("估计系数", fontsize=9)
 axes[0].text(EMIN - 0.4, YLIM[1] - 0.06 * pad,
              "前期系数联合为零的Wald检验\n"
              f"$\\chi^2$({pt['df']})={pt['stat']:.4f}，P={pt['p']:.4f}",
              fontsize=7.4, color="0.15", ha="left", va="top", linespacing=1.5)
+axes[1].text(EMAX + 0.45, YLIM[0] + 0.16 * pad,
+             f"基期被解释变量均值＝{BMEAN:.4f}", fontsize=7.4, color="0.15",
+             ha="right", va="bottom")
 fig.tight_layout(rect=[0, 0.07, 1, 1])
 fig.savefig(os.path.join(FIG, "p3_fig1.png"), bbox_inches="tight")
 plt.close(fig)
