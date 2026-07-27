@@ -190,46 +190,46 @@ def fig2():
                                     lw=lw, color=col, shrinkA=0, shrinkB=0))
 
     Y = 45
-    stock(25, Y, 21, 10.5, 'Entrant pool  P', 'skill capital Q,  K = Q/P', '#fdecec')
+    stock(25, Y, 21, 10.5, 'Entrant pool  P', r'skill capital $Q$,  $K = Q/P$', '#fdecec')
     stock(56, Y, 17, 10.5, 'Juniors  J', 'entry-level staff', '#eaf2fb')
     stock(85, Y, 17, 10.5, 'Seniors  S', 'proficient staff', '#e8f6ee')
 
     pipe(4.5, 14.0, Y)
-    ax.text(6.0, Y + 7.5, 'graduate\ninflow  G', ha='left', va='center',
+    ax.text(6.0, Y + 7.5, 'graduate\ninflow  $G$', ha='left', va='center',
             fontsize=6.8, linespacing=1.4)
     pipe(35.5, 47.5, Y); valve(41.5, Y)
-    ax.text(41.5, Y + 8.2, 'hiring  H', ha='center', fontsize=7.0)
+    ax.text(41.5, Y + 8.2, 'hiring  $H$', ha='center', fontsize=7.0)
     pipe(64.5, 76.5, Y); valve(70.5, Y)
-    ax.text(70.5, Y + 8.2, 'promotion  ρ = J/τ', ha='center', fontsize=7.0)
+    ax.text(70.5, Y + 8.2, r'promotion  $\rho = J/\tau$', ha='center', fontsize=7.0)
     pipe(93.5, 99.0, Y)
-    ax.text(96.0, Y + 7.5, 'exit\nS/τS', ha='center', va='center',
+    ax.text(96.0, Y + 7.5, 'exit\n$S/\\tau_S$', ha='center', va='center',
             fontsize=6.8, linespacing=1.4)
 
     ax.annotate('', xy=(56, 33.5), xytext=(56, 39.5),
                 arrowprops=dict(arrowstyle='-|>,head_width=0.28,head_length=0.52',
                                 lw=1.8, color='#8a8a8a'))
-    ax.text(59.0, 34.6, 'junior exit  J/τJ', fontsize=6.6, color=MUT,
+    ax.text(59.0, 34.6, r'junior exit  $J/\tau_J$', fontsize=6.6, color=MUT,
             ha='left', va='center')
     ax.annotate('', xy=(25, 33.5), xytext=(25, 39.5),
                 arrowprops=dict(arrowstyle='-|>,head_width=0.28,head_length=0.52',
                                 lw=1.8, color='#8a8a8a'))
-    ax.text(23.0, 35.5, 'discouragement  P/τP', fontsize=6.6, color=MUT,
+    ax.text(23.0, 35.5, r'discouragement  $P/\tau_P$', fontsize=6.6, color=MUT,
             ha='right', va='center')
     ax.annotate('', xy=(30.0, 38.5), xytext=(53.0, 32.6),
                 arrowprops=dict(arrowstyle='-|>,head_width=0.26,head_length=0.5',
                                 lw=1.3, color='#8a8a8a',
                                 connectionstyle='arc3,rad=0.30',
                                 linestyle=(0, (4, 2.2))))
-    ax.text(42.5, 29.2, 'returning share  b', fontsize=6.4, color=MUT, ha='center')
+    ax.text(42.5, 29.2, r'returning share  $b$', fontsize=6.4, color=MUT, ha='center')
 
     ax.add_patch(FancyBboxPatch((2.5, 4.0), 43.5, 18.0,
                                 boxstyle='round,pad=0.6,rounding_size=1.3',
                                 fc='#fbfbfc', ec='#b9bec6', lw=0.9))
     ax.text(24.2, 19.3, 'Automation of the entry task bundle', ha='center',
             fontsize=7.3, fontweight='bold')
-    ax.text(24.2, 14.2, 'dA/dt = c A (1 − A/Aₘₐₓ)',
+    ax.text(24.2, 14.2, r'$dA/dt = c\,A\,(1 - A/A_{max})$',
             ha='center', fontsize=7.6)
-    ax.text(24.2, 8.4, 'desired juniors\nJ* = j₀ D (1 − φA)(1 + w W)',
+    ax.text(24.2, 8.4, 'desired juniors\n' + r'$J^{*} = j_{0}\,D\,(1 - \varphi A)(1 + w\,W)$',
             ha='center', fontsize=6.9, color=MUT, linespacing=1.5)
 
     ax.add_patch(FancyBboxPatch((54.0, 4.0), 43.5, 18.0,
@@ -238,12 +238,12 @@ def fig2():
     ax.text(75.7, 19.3, 'Senior time allocation (strict priority)', ha='center',
             fontsize=7.3, fontweight='bold')
     ax.text(75.7, 15.3,
-            'complex work  C/πS   →   verification  ν A R\n'
-            '→   residual routine work   →   mentoring  m J',
+            r'complex work  $C/\pi_{S}$   $\rightarrow$   verification  $\nu\,A\,R$' '\n'
+            r'$\rightarrow$   residual routine work   $\rightarrow$   mentoring  $m\,J$',
             ha='center', fontsize=6.8, linespacing=1.5)
     ax.text(75.7, 8.0,
             'mentoring is the residual claimant on the non-delivery\n'
-            'budget (1 − u*)S;   τ = τ₀ / (Lm · Le · Lk)',
+            r'budget $(1-u^{*})S$;   $\tau = \tau_{0} / (L_{m} L_{e} L_{k})$',
             ha='center', fontsize=6.5, color=MUT, linespacing=1.5)
 
     ax.annotate('', xy=(85, 22.8), xytext=(85, 39.5),
@@ -309,39 +309,42 @@ def fig4():
 
     fig, axes = plt.subplots(1, 2, figsize=(7.3, 3.0))
     ax = axes[0]
-    ax.plot(A, S, color=GREEN, lw=2.0, label='Senior stock')
-    ax.plot(A, Y, color=ORANGE, lw=2.0, label='Productive capacity')
+    ax.plot(A, S, color=GREEN, lw=2.0)
+    ax.plot(A, Y, color=ORANGE, lw=2.0)
     ax.axhline(0, color=INK, lw=0.8)
+    # headroom below the curves and above the zero line, so that no annotation
+    # has to share space with a series
+    ylo = float(min(S.min(), Y.min())) * 1.15
+    ax.set_ylim(ylo, 3.0)
     for key, lab, col in (('A_training_collapse', 'training\ncrowd-out', RED),
                           ('A_verification_binds', 'verification\nbottleneck', PURPLE)):
         v = tp.get(key)
         if v:
             ax.axvline(v, color=col, lw=1.0, ls='--')
-            y0, y1 = ax.get_ylim()
-            side = -1 if key == 'A_training_collapse' else 1
-            ax.text(v + 0.012 * side, y0 + (y1 - y0) * 0.02,
-                    f'{lab}\nA = {v:.2f}', fontsize=6.2, color=col,
-                    va='bottom', ha='right' if side < 0 else 'left')
+            ax.text(v + 0.012, -1.2, f'{lab}\nA = {v:.2f}', fontsize=5.8,
+                    color=col, va='top', ha='left', linespacing=1.35)
+    # series names go in the empty block under both curves on the left
+    ax.text(0.125, ylo * 0.74, 'Productive capacity', fontsize=7.0,
+            color=ORANGE, ha='left', va='center')
+    ax.text(0.125, ylo * 0.86, 'Senior stock', fontsize=7.0,
+            color=GREEN, ha='left', va='center')
     ax.set_xlabel('asymptotic automation depth of the entry task bundle  A$_{max}$',
                   fontsize=7.4)
     ax.set_ylabel('deviation at year 30 (%)', fontsize=7.4)
     ax.set_title('Response of the system to automation depth', fontsize=8.4, pad=4)
-    # label the two curves in place: the panel has no corner free of ink
-    iy = int(np.argmin(np.abs(A - 0.30)))
-    ax.text(A[iy], Y[iy] + 2.4, 'Productive capacity', fontsize=6.8,
-            color=ORANGE, ha='center', va='bottom')
-    ax.text(A[iy], S[iy] - 2.4, 'Senior stock', fontsize=6.8,
-            color=GREEN, ha='center', va='top')
     style(ax)
 
     ax = axes[1]
     ax.plot(A, mr, color=RED, lw=2.0, label='Mentoring per junior (ratio to reference)')
     ax.plot(A, q, color=PURPLE, lw=2.0, label='Verifiable share of AI output')
-    ax.set_ylim(-0.03, 1.08)
+    # both series are bounded by 1, so a band above that is guaranteed free
+    ax.set_ylim(-0.04, 1.44)
+    ax.set_yticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
     ax.set_xlabel('asymptotic automation depth  A$_{max}$', fontsize=7.4)
     ax.set_ylabel('ratio at year 30', fontsize=7.4)
     ax.set_title('Two successive regime shifts', fontsize=8.4, pad=4)
-    ax.legend(fontsize=6.6, frameon=False, loc='lower left')
+    ax.legend(fontsize=6.4, frameon=False, loc='upper left',
+              bbox_to_anchor=(-0.01, 1.02), handlelength=1.7)
     style(ax)
     fig.tight_layout(pad=0.5, w_pad=2.0)
     fig.savefig(os.path.join(HERE, 'p7_fig4.png'), dpi=DPI, bbox_inches='tight',
