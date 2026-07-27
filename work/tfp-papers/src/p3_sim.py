@@ -480,6 +480,31 @@ for d in event:
     d["supt_hi"] = round(d["coef"] + CSUPT_SA * float(se_th[j]), 4)
 RES["supt_sa"] = round(CSUPT_SA, 4)
 
+# 端点分箱"箱内效应恒定"的过度识别检验：H0: θ(±端点) = θ(相邻内点)
+def _wrow(e):
+    sel = [(i, g) for i, (g, ee) in enumerate(inter_key) if ee == e]
+    tot = sum(gsize[g] for _, g in sel)
+    wv = np.zeros(len(bsa))
+    for i, g in sel:
+        wv[i] = gsize[g] / tot
+    return wv
+
+
+bin_tests = {}
+for lbl, e_bin, e_adj in [("left", EMIN, EMIN + 1), ("right", EMAX, EMAX - 1)]:
+    dvec = _wrow(e_bin) - _wrow(e_adj)
+    diff = float(dvec @ bsa)
+    var = float(dvec @ Vsa @ dvec)
+    w = diff ** 2 / var
+    bin_tests[lbl] = dict(diff=round(diff, 4), chi2=round(w, 4), df=1,
+                          p=round(float(stats.chi2.sf(w, 1)), 4))
+RES["bin_overid"] = bin_tests
+
+# 各相对时点上进入估计的处理城市数
+RES["cells_by_e"] = {
+    str(e): int(sum(gsize[g] for (g, ee) in inter_key if ee == e))
+    for e in range(EMIN, EMAX + 1) if e != -1}
+
 # 基期（e = −1）上处理组被解释变量的均值，用于把系数换算为相对幅度
 Ygrid = df["gtfp"].to_numpy().reshape(N, T)
 base_vals = [Ygrid[i, int(g - 1 - 2011)] for i, g in enumerate(G) if g > 0]
@@ -552,10 +577,10 @@ def cs_aggregate(attgt):
             bygroup.setdefault(g, [0.0, 0.0])
             bygroup[g][0] += v
             bygroup[g][1] += 1
-        if EMIN <= e <= EMAX:
-            dyn.setdefault(e, [0.0, 0.0])
-            dyn[e][0] += ng * v
-            dyn[e][1] += ng
+        eb = min(max(e, EMIN), EMAX)          # 端点分箱，与交互加权口径一致
+        dyn.setdefault(eb, [0.0, 0.0])
+        dyn[eb][0] += ng * v
+        dyn[eb][1] += ng
     return (overall_num / overall_den,
             {e: s / w for e, (s, w) in dyn.items()},
             {g: s / c for g, (s, c) in bygroup.items()})
