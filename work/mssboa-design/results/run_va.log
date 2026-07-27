@@ -1,0 +1,75 @@
+=== variants: 15660 runs ===
+  variants: 1000/15660 23s (eta 330s)
+  variants: 2000/15660 46s (eta 315s)
+  variants: 3000/15660 71s (eta 298s)
+  variants: 4000/15660 94s (eta 274s)
+  variants: 5000/15660 118s (eta 252s)
+  variants: 6000/15660 143s (eta 230s)
+  variants: 7000/15660 166s (eta 205s)
+  variants: 8000/15660 201s (eta 192s)
+  variants: 9000/15660 290s (eta 215s)
+  variants: 10000/15660 377s (eta 214s)
+  variants: 11000/15660 467s (eta 198s)
+  variants: 12000/15660 554s (eta 169s)
+  variants: 13000/15660 641s (eta 131s)
+  variants: 14000/15660 730s (eta 87s)
+  variants: 15000/15660 818s (eta 36s)
+variants DONE: 15660 runs in 879s
+=== ablation: 13920 runs ===
+  ablation: 1000/13920 23s (eta 292s)
+  ablation: 2000/13920 45s (eta 267s)
+  ablation: 3000/13920 67s (eta 245s)
+  ablation: 4000/13920 90s (eta 222s)
+  ablation: 5000/13920 111s (eta 198s)
+  ablation: 6000/13920 133s (eta 175s)
+  ablation: 7000/13920 158s (eta 156s)
+  ablation: 8000/13920 243s (eta 180s)
+  ablation: 9000/13920 330s (eta 180s)
+  ablation: 10000/13920 417s (eta 163s)
+  ablation: 11000/13920 501s (eta 133s)
+  ablation: 12000/13920 587s (eta 94s)
+  ablation: 13000/13920 674s (eta 48s)
+ablation DONE: 13920 runs in 754s
+=== extra: 29580 runs ===
+  extra: 1000/29580 28s (eta 812s)
+  extra: 2000/29580 58s (eta 798s)
+  extra: 3000/29580 87s (eta 775s)
+  extra: 4000/29580 116s (eta 741s)
+  extra: 5000/29580 145s (eta 713s)
+  extra: 6000/29580 175s (eta 688s)
+  extra: 7000/29580 205s (eta 662s)
+  extra: 8000/29580 233s (eta 630s)
+  extra: 9000/29580 262s (eta 600s)
+  extra: 10000/29580 291s (eta 570s)
+  extra: 11000/29580 320s (eta 540s)
+  extra: 12000/29580 350s (eta 513s)
+  extra: 13000/29580 379s (eta 483s)
+  extra: 14000/29580 406s (eta 452s)
+  extra: 15000/29580 454s (eta 442s)
+  extra: 16000/29580 557s (eta 473s)
+  extra: 17000/29580 658s (eta 487s)
+  extra: 18000/29580 760s (eta 489s)
+  extra: 19000/29580 865s (eta 482s)
+  extra: 20000/29580 970s (eta 465s)
+  extra: 21000/29580 1071s (eta 438s)
+  extra: 22000/29580 1174s (eta 405s)
+  extra: 23000/29580 1278s (eta 366s)
+  extra: 24000/29580 1381s (eta 321s)
+  extra: 25000/29580 1484s (eta 272s)
+  extra: 26000/29580 1588s (eta 219s)
+  extra: 27000/29580 1688s (eta 161s)
+  extra: 28000/29580 1793s (eta 101s)
+  extra: 29000/29580 1898s (eta 38s)
+extra DONE: 29580 runs in 1959s
+=== weights: 3200 runs ===
+  weights: 1000/3200 114s (eta 251s)
+  weights: 2000/3200 226s (eta 136s)
+  weights: 3000/3200 334s (eta 22s)
+weights DONE: 3200 runs in 356s
+=== scale: 720 runs ===
+scale DONE: 720 runs in 669s
+1740 run(s) for N=30
+  500/1740
+  1000/1740
+  1500/1740
+appended 1740 run(s) to r_extra.csv

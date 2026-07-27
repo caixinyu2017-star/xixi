@@ -1,0 +1,14 @@
+
+CEC2017 D=10, 12 runs, 29 functions (1364s)
+Friedman mean rank (lower is better):
+   SBOA           2.103
+   MSSBOA         2.552
+   MSSBOA-free    2.931
+   SBOA+LPSR      3.690
+   MSSBOA+LPSR    3.724
+
+Wilcoxon rank-sum against plain SBOA (+/=/-):
+   MSSBOA         0/28/1
+   MSSBOA-free    0/26/3
+   SBOA+LPSR      0/21/8
+   MSSBOA+LPSR    0/22/7

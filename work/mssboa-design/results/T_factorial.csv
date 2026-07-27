@@ -1,0 +1,10 @@
+Configuration,GPSI,LOBL,ACGM,Friedman rank (D = 30),Rank,vs. SBOA (+/=/-)
+SBOA,No,No,No,3.690,1,-
+SBOA-GPSI,Yes,No,No,4.000,3,0/27/2
+SBOA-LOBL,No,Yes,No,4.897,5,0/22/7
+SBOA-ACGM,No,No,Yes,3.862,2,0/27/2
+SBOA-GPSI-LOBL,Yes,Yes,No,4.897,5,0/26/3
+SBOA-GPSI-ACGM,Yes,No,Yes,4.241,4,1/24/4
+SBOA-LOBL-ACGM,No,Yes,Yes,5.241,8,0/25/4
+MSSBOA,Yes,Yes,Yes,5.172,7,1/23/5
+Friedman p-value,,,,7.127E-02,N/A,N/A

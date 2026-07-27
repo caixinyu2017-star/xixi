@@ -1,0 +1,24 @@
+
+D=10, 10 runs, 29 functions (359s)
+   SBOA             2.586
+   MSSBOA-both      2.897
+   MSSBOA-printed   3.000
+   MSSBOA-acgmfix   3.000
+   MSSBOA-lensfix   3.517
+   Wilcoxon vs SBOA (+/=/-):
+      MSSBOA-printed   0/25/4
+      MSSBOA-lensfix   1/22/6
+      MSSBOA-acgmfix   0/29/0
+      MSSBOA-both      1/22/6
+
+D=30, 10 runs, 29 functions (359s)
+   SBOA             2.483
+   MSSBOA-printed   2.483
+   MSSBOA-acgmfix   2.862
+   MSSBOA-both      3.448
+   MSSBOA-lensfix   3.724
+   Wilcoxon vs SBOA (+/=/-):
+      MSSBOA-printed   2/25/2
+      MSSBOA-lensfix   2/13/14
+      MSSBOA-acgmfix   3/21/5
+      MSSBOA-both      1/14/14
