@@ -428,10 +428,41 @@ for e in range(EMIN, EMAX + 1):
                       hi=round(coef + 1.96 * se, 4)))
 RES["event_study_sa"] = event
 pre = [d for d in event if d["e"] < -1]
+
+# ---- 平行趋势的联合检验 ----
+# （a）聚合后的各前期动态效应联合为零；（b）全部队列×前期交互项联合为零
+Ragg = []
+for d in pre:
+    sel = [(i, g) for i, (g, ee) in enumerate(inter_key) if ee == d["e"]]
+    tot = sum(gsize[g] for _, g in sel)
+    wv = np.zeros(len(bsa))
+    for i, g in sel:
+        wv[i] = gsize[g] / tot
+    Ragg.append(wv)
+Ragg = np.array(Ragg)
+th_pre = Ragg @ bsa
+W_agg = float(th_pre @ np.linalg.pinv(Ragg @ Vsa @ Ragg.T) @ th_pre)
+q_agg = Ragg.shape[0]
+
+idx_pre = [i for i, (g, ee) in enumerate(inter_key) if ee < -1]
+b_pre = bsa[idx_pre]
+W_all = float(b_pre @ np.linalg.pinv(Vsa[np.ix_(idx_pre, idx_pre)]) @ b_pre)
+q_all = len(idx_pre)
+
 RES["pretrend_joint"] = dict(
     n_pre=len(pre),
     max_abs_t=round(max(abs(d["t"]) for d in pre), 4),
-    all_insignificant=bool(all(d["p"] > 0.1 for d in pre)))
+    all_insignificant=bool(all(d["p"] > 0.1 for d in pre)),
+    wald_aggregated=dict(stat=round(W_agg, 4), df=q_agg,
+                         p=round(float(stats.chi2.sf(W_agg, q_agg)), 4),
+                         F=round(W_agg / q_agg, 4),
+                         p_F=round(float(stats.f.sf(W_agg / q_agg, q_agg,
+                                                    N - 1)), 4)),
+    wald_all_cohorts=dict(stat=round(W_all, 4), df=q_all,
+                          p=round(float(stats.chi2.sf(W_all, q_all)), 4),
+                          F=round(W_all / q_all, 4),
+                          p_F=round(float(stats.f.sf(W_all / q_all, q_all,
+                                                     N - 1)), 4)))
 
 # ============================================================
 # 七、Callaway–Sant'Anna 双重稳健组时 ATT

@@ -309,7 +309,21 @@
  "pretrend_joint": {
   "n_pre": 4,
   "max_abs_t": 1.0935,
-  "all_insignificant": true
+  "all_insignificant": true,
+  "wald_aggregated": {
+   "stat": 5.4522,
+   "df": 4,
+   "p": 0.244,
+   "F": 1.3631,
+   "p_F": 0.2469
+  },
+  "wald_all_cohorts": {
+   "stat": 24.7149,
+   "df": 27,
+   "p": 0.5904,
+   "F": 0.9154,
+   "p_F": 0.5898
+  }
  },
  "cs_overall": {
   "coef": 0.0322,

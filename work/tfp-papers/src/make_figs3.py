@@ -24,34 +24,74 @@ os.makedirs(FIG, exist_ok=True)
 p3 = json.load(open(os.path.join(RES, "p3_results.json"), encoding="utf-8"))
 p4 = json.load(open(os.path.join(RES, "p4_results.json"), encoding="utf-8"))
 
-# ============ 论文3 图1：事件研究（Sun–Abraham 交互加权） ============
-ev = pd.DataFrame(p3["event_study_sa"])
-cs = pd.DataFrame(p3["cs_dynamic"])
+# ============ 论文3 图1：事件研究（平行趋势检验与动态效应） ============
+# 体例：以处理前一期（e = −1）为基期，其系数按识别所需的归一化约束设为 0，
+# 图中以空心标记单独标示；端点为分箱估计（e ≤ −5 与 e ≥ 6）；
+# 误差棒为基于城市层面聚类稳健标准误的 95% 置信区间。
+EMIN, EMAX, BASE = -5, 6, -1
+ev = pd.DataFrame(p3["event_study_sa"]).sort_values("e")
+cs = pd.DataFrame(p3["cs_dynamic"]).sort_values("e")
+if BASE not in set(cs["e"]):                       # 补回被归一化的基期点
+    cs = pd.concat([cs, pd.DataFrame([{"e": BASE, "coef": 0.0, "se": 0.0}])],
+                   ignore_index=True).sort_values("e")
 
-fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.0), dpi=300)
-ax = axes[0]
-ax.errorbar(ev["e"], ev["coef"], yerr=1.96 * ev["se"], fmt="o-", ms=4, lw=1.4,
-            color=BLUE, ecolor=GREY, elinewidth=1.0, capsize=2.5)
-ax.axhline(0, color="k", lw=0.8)
-ax.axvline(-0.5, color=RED, ls="--", lw=1.0)
-ax.set_xlabel("相对政策实施年份", fontsize=9)
-ax.set_ylabel("估计系数", fontsize=9)
-ax.tick_params(labelsize=8)
-ax.set_xticks(range(-5, 7))
-ax.set_title("(a) Sun-Abraham 交互加权估计", fontsize=9.5, y=-0.34)
+pt = p3["pretrend_joint"]["wald_aggregated"]
+lo = min((ev["coef"] - 1.96 * ev["se"]).min(), (cs["coef"] - 1.96 * cs["se"]).min())
+hi = max((ev["coef"] + 1.96 * ev["se"]).max(), (cs["coef"] + 1.96 * cs["se"]).max())
+pad = 0.20 * (hi - lo)
+YLIM = (lo - 0.45 * pad, hi + pad)
+MINUS = "-"          # 绘图字体缺少 U+2212，标签统一用半角连字符
 
-ax = axes[1]
-ax.errorbar(cs["e"], cs["coef"], yerr=1.96 * cs["se"], fmt="s-", ms=4, lw=1.4,
-            color=RED, ecolor=GREY, elinewidth=1.0, capsize=2.5)
-ax.axhline(0, color="k", lw=0.8)
-ax.axvline(-0.5, color=BLUE, ls="--", lw=1.0)
-ax.set_xlabel("相对政策实施年份", fontsize=9)
-ax.set_ylabel("估计系数", fontsize=9)
-ax.tick_params(labelsize=8)
-ax.set_xticks(range(-5, 7))
-ax.set_title("(b) Callaway-Sant'Anna 双重稳健估计", fontsize=9.5, y=-0.34)
 
-fig.tight_layout(rect=[0, 0.06, 1, 1])
+def _lab(e):
+    return f"{MINUS}{-e}" if e < 0 else str(e)
+
+
+XTICKS = list(range(EMIN, EMAX + 1))
+XLAB = ([f"≤{_lab(EMIN)}"] + [_lab(e) for e in range(EMIN + 1, EMAX)]
+        + [f"≥{EMAX}"])
+
+PANELS = [
+    dict(ax=0, df=ev, color=BLUE, marker="o",
+         title="(a) Sun-Abraham 交互加权估计量"),
+    dict(ax=1, df=cs, color=RED, marker="s",
+         title="(b) Callaway-Sant'Anna 双重稳健估计量"),
+]
+
+fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.3), dpi=300, sharey=True)
+for cfg in PANELS:
+    ax, d, c = axes[cfg["ax"]], cfg["df"], cfg["color"]
+    ax.axvspan(EMIN - 0.6, -0.5, color="0.92", zorder=0)     # 政策实施前区间
+    ax.axhline(0, color="k", lw=0.8, zorder=1)
+    ax.axvline(-0.5, color="0.35", ls="--", lw=1.0, zorder=1)
+    est = d[d["e"] != BASE]
+    ax.errorbar(est["e"], est["coef"], yerr=1.96 * est["se"], fmt="none",
+                ecolor=GREY, elinewidth=1.0, capsize=2.5, zorder=2)
+    ax.plot(d["e"], d["coef"], "-", lw=1.3, color=c, zorder=3)
+    ax.plot(est["e"], est["coef"], cfg["marker"], ms=4.2, color=c,
+            mec=c, mfc=c, zorder=4)
+    ax.plot([BASE], [0.0], cfg["marker"], ms=5.6, mec=c, mfc="white",
+            mew=1.4, zorder=5)                                # 基期：空心标记
+    ax.annotate("基期", xy=(BASE, 0.0), xytext=(BASE, YLIM[0] + 0.30 * pad),
+                fontsize=7.4, color="0.25", ha="center", va="center",
+                arrowprops=dict(arrowstyle="-", color="0.55", lw=0.7,
+                                shrinkA=1, shrinkB=4))
+    ax.text(-0.32, YLIM[1] - 1.05 * pad, "政策实施", fontsize=7.4,
+            color="0.25", ha="left", va="top")
+    ax.set_xlim(EMIN - 0.6, EMAX + 0.6)
+    ax.set_ylim(*YLIM)
+    ax.set_xticks(XTICKS)
+    ax.set_xticklabels(XLAB, fontsize=7.6)
+    ax.set_xlabel("相对政策实施年份（年）", fontsize=9)
+    ax.tick_params(axis="y", labelsize=8)
+    ax.set_title(cfg["title"], fontsize=9.5, y=-0.36)
+
+axes[0].set_ylabel("估计系数及95%置信区间", fontsize=9)
+axes[0].text(EMIN - 0.4, YLIM[1] - 0.06 * pad,
+             "前期系数联合为零的Wald检验\n"
+             f"$\\chi^2$({pt['df']})={pt['stat']:.4f}，P={pt['p']:.4f}",
+             fontsize=7.4, color="0.15", ha="left", va="top", linespacing=1.5)
+fig.tight_layout(rect=[0, 0.07, 1, 1])
 fig.savefig(os.path.join(FIG, "p3_fig1.png"), bbox_inches="tight")
 plt.close(fig)
 

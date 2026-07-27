@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """对 pandoc 生成的 docx 做期刊化排版后处理：中文字体、字号、
 版面、表格与题注样式等。"""
+import re
 import sys
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor
@@ -58,11 +59,13 @@ def para_fmt(style, align=None, first_indent=None, before=None, after=None,
 
 S = {s.name: s for s in doc.styles}
 
-# ---------- 基础正文 ----------
-for name in ("Normal", "Body Text", "First Paragraph"):
+# ---------- 基础正文：段前段后间距一律为 0 ----------
+for name in ("Normal", "Body Text", "First Paragraph",
+             "Body Text First Indent", "Plain Text"):
     if name in S:
         set_fonts(S[name], east="宋体", size=10.5)
-        para_fmt(S[name], align=WD_ALIGN_PARAGRAPH.JUSTIFY, after=0, line=1.5)
+        para_fmt(S[name], align=WD_ALIGN_PARAGRAPH.JUSTIFY, before=0, after=0,
+                 line=1.5)
 for name in ("Body Text", "First Paragraph"):
     if name in S:
         para_fmt(S[name], first_indent=Cm(0.74))
@@ -102,7 +105,7 @@ custom = {
                              align=WD_ALIGN_PARAGRAPH.CENTER, before=8,
                              after=0),
     "Compact": dict(east="宋体", size=9, bold=False,
-                    align=WD_ALIGN_PARAGRAPH.CENTER, before=1, after=1),
+                    align=WD_ALIGN_PARAGRAPH.CENTER, before=0, after=0),
 }
 for name, cfg in custom.items():
     if name not in S:
@@ -111,19 +114,123 @@ for name, cfg in custom.items():
     para_fmt(S[name], align=cfg["align"], before=cfg["before"],
              after=cfg["after"], line=1.2, first_indent=Cm(0))
 
-# ---------- 表格：满栏宽、居中、单元格对齐 ----------
+# ---------- 表格：三线表、满栏宽、居中、单元格对齐 ----------
+TOP_BOTTOM_SZ = "12"          # 顶线与底线：1.5 磅（单位为 1/8 磅）
+HEADER_SZ = "6"               # 栏目线：0.75 磅
+
+
+def _border(parent, tag, val, sz=None):
+    attrs = {qn("w:val"): val, qn("w:color"): "000000"}
+    if sz is not None:
+        attrs[qn("w:sz")] = sz
+        attrs[qn("w:space")] = "0"
+    parent.append(parent.makeelement(qn("w:" + tag), attrs))
+
+
+TEXT_TWIPS = 8957                       # 版心宽度 15.8 cm 折合缇
+CELL_MARGIN = 216                       # 单元格左右内边距合计
+PAD = 110                               # 留白余量，避免恰好触界而折行
+UNIT = 105                              # 9 磅字下一个半角字符的宽度（含余量）
+UNBREAK = re.compile(
+    r"[0-9A-Za-z.,%*+\-−–—()（）:：/×±≤≥\u0370-\u03ff\u2070-\u209f]+")
+
+
+def _dw(s):
+    """字符串的显示宽度，以半角字符为 1 个单位。"""
+    return sum(2 if ord(ch) > 0x2E80 else 1 for ch in s)
+
+
+def col_widths(tbl):
+    """按各列内容计算列宽：先保证最长不可断串不被拆行，余量再按需求比例分配。"""
+    ncol = len(tbl.columns)
+    need, mini = [], []
+    for j in range(ncol):
+        full = brk = 0
+        for row in tbl.rows:
+            if j >= len(row.cells):
+                continue
+            t = row.cells[j].text.strip()
+            full = max(full, _dw(t))
+            for m in UNBREAK.findall(t):
+                brk = max(brk, _dw(m))
+        need.append(max(full, 3))
+        mini.append(max(brk, 3))
+    base = [m * UNIT + CELL_MARGIN + PAD for m in mini]
+    if sum(base) > TEXT_TWIPS:                     # 极端情形：按比例压缩
+        k = TEXT_TWIPS / sum(base)
+        return [int(b * k) for b in base]
+    extra = TEXT_TWIPS - sum(base)
+    gap = [max(need[j] - mini[j], 0) * UNIT for j in range(ncol)]
+    tot = sum(gap)
+    out = ([base[j] + int(extra * gap[j] / tot) for j in range(ncol)]
+           if tot else [b + extra // ncol for b in base])
+    # 单列宽度封顶，溢出的宽度均摊给其余各列，避免首列独占版面
+    cap = int(TEXT_TWIPS * (0.45 if ncol >= 3 else 0.62))
+    surplus = sum(max(0, w - cap) for w in out)
+    if surplus:
+        free = [j for j, w in enumerate(out) if w <= cap]
+        out = [min(w, cap) for w in out]
+        if free:
+            for j in free:
+                out[j] += surplus // len(free)
+    out[-1] += TEXT_TWIPS - sum(out)
+    return out
+
+
 for tbl in doc.tables:
     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
-    tbl.autofit = True
+    tbl.autofit = False
     tblPr = tbl._tbl.tblPr
-    for old in tblPr.findall(qn("w:tblW")):
-        tblPr.remove(old)
-    w = tblPr.makeelement(qn("w:tblW"), {qn("w:w"): "5000", qn("w:type"): "pct"})
-    tblPr.append(w)
-    for old in tblPr.findall(qn("w:tblLayout")):
-        tblPr.remove(old)
-    lay = tblPr.makeelement(qn("w:tblLayout"), {qn("w:type"): "autofit"})
-    tblPr.append(lay)
+    for tag in ("w:tblW", "w:tblLayout", "w:tblBorders", "w:tblStyle"):
+        for old in tblPr.findall(qn(tag)):
+            tblPr.remove(old)
+    tblPr.append(tblPr.makeelement(qn("w:tblW"),
+                                   {qn("w:w"): str(TEXT_TWIPS),
+                                    qn("w:type"): "dxa"}))
+    tblPr.append(tblPr.makeelement(qn("w:tblLayout"), {qn("w:type"): "fixed"}))
+    ws = col_widths(tbl)
+    grid = tbl._tbl.find(qn("w:tblGrid"))
+    if grid is not None:
+        for gc, wd in zip(grid.findall(qn("w:gridCol")), ws):
+            gc.set(qn("w:w"), str(wd))
+    for row in tbl.rows:
+        for j, cell in enumerate(row.cells):
+            if j >= len(ws):
+                continue
+            tcPr = cell._tc.get_or_add_tcPr()
+            for old in tcPr.findall(qn("w:tcW")):
+                tcPr.remove(old)
+            tcPr.append(tcPr.makeelement(qn("w:tcW"),
+                                         {qn("w:w"): str(ws[j]),
+                                          qn("w:type"): "dxa"}))
+    # 三线表：仅保留顶线、栏目线与底线，取消所有竖线与其余横线
+    bd = tblPr.makeelement(qn("w:tblBorders"), {})
+    _border(bd, "top", "single", TOP_BOTTOM_SZ)
+    _border(bd, "left", "none")
+    _border(bd, "bottom", "single", TOP_BOTTOM_SZ)
+    _border(bd, "right", "none")
+    _border(bd, "insideH", "none")
+    _border(bd, "insideV", "none")
+    tblPr.append(bd)
+    nrow = len(tbl.rows)
+    for ri, row in enumerate(tbl.rows):
+        for cell in row.cells:
+            tcPr = cell._tc.get_or_add_tcPr()
+            for old in tcPr.findall(qn("w:tcBorders")):
+                tcPr.remove(old)
+            tb = tcPr.makeelement(qn("w:tcBorders"), {})
+            if ri == 0:
+                _border(tb, "top", "single", TOP_BOTTOM_SZ)
+                _border(tb, "bottom", "single", HEADER_SZ)
+            elif ri == nrow - 1:
+                _border(tb, "top", "none")
+                _border(tb, "bottom", "single", TOP_BOTTOM_SZ)
+            else:
+                _border(tb, "top", "none")
+                _border(tb, "bottom", "none")
+            _border(tb, "left", "none")
+            _border(tb, "right", "none")
+            tcPr.append(tb)
     for ri, row in enumerate(tbl.rows):
         trPr = row._tr.get_or_add_trPr()
         # 禁止表格行跨页断开；首行在跨页时重复
@@ -144,6 +251,14 @@ for shape in doc.inline_shapes:
         ratio = TEXT_WIDTH / shape.width
         shape.width = TEXT_WIDTH
         shape.height = int(shape.height * ratio)
+
+# ---------- 清除正文段落上的直接间距设置，确保段前段后均为 0 ----------
+BODY_STYLES = {"Normal", "Body Text", "First Paragraph",
+               "Body Text First Indent", "Plain Text"}
+for p in doc.paragraphs:
+    if p.style.name in BODY_STYLES:
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(0)
 
 doc.save(SRC)
 print("finalize done:", SRC)
