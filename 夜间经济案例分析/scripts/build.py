@@ -20,57 +20,8 @@ from content_ch5 import CH5, APPENDIX
 from content_refs import REFDB
 
 
-# ---------------- 引用编号：顺序编码制 ----------------
-import re as _re
-_CIT = _re.compile(r'\[(@[A-Za-z0-9_]+(?:,\s*@[A-Za-z0-9_]+)*)\]')
-_order = []
-
-
-def _fmt(nums):
-    nums = sorted(set(nums))
-    out, i = [], 0
-    while i < len(nums):
-        j = i
-        while j + 1 < len(nums) and nums[j + 1] == nums[j] + 1:
-            j += 1
-        if j - i >= 1:
-            out.append('%d-%d' % (nums[i], nums[j]))
-        else:
-            out.append(str(nums[i]))
-        i = j + 1
-    return '[' + ','.join(out) + ']'
-
-
-def _sub(m):
-    keys = [k.strip().lstrip('@') for k in m.group(1).split(',')]
-    nums = []
-    for k in keys:
-        if k not in REFDB:
-            raise KeyError('未知参考文献键：' + k)
-        if k not in _order:
-            _order.append(k)
-        nums.append(_order.index(k) + 1)
-    return _fmt(nums)
-
-
-def resolve_citations(blocks):
-    out = []
-    for blk in blocks:
-        blk = list(blk)
-        for i, item in enumerate(blk):
-            if isinstance(item, str):
-                blk[i] = _CIT.sub(_sub, item)
-            elif isinstance(item, list):
-                blk[i] = [[_CIT.sub(_sub, c) if isinstance(c, str) else c for c in row]
-                          if isinstance(row, list) else
-                          (_CIT.sub(_sub, row) if isinstance(row, str) else row)
-                          for row in item]
-        out.append(tuple(blk))
-    return out
-
-
 BASE = os.path.dirname(os.path.abspath(__file__))
-FIG = os.path.join(BASE, 'fig')
+FIG = os.path.join(BASE, 'figs')
 USABLE = 14.66
 
 doc = Document()
@@ -223,20 +174,30 @@ para_fmt(p, indent_chars=0, line=1.0)
 p.add_run().add_break(WD_BREAK.PAGE)
 
 # ---------------- 正文 ----------------
-render(resolve_citations(FRONT))
-render(resolve_citations(CH1))
-render(resolve_citations(CH2))
-render(resolve_citations(CH3))
-render(resolve_citations(CH4))
-render(resolve_citations(CH5))
+render(FRONT)
+render(CH1)
+render(CH2)
+render(CH3)
+render(CH4)
+render(CH5)
 
 # ---------------- 参考文献 ----------------
 heading('参考文献', 1)
-REFS = [REFDB[k] for k in _order]
-_uncited = [k for k in REFDB if k not in _order]
-if _uncited:
-    raise SystemExit('存在未被正文引用的文献：%s' % _uncited)
-print('引用文献数：', len(REFS))
+REF_ORDER = [
+    # 一、政策文件与权威报告
+    'sanzhong', 'guoban', 'jxtj', 'ctary',
+    # 二、场景理论中文著作与译著
+    'silver2019', 'wugongtong',
+    # 三、场景理论中文期刊论文
+    'wuye', 'wenwen', 'caozh', 'baixq',
+    # 四、夜间经济与消费升级中文期刊论文
+    'zhoucheng', 'yangyi', 'liyuan', 'zhangcy', 'zhaojj',
+    # 五、外文文献
+    'silverEn', 'silver2010', 'clark2004',
+]
+assert sorted(REF_ORDER) == sorted(REFDB), '参考文献清单不一致'
+REFS = [REFDB[k] for k in REF_ORDER]
+print('参考文献数：', len(REFS))
 for i, r in enumerate(REFS, 1):
     p = doc.add_paragraph()
     para_fmt(p, align=WD_ALIGN_PARAGRAPH.JUSTIFY, indent_chars=0, line=1.4, before=0, after=2)
@@ -251,7 +212,7 @@ for i, r in enumerate(REFS, 1):
 p = doc.add_paragraph()
 para_fmt(p, indent_chars=0, line=1.0)
 p.add_run().add_break(WD_BREAK.PAGE)
-render(resolve_citations(APPENDIX))
+render(APPENDIX)
 
 # 修复默认模板 settings.xml 中缺少 percent 属性的 zoom 元素
 _st = doc.settings.element
