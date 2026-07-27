@@ -29,9 +29,10 @@ ABSTRACT = (
     'in the tasks that remain, not by the mentoring squeeze, which is a late-stage amplifier. '
     'Of four leadership levers, an AI-augmented apprenticeship that restores the learning '
     'content of entry work is 2.5 times more efficient than an entry-hiring subsidy per '
-    'additional senior-year created, and only the integrated portfolio restores conversion '
-    'efficiency to the counterfactual level. The results identify the learning content of '
-    'entry work, rather than the number of entry jobs, as the system’s true leverage point.'
+    'additional senior-year created, and is the only single lever that lifts the pipeline’s '
+    'conversion rate back above its pre-automation level. The results identify the learning '
+    'content of entry work, rather than the number of entry jobs, as the system’s true '
+    'leverage point.'
 )
 
 KEYWORDS = ('system dynamics; generative artificial intelligence; entry-level employment; '
@@ -470,7 +471,9 @@ PART_A = [
       'share ⟪b⟫ of junior quits, loses people to hiring and to discouragement, and its skill '
       'capital accumulates with entry and depreciates at rate ⟪\\delta⟫ while people wait, '
       'with departures removing skill capital in proportion to the current per-head level so '
-      'that the accounting is conservative:'),
+      'that the accounting is conservative. Equations (7) to (10) give the four stocks in '
+      'turn: the entrant pool, the junior stock, the senior stock and the pool’s skill '
+      'capital.'),
 
 ('eq', 'eq7', 7),
 ('eq', 'eq8', 8),
