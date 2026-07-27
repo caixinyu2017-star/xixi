@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """论文2：人工智能应用对青年就业的替代效应与创造效应——仿真数据生成与实证估计。
 
-数据结构模仿2012—2023年中国30个省份面板（不含西藏及港澳台）；人工智能
+数据结构模仿2013—2024年中国30个省份面板（不含西藏及港澳台）；人工智能
 应用水平参照Acemoglu和Restrepo的机器人渗透度构造思路，以国际机器人联合会
 分行业机器人安装量按基期行业就业份额加权到省份；数值由蒙特卡洛仿真生成，
 全部回归结果由本脚本实际估计得到。
 """
 import json
+import os
 import numpy as np
 import pandas as pd
 from linearmodels.panel import PanelOLS
@@ -14,9 +15,9 @@ from linearmodels.iv import IV2SLS
 import statsmodels.formula.api as smf
 
 RNG = np.random.default_rng(20260705)
-YEARS = list(range(2012, 2024))
+YEARS = list(range(2013, 2025))
 T = len(YEARS)
-OUT = "/tmp/claude-0/-home-user-xixi/6b37a25a-9ac4-51b0-95a3-103191b10bff/scratchpad"
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
 
 PROV = [
     "北京", "天津", "河北", "山西", "内蒙古", "辽宁", "吉林", "黑龙江", "上海", "江苏",

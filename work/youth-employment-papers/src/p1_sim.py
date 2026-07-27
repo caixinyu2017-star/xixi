@@ -7,6 +7,7 @@
 脚本实际估计得到。
 """
 import json
+import os
 import numpy as np
 import pandas as pd
 from linearmodels.panel import PanelOLS
@@ -15,7 +16,7 @@ from linearmodels.iv import IV2SLS
 RNG = np.random.default_rng(20260704)
 N_CITY, YEARS = 278, list(range(2012, 2024))
 T = len(YEARS)
-OUT = "/tmp/claude-0/-home-user-xixi/6b37a25a-9ac4-51b0-95a3-103191b10bff/scratchpad"
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
 
 # ============ 1. 城市层面结构特征 ============
 # 区域划分：东部100、中部80、西部98（近似真实地级市分布）
