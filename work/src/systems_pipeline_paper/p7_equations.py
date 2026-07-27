@@ -135,7 +135,7 @@ EQ13 = omath(
          mr('a')) + mr(',    ', upright=True) +
     msub(mr('L'), mr('e')) + op('=') + num('1') + op('−') +
     mdelim(mr('θ') + op('−') + mr('λ')) + mr('A') + mr(',    ', upright=True) +
-    msub(mr('L'), mr('k')) + op('=') + msup(mr('K'), msub(mr('c'), mr('q')))
+    msub(mr('L'), mr('k')) + op('=') + msup(mr('K'), mr('κ'))
 )
 
 # (14) Y = piJ J + q A R + piS (S - V - M)

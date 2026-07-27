@@ -208,7 +208,7 @@ def fig2():
     ax.annotate('', xy=(56, 33.5), xytext=(56, 39.5),
                 arrowprops=dict(arrowstyle='-|>,head_width=0.28,head_length=0.52',
                                 lw=1.8, color='#8a8a8a'))
-    ax.text(59.0, 32.5, 'junior exit  J/τJ', fontsize=6.6, color=MUT,
+    ax.text(59.0, 34.6, 'junior exit  J/τJ', fontsize=6.6, color=MUT,
             ha='left', va='center')
     ax.annotate('', xy=(25, 33.5), xytext=(25, 39.5),
                 arrowprops=dict(arrowstyle='-|>,head_width=0.28,head_length=0.52',
@@ -247,9 +247,6 @@ def fig2():
             ha='center', fontsize=6.5, color=MUT, linespacing=1.5)
 
     ax.annotate('', xy=(85, 22.8), xytext=(85, 39.5),
-                arrowprops=dict(arrowstyle='-|>,head_width=0.24,head_length=0.48',
-                                lw=1.1, color='#b6b6b6'))
-    ax.annotate('', xy=(62.5, 39.5), xytext=(62.5, 22.8),
                 arrowprops=dict(arrowstyle='-|>,head_width=0.24,head_length=0.48',
                                 lw=1.1, color='#b6b6b6'))
     fig.subplots_adjust(left=0.005, right=0.995, top=0.995, bottom=0.005)
@@ -320,16 +317,21 @@ def fig4():
         v = tp.get(key)
         if v:
             ax.axvline(v, color=col, lw=1.0, ls='--')
-            y0 = ax.get_ylim()[0]
+            y0, y1 = ax.get_ylim()
             side = -1 if key == 'A_training_collapse' else 1
-            ax.text(v + 0.012 * side, y0 * 0.98, f'{lab}\nA = {v:.2f}',
-                    fontsize=6.2, color=col, va='bottom',
-                    ha='right' if side < 0 else 'left')
+            ax.text(v + 0.012 * side, y0 + (y1 - y0) * 0.02,
+                    f'{lab}\nA = {v:.2f}', fontsize=6.2, color=col,
+                    va='bottom', ha='right' if side < 0 else 'left')
     ax.set_xlabel('asymptotic automation depth of the entry task bundle  A$_{max}$',
                   fontsize=7.4)
     ax.set_ylabel('deviation at year 30 (%)', fontsize=7.4)
     ax.set_title('Response of the system to automation depth', fontsize=8.4, pad=4)
-    ax.legend(fontsize=6.8, frameon=False, loc='lower left')
+    # label the two curves in place: the panel has no corner free of ink
+    iy = int(np.argmin(np.abs(A - 0.30)))
+    ax.text(A[iy], Y[iy] + 2.4, 'Productive capacity', fontsize=6.8,
+            color=ORANGE, ha='center', va='bottom')
+    ax.text(A[iy], S[iy] - 2.4, 'Senior stock', fontsize=6.8,
+            color=GREEN, ha='center', va='top')
     style(ax)
 
     ax = axes[1]
@@ -413,11 +415,9 @@ def fig5():
     ax.axhline(ccf, color=GREEN, lw=1.0, ls='--')
     ax.text(-0.48, ccf + 0.010, 'counterfactual', fontsize=6.2,
             color=GREEN, ha='left', va='bottom')
-    for b, v in zip(bars, conv):
-        ax.text(b.get_x() + b.get_width() / 2, v - 0.018, f'{v:.3f}',
-                ha='center', va='top', fontsize=6.4, color='white',
-                fontweight='bold')
-    ax.set_xticks(xs); ax.set_xticklabels(lab, fontsize=7.4)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([f'{n}\n{v:.3f}' for n, v in zip(lab, conv)],
+                       fontsize=6.8, linespacing=1.5)
     ax.set_ylabel('promotions per entry hire', fontsize=7.2)
     ax.set_ylim(0, max(max(conv), ccf) * 1.16)
     ax.set_title('Conversion efficiency of the pipeline', fontsize=8.2, pad=4)

@@ -112,17 +112,48 @@ def inline_math(spec):
                      f'<m:sub>{mr(m.group(2))}</m:sub><m:sup>{mr(m.group(3))}</m:sup></m:sSubSup>')
     return omath(mr(spec))
 
+def text_math(spec, sz=20, b=False):
+    """Inline math as ordinary italic runs with real sub/superscripts.
+
+    LibreOffice (and other non-Word readers) ignore w:rPr sizing on OMML runs,
+    so an OMML symbol dropped into a caption, a table cell or a note renders at
+    body size and towers over the surrounding type. Plain runs scale correctly
+    everywhere, which is what small-type blocks need. Display equations stay in
+    OMML, where the size is the paragraph's own."""
+    spec = spec.strip()
+    for k, v in _GREEK.items():
+        spec = spec.replace('\\' + k, v)
+    if '_' in spec and '_{' not in spec:
+        return wrun(spec, sz=sz, b=b, i=True)
+    m = re.fullmatch(r'([^_^]+?)_\{([^}]*)\}\^\{([^}]*)\}', spec)
+    if m:
+        return (wrun(m.group(1), sz=sz, b=b, i=True)
+                + wrun(m.group(2), sz=sz, b=b, i=True, sub=True)
+                + wrun(m.group(3), sz=sz, b=b, i=True, sup=True))
+    m = re.fullmatch(r'([^_^]+?)_\{([^}]*)\}', spec)
+    if m:
+        return (wrun(m.group(1), sz=sz, b=b, i=True)
+                + wrun(m.group(2), sz=sz, b=b, i=True, sub=True))
+    m = re.fullmatch(r'([^_^]+?)\^\{([^}]*)\}', spec)
+    if m:
+        return (wrun(m.group(1), sz=sz, b=b, i=True)
+                + wrun(m.group(2), sz=sz, b=b, i=True, sup=True))
+    return wrun(spec, sz=sz, b=b, i=True)
+
+
 # ---------------------------------------------------------- paragraph helpers
 PALATINO = ('<w:rFonts w:ascii="Palatino Linotype" w:hAnsi="Palatino Linotype" '
             'w:eastAsia="Palatino Linotype"/>')
 
-def wrun(text, sz=20, b=False, i=False, sup=False):
+def wrun(text, sz=20, b=False, i=False, sup=False, sub=False):
     rpr = [PALATINO]
     rpr.append('<w:b/>' if b else '<w:b w:val="0"/>')
     rpr.append('<w:i/>' if i else '<w:i w:val="0"/>')
     rpr.append(f'<w:sz w:val="{sz}"/>')
     if sup:
         rpr.append('<w:vertAlign w:val="superscript"/>')
+    if sub:
+        rpr.append('<w:vertAlign w:val="subscript"/>')
     sp = ' xml:space="preserve"' if text != text.strip() else ''
     return f'<w:r><w:rPr>{"".join(rpr)}</w:rPr><w:t{sp}>{escape(text)}</w:t></w:r>'
 
@@ -148,7 +179,10 @@ def rich_runs(text, refmap, sz=20, b=False, i=False):
     for m in IMATH_RE.finditer(text):
         if m.start() > pos:
             out.append(wrun(text[pos:m.start()], sz=sz, b=b, i=i))
-        out.append(_size_math(inline_math(m.group(1)), sz))
+        if sz == 20:
+            out.append(_size_math(inline_math(m.group(1)), sz))
+        else:
+            out.append(text_math(m.group(1), sz=sz, b=b))
         pos = m.end()
     if pos < len(text):
         out.append(wrun(text[pos:], sz=sz, b=b, i=i))
