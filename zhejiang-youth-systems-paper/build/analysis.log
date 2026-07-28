@@ -1,0 +1,50 @@
+[1] baseline and validation
+    NER 2025 = 0.1754, NER 2040 = 0.3889, RMSPE = 0.0180
+  integration check: {'dt=1/6': 0.388935, 'dt=1/12': 0.388935, 'dt=1/24': 0.388935, 'dt=1/48': 0.388935}
+[2] moving attractor, continuation and shock persistence
+  continuation kappa  max forward-backward NER gap 0.0000 (fold: False)
+  continuation Pi     max forward-backward NER gap 0.0000 (fold: False)
+  uniqueness scan: maximum number of fixed points found = 1
+  attractor NER* drifts 0.119 (2015) -> 0.478 (2040); slowest tau = 8.00 yr
+  attractor-state gap in 2040 = 0.089; mean horizontal lag = 2.00 yr
+  shock: peak excess NER 0.1370 in 2029.0, recovery half-life 1.67 yr, excess after 10 yr 0.0043
+[3] loop knockout
+  deactivate R1 Skill decay while searching   NER 0.3580  dNER -0.0310  dDUR -0.590
+  deactivate R2 Queue-skill erosion           NER 0.3629  dNER -0.0260  dDUR -0.490
+  deactivate R3 Threshold escalation          NER 0.3462  dNER -0.0428  dDUR -0.811
+  deactivate R4 Thin-market offer quality     NER 0.3542  dNER -0.0348  dDUR -0.554
+  deactivate B2 Aspiration adjustment         NER 0.4662  dNER +0.0773  dDUR +1.511
+  deactivate B3 Exam-queue congestion         NER 0.4909  dNER +0.1020  dDUR +1.796
+[4] Monte Carlo
+    NER 2040: mean 0.3858, 95% CI [0.1601, 0.6487]
+[5] Sobol indices
+  Sobol NER kappa     S1=0.357 ST=0.358
+  Sobol NER eps_pw    S1=0.146 ST=0.184
+  Sobol NER gPhi      S1=0.113 ST=0.132
+  Sobol NER zeta      S1=0.113 ST=0.118
+  Sobol NER kappa2    S1=0.101 ST=0.116
+[6] meta-models
+  logit AUC=0.994  Nagelkerke R2=0.929  trap rate=0.541
+  CART cv-AUC=0.862, 16 leaves, alpha=0
+[7] policy experiments
+  P5 Threshold moderation  dNER -0.1066 [-0.1866,-0.0288]  dDUR -2.435  p=2.7e-67
+  P3 Expectation guidance  dNER -0.0410 [-0.0788,-0.0103]  dDUR -0.834  p=2.7e-67
+  P2 Matching efficiency   dNER -0.0277 [-0.0477,-0.0122]  dDUR -0.625  p=2.7e-67
+  P4 Vacancy creation      dNER -0.0060 [-0.0089,-0.0026]  dDUR -0.133  p=2.7e-67
+  P1 Skill upgrading       dNER -0.0044 [-0.0102,-0.0012]  dDUR -0.118  p=2.7e-67
+  best combination: P5 Threshold moderation x2 dNER -0.2043
+  P3 Expectation guidance / P1 Skill upgrading         A-first       NER_T 0.3359  mean 0.2228
+  P3 Expectation guidance / P1 Skill upgrading         B-first       NER_T 0.3123  mean 0.2495
+  P3 Expectation guidance / P1 Skill upgrading         simultaneous  NER_T 0.3297  mean 0.2372
+  P1 Skill upgrading / P2 Matching efficiency          A-first       NER_T 0.3385  mean 0.2520
+  P1 Skill upgrading / P2 Matching efficiency          B-first       NER_T 0.3777  mean 0.2492
+  P1 Skill upgrading / P2 Matching efficiency          simultaneous  NER_T 0.3560  mean 0.2488
+  P3 Expectation guidance / P2 Matching efficiency     A-first       NER_T 0.2982  mean 0.2094
+  P3 Expectation guidance / P2 Matching efficiency     B-first       NER_T 0.3101  mean 0.2316
+  P3 Expectation guidance / P2 Matching efficiency     simultaneous  NER_T 0.3079  mean 0.2210
+[8] archetypes
+  A. Digital core (Hangzhou-type)                    NER2040 0.581 -> 0.447 via P5 Threshold moderation
+  B. Advanced manufacturing (Ningbo-Jiaxing-type)    NER2040 0.361 -> 0.233 via P5 Threshold moderation
+  C. Peripheral labour-exporting (south-west Zhejian NER2040 0.220 -> 0.163 via P5 Threshold moderation
+
+written stats.json

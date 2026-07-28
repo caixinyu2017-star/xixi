@@ -1,0 +1,139 @@
+{
+ "loss": 0.003013241622142937,
+ "moments": [
+  {
+   "moment": "NER",
+   "year": 2015,
+   "target": 0.115,
+   "simulated": 0.11902204117835305,
+   "rel_error": 0.03497427111611343,
+   "weight": 1.0,
+   "source": "NBS urban surveyed unemployment, aged 16-24, 2015"
+  },
+  {
+   "moment": "SEflow",
+   "year": 2015,
+   "target": 0.06,
+   "simulated": 0.05983640193885957,
+   "rel_error": -0.0027266343523404497,
+   "weight": 1.0,
+   "source": "graduate destination surveys, mid-2010s"
+  },
+  {
+   "moment": "MM",
+   "year": 2015,
+   "target": 0.18,
+   "simulated": 0.18339964147286827,
+   "rel_error": 0.018886897071490452,
+   "weight": 1.0,
+   "source": "graduate over-education literature, mid-2010s"
+  },
+  {
+   "moment": "NER",
+   "year": 2025,
+   "target": 0.18,
+   "simulated": 0.17541830237428366,
+   "rel_error": -0.025453875698424087,
+   "weight": 1.6,
+   "source": "NBS 16-24 excl. students, 2025 average"
+  },
+  {
+   "moment": "SEflow",
+   "year": 2025,
+   "target": 0.191,
+   "simulated": 0.19120884177746467,
+   "rel_error": 0.0010934124474589705,
+   "weight": 1.6,
+   "source": "Zhaopin graduate survey 2024, slow-employment share"
+  },
+  {
+   "moment": "MM",
+   "year": 2025,
+   "target": 0.24,
+   "simulated": 0.23587909343023733,
+   "rel_error": -0.017170444040677756,
+   "weight": 1.2,
+   "source": "vertical mismatch among Chinese graduates"
+  },
+  {
+   "moment": "RATIO",
+   "year": 2025,
+   "target": 96.0,
+   "simulated": 96.6216977133933,
+   "rel_error": 0.006476017847846904,
+   "weight": 0.8,
+   "source": "national civil-service exam competition ratio, 2026"
+  }
+ ],
+ "params": {
+  "Phi0": 30.0,
+  "gPhi": 0.05,
+  "omega": 0.125,
+  "V0": 38.0,
+  "gV": 0.03,
+  "phi": 1.6,
+  "Psi0": 0.09,
+  "PsiMax": 0.2,
+  "rPsi": 0.08,
+  "theta0": 0.5,
+  "kappa": 2.2,
+  "kappa2": 0.15,
+  "mu": 9.657172456370946,
+  "alpha": 0.5,
+  "beta_s": 6.0,
+  "sigma0": 0.6466515685218621,
+  "beta_sig": 4.0,
+  "dmin": 0.25,
+  "q0": 0.56,
+  "gammaq": 0.2,
+  "beta_a": 7.0,
+  "Aanch": 0.82,
+  "zeta": 0.55,
+  "lam": 0.18,
+  "hnew": 0.62,
+  "hmax": 0.88,
+  "deltaH": 0.06,
+  "chi": 0.88,
+  "tau": 0.02,
+  "Pi": 1.3319080656204756,
+  "eps_pw": 0.39114288125645136,
+  "beta_c": 40.0,
+  "nu": 0.932326151934106,
+  "nur": 0.45,
+  "xi": 0.003,
+  "deltaM": 0.1,
+  "deltaU": 0.28
+ },
+ "free": [
+  "mu",
+  "Pi",
+  "nu",
+  "sigma0",
+  "eps_pw"
+ ],
+ "y0_2015": [
+  25.40835360283819,
+  3.156936279966542,
+  172.6576600865984,
+  38.77705003059685,
+  0.5917071791336619,
+  0.6499534256470517
+ ],
+ "eig_real": [
+  -3.6345885796751585,
+  -1.5734738915930777,
+  -0.8940328913896528,
+  -0.12500000001858277,
+  -0.2828069699273646,
+  -0.20923712688332374
+ ],
+ "eig_imag": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "regime": "stable"
+}
