@@ -82,114 +82,144 @@ def arrow(ax, p0, p1, color=NAVY, rad=0.0, lw=1.15, ls="-", label=None,
 
 
 # ================================================================== Figure 1
+def poly(ax, pts, color=NAVY, lw=1.15, dashed=False, label=None, lxy=None,
+         fs=7.8, zorder=5):
+    """An orthogonal connector: straight segments, arrowhead on the last one."""
+    ls = (0, (4.5, 2.6)) if dashed else "-"
+    for i in range(len(pts) - 2):
+        ax.plot([pts[i][0], pts[i + 1][0]], [pts[i][1], pts[i + 1][1]],
+                color=color, lw=lw, ls=ls, solid_capstyle="round",
+                zorder=zorder)
+    ax.add_patch(FancyArrowPatch(pts[-2], pts[-1], arrowstyle="-|>",
+                                 mutation_scale=11, lw=lw, color=color,
+                                 linestyle=ls, shrinkA=0, shrinkB=3.0,
+                                 zorder=zorder))
+    if label:
+        ax.text(lxy[0], lxy[1], label, ha="center", va="center", fontsize=fs,
+                color=color, zorder=9, path_effects=HALO)
+
+
 def figure1():
-    fig, (ax, bx) = plt.subplots(2, 1, figsize=(6.9, 6.5),
-                                 gridspec_kw=dict(height_ratios=[1.0, 1.06]))
+    fig, ax = plt.subplots(2, 1, figsize=(7.2, 8.0),
+                           gridspec_kw=dict(height_ratios=[1.0, 1.12]))
 
-    # ---------------------------------------------------------- panel (a)
-    ax.set_xlim(0, 10.4)
-    ax.set_ylim(0.0, 5.4)
-    ax.axis("off")
-    ax.text(0.0, 5.32, "(a)  Worker flows across the two tiers of the ladder",
-            fontsize=9.2, fontweight="bold", ha="left", va="top", color=INK)
+    # ------------------------------------------------------- panel (a)
+    a = ax[0]
+    a.set_xlim(0, 14.4); a.set_ylim(0, 8.0); a.axis("off")
+    a.text(0.0, 7.92, "(a)  Worker flows across the two tiers of the ladder",
+           fontsize=9.6, fontweight="bold", ha="left", va="top", color=INK)
 
-    uj = box(ax, 2.75, 4.05, 2.25, 0.82,
-             "Entry-level\njobseekers  $u_j$", ec=NAVY)
-    ej = box(ax, 6.75, 4.05, 2.25, 0.82,
-             "Entry-level\nemployed  $e_j$", ec=NAVY, fc="#eef2f9")
-    us = box(ax, 2.75, 1.50, 2.25, 0.82,
-             "Experienced\njobseekers  $u_s$", ec=RUST)
-    es = box(ax, 6.75, 1.50, 2.25, 0.82,
-             "Experienced\nemployed  $e_s$", ec=RUST, fc="#fbeeea")
+    C1, C2, W, H = 3.4, 10.0, 3.4, 1.05
+    R1, R2 = 5.7, 2.4
+    hw, hh = W / 2, H / 2
 
-    cloud(ax, 0.52, 4.05, s=0.26)
-    ax.text(0.52, 3.42, "new\nentrants", ha="center", va="top", fontsize=7.8,
-            color=GREY)
-    arrow(ax, (0.98, 4.05), anchor(uj, "l"), color=GREY, label=r"$\omega$",
-          loff=(0.0, 0.24))
+    a.add_patch(FancyBboxPatch((0.15, 4.85), 14.1, 2.15,
+                               boxstyle="round,pad=0.02,rounding_size=0.10",
+                               fc="#f7f9fc", ec="none", zorder=0))
+    a.add_patch(FancyBboxPatch((0.15, 1.15), 14.1, 2.15,
+                               boxstyle="round,pad=0.02,rounding_size=0.10",
+                               fc="#fbf7f4", ec="none", zorder=0))
+    a.text(0.32, 6.92, "ENTRY-LEVEL TIER", ha="left", va="top", fontsize=7.6,
+           color=NAVY, fontweight="bold")
+    a.text(0.32, 3.22, "EXPERIENCED TIER", ha="left", va="top", fontsize=7.6,
+           color=RUST, fontweight="bold")
 
-    arrow(ax, anchor(uj, "r", 0.55), anchor(ej, "l", 0.55), rad=-0.26,
-          color=NAVY, label=r"hiring  $f_j=\mu_j\theta_j^{1-\eta}$",
-          loff=(0.0, 0.28))
-    arrow(ax, anchor(ej, "l", -0.55), anchor(uj, "r", -0.55), rad=-0.26,
-          color=NAVY, label=r"separation  $\delta_j$", loff=(0.0, -0.28))
+    box(a, C1, R1, W, H, "Entry-level jobseekers\n$u_j$", ec=NAVY)
+    box(a, C2, R1, W, H, "Entry-level employed\n$e_j$", ec=NAVY, fc="#eef2f9")
+    box(a, C1, R2, W, H, "Experienced jobseekers\n$u_s$", ec=RUST)
+    box(a, C2, R2, W, H, "Experienced employed\n$e_s$", ec=RUST, fc="#fbeeea")
 
-    arrow(ax, anchor(us, "r", 0.55), anchor(es, "l", 0.55), rad=-0.26,
-          color=RUST, label=r"hiring  $f_s=\mu_s\theta_s^{1-\eta}$",
-          loff=(0.0, 0.28))
-    arrow(ax, anchor(es, "l", -0.55), anchor(us, "r", -0.55), rad=-0.26,
-          color=RUST, label=r"separation  $\delta_s$", loff=(0.0, -0.28))
+    cloud(a, 0.80, R1, s=0.22)
+    a.text(0.80, R1 - 0.66, "new entrants\n$\\omega$", ha="center", va="top",
+           fontsize=7.4, color=GREY, linespacing=1.3)
+    poly(a, [(1.22, R1), (C1 - hw, R1)], color=GREY, lw=1.05)
 
-    arrow(ax, anchor(ej, "b"), anchor(es, "t"), color=TEAL, lw=1.9,
-          label=r"promotion  $\pi(m)=\bar\pi m^{\psi}$", loff=(1.72, 0.0),
-          fs=8.4)
+    poly(a, [(C1 + hw, R1 + 0.24), (C2 - hw, R1 + 0.24)], color=NAVY,
+         label="hiring  $f_j=\\mu_j\\theta_j^{1-\\eta}$", lxy=(6.7, R1 + 0.60))
+    poly(a, [(C2 - hw, R1 - 0.24), (C1 + hw, R1 - 0.24)], color=NAVY,
+         label="separation  $\\delta_j$", lxy=(6.7, R1 - 0.58))
+    poly(a, [(C1 + hw, R2 + 0.24), (C2 - hw, R2 + 0.24)], color=RUST,
+         label="hiring  $f_s=\\mu_s\\theta_s^{1-\\eta}$", lxy=(6.7, R2 + 0.60))
+    poly(a, [(C2 - hw, R2 - 0.24), (C1 + hw, R2 - 0.24)], color=RUST,
+         label="separation  $\\delta_s$", lxy=(6.7, R2 - 0.58))
 
-    # poaching loop on the senior box
-    a = FancyArrowPatch((7.88, 1.82), (7.88, 1.18),
-                        connectionstyle="arc3,rad=-1.25", arrowstyle="-|>",
-                        mutation_scale=10, lw=1.15, color=GOLD, zorder=5,
-                        shrinkA=2, shrinkB=2)
-    ax.add_patch(a)
-    ax.text(9.45, 1.50, "poached by\nrival firms\nat rate $\\phi$",
-            ha="center", va="center", fontsize=7.8, color=GOLD,
-            path_effects=HALO)
+    poly(a, [(C2, R1 - hh), (C2, R2 + hh)], color=TEAL, lw=1.9,
+         label="promotion\n$\\pi(m)=\\bar\\pi m^{\\psi}$", lxy=(11.9, 4.05),
+         fs=8.0)
 
-    for b, sgn in ((uj, -1), (ej, 1), (us, -1), (es, 1)):
-        arrow(ax, anchor(b, "b", 0.72 * sgn),
-              (b["x"] + 0.62 * sgn, b["y"] - 0.95), color=GREY, lw=0.85,
-              dashed=True)
-    ax.text(5.30, 0.28, r"dashed arrows: exit from the labour force at rate "
-                        r"$\omega$",
-            ha="center", va="center", fontsize=7.8, color=GREY)
+    poly(a, [(C2 + hw, R2), (12.45, R2)], color=GOLD, lw=1.15)
+    a.text(12.65, R2, "poached by\nrivals at $\\phi$", ha="left", va="center",
+           fontsize=7.4, color=GOLD, linespacing=1.3)
 
-    # ---------------------------------------------------------- panel (b)
-    bx.set_xlim(0, 10.4)
-    bx.set_ylim(0.0, 5.3)
-    bx.axis("off")
-    bx.text(0.0, 5.22, "(b)  Technology: the joint product of an entry-level job",
-            fontsize=9.2, fontweight="bold", ha="left", va="top", color=INK)
+    a.text(7.2, 0.42,
+           "Promotion is the only source of experienced workers.  "
+           "All four states exit the labour force at rate $\\omega$.",
+           ha="center", va="center", fontsize=8.0, color=INK)
 
-    esb = box(bx, 1.45, 4.30, 2.30, 0.60, "Experienced labour  $e_s$", ec=RUST,
-              fs=8.2)
-    men = box(bx, 5.00, 4.30, 2.85, 0.62,
-              "Mentoring:  $m$ senior hours\nper entry-level worker", ec=TEAL,
-              fc="#eaf4f2", fs=7.8)
-    pro = box(bx, 8.65, 4.30, 2.75, 0.60,
-              "Promotion  $\\pi(m)=\\bar\\pi m^{\\psi}$", ec=TEAL, fc="#eaf4f2",
-              fs=8.2)
-    arrow(bx, anchor(esb, "r"), anchor(men, "l"), color=RUST, fs=7.4,
-          label="senior time", loff=(0.0, 0.22))
-    arrow(bx, anchor(men, "r"), anchor(pro, "l"), color=TEAL, lw=1.6, fs=7.4,
-          label="the only source of seniors", loff=(0.0, 0.62))
-    bx.text(8.65, 3.86, "$\\rightarrow$ feeds the promotion flow in panel (a)",
-            ha="center", va="top", fontsize=7.4, color=TEAL)
+    # ------------------------------------------------------- panel (b)
+    b = ax[1]
+    b.set_xlim(0, 14.4); b.set_ylim(0, 9.0); b.axis("off")
+    b.text(0.0, 8.92, "(b)  Technology: the joint product of an entry-level job",
+           fontsize=9.6, fontweight="bold", ha="left", va="top", color=INK)
 
-    ejb = box(bx, 1.45, 2.72, 2.30, 0.56, "Entry-level labour  $e_j$", ec=NAVY,
-              fs=8.2)
-    ai = box(bx, 1.45, 1.62, 2.30, 0.56, "AI input  $A$", ec=GOLD, fs=8.2,
+    K1, K2, K3 = 2.9, 7.9, 12.2
+    BW, BH = 3.6, 1.05
+    bhw, bhh = BW / 2, BH / 2
+
+    b.add_patch(FancyBboxPatch((0.15, 3.05), 14.1, 4.55,
+                               boxstyle="round,pad=0.02,rounding_size=0.10",
+                               fc="#f7f9fc", ec="none", zorder=0))
+    b.add_patch(FancyBboxPatch((0.15, 0.70), 14.1, 1.85,
+                               boxstyle="round,pad=0.02,rounding_size=0.10",
+                               fc="#eef6f4", ec="none", zorder=0))
+    b.text(0.32, 7.52, "PRODUCTION", ha="left", va="top", fontsize=7.6,
+           color=NAVY, fontweight="bold")
+    b.text(0.32, 2.48, "TRAINING", ha="left", va="top", fontsize=7.6,
+           color=TEAL, fontweight="bold")
+
+    ej = box(b, K1, 6.55, BW, BH, "Entry-level labour\n$e_j$", ec=NAVY)
+    ai = box(b, K1, 4.95, BW, BH, "Artificial intelligence\n$A$", ec=GOLD,
              fc="#fdf6e7")
-    xj = box(bx, 5.60, 2.20, 2.60, 0.68,
-             "Entry-level tasks\n$X_j=e_j+\\chi A$", ec=NAVY, fc="#eef2f9",
-             fs=8.2)
-    xs = box(bx, 5.60, 0.62, 2.60, 0.68,
-             "Experienced tasks\n$X_s=e_s-m\\,e_j$", ec=RUST, fc="#fbeeea",
-             fs=8.2)
-    yb = box(bx, 8.90, 1.42, 2.50, 0.82,
-             "Output\n$Y=Z\\,[\\alpha X_j^{\\rho}+(1-\\alpha)"
-             "X_s^{\\rho}]^{s/\\rho}$", ec=INK, fs=7.6)
+    xj = box(b, K2, 5.75, BW, BH, "Entry-level tasks\n$X_j=e_j+\\chi A$",
+             ec=NAVY, fc="#eef2f9")
+    xs = box(b, K2, 3.65, BW, BH, "Experienced tasks\n$X_s=e_s-m\\,e_j$",
+             ec=RUST, fc="#fbeeea")
+    yy = box(b, K3, 4.70, BW - 0.3, BH + 0.20,
+             "Output\n$Y=Z[\\alpha X_j^{\\rho}+(1-\\alpha)X_s^{\\rho}]^{s/\\rho}$",
+             ec=INK, fs=8.0)
+    es = box(b, K1, 1.55, BW, BH, "Experienced labour\n$e_s$", ec=RUST)
+    mm = box(b, K2, 1.55, BW, BH, "Mentoring\n$m$ hours per entrant", ec=TEAL,
+             fc="#eaf4f2")
+    box(b, K3, 1.55, BW - 0.3, BH, "Promotion hazard\n$\\pi(m)=\\bar\\pi m^{\\psi}$",
+        ec=TEAL, fc="#eaf4f2")
 
-    arrow(bx, anchor(ejb, "r"), anchor(xj, "l", 0.55), color=NAVY, rad=-0.10)
-    arrow(bx, anchor(ai, "r"), anchor(xj, "l", -0.55), color=GOLD, rad=0.10,
-          label="substitutes", loff=(0.20, -0.26), fs=7.4)
-    arrow(bx, anchor(xj, "r"), anchor(yb, "l", 0.55), color=NAVY, rad=-0.10)
-    arrow(bx, anchor(xs, "r"), anchor(yb, "l", -0.55), color=RUST, rad=0.10)
-    # mentoring diverts senior time: routed through the free left corridor
-    arrow(bx, (3.66, 4.00), (4.30, 0.68), color=TEAL, rad=0.40, dashed=True,
-          lw=1.0, label="diverts\n$m\\,e_j$ hours", loff=(-0.80, -0.22), fs=7.4)
-    bx.text(1.45, 0.62, "AI raises $X_j$\nbut cannot raise $\\pi$",
-            ha="center", va="center", fontsize=8.2, color=GOLD, style="italic")
+    poly(b, [(K1 + bhw, 6.55), (5.55, 6.55), (5.55, 5.75), (K2 - bhw, 5.75)],
+         color=NAVY, lw=1.15)
+    poly(b, [(K1 + bhw, 4.95), (5.55, 4.95), (5.55, 5.75 - 0.30),
+             (K2 - bhw, 5.75 - 0.30)], color=GOLD, lw=1.15,
+         label="substitutes", lxy=(5.45, 4.52), fs=7.6)
+    poly(b, [(K1, 1.55 + bhh), (K1, 3.65), (K2 - bhw, 3.65)], color=RUST,
+         lw=1.15)
+    poly(b, [(K2 + bhw, 5.75), (10.25, 5.75), (10.25, 4.70 + 0.28),
+             (K3 - bhw + 0.15, 4.70 + 0.28)], color=NAVY, lw=1.15)
+    poly(b, [(K2 + bhw, 3.65), (10.25, 3.65), (10.25, 4.70 - 0.28),
+             (K3 - bhw + 0.15, 4.70 - 0.28)], color=RUST, lw=1.15)
 
-    fig.tight_layout(h_pad=1.0)
+    poly(b, [(K1 + bhw, 1.55), (K2 - bhw, 1.55)], color=TEAL, lw=1.15,
+         label="diverts senior time", lxy=(5.40, 2.24), fs=7.6)
+    poly(b, [(K2 + bhw, 1.55), (K3 - bhw + 0.15, 1.55)], color=TEAL, lw=1.6,
+         label="the only source of\nexperienced workers", lxy=(10.05, 2.34),
+         fs=7.4)
+    poly(b, [(K2 - 1.15, 1.55 + bhh), (K2 - 1.15, 3.65 - bhh)], color=TEAL,
+         lw=1.05, dashed=True, label="$-\\,m\\,e_j$", lxy=(7.42, 2.72),
+         fs=7.6)
+
+    b.text(7.2, 0.28,
+           "Artificial intelligence raises $X_j$ but cannot raise $\\pi$: it "
+           "enters the production block and never the training block.",
+           ha="center", va="center", fontsize=8.0, color=INK)
+
+    fig.tight_layout(h_pad=1.2)
     out = os.path.join(FIGS, "fig1_structure.png")
     fig.savefig(out)
     plt.close(fig)
@@ -203,17 +233,17 @@ def figure2():
     Block heights are illustrative; the estimated magnitudes are reported in
     Section 4 and shown in Figure 3.
     """
-    fig, ax = plt.subplots(figsize=(6.9, 4.1))
-    ax.set_xlim(0, 10.6)
+    fig, ax = plt.subplots(figsize=(7.2, 4.1))
+    ax.set_xlim(0, 12.0)
     ax.set_ylim(0, 6.25)
     ax.axis("off")
 
-    ax.text(0.0, 6.18, "The return to an entry-level match, and the two wedges "
-                       "that shrink it",
+    ax.text(0.0, 6.18, "The return to an entry-level match, and the two "
+                       "wedges that shrink it",
             fontsize=9.4, fontweight="bold", ha="left", va="top", color=INK)
 
     W, BASE_Y = 2.00, 1.25
-    XS, XP = 2.10, 7.05
+    XS, XP = 2.10, 8.70
     OUT_H, SOC_H = 1.55, 2.05
     PRIV_H, HOLD_H, POACH_H = 0.86, 0.72, 0.47
 
@@ -253,17 +283,18 @@ def figure2():
             fontsize=7.6, color=GREY, style="italic")
 
     # --- the two wedges, explained between the columns
-    hb = box(ax, 4.56, 3.42, 2.52, 0.80,
+    hb = box(ax, 5.15, 3.42, 3.00, 0.80,
              "hold-up: mentoring is chosen\nafter the wage is set, so the firm\n"
              "keeps only a share $1-\\beta$", ec=TEAL, fc="#eaf4f2", fs=7.0)
-    pb = box(ax, 4.56, 4.72, 2.52, 0.80,
+    pb = box(ax, 5.15, 4.72, 3.00, 0.80,
              "poaching: the trained worker is lost\nto rivals at rate $\\phi$, which "
              "the firm\ndiscounts and society does not", ec=GOLD,
              fc="#fdf6e7", fs=7.0)
-    arrow(ax, anchor(hb, "r"), (XP - W / 2 - 0.03, y_hold), color=TEAL,
-          lw=1.0, dashed=True, rad=-0.14, zorder=6)
-    arrow(ax, anchor(pb, "r"), (XP - W / 2 - 0.03, y_poach), color=GOLD,
-          lw=1.0, dashed=True, rad=0.14, zorder=6)
+    LH, LP = 6.95, 7.25            # two lanes, so the connectors never meet
+    poly(ax, [anchor(hb, "r"), (LH, 3.42), (LH, y_hold),
+              (XP - W / 2 - 0.02, y_hold)], color=TEAL, lw=1.15, zorder=6)
+    poly(ax, [anchor(pb, "r"), (LP, 4.72), (LP, y_poach),
+              (XP - W / 2 - 0.02, y_poach)], color=GOLD, lw=1.15, zorder=6)
     ax.text(XP + W / 2 + 0.16, y_hold, "lost to\nhold-up", ha="left",
             va="center", fontsize=7.4, color=TEAL, linespacing=1.3)
     ax.text(XP + W / 2 + 0.16, y_poach, "lost to\npoaching", ha="left",
@@ -277,10 +308,10 @@ def figure2():
             ha="center", va="center", fontsize=7.4, color=TEAL,
             fontweight="bold", linespacing=1.35)
 
-    ax.add_patch(FancyBboxPatch((0.10, 0.06), 10.40, 0.62,
+    ax.add_patch(FancyBboxPatch((0.10, 0.06), 11.80, 0.62,
                                 boxstyle="round,pad=0.03,rounding_size=0.08",
                                 fc="#f4f4f4", ec=GREY, lw=0.8, zorder=1))
-    ax.text(5.30, 0.37,
+    ax.text(6.00, 0.37,
             "AI shrinks the block that firms price correctly and leaves "
             "untouched the block they under-price. The case for hiring an\n"
             "entry-level worker therefore comes to rest entirely on the "

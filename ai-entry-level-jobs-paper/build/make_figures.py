@@ -43,11 +43,20 @@ def idx(s):
     return 100.0 * s / s.iloc[0]
 
 
+def below(a, ncol=1, y=-0.30, fs=7.0, handles=None, labels=None):
+    """Legend under the panel.  Inside the axes it would cover the series."""
+    if handles is None:
+        handles, labels = a.get_legend_handles_labels()
+    a.legend(handles, labels, frameon=False, ncol=ncol, loc="upper center",
+             bbox_to_anchor=(0.5, y), fontsize=fs, handlelength=1.8,
+             columnspacing=1.2, borderaxespad=0.0)
+
+
 # ------------------------------------------------------------------ fig 3
 def fig_ai_path():
     d = pd.read_csv(os.path.join(DATA, "ai_path.csv"))
     x = 100 * d["ai_share"]
-    fig, ax = plt.subplots(2, 2, figsize=(6.9, 4.9))
+    fig, ax = plt.subplots(2, 2, figsize=(6.9, 5.4))
 
     a = ax[0, 0]
     a.plot(x, idx(d["emp_rate_j"]), color=NAVY, label="Entry-level employment rate")
@@ -55,7 +64,7 @@ def fig_ai_path():
     a.axhline(100, color=GREY, lw=0.6, ls=":")
     a.set_ylabel("Index, baseline = 100")
     a.set_title("(a) Where the shock lands", loc="left")
-    a.legend(frameon=False, loc="lower left")
+    below(a)
 
     a = ax[0, 1]
     a.plot(x, idx(d["m"]), color=TEAL, label="Mentoring per entrant")
@@ -64,7 +73,7 @@ def fig_ai_path():
     a.axhline(100, color=GREY, lw=0.6, ls=":")
     a.set_ylabel("Index, baseline = 100")
     a.set_title("(b) The training response", loc="left")
-    a.legend(frameon=False, loc="center left")
+    below(a)
 
     a = ax[1, 0]
     a.plot(x, idx(d["throughput"]), color=TEAL, label="Promotion flow")
@@ -72,8 +81,8 @@ def fig_ai_path():
     a.axhline(100, color=GREY, lw=0.6, ls=":")
     a.set_ylabel("Index, baseline = 100")
     a.set_ylim(95, 106)
-    a.set_title("(c) The ladder's output", loc="left")
-    a.legend(frameon=False, loc="lower right")
+    a.set_title("(c) The ladder\'s output", loc="left")
+    below(a)
 
     a = ax[1, 1]
     a.plot(x, 1.0 + d["wedge_mentoring"], color=TEAL,
@@ -86,12 +95,12 @@ def fig_ai_path():
     a2.spines["top"].set_visible(False)
     h1, l1 = a.get_legend_handles_labels()
     h2, l2 = a2.get_legend_handles_labels()
-    a.legend(h1 + h2, l1 + l2, frameon=False, loc="upper right")
+    below(a, handles=h1 + h2, labels=l1 + l2)
 
     for a in ax.ravel():
         a.set_xlabel("AI share of the entry-level task bundle (%)")
         a.margins(x=0.02)
-    fig.tight_layout(w_pad=2.0, h_pad=1.3)
+    fig.tight_layout(w_pad=2.2, h_pad=1.6)
     save(fig, "fig3_ai_path.png")
 
 
