@@ -407,12 +407,16 @@ PART_A = [
           '1 shows the seven states and the flows between them.'),
 
     ('figure', 'fig1_structure.png', 1,
-     'Structure of the model. The rationed sector cannot expand: its headcount '
-     'is fixed at ⟪\\bar{N}⟫ by administrative rule, so its only vacancies are '
-     'its separations plus its retirements. An age ceiling on the examinations '
-     'means that only the young queue. The market sector has free entry, so '
-     'its tightness ⟪\\theta⟫ adjusts. Dashed arrows are ageing and '
-     'retirement.'),
+     'Structure of the model. Solid arrows are matching flows, dashed arrows '
+     'are ageing, separation and retirement. The rationed sector cannot '
+     'expand: its headcount is fixed at ⟪\\bar{N}⟫ by administrative rule, so '
+     'its only vacancies are its separations plus its retirements. An age '
+     'ceiling on the examinations means that only the young queue, and the '
+     'young who age out of the queue without a post join open search. The '
+     'market sector has free entry, so its tightness ⟪\\theta⟫ adjusts. Every '
+     'prime-age state exits to retirement at rate ⟪\\rho⟫; the figure draws '
+     'the flow only from the rationed sector, which is the one the reform '
+     'acts through.'),
 
     ('h2', '3.1. Matching and Flows'),
 

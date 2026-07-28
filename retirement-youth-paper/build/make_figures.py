@@ -43,7 +43,15 @@ def save(fig, name):
 def fig_reform_path():
     d = pd.read_csv(os.path.join(DATA, "reform_path.csv"))
     x = d["year"]
-    fig, ax = plt.subplots(2, 2, figsize=(6.9, 4.9))
+    fig, ax = plt.subplots(2, 2, figsize=(6.9, 5.3))
+
+    # legends sit below their panel: inside the axes they would cover the
+    # series, and a flat series covered by a legend is exactly what this
+    # figure is about.
+    def below(a, handles, labels, ncol=2, y=-0.30, fs=7.2):
+        a.legend(handles, labels, frameon=False, ncol=ncol, loc="upper center",
+                 bbox_to_anchor=(0.5, y), fontsize=fs, handlelength=1.9,
+                 columnspacing=1.4, borderaxespad=0.0)
 
     a = ax[0, 0]
     a.plot(x, 100 * d["u_rate_y"], color=NAVY, label="Youth (16–24)")
@@ -51,7 +59,7 @@ def fig_reform_path():
     a.set_ylabel("Unemployment rate (%)")
     a.set_title("(a) The headline indicators", loc="left")
     a.set_ylim(0, 20)
-    a.legend(frameon=False, loc="center left")
+    below(a, *a.get_legend_handles_labels())
 
     a = ax[0, 1]
     a.plot(x, 100 * d["cohort_entry_Q"], color=GOLD)
@@ -64,12 +72,12 @@ def fig_reform_path():
     a.set_title("(c) The queue", loc="left")
     a2 = a.twinx()
     a2.plot(x, 100 * d["queue_share"], color=NAVY, ls="--",
-            label="Queue share of youth non-employment")
+            label="Queue share of youth non-employment (right axis)")
     a2.set_ylabel("Per cent")
     a2.spines["top"].set_visible(False)
     h1, l1 = a.get_legend_handles_labels()
     h2, l2 = a2.get_legend_handles_labels()
-    a.legend(h1 + h2, l1 + l2, frameon=False, loc="lower right", fontsize=6.9)
+    below(a, h1 + h2, l1 + l2, ncol=1, y=-0.32)
 
     a = ax[1, 1]
     a.plot(x, 100 * d["quota_share"], color=GOLD, label="Rationed share of employment")
@@ -77,13 +85,13 @@ def fig_reform_path():
            label="Labour-force growth")
     a.set_ylabel("Per cent")
     a.set_title("(d) A fixed establishment in a growing labour force", loc="left")
-    a.legend(frameon=False, loc="center left")
+    below(a, *a.get_legend_handles_labels(), ncol=1, y=-0.32)
 
     for a in ax.ravel():
         a.set_xlabel("Year of the phased reform")
         a.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=5))
         a.margins(x=0.02)
-    fig.tight_layout(w_pad=2.2, h_pad=1.3)
+    fig.tight_layout(w_pad=2.4, h_pad=2.2)
     save(fig, "fig3_reform_path.png")
 
 

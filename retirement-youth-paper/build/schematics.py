@@ -74,94 +74,116 @@ def arrow(ax, p0, p1, color=NAVY, rad=0.0, lw=1.15, label=None, lpos=0.5,
 
 
 # ================================================================== Figure 1
-def figure1():
-    fig, ax = plt.subplots(figsize=(6.9, 4.9))
-    ax.set_xlim(0, 11.9)
-    ax.set_ylim(0, 8.4)
-    ax.axis("off")
-    ax.text(0.0, 8.36, "Worker flows between the rationed and the market sector",
-            fontsize=9.4, fontweight="bold", ha="left", va="top", color=INK)
+def poly(ax, pts, color=NAVY, lw=1.15, dashed=False, label=None, lxy=None,
+         fs=7.6, zorder=5, head=True):
+    """An orthogonal connector: straight segments, arrowhead on the last one."""
+    ls = (0, (4.5, 2.6)) if dashed else "-"
+    for i in range(len(pts) - 2):
+        ax.plot([pts[i][0], pts[i + 1][0]], [pts[i][1], pts[i + 1][1]],
+                color=color, lw=lw, ls=ls, solid_capstyle="round",
+                zorder=zorder)
+    p0, p1 = pts[-2], pts[-1]
+    if head:
+        ax.add_patch(FancyArrowPatch(p0, p1, arrowstyle="-|>",
+                                     mutation_scale=11, lw=lw, color=color,
+                                     linestyle=ls, shrinkA=0, shrinkB=3.0,
+                                     zorder=zorder))
+    else:
+        ax.plot([p0[0], p1[0]], [p0[1], p1[1]], color=color, lw=lw, ls=ls,
+                solid_capstyle="round", zorder=zorder)
+    if label:
+        ax.text(lxy[0], lxy[1], label, ha="center", va="center", fontsize=fs,
+                color=color, zorder=9, path_effects=HALO)
 
-    ax.add_patch(FancyBboxPatch((0.15, 4.42), 11.5, 3.45,
+
+def figure1():
+    fig, ax = plt.subplots(figsize=(7.2, 4.7))
+    ax.set_xlim(0, 15.2)
+    ax.set_ylim(0, 9.5)
+    ax.axis("off")
+
+    A, B, C, D = 2.7, 6.0, 9.3, 12.6          # columns
+    W, H = 2.35, 0.86                         # box size
+    YY, YP = 7.0, 3.1                         # young and prime rows
+    hw, hh = W / 2, H / 2
+    LQ, LD = 1.62, 1.00                       # the two lower routing lanes
+    XQ = 7.57                                 # the queue's descent corridor
+
+    ax.add_patch(FancyBboxPatch((0.15, 5.80), 14.9, 3.10,
                                 boxstyle="round,pad=0.02,rounding_size=0.10",
                                 fc="#f7f9fc", ec="none", zorder=0))
-    ax.add_patch(FancyBboxPatch((0.15, 0.62), 11.5, 3.35,
+    ax.add_patch(FancyBboxPatch((0.15, 2.30), 14.9, 2.10,
                                 boxstyle="round,pad=0.02,rounding_size=0.10",
                                 fc="#fbf7f4", ec="none", zorder=0))
-    ax.text(0.30, 7.78, "YOUNG   ages 23–30", ha="left", va="top",
-            fontsize=7.6, color=NAVY, fontweight="bold")
-    ax.text(0.30, 3.88, "PRIME   until retirement at $R$", ha="left", va="top",
-            fontsize=7.6, color=RUST, fontweight="bold")
+    ax.text(0.32, 8.82, "YOUNG   ages $a_0$ to $a_0+T_y$", ha="left", va="top",
+            fontsize=7.8, color=NAVY, fontweight="bold")
+    ax.text(0.32, 4.32, "PRIME-AGE   until retirement at $R$", ha="left",
+            va="top", fontsize=7.8, color=RUST, fontweight="bold")
 
-    # ---------------------------------------------------------- states
-    cloud(ax, 0.62, 6.20, s=0.23)
-    ax.text(0.62, 5.66, "entrants\n$n$", ha="center", va="top", fontsize=7.4,
-            color=GREY, linespacing=1.3)
-    um = box(ax, 2.10, 7.05, 2.25, 0.70, "Open search\n$u_m$", ec=NAVY)
-    emb = box(ax, 8.70, 7.05, 2.25, 0.70, "Market job\n$e_m$", ec=NAVY,
-              fc="#eef2f9")
-    uq = box(ax, 3.60, 5.25, 2.25, 0.70, "Queueing\n$u_q$", ec=GOLD,
-             fc="#fdf6e7")
-    eqb = box(ax, 6.90, 5.25, 2.25, 0.70, "Rationed job\n$e_q$", ec=GOLD,
-              fc="#fdf6e7")
-    Eq = box(ax, 6.90, 3.00, 2.25, 0.66, "Rationed job\n$E_q$", ec=GOLD,
-             fc="#fdf6e7", fs=8.0)
-    Um = box(ax, 2.10, 1.40, 2.25, 0.70, "Open search\n$U_m$", ec=RUST)
-    Em = box(ax, 8.70, 1.40, 2.25, 0.70, "Market job\n$E_m$", ec=RUST,
-             fc="#fbeeea")
+    # ------------------------------------------------------------- states
+    box(ax, A, YY, W, H, "Open search\n$u_m$", ec=NAVY)
+    box(ax, B, YY, W, H, "Market job\n$e_m$", ec=NAVY, fc="#eef2f9")
+    box(ax, C, YY, W, H, "Queueing\n$u_q$", ec=GOLD, fc="#fdf6e7")
+    box(ax, D, YY, W, H, "Rationed job\n$e_q$", ec=GOLD, fc="#fdf6e7")
+    box(ax, A, YP, W, H, "Open search\n$U_m$", ec=RUST)
+    box(ax, B, YP, W, H, "Market job\n$E_m$", ec=RUST, fc="#fbeeea")
+    box(ax, D, YP, W, H, "Rationed job\n$E_q$", ec=GOLD, fc="#fdf6e7")
 
-    # ---------------------------------------------------------- entry
-    arrow(ax, (1.06, 6.42), anchor(um, "l", -0.35), color=GREY, rad=-0.18)
-    arrow(ax, (1.06, 5.98), anchor(uq, "l", 0.35), color=GREY, rad=0.22)
+    # the establishment constraint, between the two rationed-job boxes
+    box(ax, C, YP, W + 0.30, H + 0.20,
+        "$e_q+E_q=\\bar N$\n$v_Q=\\delta_Q\\bar N+\\rho E_q$",
+        ec=GOLD, fc="white", fs=8.0, lw=1.0, ls=(0, (3.5, 2.2)))
+    ax.text(C, YP - hh - 0.34, "the establishment cannot expand",
+            ha="center", va="top", fontsize=7.0, color=GOLD, style="italic")
 
-    # ---------------------------------------------------------- hiring
-    arrow(ax, anchor(uq, "r"), anchor(eqb, "l"), color=GOLD, lw=1.5,
-          label=r"$\lambda_Q$", loff=(0.0, 0.26))
-    arrow(ax, anchor(um, "r", 0.5), anchor(emb, "l", 0.5), rad=-0.18,
-          color=NAVY, label=r"$f_y=\mu_y\theta^{1-\eta}$", loff=(0.0, 0.30))
-    arrow(ax, anchor(emb, "l", -0.5), anchor(um, "r", -0.5), rad=-0.18,
-          color=NAVY, label=r"$\delta_M$", loff=(0.0, -0.30))
-    arrow(ax, anchor(Um, "r", 0.5), anchor(Em, "l", 0.5), rad=-0.18,
-          color=RUST, label=r"$f_p=\theta^{1-\eta}$", loff=(0.0, 0.30))
-    arrow(ax, anchor(Em, "l", -0.5), anchor(Um, "r", -0.5), rad=-0.18,
-          color=RUST, label=r"$\delta_M$", loff=(0.0, -0.30))
-
-    # ---------------------------------------------------------- ageing
-    arrow(ax, anchor(eqb, "b"), anchor(Eq, "t"), color=GOLD, lw=1.6,
-          label=r"$\gamma$", loff=(0.26, 0.0))
-    arrow(ax, anchor(emb, "b"), anchor(Em, "t"), color=NAVY, lw=1.6,
-          label=r"$\gamma$", loff=(0.26, 0.0))
-    arrow(ax, (2.75, 4.90), (2.55, 1.75), color=GREY, lw=1.0, dashed=True,
-          rad=0.05)
-    arrow(ax, anchor(um, "b", -0.55), anchor(Um, "t", -0.55), color=GREY,
-          lw=1.0, dashed=True, rad=0.04)
-    ax.text(1.02, 2.55, "ageing at\n$\\gamma=1/T_y$", ha="center", va="center",
-            fontsize=7.4, color=GREY, linespacing=1.3, path_effects=HALO)
-    arrow(ax, anchor(Eq, "l"), anchor(Um, "r", 0.95), color=GOLD, lw=1.0,
-          rad=0.20, dashed=True, label=r"$\delta_Q$", loff=(0.60, -0.02))
-
-    # ---------------------------------------------------------- retirement
-    cloud(ax, 11.05, 2.20, s=0.20)
-    ax.text(11.05, 1.66, "retirement\nrate $\\rho$", ha="center", va="top",
+    # ------------------------------------------------------------- entry
+    cloud(ax, 0.78, YY, s=0.21)
+    ax.text(0.78, YY - 0.62, "entrants\n$n$", ha="center", va="top",
             fontsize=7.4, color=GREY, linespacing=1.3)
-    arrow(ax, anchor(Eq, "r"), (10.68, 2.28), color=GREY, lw=0.95, dashed=True,
-          rad=-0.10)
-    arrow(ax, anchor(Em, "r"), (10.68, 2.06), color=GREY, lw=0.95, dashed=True,
-          rad=0.14)
+    poly(ax, [(1.16, YY), (A - hw, YY)], color=GREY, lw=1.05)
+    poly(ax, [(0.78, YY + 0.40), (0.78, 8.55), (C, 8.55), (C, YY + hh)],
+         color=GREY, lw=1.05,
+         label="a share $a_q$ prepares for the examination",
+         lxy=(7.4, 8.82), fs=7.4)
 
-    # ------------------------------- the establishment's replacement flow
-    vb = box(ax, 4.55, 3.85, 2.90, 0.70,
-             "Establishment vacancies\n$v_Q=\\delta_Q\\bar N+\\rho E_q$",
-             ec=GOLD, fc="#fdf6e7", fs=8.0, lw=1.5)
-    arrow(ax, anchor(Eq, "l", 0.55), anchor(vb, "r", -0.4), color=GOLD,
-          lw=1.3, rad=-0.16)
-    arrow(ax, anchor(vb, "t", -0.1), (5.35, 5.25), color=GOLD, lw=1.6,
-          rad=-0.18)
-    ax.text(5.95, 0.22,
-            "Establishment constraint  $e_q+E_q=\\bar N$, fixed "
-            "administratively;  free entry fixes $\\theta$ in the market sector",
-            ha="center", va="center", fontsize=8.0, color=INK)
+    # ------------------------------------------------------------- matching
+    poly(ax, [(A + hw, YY + 0.20), (B - hw, YY + 0.20)], color=NAVY,
+         label="$f_y=\\mu_y\\theta^{1-\\eta}$", lxy=(4.35, YY + 0.56))
+    poly(ax, [(B - hw, YY - 0.20), (A + hw, YY - 0.20)], color=NAVY,
+         label="$\\delta_M$", lxy=(4.35, YY - 0.54))
+    poly(ax, [(A + hw, YP + 0.20), (B - hw, YP + 0.20)], color=RUST,
+         label="$f_p=\\theta^{1-\\eta}$", lxy=(4.35, YP + 0.56))
+    poly(ax, [(B - hw, YP - 0.20), (A + hw, YP - 0.20)], color=RUST,
+         label="$\\delta_M$", lxy=(4.35, YP - 0.54))
+    poly(ax, [(C + hw, YY), (D - hw, YY)], color=GOLD, lw=1.6,
+         label="$\\lambda_Q=v_Q/u_q$", lxy=(10.95, YY + 0.66))
 
+    # ------------------------------------------------------------- ageing
+    for x, col in ((A, GREY), (B, GREY), (D, GOLD)):
+        poly(ax, [(x, YY - hh), (x, YP + hh)], color=col, lw=1.05, dashed=True)
+    ax.text(B + 0.30, (YY + YP) / 2 + 0.15, "ageing\n$\\gamma=1/T_y$",
+            ha="left", va="center", fontsize=7.6, color=GREY,
+            linespacing=1.3, path_effects=HALO)
+    poly(ax, [(C - hw, YY), (XQ, YY), (XQ, LQ), (A + 0.62, LQ),
+              (A + 0.62, YP - hh)],
+         color=GREY, lw=1.05, dashed=True, label="$\\gamma$",
+         lxy=(5.6, LQ + 0.26), fs=7.6)
+
+    # ---------------------------------------- separations from the quota
+    poly(ax, [(D, YP - hh), (D, LD), (A - 0.62, LD), (A - 0.62, YP - hh)],
+         color=GOLD, lw=1.05, dashed=True, label="$\\delta_Q$",
+         lxy=(9.9, LD + 0.26), fs=7.6)
+
+    # ------------------------------------------------------------- exit
+    cloud(ax, 14.42, YP, s=0.20)
+    ax.text(14.42, YP - 0.58, "retirement\n$\\rho$", ha="center", va="top",
+            fontsize=7.4, color=GREY, linespacing=1.3)
+    poly(ax, [(D + hw, YP), (14.06, YP)], color=GREY, lw=1.05, dashed=True)
+
+    ax.text(7.6, 9.28,
+            "Worker flows between the rationed and the market sector",
+            fontsize=9.6, fontweight="bold", ha="center", va="center",
+            color=INK)
     fig.tight_layout()
     out = os.path.join(FIGS, "fig1_structure.png")
     fig.savefig(out)
@@ -205,14 +227,23 @@ def figure2():
             ha="center", va="center", fontsize=7.2, color=GREY,
             linespacing=1.35)
 
-    ax.plot([7.90, 7.90], [1.20, 4.90], color=GREY, lw=0.8, ls=":")
-    box(ax, 9.42, 3.30, 2.85, 1.02,
-        "SUM $= +0.16$\nthe headline rate\nbarely moves", ec=INK, fc="white",
-        fs=8.2)
+    # the three contributions are summed at an explicit junction: a short
+    # feeder from each value, one vertical spine, one arrow out.  Three
+    # separate arrows converging on the same point were unreadable.
+    XF, XS = 7.62, 8.24
     for b in boxes:
-        arrow(ax, (7.62, b["y"]), anchor(dict(x=9.42, y=3.30, w=2.85, h=1.02),
-                                         "l"), color=GREY, lw=0.9, rad=0.0,
-              dashed=True, zorder=2)
+        ax.plot([XF, XS], [b["y"], b["y"]], color=GREY, lw=1.0,
+                solid_capstyle="round", zorder=2)
+    ax.plot([XS, XS], [boxes[-1]["y"], boxes[0]["y"]], color=GREY, lw=1.0,
+            solid_capstyle="round", zorder=2)
+    for b in boxes:
+        ax.add_patch(Circle((XS, b["y"]), 0.055, fc=GREY, ec=GREY, zorder=3))
+
+    sm = box(ax, 9.80, 3.30, 2.18, 1.02,
+             "SUM $= +0.16$\nthe headline rate\nbarely moves", ec=INK,
+             fc="white", fs=8.2)
+    arrow(ax, (XS, 3.30), anchor(sm, "l"), color=GREY, lw=1.2, rad=0.0,
+          zorder=4)
 
     ax.add_patch(FancyBboxPatch((0.15, 0.10), 10.7, 0.62,
                                 boxstyle="round,pad=0.03,rounding_size=0.08",
