@@ -24,17 +24,17 @@ STATES = ("S", "Q", "M", "U", "H", "A")
 # --------------------------------------------------------------- parameters
 BASE = dict(
     # cohort inflow ---------------------------------------------------------
-    Phi0=30.0,          # degree-holding entrants at t=0 (2015), 10^4 persons
+    Phi0=749.0,         # degree-holding entrants at t=0 (2015), 10^4 persons
     gPhi=0.050,         # annual growth of the entrant cohort
     omega=0.125,        # exit rate from the youth window (8-year window)
     # labour demand ---------------------------------------------------------
-    V0=38.0,            # open vacancies at t=0 (10^4); scale normalisation
+    V0=948.73,          # open vacancies at t=0 (10^4); scale normalisation
     gV=0.030,           # autonomous vacancy growth
     phi=1.60,           # elasticity of vacancies to digital intensity
     # digital transformation (logistic) -------------------------------------
-    Psi0=0.090, PsiMax=0.200, rPsi=0.080,
+    Psi0=0.05033, PsiMax=0.25516, rPsi=0.11714,
     # employer skill threshold ----------------------------------------------
-    theta0=0.500, kappa=2.20, kappa2=0.150,
+    theta0=0.500, kappa=1.37, kappa2=0.150,
     # matching --------------------------------------------------------------
     mu=3.10, alpha=0.500,
     beta_s=6.00,        # screening sharpness
@@ -80,7 +80,7 @@ def prelec(pi_, eps):
 
 # ---------------------------------------------------------------- drivers
 def psi(t, p):
-    """Digital-economy intensity: digital core industries' share of GRP."""
+    """Digital-economy intensity: digital core industries' share of GDP."""
     k = (p["PsiMax"] / p["Psi0"]) - 1.0
     return p["PsiMax"] / (1.0 + k * np.exp(-p["rPsi"] * t))
 
@@ -185,8 +185,8 @@ def rk4(y0, p, t0=0.0, t1=25.0, dt=1.0 / 24.0):
 
 
 # ---------------------------------------------------------------- equilibria
-GUESS_LOW = np.array([14.0, 5.5, 82.0, 20.0, 0.605, 0.700])    # fluid regime
-GUESS_HIGH = np.array([60.0, 40.0, 40.0, 25.0, 0.560, 0.620])  # trapped regime
+GUESS_LOW = np.array([350.0, 137.0, 2047.0, 499.0, 0.605, 0.700])    # fluid regime
+GUESS_HIGH = np.array([1498.0, 999.0, 999.0, 624.0, 0.560, 0.620])  # trapped regime
 
 
 def equilibrium(t, p, guess=None):

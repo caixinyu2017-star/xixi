@@ -221,7 +221,7 @@ parts.append(p_backmatter(
     'the content.'))
 
 body_xml = ''.join(parts)
-OUT_NAME = 'Youth_School_to_Work_Transition_System_Zhejiang_Systems.docx'
+OUT_NAME = 'Youth_School_to_Work_Transition_System_China_Systems.docx'
 out = build_docx(os.path.join(HERE, 'template_scaffold.docx'),
                  os.path.join(HERE, '..', OUT_NAME),
                  body_xml,

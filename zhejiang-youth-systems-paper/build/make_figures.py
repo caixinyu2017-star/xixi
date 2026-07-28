@@ -539,7 +539,7 @@ def fig7_archetypes():
         s = M.series(ts, ys, p)
         a.plot(2015 + ts, s["NER"], color=c, label=name.split(" (")[0])
     a.set_xlabel("Year"); a.set_ylabel("Youth non-employment rate")
-    a.set_title("(a) Prefecture archetypes", loc="left")
+    a.set_title("(a) Prefecture-level city archetypes", loc="left")
     a.legend(frameon=False, fontsize=6.4, loc="upper left")
 
     a = axes[1]

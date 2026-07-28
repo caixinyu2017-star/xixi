@@ -1,10 +1,10 @@
 pair,order,first,NER_T,NER_mean,person_years
-P3 Expectation guidance / P1 Skill upgrading,A-first,P3 Expectation guidance,0.33588508543395984,0.2227552637065077,1471.5937543297453
-P3 Expectation guidance / P1 Skill upgrading,B-first,P1 Skill upgrading,0.3122896820129725,0.24952806235638675,1632.725154346385
-P3 Expectation guidance / P1 Skill upgrading,simultaneous,-,0.3296533184030029,0.23718963326411244,1561.3351669636388
-P1 Skill upgrading / P2 Matching efficiency,A-first,P1 Skill upgrading,0.3385336041916026,0.2520069909814914,1655.5637890430817
-P1 Skill upgrading / P2 Matching efficiency,B-first,P2 Matching efficiency,0.3777188976750911,0.24916531605224038,1666.8208795070618
-P1 Skill upgrading / P2 Matching efficiency,simultaneous,-,0.3559681189705881,0.24883086067162394,1649.3604333991493
-P3 Expectation guidance / P2 Matching efficiency,A-first,P3 Expectation guidance,0.2981809391701468,0.20940050572836913,1369.114528610514
-P3 Expectation guidance / P2 Matching efficiency,B-first,P2 Matching efficiency,0.31005373558307786,0.23163544727430702,1528.4370765136687
-P3 Expectation guidance / P2 Matching efficiency,simultaneous,-,0.30790446259365173,0.2209728294468599,1453.3820497950273
+P3 Expectation guidance / P1 Skill upgrading,A-first,P3 Expectation guidance,0.4806837885647114,0.2893149890024694,48728.12063969414
+P3 Expectation guidance / P1 Skill upgrading,B-first,P1 Skill upgrading,0.4749507070097692,0.31488365134410573,52668.875625863526
+P3 Expectation guidance / P1 Skill upgrading,simultaneous,-,0.4805506228115957,0.3026601315633703,50815.04364102382
+P1 Skill upgrading / P2 Matching efficiency,A-first,P1 Skill upgrading,0.4699086214981426,0.3106326533905786,51900.93617454403
+P1 Skill upgrading / P2 Matching efficiency,B-first,P2 Matching efficiency,0.5066299571871083,0.3069911914534416,52029.69404175613
+P1 Skill upgrading / P2 Matching efficiency,simultaneous,-,0.48650014729554014,0.30724419719934154,51698.163186757505
+P3 Expectation guidance / P2 Matching efficiency,A-first,P3 Expectation guidance,0.4422327024357953,0.2751898893756362,46024.84720647165
+P3 Expectation guidance / P2 Matching efficiency,B-first,P2 Matching efficiency,0.47185470894049536,0.29646447286183353,49968.27811617385
+P3 Expectation guidance / P2 Matching efficiency,simultaneous,-,0.45833788983786056,0.28570997884915295,47991.50609203283

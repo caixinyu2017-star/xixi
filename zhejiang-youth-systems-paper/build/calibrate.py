@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Simulated-method-of-moments calibration of the YSTS model.
 
-Five free structural parameters are chosen to minimise a weighted distance
+Six free structural parameters are chosen to minimise a weighted distance
 between simulated and observed moments.  The 2015 moments are evaluated at the
 model's own frozen-driver fixed point (the initial condition); the 2025 moments
 are evaluated after ten years of transient dynamics driven by the observed
@@ -38,6 +38,7 @@ VALIDATION = [
 ]
 
 FREE = [
+    ("kappa",   0.60, 4.00),
     ("mu",      1.0, 14.0),
     ("Pi",      0.20, 3.50),
     ("nu",      0.15, 6.00),
@@ -57,7 +58,7 @@ def evaluate(vec, full=False):
     p = make_params(vec)
     try:
         y0, ok = M.equilibrium(0.0, p, M.GUESS_LOW)
-        if not ok or y0[0] > 60.0 or y0[0] < 0.5:
+        if not ok or y0[0] > 1500.0 or y0[0] < 12.0:
             return (1e6, None, None) if full else 1e6
         d0 = M.indicators(0.0, y0, p)
         if not np.isfinite(list(d0.values())).all():

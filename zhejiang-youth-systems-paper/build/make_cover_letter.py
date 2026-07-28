@@ -26,11 +26,11 @@ for pref, uri in [
 
 SRC = os.path.join(HERE, 'cover_letter_template.docx')
 OUT = os.path.join(HERE, '..',
-                   'Cover_Letter_Youth_School_to_Work_Transition_System_Zhejiang.docx')
+                   'Cover_Letter_Youth_School_to_Work_Transition_System_China.docx')
 
 TITLE = ("A Moving Target, Not a Tipping Point: Attractor Drift, Queue Congestion and "
-         "Policy Sequencing in the Youth School-to-Work Transition System of Zhejiang, "
-         "China")
+         "Policy Sequencing in the Youth School-to-Work Transition System of China\u2019s "
+         "Prefecture-Level Cities")
 SI = "Systems Thinking for Real-World Problem Solving"
 
 TITLE_PARA = [
@@ -43,15 +43,16 @@ TITLE_PARA = [
 ]
 
 STUDY_PARA = [
-    ("This study asks why youth employment outcomes deteriorate in a region where jobs "
+    ("This study asks why youth employment outcomes deteriorate in an economy where jobs "
      "are plentiful and the digital economy is expanding. We treat the graduate "
-     "school-to-work transition in Zhejiang Province as a socio-technical system and "
+     "school-to-work transition of China\u2019s prefecture-level cities as a "
+     "socio-technical system and "
      "build a six-state continuous-time feedback model in which open search, "
      "exam-oriented queueing, matched and mismatched employment, employability capital "
      "and aspirations co-evolve with an employer skill threshold that rises as "
-     "digitalisation proceeds. Five structural parameters are estimated by simulated "
-     "method of moments against seven published moments for China and Zhejiang, all of "
-     "which the calibrated model reproduces within 3.5 per cent. The model is then "
+     "digitalisation proceeds. Six structural parameters are estimated by simulated "
+     "method of moments against seven published national moments, all of "
+     "which the calibrated model reproduces within 1.7 per cent. The model is then "
      "subjected to fixed-point continuation and a multi-start uniqueness search, "
      "eigenvalue analysis, loop-deactivation experiments, Latin-hypercube Monte Carlo, "
      "Sobol variance decomposition, logistic and tree-based meta-modelling of the "
@@ -65,8 +66,8 @@ FIT_PARA = [
     (f" and the Special Issue “{SI}”. The Special Issue calls for work that uses systems "
      "thinking as a holistic lens on the dynamic interactions, feedback mechanisms and "
      "emergent behaviours of socio-technical systems, and that integrates research with "
-     "practice on a real-world problem. Youth employment in a digital-frontrunner "
-     "province is precisely such a problem: the symptoms are widely measured, the "
+     "practice on a real-world problem. Youth employment in a rapidly digitalising "
+     "economy is precisely such a problem: the symptoms are widely measured, the "
      "single-cause explanations conflict with one another, and the instruments in use "
      "are chosen by convention rather than by evidence about leverage. Our contribution "
      "is to identify the feedback structure that generates the observed behaviour, to "
@@ -83,12 +84,12 @@ INNOV = [
     [("(1) The paper reports a substantive negative result and shows why it matters.",
       'b'),
      (" Two-directional continuation in two control parameters and a multi-start search "
-      "across twenty-four parameter cells find a unique stable fixed point throughout, "
+      "across forty parameter cells find a unique stable fixed point throughout, "
       "so the youth transition system has no fold bifurcation, no second attractor and "
       "no hysteresis. What looks like a trap is in fact a drifting attractor combined "
-      "with a slow state: the equilibrium non-employment rate moves from 0.119 in 2015 "
-      "to 0.478 in 2040 while the realised state, whose slowest relaxation time is "
-      "exactly eight years, lags it by about two years. Measured youth non-employment is "
+      "with a slow state: the equilibrium non-employment rate moves from 0.117 in 2015 "
+      "to 0.637 in 2040 while the realised state, whose slowest relaxation time is "
+      "exactly eight years, lags it by about 1.7 years. Measured youth non-employment is "
       "therefore a lagging indicator of structural deterioration by a knowable margin. "
       "This distinction changes both the diagnosis and the vocabulary that should be "
       "used in the policy debate.", '')],
@@ -98,9 +99,9 @@ INNOV = [
      (" Loop-deactivation experiments identify exam-queue congestion and aspiration "
       "adjustment as the dominant balancing loops and threshold escalation as the "
       "dominant reinforcing loop; a Sobol decomposition based on 14,336 model runs "
-      "attributes 35.8 per cent of the output variance to the sensitivity of the "
+      "attributes 66.3 per cent of the output variance to the sensitivity of the "
       "employer threshold to digitalisation; and a logistic meta-model of the Monte "
-      "Carlo sample, with an area under the curve of 0.994 and a non-significant "
+      "Carlo sample, with an area under the curve of 0.998 and a non-significant "
       "Hosmer–Lemeshow statistic, together with a cross-validated classification tree, "
       "identify the same parameter as the root split. That three methods answering "
       "different questions converge on one mechanism is itself evidence about the "
@@ -111,14 +112,14 @@ INNOV = [
      (" At equal standardised effort, moderating the escalation of the employer hiring "
       "bar—through competence-based rather than credential-based recruitment standards, "
       "certified micro-credentials and structured internships—lowers the 2040 "
-      "non-employment rate by 0.107, roughly eighteen times the effect of vacancy "
-      "creation and twenty-four times that of training intensity, the two instruments "
+      "non-employment rate by 0.157, roughly nineteen times the effect of vacancy "
+      "creation and forty times that of training intensity, the two instruments "
       "that dominate public spending. Sequencing matters at unchanged cumulative effort: "
       "front-loading expectation guidance before matching-efficiency investment lowers "
-      "cumulative youth non-employment by about ten per cent relative to the reverse "
+      "cumulative youth non-employment by about seven per cent relative to the reverse "
       "order. An archetype analysis further shows that the most digitally advanced "
-      "prefectures face the steepest deterioration and also the largest policy "
-      "dividend.", '')],
+      "cities face the steepest deterioration, while cities in the middle of the digital "
+      "transition offer the largest absolute policy dividend.", '')],
 ]
 
 with zipfile.ZipFile(SRC) as z:

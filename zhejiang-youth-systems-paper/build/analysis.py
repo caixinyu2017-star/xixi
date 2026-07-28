@@ -65,7 +65,7 @@ def baseline():
 
     # behaviour-reproduction test against published series
     obs = [
-        ("Digital core industries, share of GRP, 2025", 0.130, s["PSI"][yr(10)]),
+        ("Digital core industries, share of GDP, 2024", 0.105, s["PSI"][yr(9)]),
         ("Youth non-employment rate, 2015", 0.115, s["NER"][0]),
         ("Youth non-employment rate, 2025", 0.180, s["NER"][yr(10)]),
         ("Slow-employment share of entrants, 2025", 0.191, s["SEflow"][yr(10)]),
@@ -95,25 +95,24 @@ def eq_at(p, guess, t=T_END):
 def continuation(pname, lo, hi, n=241, t=T_END):
     """Forward and backward continuation in one control parameter."""
     grid = np.linspace(lo, hi, n)
-    fwd, bwd = [], []
-    g = Y0.copy()
-    g, _ = eq_at(dict(P, **{pname: lo}), M.GUESS_LOW, t)
-    for v in grid:
-        y, ok = eq_at(dict(P, **{pname: v}), g, t)
-        if ok:
-            g = y
-        ev = np.linalg.eigvals(M.jacobian(t, y, dict(P, **{pname: v})))
-        fwd.append((v, M.indicators(t, y, dict(P, **{pname: v}))["NER"],
-                    float(np.max(ev.real)), ok))
-    g, _ = eq_at(dict(P, **{pname: hi}), M.GUESS_HIGH, t)
-    for v in grid[::-1]:
-        y, ok = eq_at(dict(P, **{pname: v}), g, t)
-        if ok:
-            g = y
-        ev = np.linalg.eigvals(M.jacobian(t, y, dict(P, **{pname: v})))
-        bwd.append((v, M.indicators(t, y, dict(P, **{pname: v}))["NER"],
-                    float(np.max(ev.real)), ok))
-    return np.array(fwd), np.array(bwd[::-1])
+
+    def sweep(values, guess):
+        out, g = [], guess
+        for v in values:
+            pv = dict(P, **{pname: v})
+            y, ok = eq_at(pv, g, t)
+            if ok:
+                g = y
+                ev = np.linalg.eigvals(M.jacobian(t, y, pv))
+                out.append((v, M.indicators(t, y, pv)["NER"],
+                            float(np.max(ev.real)), 1.0))
+            else:
+                out.append((v, np.nan, np.nan, 0.0))
+        return out
+
+    fwd = sweep(grid, M.GUESS_LOW)
+    bwd = sweep(grid[::-1], M.GUESS_HIGH)[::-1]
+    return np.array(fwd), np.array(bwd)
 
 
 def bifurcation():
@@ -121,28 +120,42 @@ def bifurcation():
     res = {}
     for pname, lo, hi in [("kappa", 0.5, 5.0), ("Pi", 0.4, 2.6)]:
         fwd, bwd = continuation(pname, lo, hi)
-        gap = np.abs(fwd[:, 1] - bwd[:, 1])
+        both = (fwd[:, 3] > 0) & (bwd[:, 3] > 0)
+        gap = np.abs(fwd[both, 1] - bwd[both, 1])
         hyst = gap > 0.02
-        rng_ = (float(fwd[hyst, 0].min()), float(fwd[hyst, 0].max())) if hyst.any() else None
+        rng_ = (float(fwd[both][hyst, 0].min()), float(fwd[both][hyst, 0].max())) \
+            if hyst.any() else None
         res[pname] = dict(grid=fwd[:, 0].tolist(), ner_fwd=fwd[:, 1].tolist(),
                           ner_bwd=bwd[:, 1].tolist(),
                           maxreal_fwd=fwd[:, 2].tolist(),
+                          converged=int(both.sum()), n_grid=int(len(fwd)),
                           hysteresis_range=rng_, max_gap=float(gap.max()),
                           base_value=float(P[pname]))
-        print("  continuation %-6s max forward-backward NER gap %.4f (fold: %s)"
-              % (pname, gap.max(), bool(hyst.any())))
+        print("  continuation %-6s %d/%d converged both ways, max NER gap %.5f "
+              "(fold: %s)" % (pname, both.sum(), len(fwd), gap.max(),
+                              bool(hyst.any())))
     OUT["bifurcation"] = res
 
     # multi-start uniqueness check over a coarse grid of the two strongest loops
     starts = [M.GUESS_LOW, M.GUESS_HIGH,
-              np.array([5., 1., 200., 30., 0.62, 0.75]),
-              np.array([150., 400., 200., 120., 0.55, 0.50]),
-              np.array([40., 80., 150., 60., 0.58, 0.60]),
-              np.array([300., 900., 150., 150., 0.52, 0.45])]
+              np.array([125., 25., 4993., 749., 0.62, 0.75]),
+              np.array([3745., 9987., 4993., 2996., 0.55, 0.50]),
+              np.array([999., 1997., 3745., 1498., 0.58, 0.60]),
+              np.array([7490., 22470., 3745., 3745., 0.52, 0.45])]
     multi = []
-    for k2 in [0.0, 0.15, 0.30, 0.60, 1.20, 2.50]:
-        for bs in [3.0, 6.0, 12.0, 22.0]:
-            p = dict(P, kappa2=k2, beta_s=bs)
+    CELLS = ([("k2bs", (k2_, bs_)) for k2_ in [0.0, 0.15, 0.30, 0.60, 1.20, 2.50]
+              for bs_ in [3.0, 6.0, 12.0, 22.0]]
+             + [("Pi", v) for v in [0.4, 0.7, 1.0, 1.3, 1.6, 2.0, 2.2, 2.6]]
+             + [("kappa", v) for v in [0.6, 1.0, 1.4, 1.9, 2.4, 3.0, 4.0, 5.0]])
+    if True:
+        for kind, val in CELLS:
+            if kind == "Pi":
+                p = dict(P, Pi=val); cell = dict(param="Pi", value=val)
+            elif kind == "kappa":
+                p = dict(P, kappa=val); cell = dict(param="kappa", value=val)
+            else:
+                p = dict(P, kappa2=val[0], beta_s=val[1])
+                cell = dict(param="kappa2 x beta_s", value=list(val))
             found = []
             for g in starts:
                 y, ok = eq_at(p, g, T_END)
@@ -150,7 +163,7 @@ def bifurcation():
                     n = M.indicators(T_END, y, p)["NER"]
                     if not any(abs(n - f) < 1e-3 for f in found):
                         found.append(float(n))
-            multi.append(dict(kappa2=k2, beta_s=bs, n_equilibria=len(found),
+            multi.append(dict(cell=cell, n_equilibria=len(found),
                               NER=sorted(found)))
     OUT["uniqueness_scan"] = dict(rows=multi,
                                   max_equilibria=max(r["n_equilibria"] for r in multi))
@@ -282,16 +295,16 @@ def knockout():
 
 # ============================================ 4-6. uncertainty and sensitivity
 UNC = [                     # name, low, high  (uniform)
-    ("kappa",   1.30, 3.30),
-    ("kappa2",  0.05, 0.30),
+    ("kappa",   1.100, 2.800),
+    ("kappa2",  0.050, 0.300),
     ("deltaH",  0.030, 0.100),
     ("chi",     0.780, 0.960),
     ("zeta",    0.380, 0.740),
     ("lam",     0.090, 0.320),
-    ("Pi",      0.90, 1.90),
-    ("eps_pw",  0.320, 0.640),
-    ("mu",      7.60, 11.8),
-    ("phi",     0.90, 2.40),
+    ("Pi",      1.270, 2.670),
+    ("eps_pw",  0.360, 0.720),
+    ("mu",      7.800, 12.10),
+    ("phi",     0.900, 2.400),
     ("gPhi",    0.030, 0.070),
     ("tau",     0.008, 0.040),
 ]
@@ -601,12 +614,12 @@ def sequencing(t_mid=17.5):
 
 # ============================================ 8. prefecture archetypes
 ARCHETYPES = {
-    "A. Digital core (Hangzhou-type)": dict(phi=2.30, rPsi=0.105, kappa=2.85,
-                                            gPhi=0.065, mu=P["mu"] * 1.10),
-    "B. Advanced manufacturing (Ningbo-Jiaxing-type)": dict(phi=1.55, rPsi=0.080,
-                                                            kappa=2.10, gPhi=0.048),
-    "C. Peripheral labour-exporting (south-west Zhejiang-type)":
-        dict(phi=0.95, rPsi=0.055, kappa=1.65, gPhi=0.030, mu=P["mu"] * 0.86,
+    "A. Digital-core metropolitan city": dict(phi=2.30, rPsi=0.150, kappa=2.40,
+                                              gPhi=0.065, mu=P["mu"] * 1.10),
+    "B. Advanced-manufacturing city": dict(phi=1.55, rPsi=0.117, kappa=1.78,
+                                           gPhi=0.048),
+    "C. Peripheral labour-exporting city":
+        dict(phi=0.95, rPsi=0.082, kappa=1.39, gPhi=0.030, mu=P["mu"] * 0.86,
              Pi=P["Pi"] * 1.14),
 }
 
