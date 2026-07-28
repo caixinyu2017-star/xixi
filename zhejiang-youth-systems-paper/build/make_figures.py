@@ -299,6 +299,15 @@ def fig2_stockflow():
     save(fig, "fig2_stockflow.png")
 
 
+def below(a, ncol=1, y=-0.30, fs=7.0, handles=None, labels=None):
+    """Legend under the panel.  Inside the axes it would cover the series."""
+    if handles is None:
+        handles, labels = a.get_legend_handles_labels()
+    a.legend(handles, labels, frameon=False, ncol=ncol, loc="upper center",
+             bbox_to_anchor=(0.5, y), fontsize=fs, handlelength=1.8,
+             columnspacing=1.2, borderaxespad=0.0)
+
+
 # ------------------------------------------------------------------ Figure 3
 def fig3_baseline():
     ts, ys = M.rk4(Y0, P, 0.0, 25.0, 1 / 24)
@@ -307,7 +316,7 @@ def fig3_baseline():
     att = D["moving_attractor"]
     ay = [e["year"] for e in att]; an = [e["NER"] for e in att]
 
-    fig, axes = plt.subplots(2, 2, figsize=(7.3, 4.9))
+    fig, axes = plt.subplots(2, 2, figsize=(7.3, 5.4))
     a = axes[0, 0]
     a.plot(yrs, s["NER"], color=NAVY, label="Realised $\\mathrm{NER}(t)$")
     a.plot(ay, an, color=RED, ls="--", label="Moving attractor $\\mathrm{NER}^{*}(t)$")
@@ -318,7 +327,7 @@ def fig3_baseline():
            label="Observed benchmark")
     a.set_ylabel("Youth non-employment rate")
     a.set_title("(a) Realised state versus its moving attractor", loc="left")
-    a.legend(frameon=False, loc="upper left")
+    below(a)
     a.axvline(2025, color=GREY, lw=0.6, ls=":")
 
     a = axes[0, 1]
@@ -327,7 +336,7 @@ def fig3_baseline():
     a.plot([2025], [0.191], "o", ms=4.5, mfc="white", mec=ORANGE, mew=1.1, zorder=5)
     a.plot([2025], [0.240], "o", ms=4.5, mfc="white", mec=TEAL, mew=1.1, zorder=5)
     a.set_title("(b) Delayed entry and mismatch", loc="left")
-    a.legend(frameon=False, loc="upper left")
+    below(a)
     a.axvline(2025, color=GREY, lw=0.6, ls=":")
 
     a = axes[1, 0]
@@ -339,7 +348,7 @@ def fig3_baseline():
     a.set_ylabel("Index")
     a.set_xlabel("Year")
     a.set_title("(c) The skill–threshold gap closes and reverses", loc="left")
-    a.legend(frameon=False, loc="lower left")
+    below(a, y=-0.34)
     cross = yrs[np.argmax(s["GAP"] < 0)]
     a.axvline(cross, color=GREY, lw=0.6, ls=":")
     a.annotate("$x=0$ in %d" % round(cross), (cross, 0.70), fontsize=6.8,
@@ -356,14 +365,17 @@ def fig3_baseline():
     a2.set_ylabel("Vacancy-to-seeker ratio", color=GREEN)
     a2.tick_params(axis="y", colors=GREEN); a2.spines["top"].set_visible(False)
     a.set_title("(d) Queue congestion rises while the market stays tight", loc="left")
-    a.legend(frameon=False, loc="upper left")
-    fig.tight_layout()
+    a2.plot([], [], color=GREEN, ls="--", label="Vacancy-to-seeker ratio (right)")
+    h1, l1 = a.get_legend_handles_labels()
+    h2, l2 = a2.get_legend_handles_labels()
+    below(a, handles=h1 + h2, labels=l1 + l2, y=-0.34)
+    fig.tight_layout(h_pad=1.4)
     save(fig, "fig3_baseline.png")
 
 
 # ------------------------------------------------------------------ Figure 4
 def fig4_structure():
-    fig, axes = plt.subplots(1, 3, figsize=(7.3, 2.55))
+    fig, axes = plt.subplots(1, 3, figsize=(7.3, 3.05))
 
     a = axes[0]
     for pname, c, lab in [("kappa", RED, "$\\kappa$ threshold sensitivity"),
@@ -379,7 +391,7 @@ def fig4_structure():
     a.set_xlabel("Control parameter (normalised range)")
     a.set_ylabel("Equilibrium $\\mathrm{NER}^{*}$")
     a.set_title("(a) Continuation: no fold", loc="left")
-    a.legend(frameon=False, loc="upper left")
+    below(a, y=-0.26, fs=6.6)
 
     a = axes[1]
     sh = D["shock"]
@@ -470,7 +482,7 @@ def fig5_sensitivity():
 
 # ------------------------------------------------------------------ Figure 6
 def fig6_policy():
-    fig, axes = plt.subplots(1, 3, figsize=(7.3, 2.75))
+    fig, axes = plt.subplots(1, 3, figsize=(7.3, 3.55))
     cols = {"P1 Skill upgrading": TEAL, "P2 Matching efficiency": GREEN,
             "P3 Expectation guidance": NAVY, "P4 Vacancy creation": ORANGE,
             "P5 Threshold moderation": RED}
@@ -482,7 +494,7 @@ def fig6_policy():
     a.set_xlabel("Policy effort (prior SD units)")
     a.set_ylabel("$\\mathrm{NER}$ in 2040")
     a.set_title("(a) Effort–response curves", loc="left")
-    a.legend(frameon=False, fontsize=6.2, loc="upper right")
+    below(a, ncol=2, y=-0.24, fs=6.0)
 
     a = axes[1]
     rows = D["policies"]["rows"]
@@ -513,15 +525,19 @@ def fig6_policy():
               color=[NAVY, GREY, ORANGE][j], label=lblmap[order])
     a.set_xticks(range(len(pairs)))
     a.set_xticklabels(["%s + %s" % short[p] for p in pairs], fontsize=6.8)
+    allv = [r["NER_mean"] for r in seq]
+    lo, hi = min(allv), max(allv)
+    pad = 0.16 * (hi - lo)
+    a.set_ylim(lo - pad, hi + 0.7 * pad)
     for i, p in enumerate(pairs):
         for j, txt in enumerate(["%s first" % short[p][0], "together",
                                  "%s first" % short[p][1]]):
-            a.text(i + (j - 1) * w, 0.185, txt, rotation=90, fontsize=5.6,
-                   ha="center", va="bottom", color="white")
+            a.text(i + (j - 1) * w, a.get_ylim()[0] + 0.12 * pad, txt,
+                   rotation=90, fontsize=5.6, ha="center", va="bottom",
+                   color="white")
     a.set_ylabel("Mean $\\mathrm{NER}$, 2025–2040")
-    a.set_ylim(0.18, 0.27)
     a.set_title("(c) Sequencing at equal cumulative effort", loc="left")
-    a.legend(frameon=False, fontsize=6.2)
+    below(a, ncol=1, y=-0.24, fs=6.0)
     fig.tight_layout()
     save(fig, "fig6_policy.png")
 
