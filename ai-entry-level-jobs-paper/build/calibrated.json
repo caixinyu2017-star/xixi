@@ -1,0 +1,124 @@
+{
+ "loss": 8.105103115838264e-27,
+ "rmspe": 2.587371461503252e-14,
+ "max_log_resid": 7.016609515630743e-14,
+ "moments": [
+  {
+   "moment": "u_rate_j",
+   "target": 0.178,
+   "simulated": 0.17800000000000168,
+   "rel_error": 9.511742205355976e-15,
+   "weight": 2.0,
+   "source": "Surveyed urban unemployment rate, aged 16-24 excluding students, July 2025 (National Bureau of Statistics)"
+  },
+  {
+   "moment": "u_rate_s",
+   "target": 0.043,
+   "simulated": 0.0430000000000004,
+   "rel_error": 9.359438288991146e-15,
+   "weight": 2.0,
+   "source": "Surveyed urban unemployment rate, aged 25-59, December 2025: labour-force-weighted average of 6.9% (25-29) and 3.9% (30-59)"
+  },
+  {
+   "moment": "wage_ratio",
+   "target": 1.7,
+   "simulated": 1.7,
+   "rel_error": 0.0,
+   "weight": 2.0,
+   "source": "Experience wage premium: earnings of experienced workers relative to first-job earnings, urban China"
+  },
+  {
+   "moment": "pi",
+   "target": 0.286,
+   "simulated": 0.2860000000000042,
+   "rel_error": 1.475121501250208e-14,
+   "weight": 1.5,
+   "source": "Promotion hazard implied by a mean 3.5 years to first promotion"
+  },
+  {
+   "moment": "ai_share",
+   "target": 0.25,
+   "simulated": 0.25000000000001754,
+   "rel_error": 7.016609515630989e-14,
+   "weight": 1.5,
+   "source": "Share of the entry-level task bundle performed by artificial intelligence, from enterprise adoption and task-usage surveys, 2025"
+  },
+  {
+   "moment": "labour_share",
+   "target": 0.55,
+   "simulated": 0.5499999999999993,
+   "rel_error": -1.4130111222501992e-15,
+   "weight": 1.5,
+   "source": "Labour compensation share of value added, China"
+  },
+  {
+   "moment": "repl_rate",
+   "target": 0.55,
+   "simulated": 0.5499999999999972,
+   "rel_error": -5.248327025500739e-15,
+   "weight": 1.0,
+   "source": "Flow value of non-employment relative to the entry-level wage"
+  },
+  {
+   "moment": "Y",
+   "target": 1.0,
+   "simulated": 1.0000000000000027,
+   "rel_error": 2.6645352591003757e-15,
+   "weight": 1.0,
+   "source": "Normalisation: output per member of the labour force"
+  }
+ ],
+ "params": {
+  "r": 0.04,
+  "omega": 0.025,
+  "delta_j": 0.22,
+  "delta_s": 0.085,
+  "phi": 0.18,
+  "mu_j": 1.0,
+  "mu_s": 1.0,
+  "eta": 0.5,
+  "beta": 0.5,
+  "c_j": 0.05550711876110043,
+  "c_s": 0.1084236537513825,
+  "Z": 1.2814403536056356,
+  "alpha": 0.1973428117343694,
+  "z_j": 1.0,
+  "rho": 0.6,
+  "s_y": 0.619413021783882,
+  "chi": 1.0,
+  "p_a": 0.38236245070993796,
+  "pibar": 1.7175291975564504,
+  "psi": 0.4,
+  "train_mode": "holdup",
+  "b": 0.19522008995940154,
+  "s_w": 0.0,
+  "s_m": 0.0,
+  "s_v": 0.0,
+  "s_vs": 0.0,
+  "t_a": 0.0
+ },
+ "checks": {
+  "hire_cost_j": 0.3834715968861268,
+  "hire_cost_s": 0.3354270675059801,
+  "train_share": 0.00108938369376323,
+  "mentor_share": 0.0010335150349583136,
+  "senior_emp_share": 0.9163045443284623,
+  "search_months_j": 4.893672591309624,
+  "promo_years": 3.496503496503445,
+  "m": 0.011315005283926574,
+  "theta_j": 6.01302033594239,
+  "theta_s": 3.484733856138385,
+  "f_j": 2.452146067415722,
+  "f_s": 1.8667441860464933,
+  "w_j": 0.3549456181080046,
+  "w_s": 0.6034075507836079,
+  "A": 0.026336834658507557,
+  "F_s": 0.6701992951228111,
+  "G_j": 0.3823624507099379
+ },
+ "x0": [
+  1.7939271740477862,
+  1.2483916728998266,
+  -4.481625532912514
+ ]
+}
