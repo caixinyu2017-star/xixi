@@ -1,0 +1,100 @@
+{
+ "max_log_resid": 1.1102230246251565e-16,
+ "rmspe": 7.850462293418876e-17,
+ "moments": [
+  {
+   "moment": "u_rate_y",
+   "target": 0.178,
+   "simulated": 0.17799999999999996,
+   "rel_error": -1.1102230246251565e-16,
+   "source": "Surveyed urban unemployment rate, aged 16-24 excluding students, July 2025 (NBS)"
+  },
+  {
+   "moment": "u_rate_p",
+   "target": 0.043,
+   "simulated": 0.04299999999999999,
+   "rel_error": -1.1102230246251565e-16,
+   "source": "Surveyed urban unemployment rate, aged 25-59, December 2025: labour-force-weighted average of 6.9% (25-29) and 3.9% (30-59)"
+  },
+  {
+   "moment": "quota_share",
+   "target": 0.12,
+   "simulated": 0.12,
+   "rel_error": 0.0,
+   "source": "Share of urban employment in government agencies and public institutions, whose headcount is fixed by establishment quotas; commercial state-owned enterprises are excluded because they hire without an establishment ceiling"
+  },
+  {
+   "moment": "wage_premium",
+   "target": 1.25,
+   "simulated": 1.25,
+   "rel_error": 0.0,
+   "source": "Compensation-equivalent premium of a quota job over an entry-level market job, including pension, housing and security provisions"
+  },
+  {
+   "moment": "queue_share",
+   "target": 0.35,
+   "simulated": 0.3499999999999999,
+   "rel_error": -1.1102230246251565e-16,
+   "source": "Share of young non-employment whose main activity is preparing for public-sector entrance examinations"
+  },
+  {
+   "moment": "repl_rate",
+   "target": 0.55,
+   "simulated": 0.55,
+   "rel_error": 0.0,
+   "source": "Flow value of open search relative to the entry-level market wage"
+  }
+ ],
+ "params": {
+  "r": 0.04,
+  "a0": 23.0,
+  "T_y": 7.0,
+  "R": 56.3,
+  "delta_Q": 0.02,
+  "delta_M": 0.18,
+  "eta": 0.5,
+  "beta": 0.5,
+  "mu_y": 0.49745750670805944,
+  "c_M": 0.03597874959505855,
+  "p_M": 1.0,
+  "p_Q": 1.0,
+  "N_bar": 3.7107719999999986,
+  "w_Q": 1.1803805393837539,
+  "b": 0.5193674373288518,
+  "kappa_q": -0.7180087105025506,
+  "n": 1.0,
+  "s_v": 0.0,
+  "s_N": 0.0,
+  "tau_q": 0.0,
+  "xi": 0.0
+ },
+ "checks": {
+  "queue_years": 2.4983473846752786,
+  "cohort_entry_Q": 0.1745553891644583,
+  "search_months_y": 6.429174180294542,
+  "lam_Q": 0.4002645933603723,
+  "theta": 14.077973087951653,
+  "L": 33.29999999999999,
+  "young": 7.000000000000002,
+  "prime": 26.29999999999999,
+  "u_q": 0.4360999999999999,
+  "u_m": 0.8099000000000001,
+  "e_q": 1.071831336974744,
+  "e_m": 4.682168663025258,
+  "U_m": 1.1308999999999994,
+  "E_q": 2.6389406630252545,
+  "E_m": 22.530159336974737,
+  "w_y": 0.9443044315070032,
+  "w_p": 0.9709439962287476,
+  "wbar_M": 0.9663603775417765,
+  "w_Q": 1.1803805393837539,
+  "N": 3.7107719999999986,
+  "v_M": 21.592666093212163,
+  "Y": 30.923099999999994,
+  "welfare": 30.991584994912316,
+  "welfare_pc": 0.9306782280754452,
+  "V_entrant": 14.290795531023589,
+  "gamma": 0.14285714285714285,
+  "rho": 0.038022813688212934
+ }
+}

@@ -1,0 +1,27 @@
+calibration loss = 0.00291374
+  NER     2015  target    0.115  sim    0.119  rel   +3.44%
+  SEflow  2015  target    0.060  sim    0.060  rel   -0.27%
+  MM      2015  target    0.180  sim    0.183  rel   +1.87%
+  NER     2025  target    0.180  sim    0.176  rel   -2.50%
+  SEflow  2025  target    0.191  sim    0.191  rel   +0.11%
+  MM      2025  target    0.240  sim    0.236  rel   -1.70%
+  RATIO   2025  target   96.000  sim   96.613  rel   +0.64%
+
+calibrated parameters
+  mu        9.6630
+  Pi        1.6835
+  beta_c    120.0000
+  nu        0.9734
+  sigma0    0.6469
+  eps_pw    0.4602
+
+over-identifying validation checks (not in the objective)
+  RATIO   2015  observed    63.00  simulated    34.99
+  RATIO   2025  observed    96.00  simulated    96.61
+  RATIO growth: observed 1.52x  simulated 2.76x
+
+2015 fixed point ok=True: [ 25.3995   3.1488 172.6804  38.7713   0.5917   0.65  ]
+eigenvalues: [-10.352 +0.j  -1.6441+0.j  -0.9718+0.j  -0.2866+0.j  -0.2072+0.j
+  -0.125 +0.j] -> stable
+
+written calibrated.json

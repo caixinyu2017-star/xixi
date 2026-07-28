@@ -1,0 +1,10 @@
+pair,order,first,NER_T,NER_mean,person_years
+P3 Expectation guidance / P1 Skill upgrading,A-first,P3 Expectation guidance,0.4806837885647114,0.2893149890024694,48728.12063969414
+P3 Expectation guidance / P1 Skill upgrading,B-first,P1 Skill upgrading,0.4749507070097692,0.31488365134410573,52668.875625863526
+P3 Expectation guidance / P1 Skill upgrading,simultaneous,-,0.4805506228115957,0.3026601315633703,50815.04364102382
+P1 Skill upgrading / P2 Matching efficiency,A-first,P1 Skill upgrading,0.4699086214981426,0.3106326533905786,51900.93617454403
+P1 Skill upgrading / P2 Matching efficiency,B-first,P2 Matching efficiency,0.5066299571871083,0.3069911914534416,52029.69404175613
+P1 Skill upgrading / P2 Matching efficiency,simultaneous,-,0.48650014729554014,0.30724419719934154,51698.163186757505
+P3 Expectation guidance / P2 Matching efficiency,A-first,P3 Expectation guidance,0.4422327024357953,0.2751898893756362,46024.84720647165
+P3 Expectation guidance / P2 Matching efficiency,B-first,P2 Matching efficiency,0.47185470894049536,0.29646447286183353,49968.27811617385
+P3 Expectation guidance / P2 Matching efficiency,simultaneous,-,0.45833788983786056,0.28570997884915295,47991.50609203283

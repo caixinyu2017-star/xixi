@@ -1,0 +1,435 @@
+{
+ "baseline": {
+  "theta": 14.077973087951653,
+  "lam_Q": 0.4002645933603723,
+  "queue_years": 2.4983473846752786,
+  "u_rate_y": 0.17799999999999996,
+  "u_rate_p": 0.04299999999999999,
+  "queue_share": 0.3499999999999999,
+  "quota_share": 0.12,
+  "wage_premium": 1.25,
+  "repl_rate": 0.55,
+  "cohort_entry_Q": 0.1745553891644583,
+  "search_months_y": 6.429174180294542,
+  "V_entrant": 14.290795531023589,
+  "welfare": 30.991584994912316,
+  "welfare_pc": 0.9306782280754452,
+  "Y": 30.923099999999994,
+  "L": 33.29999999999999,
+  "young": 7.000000000000002,
+  "prime": 26.29999999999999,
+  "emp": 30.92309999999999,
+  "u_q": 0.4360999999999999,
+  "u_m": 0.8099000000000001,
+  "e_q": 1.071831336974744,
+  "e_m": 4.682168663025258,
+  "U_m": 1.1308999999999994,
+  "E_q": 2.6389406630252545,
+  "E_m": 22.530159336974737,
+  "v_Q": 0.1745553891644583,
+  "v_M": 21.592666093212163,
+  "N": 3.7107719999999986,
+  "w_Q": 1.1803805393837539,
+  "w_y": 0.9443044315070032,
+  "w_p": 0.9709439962287476,
+  "wbar_M": 0.9663603775417765,
+  "f_y": 1.8664916618342795,
+  "f_p": 3.752062511199894,
+  "W_q_y": 17.442508742468497,
+  "V_y": 14.290795531023589,
+  "V_p": 12.071956238612149,
+  "queue_loss": 0.5987262009981226,
+  "rho": 0.038022813688212934,
+  "gamma": 0.14285714285714285,
+  "a_q": 0.12705287013465674
+ },
+ "scaled": {
+  "cohort_millions": 12.7,
+  "queueing_millions": 5.5384699999999984,
+  "quota_hires_millions": 2.2168534423886204,
+  "young_unemployed_millions": 15.8242,
+  "establishment_millions": 47.12680439999998,
+  "labour_force_millions": 422.90999999999985
+ },
+ "queue_cost": {
+  "queuers": 0.4360999999999999,
+  "forgone_output": 0.5987262009981226,
+  "pct_of_output": 1.9361778120502884,
+  "pct_of_youth_nonemployment": 34.99999999999999,
+  "break_even_screening": 0.4564989426146339
+ },
+ "reform": {
+  "R0": 56.3,
+  "R1": 59.9,
+  "phase_years": 15.0,
+  "d_rho": -0.12040133779264228,
+  "d_u_rate_y": 0.0016189501105385862,
+  "u_rate_y_pp": 0.028817311967585524,
+  "d_u_rate_p": 0.01259625595062519,
+  "u_rate_p_pp": 0.05416390058768858,
+  "d_entry_prob": -0.0574187991317513,
+  "entry_prob_pp": -1.0022760827798711,
+  "entry_lost_thousands": 127.28906251304362,
+  "d_queue_years": 0.026597587601324246,
+  "queue_years_diff": 0.06645001342244017,
+  "d_queue_share": -0.03391246059899944,
+  "d_quota_share": -0.09976649269856208,
+  "quota_share_pp": -1.1971979123827456,
+  "d_theta": -0.014060730655692022,
+  "d_f_y": -0.007055253629736025,
+  "d_V_entrant": 0.04134011406820037,
+  "d_L": 0.10810810810810811,
+  "d_emp": 0.11082290526779515,
+  "d_Y": 0.11082290526779492,
+  "d_welfare_pc": 0.002926904898363558,
+  "d_queue_loss": -0.032348413070296456,
+  "d_w_y": -0.000285089018054685,
+  "crowding_out": -0.0005882790609592289,
+  "d_young_emp": -0.0003505755713819614,
+  "d_prime_emp": 0.13623868130859984,
+  "d_young_quota_emp": -0.057418799131751186
+ },
+ "channels": {
+  "cohort_entry_Q": {
+   "outcome": "cohort_entry_Q",
+   "total": -0.05913320860370741,
+   "quota": -0.05913320860370741,
+   "value": 0.0,
+   "demo": 0.0,
+   "check": 0.0
+  },
+  "u_rate_y": {
+   "outcome": "u_rate_y",
+   "total": 0.0016176410235156469,
+   "quota": -0.010260944392741922,
+   "value": 0.0066390549790182945,
+   "demo": 0.005239530437239274,
+   "check": 4.336808689942018e-19
+  },
+  "queue_years": {
+   "outcome": "queue_years",
+   "total": 0.02625002124974449,
+   "quota": -0.00010771551064555027,
+   "value": 0.023847644898978837,
+   "demo": 0.0025100918614112027,
+   "check": -3.469446951953614e-18
+  },
+  "V_entrant": {
+   "outcome": "V_entrant",
+   "total": 0.04050845487731043,
+   "quota": 2.3229938847761866e-05,
+   "value": 0.04102658243388513,
+   "demo": -0.0005413574954224617,
+   "check": 0.0
+  },
+  "quota_share": {
+   "outcome": "quota_share",
+   "total": -0.10510109675266716,
+   "quota": -0.01053277379129672,
+   "value": 0.00024151997056306946,
+   "demo": -0.09480984293193351,
+   "check": 0.0
+  }
+ },
+ "indicator": {
+  "u_rate_y_range_pp": 0.028817311967585524,
+  "entry_prob_range_pct": 6.091655454072353,
+  "ratio": 35.466688416142375
+ },
+ "policy_baseline": [
+  {
+   "instrument": "Cut in the administered premium",
+   "key": "tau_q",
+   "rate": 0.007059870148048995,
+   "fiscal_pct_Y": 0.1,
+   "d_welfare_pc_pct": 0.0585050184990347,
+   "d_entry_prob_pct": 0.0,
+   "d_u_rate_y_pp": -0.17238067215573638,
+   "d_queue_years": -0.08017355186966046,
+   "d_queue_loss_pct": -3.209063413736646,
+   "d_V_entrant_pct": 0.0013242470420893326,
+   "mvpf": 1.586345888168502
+  },
+  {
+   "instrument": "Market vacancy subsidy",
+   "key": "s_v",
+   "rate": 0.038891569052230825,
+   "fiscal_pct_Y": 0.09999999999999946,
+   "d_welfare_pc_pct": 0.013315911250236108,
+   "d_entry_prob_pct": 0.0,
+   "d_u_rate_y_pp": -0.24888406844878475,
+   "d_queue_years": -0.01683153984428465,
+   "d_queue_loss_pct": -0.6737069451401512,
+   "d_V_entrant_pct": 0.14598770604399292,
+   "mvpf": 1.133454018289853
+  },
+  {
+   "instrument": "Establishment expansion",
+   "key": "s_N",
+   "rate": 0.007059870148048995,
+   "fiscal_pct_Y": 0.1,
+   "d_welfare_pc_pct": -0.007769231495215969,
+   "d_entry_prob_pct": 0.7059870148049319,
+   "d_u_rate_y_pp": 0.022578827324939987,
+   "d_queue_years": 6.927890723540386e-05,
+   "d_queue_loss_pct": 0.7087795811130615,
+   "d_V_entrant_pct": -0.0006002941225990988,
+   "mvpf": 0.9221356208697197
+  }
+ ],
+ "policy_post_reform": [
+  {
+   "instrument": "Cut in the administered premium",
+   "key": "tau_q",
+   "rate": 0.007842265468669162,
+   "fiscal_pct_Y": 0.09999999999999999,
+   "d_welfare_pc_pct": 0.05672667097611173,
+   "d_entry_prob_pct": 0.0,
+   "d_u_rate_y_pp": -0.18545323586563744,
+   "d_queue_years": -0.09166577952378185,
+   "d_queue_loss_pct": -3.5739969009548123,
+   "d_V_entrant_pct": 0.0013000383004335703,
+   "mvpf": 1.568793531540083
+  },
+  {
+   "instrument": "Market vacancy subsidy",
+   "key": "s_v",
+   "rate": 0.03923361356194091,
+   "fiscal_pct_Y": 0.09999999999999941,
+   "d_welfare_pc_pct": 0.01168427393275239,
+   "d_entry_prob_pct": 0.0,
+   "d_u_rate_y_pp": -0.25318802519226913,
+   "d_queue_years": -0.01732522196547981,
+   "d_queue_loss_pct": -0.6755006059476876,
+   "d_V_entrant_pct": 0.14527105125285988,
+   "mvpf": 1.1171572263862515
+  },
+  {
+   "instrument": "Establishment expansion",
+   "key": "s_N",
+   "rate": 0.007842265468669162,
+   "fiscal_pct_Y": 0.09999999999999999,
+   "d_welfare_pc_pct": -0.007439147877852642,
+   "d_entry_prob_pct": 0.7842265468669396,
+   "d_u_rate_y_pp": 0.024510053894194472,
+   "d_queue_years": 7.120934549798008e-05,
+   "d_queue_loss_pct": 0.7870247323353841,
+   "d_V_entrant_pct": -0.0005965054870937792,
+   "mvpf": 0.9254082934844827
+  }
+ ],
+ "indexation": {
+  "labour_force_growth_pct": 10.81081081081081,
+  "s_N": 0.10810810810810811,
+  "entry_prob_no_index": 0.1645326283366596,
+  "entry_prob_indexed": 0.1823199395081904,
+  "entry_prob_baseline": 0.1745553891644583,
+  "restored_pct": 177.46917717717704,
+  "fiscal_pct_Y": 1.3791009029644536,
+  "d_welfare_pc_pct": -0.10261703291709612,
+  "d_queue_loss_pct": 10.853805264226102,
+  "d_u_rate_y_pp": 0.33795148636658334
+ },
+ "sensitivity_quota": [
+  {
+   "quota_share": 0.08,
+   "entry_prob": 0.1163702594429723,
+   "d_entry_prob": -0.05741879913175141,
+   "d_u_rate_y_pp": -0.021573389256437925,
+   "queue_loss_pct_Y": 1.3350518370549682,
+   "d_V_entrant": 0.04126676603193413
+  },
+  {
+   "quota_share": 0.1,
+   "entry_prob": 0.1454628243037153,
+   "d_entry_prob": -0.0574187991317513,
+   "d_u_rate_y_pp": 0.0027859047576350715,
+   "queue_loss_pct_Y": 1.6358021911217784,
+   "d_V_entrant": 0.04130189510671367
+  },
+  {
+   "quota_share": 0.12,
+   "entry_prob": 0.1745553891644583,
+   "d_entry_prob": -0.0574187991317513,
+   "d_u_rate_y_pp": 0.028817311967585524,
+   "queue_loss_pct_Y": 1.9361778120502884,
+   "d_V_entrant": 0.04134011406820037
+  },
+  {
+   "quota_share": 0.15,
+   "entry_prob": 0.21819423645557312,
+   "d_entry_prob": -0.0574187991317513,
+   "d_u_rate_y_pp": 0.07116022904780639,
+   "queue_loss_pct_Y": 2.385828751727932,
+   "d_V_entrant": 0.04140418038761329
+  },
+  {
+   "quota_share": 0.2,
+   "entry_prob": 0.2909256486074305,
+   "d_entry_prob": -0.0574187991317513,
+   "d_u_rate_y_pp": 0.1517438784199826,
+   "queue_loss_pct_Y": 3.131800933979244,
+   "d_V_entrant": 0.04153351769503
+  }
+ ],
+ "sensitivity_premium": [
+  {
+   "wage_premium": 1.1,
+   "queue_years": 2.498347384675281,
+   "queue_loss_pct_Y": 0.967595087383676,
+   "d_entry_prob": -0.05741879913175141,
+   "d_u_rate_y_pp": 0.01390431804472736
+  },
+  {
+   "wage_premium": 1.2,
+   "queue_years": 2.4983473846752706,
+   "queue_loss_pct_Y": 1.6133169038280777,
+   "d_entry_prob": -0.0574187991317513,
+   "d_u_rate_y_pp": 0.026056284642328453
+  },
+  {
+   "wage_premium": 1.25,
+   "queue_years": 2.4983473846752786,
+   "queue_loss_pct_Y": 1.9361778120502884,
+   "d_entry_prob": -0.0574187991317513,
+   "d_u_rate_y_pp": 0.028817311967585524
+  },
+  {
+   "wage_premium": 1.35,
+   "queue_years": 2.4983473846752764,
+   "queue_loss_pct_Y": 2.5818996284946985,
+   "d_entry_prob": -0.057418799131751075,
+   "d_u_rate_y_pp": 0.03213015975807587
+  }
+ ],
+ "uncertainty": {
+  "n_requested": 192,
+  "n_solved": 192,
+  "n_ranked": 192,
+  "d_entry_prob_mean": -0.055026580777048494,
+  "d_entry_prob_p5": -0.07157373165816237,
+  "d_entry_prob_p95": -0.04233565153961394,
+  "d_entry_prob_negative_share": 1.0,
+  "d_u_rate_y_pp_mean": 0.030778243822272205,
+  "d_u_rate_y_pp_p5": -0.03662692404831677,
+  "d_u_rate_y_pp_p95": 0.09000898799202356,
+  "d_u_rate_y_small_share": 1.0,
+  "queue_loss_mean": 1.9244423079889093,
+  "queue_loss_p5": 1.6240927530486462,
+  "queue_loss_p95": 2.1722345991185033,
+  "instrument_feasible_share": {
+   "gain_s_N": 1.0,
+   "gain_s_v": 1.0,
+   "gain_tau_q": 1.0
+  },
+  "best_instrument_shares": {
+   "gain_s_N": 0.0,
+   "gain_s_v": 0.0,
+   "gain_tau_q": 1.0
+  }
+ },
+ "meta": {
+  "max_log_resid": 1.1102230246251565e-16,
+  "moments": [
+   {
+    "moment": "u_rate_y",
+    "target": 0.178,
+    "simulated": 0.17799999999999996,
+    "rel_error": -1.1102230246251565e-16,
+    "source": "Surveyed urban unemployment rate, aged 16-24 excluding students, July 2025 (NBS)"
+   },
+   {
+    "moment": "u_rate_p",
+    "target": 0.043,
+    "simulated": 0.04299999999999999,
+    "rel_error": -1.1102230246251565e-16,
+    "source": "Surveyed urban unemployment rate, aged 25-59, December 2025: labour-force-weighted average of 6.9% (25-29) and 3.9% (30-59)"
+   },
+   {
+    "moment": "quota_share",
+    "target": 0.12,
+    "simulated": 0.12,
+    "rel_error": 0.0,
+    "source": "Share of urban employment in government agencies and public institutions, whose headcount is fixed by establishment quotas; commercial state-owned enterprises are excluded because they hire without an establishment ceiling"
+   },
+   {
+    "moment": "wage_premium",
+    "target": 1.25,
+    "simulated": 1.25,
+    "rel_error": 0.0,
+    "source": "Compensation-equivalent premium of a quota job over an entry-level market job, including pension, housing and security provisions"
+   },
+   {
+    "moment": "queue_share",
+    "target": 0.35,
+    "simulated": 0.3499999999999999,
+    "rel_error": -1.1102230246251565e-16,
+    "source": "Share of young non-employment whose main activity is preparing for public-sector entrance examinations"
+   },
+   {
+    "moment": "repl_rate",
+    "target": 0.55,
+    "simulated": 0.55,
+    "rel_error": 0.0,
+    "source": "Flow value of open search relative to the entry-level market wage"
+   }
+  ],
+  "params": {
+   "r": 0.04,
+   "a0": 23.0,
+   "T_y": 7.0,
+   "R": 56.3,
+   "delta_Q": 0.02,
+   "delta_M": 0.18,
+   "eta": 0.5,
+   "beta": 0.5,
+   "mu_y": 0.49745750670805944,
+   "c_M": 0.03597874959505855,
+   "p_M": 1.0,
+   "p_Q": 1.0,
+   "N_bar": 3.7107719999999986,
+   "w_Q": 1.1803805393837539,
+   "b": 0.5193674373288518,
+   "kappa_q": -0.7180087105025506,
+   "n": 1.0,
+   "s_v": 0.0,
+   "s_N": 0.0,
+   "tau_q": 0.0,
+   "xi": 0.0
+  },
+  "checks": {
+   "queue_years": 2.4983473846752786,
+   "cohort_entry_Q": 0.1745553891644583,
+   "search_months_y": 6.429174180294542,
+   "lam_Q": 0.4002645933603723,
+   "theta": 14.077973087951653,
+   "L": 33.29999999999999,
+   "young": 7.000000000000002,
+   "prime": 26.29999999999999,
+   "u_q": 0.4360999999999999,
+   "u_m": 0.8099000000000001,
+   "e_q": 1.071831336974744,
+   "e_m": 4.682168663025258,
+   "U_m": 1.1308999999999994,
+   "E_q": 2.6389406630252545,
+   "E_m": 22.530159336974737,
+   "w_y": 0.9443044315070032,
+   "w_p": 0.9709439962287476,
+   "wbar_M": 0.9663603775417765,
+   "w_Q": 1.1803805393837539,
+   "N": 3.7107719999999986,
+   "v_M": 21.592666093212163,
+   "Y": 30.923099999999994,
+   "welfare": 30.991584994912316,
+   "welfare_pc": 0.9306782280754452,
+   "V_entrant": 14.290795531023589,
+   "gamma": 0.14285714285714285,
+   "rho": 0.038022813688212934
+  },
+  "R0": 56.3,
+  "R1": 59.9,
+  "phase": 15.0,
+  "cohort": 12.7,
+  "budget": 0.001
+ }
+}
