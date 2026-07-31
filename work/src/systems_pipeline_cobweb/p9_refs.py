@@ -245,6 +245,20 @@ NEW9 = {
         journal='J. Econ. Perspect.', year='2020', volume='34', pages='146–167'),
 
     # -------------------------------------------------------- labour framework
+    'li_whalley': dict(
+        authors='Li, S.; Whalley, J.; Xing, C.',
+        title='China’s Higher Education Expansion and Unemployment of College Graduates',
+        journal='China Econ. Rev.', year='2014', volume='30', pages='567–582'),
+    'ou_zhao': dict(
+        authors='Ou, D.; Zhao, Z.',
+        title='Higher Education Expansion in China, 1999–2003: Impact on Graduate '
+              'Employability',
+        journal='China World Econ.', year='2022', volume='30', pages='117–141'),
+    'huang_returns': dict(
+        authors='Huang, B.; Tani, M.; Wei, Y.; Zhu, Y.',
+        title='Returns to Education in China: Evidence from the Great Higher Education '
+              'Expansion',
+        journal='China Econ. Rev.', year='2022', volume='74', pages='101804'),
     'katz_murphy': dict(
         authors='Katz, L.F.; Murphy, K.M.',
         title='Changes in Relative Wages, 1963–1987: Supply and Demand Factors',

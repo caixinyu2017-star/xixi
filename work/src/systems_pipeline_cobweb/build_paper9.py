@@ -123,7 +123,7 @@ assert m, 'keywords not found'
 front = front[:m.start(2)] + escape(KEYWORDS) + front[m.end(2):]
 
 front = front.replace('Academic Editor: Firstname Lastname',
-                      'Academic Editor: Maja Meško')
+                      'Academic Editor: Firstname Lastname')
 
 # ----------------------------------------------------------------------- body
 FIG_RIDS = {name: f'rId{19 + i}' for i, name in enumerate(FIGS, start=1)}

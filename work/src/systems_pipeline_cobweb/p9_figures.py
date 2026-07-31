@@ -124,16 +124,24 @@ def fig2():
     keys = ['share', 'u_other', 'premium', 'supply_elast']
     lab = ['share of cohort\nin the field', 'unemployment,\nother fields',
            'early-career\nwage premium', 'elasticity to\nrelative wage']
+    # the four moments differ by more than an order of magnitude, so plotting their
+    # levels side by side hides two of them; each is shown relative to its own target
     ax = axes[0]
     y = np.arange(len(keys))[::-1]
     tgt = [cal['targets'][k] for k in keys]
     mod = [cal['moments'][k] for k in keys]
-    ax.barh(y + 0.18, tgt, height=0.34, color=BLUE, alpha=0.85, label='target')
-    ax.barh(y - 0.18, mod, height=0.34, color=GREEN, alpha=0.85, label='model')
+    ax.axvline(1.0, color=BLUE, lw=1.4, label='target')
+    ax.plot([m / t for m, t in zip(mod, tgt)], y, 'o', color=GREEN, ms=7,
+            label='model', zorder=5)
+    for yi, t_, m_ in zip(y, tgt, mod):
+        ax.text(1.0035, yi, '  target %.3f' % t_, fontsize=6.6, va='center',
+                color=MUT)
     ax.set_yticks(y); ax.set_yticklabels(lab, fontsize=7.0)
-    ax.set_title('Targeted moments', fontsize=8.4, pad=4)
+    ax.set_xlim(0.994, 1.020)
+    ax.set_ylim(-0.6, len(keys) - 0.4)
+    ax.set_title('Targeted moments, model ÷ target', fontsize=8.4, pad=4)
     ax.legend(fontsize=6.9, frameon=False, loc='lower right')
-    ax.set_xlabel('value', fontsize=7.4)
+    ax.set_xlabel('ratio (exact match = 1)', fontsize=7.4)
     style(ax)
 
     ax = axes[1]
@@ -208,26 +216,25 @@ def fig3():
 def fig4():
     reg = R['belief_regimes']
     order = ['anchored', 'mixed', 'baseline', 'imitative']
-    lab = ['anchored\nonly', 'fixed\nmixture', 'baseline\n(switching)',
-           'strong\nimitation']
+    lab = ['anchored', 'fixed\nmixture', 'switching\n(baseline)', 'strong\nimitation']
     fig, axes = plt.subplots(1, 3, figsize=(7.3, 2.9))
 
-    for ax, key, ttl, col, unit in [
-            (axes[0], 'trough_change_pct', 'Depth of the overshoot', RED, '%'),
-            (axes[1], 'amplification', 'Amplification', PURPLE, '×'),
-            (axes[2], 'discounted_loss_pct', 'Output forgone', ORANGE, '%')]:
+    for ax, key, ttl, col, unit, fmt in [
+            (axes[0], 'trough_change_pct', 'Depth of the overshoot', RED, '%', '%.1f'),
+            (axes[1], 'amplification', 'Amplification', PURPLE, '×', '%.2f'),
+            (axes[2], 'discounted_loss_pct', 'Output forgone', ORANGE, '%', '%.4f')]:
         v = [reg[k][key] for k in order]
         x = np.arange(len(order))
         ax.bar(x, v, color=col, alpha=0.85, width=0.62)
-        ax.set_xticks(x); ax.set_xticklabels(lab, fontsize=6.8)
+        ax.set_xticks(x); ax.set_xticklabels(lab, fontsize=6.5)
         ax.set_title(ttl, fontsize=8.4, pad=4)
         lo, hi = min(0, min(v)), max(0, max(v))
-        pad = 0.22 * (hi - lo if hi > lo else 1.0)
+        pad = 0.26 * (hi - lo if hi > lo else 1.0)
         ax.set_ylim(lo - pad, hi + pad)
         for xi, vi in zip(x, v):
-            ax.text(xi, vi + (0.04 * (hi - lo) if vi >= 0 else -0.04 * (hi - lo)),
-                    ('%.2f' % vi) + unit, ha='center',
-                    va='bottom' if vi >= 0 else 'top', fontsize=6.7)
+            ax.text(xi, vi + (0.045 * (hi - lo) if vi >= 0 else -0.045 * (hi - lo)),
+                    (fmt % vi) + unit, ha='center',
+                    va='bottom' if vi >= 0 else 'top', fontsize=6.6)
         style(ax)
     fig.tight_layout(pad=0.5, w_pad=1.4)
     save(fig, 'p9_fig4.png')
@@ -242,16 +249,15 @@ def fig5():
     ax.plot(stb['psi_grid'], stb['modulus'], color=BLUE, lw=1.8)
     ax.axhline(1.0, color=RED, lw=1.1, ls='--')
     ax.axvline(stb['psi_baseline'], color=GREEN, lw=1.0, ls=':')
-    if stb['psi_critical'] is not None:
-        ax.plot([stb['psi_critical']], [1.0], 'o', color=RED, ms=5, zorder=5)
     lo, hi = ax.get_ylim()
-    ax.set_ylim(lo, hi + 0.30 * (hi - lo))
-    ax.text(stb['psi_baseline'], hi + 0.06 * (hi - lo), ' calibrated',
+    hi = max(hi, 1.02)
+    ax.set_ylim(lo, hi + 0.16 * (hi - lo))
+    ax.text(stb['psi_baseline'], lo + 0.02 * (hi - lo), ' calibrated ψ',
             fontsize=6.8, color=GREEN, ha='left', va='bottom')
-    if stb['psi_critical'] is not None:
-        ax.text(stb['psi_critical'], hi + 0.18 * (hi - lo),
-                'loses stability at ψ = %.0f' % stb['psi_critical'],
-                fontsize=6.8, color=RED, ha='center', va='bottom')
+    ax.text(0.5, 0.95,
+            'stability boundary; not reached' if stb['psi_critical'] is None
+            else 'loses stability at psi = %.0f' % stb['psi_critical'],
+            transform=ax.transAxes, fontsize=6.8, color=RED, ha='center', va='top')
     ax.set_xlabel('intensity of choice over forecasting rules, ψ', fontsize=7.4)
     ax.set_ylabel('modulus of the dominant mode', fontsize=7.4)
     ax.set_title('Imitation destabilises', fontsize=8.4, pad=4)

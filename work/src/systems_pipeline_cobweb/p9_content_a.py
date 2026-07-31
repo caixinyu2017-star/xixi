@@ -9,24 +9,28 @@ ABSTRACT = (
     'reach it four years late. This paper asks what that delay does to an education '
     'system when demand for a field falls abruptly, as demand for entry-level '
     'computing work has since 2023. We build a two-field model in which firms hire '
-    'entry-tier graduates through a matching market, the two kinds of graduate are '
-    'imperfect substitutes in production, and entrants choose a field by a '
+    'entry-tier graduates through a matching market with free entry, the two kinds of '
+    'graduate are imperfect substitutes in production, and entrants choose a field by a '
     'discrete-choice rule after forecasting what it will be worth on graduation. '
-    'Forecasts come from two rules—one anchored on the field’s long-run value, one '
-    'that projects the recent trend—and the weight on each evolves with its recent '
-    'accuracy, which makes the education system an adaptive belief system in the sense '
-    'of Brock and Hommes. The labour block is calibrated to four moments of the '
-    'pre-shock graduate market, matched to twelve decimal places, and the size of the '
+    'Forecasts come from two competing rules—one anchored on the field’s long-run '
+    'value, one that projects the recent trend—and the weight on each evolves with its '
+    'recent accuracy, which makes the education system an adaptive belief system in the '
+    'sense of Brock and Hommes. The labour block is calibrated to four moments of the '
+    'pre-shock graduate market, matched to thirteen decimal places, and the size of the '
     'technology shock is set so that the model reproduces the new-graduate '
-    'unemployment rate now observed in the exposed field. Three results follow. The '
-    'enrolment response overshoots its own long-run value by a large multiple, so the '
-    'collapse in enrolment that follows a demand shock is mostly transitional and '
-    'mostly self-inflicted. The overshoot grows with the intensity with which students '
-    'imitate successful forecasting rules, and beyond a critical intensity the '
-    'stationary state loses stability altogether, even though every individual rule is '
-    'reasonable. And improving the precision of information about current wages moves '
-    'the system towards that boundary, while publishing what is already in the '
-    'pipeline moves it away: which information is supplied matters more than how much.'
+    'unemployment rate now observed in the exposed field; the whole transition is then '
+    'free to be right or wrong. Three findings follow. The entering share overreacts on '
+    'impact by a factor of 2.05: it falls 28.5 per cent when the warranted long-run '
+    'fall is 13.9 per cent, so most of the enrolment collapse that follows such a shock '
+    'is transitional rather than warranted. The overreaction is not produced by the '
+    'delay alone but by the competition between forecasting rules, and it rises '
+    'monotonically from 1.10 when beliefs are anchored to 2.48 when entrants imitate '
+    'successful rules sharply. Yet the overreaction is not, on this calibration, a '
+    'welfare loss: the adjustment cost falls as the response grows, because the '
+    'alternative error—under-reacting and staying mis-allocated for longer—is the more '
+    'expensive one. The size of a system’s correction is therefore a poor guide to how '
+    'well it is behaving, and an instrument ranked on the amplitude of the swing it '
+    'produces will be ranked backwards.'
 )
 
 KEYWORDS = ('education-to-work transition; adaptive belief systems; heterogeneous '
@@ -64,7 +68,9 @@ PART_A = [
 ('p', 'What is in dispute, and what matters for policy, is what happens next. The '
       'reflex reading of falling enrolment is that the system is correcting: students '
       'observed a worse market and are reallocating towards better ones, which is what '
-      'a price system is supposed to do. That reading is right about the direction and '
+      'a price system is supposed to do, and the stakes for young people are high enough '
+      'that getting it right matters {{ilo1|neet_cee|basol}}. That reading is right '
+      'about the direction and '
       'can be badly wrong about the magnitude, because the correction is made by '
       'people who cannot see the correction being made by everyone else. Each entrant '
       'observes today’s market, not the market that the four cohorts already enrolled '
@@ -104,25 +110,35 @@ PART_A = [
       'rate now observed in the exposed field, which leaves everything else—the '
       'enrolment path, the wage path, the dynamics—free to be right or wrong.'),
 
-('p', 'Three results follow. The first is the paper’s title. The enrolment response '
-      'overshoots: the entering share falls far below the level that is warranted in '
-      'the long run, and the excess is a multiple rather than a margin. Most of the '
-      'enrolment collapse that follows a demand shock is therefore transitional, and it '
-      'is manufactured by the adjustment process rather than required by the shock. The '
-      'second concerns where that amplification comes from. It is not the delay alone; '
-      'a delay with anchored beliefs produces a modest overshoot. It is the delay '
-      'combined with the endogenous selection of forecasting rules, and it grows '
-      'monotonically in the intensity with which students imitate what has recently '
-      'worked. Past a critical intensity the stationary state loses stability and the '
-      'system no longer settles at all. The third is about information, and it is the '
-      'one we did not expect. Improving the precision of information about *current* '
-      'returns—the intervention that policy reaches for, and that the literature on '
-      'correcting students’ beliefs supports in a static setting '
-      '{{wiswall_zafar|conlon_major}}—moves this system towards instability, because '
-      'the thing it sharpens is the signal the extrapolative rule feeds on. What '
-      'stabilises is information about the pipeline: the cohorts already enrolled and '
-      'not yet graduated. That is an administrative statistic every education ministry '
-      'already holds and almost none publishes in usable form.'),
+('p', 'Three findings follow. The first is the paper’s title. The entering share '
+      'overreacts on impact: it falls 28.5 per cent against a warranted long-run fall '
+      'of 13.9 per cent, an amplification of 2.05. Most of the enrolment collapse that '
+      'follows a demand shock of this size is therefore transitional, and it is '
+      'manufactured by the adjustment process rather than required by the shock. The '
+      'second concerns where the amplification comes from. It is not the delay alone: '
+      'with beliefs anchored on the field’s long-run value the amplification is 1.10, '
+      'which is to say the response is almost exactly what is warranted. It is the '
+      'competition between forecasting rules that does the work, and the amplification '
+      'rises monotonically to 1.89 when a trend-projecting rule is present and to 2.48 '
+      'when entrants imitate the recently successful rule sharply.'),
+
+('p', 'The third finding is the one we did not expect, and it cuts against the framing '
+      'the first two invite. The overreaction is not a welfare loss on this '
+      'calibration. The discounted output forgone during the adjustment falls as the '
+      'response grows—from 0.0025 per cent of output under anchored beliefs to 0.0017 '
+      'per cent under strong imitation—because the alternative error is under-reaction, '
+      'and a system that adjusts too little stays mis-allocated for longer than one '
+      'that adjusts too much and comes back. The same reversal shows up in the '
+      'information experiments: a noisier signal about current returns makes entrants '
+      'less responsive and shrinks the swing from 2.05 to 1.65, and it raises the '
+      'adjustment cost; publishing the enrolment pipeline makes the immediate response '
+      'deeper, and lowers it. The two rankings are opposite because the pipeline tells '
+      'entrants something true—at the moment of the shock four large pre-shock cohorts '
+      'are still coming—so the larger response is the better-informed one. The '
+      'practical implication is a warning about measurement rather than a policy '
+      'prescription: the amplitude of a correction is not a measure of how badly a '
+      'system is doing, and an indicator built on it will rank interventions the wrong '
+      'way round.'),
 
 ('p', 'The paper contributes to three literatures. To the cobweb tradition in educated '
       'labour markets {{freeman76|ryoo_rosen|blume_kohout}} it adds endogenous '
@@ -156,8 +172,9 @@ PART_A = [
       'produce in a cobweb map {{gardini_cobweb}}, the effect of asymmetric beliefs on '
       'stability {{berardi_cobweb}}, and—closest to the present paper—the dynamics that '
       'production delays generate when technology choice is endogenous '
-      '{{dieci_delays|hommes_delays}}. Poitras provides the intellectual history '
-      '{{poitras}}.'),
+      '{{dieci_delays|hommes_delays}}, and the switching mechanism has been estimated '
+      'directly in macroeconomic data {{kukacka|gusella}}. Poitras provides the '
+      'intellectual history {{poitras}}.'),
 
 ('p', 'The application to educated labour is Freeman’s. His model of the market for new '
       'engineers found a supply response to lagged starting salaries strong enough to '
@@ -195,7 +212,9 @@ PART_A = [
       '{{kirkeboen|bleemer}}, entry conditions have persistent effects that differ '
       'sharply by field {{altonji_cashier}}, and the STEM premium in particular decays '
       'over a career as the specific skills it rests on are displaced by newer ones '
-      '{{deming_noray}}. That last finding matters here: it establishes that the '
+      '{{deming_noray}}, and graduate over-education and field mismatch are persistent in '
+      'the large systems where they have been measured {{mismatch1|vet1}}. That last '
+      'finding matters here: it establishes that the '
       'quantity students are trying to forecast is itself moving, which is what makes '
       'the extrapolative rule attractive and dangerous at the same time.'),
 
@@ -229,10 +248,12 @@ PART_A = [
 ('p', 'The demand shock the paper feeds in is the contraction in entry-level technical '
       'hiring since 2023. Generative artificial intelligence raises productivity most on '
       'exactly the tasks that entry-level knowledge work consists of '
-      '{{noy_zhang|bly_genai_work}}, its exposure is concentrated in occupations rather '
-      'than spread evenly {{eloundou_gpts}}, and the macroeconomic accounting suggests '
+      '{{genai2|genai3}}, its exposure is concentrated in occupations rather '
+      'than spread evenly {{genai1}}, and the macroeconomic accounting suggests '
       'the aggregate effect over a decade is modest even where the occupational effect '
-      'is large {{acemoglu_ai}}. Whether the observed collapse in junior technical '
+      'is large {{acemoglu_ai|sbtc1}}; comparable displacement patterns appear for earlier '
+      'automation technologies {{robots_china_firm|robots_china2|prod1}}. Whether the '
+      'observed collapse in junior technical '
       'hiring is caused by AI is contested; the payroll evidence {{canaries}} and the '
       'firm-level résumé evidence {{seniority_biased}} point one way, Danish '
       'administrative data another {{still_waters}}, and part of the movement coincides '
@@ -253,7 +274,9 @@ PART_A = [
       'decision itself will change, with a delay in between—and it supplies the '
       'vocabulary for the policy section: the leverage in such a system is often in the '
       'structure of its information flows rather than in the strength of its incentives '
-      '{{meadows_ts|sterman_bd}}. The contribution here is to make that claim '
+      '{{meadows_ts|sterman_bd}}. Recent work in this journal has applied the same systemic '
+      'framing to employment and to the digital economy '
+      '{{ses_urban|ses_regional|systems_ai_dm}}. The contribution here is to make that claim '
       'quantitative in a market where the delay is a degree.'),
 ]
 
@@ -370,8 +393,8 @@ PART_A += [
       'enrolled: it is what a published enrolment series would give an entrant. Section '
       '5.5 varies both.'),
 
-('figure', 'p9_fig1.png', 5.35, None, 'Figure 1'),
-('figcap', 'Figure 1',
+('figure', 'p9_fig1.png', 5.35, None, 'fig'),
+('figcap', 1,
  'The structure of the model. A technology shock moves entry-level demand in the '
  'exposed field; the observed return feeds the forecasts on which this year’s entrants '
  'choose; their choice reaches the market only after the degree lag, and then adds to '
@@ -449,13 +472,19 @@ PART_A += [
       'degree; the empirical response of completed majors to wages peaks at about three '
       'years, because the decision is effectively taken at matriculation rather than at '
       'entry into the major {{long_majors}}, and Section 5.6 varies the lag from three '
-      'to five. The elasticity of substitution between the two kinds of graduate is set '
+      'to five; career-stage research has begun to treat the whole sequence of early '
+      'career steps as itself being reorganised by the technology '
+      '{{career1|career2}}. The elasticity of substitution between the two kinds of '
+      'graduate is set '
       'to two, in the range the literature on substitution between skill groups '
-      'supports {{katz_murphy|ciccone_peri}}, and is varied from 1.5 to 4. The entry '
+      'supports {{katz_murphy|ciccone_peri}}, and is varied from 1.5 to 4; recent work on '
+      'digital transformation and labour-structure upgrading suggests the two kinds of '
+      'graduate are becoming less substitutable, not more '
+      '{{digital_emp1|im_hc|training1}}. The entry '
       'tier lasts seven years, so a cohort is about a seventh of the stock it competes '
       'with.'),
 
-('tabcap', 'Table 1',
+('tabcap', 1,
  'Parameters set outside the estimation, and the two normalisations that determine '
  'what is identified.'),
 ('table', [
@@ -469,8 +498,9 @@ PART_A += [
     ['Elasticity of substitution', '⟪σ⟫', '2.000', 'Substitution between skill groups; varied 1.5–4'],
     ['Flow value of non-work', '⟪b⟫', '0.400', 'Standard range relative to the wage'],
     ['Trend extrapolation', '⟪φ⟫', '1.500', 'Belief block; varied in Sections 5.3–5.4'],
-    ['Intensity of choice over rules', '⟪ψ⟫', '80.0', 'Belief block; swept in Section 5.4'],
+    ['Intensity of choice over rules', '⟪ψ⟫', '20.0', 'Belief block; swept 0–60 in Section 5.4'],
     ['Cost of the anchored rule', '⟪c⟫', '0.020', 'Belief block'],
+    ['Memory in the fitness measure', '⟪m⟫', '0.500', 'Belief block; smooths rule switching'],
     ['Vacancy cost', '⟪κ⟫', '1.000', 'Normalisation: only ⟪μ/κ⟫ is identified'],
     ['Productivity, unexposed field', '⟪A₂⟫', '1.000', 'Normalisation: only relative productivity matters'],
 ], [2300, 900, 1000, 5300]),
@@ -500,7 +530,7 @@ PART_A += [
       'published estimate we could verify, and the paper’s qualitative conclusions do '
       'not turn on where in it the truth lies.'),
 
-('tabcap', 'Table 2',
+('tabcap', 2,
  'Targeted moments, the fit, and the parameter each moment principally identifies.'),
 ('table', [
     ['Moment', 'Target', 'Model', 'Estimate', 'Parameter identified'],

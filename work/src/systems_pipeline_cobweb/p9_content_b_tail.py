@@ -18,7 +18,9 @@ TAIL = [
       'decline forward, so the decline deepens and the rule is vindicated again. The '
       'loop that selects the forecasting rule is reinforcing even though the loop that '
       'allocates students is balancing, and the reinforcing one operates on a much '
-      'shorter timescale than the four years the balancing one needs.'),
+      'shorter timescale than the four years the balancing one needs. Laboratory evidence '
+      'that subjects coordinate on trend-following rules in exactly this way is by now '
+      'substantial {{hommes_lab|evans_ltf|boehl_hommes}}.'),
 
 ('p', 'This is worth stating plainly because it changes what one would do about it. If '
       'the delay were the whole story the only remedies would be to shorten degrees or '
@@ -48,7 +50,9 @@ TAIL = [
       'from the empirical side: information interventions are not reliably effective '
       'once the setting has general-equilibrium content, and a centralised system in '
       'which everyone is informed at once behaves differently from a field experiment '
-      'in which one arm is {{haaland|ajayi_info}}. The systems literature reached the '
+      'in which one arm is {{haaland|ajayi_info}}; and the measurement of skills mismatch '
+      'is itself contested enough that steering on it is hazardous '
+      '{{bischof|brunello_mismatch}}. The systems literature reached the '
       'same conclusion decades earlier and stated it as a general property: the '
       'leverage in a system with delays lies in the structure of its information flows '
       'rather than in the strength of its signals {{meadows_ts|forrester71}}, and '
@@ -84,7 +88,8 @@ TAIL = [
       'respond to it have already chosen. An indicator chosen because it is available '
       'and comparable comes to define the problem, and this one defines it as a '
       'question about the graduates who already exist rather than about the ones being '
-      'produced {{meadows_ts}}.'),
+      'produced {{meadows_ts}}. Youth-employment statistics face the same difficulty in '
+      'their own domain {{ilo1|neet_cee|ilo2}}.'),
 
 ('h2', '6.4. Implications for Systems with Administered Enrolment'),
 
@@ -130,18 +135,20 @@ TAIL = [
       'propagate unevenly, which is a first-order extension rather than a refinement. '
       'Third, we hold the size of the entering cohort fixed, so the model cannot speak '
       'to the margin between higher education and no higher education, which is where '
-      'much of the recent adjustment in some countries has occurred.'),
+      'much of the recent adjustment in some countries has occurred; the vocational '
+      'margin in particular behaves differently {{vet1|stw|basol}}.'),
 
 ('p', 'Fourth, the shock is permanent and unanticipated, and it is calibrated to a '
       'single observable. A shock that agents expect to reverse would produce a smaller '
       'response, and one that arrives gradually would produce a smoother one; the '
       'evidence on whether the contraction in entry-level technical hiring is permanent '
-      'is, at the time of writing, exactly what is in dispute {{canaries|still_waters}}. '
+      'is, at the time of writing, exactly what is in dispute '
+      '{{canaries|still_waters|hui_reshef}}. '
       'Fifth, the model has no on-the-job mobility: a graduate who trained in one field '
       'never works in the other. That assumption makes the congestion effect stronger '
       'than it should be, and relaxing it would damp the cycle. It also, however, '
       'understates the cost of the mismatch, since in the data field-switching involves '
-      'a substantial earnings penalty {{kirkeboen|deming_noray}}.'),
+      'a substantial earnings penalty {{kirkeboen|deming_noray|mismatch1}}.'),
 
 # ============================================================== 7. Conclusions
 ('h1', '7. Conclusions'),
