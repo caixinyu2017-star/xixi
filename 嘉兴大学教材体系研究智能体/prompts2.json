@@ -1,0 +1,47 @@
+[
+{
+"name": "fig_principles",
+"size": "1536x1024",
+"prompt": "A clean flat-vector infographic for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nFive equal horizontal rounded bars stacked vertically, filling the canvas. Each bar has a colored square number badge on the left (navy, showing 一 二 三 四 五 respectively), then a bold Chinese principle name, then a thin vertical divider, then smaller gray Chinese explanatory text.\n\nBar 1: name 育人主体地位　explanation 教材编写与审定由教师和专家主导\nBar 2: name 证据优先　explanation 交付材料必须挂载来源与定位信息\nBar 3: name 体系视角　explanation 分析教材体系的覆盖结构时效自主\nBar 4: name 人机分工　explanation 绿黄红三色灯明确责任边界\nBar 5: name 全程留痕　explanation 检索确认决策全过程可追溯"
+},
+{
+"name": "fig_arch",
+"size": "1536x1024",
+"prompt": "A clean flat-vector architecture diagram for a Chinese university report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, light gray #E8EAED. Crisp bold Chinese sans-serif typography, perfectly legible, no shadows, no gradients, thin precise lines.\n\nSix horizontal layer bars stacked vertically in the middle of the canvas, from TOP to BOTTOM, each a rounded rectangle with a bold Chinese label on the left and smaller Chinese sub-text on the right separated by a thin vertical line:\nBar 1 (navy): 「L5 人机协同研究共同体层」  sub-text: 教师·专家·出版社·企业·学生\nBar 2 (navy): 「L4 教材体系诊断层」  sub-text: 六维体检·结构性与计量性分析\nBar 3 (gold): 「L3 研究助研智能体群」  sub-text: 六大助研体·检索比对评估推荐\nBar 4 (navy): 「L2 教材体系知识图谱层」  sub-text: 学科—课程—章节—知识点\nBar 5 (navy): 「L1 中国特色价值坐标层」  sub-text: 价值标签体系·四维坐标\nBar 6 (gray): 「L0 语料与数据底座层」  sub-text: 合规语料·版权治理·数据分级\n\nOn the FAR LEFT, one tall vertical navy rounded bar spanning all six layers, with vertical Chinese text: 入口·任务解析枢\nOn the FAR RIGHT, one tall vertical navy rounded bar spanning all six layers, with vertical Chinese text: 出口·输出规范枢\n\nAt the very BOTTOM, one full-width gold bar with dark Chinese text: 全过程留痕审计链"
+},
+{
+"name": "fig_axis",
+"size": "1536x1024",
+"prompt": "A clean flat-vector four-quadrant coordinate diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: crimson #C42B1C, deep navy #1B3A6B, gold #C9A227, green #2E7D32. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nA red circle in the exact center containing white Chinese text on two lines: 一次检索 等于四维切片\n\nFour thick axis arrows radiate from the center to the four corners. Each axis ends in a colored header box with a bold Chinese label, and below each header a short vertical list of smaller Chinese items:\nUpper-left axis, red header 价值维 V, items: 立德树人 / 核心价值观 / 党的创新理论 / 中华优秀传统文化\nUpper-right axis, navy header 知识维 K, items: 学科 / 课程 / 章节 / 知识点\nLower-left axis, gold header 证据维 E, items: 政策文本 / 学术文献 / 教材实体 / 教学数据\nLower-right axis, green header 时空维 S, items: 教材建设史 / 国家战略 / 浙江实践 / 嘉兴场景"
+},
+{
+"name": "fig_agents",
+"size": "1536x1024",
+"prompt": "A clean flat-vector hub-and-spoke diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nA red circle in the exact center with white Chinese text on two lines: 禾章 助研智能体群\n\nSix navy rounded rectangles evenly arranged around the center circle, each connected to the center by a thin gold line. Each box has a large bold white Chinese title line and a smaller light-gray Chinese sub-line:\nBox 1 title 体系测绘助研体, sub-line 测绘教材体系现状\nBox 2 title 文献证据检索助研体, sub-line 证据召回与排序\nBox 3 title 案例线索发现助研体, sub-line 真实案例线索发现\nBox 4 title 国际比较检视助研体, sub-line 中外教材结构比对\nBox 5 title 政策合规检索助研体, sub-line 政策条款精确检索\nBox 6 title 教材史脉络助研体, sub-line 梳理教材演进脉络"
+},
+{
+"name": "fig_radar",
+"size": "1536x1024",
+"prompt": "A clean flat-vector radar evaluation diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nOn the left half: a hexagonal radar chart with six gray grid rings and a semi-transparent navy filled polygon. Each of the six vertices carries a bold Chinese label placed outside the hexagon:\n覆盖度 / 结构度 / 时效度 / 自主度 / 协同度 / 可及度\n\nOn the right half: two stacked rounded callout boxes, vertically centered.\nThe first box is navy with white Chinese text on two lines: 机器测算 结构性与计量性指标\nThe second box is red with white Chinese text on two lines: 专家研判 价值性与政治性判断"
+},
+{
+"name": "fig_flow",
+"size": "1024x1536",
+"prompt": "A clean flat-vector flowchart for a Chinese technical design document. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, green #2E7D32, gold #C9A227, gray #8A8F98. Bold crisp Chinese sans-serif typography, perfectly legible. Thin precise connector lines with small arrowheads. No shadows, no gradients.\n\nTop-down flow:\n1. A navy rounded box: 使用者提出任务\n2. Arrow down to a navy diamond: 任务解析枢\n3. The diamond branches into THREE labelled paths side by side:\n   - Left branch labelled 研究型 leading to a green box: 直接受理\n   - Middle branch labelled 撰写型 leading to a gold box: 任务转译 改写为助研任务\n   - Right branch labelled 超出范围 leading to a gray box: 说明理由 不予受理\n4. The green box and the gold box both flow down into one navy box: 检索·比对·评估引擎\n5. Arrow down to a navy rectangle labelled 输出规范枢, containing four small white sub-boxes in a row with Chinese text: 引证覆盖率 / 无引证长度 / 形态符合度 / 摘录长度\n6. From it, two arrows: left arrow labelled 通过 to a green box: 交付证据包 ; right arrow labelled 不通过 to a gold box: 形态归一为卡片清单\n7. Both flow down into one gray box at the bottom: 全过程留痕存证"
+},
+{
+"name": "fig_atom",
+"size": "1536x1024",
+"prompt": "A clean flat-vector data-structure diagram for a Chinese technical design document. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, gold #C9A227, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nCenter-left: a large navy rounded card. At the top of the card, white Chinese and English text on one line: 证据原子 Evidence Atom\nInside that card, a neat 3-column by 4-row grid of twelve small white field chips, each containing short dark Chinese text, reading in order:\n来源标识 / 原文摘录 / 定位信息\n权威等级 / 时效标记 / 主题标签\n价值标签 / 关联知识点 / 检索路径\n置信度 / 使用建议 / 核实提示\n\nOn the right side, four gold rounded callout boxes stacked vertically, each with dark Chinese text:\n来源可核查\n引用可控\n形态统一\n结果可复现\n\nA thin gold arrow points from the card to the callout boxes."
+},
+{
+"name": "fig_light",
+"size": "1536x1024",
+"prompt": "A clean flat-vector responsibility-allocation diagram for a Chinese technical design document. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nThree tall vertical columns of equal width side by side, filling the canvas. Each column has a solid colored header bar with a matching circle icon, and a white body listing four short Chinese items in small rounded light-gray chips.\n\nLeft column, GREEN header #2E7D32 with a white circle outline, header Chinese text on two lines: 绿灯 机器可自动执行\nitems: 检索去重 / 聚类统计 / 图表可视化 / 格式规范核对\n\nMiddle column, AMBER header #E8A33D with a white circle outline, header Chinese text on two lines: 黄灯 机器建议 人工确认\nitems: 主题标注 / 价值标签 / 适配度评分 / 体系缺口诊断\n\nRight column, RED header #C42B1C with a white circle outline, header Chinese text on two lines: 红灯 教师与专家承担\nitems: 教材正文撰写 / 政治性结论 / 意识形态定性 / 选用最终决定"
+},
+{
+"name": "fig_road",
+"size": "1792x1024",
+"prompt": "A clean flat-vector three-stage horizontal roadmap timeline for a Chinese university report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nOne thick horizontal gold arrow runs left to right across the middle of the canvas. Three large circular milestone nodes sit on the arrow, evenly spaced.\n\nNode 1 (navy circle) label above the arrow in bold Chinese: 第一年 语料底座\nUnder node 1, a stacked list of four short Chinese items: 五大语料库上线 / 价值标签词表发布 / 两枢原型上线 / 红船专题库开建\n\nNode 2 (red circle) label above the arrow in bold Chinese: 第二年 助研体系\nUnder node 2, four short Chinese items: 六大助研体上线 / 知识图谱百万级 / 首份体检报告 / 校内全流程试运行\n\nNode 3 (gold circle) label above the arrow in bold Chinese: 第三年 成果转化\nUnder node 3, four short Chinese items: 面向长三角开放 / 建设规范发布 / 支撑国家级课题 / 形成可复制范式"
+}
+]

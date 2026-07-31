@@ -1,113 +1,117 @@
 // Build the Chinese design-plan Word document from plan.md
+//
+// Typography spec:
+//   章标题(一级) 黑体 小三(15pt) 加粗 | 节标题(二级) 黑体 四号(14pt)
+//   条标题(三级及以下) 黑体 小四(12pt) | 正文 宋体 小四(12pt)，无段前段后间距
+//   图名置于图下方、表名置于表上方，均为五号(10.5pt)黑体；表格为三线表
 const fs = require('fs');
 const path = require('path');
 const {
   Document, Packer, Paragraph, TextRun, ImageRun, Table, TableRow, TableCell,
-  WidthType, AlignmentType, HeadingLevel, BorderStyle, ShadingType, ShadingType: ST,
-  PageBreak, TableOfContents, Header, Footer, PageNumber, LevelFormat, LineRuleType,
+  WidthType, AlignmentType, HeadingLevel, BorderStyle, ShadingType,
+  PageBreak, Header, Footer, PageNumber, LevelFormat, LineRuleType,
   Tab, TabStopType, LeaderType,
-  VerticalAlign, PageOrientation, convertMillimetersToTwip,
+  VerticalAlign, convertMillimetersToTwip,
 } = require('docx');
 
 const SRC = path.join(__dirname, 'plan.md');
-const OUT = process.argv[2] || path.join(__dirname, '嘉兴大学禾章智能体框架设计方案.docx');
+const OUT = process.argv[2] || path.join(__dirname, '禾章智能体建设方案.docx');
 
+// eastAsia fonts; ascii/hAnsi carry the Latin companion face
 const SONG = { ascii: 'Times New Roman', eastAsia: '宋体', hAnsi: 'Times New Roman' };
-const HEI = { ascii: 'Arial', eastAsia: '黑体', hAnsi: 'Arial' };
-const KAI = { ascii: 'Times New Roman', eastAsia: '楷体', hAnsi: 'Times New Roman' };
-const MONO = { ascii: 'Consolas', eastAsia: '等线', hAnsi: 'Consolas' };
+const HEI = { ascii: 'Times New Roman', eastAsia: '黑体', hAnsi: 'Times New Roman' };
+const MONO = { ascii: 'Consolas', eastAsia: '宋体', hAnsi: 'Consolas' };
 
-const NAVY = '1B3A6B';
-const RED = 'C42B1C';
-const GRAYBG = 'F2F4F7';
-const HEADBG = 'E3E8F0';
+// half-point sizes
+const XIAOSAN = 30;   // 小三 15pt
+const SIHAO = 28;     // 四号 14pt
+const XIAOSI = 24;    // 小四 12pt
+const WUHAO = 21;     // 五号 10.5pt
 
-// ---------- PNG dimension reader ----------
+const BLACK = '000000';
+const LINE_15 = 360;  // 1.5 倍行距
+
 function pngSize(file) {
-  const buf = fs.readFileSync(file);
-  return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+  const b = fs.readFileSync(file);
+  return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
 }
 
-// ---------- inline markdown (**bold**) -> TextRun[] ----------
+// inline **bold** -> TextRun[]
 function runs(text, opts = {}) {
-  const base = { font: opts.font || SONG, size: opts.size || 24, color: opts.color };
+  const base = { font: opts.font || SONG, size: opts.size || XIAOSI, color: BLACK };
   const out = [];
-  const parts = text.split('**');
-  parts.forEach((seg, i) => {
+  text.split('**').forEach((seg, i) => {
     if (seg === '') return;
     out.push(new TextRun({ ...base, text: seg, bold: i % 2 === 1 || !!opts.bold }));
   });
-  if (out.length === 0) out.push(new TextRun({ ...base, text: '' }));
+  if (!out.length) out.push(new TextRun({ ...base, text: '' }));
   return out;
 }
 
-function body(text, extra = {}) {
+// 正文：宋体小四，段前段后 0，首行缩进 2 字
+function body(text) {
   return new Paragraph({
     children: runs(text),
-    spacing: { line: 380, before: 60, after: 60 },
+    spacing: { line: LINE_15, lineRule: LineRuleType.AUTO, before: 0, after: 0 },
     indent: { firstLine: 480 },
     alignment: AlignmentType.JUSTIFIED,
-    ...extra,
   });
 }
 
-// ---------- markdown parse ----------
+function caption(text) {
+  return new Paragraph({
+    alignment: AlignmentType.CENTER,
+    spacing: { line: LINE_15, lineRule: LineRuleType.AUTO, before: 60, after: 180 },
+    children: [new TextRun({ text, font: HEI, size: WUHAO, color: BLACK })],
+  });
+}
+
 const raw = fs.readFileSync(SRC, 'utf8').split('\n');
 const children = [];
+const gap = (n = 1) => { for (let i = 0; i < n; i++) children.push(new Paragraph({ children: [new TextRun({ text: '', size: XIAOSI })] })); };
 
-// ===== Cover page =====
-const gap = (n = 1) => { for (let i = 0; i < n; i++) children.push(new Paragraph({ children: [new TextRun({ text: '', size: 24 })] })); };
-
-gap(3);
-children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 200 },
-  children: [new TextRun({ text: '嘉 兴 大 学', font: HEI, size: 36, bold: true, color: NAVY })],
-}));
-children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 600 },
-  children: [new TextRun({ text: '中国特色高质量教材体系研究智能体', font: HEI, size: 30, color: NAVY })],
-}));
-children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 160 },
-  children: [new TextRun({ text: '「 禾 章 」', font: HEI, size: 64, bold: true, color: RED })],
-}));
-children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 700 },
-  children: [new TextRun({ text: '框 架 设 计 方 案', font: HEI, size: 48, bold: true, color: NAVY })],
-}));
-children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  border: { top: { style: BorderStyle.SINGLE, size: 8, color: RED, space: 6 }, bottom: { style: BorderStyle.SINGLE, size: 8, color: RED, space: 6 } },
-  spacing: { before: 200, after: 200 },
-  children: [new TextRun({ text: '只做助研，不做代笔；只供证据，不出定论', font: KAI, size: 28, color: RED, bold: true })],
-}));
+// ===================== 封面 =====================
 gap(4);
 children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 100 },
-  children: [new TextRun({ text: 'HeZhang Research Agent for the Textbook System', font: { ascii: 'Times New Roman', eastAsia: '宋体', hAnsi: 'Times New Roman' }, size: 22, color: '666666' })],
+  alignment: AlignmentType.CENTER, spacing: { after: 260 },
+  children: [new TextRun({ text: '嘉　兴　大　学', font: HEI, size: 36, bold: true, color: BLACK })],
+}));
+children.push(new Paragraph({
+  alignment: AlignmentType.CENTER, spacing: { after: 900 },
+  children: [new TextRun({ text: '中国特色高质量教材体系研究智能体', font: HEI, size: 28, color: BLACK })],
+}));
+children.push(new Paragraph({
+  alignment: AlignmentType.CENTER, spacing: { after: 200 },
+  children: [new TextRun({ text: '「禾　章」', font: HEI, size: 60, bold: true, color: BLACK })],
+}));
+children.push(new Paragraph({
+  alignment: AlignmentType.CENTER, spacing: { after: 240 },
+  children: [new TextRun({ text: '建　设　方　案', font: HEI, size: 44, bold: true, color: BLACK })],
 }));
 children.push(new Paragraph({
   alignment: AlignmentType.CENTER,
-  spacing: { after: 400 },
-  children: [new TextRun({ text: 'with Chinese Characteristics（HZ-Agent）', font: { ascii: 'Times New Roman', eastAsia: '宋体', hAnsi: 'Times New Roman' }, size: 22, color: '666666' })],
+  border: { bottom: { style: BorderStyle.DOUBLE, size: 6, color: BLACK, space: 4 } },
+  spacing: { before: 0, after: 1200 },
+  children: [new TextRun({ text: '', size: XIAOSI })],
 }));
-gap(2);
+children.push(new Paragraph({
+  alignment: AlignmentType.CENTER, spacing: { after: 80 },
+  children: [new TextRun({ text: 'HeZhang Research Agent for the Textbook System', font: SONG, size: WUHAO, color: BLACK })],
+}));
+children.push(new Paragraph({
+  alignment: AlignmentType.CENTER, spacing: { after: 1000 },
+  children: [new TextRun({ text: 'with Chinese Characteristics（HZ-Agent）', font: SONG, size: WUHAO, color: BLACK })],
+}));
 children.push(new Paragraph({
   alignment: AlignmentType.CENTER,
-  children: [new TextRun({ text: '二〇二六年', font: HEI, size: 28 })],
+  children: [new TextRun({ text: '二〇二六年', font: HEI, size: SIHAO, color: BLACK })],
 }));
 children.push(new Paragraph({ children: [new PageBreak()] }));
 
-// ===== TOC page =====
+// ===================== 目录 =====================
 children.push(new Paragraph({
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 300 },
-  children: [new TextRun({ text: '目　　录', font: HEI, size: 36, bold: true, color: NAVY })],
+  alignment: AlignmentType.CENTER, spacing: { after: 320 },
+  children: [new TextRun({ text: '目　　录', font: HEI, size: XIAOSAN, bold: true, color: BLACK })],
 }));
 const tocInsertAt = children.length;
 children.push(new Paragraph({ children: [new PageBreak()] }));
@@ -115,42 +119,58 @@ const tocEntries = [];
 const PAGEMAP = fs.existsSync(path.join(__dirname, 'pages.json'))
   ? JSON.parse(fs.readFileSync(path.join(__dirname, 'pages.json'), 'utf8')) : {};
 
-// ===== Body =====
+// ===================== 正文 =====================
 let i = 0;
 let firstChapter = true;
 let numInstance = 0;
+let figNo = 0, tblNo = 0;
+let pendingTableTitle = null;
+const mentions = [];          // running record of body text, for cross-reference checking
+const xrefProblems = [];
 
-function flushTable(lines) {
-  const rowsRaw = lines
-    .map(l => l.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim()));
-  const headerCells = rowsRaw[0];
-  const dataRows = rowsRaw.filter((r, idx) => idx !== 1); // drop separator row
-  const nCols = headerCells.length;
-  const TOTAL = 9060; // dxa, fits A4 with 25mm margins
-  // weight first column narrower when many columns
+function seenBefore(label) {
+  return mentions.some(m => m.includes(label));
+}
+
+function threeLineTable(lines, tableLabel) {
+  const rowsRaw = lines.map(l => l.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim()));
+  const dataRows = rowsRaw.filter((_, idx) => idx !== 1);      // drop the |---| separator
+  const nCols = rowsRaw[0].length;
+  const TOTAL = 8900;
   const colW = [];
-  if (nCols === 2) { colW.push(2600, TOTAL - 2600); }
-  else if (nCols === 3) { colW.push(2000, 3600, TOTAL - 5600); }
-  else if (nCols === 4) { colW.push(1500, 2400, 2600, TOTAL - 6500); }
-  else if (nCols === 5) { colW.push(1300, 2000, 2100, 2100, TOTAL - 7500); }
+  if (nCols === 2) colW.push(2400, TOTAL - 2400);
+  else if (nCols === 3) colW.push(2000, 3400, TOTAL - 5400);
+  else if (nCols === 4) colW.push(1450, 2350, 2550, TOTAL - 6350);
+  else if (nCols === 5) colW.push(1250, 1950, 2050, 2050, TOTAL - 7300);
   else {
     const w = Math.floor(TOTAL / nCols);
     for (let c = 0; c < nCols; c++) colW.push(c === nCols - 1 ? TOTAL - w * (nCols - 1) : w);
   }
 
-  const trs = dataRows.map((cells, rIdx) => new TableRow({
-    tableHeader: rIdx === 0,
+  const THICK = { style: BorderStyle.SINGLE, size: 12, color: BLACK };
+  const THIN = { style: BorderStyle.SINGLE, size: 6, color: BLACK };
+  const NONE = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+  const last = dataRows.length - 1;
+
+  const keepWhole = dataRows.length <= 8;   // 小表不跨页，避免孤行
+  const rows = dataRows.map((cells, r) => new TableRow({
+    tableHeader: r === 0,
     children: Array.from({ length: nCols }, (_, c) => new TableCell({
       width: { size: colW[c], type: WidthType.DXA },
-      shading: rIdx === 0
-        ? { type: ShadingType.CLEAR, fill: HEADBG, color: 'auto' }
-        : { type: ShadingType.CLEAR, fill: rIdx % 2 === 0 ? GRAYBG : 'FFFFFF', color: 'auto' },
+      // 三线表：仅表首粗线、表头分隔细线、表末粗线
+      borders: {
+        top: r === 0 ? THICK : NONE,
+        bottom: r === 0 ? THIN : (r === last ? THICK : NONE),
+        left: NONE,
+        right: NONE,
+      },
       verticalAlign: VerticalAlign.CENTER,
-      margins: { top: 60, bottom: 60, left: 90, right: 90 },
+      margins: { top: 70, bottom: 70, left: 90, right: 90 },
       children: [new Paragraph({
-        alignment: rIdx === 0 ? AlignmentType.CENTER : AlignmentType.LEFT,
-        spacing: { line: 300, before: 20, after: 20 },
-        children: runs((cells[c] || '').replace(/<br\s*\/?>/g, ' '), { size: 21, bold: rIdx === 0, font: rIdx === 0 ? HEI : SONG }),
+        alignment: r === 0 ? AlignmentType.CENTER : AlignmentType.LEFT,
+        keepNext: keepWhole ? r < last : r === 0,
+        spacing: { line: 280, lineRule: LineRuleType.AUTO, before: 0, after: 0 },
+        children: runs((cells[c] || '').replace(/<br\s*\/?>/g, ' '), { size: WUHAO, font: r === 0 ? HEI : SONG }),
       })],
     })),
   }));
@@ -159,205 +179,165 @@ function flushTable(lines) {
     columnWidths: colW,
     width: { size: TOTAL, type: WidthType.DXA },
     alignment: AlignmentType.CENTER,
-    borders: {
-      top: { style: BorderStyle.SINGLE, size: 6, color: NAVY },
-      bottom: { style: BorderStyle.SINGLE, size: 6, color: NAVY },
-      left: { style: BorderStyle.SINGLE, size: 2, color: '9AA6BC' },
-      right: { style: BorderStyle.SINGLE, size: 2, color: '9AA6BC' },
-      insideHorizontal: { style: BorderStyle.SINGLE, size: 2, color: '9AA6BC' },
-      insideVertical: { style: BorderStyle.SINGLE, size: 2, color: '9AA6BC' },
-    },
-    rows: trs,
+    borders: { top: THICK, bottom: THICK, left: NONE, right: NONE, insideHorizontal: NONE, insideVertical: NONE },
+    rows,
   }));
-  children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: '', size: 12 })] }));
+  children.push(new Paragraph({ spacing: { before: 0, after: 200 }, children: [new TextRun({ text: '', size: 12 })] }));
+  if (!seenBefore(tableLabel)) xrefProblems.push(`${tableLabel} 未在其之前的正文中被提及`);
 }
 
 while (i < raw.length) {
-  const line = raw[i];
-  const t = line.trim();
+  const t = raw[i].trim();
 
-  // horizontal rule / blank
   if (t === '' || t === '---') { i++; continue; }
+  if (/^# /.test(t)) { i++; continue; }               // doc title lives on the cover
 
-  // document title (cover already made)
-  if (/^# /.test(t)) { i++; continue; }
-
-  // images
+  // ---- 图：图名置于图下方，五号黑体 ----
   const im = t.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
   if (im) {
     const file = path.join(__dirname, im[2]);
     const { w, h } = pngSize(file);
-    const MAXW = 580, MAXH = 790;   // px @96dpi; MAXH keeps tall figures inside one A4 page
+    const MAXW = 570, MAXH = 760;
     let dw = MAXW, dh = Math.round(MAXW * h / w);
     if (dh > MAXH) { dh = MAXH; dw = Math.round(MAXH * w / h); }
     children.push(new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { before: 240, after: 240, line: 240, lineRule: LineRuleType.AUTO },
-      children: [new ImageRun({
-        type: 'png',
-        data: fs.readFileSync(file),
-        transformation: { width: dw, height: dh },
-      })],
+      keepNext: true,
+      spacing: { before: 200, after: 60, line: 240, lineRule: LineRuleType.AUTO },
+      children: [new ImageRun({ type: 'png', data: fs.readFileSync(file), transformation: { width: dw, height: dh } })],
     }));
+    figNo++;
+    const label = `图${figNo}`;
+    const title = im[1].replace(/^图\s*\d+[　\s]*/, '');
+    children.push(caption(`${label}　${title}`));
+    if (!seenBefore(label)) xrefProblems.push(`${label} 未在其之前的正文中被提及`);
     i++; continue;
   }
 
-  // headings
-  if (/^#### /.test(t)) {
-    children.push(new Paragraph({
-      heading: HeadingLevel.HEADING_4,
-      spacing: { before: 200, after: 100 },
-      children: [new TextRun({ text: t.replace(/^#### /, ''), font: HEI, size: 24, bold: true, italics: false, color: '333333' })],
-    }));
+  // ---- 表名指令：表名置于表上方，五号黑体 ----
+  if (/^TABLE:/.test(t)) {
+    pendingTableTitle = t.replace(/^TABLE:\s*/, '').replace(/^表\s*\d+[　\s]*/, '');
     i++; continue;
   }
+
+  // ---- 标题 ----
+  if (/^#### /.test(t) || /^##### /.test(t)) {
+    const txt = t.replace(/^#+\s/, '');
+    children.push(new Paragraph({
+      heading: HeadingLevel.HEADING_4,
+      spacing: { before: 200, after: 100, line: LINE_15, lineRule: LineRuleType.AUTO },
+      children: [new TextRun({ text: txt, font: HEI, size: XIAOSI, bold: false, italics: false, color: BLACK })],
+    }));
+    mentions.push(txt); i++; continue;
+  }
   if (/^### /.test(t)) {
-    tocEntries.push({ level: 2, text: t.replace(/^### /, '') });
+    const txt = t.replace(/^### /, '');
+    tocEntries.push({ level: 2, text: txt });
     children.push(new Paragraph({
       heading: HeadingLevel.HEADING_3,
-      spacing: { before: 260, after: 120 },
-      children: [new TextRun({ text: t.replace(/^### /, ''), font: HEI, size: 26, bold: true, italics: false, color: NAVY })],
+      spacing: { before: 280, after: 140, line: LINE_15, lineRule: LineRuleType.AUTO },
+      children: [new TextRun({ text: txt, font: HEI, size: SIHAO, bold: false, italics: false, color: BLACK })],
     }));
-    i++; continue;
+    mentions.push(txt); i++; continue;
   }
   if (/^## /.test(t)) {
     const title = t.replace(/^## /, '');
-    const isChapter = /^第.+章/.test(title) || ['方案摘要', '结语', '附录'].some(k => title.startsWith(k));
+    const isChapter = /^第.+章/.test(title) || ['摘要', '结语', '附录'].some(k => title.startsWith(k));
     if (isChapter && !firstChapter) children.push(new Paragraph({ children: [new PageBreak()] }));
     firstChapter = false;
     tocEntries.push({ level: 1, text: title });
     children.push(new Paragraph({
       heading: HeadingLevel.HEADING_2,
-      spacing: { before: 240, after: 200 },
-      border: { bottom: { style: BorderStyle.SINGLE, size: 10, color: RED, space: 6 } },
-      children: [new TextRun({ text: title, font: HEI, size: 32, bold: true, italics: false, color: NAVY })],
+      alignment: AlignmentType.CENTER,
+      spacing: { before: 200, after: 280, line: LINE_15, lineRule: LineRuleType.AUTO },
+      children: [new TextRun({ text: title, font: HEI, size: XIAOSAN, bold: true, italics: false, color: BLACK })],
     }));
-    i++; continue;
+    mentions.push(title); i++; continue;
   }
 
-  // table
+  // ---- 表格 ----
   if (/^\|/.test(t)) {
     const block = [];
     while (i < raw.length && /^\s*\|/.test(raw[i])) { block.push(raw[i]); i++; }
-    flushTable(block);
+    tblNo++;
+    const label = `表${tblNo}`;
+    children.push(caption(`${label}　${pendingTableTitle || ''}`.trim()));
+    // caption() adds after-spacing meant for figures; tighten it for a table title
+    children[children.length - 1] = new Paragraph({
+      alignment: AlignmentType.CENTER,
+      keepNext: true,
+      spacing: { line: LINE_15, lineRule: LineRuleType.AUTO, before: 180, after: 60 },
+      children: [new TextRun({ text: `${label}　${pendingTableTitle || ''}`.trim(), font: HEI, size: WUHAO, color: BLACK })],
+    });
+    threeLineTable(block, label);
+    pendingTableTitle = null;
     continue;
   }
 
-  // code fence
+  // ---- 代码块 ----
   if (/^```/.test(t)) {
     i++;
     const code = [];
     while (i < raw.length && !/^```/.test(raw[i].trim())) { code.push(raw[i]); i++; }
     i++;
     code.forEach(cl => children.push(new Paragraph({
-      shading: { type: ShadingType.CLEAR, fill: 'F5F6F8', color: 'auto' },
-      spacing: { line: 260, before: 0, after: 0 },
-      indent: { left: 260 },
-      children: [new TextRun({ text: cl.replace(/\t/g, '    ') || ' ', font: MONO, size: 19 })],
+      spacing: { line: 260, lineRule: LineRuleType.AUTO, before: 0, after: 0 },
+      indent: { left: 420 },
+      children: [new TextRun({ text: cl.replace(/\t/g, '    ') || ' ', font: MONO, size: 19, color: BLACK })],
     })));
-    children.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: '', size: 12 })] }));
+    children.push(new Paragraph({ spacing: { before: 0, after: 200 }, children: [new TextRun({ text: '', size: 12 })] }));
     continue;
   }
 
-  // blockquote
-  if (/^> /.test(t) || t === '>') {
-    const q = [];
-    while (i < raw.length && /^\s*>/.test(raw[i])) { q.push(raw[i].trim().replace(/^>\s?/, '')); i++; }
-    q.filter(x => x !== '').forEach(qt => children.push(new Paragraph({
-      shading: { type: ShadingType.CLEAR, fill: 'F7F3E8', color: 'auto' },
-      border: { left: { style: BorderStyle.SINGLE, size: 18, color: 'C9A227', space: 8 } },
-      indent: { left: 300, right: 200 },
-      spacing: { line: 360, before: 80, after: 80 },
-      children: runs(qt, { font: KAI, size: 24 }),
-    })));
-    children.push(new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: '', size: 12 })] }));
-    continue;
-  }
-
-  // bullet list
+  // ---- 项目符号 / 编号列表 ----
   if (/^- /.test(t)) {
+    const txt = t.replace(/^- /, '');
     children.push(new Paragraph({
       numbering: { reference: 'hz-bullet', level: 0 },
-      spacing: { line: 360, before: 40, after: 40 },
+      spacing: { line: LINE_15, lineRule: LineRuleType.AUTO, before: 0, after: 0 },
       alignment: AlignmentType.JUSTIFIED,
-      children: runs(t.replace(/^- /, '')),
+      children: runs(txt),
     }));
-    i++; continue;
+    mentions.push(txt); i++; continue;
   }
-
-  // ordered list
   if (/^\d+\.\s/.test(t)) {
     if (Number(t.match(/^(\d+)\./)[1]) === 1) numInstance++;
+    const txt = t.replace(/^\d+\.\s/, '');
     children.push(new Paragraph({
       numbering: { reference: 'hz-num', level: 0, instance: numInstance },
-      spacing: { line: 360, before: 40, after: 40 },
+      spacing: { line: LINE_15, lineRule: LineRuleType.AUTO, before: 0, after: 0 },
       alignment: AlignmentType.JUSTIFIED,
-      children: runs(t.replace(/^\d+\.\s/, '')),
+      children: runs(txt),
     }));
-    i++; continue;
+    mentions.push(txt); i++; continue;
   }
 
-  // italic-only trailing note
-  if (/^\*[^*].*\*$/.test(t)) {
-    children.push(new Paragraph({
-      alignment: AlignmentType.JUSTIFIED,
-      spacing: { line: 360, before: 200 },
-      children: [new TextRun({ text: t.replace(/^\*|\*$/g, ''), font: KAI, size: 22, italics: false, color: '555555' })],
-    }));
-    i++; continue;
-  }
-
-  // plain paragraph
+  // ---- 正文段落 ----
   children.push(body(t));
+  mentions.push(t);
   i++;
 }
 
-// ===== Static TOC with dot leaders =====
+// ===================== 目录条目 =====================
 const tocParas = tocEntries.map(e => new Paragraph({
-  spacing: { line: 300, before: e.level === 1 ? 110 : 20, after: 20 },
-  indent: { left: e.level === 1 ? 0 : 420, right: 60 },
-  tabStops: [{ type: TabStopType.RIGHT, position: 9000, leader: LeaderType.DOT }],
+  spacing: { line: 320, lineRule: LineRuleType.AUTO, before: e.level === 1 ? 120 : 0, after: 0 },
+  indent: { left: e.level === 1 ? 0 : 480, right: 60 },
+  tabStops: [{ type: TabStopType.RIGHT, position: 8900, leader: LeaderType.DOT }],
   children: [
-    new TextRun({
-      text: e.text,
-      font: e.level === 1 ? HEI : SONG,
-      size: e.level === 1 ? 23 : 21,
-      bold: e.level === 1,
-      color: e.level === 1 ? NAVY : '333333',
-    }),
-    new TextRun({
-      children: [new Tab(), String(PAGEMAP[e.text] || 0)],
-      font: SONG, size: e.level === 1 ? 23 : 21, color: '555555',
-    }),
+    new TextRun({ text: e.text, font: e.level === 1 ? HEI : SONG, size: XIAOSI, color: BLACK }),
+    new TextRun({ children: [new Tab(), String(PAGEMAP[e.text] || 0)], font: SONG, size: XIAOSI, color: BLACK }),
   ],
 }));
 children.splice(tocInsertAt, 0, ...tocParas);
 fs.writeFileSync(path.join(__dirname, 'toc_headings.json'), JSON.stringify(tocEntries, null, 1));
 
-// ===== Document =====
+// ===================== 文档 =====================
 const doc = new Document({
-  features: { updateFields: true },
-  styles: {
-    default: {
-      document: { run: { font: SONG, size: 24 }, paragraph: { spacing: { line: 380 } } },
-    },
-  },
+  styles: { default: { document: { run: { font: SONG, size: XIAOSI, color: BLACK }, paragraph: { spacing: { line: LINE_15, lineRule: LineRuleType.AUTO, before: 0, after: 0 } } } } },
   numbering: {
     config: [
-      {
-        reference: 'hz-bullet',
-        levels: [{
-          level: 0, format: LevelFormat.BULLET, text: '●', alignment: AlignmentType.LEFT,
-          style: { paragraph: { indent: { left: 720, hanging: 300 } }, run: { color: RED, size: 18 } },
-        }],
-      },
-      {
-        reference: 'hz-num',
-        levels: [{
-          level: 0, format: LevelFormat.DECIMAL, text: '%1.', alignment: AlignmentType.LEFT,
-          style: { paragraph: { indent: { left: 720, hanging: 360 } }, run: { color: NAVY, bold: true } },
-        }],
-      },
+      { reference: 'hz-bullet', levels: [{ level: 0, format: LevelFormat.BULLET, text: '●', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 780, hanging: 300 } }, run: { size: 16, color: BLACK } } }] },
+      { reference: 'hz-num', levels: [{ level: 0, format: LevelFormat.DECIMAL, text: '%1.', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 780, hanging: 360 } }, run: { color: BLACK } } }] },
     ],
   },
   sections: [{
@@ -376,8 +356,8 @@ const doc = new Document({
       default: new Header({
         children: [new Paragraph({
           alignment: AlignmentType.CENTER,
-          border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: '9AA6BC', space: 4 } },
-          children: [new TextRun({ text: '嘉兴大学「禾章」中国特色高质量教材体系研究智能体框架设计方案', font: HEI, size: 18, color: '667085' })],
+          border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: BLACK, space: 4 } },
+          children: [new TextRun({ text: '嘉兴大学「禾章」中国特色高质量教材体系研究智能体建设方案', font: HEI, size: 18, color: BLACK })],
         })],
       }),
     },
@@ -386,7 +366,7 @@ const doc = new Document({
       default: new Footer({
         children: [new Paragraph({
           alignment: AlignmentType.CENTER,
-          children: [new TextRun({ children: ['— ', PageNumber.CURRENT, ' —'], font: SONG, size: 20, color: '667085' })],
+          children: [new TextRun({ children: ['— ', PageNumber.CURRENT, ' —'], font: SONG, size: WUHAO, color: BLACK })],
         })],
       }),
     },
@@ -396,5 +376,11 @@ const doc = new Document({
 
 Packer.toBuffer(doc).then(b => {
   fs.writeFileSync(OUT, b);
-  console.log('wrote', OUT, (b.length / 1024 / 1024).toFixed(2) + 'MB', '| blocks:', children.length);
+  console.log(`wrote ${OUT}  ${(b.length / 1048576).toFixed(2)}MB | 图 ${figNo} 幅 | 表 ${tblNo} 张 | 块 ${children.length}`);
+  if (xrefProblems.length) {
+    console.log('交叉引用问题：');
+    xrefProblems.forEach(p => console.log('  ! ' + p));
+  } else {
+    console.log('交叉引用检查：全部图表均已在正文中先行提及 ✓');
+  }
 });
