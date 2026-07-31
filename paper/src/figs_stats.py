@@ -128,20 +128,28 @@ fig.suptitle("Nemenyi post-hoc test of MSSBOA and comparison algorithms",y=1.0)
 p=os.path.join(FIG,"fig09_nemenyi.png"); fig.savefig(p,bbox_inches="tight"); plt.close(fig); print("saved fig09_nemenyi.png")
 
 # ---------- Fig 10: Wilcoxon +/=/- stacked bars (2x2) ----------
-fig,axes=plt.subplots(2,2,figsize=(11.0,7.0))
+# Shared legend BELOW the figure (it used to cover the bars of panel (a)), and
+# extra hspace so the rotated tick labels never touch the row of titles below.
+fig,axes=plt.subplots(2,2,figsize=(11.0,8.4))
 comp=[a for a in ALGOS if a!="MSSBOA"]
-for ax,d in zip(axes.ravel(),DIMS):
+panel=["(a)","(b)","(c)","(d)"]
+for k,(ax,d) in enumerate(zip(axes.ravel(),DIMS)):
     wil=cec["results"][str(d)]["wilcoxon"]
     plus=[wil[a][0] for a in comp]; eq=[wil[a][1] for a in comp]; minus=[wil[a][2] for a in comp]
     x=np.arange(len(comp))
     ax.bar(x,plus,color="#2c7fb8",label="+ (win)")
     ax.bar(x,eq,bottom=plus,color="#7fcdbb",label="= (tie)")
     ax.bar(x,minus,bottom=np.array(plus)+np.array(eq),color="#edf8b1",label="$-$ (loss)")
-    ax.set_xticks(x); ax.set_xticklabels(["MSSBOA\nvs "+a for a in comp],fontsize=6,rotation=90)
-    ax.set_ylabel("# functions"); ax.set_title(f"CEC2017 {d}D",fontsize=10); ax.set_ylim(0,len(FUNCS)+1)
-axes.ravel()[0].legend(fontsize=8,loc="lower right")
-fig.suptitle(r"Wilcoxon rank-sum test of MSSBOA and comparison algorithms ($\alpha$=0.05)",y=1.0)
-p=os.path.join(FIG,"fig10_wilcoxon.png"); fig.savefig(p,bbox_inches="tight"); plt.close(fig); print("saved fig10_wilcoxon.png")
+    ax.set_xticks(x); ax.set_xticklabels(["MSSBOA\nvs "+a for a in comp],fontsize=6.5,rotation=90)
+    ax.set_ylabel("# functions")
+    ax.set_title(f"{panel[k]} CEC2017 {d}D",fontsize=10,pad=8)
+    ax.set_ylim(0,len(FUNCS)+1)
+handles,labels=axes.ravel()[0].get_legend_handles_labels()
+fig.suptitle(r"Wilcoxon rank-sum test of MSSBOA and comparison algorithms ($\alpha$=0.05)",y=0.975)
+fig.subplots_adjust(left=0.065,right=0.985,top=0.92,bottom=0.155,wspace=0.17,hspace=0.44)
+fig.legend(handles,labels,loc="lower center",ncol=3,frameon=True,fontsize=9,
+           bbox_to_anchor=(0.5,0.012),columnspacing=2.0,handlelength=2.0)
+p=os.path.join(FIG,"fig10_wilcoxon.png"); fig.savefig(p); plt.close(fig); print("saved fig10_wilcoxon.png")
 
 # ---------- Convergence curves (representative functions, 30D) ----------
 def conv_curve(final_err, dim, seed):
