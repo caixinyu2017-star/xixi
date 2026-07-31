@@ -82,7 +82,8 @@ fig.suptitle("Ranking heatmaps of MSSBOA and comparison algorithms on CEC2017", 
 p=os.path.join(FIG,"fig07_heatmap.png"); fig.savefig(p,bbox_inches="tight"); plt.close(fig); print("saved fig07_heatmap.png")
 
 # ---------- Fig 8: Friedman rankings across dims (all algos) ----------
-fig,ax=plt.subplots(figsize=(7.6,4.2))
+# Legend is placed BELOW the axes (a legend inside the plot covered the curves).
+fig,ax=plt.subplots(figsize=(8.6,5.0))
 order=sorted(ALGOS,key=lambda a:cec["overall"][a])
 for k,a in enumerate(order):
     y=[cec["results"][str(d)]["friedman_avg"][a] for d in DIMS]
@@ -91,9 +92,13 @@ for k,a in enumerate(order):
     ax.plot(DIMS,y,style,lw=lw,ms=5 if a=="MSSBOA" else 3,label=a,color=PALETTE[k])
 ax.set_xticks(DIMS); ax.set_xlabel("Dimension"); ax.set_ylabel("Average Friedman ranking")
 ax.invert_yaxis()
-ax.legend(ncol=2,fontsize=8,loc="center right")
 ax.set_title(r"Friedman rankings of MSSBOA and comparison algorithms ($\alpha$=0.05)")
-save(fig,"fig08_friedman_all.png")
+handles,labels=ax.get_legend_handles_labels()
+fig.subplots_adjust(left=0.095,right=0.975,top=0.92,bottom=0.235)
+fig.legend(handles,labels,loc="lower center",ncol=6,frameon=True,fontsize=9,
+           bbox_to_anchor=(0.5,0.008),columnspacing=1.6,handlelength=2.2)
+p=os.path.join(FIG,"fig08_friedman_all.png"); fig.savefig(p); plt.close(fig)
+print("saved fig08_friedman_all.png")
 
 # ---------- Fig 9: Nemenyi CD diagrams (2x2) ----------
 def cd_value(k,N,q=None):
