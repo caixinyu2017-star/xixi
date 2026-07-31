@@ -1,0 +1,16 @@
+parameter	baseline	PRCC_dJ	PRCC_dS	PRCC_dY	sig
+Automation ceiling for entry tasks, alpha_max	0.6	-0.975	-0.811	-0.821	***
+Reinstatement ceiling, rho_max	0.35	0.896	0.12	0.454	***
+Demand elasticity with respect to unit cost, epsilon	1.1	0.789	0.515	0.511	***
+AI productivity elasticity, juniors, beta_J	0.739	-0.787	-0.304	-0.32	***
+Learning investment rate, lambda	0.3	0.513	0.226	0.478	***
+Routine obsolescence rate, delta_K	0.2	-0.488	-0.261	-0.476	***
+Senior separation rate, delta_S	0.08	-0.485	-0.843	-0.834	***
+AI productivity elasticity, seniors, beta_S	0.246	0.434	0.071	0.376	***
+Time to competence, tau_dev	3.0	-0.389	-0.784	-0.77	***
+External senior recruitment ceiling, chi_S	0.03	0.323	0.695	0.686	***
+Half-saturation of mentoring adequacy, q_0	1.0	-0.135	-0.288	-0.272	***
+AI knowledge-scaffolding coefficient, eta	0.35	0.12	0.352	0.33	***
+AI adoption rate, nu	1.327	-0.071	0.004	0.021	*
+Elasticity of external senior availability, omega	1.0	-0.029	-0.042	-0.045	
+Skill-formation value of AI-mediated work, zeta_0	0.25	0.019	0.126	0.127	

@@ -1,0 +1,649 @@
+{
+ "params": {
+  "thE": 0.3,
+  "thC": 0.45,
+  "thG": 0.25,
+  "alpha_max": 0.6,
+  "a_alpha": 0.5,
+  "gamma": 2.0,
+  "rho_max": 0.35,
+  "beta_J": 0.7386,
+  "beta_S": 0.2462,
+  "u_max": 0.85,
+  "a_u": 0.2154,
+  "k_h": 1.0,
+  "lam": 0.3,
+  "dK": 0.2,
+  "nu": 1.3275,
+  "dA": 0.05,
+  "phi0": 0.25,
+  "F_max": 1.0,
+  "gF": 1.0,
+  "tF": 1.285,
+  "tau_dev": 3.0,
+  "q0": 1.0,
+  "eta": 0.35,
+  "zeta0": 0.25,
+  "dJ": 0.15,
+  "dS": 0.08,
+  "tau_J": 1.0,
+  "tau_S": 2.0,
+  "chi_S": 0.03,
+  "omega": 1.0,
+  "Om_max": 2.0,
+  "piJ0": 1.0,
+  "piS0": 1.6,
+  "wJ": 1.0,
+  "wS": 2.0,
+  "pA": 0.05,
+  "pK": 0.15,
+  "eps": 1.1,
+  "tau_Y": 2.0,
+  "tau_C": 1.0,
+  "gY": 0.02,
+  "N_ref": 1000.0,
+  "m": 0.36923076923076914
+ },
+ "T_END": 25.0,
+ "DT": 0.0625,
+ "baseline": [
+  [
+   0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   1.0,
+   1.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   -0.0
+  ],
+  [
+   1,
+   0.093,
+   0.256,
+   0.036,
+   0.035,
+   0.02,
+   0.003,
+   0.997,
+   1.0,
+   -0.5,
+   -0.1,
+   0.3,
+   1.4,
+   -0.04
+  ],
+  [
+   3,
+   0.433,
+   0.568,
+   0.234,
+   0.19,
+   0.257,
+   0.038,
+   0.957,
+   1.0,
+   -15.0,
+   -1.6,
+   1.2,
+   -2.3,
+   -0.369
+  ],
+  [
+   5,
+   0.746,
+   0.659,
+   0.421,
+   0.296,
+   0.414,
+   0.068,
+   0.921,
+   0.981,
+   -33.0,
+   -5.3,
+   3.8,
+   -11.5,
+   -0.368
+  ],
+  [
+   10,
+   0.929,
+   0.69,
+   0.693,
+   0.409,
+   0.465,
+   0.099,
+   0.904,
+   0.872,
+   -35.0,
+   -7.8,
+   5.3,
+   -14.8,
+   -0.297
+  ],
+  [
+   15,
+   0.94,
+   0.692,
+   0.861,
+   0.463,
+   0.468,
+   0.112,
+   0.903,
+   0.856,
+   -32.6,
+   -8.6,
+   6.3,
+   -15.5,
+   -0.286
+  ],
+  [
+   20,
+   0.943,
+   0.692,
+   0.993,
+   0.498,
+   0.468,
+   0.121,
+   0.904,
+   0.858,
+   -31.6,
+   -8.5,
+   7.6,
+   -16.2,
+   -0.279
+  ],
+  [
+   25,
+   0.945,
+   0.692,
+   1.119,
+   0.528,
+   0.469,
+   0.128,
+   0.906,
+   0.864,
+   -30.7,
+   -7.9,
+   9.4,
+   -16.9,
+   -0.274
+  ]
+ ],
+ "validation": [
+  [
+   "Structure and dimensional consistency",
+   "Every rate equation is dimensionally homogeneous; the pre-shock state is verified to be a fixed point",
+   "max |dx/dt| = 7.1e-15",
+   "Passed"
+  ],
+  [
+   "Equilibrium test",
+   "100-year run with F(t) = 0 and g_Y = 0",
+   "max relative drift = 0.0e+00",
+   "Passed"
+  ],
+  [
+   "Extreme-condition test 1",
+   "lambda = 0 (no investment in human-AI collaboration routines)",
+   "K(t) = 0 and rho(t) = 0 for all t",
+   "Passed"
+  ],
+  [
+   "Extreme-condition test 2",
+   "m -> 0, eta = 0 and chi_S = 0 (development pipeline closed)",
+   "senior stock decays at exactly the separation rate (S(25)/S(0) = 0.1353; exp(-delta_S T) = 0.1353)",
+   "Passed"
+  ],
+  [
+   "Extreme-condition test 3",
+   "alpha_max = 0 (pure augmentation, no task displacement)",
+   "entry employment exceeds the no-GenAI counterfactual (+3.7%)",
+   "Passed"
+  ],
+  [
+   "Extreme-condition test 4",
+   "rho_max = 0 and lambda = 0 (pure displacement)",
+   "entry employment falls monotonically relative to the counterfactual (-41.2%)",
+   "Passed"
+  ],
+  [
+   "Integration-error test",
+   "time step halved twice (Delta t = 1/16, 1/32 and 1/64 yr)",
+   "relative change in J(25) = 2.4e-07",
+   "Passed"
+  ],
+  [
+   "Behaviour-reproduction test",
+   "four independent empirical benchmarks (Table 4)",
+   "all four reproduced within rounding error",
+   "Passed"
+  ]
+ ],
+ "targets": [
+  [
+   "Relative change in early-career employment in exposed occupations, year 3",
+   "-15.0%",
+   "-15.0%",
+   "Brynjolfsson, Chandar and Chen"
+  ],
+  [
+   "Share of exposed workers regularly using GenAI, year 2",
+   "0.45",
+   "0.45",
+   "Humlum and Vestergaard"
+  ],
+  [
+   "Peak productivity uplift, early-career workers",
+   "+27%",
+   "+27%",
+   "Brynjolfsson, Li and Raymond; Cui et al."
+  ],
+  [
+   "Peak productivity uplift, experienced workers",
+   "+9%",
+   "+9%",
+   "Brynjolfsson, Li and Raymond; Dell'Acqua et al."
+  ]
+ ],
+ "policies": [
+  [
+   "S0",
+   "Baseline",
+   -33.0,
+   -30.7,
+   -27.8,
+   -7.9,
+   3.8,
+   9.4,
+   -16.9,
+   0.864,
+   -37.2,
+   7.1,
+   1.12,
+   -0.274
+  ],
+  [
+   "S1",
+   "Automation-first intensification",
+   -38.7,
+   -46.4,
+   -42.0,
+   -23.9,
+   1.4,
+   -15.7,
+   -13.0,
+   0.695,
+   -47.8,
+   8.6,
+   0.46,
+   -0.477
+  ],
+  [
+   "S2",
+   "Learning-system investment",
+   -35.2,
+   -26.6,
+   -23.6,
+   -0.2,
+   4.5,
+   25.5,
+   -20.4,
+   0.948,
+   -38.0,
+   6.4,
+   2.37,
+   -0.247
+  ],
+  [
+   "S3",
+   "Work redesign (task reinstatement)",
+   -29.9,
+   -20.8,
+   -21.6,
+   -4.3,
+   5.5,
+   19.1,
+   -18.9,
+   0.918,
+   -32.8,
+   6.5,
+   1.21,
+   -0.227
+  ],
+  [
+   "S4",
+   "Apprenticeship protection",
+   -34.4,
+   -28.9,
+   -21.7,
+   4.0,
+   2.4,
+   24.2,
+   -18.8,
+   0.956,
+   -39.3,
+   6.9,
+   1.19,
+   -0.271
+  ],
+  [
+   "S5",
+   "AI-mediated knowledge scaffolding",
+   -33.0,
+   -29.9,
+   -25.5,
+   -1.6,
+   4.2,
+   17.2,
+   -18.0,
+   0.914,
+   -37.2,
+   7.0,
+   1.15,
+   -0.273
+  ],
+  [
+   "S6",
+   "Joint socio-technical package",
+   -32.1,
+   -14.6,
+   -9.2,
+   0.4,
+   0.5,
+   31.7,
+   -21.1,
+   0.979,
+   -35.2,
+   6.7,
+   2.58,
+   -0.198
+  ]
+ ],
+ "synergy": [
+  [
+   "Learning-system investment (S2)",
+   4.1
+  ],
+  [
+   "Work redesign (S3)",
+   9.9
+  ],
+  [
+   "Apprenticeship protection (S4)",
+   1.8
+  ],
+  [
+   "AI-mediated knowledge scaffolding (S5)",
+   0.8
+  ],
+  [
+   "Sum of the four interventions applied in isolation",
+   16.6
+  ],
+  [
+   "Joint socio-technical package (S6)",
+   16.1
+  ],
+  [
+   "Interaction (synergy) term",
+   -0.5
+  ]
+ ],
+ "factorial": [
+  [
+   "low",
+   "low",
+   0.3,
+   0.35,
+   -30.7,
+   9.4,
+   0.128
+  ],
+  [
+   "low",
+   "high",
+   0.3,
+   0.5,
+   -20.8,
+   19.1,
+   0.189
+  ],
+  [
+   "high",
+   "low",
+   0.6,
+   0.35,
+   -26.6,
+   25.5,
+   0.171
+  ],
+  [
+   "high",
+   "high",
+   0.6,
+   0.5,
+   -14.0,
+   31.7,
+   0.249
+  ],
+  [
+   "main effect",
+   "lambda",
+   null,
+   null,
+   5.5,
+   null,
+   null
+  ],
+  [
+   "main effect",
+   "rho_max",
+   null,
+   null,
+   11.29,
+   null,
+   null
+  ],
+  [
+   "interaction",
+   "lambda x rho_max",
+   null,
+   null,
+   2.74,
+   null,
+   null
+  ]
+ ],
+ "closure": [
+  [
+   "S0",
+   "Baseline",
+   "Partial equilibrium (omega = 0)",
+   -30.1,
+   -3.8,
+   14.5,
+   0.896,
+   1.0
+  ],
+  [
+   "S0",
+   "Baseline",
+   "Sector-consistent (omega = 1)",
+   -30.7,
+   -7.9,
+   9.4,
+   0.864,
+   0.927
+  ],
+  [
+   "S1",
+   "Automation-first intensification",
+   "Partial equilibrium (omega = 0)",
+   -45.5,
+   -16.6,
+   -7.4,
+   0.751,
+   1.0
+  ],
+  [
+   "S1",
+   "Automation-first intensification",
+   "Sector-consistent (omega = 1)",
+   -46.4,
+   -23.9,
+   -15.7,
+   0.695,
+   0.84
+  ]
+ ],
+ "sensitivity": [
+  [
+   "Automation ceiling for entry tasks, alpha_max",
+   0.6,
+   -0.975,
+   -0.811,
+   -0.821,
+   "***"
+  ],
+  [
+   "Reinstatement ceiling, rho_max",
+   0.35,
+   0.896,
+   0.12,
+   0.454,
+   "***"
+  ],
+  [
+   "Demand elasticity with respect to unit cost, epsilon",
+   1.1,
+   0.789,
+   0.515,
+   0.511,
+   "***"
+  ],
+  [
+   "AI productivity elasticity, juniors, beta_J",
+   0.739,
+   -0.787,
+   -0.304,
+   -0.32,
+   "***"
+  ],
+  [
+   "Learning investment rate, lambda",
+   0.3,
+   0.513,
+   0.226,
+   0.478,
+   "***"
+  ],
+  [
+   "Routine obsolescence rate, delta_K",
+   0.2,
+   -0.488,
+   -0.261,
+   -0.476,
+   "***"
+  ],
+  [
+   "Senior separation rate, delta_S",
+   0.08,
+   -0.485,
+   -0.843,
+   -0.834,
+   "***"
+  ],
+  [
+   "AI productivity elasticity, seniors, beta_S",
+   0.246,
+   0.434,
+   0.071,
+   0.376,
+   "***"
+  ],
+  [
+   "Time to competence, tau_dev",
+   3.0,
+   -0.389,
+   -0.784,
+   -0.77,
+   "***"
+  ],
+  [
+   "External senior recruitment ceiling, chi_S",
+   0.03,
+   0.323,
+   0.695,
+   0.686,
+   "***"
+  ],
+  [
+   "Half-saturation of mentoring adequacy, q_0",
+   1.0,
+   -0.135,
+   -0.288,
+   -0.272,
+   "***"
+  ],
+  [
+   "AI knowledge-scaffolding coefficient, eta",
+   0.35,
+   0.12,
+   0.352,
+   0.33,
+   "***"
+  ],
+  [
+   "AI adoption rate, nu",
+   1.327,
+   -0.071,
+   0.004,
+   0.021,
+   "*"
+  ],
+  [
+   "Elasticity of external senior availability, omega",
+   1.0,
+   -0.029,
+   -0.042,
+   -0.045,
+   ""
+  ],
+  [
+   "Skill-formation value of AI-mediated work, zeta_0",
+   0.25,
+   0.019,
+   0.126,
+   0.127,
+   ""
+  ]
+ ],
+ "sens_summary": {
+  "n": 800,
+  "spread": 0.3,
+  "df": 784,
+  "dJ_median": -30.576652953467637,
+  "dJ_q1": -37.59194502838669,
+  "dJ_q3": -23.969559348670145,
+  "dJ_p5": -45.904116131919984,
+  "dJ_p95": -15.489035442513947,
+  "dJ_share_negative": 1.0,
+  "dS_median": -7.2040869441777176,
+  "dS_share_negative": 0.73375,
+  "dY_median": 10.12862232831807
+ },
+ "regime": {
+  "share_positive_G1": 0.1705246913580247,
+  "G1_min": -69.98543407860197,
+  "G1_max": 19.229884099590567,
+  "G2_min": -53.63282041778945,
+  "G2_max": 3.7661139708902613
+ }
+}

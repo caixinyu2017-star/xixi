@@ -1,0 +1,5 @@
+code	scenario	closure	dJ25_pct	dS25_pct	dY25_pct	Phi25	Omega25
+S0	Baseline	Partial equilibrium (omega = 0)	-30.1	-3.8	14.5	0.896	1.0
+S0	Baseline	Sector-consistent (omega = 1)	-30.7	-7.9	9.4	0.864	0.927
+S1	Automation-first intensification	Partial equilibrium (omega = 0)	-45.5	-16.6	-7.4	0.751	1.0
+S1	Automation-first intensification	Sector-consistent (omega = 1)	-46.4	-23.9	-15.7	0.695	0.84

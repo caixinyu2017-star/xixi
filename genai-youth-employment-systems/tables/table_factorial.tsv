@@ -1,0 +1,8 @@
+lambda_level	rho_max_level	lambda	rho_max	dJ25_pct	dY25_pct	rho25
+low	low	0.3	0.35	-30.7	9.4	0.128
+low	high	0.3	0.5	-20.8	19.1	0.189
+high	low	0.6	0.35	-26.6	25.5	0.171
+high	high	0.6	0.5	-14.0	31.7	0.249
+main effect	lambda			5.5		
+main effect	rho_max			11.29		
+interaction	lambda x rho_max			2.74		
