@@ -44,6 +44,19 @@ st._element.rPr.rFonts.set(qn('w:eastAsia'), SONG)
 st.paragraph_format.space_before = Pt(0)
 st.paragraph_format.space_after = Pt(0)
 
+# 图题 / 表题 段落样式（供 Word 生成图目录、表目录）
+from docx.enum.style import WD_STYLE_TYPE
+for _sname in ('图题', '表题'):
+    _st2 = doc.styles.add_style(_sname, WD_STYLE_TYPE.PARAGRAPH)
+    _st2.base_style = doc.styles['Normal']
+    _st2.font.name = TIMES
+    _st2.font.size = Pt(10.5)
+    _st2.font.bold = False
+    _st2._element.rPr.rFonts.set(qn('w:eastAsia'), HEI)
+    _st2._element.rPr.rFonts.set(qn('w:ascii'), TIMES)
+    _st2._element.rPr.rFonts.set(qn('w:hAnsi'), TIMES)
+    _st2.quick_style = True
+
 HEAD_SPEC = {
     1: dict(cn=HEI, size=15, bold=True, align=WD_ALIGN_PARAGRAPH.CENTER, before=18, after=14),
     2: dict(cn=HEI, size=14, bold=False, align=WD_ALIGN_PARAGRAPH.LEFT, before=12, after=8),
@@ -90,7 +103,7 @@ def figure(fname, caption, width_cm):
              before=8, after=3, keep_next=True)
     r = p.add_run()
     r.add_picture(path, width=Cm(width_cm))
-    cp = doc.add_paragraph()
+    cp = doc.add_paragraph(style='图题')
     para_fmt(cp, align=WD_ALIGN_PARAGRAPH.CENTER, indent_chars=0, line=1.0,
              before=0, after=8)
     add_rich(cp, '«' + caption + '»', cn=HEI, en=TIMES, size=10.5)
@@ -98,7 +111,7 @@ def figure(fname, caption, width_cm):
 
 
 def table_caption(text):
-    p = doc.add_paragraph()
+    p = doc.add_paragraph(style='表题')
     para_fmt(p, align=WD_ALIGN_PARAGRAPH.CENTER, indent_chars=0, line=1.0,
              before=8, after=3, keep_next=True)
     add_rich(p, '«' + text + '»', cn=HEI, en=TIMES, size=10.5)
@@ -147,6 +160,14 @@ def render(blocks):
             p = doc.add_paragraph()
             para_fmt(p, align=WD_ALIGN_PARAGRAPH.LEFT, indent_chars=0, line=1.5)
             add_field(p, ' TOC \\o "1-3" \\h \\z \\u ')
+        elif k == 'toc_fig':
+            p = doc.add_paragraph()
+            para_fmt(p, align=WD_ALIGN_PARAGRAPH.LEFT, indent_chars=0, line=1.5)
+            add_field(p, ' TOC \\h \\z \\t "图题,1" ')
+        elif k == 'toc_tab':
+            p = doc.add_paragraph()
+            para_fmt(p, align=WD_ALIGN_PARAGRAPH.LEFT, indent_chars=0, line=1.5)
+            add_field(p, ' TOC \\h \\z \\t "表题,1" ')
         elif k == 'pagebreak':
             p = doc.add_paragraph()
             para_fmt(p, indent_chars=0, line=1.0)

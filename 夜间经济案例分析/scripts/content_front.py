@@ -50,4 +50,10 @@ FRONT = [
 ('h1', '目录'),
 ('toc',),
 ('pagebreak',),
+('h1', '图目录'),
+('toc_fig',),
+('pagebreak',),
+('h1', '表目录'),
+('toc_tab',),
+('pagebreak',),
 ]
