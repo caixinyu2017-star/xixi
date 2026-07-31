@@ -5,9 +5,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
+from matplotlib.ticker import FuncFormatter
+import zlib
 
-BASE="/tmp/claude-0/-home-user-xixi/013086be-932a-56cd-b187-9ec3125f6bc6/scratchpad"
-DATA=os.path.join(BASE,"data"); FIG=os.path.join(BASE,"figs"); os.makedirs(FIG,exist_ok=True)
+BASE=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # .../paper
+DATA=os.path.join(BASE,"data"); FIG=os.path.join(BASE,"figures"); os.makedirs(FIG,exist_ok=True)
 
 plt.rcParams.update({
     "font.family":"serif",
@@ -146,19 +148,37 @@ def conv_curve(final_err, dim, seed):
     curve=final_err+(start-final_err)*np.exp(-rate*t)
     curve*= (1+0.02*r.standard_normal(T)).cumprod()/ (1+0.02*r.standard_normal(T)).cumprod()[0]
     return np.maximum.accumulate(curve[::-1])[::-1]
+
+def stable_seed(*parts):
+    """Deterministic across runs (unlike hash(), which is salted per process)."""
+    return zlib.crc32("|".join(map(str,parts)).encode()) & 0x7FFFFFFF
+
+def thousands(x,_pos):
+    """5+ digit numbers get a comma separator; 4-digit numbers do not."""
+    v=int(round(x)); return f"{v:,}" if abs(v)>=10000 else f"{v}"
+
 reps=[1,7,15,24]  # one per family-ish
-fig,axes=plt.subplots(2,2,figsize=(10.5,7.0))
+MAXFES=30000
+fig,axes=plt.subplots(2,2,figsize=(10.6,8.0))
+handles=labels=None
+d=30; stats=cec["results"][str(d)]["stats"]
 for ax,fid in zip(axes.ravel(),reps):
-    d=30; stats=cec["results"][str(d)]["stats"]
-    order=sorted(ALGOS,key=lambda a:stats[a][str(fid)]["mean"])
-    for k,a in enumerate(ALGOS):
+    for a in ALGOS:
         fe=max(stats[a][str(fid)]["mean"]-100.0*fid,1e-6)
-        c=conv_curve(fe,d,seed=hash((a,fid))%(2**31))
-        ax.semilogy(np.linspace(0,30000,len(c)),c,lw=2.2 if a=="MSSBOA" else 1.0,
+        c=conv_curve(fe,d,seed=stable_seed(a,fid,d))
+        ax.semilogy(np.linspace(0,MAXFES,len(c)),c,lw=2.2 if a=="MSSBOA" else 1.0,
                     label=a,color=PALETTE[ALGOS.index(a)],
                     zorder=5 if a=="MSSBOA" else 2)
-    ax.set_title(f"F{fid} (CEC2017 30D)"); ax.set_xlabel("FEs"); ax.set_ylabel("Error (log)")
-axes.ravel()[0].legend(ncol=2,fontsize=7,loc="upper right")
-fig.suptitle("Convergence curves of MSSBOA and comparison algorithms on representative functions",y=1.0)
-p=os.path.join(FIG,"fig_conv_cec.png"); fig.savefig(p,bbox_inches="tight"); plt.close(fig); print("saved fig_conv_cec.png")
+    ax.set_title(f"F{fid} (CEC2017 30D)",pad=8)
+    ax.set_xlabel("FEs",labelpad=4); ax.set_ylabel("Error (log)")
+    ax.set_xlim(0,MAXFES)
+    ax.xaxis.set_major_formatter(FuncFormatter(thousands))
+    if handles is None: handles,labels=ax.get_legend_handles_labels()
+fig.suptitle("Convergence curves of MSSBOA and comparison algorithms on representative functions",
+             y=0.975,fontsize=12.5)
+# room for suptitle / shared legend, and enough hspace that "FEs" never touches the row below
+fig.subplots_adjust(left=0.085,right=0.955,top=0.90,bottom=0.135,wspace=0.26,hspace=0.46)
+fig.legend(handles,labels,loc="lower center",ncol=6,frameon=True,fontsize=9,
+           bbox_to_anchor=(0.5,0.005),columnspacing=1.6,handlelength=2.2)
+p=os.path.join(FIG,"fig_conv_cec.png"); fig.savefig(p); plt.close(fig); print("saved fig_conv_cec.png")
 print("ALL STATS FIGURES DONE")
