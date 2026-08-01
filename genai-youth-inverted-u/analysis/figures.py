@@ -55,55 +55,6 @@ def save(fig, name):
 
 # ---------------------------------------------------------------------------
 def figure1():
-    """Conceptual framework.
-
-    A single full-width diagram, so that every box is wide enough for its own
-    label and no element is drawn over another.  The moderators are shown
-    empirically in Figure 5 and are deliberately not crowded in here.
-    """
-    fig, ax = plt.subplots(figsize=(W, W * 0.42))
-    ax.set_xlim(0.0, 14.0)
-    ax.set_ylim(-0.3, 7.6)
-    ax.axis("off")
-
-    def box(x, y, w, h, text, fc, fs=7.0):
-        ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h,
-                                    boxstyle="round,pad=0.07,rounding_size=0.16",
-                                    fc=fc, ec=GREY, lw=0.9, zorder=3))
-        ax.text(x, y, text, ha="center", va="center", fontsize=fs, zorder=4,
-                linespacing=1.35)
-
-    def arrow(p, q, color=GREY, ls="-", lw=1.2):
-        ax.add_patch(FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=10,
-                                     lw=lw, color=color, linestyle=ls,
-                                     shrinkA=0, shrinkB=0, zorder=2))
-
-    box(2.05, 3.65, 3.70, 1.55, "Generative AI\nadoption depth", "#EAF2F8")
-    box(11.95, 3.65, 3.70, 1.55, "Youth\nemployment share", "#FEF9E7")
-    box(7.00, 6.45, 5.50, 1.30,
-        "Augmentation of entry-level work\n(increasing, concave)", "#E8F6F3", 6.6)
-    box(7.00, 0.85, 5.50, 1.30,
-        "Automation of the entry task bundle\n(increasing, convex)", "#FDEDEC", 6.6)
-
-    arrow((3.55, 4.45), (4.62, 5.78), ACC)
-    arrow((9.38, 5.78), (10.45, 4.45), ACC)
-    arrow((3.55, 2.85), (4.62, 1.52), NEG)
-    arrow((9.38, 1.52), (10.45, 2.85), NEG)
-    # the signs are centred on the arrow they label and carry an opaque
-    # background, so neither the arrow nor the sign is obscured
-    sign = dict(ha="center", va="center", fontweight="bold", zorder=5,
-                bbox=dict(boxstyle="round,pad=0.10", fc="white", ec="none"))
-    ax.text(9.92, 5.11, "+", fontsize=9.0, color=ACC, **sign)
-    ax.text(9.92, 2.19, "\u2212", fontsize=9.0, color=NEG, **sign)
-
-    arrow((3.95, 3.65), (10.05, 3.65), GREY, ls=(0, (4, 2.5)), lw=1.1)
-    ax.text(7.00, 3.86, "H1: inverted U", ha="center", va="bottom",
-            fontsize=7.4, color=GREY, fontweight="bold")
-    save(fig, "figure1_framework.png")
-
-
-# ---------------------------------------------------------------------------
-def figure2():
     df = pd.read_csv(os.path.join(DATA, "panel.csv"))
     g = df.groupby("year").agg(depth=("AI", "mean"), youth=("Youth", "mean"))
     fig, ax = plt.subplots(figsize=(W, W * 0.46))
@@ -113,14 +64,10 @@ def figure2():
     l2, = ax2.plot(g.index, g.depth, color=POS, marker="s", ms=3.6, ls="--",
                    label="Mean adoption depth (right axis)")
     ax.axvline(2022.5, color=GREY, lw=0.9, ls=":")
-    # the wedge between the flat pre-shock depth series and the youth line is
-    # the only empty part of the panel, so the note goes there
-    ax.annotate("public release of\nlarge language models",
-                xy=(2022.5, 0.02), xycoords=ax.get_xaxis_transform(),
-                xytext=(2021.6, 0.12), textcoords=ax.get_xaxis_transform(),
-                fontsize=6.6, color=GREY, ha="right", va="bottom",
-                arrowprops=dict(arrowstyle="-", lw=0.7, color=GREY,
-                                shrinkA=3, shrinkB=1))
+    # the band above the youth line and left of the shock is empty
+    ax.text(2022.35, 0.95, "public release of\nlarge language models",
+            transform=ax.get_xaxis_transform(), fontsize=6.6, color=GREY,
+            ha="right", va="top")
     ax.set_xlabel("Year")
     ax.set_ylabel("Share of employees aged\n30 or below (%)")
     ax2.set_ylabel("Mean adoption depth")
@@ -128,11 +75,11 @@ def figure2():
     ax.legend(handles=[l1, l2], loc="upper center",
               bbox_to_anchor=(0.5, -0.22), ncol=1, fontsize=6.8,
               frameon=False, handlelength=2.6, labelspacing=0.3)
-    save(fig, "figure2_trends.png")
+    save(fig, "figure1_trends.png")
 
 
 # ---------------------------------------------------------------------------
-def figure3():
+def figure2():
     c = np.load(os.path.join(TAB, "curve.npy"))
     b = pd.read_csv(os.path.join(TAB, "bins.csv"))
     x, fit, se = c[:, 0], c[:, 1], c[:, 2]
@@ -152,22 +99,23 @@ def figure3():
     ax.plot(b["x"], by, ls="none", marker="D", ms=3.0, color=GREY, alpha=0.8,
             label="Residualised binned means")
 
-    # the quadrant below the zero line and left of the peak carries no data at
-    # all, so the label goes there and crosses nothing
-    ax.text(tau * 0.55, min(fit) * 0.62,
-            "extreme point %.2f\n[%.2f, %.2f]" % (tau, S["tau_lo"], S["tau_hi"]),
-            fontsize=6.8, color=ACC, ha="center", va="center")
+    # one line, just left of the marker line and below the zero line, where
+    # the panel carries no data
+    ax.text(tau - 0.08, min(fit) * 0.42,
+            "extreme point %.2f [%.2f, %.2f]"
+            % (tau, S["tau_lo"], S["tau_hi"]),
+            fontsize=6.8, color=ACC, ha="right", va="center")
     ax.set_xlim(-0.12, S["ai_max"] + 0.12)
     ax.set_xlabel("Generative AI adoption depth")
     ax.set_ylabel("Effect on the youth\nemployment share (pp)")
     ax.grid(alpha=0.25, lw=0.5)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=2,
               fontsize=6.8, frameon=False)
-    save(fig, "figure3_curve.png")
+    save(fig, "figure2_curve.png")
 
 
 # ---------------------------------------------------------------------------
-def figure4():
+def figure3():
     d = np.load(os.path.join(TAB, "decomp.npy"))
     x, aug, aut = d[:, 0], d[:, 1], d[:, 2]
     net = aug + aut
@@ -191,7 +139,7 @@ def figure4():
     ax.grid(alpha=0.25, lw=0.5)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=1,
               fontsize=6.8, frameon=False, labelspacing=0.3)
-    save(fig, "figure4_channels.png")
+    save(fig, "figure3_channels.png")
 
 
 # ---------------------------------------------------------------------------
@@ -228,23 +176,19 @@ def figure5():
 
 
 # ---------------------------------------------------------------------------
-def figure6():
+def figure4():
     d = np.load(os.path.join(TAB, "placebo.npy"))
     fig, ax = plt.subplots(figsize=(W, W * 0.42))
     ax.hist(d, bins=32, color="#5D6D7E", ec="white", lw=0.4, density=True,
             label="Placebo draws")
     ax.axvline(S["u_t"], color=NEG, lw=1.8, label="Actual statistic")
-    lo, hi = ax.get_ylim()
-    # to the left of the line, in the empty middle of the panel
-    ax.text(S["u_t"] - 0.4, hi * 0.55, "%.2f" % S["u_t"], fontsize=7.4,
-            color=NEG, ha="right", va="center")
     ax.set_xlabel("Lind–Mehlum statistic under random reassignment")
     ax.set_ylabel("Density")
     ax.grid(alpha=0.25, lw=0.5)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.26), ncol=2,
               fontsize=6.8, frameon=False)
-    save(fig, "figure6_placebo.png")
+    save(fig, "figure4_placebo.png")
 
 
 if __name__ == "__main__":
-    figure1(); figure2(); figure3(); figure4(); figure5(); figure6()
+    figure1(); figure2(); figure3(); figure4(); figure5()

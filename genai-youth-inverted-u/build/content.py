@@ -357,15 +357,6 @@ BLOCKS = [
     ("hyp", "H2c.",
      "Labour cost pressure displaces the turning point to the left."),
 
-    ("p",
-     "Figure 1 summarises the mechanism: two channels that scale differently "
-     "in adoption depth, and one inverted U-shaped net relationship. The "
-     "three organisational attributes that displace its turning point are "
-     "examined in Section 5 and plotted, with the estimated curves, in "
-     "Figure 5."),
-
-    ("fig", "figure1"),
-
     # =====================================================================
     ("h1", "3. Research Design"),
 
@@ -608,14 +599,16 @@ BLOCKS = [
      "The augmentation and automation channels show the wide dispersion that "
      "the mechanism requires, and the control variables are consistent with "
      "the published distributions for Chinese listed firms. "
-     "Figure 2 places these numbers in time: depth is absent from annual "
-     "reports before the end of 2022 and rises steeply thereafter, while the "
+     "Figure 1 places these numbers in time. The vertical dotted line marks "
+     "the public release of large language models at the end of 2022, after "
+     "which the vocabulary enters annual reports: mean adoption depth is "
+     "identically zero before it and rises steeply thereafter, while the "
      "youth employment share, which had been drifting down slowly, first "
      "flattens and then falls."),
 
     ("table", "table2"),
 
-    ("fig", "figure2"),
+    ("fig", "figure1"),
 
     ("h2", "4.2. Pearson Correlation Analysis"),
 
@@ -690,9 +683,13 @@ BLOCKS = [
     ("table", "table5"),
 
     ("p",
-     "Figure 3 plots the fitted curve with its 95% confidence band, the "
-     "extreme point with its Fieller interval, and residualised binned means "
-     "computed without imposing any functional form. The binned means track the "
+     "Figure 2 plots the fitted curve of Equation (3) relative to its value at "
+     "zero adoption, with its 95% confidence band, the extreme point and the "
+     "shaded Fieller interval around it, and residualised binned means. The "
+     "binned means are purged of the controls and of the firm and year "
+     "effects, grouped into twenty equal-count bins of positive adoption "
+     "depth and re-based on the lowest bin, so they impose no functional form "
+     "at all. They track the "
      "quadratic closely over the whole range, rising to the peak and falling "
      "away from it, which is the strongest available evidence that the "
      "curvature is a property of the data rather than of the polynomial. In "
@@ -703,7 +700,7 @@ BLOCKS = [
      f"{'%.2f' % (S['peak_gain'] - S['loss_at_max'])} points, leaving the firm "
      f"{a('loss_at_max',2)} points below where it began. H1 is supported."),
 
-    ("fig", "figure3"),
+    ("fig", "figure2"),
 
     ("h2", "4.5. Why the Curve Bends: Augmentation and Automation"),
 
@@ -732,14 +729,18 @@ BLOCKS = [
     ("table", "table6"),
 
     ("p",
-     "Figure 4 shows the decomposition graphically. The augmentation "
-     "contribution rises and flattens; the automation contribution falls at an "
-     "accelerating rate; their sum is the inverted U. The figure makes the "
+     "Figure 3 shows the decomposition graphically. Each channel's "
+     "contribution is its fitted quadratic in adoption depth, taken from "
+     "columns (1) and (2) of Table 6, multiplied by its loading in the outcome "
+     "equation in column (3). The augmentation contribution rises and "
+     "flattens; the automation contribution falls at an accelerating rate; "
+     "their sum is the inverted U, and the dotted line marks where it peaks. "
+     "The figure makes the "
      "policy content of the result visible. The descending arm is not evidence "
      "that the technology is harmful to young workers. It is evidence that the "
      "complementary margin runs out before the substituting margin does."),
 
-    ("fig", "figure4"),
+    ("fig", "figure3"),
 
     ("h2", "4.6. Robustness and Endogeneity Tests"),
 
@@ -805,12 +806,12 @@ BLOCKS = [
      "Equation (3) after randomly permuting adoption depth within year, "
      f"repeated {S['placebo_n']:,} times. The Lind–Mehlum statistic "
      f"obtained with the actual assignment, {n('u_t',2)}, is larger than every "
-     "placebo draw (Figure 6), so the curvature cannot be produced by the "
-     "functional form acting on noise."),
+     "one of those draws, whose distribution Figure 4 plots, so the curvature "
+     "cannot be produced by the functional form acting on noise."),
 
     ("table", "table9"),
 
-    ("fig", "figure6"),
+    ("fig", "figure4"),
 
     # =====================================================================
     ("h1", "5. Further Investigations"),
@@ -897,15 +898,19 @@ BLOCKS = [
 
     ("table", "table11"),
 
-    ("fig", "figure5"),
-
     ("p",
-     "Figure 5 plots the six fitted curves. The visual summary of Section 5 is "
-     "that the three moderators move the peak by between "
+     "Figure 5 plots the six fitted curves of Equation (6), evaluated at one "
+     "standard deviation below and above the mean of the two continuous "
+     "moderators and at the two values of the AI governance indicator; the "
+     "marker on each curve is its extreme point, and in every panel the solid "
+     "curve is the one whose peak arrives later. The visual summary of "
+     "Section 5 is that the three moderators move the peak by between "
      f"{'%.2f' % min(abs(MOD[z]['dtau']) for z in MOD)} and "
      f"{'%.2f' % max(abs(MOD[z]['dtau']) for z in MOD)} units of adoption "
      f"depth, against a baseline peak of {n('tau',2)} — displacements of "
      "the order of a quarter to a third of the peak itself."),
+
+    ("fig", "figure5"),
 
     ("h2", "5.4. Heterogeneity"),
 

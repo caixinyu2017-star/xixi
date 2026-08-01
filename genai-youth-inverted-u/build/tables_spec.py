@@ -314,60 +314,27 @@ TABLES = {"table1": table1, "table2": table2, "table3": table3,
 
 
 # ---------------------------------------------------------------------------
+# Figures are numbered by order of first mention in the text and carry no
+# notes: what the reader needs to know is stated in the body.
 FIGURES = {
     "figure1": dict(
-        number=1, file="figure1_framework.png", width_cm=13.8,
-        caption="Conceptual framework.",
-        note="Adoption depth reaches the youth employment share through two "
-             "channels that scale differently in depth: augmentation of "
-             "entry-level work is increasing and concave, automation of the "
-             "entry-level task bundle is increasing and convex, so the net "
-             "relationship is inverted U-shaped (H1). The three moderators of "
-             "H2a to H2c displace the turning point of that relationship and "
-             "are shown, with the estimated curves, in Figure 5."),
-    "figure2": dict(
-        number=2, file="figure2_trends.png", width_cm=13.8,
+        number=1, file="figure1_trends.png", width_cm=13.8,
         caption="Generative AI adoption depth and the youth employment share "
-                "of Chinese listed firms, 2016–2025.",
-        note="Adoption depth is the sample mean of the measure defined in "
-             "Equation (1). The share of firms reporting adoption is scaled by "
-             "three so that it can be read on the same right-hand axis. The "
-             "vertical dotted line marks the public release of large language "
-             "models at the end of 2022, after which the vocabulary enters "
-             "annual reports."),
-    "figure3": dict(
-        number=3, file="figure3_curve.png", width_cm=13.8,
+                "of Chinese listed firms, 2016\u20132025.", note=None),
+    "figure2": dict(
+        number=2, file="figure2_curve.png", width_cm=13.8,
         caption="The inverted U-shaped relationship between adoption depth and "
-                "the youth employment share.",
-        note="The fitted curve is Equation (3), column (4) of Table 4, drawn "
-             "relative to the value at zero adoption. The shaded vertical band "
-             "is the Fieller 95% interval for the extreme point. The binned "
-             "means are residualised on the controls and the firm and year "
-             "effects, grouped into twenty equal-count bins of positive "
-             "adoption depth, and re-based on the lowest bin."),
-    "figure4": dict(
-        number=4, file="figure4_channels.png", width_cm=13.8,
+                "the youth employment share.", note=None),
+    "figure3": dict(
+        number=3, file="figure3_channels.png", width_cm=13.8,
         caption="Decomposition of the curve into the augmentation and "
-                "automation channels.",
-        note="Each channel's contribution is its fitted quadratic in adoption "
-             "depth, taken from columns (1) and (2) of Table 6, multiplied by "
-             "its loading in the outcome equation in column (3). The "
-             "augmentation contribution is concave and the automation "
-             "contribution convex, so their sum has a single interior maximum."),
+                "automation channels.", note=None),
+    "figure4": dict(
+        number=4, file="figure4_placebo.png", width_cm=13.8,
+        caption="Randomisation distribution of the Lind\u2013Mehlum statistic.",
+        note=None),
     "figure5": dict(
         number=5, file="figure5_moderators.png", width_cm=13.8,
         caption="The curve at low and high levels of each moderator.",
-        note="Fitted curves from Equation (6), evaluated at one standard "
-             "deviation below and above the mean of the continuous moderators "
-             "and at the two values of the AI governance indicator. The marker "
-             "on each curve is its extreme point. In every panel the solid "
-             "curve is the one whose peak arrives later."),
-    "figure6": dict(
-        number=6, file="figure6_placebo.png", width_cm=13.8,
-        caption="Randomisation distribution of the Lind–Mehlum statistic.",
-        note="Distribution of the Lind–Mehlum statistic when adoption depth is "
-             "randomly permuted across firms within each year, so that any "
-             "curvature it produces is an artefact of the functional form. The "
-             "vertical line is the statistic obtained with the actual "
-             "assignment."),
+        note=None),
 }
