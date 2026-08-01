@@ -1,0 +1,9 @@
+Specification	AI	SE	AI2	SE	Extreme point	U-test t	N
+(1) Youth aged 35 or below	4.701***	(0.317)	-1.104***	(0.075)	2.129	13.33	27,320
+(2) ln(young headcount)	0.186***	(0.016)	-0.048***	(0.004)	1.955	11.65	27,320
+(3) Mean-centred adoption depth	2.110***	(0.140)	-0.692***	(0.045)	2.132	14.22	27,320
+(4) Two-way clustered standard errors	2.952***	(0.160)	-0.692***	(0.036)	2.132	18.15	27,320
+(5) Excluding 2020	2.973***	(0.195)	-0.697***	(0.046)	2.134	13.81	24,592
+(6) Post-shock years only	2.939***	(0.327)	-0.723***	(0.066)	2.034	9.00	8,414
+(7) Winsorised at the 5th and 95th percentiles	2.704***	(0.179)	-0.631***	(0.042)	2.143	13.55	27,320
+(8) Balanced panel	2.885***	(0.480)	-0.642***	(0.120)	2.247	4.50	3,870

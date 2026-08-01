@@ -1,0 +1,9 @@
+Moderator	Level of the moderator	Extreme point	SE	Curvature	Displacement	SE
+OLC	Low (-1 SD)	1.629	(0.061)	-0.685		
+OLC	Mean	2.146	(0.048)	-0.697		
+OLC	High (+1 SD)	2.646	(0.083)	-0.708	0.508***	(0.049)
+AIGov	Without disclosure	1.809	(0.054)	-0.730		
+AIGov	With disclosure	2.561	(0.089)	-0.651	0.671***	(0.065)
+LCP	Low (-1 SD)	2.813	(0.108)	-0.649		
+LCP	Mean	2.225	(0.050)	-0.684		
+LCP	High (+1 SD)	1.694	(0.055)	-0.719	-0.558***	(0.058)
