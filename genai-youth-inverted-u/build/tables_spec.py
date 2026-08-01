@@ -199,7 +199,8 @@ def table6():
 def table7():
     hdr, rows = read("t_robustness.tsv")
     return dict(number=7, caption="Robustness checks.",
-                header=hdr, rows=[R(lab(r[0]), *r[1:]) for r in rows],
+                header=[lab(h) for h in hdr],
+                rows=[R(lab(r[0]), *r[1:]) for r in rows],
                 widths=[0.30, 0.115, 0.095, 0.115, 0.095, 0.12, 0.09, 0.07],
                 note="Each row re-estimates Equation (3) with the modification "
                      "described and reports the two coefficients, the extreme "
@@ -277,11 +278,10 @@ def table12():
     hdr, rows = read("t_heterogeneity.tsv")
     return dict(number=12, caption="Heterogeneity analysis.",
                 header=["Split", "Group 1", "AI^{2}", "Extreme point", "N",
-                        "Group 2", "AI^{2}", "Extreme point", "N",
-                        "p (equality)"],
+                        "Group 2", "AI^{2}", "Extreme point", "N", "p"],
                 rows=[R(*r) for r in rows],
-                widths=[0.125, 0.125, 0.095, 0.105, 0.075, 0.135, 0.095,
-                        0.105, 0.075, 0.085], fs=7.4,
+                widths=[0.125, 0.130, 0.100, 0.105, 0.075, 0.135, 0.100,
+                        0.105, 0.075, 0.050], fs=7.4,
                 note="Each row estimates Equation (3) separately in the two "
                      "subsamples. The p-value tests the equality of the "
                      "coefficient on the squared term across the two groups. "
@@ -318,12 +318,13 @@ FIGURES = {
     "figure1": dict(
         number=1, file="figure1_framework.png", width_cm=13.8,
         caption="Conceptual framework.",
-        note="Panel (a): adoption depth reaches the youth employment share "
-             "through two channels that scale differently in depth, so the net "
-             "relationship is inverted U-shaped. Panel (b): a stylised "
-             "illustration of the hypothesised displacement of the turning "
-             "point. Organisational learning capability and AI governance delay "
-             "the peak; labour cost pressure brings it forward."),
+        note="Adoption depth reaches the youth employment share through two "
+             "channels that scale differently in depth: augmentation of "
+             "entry-level work is increasing and concave, automation of the "
+             "entry-level task bundle is increasing and convex, so the net "
+             "relationship is inverted U-shaped (H1). The three moderators of "
+             "H2a to H2c displace the turning point of that relationship and "
+             "are shown, with the estimated curves, in Figure 5."),
     "figure2": dict(
         number=2, file="figure2_trends.png", width_cm=13.8,
         caption="Generative AI adoption depth and the youth employment share "

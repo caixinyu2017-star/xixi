@@ -404,7 +404,7 @@ def t_oster(df):
             ["Coefficient on AI with controls", "%.3f" % o["beta_controlled"]],
             ["R-squared without controls", "%.3f" % o["r2_uncontrolled"]],
             ["R-squared with controls", "%.3f" % o["r2_controlled"]],
-            ["Assumed maximum R-squared (1.3 x R-squared with controls)",
+            ["Assumed maximum R-squared (1.3 \u00d7 R-squared with controls)",
              "%.3f" % o["r_max"]],
             ["Bias-adjusted coefficient on AI", "%.3f" % o["beta_star"]],
             ["Relative degree of selection that would set it to zero",

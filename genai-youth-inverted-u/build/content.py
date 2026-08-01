@@ -358,9 +358,11 @@ BLOCKS = [
      "Labour cost pressure displaces the turning point to the left."),
 
     ("p",
-     "Figure 1 summarises the framework: two channels that scale differently in "
-     "adoption depth, one inverted U-shaped net relationship, and three "
-     "organisational attributes that move its turning point."),
+     "Figure 1 summarises the mechanism: two channels that scale differently "
+     "in adoption depth, and one inverted U-shaped net relationship. The "
+     "three organisational attributes that displace its turning point are "
+     "examined in Section 5 and plotted, with the estimated curves, in "
+     "Figure 5."),
 
     ("fig", "figure1"),
 
