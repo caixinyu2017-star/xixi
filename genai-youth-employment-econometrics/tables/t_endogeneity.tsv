@@ -1,0 +1,16 @@
+Variable	(1) First stage	(2) 2SLS	(3) PSM	(4) Entropy balancing
+Dependent variable	GenAI	Youth	Youth	Youth
+IV_Bartik	0.324***			
+	(0.031)			
+IV_Peer	0.358***			
+	(0.021)			
+GenAI		-1.195***	-0.636***	-0.612***
+		(0.168)	(0.063)	(0.060)
+Controls	Yes	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes	Yes
+Year FE	Yes	Yes	Yes	Yes
+Kleibergen–Paap rk Wald F	308.4			
+Stock–Yogo 10% critical value	19.93			
+Sargan–Hansen J (p)		0.11 (0.740)		
+Wu–Hausman (p)		<0.001		
+Observations	27,340	27,340	22,630	27,340

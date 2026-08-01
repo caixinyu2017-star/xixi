@@ -1,8 +1,0 @@
-code	scenario	dJ5_pct	dJ25_pct	d_hires_pct	dS25_pct	dY5_pct	dY25_pct	dC25_pct	Phi25	trough_pct	t_trough	K25	E25
-S0	Baseline	-33.0	-30.7	-27.8	-7.9	3.8	9.4	-16.9	0.864	-37.2	7.1	1.12	-0.274
-S1	Automation-first intensification	-38.7	-46.4	-42.0	-23.9	1.4	-15.7	-13.0	0.695	-47.8	8.6	0.46	-0.477
-S2	Learning-system investment	-35.2	-26.6	-23.6	-0.2	4.5	25.5	-20.4	0.948	-38.0	6.4	2.37	-0.247
-S3	Work redesign (task reinstatement)	-29.9	-20.8	-21.6	-4.3	5.5	19.1	-18.9	0.918	-32.8	6.5	1.21	-0.227
-S4	Apprenticeship protection	-34.4	-28.9	-21.7	4.0	2.4	24.2	-18.8	0.956	-39.3	6.9	1.19	-0.271
-S5	AI-mediated knowledge scaffolding	-33.0	-29.9	-25.5	-1.6	4.2	17.2	-18.0	0.914	-37.2	7.0	1.15	-0.273
-S6	Joint socio-technical package	-32.1	-14.6	-9.2	0.4	0.5	31.7	-21.1	0.979	-35.2	6.7	2.58	-0.198

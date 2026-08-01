@@ -1,9 +1,0 @@
-test	procedure	result	outcome
-Structure and dimensional consistency	Every rate equation is dimensionally homogeneous; the pre-shock state is verified to be a fixed point	max |dx/dt| = 7.1e-15	Passed
-Equilibrium test	100-year run with F(t) = 0 and g_Y = 0	max relative drift = 0.0e+00	Passed
-Extreme-condition test 1	lambda = 0 (no investment in human-AI collaboration routines)	K(t) = 0 and rho(t) = 0 for all t	Passed
-Extreme-condition test 2	m -> 0, eta = 0 and chi_S = 0 (development pipeline closed)	senior stock decays at exactly the separation rate (S(25)/S(0) = 0.1353; exp(-delta_S T) = 0.1353)	Passed
-Extreme-condition test 3	alpha_max = 0 (pure augmentation, no task displacement)	entry employment exceeds the no-GenAI counterfactual (+3.7%)	Passed
-Extreme-condition test 4	rho_max = 0 and lambda = 0 (pure displacement)	entry employment falls monotonically relative to the counterfactual (-41.2%)	Passed
-Integration-error test	time step halved twice (Delta t = 1/16, 1/32 and 1/64 yr)	relative change in J(25) = 2.4e-07	Passed
-Behaviour-reproduction test	four independent empirical benchmarks (Table 4)	all four reproduced within rounding error	Passed

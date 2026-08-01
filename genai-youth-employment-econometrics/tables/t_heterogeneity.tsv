@@ -1,0 +1,5 @@
+Split	Group 1	Coefficient 1	SE 1	N 1	Group 2	Coefficient 2	SE 2	N 2	Difference	p (equality)
+State ownership	State-owned	-0.247***	(0.093)	9,130	Non-state	-0.822***	(0.069)	18,210	0.575	0.000
+Technology intensity	High-technology	-0.543***	(0.090)	11,173	Other	-0.664***	(0.073)	16,167	0.120	0.300
+Region	Eastern	-0.698***	(0.096)	9,639	Central and western	-0.581***	(0.070)	17,701	-0.118	0.320
+Capital intensity	Capital-intensive	-0.590***	(0.092)	13,670	Labour-intensive	-0.678***	(0.090)	13,670	0.088	0.494

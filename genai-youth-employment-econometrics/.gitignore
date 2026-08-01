@@ -1,0 +1,3 @@
+# The placeholder panel is regenerated exactly by `python3 analysis/dgp.py`
+# (the seed is fixed), so it is not carried in the repository.
+data/panel.csv
