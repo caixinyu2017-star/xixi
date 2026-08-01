@@ -1,0 +1,9 @@
+Partition	Subsample A	AI	DownAI	Subsample B	AI	DownAI	Difference in DownAI
+State ownership	State-owned	-0.441***	-0.324***	Non-state	-0.413***	-0.432***	0.109
+		(0.032)	(0.055)		(0.021)	(0.039)	(0.067)
+Technology intensity	High technology	-0.425***	-0.472***	Other	-0.419***	-0.368***	-0.104
+		(0.033)	(0.061)		(0.021)	(0.038)	(0.072)
+Network position	Central	-0.412***	-0.394***	Peripheral	-0.430***	-0.372***	-0.022
+		(0.025)	(0.043)		(0.025)	(0.053)	(0.068)
+Local market thickness	Thick	-0.401***	-0.448***	Thin	-0.445***	-0.334***	-0.114*
+		(0.024)	(0.043)		(0.026)	(0.048)	(0.064)

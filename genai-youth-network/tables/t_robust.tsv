@@ -1,0 +1,13 @@
+Specification	AI	SE	DownAI	SE	N
+Baseline	-0.422***	(0.018)	-0.396***	(0.032)	26,115
+Industry x year effects	-0.371***	(0.021)	-0.385***	(0.033)	26,115
+City x year effects	-0.388***	(0.130)	-0.396***	(0.033)	26,115
+Two-way clustering (firm and year)	-0.422***	(0.023)	-0.396***	(0.025)	26,115
+Employment-weighted	-0.409***	(0.028)	-0.424***	(0.048)	26,115
+Balanced panel	-0.422***	(0.019)	-0.370***	(0.035)	21,590
+Excluding the pandemic years	-0.445***	(0.020)	-0.396***	(0.037)	20,599
+Excluding state-owned firms	-0.413***	(0.021)	-0.432***	(0.039)	17,697
+Excluding the four largest cities	-0.421***	(0.018)	-0.378***	(0.033)	23,983
+Dropping firms with fewer than five links	-0.422***	(0.018)	-0.396***	(0.032)	26,115
+Youth head count in logs (different units)	-0.023***	(0.001)	-0.023***	(0.002)	26,115
+Adding the lagged dependent variable	-0.436***	(0.019)	-0.417***	(0.035)	23,315

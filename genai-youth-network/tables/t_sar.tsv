@@ -1,0 +1,23 @@
+Variable	(1)	(2)	(3)	(4)
+AI	-0.422***	-0.420***	-0.420***	-0.080***
+	(0.018)	(0.018)	(0.018)	(0.019)
+ChainAI	-0.641***	-0.517***	-0.516***	-0.130**
+	(0.045)	(0.085)	(0.085)	(0.065)
+PeerAI	0.333***	0.338***	0.338***	0.051
+	(0.078)	(0.078)	(0.078)	(0.070)
+WYouth		0.286*	0.286*	
+		(0.163)	(0.163)	
+Direct impact		-0.420***		-0.080***
+		(0.017)		(0.017)
+Indirect impact		-0.893***		-0.213
+		(0.195)		(0.243)
+Total impact		-1.313***		-0.294
+		(0.195)		(0.236)
+Network multiplier		3.12		3.65
+Estimator	OLS	2SLS	GMM	2SLS
+Kleibergen-Paap rk Wald F		57.8		2.7
+Hansen J (p)		0.603	0.609	0.338
+Controls	Yes	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes	Yes
+Year FE	Yes	Yes	Yes	Yes
+Observations	26,115	26,115	26,115	26,115

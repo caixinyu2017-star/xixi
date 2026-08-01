@@ -1,0 +1,23 @@
+Variable	(1)	(2)	(3)
+AI	-0.426***	-0.422***	-0.083***
+	(0.018)	(0.018)	(0.016)
+UpAI	-0.249***	-0.246***	-0.052*
+	(0.031)	(0.031)	(0.028)
+DownSpec	-0.530***		-0.069*
+	(0.044)		(0.038)
+DownGen	-0.260***		-0.122***
+	(0.045)		(0.041)
+DownNear		-0.317**	
+		(0.146)	
+DownFar		-0.400***	
+		(0.033)	
+PeerAI	0.329***	0.331***	0.053
+	(0.078)	(0.079)	(0.070)
+Difference tested	specific - generic	near - far	specific - generic
+Difference	-0.270***	0.083	
+	(0.063)	(0.151)	
+Controls	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes
+Year FE	Yes	Yes	Yes
+Observations	26,115	26,115	26,115
+Within R2	0.107	0.107	0.051

@@ -1,0 +1,7 @@
+Specification	Coefficient on	Estimate	SE	N
+Baseline customer lag	DownAI	-0.396***	(0.032)	26,115
+Unweighted (binary) customer links	DownBin	-0.387***	(0.040)	26,115
+Largest customer only	DownTop	-0.176***	(0.017)	26,115
+Customer lag two years earlier	DownAI_lag2	-0.023	(0.041)	20,516
+Placebo: customer lag led by two years	DownAI_lead2	-0.041	(0.036)	20,516
+Placebo: randomly rewired customer links	DownFake	-0.010	(0.032)	26,115
