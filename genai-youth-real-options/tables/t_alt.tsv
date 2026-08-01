@@ -1,0 +1,10 @@
+Specification	Coefficient	SE	N	Within R2
+Entry-level vacancy rate on AI uncertainty (baseline)	-1.230***	(0.026)	29,660	0.277
+Placebo: general economic policy uncertainty only	-0.344***	(0.022)	29,660	0.151
+Placebo: AI adoption level only	0.041*	(0.022)	29,660	0.143
+Placebo: experienced vacancy rate	-0.090***	(0.016)	29,660	0.189
+Placebo: total employment growth	0.093	(0.118)	26,460	0.106
+Comparison: capital expenditure rate	-0.041***	(0.016)	29,660	0.010
+Uncertainty measured as the dispersion of analyst forecasts	-1.040***	(0.024)	29,660	0.245
+Uncertainty measured by a count of risk-factor sentences	-1.094***	(0.025)	29,660	0.254
+Uncertainty entered as an indicator for the top quartile	-1.922***	(0.050)	29,660	0.213

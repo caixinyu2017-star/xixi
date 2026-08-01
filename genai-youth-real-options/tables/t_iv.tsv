@@ -1,0 +1,23 @@
+Variable	(1)	(2)	(3)	(4)	(5)
+Panel A: first stage, dependent variable AIU				
+IV_Shift	0.444***			
+	(0.032)			
+IV_Frontier	0.082***			
+	(0.031)			
+IV_Peer	0.421***			
+	(0.004)			
+Kleibergen-Paap rk Wald F	5353.0			
+Panel B: second stage				
+AIU	-1.230***	-1.302***	-1.303***	2.211***	-0.104***
+	(0.026)	(0.037)	(0.037)	(0.075)	(0.025)
+AIE	0.300***	0.314***	0.315***	0.359***	0.278***
+	(0.020)	(0.020)	(0.020)	(0.047)	(0.018)
+FirmEPU	-0.184***	-0.175***	-0.174***	0.268***	-0.119***
+	(0.020)	(0.021)	(0.021)	(0.047)	(0.018)
+Estimator	OLS	2SLS	GMM	2SLS	2SLS
+Hansen J (p)		0.091	0.091	0.301	0.582
+Wu-Hausman (p)		0.0007		0.4732	0.4436
+Controls	Yes	Yes	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes	Yes	Yes
+Year FE	Yes	Yes	Yes	Yes	Yes
+Observations	29,660	29,660	29,660	29,660	29,660
