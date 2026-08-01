@@ -1,0 +1,7 @@
+[
+{
+"name": "fig_deploy",
+"size": "1536x1024",
+"prompt": "A clean flat-vector deployment architecture diagram for a Chinese university technical report. IMPORTANT: do NOT draw any title, heading, or caption text anywhere — the diagram has no title. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients, thin precise lines.\n\nThree panels arranged left to right, connected by thick horizontal double-headed arrows.\n\nLEFT panel: a large navy rounded rectangle. Header line in white bold Chinese: 校内私有环境. Second smaller white line: 嘉兴大学校园网. Below, four white rounded chips stacked vertically with dark Chinese text: 五大语料库 / 教材体系知识图谱 / 模型推理服务 / 留痕审计链\n\nMIDDLE panel: a narrower gold rounded rectangle. Header line in dark bold Chinese: 受控接口. Below, four white rounded chips stacked vertically with dark Chinese text: 统一身份认证 / 权限分级 / 仅传证据与报告 / 原始语料不出校\n\nRIGHT panel: a large crimson rounded rectangle. Header line in white bold Chinese: 浙江省德育教材基地网站. Second smaller white line: 访问端口. Below, four white rounded chips stacked vertically with dark Chinese text: 基地成员 / 校内教师 / 协作高校 / 公众成果展示\n\nA thick gold double-headed arrow connects the LEFT panel to the MIDDLE panel. Another thick gold double-headed arrow connects the MIDDLE panel to the RIGHT panel."
+}
+]

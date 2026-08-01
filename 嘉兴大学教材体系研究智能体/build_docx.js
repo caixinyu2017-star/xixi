@@ -66,23 +66,57 @@ function caption(text) {
   });
 }
 
-const raw = fs.readFileSync(SRC, 'utf8').split('\n');
+let rawText = fs.readFileSync(SRC, 'utf8');
+
+// ---- 图表符号编号解析：按文档出现顺序为 {{fig:key}} / {{tbl:key}} 分配序号 ----
+{
+  const figKeys = [], tblKeys = [];
+  for (const line of rawText.split('\n')) {
+    const t = line.trim();
+    let m;
+    if ((m = t.match(/^!\[\{\{fig:([^}]+)\}\}/))) { if (!figKeys.includes(m[1])) figKeys.push(m[1]); }
+    else if ((m = t.match(/^TABLE:\s*\{\{tbl:([^}]+)\}\}/))) { if (!tblKeys.includes(m[1])) tblKeys.push(m[1]); }
+  }
+  const unresolved = [];
+  rawText = rawText.replace(/\{\{fig:([^}]+)\}\}/g, (_, k) => {
+    const i = figKeys.indexOf(k);
+    if (i < 0) { unresolved.push('fig:' + k); return '图?'; }
+    return '图' + (i + 1);
+  }).replace(/\{\{tbl:([^}]+)\}\}/g, (_, k) => {
+    const i = tblKeys.indexOf(k);
+    if (i < 0) { unresolved.push('tbl:' + k); return '表?'; }
+    return '表' + (i + 1);
+  });
+  if (unresolved.length) {
+    console.error('未定义的图表引用：' + [...new Set(unresolved)].join(', '));
+    process.exit(1);
+  }
+  console.log(`图表编号：图 1-${figKeys.length}，表 1-${tblKeys.length}`);
+}
+
+const raw = rawText.split('\n');
 const children = [];
 const gap = (n = 1) => { for (let i = 0; i < n; i++) children.push(new Paragraph({ children: [new TextRun({ text: '', size: XIAOSI })] })); };
 
 // ===================== 封面 =====================
 gap(4);
+{
+  const logo = path.join(__dirname, 'images/logo_jxu.png');
+  const ls = pngSize(logo);
+  const lw = 477, lh = Math.round(lw * ls.h / ls.w);
+  children.push(new Paragraph({
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 420, line: 240, lineRule: LineRuleType.AUTO },
+    children: [new ImageRun({ type: 'png', data: fs.readFileSync(logo), transformation: { width: lw, height: lh } })],
+  }));
+}
 children.push(new Paragraph({
-  alignment: AlignmentType.CENTER, spacing: { after: 260 },
-  children: [new TextRun({ text: '嘉　兴　大　学', font: HEI, size: 36, bold: true, color: BLACK })],
+  alignment: AlignmentType.CENTER, spacing: { after: 760 },
+  children: [new TextRun({ text: '中国特色高质量教材体系研究智能体', font: HEI, size: 28, bold: true, color: BLACK })],
 }));
 children.push(new Paragraph({
-  alignment: AlignmentType.CENTER, spacing: { after: 900 },
-  children: [new TextRun({ text: '中国特色高质量教材体系研究智能体', font: HEI, size: 28, color: BLACK })],
-}));
-children.push(new Paragraph({
-  alignment: AlignmentType.CENTER, spacing: { after: 200 },
-  children: [new TextRun({ text: '「禾　章」', font: HEI, size: 60, bold: true, color: BLACK })],
+  alignment: AlignmentType.CENTER, spacing: { after: 220 },
+  children: [new TextRun({ text: '“禾章”　智能体', font: HEI, size: 48, bold: true, color: BLACK })],
 }));
 children.push(new Paragraph({
   alignment: AlignmentType.CENTER, spacing: { after: 240 },
