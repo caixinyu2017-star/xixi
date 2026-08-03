@@ -1,0 +1,24 @@
+Variable	(1) First stage: Variety	(2) First stage: Shock x Variety	(3) 2SLS	(4) Lagged variety	(5) PSM sample	(6) Entropy balancing
+CityDiv	0.459***	-0.006				
+	(0.004)	(0.004)				
+Shock x CityDiv	-0.003**	0.442***				
+	(0.001)	(0.008)				
+PeerVar	0.983***	0.002				
+	(0.010)	(0.016)				
+Shock x PeerVar	-0.000	0.974***				
+	(0.003)	(0.022)				
+Variety			2.031***		2.009***	2.003***
+			(0.105)		(0.091)	(0.091)
+Shock x Variety			1.307***		1.249***	1.261***
+			(0.063)		(0.044)	(0.044)
+L.Variety				0.931***		
+				(0.099)		
+L.(Shock x Variety)				1.150***		
+				(0.047)		
+Controls	YES	YES	YES	YES	YES	YES
+Year FE	YES	YES	YES	YES	YES	YES
+Firm FE	YES	YES	YES	YES	YES	YES
+Kleibergen-Paap rk F			1345.4			
+Hansen J (p-value)			1.482 (0.477)			
+Durbin-Wu-Hausman (p-value)			0.428			
+Observations	36,064	36,064	36,064	32,664	35,659	36,064

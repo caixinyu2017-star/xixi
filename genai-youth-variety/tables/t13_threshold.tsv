@@ -1,0 +1,39 @@
+Variable	Estimate
+Shock (Variety <= gamma)	-2.123***
+	(0.096)
+Shock (Variety > gamma)	-0.061
+	(0.093)
+Variety	2.040***
+	(0.086)
+Size	2.720***
+	(0.383)
+Lev	-1.572*
+	(0.860)
+ROA	12.996***
+	(1.437)
+Cashflow	0.756
+	(0.657)
+TobinQ	0.569***
+	(0.045)
+Top1	-3.762*
+	(1.964)
+Indep	0.174
+	(2.742)
+Dual	-0.157
+	(0.144)
+Board	-0.002
+	(0.871)
+CapInt	-0.716*
+	(0.387)
+Emp	0.071
+	(0.436)
+Threshold estimate (gamma)	2.517
+95% confidence interval	[2.405, 2.752]
+Share of observations below gamma	0.484
+Likelihood-ratio statistic F1	812.6
+Bootstrap p-value	0.000
+Bootstrap replications	500
+Year FE	YES
+Firm FE	YES
+Observations	36,064
+R-squared	0.053
