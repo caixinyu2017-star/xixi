@@ -1,0 +1,5 @@
+Subsample	Group A	S.E.	Group B	S.E.	Difference	p-value	N (A)	N (B)
+State-owned / Non-state-owned	-1.180***	(0.115)	-1.420***	(0.081)	0.240	0.087	8,067	17,634
+High-technology / Non-high-technology	-1.255***	(0.099)	-1.435***	(0.093)	0.180	0.185	11,761	13,940
+Eastern region / Central and western region	-1.529***	(0.115)	-1.257***	(0.081)	-0.272	0.053	8,771	16,930
+Labor-intensive / Capital-intensive	-1.502***	(0.087)	-1.153***	(0.101)	-0.348	0.009	15,364	10,337

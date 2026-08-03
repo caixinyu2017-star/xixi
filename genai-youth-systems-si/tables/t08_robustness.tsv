@@ -1,0 +1,8 @@
+Specification	GenAI	S.E.	Observations	R-squared
+Excluding 2020 and 2021	-1.450***	(0.077)	19,701	0.068
+Balanced panel only	-1.345***	(0.075)	21,195	0.061
+Adoption above the yearly median	-1.559***	(0.093)	25,701	0.051
+Youth share of the age-classified workforce	-1.086***	(0.065)	25,701	0.045
+Two-way clustering by firm and year	-1.348***	(0.191)	25,701	0.061
+Winsorizing the outcome at 5 per cent	-1.230***	(0.063)	25,701	0.058
+Placebo: employees aged 31 to 50	-0.121**	(0.057)	25,701	0.002

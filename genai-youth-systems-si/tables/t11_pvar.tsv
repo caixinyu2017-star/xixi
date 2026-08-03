@@ -1,0 +1,15 @@
+Equation	L.GenAI	L.Train	L.Youth
+GenAI equation	0.531***	-0.347***	-0.032***
+	(0.012)	(0.011)	(0.001)
+Train equation	-0.058***	0.501***	0.008***
+	(0.010)	(0.012)	(0.001)
+Youth equation	-0.639***	0.855***	0.298***
+	(0.092)	(0.100)	(0.011)
+Granger chi-squared			
+  GenAI equation	1891.91 [0.000]	976.63 [0.000]	980.12 [0.000]
+  Train equation	35.24 [0.000]	1763.95 [0.000]	81.21 [0.000]
+  Youth equation	48.10 [0.000]	72.61 [0.000]	806.67 [0.000]
+Modulus of companion eigenvalues	0.722	0.379	0.229
+Observations	22,701		
+Firms	3,000		
+Bootstrap replications	400		
