@@ -1,0 +1,10 @@
+Specification,Coefficient,Standard error,Observations,Within R2
+Baseline specification,-0.1175***,(0.0059),"31,015",0.1863
+Alternative outcome: log youth headcount,-0.5865***,(0.0376),"31,015",0.9475
+Binary treatment: above-median exposure,-0.0229***,(0.0016),"31,015",0.1983
+Excluding the pandemic years 2020-2021,-0.1171***,(0.0065),"24,954",0.1914
+Excluding eastern coastal provinces,-0.1260***,(0.0092),"12,985",0.1830
+Standard errors clustered by industry,-0.1175***,(0.0039),"31,015",0.1863
+Two-way clustered standard errors,-0.1175***,(0.0039),"31,015",0.1863
+Winsorised at the 5th and 95th percentiles,-0.1066***,(0.0055),"31,015",0.1645
+Placebo outcome: employees aged 41-50,-0.0011,(0.0054),"31,015",0.0463

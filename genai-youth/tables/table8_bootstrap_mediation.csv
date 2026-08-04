@@ -1,0 +1,3 @@
+Channel,Point estimate,Bootstrap SE,CI lower (2.5%),CI upper (97.5%),Replications,Share of total effect
+Entry-task restructuring,-0.03681,0.00356,-0.0441,-0.03008,400,0.31323
+Training intensity,0.00261,0.00187,-0.00106,0.0059,400,-0.02219

@@ -1,0 +1,27 @@
+Target file: figures/fig1_framework.png   Size: 1536x1024   Quality: high
+Command:
+python3 /root/.claude/skills/gpt-image-2/scripts/gpt_image2.py "<PROMPT BELOW>" \
+  -o figures/fig1_framework.png --size 1536x1024 --quality high
+
+PROMPT
+------
+A flat vector conceptual framework diagram for an economics journal article, clean white
+background, thin uniform stroke weight, all text in English in a clean sans-serif, muted
+palette of slate blue, teal and warm grey, generous white space, rectangular boxes with thin
+outlines. Layout is left to right in three columns. Left column: one box labelled "Generative
+AI capability shock" with a smaller box beneath it labelled "Firm entry-task exposure". Middle
+column: two boxes stacked vertically, the upper labelled "Entry-task restructuring", the lower
+labelled "Training investment". Right column: one large box labelled "Youth employment share",
+and below it a separate box labelled "Internal advancement rate". Arrows: one long horizontal
+arrow from the left column directly to "Youth employment share" labelled "H1"; an arrow from
+the left column to "Entry-task restructuring" and on to "Youth employment share" labelled
+"H2a"; an arrow from the left column to "Training investment" and on to "Youth employment
+share" labelled "H2b"; a downward arrow from "Youth employment share" to "Internal advancement
+rate". At the bottom, two boxes side by side labelled "Organisational learning capacity" and
+"Internal labour-market depth", each with a short vertical arrow pointing up onto the middle of
+the long horizontal arrow, labelled "H3a" and "H3b". Exclusions: no photorealism, no 3D bevel,
+no drop shadows, no gradients, no icons, no stock-photo people, no watermark, no signature, no
+decorative clutter, no title.
+
+After generating, re-run:  python3 build/build_paper.py
+The builder picks the file up automatically and renumbers every figure and cross-reference.

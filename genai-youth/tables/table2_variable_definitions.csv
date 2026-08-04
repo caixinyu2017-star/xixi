@@ -1,0 +1,25 @@
+Symbol,Variable,Definition
+Youth,Youth employment share,Employees aged 30 and under divided by total employees
+lnYouthN,Log youth headcount,Natural logarithm of the number of employees aged 30 and under
+Mid,Prime-age employment share,Employees aged 41 to 50 divided by total employees (placebo outcome)
+Promo,Internal advancement rate,Employees promoted into supervisory grades divided by total employees
+Exposure,Entry-task exposure,"Pre-shock share of the firm’s occupational structure made up of routine cognitive entry positions, averaged over 2014-2019"
+Post,Post-shock indicator,"Equal to one from 2022 onwards, zero otherwise"
+Treat,GenAI treatment intensity,Post multiplied by entry-task exposure in deviation from the sample mean
+GAI,GenAI adoption intensity,"Natural logarithm of one plus the frequency of generative-AI terms in the annual report, scaled by report length"
+EntryTask,Entry-task share,Share of the firm’s posted positions classified as routine cognitive entry work
+Train,Training intensity,"Employee education and training outlay per employee, in ten thousand yuan"
+OLC,Organisational learning capacity,"Standardised composite of training intensity, intangible-asset intensity and board independence"
+ILM,Internal labour-market depth,Share of employees with more than five years of tenure
+Size,Firm size,Natural logarithm of total assets
+ROA,Return on assets,Net profit divided by total assets
+Lev,Leverage,Total liabilities divided by total assets
+Growth,Sales growth,Year-on-year growth rate of operating revenue
+TobinQ,Tobin's Q,Market value divided by the replacement cost of assets
+Board,Board size,Natural logarithm of the number of directors
+Indep,Board independence,Independent directors divided by board size
+Dual,CEO duality,"Equal to one if the CEO also chairs the board, zero otherwise"
+FirmAge,Firm age,Natural logarithm of one plus the years since listing
+Fixed,Fixed-asset intensity,Net fixed assets divided by total assets
+Intan,Intangible-asset intensity,Net intangible assets divided by total assets
+CR,Cash ratio,Cash and cash equivalents divided by current liabilities

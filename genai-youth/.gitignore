@@ -1,0 +1,4 @@
+build/_template.docx
+build/__pycache__/
+analysis/__pycache__/
+**/__pycache__/

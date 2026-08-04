@@ -1,0 +1,10 @@
+,(1) 2SLS,(2) PSM sample,(3) Entropy balancing
+GenAI adoption intensity (instrumented),-0.0071***,,
+,(0.0013),,
+Treat (Post x Exposure),,-0.1168***,-0.1180***
+,,(0.0060),(0.0060)
+Kleibergen-Paap first-stage F,3843.60,,
+Hansen J (p-value),0.8998,,
+Controls,Yes,Yes,Yes
+Firm and year fixed effects,Yes,Yes,Yes
+Observations,"31,015","30,406","31,015"

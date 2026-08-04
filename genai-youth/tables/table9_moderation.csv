@@ -1,0 +1,13 @@
+,(1),(2),(3)
+Treat (Post x Exposure),-0.1178***,-0.1177***,-0.1179***
+,(0.0059),(0.0059),(0.0059)
+Treat x Organisational learning capacity,0.0425***,,0.0423***
+,(0.0053),,(0.0053)
+Treat x Internal labour-market depth,,0.0053,0.0025
+,,(0.0050),(0.0050)
+Organisational learning capacity,0.0011***,,0.0011***
+,(0.0004),,(0.0004)
+Internal labour-market depth,,0.0001,0.0001
+,,(0.0004),(0.0004)
+Observations,"31,015","31,015","31,015"
+Within R2,0.1883,0.1864,0.1884

@@ -1,0 +1,5 @@
+Comparison,Difference,z,p-value
+State-owned vs Non-state-owned,0.0039,0.3024,0.7623
+High technology intensity vs Low technology intensity,0.0287,2.1526,0.0314
+Labour-intensive vs Capital-intensive,-0.0,-0.0002,0.9999
+Eastern region vs Non-eastern region,0.014,1.1761,0.2396
