@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of research, figure, and presentation skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, cyber-ppt, dashiai-ppt, ppt-master, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
-    "version": "1.5.0"
+    "description": "A bundled Claude Code marketplace of research, figure, and presentation skill packages: Light, academic-research-skills, nature-skills, gpt-image-2, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, cyber-ppt, dashiai-ppt, ppt-master, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
+    "version": "1.6.0"
   },
   "plugins": [
     {
@@ -26,9 +26,16 @@
     {
       "name": "nature-skills",
       "source": "./plugins/nature-skills",
-      "description": "Nature-style research skills (12): academic search, citation, data, figures, paper-to-patent, paper-to-PPT, polishing, reading/translation, reviewer response, peer review, scientific writing, plus an OpenClaw medical module.",
-      "version": "1.0.0",
+      "description": "Nature-style research skills (13): a `nature-skills` entry-point router that owns all data/empirical analysis end to end (8-step pipeline: data audit -> descriptives -> identification -> estimation -> robustness -> mechanism & heterogeneity -> tables/figures -> results prose), plus academic search, citation, data availability, figures, paper-to-patent, paper-to-PPT, polishing, reading/translation, reviewer response, peer review, scientific writing, and an OpenClaw medical module.",
+      "version": "1.1.0",
       "license": "Apache-2.0"
+    },
+    {
+      "name": "gpt-image-2",
+      "source": "./plugins/gpt-image-2",
+      "description": "gpt-image-2 concept-figure generation (1 skill) — schematics, mechanism diagrams, pathway diagrams, technical roadmaps, conceptual frameworks, and graphical abstracts via a forced four-step pipeline (Chinese figure brief -> English prompt -> generate -> read-back QA). Ships prompt recipes for 5 diagram types, academic palettes, a failure-mode table, and a dependency-free OpenAI-compatible CLI (single image, batch manifest, reference-image edits, config self-check). Explicitly refuses data-bound statistical charts, which route to nature-figure.",
+      "version": "1.0.0",
+      "license": "MIT"
     },
     {
       "name": "econ-top-journal-writing",

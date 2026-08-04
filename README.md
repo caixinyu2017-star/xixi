@@ -18,7 +18,8 @@ bases, scripts, templates and shared folders all resolve correctly once installe
 | --- | --- | --- |
 | **light** | `light` (28 skills) | 全流程科研技能包：文献检索、数据工程、创意生成/批判、系统与图表设计、实验分析、论文写作/润色、引用、排版、审稿返修、专利软著、PPT 与竞赛材料。内置 9 个可溯源知识库与可运行脚本。 |
 | **academic-research-skills** | `academic-research-skills` (4 skills, +35 modes) | 生产级学术研究流水线：research → write → review → revise → finalize，含 deep-research、引用核验闸门与多智能体集成。 |
-| **nature-skills** | `nature-skills` (12 skills) | Nature 风格科研技能：学术检索、引用、数据、图表、论文转专利、论文转 PPT、润色、阅读/翻译、审稿回复、同行评审、科研写作，外加 OpenClaw 医学模块。 |
+| **nature-skills** | `nature-skills` (13 skills) | Nature 风格科研技能。**入口技能 `nature-skills` 统管一切数据分析与实证分析**：8 步流水线（数据审计 → 描述统计 → 识别策略 → 估计 → 稳健性 → 机制与异质性 → 表图产出 → 结果文字），并按需路由到家族内其他技能。另含学术检索、引用、数据可得性、图表、论文转专利、论文转 PPT、润色、阅读/翻译、审稿回复、同行评审、科研写作，外加 OpenClaw 医学模块。 |
+| **gpt-image-2** | `gpt-image-2` (1 skill) | 用环境中配置好的 **gpt-image-2** 出概念类图：示意图、机制图、路径图、技术路线图、研究框架图、Graphical Abstract。强制走「中文图释 → 英文提示词 → 生成 → 看图质检」四步；内置 5 类图型提示词配方、学术配色表、失败模式对照表，以及零第三方依赖的 OpenAI 兼容 CLI（单图 / 批量清单 / 参考图改画 / 配置自检）。**带真实数据的统计图不归它管**，转 `nature-figure`。 |
 | **econ-top-journal-writing** | `econ-top-journal-writing` (5 skills) | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | `writing-ai-paper` (1 skill) | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
 | **auto-empirical-research-skills (AERS)** | `aer-skills` (9→14 skills), `empirical-analysis-python`, `empirical-analysis-stata`, `empirical-analysis-r` | Stanford REAP × CoPaper.AI 的实证研究技能栈。**4 个开箱即用插件**：顶刊经济学 AER/AEJ 全流程写作（选题、DiD/IV/RDD/SCM/Bartik 因果识别、稳健性、AER 表格、openICPSR 存档、R&R 回复）+ 显式 **8 步计量流水线**（清洗→变量→Table 1→诊断→估计 OLS/IV/DID/RDD/PSM/SCM/DML/Causal Forest→稳健性→机制/异质性/中介→出版级表图）的 Python / Stata / R 三套实现。此外仓库内附带**可浏览的 73 套第三方技能 catalog（约 1,150 个 SKILL.md）** 与一个 router `SKILL.md`。 |
@@ -29,13 +30,13 @@ bases, scripts, templates and shared folders all resolve correctly once installe
 | **visio-image-rebuilder** | `visio-image-rebuilder` (1 skill) | Visio 图重建 Skill：从参考图片或已有 `.vsdx` 重建/改版可编辑的 Visio 图，并可导出 `.vsdx`/PNG/SVG/PDF/PPTX；用原生形状/文本/连线复刻多面板科学图而非整图嵌入，含面板坐标校准与中文技术标流程图默认模式（宋体 12pt、固定样式/页面框、只输出主 `.vsdx` 的批量出图）；附重建指南、Visio PowerShell/COM 自动化脚手架与 CJK Unicode 转义指引。 |
 | **frontend-slides** | `frontend-slides` (1 skill) | Frontend Slides：零依赖、动画丰富的 HTML 演示文稿生成器，可从零搭建或将 PPT/PPTX 转成网页，含安全预设、bold 模板库、固定 16:9 舞台与反 “AI slop” 设计理念。 |
 
-**可直接安装的插件共 15 个**（`light` / `academic-research-skills` / `nature-skills` /
+**可直接安装的插件共 16 个**（`light` / `academic-research-skills` / `nature-skills` / `gpt-image-2` /
 `econ-top-journal-writing` / `writing-ai-paper` / `aer-skills` /
 `empirical-analysis-python` / `empirical-analysis-stata` / `empirical-analysis-r` /
 `cyber-ppt` / `dashiai-ppt` / `ppt-master` / `auto-visio-helper` / `visio-image-rebuilder` / `frontend-slides`）；
 AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 
-**15 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
+**16 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
 
 ---
 
@@ -56,6 +57,7 @@ AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 /plugin install light@xixi-research-skills
 /plugin install academic-research-skills@xixi-research-skills
 /plugin install nature-skills@xixi-research-skills
+/plugin install gpt-image-2@xixi-research-skills
 /plugin install econ-top-journal-writing@xixi-research-skills
 /plugin install writing-ai-paper@xixi-research-skills
 /plugin install auto-visio-helper@xixi-research-skills
@@ -104,6 +106,53 @@ cp -R plugins/auto-empirical-research-skills/skills/00.1-Full-empirical-analysis
 部分包附带独立安装脚本（例如 `plugins/light/install.sh` 会把 28 个 skill 软链到
 `~/.claude/skills/`）。这些脚本仍然可用，但与方式 A 二选一即可，避免重复安装。
 
+### 方式 D — 上传到 claude.ai 的 Customize / Upload to Customize
+
+想让技能在**所有会话**（含网页端、手机端、非本仓库的项目）都自动触发，把技能目录打包上传：
+
+```bash
+bash customize/build.sh          # 产出 customize/dist/*.zip
+```
+
+然后 claude.ai → 左下角头像 → **Customize** → **Skills** → **Upload skill**，
+分别上传 `gpt-image-2.zip` 与 `nature-skills.zip`。详见 [`customize/README.md`](./customize/)。
+
+---
+
+## 🔀 默认技能路由 / Default skill routing
+
+本仓库的 [`CLAUDE.md`](./CLAUDE.md) 写死了两条强制路由规则，在 `xixi` 仓库内的会话自动生效
+（上传 Customize 后可扩展到所有会话）：
+
+| 你说什么 | 自动调用 | 做什么 |
+| --- | --- | --- |
+| 示意图、机制图、机理图、路径图、通路图、技术路线图、研究框架图、概念图、原理图、流程/架构示意、Graphical Abstract、论文配图；schematic / mechanism diagram / pathway diagram / technical roadmap / conceptual framework | **`gpt-image-2`** | 用环境中配置好的 gpt-image-2 出图，强制走「中文图释 → 英文提示词 → 生成 → 看图质检」四步 |
+| 数据分析、实证分析、计量分析、跑数据、描述统计、Table 1、回归、DID、IV、RDD、PSM、合成控制、面板固定效应、中介效应、机制检验、异质性、稳健性、显著性、出结果表、结果解读；data analysis / empirical analysis / regression / robustness / heterogeneity | **`nature-skills`** | 8 步流水线跑真实分析，再路由到 `nature-figure`（图）、`nature-writing`/`nature-polishing`（结果文字）、`nature-data`（数据可得性） |
+
+**分界线：图里有没有必须与真实数值对齐的坐标轴？**
+
+- **有** → 数据类图 → `nature-skills` → 由 `nature-figure` 用 Python/R 绘制。
+  绝不用生成式图像模型画带真实数据的统计图（会把数值画错，属学术不端风险）。
+- **没有** → 概念类图 → `gpt-image-2`。
+- 需要事后逐个形状编辑的 Visio 工程图 → `auto-visio-helper` / `visio-image-rebuilder`。
+
+### gpt-image-2 环境配置
+
+| 配置项 | 环境变量（按优先级） | 默认值 |
+| --- | --- | --- |
+| API Key | `GPT_IMAGE_API_KEY` → `CHEDANKJ_API_KEY` → `OPENAI_API_KEY` | 无，必须配 |
+| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://api.chedankj.com/v1` |
+| 模型名 | `GPT_IMAGE_MODEL` | `gpt-image-2` |
+
+自检（不产生生成费用）：
+
+```bash
+python3 plugins/gpt-image-2/skills/gpt-image-2/scripts/gpt_image2.py --check
+```
+
+> ⚠️ 若报 `Tunnel connection failed: 403 Forbidden`，说明 Claude Code 环境的出网策略未放行
+> `api.chedankj.com`。请在环境设置里把该域名加入允许列表——不要尝试绕过代理。
+
 ---
 
 ## 🧪 Windows 一键安装 Claude Science
@@ -143,15 +192,23 @@ Restart Claude Code after installing, and Claude can read/convert documents dire
 xixi/
 ├── .claude/
 │   └── skills/
-│       ├── cyber-ppt   -> ../../plugins/cyber-ppt/skills/cyber-ppt      # 项目级技能，本仓库会话自动加载
-│       └── dashiai-ppt -> ../../plugins/dashiai-ppt/skills/dashiai-ppt  # 项目级技能，本仓库会话自动加载
+│       ├── cyber-ppt     -> ../../plugins/cyber-ppt/skills/cyber-ppt            # 项目级技能，本仓库会话自动加载
+│       ├── dashiai-ppt   -> ../../plugins/dashiai-ppt/skills/dashiai-ppt        # 项目级技能，本仓库会话自动加载
+│       ├── gpt-image-2   -> ../../plugins/gpt-image-2/skills/gpt-image-2        # 概念图生成，自动触发
+│       └── nature-skills -> ../../plugins/nature-skills/skills/nature-skills    # 数据/实证分析入口，自动触发
 ├── .claude-plugin/
-│   └── marketplace.json          # 列出全部 15 个可安装插件 / lists all 15 installable plugins
+│   └── marketplace.json          # 列出全部 16 个可安装插件 / lists all 16 installable plugins
+├── CLAUDE.md                     # 仓库级技能路由规则（概念图→gpt-image-2；数据分析→nature-skills）
+├── customize/
+│   ├── build.sh                  # 打包技能为 Customize 可上传的 zip
+│   ├── README.md                 # 上传到 claude.ai → Customize → Skills 的步骤
+│   └── dist/                     # 构建产物：gpt-image-2.zip / nature-skills.zip
 ├── claude-science-windows/       # Windows 一键安装 Claude Science / one-click installer
 ├── plugins/
 │   ├── light/                    # 28 skills (+ databases/, code_assets/)
 │   ├── academic-research-skills/ # 4 skills (+ shared/, agents/, hooks/, modes)
-│   ├── nature-skills/            # 12 skills (+ skills/_shared/)
+│   ├── nature-skills/            # 13 skills (+ skills/_shared/)，含数据/实证分析入口技能
+│   ├── gpt-image-2/              # 1 skill (+ references/, scripts/gpt_image2.py 零依赖 CLI)
 │   ├── econ-top-journal-writing/ # 5 skills
 │   ├── writing-ai-paper/         # 1 skill (handbook wrapped as a skill)
 │   ├── auto-visio-helper/        # 1 skill (+ references/, demo/, assets/, scripts/)

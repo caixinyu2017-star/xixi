@@ -1,0 +1,20 @@
+{
+  "name": "gpt-image-2",
+  "version": "1.0.0",
+  "description": "gpt-image-2 概念图生成技能（1 skill）：把示意图、机制图、路径图、技术路线图、研究框架图、Graphical Abstract 的需求，经「中文图释 → 英文提示词 → 生成 → 看图质检」四步流水线，用环境中已配置的 gpt-image-2 模型出图。内置 5 类图型的提示词配方、学术配色表、失败模式对照表，以及一个零第三方依赖的 OpenAI 兼容 CLI（支持单图/批量清单/参考图改画/配置自检）。",
+  "author": {
+    "name": "caixinyu2017-star"
+  },
+  "license": "MIT",
+  "keywords": [
+    "image-generation",
+    "gpt-image-2",
+    "schematic",
+    "mechanism-diagram",
+    "pathway-diagram",
+    "technical-roadmap",
+    "conceptual-framework",
+    "graphical-abstract",
+    "research-figure"
+  ]
+}
