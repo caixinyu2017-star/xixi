@@ -110,15 +110,7 @@ build/omml.py             OMML (Word equation) element builders
 build/l2omml.py           LaTeX-subset to OMML converter
 build/build_paper.py      assembles the .docx on the MDPI template
 build/build_cover_letter.py
-figures/                  fig2 conceptual schematic (gpt-image-2); fig3–fig7 from data
+figures/                  fig2_ladder.png, the task-ladder schematic (gpt-image-2);
+                          fig3–fig7, all drawn from estimation output
 tables/                   every table as CSV, exactly as rendered in the manuscript
 ```
-
-## Known gap
-
-`figures/fig1_framework.png` — the conceptual framework / hypothesis diagram — is **missing**.
-The image endpoint used by the `gpt-image-2` skill returned `GROUP_NOT_ALLOWED` partway through
-the session, after the task-ladder schematic had been generated. The builder detects the absent
-file, omits the block and renumbers the remaining figures automatically, so the document is
-internally consistent as it stands. To add it once the key is restored, run the prompt saved in
-`figures/fig1_prompt.txt` and rebuild; no other change is needed.

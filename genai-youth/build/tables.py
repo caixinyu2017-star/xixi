@@ -113,14 +113,6 @@ TABLES = {
 
 # key -> (image file, number, caption, note, width in cm)
 FIGURES = {
-    'fig1': ('fig1_framework.png',
-             'Conceptual framework and hypotheses.',
-             'The generative artificial intelligence shock enters through each firm’s '
-             'pre-shock entry-task exposure. H1 is the direct effect on the youth '
-             'employment share; H2a and H2b are the entry-task restructuring and '
-             'training channels; H3a and H3b are the moderating roles of organisational '
-             'learning capacity and internal labour-market depth. The downward arrow '
-             'indicates the downstream outcome examined in Section 4.9.', 14.0),
     'fig2': ('fig2_ladder.png',
              'Compression of the junior practice rung under generative artificial '
              'intelligence.',

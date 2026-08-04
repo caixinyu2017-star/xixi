@@ -256,11 +256,21 @@ BLOCKS = [
      'Internal labour-market depth attenuates the negative effect of generative '
      'artificial intelligence exposure on the youth employment share.'),
     ('p',
-     "Figure {{F:fig2}} renders the task-assignment logic that underlies all five "
-     "hypotheses: entry-level tasks ordered by complexity are partitioned between the "
-     "model, the junior employee and the experienced employee, and an increase in the "
+     "Taken together the five hypotheses describe a single chain. The shock reaches "
+     "each firm in proportion to its pre-shock entry-task exposure, and from there "
+     "reaches the youth employment share by three routes: directly, as the firm stops "
+     "opening positions whose content the model now supplies (H1); through the "
+     "observable restructuring of entry-level task composition (H2a); and through the "
+     "training investment the firm makes in response (H2b). The strength of the direct "
+     "route is conditioned by two organisational properties, the capacity to convert "
+     "experience into competence (H3a) and the depth of the internal labour market "
+     "(H3b). Section 4.9 follows the chain one step beyond the entry rung, to the rate "
+     "at which the firm promotes from within."),
+    ('p',
+     "Figure {{F:fig2}} renders the task-assignment logic that underlies all of this: "
+     "entry-level tasks ordered by complexity are partitioned between the model, the "
+     "junior employee and the experienced employee, and an increase in the "
      "model-performed interval compresses the junior practice rung from below."),
-    ('fig', 'fig1'),
     ('fig', 'fig2'),
 
     # ==============================================================================
