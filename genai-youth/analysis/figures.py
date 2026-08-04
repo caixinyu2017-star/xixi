@@ -35,7 +35,7 @@ C = {'blue': '#0072B2', 'orange': '#E69F00', 'green': '#009E73', 'red': '#D55E00
      'purple': '#CC79A7', 'sky': '#56B4E9', 'grey': '#5A5A5A'}
 
 
-def legend_below(fig, handles, labels, ncol=3, pad=0.10):
+def legend_below(fig, handles, labels, ncol=3, pad=0.10, labelspacing=0.5):
     """Place a single legend beneath the whole figure, clear of the x-axis label.
 
     `pad` is the vertical gap, in figure-height units, between the bottom of the
@@ -43,7 +43,8 @@ def legend_below(fig, handles, labels, ncol=3, pad=0.10):
     fig.tight_layout()
     fig.legend(handles, labels, loc='upper center',
                bbox_to_anchor=(0.5, -pad), bbox_transform=fig.transFigure,
-               ncol=ncol, frameon=False, handlelength=1.8, columnspacing=1.6)
+               ncol=ncol, frameon=False, handlelength=1.8, columnspacing=1.6,
+               labelspacing=labelspacing, borderaxespad=0.0, borderpad=0.0)
 
 
 # ==================================================================================
@@ -73,7 +74,7 @@ def fig3_event():
     lab = ['Point estimate with 95% confidence interval',
            'Reference year (2021), normalised to zero',
            'Timing of the generative-AI shock']
-    legend_below(fig, h, lab, ncol=1)
+    legend_below(fig, h, lab, ncol=1, pad=0.005, labelspacing=0.28)
     fig.savefig(os.path.join(FIG, 'fig3_event_study.png'))
     plt.close(fig)
     print('fig3_event_study.png')
@@ -99,7 +100,7 @@ def fig4_psm():
          Line2D([0], [0], marker='D', ls='none', color=C['blue'], markersize=4.6),
          Line2D([0], [0], color=C['grey'], ls=':')]
     legend_below(fig, h, ['Before matching', 'After matching',
-                          'Conventional 10% threshold'], ncol=3, pad=0.06)
+                          'Conventional 10% threshold'], ncol=3, pad=0.01, labelspacing=0.28)
     fig.savefig(os.path.join(FIG, 'fig4_psm_balance.png'))
     plt.close(fig)
     print('fig4_psm_balance.png')
@@ -115,7 +116,8 @@ def fig5_marginal():
     ax.plot(d.OLC, d.me, color=C['blue'], lw=1.6)
     ax.fill_between(d.OLC, d.lo, d.hi, color=C['blue'], alpha=0.18, linewidth=0)
     cross = float(s['crossing_sd'])
-    if -2.5 < cross < 2.5:
+    drawn = -2.5 < cross < 2.5
+    if drawn:
         ax.axvline(cross, color=C['red'], ls='--', lw=1.1)
         ax.annotate(f'zero crossing at {cross:.2f} SD', xy=(cross, 0),
                     xytext=(cross + 0.12, ax.get_ylim()[1] * 0.55), fontsize=7.4,
@@ -129,11 +131,13 @@ def fig5_marginal():
     ax.set_xlim(-2.5, 2.5)
     h = [Line2D([0], [0], color=C['blue'], lw=1.6),
          Patch(facecolor=C['blue'], alpha=0.18),
-         Line2D([0], [0], color=C['red'], ls='--'),
          Patch(facecolor=C['grey'], alpha=0.16)]
-    legend_below(fig, h, ['Marginal effect', '95% confidence band',
-                          'Zero crossing', 'Sample distribution of the moderator'],
-                 ncol=2, pad=0.09)
+    lab = ['Marginal effect', '95% confidence band',
+           'Sample distribution of the moderator']
+    if drawn:
+        h.insert(2, Line2D([0], [0], color=C['red'], ls='--'))
+        lab.insert(2, 'Zero crossing')
+    legend_below(fig, h, lab, ncol=3 if not drawn else 2, pad=0.01, labelspacing=0.28)
     fig.savefig(os.path.join(FIG, 'fig5_marginal_effect.png'))
     plt.close(fig)
     print('fig5_marginal_effect.png')
@@ -161,7 +165,7 @@ def fig6_heterogeneity():
     h = [Line2D([0], [0], marker='s', color=C['blue'], markersize=4.8),
          Line2D([0], [0], color=C['blue'], lw=1.2)]
     legend_below(fig, h, ['Subsample point estimate', '95% confidence interval'],
-                 ncol=2, pad=0.06)
+                 ncol=2, pad=0.01, labelspacing=0.28)
     fig.savefig(os.path.join(FIG, 'fig6_heterogeneity.png'))
     plt.close(fig)
     print('fig6_heterogeneity.png')
@@ -182,13 +186,10 @@ def fig7_placebo():
                 arrowprops=dict(arrowstyle='->', color=C['red'], lw=0.9))
     ax.set_xlabel('Estimated coefficient under randomly reassigned entry-task exposure')
     ax.set_ylabel('Number of placebo draws')
-    ax.text(0.02, 0.94, f"{int(s['draws']):,} permutations; two-sided $p$ = "
-                        f"{float(s['ri_p']):.3f}",
-            transform=ax.transAxes, fontsize=7.6, va='top')
     h = [Patch(facecolor=C['sky']), Line2D([0], [0], color=C['red'], lw=1.6),
          Line2D([0], [0], color=C['grey'], ls=':')]
     legend_below(fig, h, ['Placebo distribution', 'Actual estimate', 'Zero'],
-                 ncol=3, pad=0.09)
+                 ncol=3, pad=0.01, labelspacing=0.28)
     fig.savefig(os.path.join(FIG, 'fig7_placebo.png'))
     plt.close(fig)
     print('fig7_placebo.png')
