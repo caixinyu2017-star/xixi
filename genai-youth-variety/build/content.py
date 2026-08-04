@@ -856,7 +856,11 @@ BLOCKS = [
      "firm at the eightieth percentile of workforce variety, in other words, "
      "the same industry shock produces a difference of well over a "
      "percentage point in the share of the workforce that is young, which is "
-     "of the same order as the entire average effect of the shock."),
+     "of the same order as the entire average effect of the shock. The strip "
+     "beneath each panel of Figure 2 shows the observed density of the "
+     "variety measure on that axis, so the range over which the estimate is "
+     "supported can be read from the figure; the shaded column in panel a is "
+     "the confidence interval for the threshold estimated in Section 4.10."),
 
     ("fig", "fig2"),
 
@@ -1057,7 +1061,13 @@ BLOCKS = [
      f"bootstrap p-value is {tv('p_boot', 3)}, so the null is rejected "
      "decisively. Figure 3a plots the likelihood-ratio profile over the "
      "candidate grid together with the critical value and the resulting "
-     "confidence interval."),
+     "confidence interval; the vertical scale is symmetric-logarithmic, "
+     "because on a linear scale the critical value and its crossings are "
+     "pressed onto the axis. The non-rejection set is not everywhere "
+     "connected over the grid, as the profile crosses the critical value "
+     "more than twice, so the interval reported here and shaded in the "
+     "figure is its convex hull, which is the conventional and the "
+     "conservative summary."),
 
     ("p",
      "The regime coefficients, plotted in Figure 3b, make the substantive "

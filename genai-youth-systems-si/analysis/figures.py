@@ -45,24 +45,6 @@ def load():
         return json.load(fh)
 
 
-def _rug(ax, values, frac=0.075, color=N.FAINT):
-    """A shallow density strip along the foot of the axes showing the support
-    of the moderator. It occupies the bottom ``frac`` of the panel and is drawn
-    beneath everything else."""
-    lo, hi = ax.get_ylim()
-    span = hi - lo
-    ax.set_ylim(lo - frac * span * 1.35, hi)
-    lo2, hi2 = ax.get_ylim()
-    xs = np.linspace(*ax.get_xlim(), 160)
-    kde = np.histogram(values, bins=xs)[0].astype(float)
-    kde = np.convolve(kde, np.ones(9) / 9.0, mode="same")
-    if kde.max() > 0:
-        kde = kde / kde.max()
-    base = lo2 + 0.012 * (hi2 - lo2)
-    ax.fill_between(xs[:-1], base, base + kde * frac * span,
-                    color=color, lw=0, zorder=0.2)
-
-
 # ===========================================================================
 def figure1_framework():
     """The conceptual framework.
@@ -152,98 +134,160 @@ def figure1_framework():
 
 
 # ===========================================================================
+def _density(ax, values, color=None):
+    """The observed support of the moderator, drawn in its own strip so that
+    it never shares a scale with the estimate above it.
+
+    The kernel is evaluated over the full range of the data and only then
+    clipped to the axis, so nothing outside the plotted window is silently
+    binned out of existence and the profile does not taper at the edges for
+    want of observations that are in fact there.
+    """
+    from scipy.stats import gaussian_kde
+    lo, hi = ax.get_xlim()
+    grid = np.linspace(lo, hi, 400)
+    d = gaussian_kde(values)(grid)
+    d = d / d.max()
+    ax.fill_between(grid, 0.0, d, color=N.FAINT, lw=0)
+    ax.set_ylim(0, 1.05)
+    ax.set_yticks([])
+    for side in ("left", "right", "top"):
+        ax.spines[side].set_visible(False)
+    ax.set_ylabel("density", fontsize=N.PT_TICK, color=N.GREY, rotation=0,
+                  ha="right", va="center", labelpad=3.0)
+
+
+# ===========================================================================
 def figure2_moderation(S):
     """Marginal effect of adoption on the youth employment share across each
-    boundary condition, with the observed support of the moderator beneath."""
-    d = pd.read_csv(os.path.join(DATA, "panel.csv"))
-    fig = N.figure(N.TEXT, 58.0)
-    axes = N.row(fig, 2, left=17.0, bottom=15.0, height=38.0, gutter=13.0)
+    boundary condition, with the observed support of the moderator beneath.
 
-    panels = [
-        (S["margin_absorp"], d.Absorp_z, "Organizational learning capability",
-         N.BLUE, "a"),
-        (S["margin_wage"], d.Wage_z, "Relative labor cost", N.VERMILION, "b"),
-    ]
+    The two panels are not overlaid, so colour would encode nothing: both are
+    drawn in one ink, and every number written into a panel is set in text
+    black rather than in the series colour, because a coloured numeral at 6 pt
+    falls below the contrast floor for text that small.
+    """
+    d = pd.read_csv(os.path.join(DATA, "panel.csv"))
+    H = 56.0
+    fig = N.figure(N.TEXT, H)
+    wide = (N.TEXT - 18.0 - 3.0 - 13.0) / 2.0
+    main, strip = [], []
+    for i in range(2):
+        x = 18.0 + i * (wide + 13.0)
+        st = N.axes_mm(fig, x, 13.0, wide, 3.2)
+        mn = N.axes_mm(fig, x, 16.7, wide, 32.5)
+        mn.sharex(st)
+        # the strip carries the x axis for the pair, so the panel above it
+        # keeps only its left spine and does not repeat the rule
+        mn.tick_params(axis="x", labelbottom=False, length=0)
+        mn.spines["bottom"].set_visible(False)
+        main.append(mn)
+        strip.append(st)
+
+    panels = [(S["margin_absorp"], d.Absorp_z.to_numpy(),
+               "Organizational learning capability"),
+              (S["margin_wage"], d.Wage_z.to_numpy(), "Relative labor cost")]
     drawn = []
-    for ax, (rows, support, xlab, col, letter) in zip(axes, panels):
+    for ax, st, (rows, support, title) in zip(main, strip, panels):
         z = np.array([r["z"] for r in rows])
         m = np.array([r["effect"] for r in rows])
         se = np.array([r["se"] for r in rows])
-        ax.fill_between(z, m - 1.645 * se, m + 1.645 * se, color=col,
-                        alpha=0.20, lw=0, zorder=1.5)
-        ax.plot(z, m, color=col, lw=1.1, zorder=2)
+        # never draw the estimate outside the range the moderator is observed on
+        keep = (z >= support.min()) & (z <= support.max())
+        N.band(ax, z[keep], (m - 1.645 * se)[keep], (m + 1.645 * se)[keep])
+        ax.plot(z[keep], m[keep], color=N.BLUE, lw=1.1, zorder=2)
         N.zeroline(ax)
-        ax.set_xlim(z.min(), z.max())
-        ax.set_xlabel(xlab + "\n(standard deviations from the mean)")
+        ax.set_xlim(z[keep].min(), z[keep].max())
+        ax.set_xticks([-2, -1, 0, 1, 2])
+        ax.set_title(title, fontsize=N.PT_LABEL, loc="left", pad=3.0)
         lo = float(m[np.argmin(np.abs(z + 1.0))])
         hi = float(m[np.argmin(np.abs(z - 1.0))])
         for zz, vv in ((-1.0, lo), (1.0, hi)):
-            ax.plot([zz], [vv], marker="o", ms=2.6, color=col, zorder=3,
+            ax.plot([zz], [vv], marker="o", ms=2.6, color=N.BLUE, zorder=3,
                     mec="white", mew=0.4)
-        drawn.append((ax, support.to_numpy(), col, lo, hi))
+        drawn.append((ax, st, support, lo, hi))
 
     # one shared vertical range, fixed before anything is annotated, so the
-    # two panels are directly comparable and the support strips share a base
+    # two panels are directly comparable
     top = max(a.get_ylim()[1] for a, *_ in drawn)
     bot = min(a.get_ylim()[0] for a, *_ in drawn)
-    for ax, support, col, lo, hi in drawn:
+    for ax, st, support, lo, hi in drawn:
         ax.set_ylim(bot, top)
         ax.annotate(N.num(lo, 2), xy=(-1.0, lo),
-                    xytext=(-0.82, lo - 0.055 * (top - bot)),
-                    ha="left", va="top", fontsize=N.PT_TICK, color=col)
+                    xytext=(-0.85, lo - 0.06 * (top - bot)),
+                    ha="left", va="top", fontsize=N.PT_TICK, color=N.INK)
         ax.annotate(N.num(hi, 2), xy=(1.0, hi),
-                    xytext=(0.82, hi + 0.055 * (top - bot)),
-                    ha="right", va="bottom", fontsize=N.PT_TICK, color=col)
-        _rug(ax, support)
-    axes[1].set_yticklabels([])
-
-    axes[0].set_ylabel("Marginal effect on the youth\n"
+                    xytext=(0.85, hi + 0.06 * (top - bot)),
+                    ha="right", va="bottom", fontsize=N.PT_TICK, color=N.INK)
+        N.snap(ax, x=False)
+        _density(st, support)
+        N.snap(st, y=False)
+    main[1].set_yticklabels([])
+    main[0].set_ylabel("Marginal effect on the youth\n"
                        "employment share (p.p.)")
-    N.panel(fig, axes[0], "a", dx=-14.0)
-    N.panel(fig, axes[1], "b", dx=-6.0)
+    fig.text((18.0 + N.TEXT - 3.0) / 2.0 / N.TEXT, 4.0 / H,
+             "Moderator (standard deviations from the mean)",
+             ha="center", va="bottom", fontsize=N.PT_LABEL, color=N.INK)
+
+    N.panels(fig, [(main[0], "a"), (main[1], "b")])
     return N.save(fig, os.path.join(FIG, "figure2_moderation"))
 
 
 # ===========================================================================
 def figure3_irf(S):
-    """Orthogonalized impulse responses of the three-variable system."""
-    keys = [("Youth<-GenAI", "Youth employment share\nto an adoption shock",
-             "percentage points", "a"),
-            ("Train<-GenAI", "Training investment\nto an adoption shock",
-             "log points", "b"),
-            ("GenAI<-Train", "Adoption\nto a training shock",
-             "index points", "c"),
-            ("GenAI<-Youth", "Adoption\nto a youth employment shock",
-             "index points", "d")]
-    fig = N.figure(N.TEXT, 88.0)
-    axes = [N.axes_mm(fig, x, y, 48.0, 24.5)
-            for y in (53.5, 12.0) for x in (16.0, 81.0)]
+    """Orthogonalized impulse responses of the three-variable system.
 
-    for ax, (k, title, unit, letter) in zip(axes, keys):
+    Panels c and d carry the same variable in the same unit and are therefore
+    drawn on one scale, so that the two return arcs can be compared by eye
+    rather than by reading the axes.
+    """
+    from matplotlib.ticker import FormatStrFormatter, MaxNLocator
+
+    keys = [("Youth<-GenAI", "Shock: adoption",
+             "Youth employment share\n(percentage points)", "a"),
+            ("Train<-GenAI", "Shock: adoption",
+             "Training investment\n(log points)", "b"),
+            ("GenAI<-Train", "Shock: training investment",
+             "Adoption (index points)", "c"),
+            ("GenAI<-Youth", "Shock: youth employment share",
+             "Adoption (index points)", "d")]
+    fig = N.figure(N.TEXT, 86.0)
+    axes = [N.axes_mm(fig, x, y, 48.0, 24.0)
+            for y in (52.0, 12.0) for x in (16.0, 81.0)]
+    axes[3].sharey(axes[2])
+
+    for i, (ax, (k, title, unit, letter)) in enumerate(zip(axes, keys)):
         r = S["irf"][k]
         h = np.arange(len(r["m"]))
         m = np.array(r["m"])
-        ax.fill_between(h, r["lo"], r["hi"], color=N.BLUE, alpha=0.20, lw=0,
-                        zorder=1.5)
-        ax.plot(h, m, color=N.BLUE, lw=1.1, zorder=2)
+        N.band(ax, h, np.array(r["lo"]), np.array(r["hi"]))
+        ax.plot(h, m, color=N.BLUE, lw=1.1, marker="o", ms=1.8, mfc=N.BLUE,
+                mec="none", zorder=2)
         N.zeroline(ax)
         ax.set_xlim(0, h.max())
+        ax.set_xticks([0, 2, 4, 6, 8])
         ax.set_title(title, fontsize=N.PT_TICK, loc="left", pad=2.5)
-        ax.set_ylabel(unit, fontsize=N.PT_TICK)
-        N.panel(fig, ax, letter, dx=-13.0, dy=5.6)
+        ax.yaxis.set_major_locator(MaxNLocator(nbins=4, steps=[1, 2, 5]))
+        ax.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
+        if i != 3:
+            ax.set_ylabel(unit, fontsize=N.PT_TICK)
 
         # mark the extremum and state it in the quadrant the curve vacates,
         # so the number is readable without a caption and collides with
         # nothing
         j = int(np.argmax(np.abs(m)))
-        ax.plot([h[j]], [m[j]], marker="o", ms=2.6, color=N.BLUE,
-                mec="white", mew=0.4, zorder=3)
+        ax.plot([h[j]], [m[j]], marker="o", ms=3.0, color=N.BLUE,
+                mec="white", mew=0.5, zorder=3)
         ax.text(0.97, 0.08, "peak %s at year %d" % (N.num(m[j]), h[j]),
                 transform=ax.transAxes, ha="right", va="bottom",
-                fontsize=N.PT_TICK, color=N.BLUE)
+                fontsize=N.PT_TICK, color=N.INK)
 
+    axes[3].tick_params(axis="y", labelleft=False)
+    for ax in axes:
+        N.snap(ax)
     for ax in axes[2:]:
         ax.set_xlabel("Years after the shock")
+    N.panels(fig, list(zip(axes, "abcd")))
     return N.save(fig, os.path.join(FIG, "figure3_irf"))
 
 

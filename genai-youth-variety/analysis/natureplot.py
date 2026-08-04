@@ -62,6 +62,26 @@ ACCENT = VERMILION        # the one accent, shared by schematics and data
 
 CYCLE = [BLUE, VERMILION, GREEN, ORANGE, PURPLE, SKY, YELLOW]
 
+
+def tint(hexcol, f, bg="#FFFFFF"):
+    """A pre-blended opaque tint of ``hexcol`` at fraction ``f`` over paper.
+
+    Nothing transparent is allowed to reach a deliverable. Alpha writes a
+    transparency group into the PDF, which Word's EMF conversion flattens
+    unpredictably and which some print workflows rasterise, so a confidence
+    band drawn with alpha can arrive at the journal as a grey box. The blend
+    is therefore done once, here, in RGB.
+    """
+    import matplotlib.colors as _mc
+    import numpy as _np
+    c = _np.array(_mc.to_rgb(hexcol))
+    b = _np.array(_mc.to_rgb(bg))
+    return _mc.to_hex(f * c + (1 - f) * b)
+
+
+BAND = {c: tint(c, 0.30) for c in (BLUE, VERMILION, GREEN, ORANGE)}
+SHADE = "#ECECEC"         # a neutral opaque wash for a reference interval
+
 # ------------------------------------------------------------------- type
 PT_LABEL = 7.0            # axis titles, box labels
 PT_TICK = 6.0             # tick labels, annotation, edge labels
@@ -126,7 +146,7 @@ RC = {
     "legend.borderaxespad": 0.2,
 
     "figure.dpi": 600,
-    "savefig.dpi": 600,
+    "savefig.dpi": 1000,   # MDPI line-art minimum
     "savefig.bbox": None,      # never crop: the declared size is the size
     "savefig.pad_inches": 0.0,
     "savefig.transparent": False,
@@ -166,16 +186,54 @@ def row(fig, n, left, bottom, height, gutter, right=3.0):
             for i in range(n)]
 
 
-def panel(fig, ax, letter, dx=-11.0, dy=2.0):
-    """Bold lower-case panel letter, positioned in millimetres relative to the
-    top-left corner of ``ax``. Nature sets these without parentheses and
-    without a full stop."""
-    W = fig.get_figwidth() / MM
-    H = fig.get_figheight() / MM
-    box = ax.get_position()
-    fig.text((box.x0 * W + dx) / W, (box.y1 * H + dy) / H, letter,
-             fontsize=PT_PANEL, fontweight="bold", va="bottom", ha="left",
-             color=INK)
+def panels(fig, items, gap=1.2):
+    """Bold lower-case panel letters, placed from the measured extent of each
+    panel rather than from a hand-tuned offset.
+
+    Each letter sits flush with the leftmost ink of its own panel — which is
+    the y-axis title where there is one and the spine where there is not — and
+    every letter in a row shares one baseline. Nature sets these without
+    parentheses and without a full stop.
+    """
+    fig.draw_without_rendering()
+    inv = fig.transFigure.inverted()
+    r = fig.canvas.get_renderer()
+    meas = [(ax, letter,
+             ax.get_tightbbox(r).transformed(inv),
+             round(ax.get_position().y1, 3)) for ax, letter in items]
+    tops = {}
+    for _, _, bb, key in meas:
+        tops[key] = max(tops.get(key, 0.0), bb.y1)
+    dy = gap / (fig.get_figheight() / MM)
+    for _, letter, bb, key in meas:
+        fig.text(bb.x0, tops[key] + dy, letter, fontsize=PT_PANEL,
+                 fontweight="bold", va="bottom", ha="left", color=INK)
+
+
+def snap(ax, x=True, y=True):
+    """Trim each spine to its outermost tick, so the axis states the range the
+    data occupy instead of running past it into empty paper."""
+    if y:
+        t = [v for v in ax.get_yticks() if ax.get_ylim()[0] <= v <= ax.get_ylim()[1]]
+        if t:
+            ax.spines["left"].set_bounds(min(t), max(t))
+    if x:
+        t = [v for v in ax.get_xticks() if ax.get_xlim()[0] <= v <= ax.get_xlim()[1]]
+        if t:
+            ax.spines["bottom"].set_bounds(min(t), max(t))
+
+
+def band(ax, x, lo, hi, color=BLUE, z=1.5, edge=0.35):
+    """A confidence band: an opaque tint with its limits stroked as hairlines.
+
+    The hairlines are what carry the interval in greyscale, where a 30 percent
+    tint of any of these hues collapses to about 1.6:1 against paper.
+    """
+    ax.fill_between(x, lo, hi, facecolor=BAND[color], edgecolor="none", lw=0,
+                    zorder=z)
+    if edge:
+        ax.plot(x, lo, color=color, lw=edge, zorder=z + 0.1)
+        ax.plot(x, hi, color=color, lw=edge, zorder=z + 0.1)
 
 
 def num(v, d=3):
@@ -193,8 +251,23 @@ def zeroline(ax, y=0.0, **kw):
     ax.axhline(y, **kw)
 
 
+LADDER = {PT_TICK, PT_LABEL, PT_PANEL}
+
+
+def _check(fig):
+    """The two contracts that make every other number in this module mean
+    something, asserted before anything is written to disk."""
+    import matplotlib.text as _mt
+    w = fig.get_figwidth() / MM
+    assert abs(w - TEXT) < 0.05, "figure is %.2f mm wide, not %.2f" % (w, TEXT)
+    bad = sorted({t.get_fontsize() for t in fig.findobj(_mt.Text)
+                  if t.get_text().strip()} - LADDER)
+    assert not bad, "type sizes off the ladder %s: %s" % (sorted(LADDER), bad)
+
+
 def save(fig, path_stem, formats=("png", "pdf", "svg")):
     """Write the figure once per format at its declared size."""
+    _check(fig)
     os.makedirs(os.path.dirname(path_stem), exist_ok=True)
     out = []
     for ext in formats:

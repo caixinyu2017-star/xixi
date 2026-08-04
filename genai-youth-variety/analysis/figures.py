@@ -43,19 +43,25 @@ def load():
         return json.load(fh)
 
 
-def _rug(ax, values, frac=0.075, color=N.FAINT):
-    lo, hi = ax.get_ylim()
-    span = hi - lo
-    ax.set_ylim(lo - frac * span * 1.35, hi)
-    lo2, hi2 = ax.get_ylim()
-    xs = np.linspace(*ax.get_xlim(), 160)
-    dens = np.histogram(values, bins=xs)[0].astype(float)
-    dens = np.convolve(dens, np.ones(9) / 9.0, mode="same")
-    if dens.max() > 0:
-        dens = dens / dens.max()
-    base = lo2 + 0.012 * (hi2 - lo2)
-    ax.fill_between(xs[:-1], base, base + dens * frac * span,
-                    color=color, lw=0, zorder=0.2)
+def _kde(ax, values):
+    """A normalised kernel density evaluated over the axis, from the full range
+    of the data. Binning to the axis limits, which is the obvious shortcut,
+    discards every observation outside the plotted window and makes the profile
+    taper at the edges for want of observations that are in fact there."""
+    from scipy.stats import gaussian_kde
+    grid = np.linspace(*ax.get_xlim(), 400)
+    d = gaussian_kde(values)(grid)
+    return grid, d / d.max()
+
+
+def _strip(ax, label="density"):
+    """Dress a support strip: no vertical scale, no furniture but the x axis."""
+    ax.set_ylim(0, 1.08)
+    ax.set_yticks([])
+    for side in ("left", "right", "top"):
+        ax.spines[side].set_visible(False)
+    ax.set_ylabel(label, fontsize=N.PT_TICK, color=N.GREY, rotation=0,
+                  ha="right", va="center", labelpad=3.0)
 
 
 # ===========================================================================
@@ -136,111 +142,162 @@ def figure1_framework():
 
 # ===========================================================================
 def figure2_margins(S):
-    """Marginal effect of the demand shock across the variety measures."""
-    d = pd.read_csv(os.path.join(DATA, "panel.csv"))
-    fig = N.figure(N.TEXT, 58.0)
-    axes = N.row(fig, 2, left=18.0, bottom=15.0, height=38.0, gutter=16.0)
+    """Marginal effect of the demand shock across the variety measures.
 
-    # ---- a: total variety, with the estimated threshold marked ------------
-    ax = axes[0]
+    Panel a carries the two x-positions the paper argues from, and both are
+    written into the panel: the estimated threshold, with the effect that
+    obtains there, and the point at which the effect reaches zero. A reader who
+    takes only the figure should still leave with both numbers.
+    """
+    d = pd.read_csv(os.path.join(DATA, "panel.csv"))
+    H = 56.0
+    fig = N.figure(N.TEXT, H)
+    wide = (N.TEXT - 18.0 - 3.0 - 16.0) / 2.0
+    main, strip = [], []
+    for i in range(2):
+        x = 18.0 + i * (wide + 16.0)
+        st = N.axes_mm(fig, x, 13.0, wide, 3.2)
+        mn = N.axes_mm(fig, x, 16.7, wide, 32.5)
+        mn.sharex(st)
+        mn.tick_params(axis="x", labelbottom=False, length=0)
+        mn.spines["bottom"].set_visible(False)
+        main.append(mn)
+        strip.append(st)
+
+    # ---- a: total variety, with the threshold and the zero crossing ------
+    ax = main[0]
     rows = S["margin_variety"]
     z = np.array([r["z"] for r in rows])
     m = np.array([r["effect"] for r in rows])
     se = np.array([r["se"] for r in rows])
-    ax.fill_between(z, m - 1.645 * se, m + 1.645 * se, color=N.BLUE,
-                    alpha=0.20, lw=0, zorder=1.5)
+    ax.set_xlim(z.min(), z.max())
+    T = S["thr"]
+    ax.axvspan(T["ci_low"], T["ci_high"], color=N.SHADE, lw=0, zorder=0.3)
+    N.band(ax, z, m - 1.645 * se, m + 1.645 * se)
     ax.plot(z, m, color=N.BLUE, lw=1.1, zorder=2)
     N.zeroline(ax)
-    ax.set_xlim(z.min(), z.max())
-    g = S["thr"]["gamma"]
-    ax.axvline(g, color=N.ACCENT, lw=0.7, ls=(0, (3.0, 1.8)), zorder=1.2)
-    lo, hi = ax.get_ylim()
-    ax.annotate("$\\hat{\\gamma}$ = %.2f" % g, xy=(g, hi),
-                xytext=(g - 0.08, hi - 0.03 * (hi - lo)),
-                ha="right", va="top", fontsize=N.PT_TICK, color=N.ACCENT)
-    ax.set_xlabel("Workforce skill variety (bits)")
+    ax.axvline(T["gamma"], color=N.INK, lw=0.6, ls=(0, (1.0, 1.5)), zorder=1.2)
+
+    g = T["gamma"]
+    eg = float(np.interp(g, z, m))
+    ax.plot([g], [eg], marker="o", ms=3.0, color=N.BLUE, mec="white", mew=0.5,
+            zorder=3)
+    ax.annotate("%s p.p." % N.num(eg, 2), xy=(g, eg),
+                xytext=(-6, -7), textcoords="offset points", ha="right",
+                va="top", fontsize=N.PT_TICK, color=N.INK)
+    zc = S["zero_variety"]
+    ax.plot([zc], [0.0], marker="o", ms=3.2, mfc="white", mec=N.BLUE, mew=0.7,
+            zorder=3)
+    ax.annotate("zero at %.2f bits" % zc, xy=(zc, 0.0), xytext=(-6, 5),
+                textcoords="offset points", ha="right", va="bottom",
+                fontsize=N.PT_TICK, color=N.INK)
+    ax.annotate("γ̂ = %.2f   95%% CI %.2f–%.2f"
+                % (g, T["ci_low"], T["ci_high"]),
+                xy=((T["ci_low"] + T["ci_high"]) / 2, 1.01),
+                xycoords=("data", "axes fraction"), ha="center", va="bottom",
+                fontsize=N.PT_TICK, color=N.INK)
     ax.set_ylabel("Marginal effect on the youth\n"
                   "employment share (p.p.)")
-    _rug(ax, d.Variety.to_numpy())
+    strip[0].set_xlabel("Workforce skill variety (bits)")
+    gr, dv = _kde(strip[0], d.Variety.to_numpy())
+    strip[0].fill_between(gr, 0.0, dv, color=N.FAINT, lw=0)
+    _strip(strip[0])
 
     # ---- b: the two components, per bit, over their observed support ------
-    ax = axes[1]
-    for key, col, lab, mu, sd in (
-            ("margin_rel", N.BLUE, "Related", S["mean_RelVar"],
-             S["sd_RelVar"]),
-            ("margin_unrel", N.ORANGE, "Unrelated", S["mean_UnrelVar"],
-             S["sd_UnrelVar"])):
+    ax = main[1]
+    ax.set_xlim(0.0, 3.05)
+    series = (("margin_rel", N.BLUE, "Related", "RelVar"),
+              ("margin_unrel", N.ORANGE, "Unrelated", "UnrelVar"))
+    for key, col, lab, var in series:
         rr = S[key]
+        mu, sd = S["mean_" + var], S["sd_" + var]
         x = mu + np.array([r["z"] for r in rr]) * sd
         mm = np.array([r["effect"] for r in rr])
         ss = np.array([r["se"] for r in rr])
-        keep = x >= 0.0
-        ax.fill_between(x[keep], (mm - 1.645 * ss)[keep],
-                        (mm + 1.645 * ss)[keep], color=col, alpha=0.16, lw=0,
-                        zorder=1.5)
-        ax.plot(x[keep], mm[keep], color=col, lw=1.1, zorder=2)
-        xe, ye = x[keep][-1], mm[keep][-1]
-        ax.annotate(lab, xy=(xe, ye), xytext=(xe - 0.08, ye + 0.06), color=col,
-                    fontsize=N.PT_TICK, ha="right", va="bottom",
-                    annotation_clip=False)
+        k = x >= 0.0
+        N.band(ax, x[k], (mm - 1.645 * ss)[k], (mm + 1.645 * ss)[k], color=col)
+        ax.plot(x[k], mm[k], color=col, lw=1.1, zorder=2)
+        ax.annotate(lab, xy=(x[k][-1], mm[k][-1]), xytext=(-2, 3),
+                    textcoords="offset points", color=col,
+                    fontsize=N.PT_TICK, ha="right", va="bottom")
+        gr, dv = _kde(strip[1], d[var].to_numpy())
+        strip[1].plot(gr, dv, color=col, lw=0.5)
     N.zeroline(ax)
-    ax.set_xlim(0.0, 3.05)
-    ax.set_xlabel("Variety component (bits)")
     ax.set_ylabel("Marginal effect on the youth\n"
                   "employment share (p.p.)")
     ax.text(0.97, 0.05, "slope ratio %.2f" % S["ratio_ru"],
             transform=ax.transAxes, ha="right", va="bottom",
             fontsize=N.PT_TICK, color=N.INK)
+    strip[1].set_xlabel("Variety component (bits)")
+    _strip(strip[1])
 
-    N.panel(fig, axes[0], "a", dx=-15.0)
-    N.panel(fig, axes[1], "b", dx=-15.0)
+    for a in main:
+        N.snap(a, x=False)
+    for a in strip:
+        N.snap(a, y=False)
+    N.panels(fig, [(main[0], "a"), (main[1], "b")])
     return N.save(fig, os.path.join(FIG, "figure2_margins"))
 
 
 # ===========================================================================
 def figure3_threshold(S):
-    """The requisite-variety threshold and the regime coefficients."""
+    """The requisite-variety threshold and the regime coefficients.
+
+    Panel a is drawn on a symmetric-log vertical scale. On a linear axis the
+    likelihood ratio spans nought to over four hundred, which presses the
+    critical value of 7.35 and both of its crossings onto the axis floor and
+    makes the confidence interval impossible to read off the curve that
+    defines it. The reference geometry is set in text black with two distinct
+    dash patterns, so the distinction between the critical value and the
+    threshold survives greyscale; colour is reserved for the estimates.
+    """
+    import matplotlib.ticker as mticker
+
     T = S["thr"]
-    fig = N.figure(N.TEXT, 58.0)
-    ax1 = N.axes_mm(fig, 18.0, 15.0, 57.0, 38.0)
-    ax2 = N.axes_mm(fig, 93.0, 15.0, 36.0, 38.0)
+    H = 56.0
+    fig = N.figure(N.TEXT, H)
+    ax1 = N.axes_mm(fig, 18.0, 17.0, 56.0, 32.0)
+    ax2 = N.axes_mm(fig, 93.0, 17.0, 36.0, 32.0)
 
     # ---- a: the likelihood-ratio profile ---------------------------------
     ax = ax1
     g = np.array(T["grid"])
     lr = np.array(T["lr"])
     ok = np.isfinite(lr)
-    ax.axvspan(T["ci_low"], T["ci_high"], color=N.ACCENT, alpha=0.10, lw=0,
-               zorder=0.4)
-    ax.plot(g[ok], lr[ok], color=N.BLUE, lw=1.0, zorder=2)
-    ax.axhline(T["crit"], color=N.ACCENT, lw=0.7, ls=(0, (3.0, 1.8)),
-               zorder=1.2)
-    ax.axvline(T["gamma"], color=N.ACCENT, lw=0.7, zorder=1.4)
+    ax.axvspan(T["ci_low"], T["ci_high"], color=N.SHADE, lw=0, zorder=0.3)
+    ax.plot(g[ok], np.clip(lr[ok], 0.0, None), color=N.BLUE, lw=1.0, zorder=2)
+    ax.axhline(T["crit"], color=N.INK, lw=0.6, ls=(0, (3.0, 1.8)), zorder=1.2)
+    ax.axvline(T["gamma"], color=N.INK, lw=0.6, ls=(0, (1.0, 1.5)), zorder=1.4)
+    ax.set_yscale("symlog", linthresh=1.0, linscale=0.4)
+    ax.set_ylim(0.0, 500.0)
+    ax.set_yticks([0, 1, 10, 100, 400])
+    ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, p: "%g" % v))
+    ax.minorticks_off()
     ax.set_xlim(g.min(), g.max())
-    ax.set_xlabel("Candidate threshold in workforce\nskill variety (bits)")
+    ax.set_xlabel("Candidate threshold in workforce skill variety (bits)")
     ax.set_ylabel("Likelihood ratio")
-    ax.text(0.40, 0.88, "95%% critical value %.2f" % T["crit"],
-            transform=ax.transAxes, ha="left", va="bottom",
-            fontsize=N.PT_TICK, color=N.ACCENT,
-            bbox=dict(facecolor="white", edgecolor="none", pad=1.0))
-    ax.text(0.40, 0.80,
-            "$\\hat{\\gamma}$ = %.2f  [%.2f, %.2f]"
-            % (T["gamma"], T["ci_low"], T["ci_high"]),
-            transform=ax.transAxes, ha="left", va="bottom",
-            fontsize=N.PT_TICK, color=N.ACCENT,
-            bbox=dict(facecolor="white", edgecolor="none", pad=1.0))
+    ax.annotate("95%% critical value %.2f" % T["crit"],
+                xy=(g.min(), T["crit"]), xytext=(2, 2),
+                textcoords="offset points", ha="left", va="bottom",
+                fontsize=N.PT_TICK, color=N.INK)
+    ax.annotate("γ̂ = %.2f   95%% CI %.2f–%.2f"
+                % (T["gamma"], T["ci_low"], T["ci_high"]),
+                xy=((T["ci_low"] + T["ci_high"]) / 2, 1.01),
+                xycoords=("data", "axes fraction"), ha="center", va="bottom",
+                fontsize=N.PT_TICK, color=N.INK)
 
     # ---- b: the regime coefficients --------------------------------------
     ax = ax2
-    pts = [(0.0, T["b_low"], T["se_low"], "below $\\hat{\\gamma}$"),
-           (1.0, T["b_high"], T["se_high"], "above $\\hat{\\gamma}$")]
+    pts = [(0.0, T["b_low"], T["se_low"], "below γ̂"),
+           (1.0, T["b_high"], T["se_high"], "above γ̂")]
     for x, b, se, lab in pts:
         ax.plot([x, x], [b - 1.96 * se, b + 1.96 * se], color=N.BLUE, lw=1.0,
                 solid_capstyle="butt", zorder=2)
         ax.plot([x], [b], marker="o", ms=3.4, color=N.BLUE, mec="white",
                 mew=0.5, zorder=3)
-        ax.annotate(N.num(b, 2), xy=(x, b), xytext=(x + 0.16, b),
-                    fontsize=N.PT_TICK, color=N.BLUE, ha="left", va="center")
+        ax.annotate(N.num(b, 2), xy=(x, b), xytext=(4, -2),
+                    textcoords="offset points", fontsize=N.PT_TICK,
+                    color=N.INK, ha="left", va="top")
     N.zeroline(ax)
     ax.set_xticks([0.0, 1.0])
     ax.set_xticklabels([p[3] for p in pts])
@@ -248,8 +305,11 @@ def figure3_threshold(S):
     ax.set_xlabel("Regime")
     ax.set_ylabel("Effect on the youth\nemployment share (p.p.)")
 
-    N.panel(fig, ax1, "a", dx=-15.0)
-    N.panel(fig, ax2, "b", dx=-15.0)
+    N.snap(ax1, y=False)
+    ax1.spines["left"].set_bounds(0.0, 400.0)
+    N.snap(ax2, x=False)
+    ax2.spines["bottom"].set_bounds(0.0, 1.0)
+    N.panels(fig, [(ax1, "a"), (ax2, "b")])
     return N.save(fig, os.path.join(FIG, "figure3_threshold"))
 
 

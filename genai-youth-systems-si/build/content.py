@@ -980,7 +980,11 @@ BLOCKS = [
      f"below the mean to {S['margin_wage'][12]['effect']:.3f} at one standard "
      "deviation above it. The effect remains negative and significant across "
      "the whole observed range of both moderators, so neither condition "
-     "eliminates the displacement; what they change is its size."),
+     "eliminates the displacement; what they change is its size. The strip "
+     "beneath each panel of Figure 2 shows the observed density of the "
+     "moderator on that axis, so the range over which the estimate is "
+     "supported can be read from the figure rather than taken on trust; the "
+     "estimate is drawn only over that range."),
 
     ("fig", "fig2"),
 
