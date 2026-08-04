@@ -96,6 +96,10 @@ python3 <SKILL_DIR>/scripts/gpt_image2.py "<英文提示词>" --image sketch.png
 | `-n` | 一次出几张备选，挑图时用 `-n 2` 或 `-n 3` |
 | `--dry-run` | 只打印请求体，不调用，用于排查参数 |
 
+> 实测：`1024x1536` 被网关精确遵守；请求 `1024x1024` 时曾返回 1920×819 的自适应宽图。
+> 画幅有硬要求（论文栏宽、投稿模板）时，第 4 步质检要顺带核对实际像素尺寸。
+> `--quality low` 一张约 40 秒，`high` 更久。
+
 ### 第 4 步 — 看图质检（不可跳过）
 
 生成完必须用 Read 工具把 PNG **实际看一遍**，逐项核对，把结论写给用户：
@@ -119,15 +123,19 @@ python3 <SKILL_DIR>/scripts/gpt_image2.py "<英文提示词>" --image sketch.png
 | 配置项 | 环境变量（按优先级） | 默认值 |
 |---|---|---|
 | API Key | `GPT_IMAGE_API_KEY` → `CHEDANKJ_API_KEY` → `OPENAI_API_KEY` | 无，必须配 |
-| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://api.chedankj.com/v1` |
+| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://chedankj.com/v1` |
 | 模型名 | `GPT_IMAGE_MODEL` | `gpt-image-2` |
 
 也可以在当前目录、skill 目录、仓库根或 `~/.gpt-image-2/` 放 `.env` 文件写同名键；
 进程环境变量优先于 `.env`。
 
-**出网白名单**：Claude Code 远程环境的出网策略若未放行 `api.chedankj.com`，
-`--check` 会报 `Tunnel connection failed: 403 Forbidden`。这是环境侧白名单问题，
-**不要尝试绕过**——把该域名加进环境设置的允许列表，或改配一个已放行的网关。
+已实测可用：`--check` 返回 200 并在模型列表里列出 `gpt-image-2`，端到端出图正常。
+
+两个已知的坑（脚本里已经处理好，改配置时别踩回去）：
+
+- **域名不要加 `api.` 前缀**。正确的是 `https://chedankj.com/v1`；`api.chedankj.com` 不通。
+- **User-Agent 不能是 `Python-urllib/*`**，网关前置的 WAF 会直接返回 403。
+  脚本固定发送 `gpt-image-2-skill/1.0`。自己写 curl 测试时也要带上 `-H "User-Agent: ..."`。
 
 排错细节见 `references/troubleshooting.md`。
 

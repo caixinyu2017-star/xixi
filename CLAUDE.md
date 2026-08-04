@@ -63,7 +63,7 @@ claude.ai 的 **Customize → Skills**（打包脚本见 `customize/build.sh`）
 | 配置项 | 环境变量（按优先级） | 默认值 |
 |---|---|---|
 | API Key | `GPT_IMAGE_API_KEY` → `CHEDANKJ_API_KEY` → `OPENAI_API_KEY` | 无，必须配 |
-| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://api.chedankj.com/v1` |
+| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://chedankj.com/v1` |
 | 模型名 | `GPT_IMAGE_MODEL` | `gpt-image-2` |
 
 自检（不产生生成费用）：
@@ -72,8 +72,11 @@ claude.ai 的 **Customize → Skills**（打包脚本见 `customize/build.sh`）
 python3 plugins/gpt-image-2/skills/gpt-image-2/scripts/gpt_image2.py --check
 ```
 
-若自检报 `Tunnel connection failed: 403 Forbidden`，是 Claude Code 环境的出网策略没放行
-`api.chedankj.com`。**不要绕过代理**——去环境设置把该域名加入允许列表。
+已实测可用（自检 200、模型列表含 `gpt-image-2`、端到端出图正常）。两个坑：
+
+- 域名是 `chedankj.com`，**不要加 `api.` 前缀**——`api.chedankj.com` 不通。
+- 网关前置 WAF 拒绝 `Python-urllib/*` 这类 User-Agent（返 403），脚本已固定发
+  `gpt-image-2-skill/1.0`；手写 curl 复现时也要带上 UA 头。
 
 ## 仓库结构约定
 

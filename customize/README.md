@@ -55,12 +55,12 @@ bash customize/build.sh
 | 配置项 | 环境变量（按优先级） | 默认值 |
 |---|---|---|
 | API Key | `GPT_IMAGE_API_KEY` → `CHEDANKJ_API_KEY` → `OPENAI_API_KEY` | 无，必须配 |
-| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://api.chedankj.com/v1` |
+| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://chedankj.com/v1` |
 | 模型名 | `GPT_IMAGE_MODEL` | `gpt-image-2` |
 
 在 Claude Code 环境设置的 **Environment variables** 里配 `CHEDANKJ_API_KEY` 即可。
-另外要确认环境的**出网策略放行 `api.chedankj.com`**，否则自检会报
-`Tunnel connection failed: 403 Forbidden`。
+这套配置已在本环境实测通过（自检 200、模型列表含 `gpt-image-2`、端到端出图正常），
+Base URL 与模型名都用默认值就行，不需要额外设。
 
 自检（不产生生成费用）：
 

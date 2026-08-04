@@ -44,10 +44,12 @@ python3 <SKILL_DIR>/scripts/gpt_image2.py --check
 
 **`Tunnel connection failed: 403 Forbidden` / `CONNECT tunnel failed, response 403`**
 
-当前环境的出网策略没放行目标域名。这是**策略拒绝，不是故障**：
+出网策略没放行目标域名。这是**策略拒绝，不是故障**：
 
 - 不要重试，不要改 `HTTPS_PROXY`，不要关 TLS 校验——这些都绕不过去，也不该绕。
-- 正确做法：在 Claude Code 环境设置里把 `api.chedankj.com` 加入允许的出网域名；
+- **先核对域名有没有写错**。实测 `chedankj.com` 可达，`api.chedankj.com` **不可达**
+  （该子域不存在于白名单）。默认值已经是对的，除非你手动设了 `GPT_IMAGE_BASE_URL`。
+- 域名确实没放行时：在 Claude Code 环境设置里加进允许的出网域名；
   或改配一个已放行的 OpenAI 兼容网关（设 `GPT_IMAGE_BASE_URL`）。
 - 确认策略状态：`curl -sS "$HTTPS_PROXY/__agentproxy/status"`，
   `recentRelayFailures` 里会记录被拒的主机名。
@@ -69,7 +71,7 @@ python3 <SKILL_DIR>/scripts/gpt_image2.py --check
 | 状态码 | 含义 | 处理 |
 |---|---|---|
 | 401 | Key 无效或已过期 | 核对 Key；`--check` 会显示 Key 的前 6 位和长度，比对是否是你以为的那一把 |
-| 403 | Key 有效但无权限 | 该 Key 可能没开通 gpt-image-2，或网关限制了模型范围 |
+| 403 | 权限或 WAF | **先看 User-Agent**：chedankj 网关前置的 WAF 会拒掉 `Python-urllib/*` 和 `OpenAI/Python*` 这类 UA，脚本已固定发 `gpt-image-2-skill/1.0`；自己 curl 复现时必须带 `-H "User-Agent: gpt-image-2-skill/1.0"`。UA 正常仍 403，才是 Key 没开通该模型 |
 | 404 | 端点或模型不存在 | 核对 `GPT_IMAGE_BASE_URL` 是否以 `/v1` 结尾；核对 `GPT_IMAGE_MODEL` 拼写 |
 | 429 | 限流或余额不足 | 脚本会自动退避重试；持续 429 就是配额问题，去网关后台看余额 |
 | 400 | 请求体被拒 | 多半是 `size`/`quality`/`background` 组合不被该网关支持。用 `--dry-run` 打印请求体，逐项去掉可选参数试 |
@@ -88,11 +90,14 @@ python3 <SKILL_DIR>/scripts/gpt_image2.py --check
 都对不上说明该网关返回结构特殊。用 `--dry-run` 确认请求没问题后，手动 curl 一次看原始响应：
 
 ```bash
-curl -sS "$GPT_IMAGE_BASE_URL/images/generations" \
+curl -sS "https://chedankj.com/v1/images/generations" \
   -H "Authorization: Bearer $CHEDANKJ_API_KEY" \
   -H 'Content-Type: application/json' \
+  -H 'User-Agent: gpt-image-2-skill/1.0' \
   -d '{"model":"gpt-image-2","prompt":"a red circle","n":1,"size":"1024x1024"}' | head -c 800
 ```
+
+`User-Agent` 这行不能省，否则 curl 默认 UA 虽然能过，但换成别的客户端复现时容易误判成权限问题。
 
 把实际结构报给用户，再决定是否给脚本加一条兼容分支。
 

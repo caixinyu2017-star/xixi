@@ -33,7 +33,7 @@
 | 配置项 | 环境变量（按优先级） | 默认值 |
 |---|---|---|
 | API Key | `GPT_IMAGE_API_KEY` → `CHEDANKJ_API_KEY` → `OPENAI_API_KEY` | 无，必须配 |
-| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://api.chedankj.com/v1` |
+| Base URL | `GPT_IMAGE_BASE_URL` → `CHEDANKJ_BASE_URL` → `OPENAI_BASE_URL` | `https://chedankj.com/v1` |
 | 模型名 | `GPT_IMAGE_MODEL` | `gpt-image-2` |
 
 也支持在当前目录 / skill 目录 / 仓库根 / `~/.gpt-image-2/` 放 `.env`（进程环境变量优先）。
@@ -44,9 +44,9 @@
 python3 skills/gpt-image-2/scripts/gpt_image2.py --check
 ```
 
-> **出网白名单**：Claude Code 远程环境默认可能没放行 `api.chedankj.com`，自检会报
-> `Tunnel connection failed: 403 Forbidden`。去环境设置把该域名加入允许列表即可，
-> 不要尝试绕过代理。
+> 已实测可用：自检返回 200，模型列表里有 `gpt-image-2`，端到端出图正常。
+> 两个坑：**域名不要写成 `api.chedankj.com`**（不通），**User-Agent 不能是 `Python-urllib/*`**
+> （网关 WAF 返 403，脚本已固定发 `gpt-image-2-skill/1.0`）。
 
 ## CLI
 

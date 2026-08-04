@@ -9,7 +9,7 @@ gpt-image-2 图像生成 CLI —— 零第三方依赖（仅标准库）。
 配置解析顺序（前者优先，进程环境变量 > .env 文件）：
   API Key    GPT_IMAGE_API_KEY > CHEDANKJ_API_KEY > OPENAI_API_KEY
   Base URL   GPT_IMAGE_BASE_URL > CHEDANKJ_BASE_URL > OPENAI_BASE_URL
-             > 默认 https://api.chedankj.com/v1
+             > 默认 https://chedankj.com/v1
   Model      GPT_IMAGE_MODEL > 默认 gpt-image-2
 
 .env 查找顺序：当前工作目录 → skill 目录 → skill 上溯的仓库根 → ~/.gpt-image-2/.env
@@ -51,8 +51,11 @@ import urllib.request
 import uuid
 from pathlib import Path
 
-DEFAULT_BASE_URL = "https://api.chedankj.com/v1"
+DEFAULT_BASE_URL = "https://chedankj.com/v1"
 DEFAULT_MODEL = "gpt-image-2"
+
+# 网关前置的 WAF 会拒掉 `Python-urllib/*` 这类默认 UA（返回 403），必须显式覆盖。
+USER_AGENT = "gpt-image-2-skill/1.0"
 
 KEY_VARS = ("GPT_IMAGE_API_KEY", "CHEDANKJ_API_KEY", "OPENAI_API_KEY")
 BASE_URL_VARS = ("GPT_IMAGE_BASE_URL", "CHEDANKJ_BASE_URL", "OPENAI_BASE_URL")
@@ -233,6 +236,7 @@ def post_json(url: str, payload: dict, cfg: dict, timeout: int, retries: int) ->
         "Authorization": f"Bearer {cfg['api_key']}",
         "Content-Type": "application/json",
         "Accept": "application/json",
+        "User-Agent": USER_AGENT,
     }
     return _with_retries(lambda: _request(url, body, headers, timeout), retries)
 
@@ -261,6 +265,7 @@ def post_multipart(url: str, fields: dict, files: list[tuple[str, Path]],
         "Authorization": f"Bearer {cfg['api_key']}",
         "Content-Type": f"multipart/form-data; boundary={boundary}",
         "Accept": "application/json",
+        "User-Agent": USER_AGENT,
     }
     return _with_retries(lambda: _request(url, bytes(buf), headers, timeout), retries)
 
@@ -317,7 +322,8 @@ def extract_images(resp: dict) -> list[bytes]:
         url = item.get("url")
         if url:
             try:
-                with _opener().open(url, timeout=120) as resp_img:
+                img_req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+                with _opener().open(img_req, timeout=120) as resp_img:
                     out.append(resp_img.read())
             except (urllib.error.URLError, TimeoutError) as exc:
                 raise NetworkError(f"下载生成结果失败 {url}：{exc}") from exc
@@ -406,7 +412,8 @@ def cmd_check(cfg: dict, args) -> int:
         # 用 /models 探活：多数 OpenAI 兼容网关都实现了它，且不产生生成费用。
         req = urllib.request.Request(
             f"{cfg['base_url']}/models",
-            headers={"Authorization": f"Bearer {cfg['api_key']}"},
+            headers={"Authorization": f"Bearer {cfg['api_key']}",
+                     "User-Agent": USER_AGENT},
         )
         with _opener().open(req, timeout=args.timeout) as resp:
             body = resp.read(4000).decode("utf-8", errors="replace")
@@ -420,7 +427,8 @@ def cmd_check(cfg: dict, args) -> int:
     except urllib.error.HTTPError as exc:
         print(f"  ! /models 返回 HTTP {exc.code}（部分网关不开放该端点，属正常）")
         if exc.code in (401, 403):
-            print("    401/403 通常意味着 Key 无效或无权限，请核对。")
+            print("    401 通常是 Key 无效；403 可能是 Key 无权限，也可能是网关前置 WAF "
+                  f"拒了 User-Agent（本脚本已固定发送 {USER_AGENT}）。")
             return 4
         return 0
     except urllib.error.URLError as exc:
