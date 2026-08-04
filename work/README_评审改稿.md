@@ -16,6 +16,11 @@
 图名置于图下方（五号黑体），表名置于表上方（五号黑体），表格为三线表；
 全部图表均在正文中先引用后出现，编号连续。
 
+公式排版：数学公式为 Word 原生 OMML 对象（可用公式编辑器直接打开编辑），
+居中排布，编号以圆括号置于公式行末。转换器见 `omml.py`（LaTeX → OMML）。
+
+写作风格：主题段落式——每段首句为主题句概括核心观点，其余句子解释与展开。
+
 ## 目录结构
 
 ```
@@ -43,19 +48,19 @@ python3 verify_fmt.py deliver/*.docx && python3 qa_order.py deliver/*.docx
 
 ## 两点说明
 
-**1. 概念图的生成方式。** 原计划全部 25 张概念图（示意图、机制图、路径图、技术路线图）
-调用 gpt-image-2 生成。生成过程中网关返回 `403 GROUP_NOT_ALLOWED`
-（"API Key 所属专属分组不再允许当前用户使用"），经 18 次间隔重试确认为权限撤销
-而非瞬时故障（记录见 `figures/retry.log`、`figures/gen_p*.log`）。
-25 张概念图改以 matplotlib 矢量方式绘制（`analysis/pN_figs.py`），
-风格统一且中文标签不会出现生成式模型常见的字形错乱。
-已写好的英文提示词清单保留在 `figures/prompts.json`，权限恢复后可一键重出：
+**1. 概念图的生成方式。** 25 张概念图（示意图、机制图、路径图、技术路线图）由
+gpt-image-2 生成，提示词为中文——该模型的简体中文渲染准确，无需退回英文标签，
+清单见 `figures/prompts_cn.json` 与分批清单 `figures/cn_p1..5.json`。重新生成：
 
 ```bash
 cd figures && for p in 1 2 3 4 5; do
-  python3 ~/.claude/skills/gpt-image-2/scripts/gpt_image2.py --manifest prompts_p$p.json -o .
+  python3 ~/.claude/skills/gpt-image-2/scripts/gpt_image2.py --manifest cn_p$p.json -o .
 done
 ```
+
+带真实数据的统计图（文件名含 `_d`）仍由 Python 绘制（`analysis/pN_analysis.py`），
+不使用生成式图像模型——这是数据图的基本要求。
+`analysis/pN_figs.py` 为早期的 matplotlib 概念图脚本，已被 gpt-image-2 版本取代，保留备查。
 
 **2. 数据的三类证据效力（修改稿中已逐处标注）。**
 
