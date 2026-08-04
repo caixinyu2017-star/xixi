@@ -40,6 +40,41 @@ def _font(run, cn, size, bold=False, latin=LATIN, color=None):
     rf.set(qn("w:ascii"), latin)
     rf.set(qn("w:hAnsi"), latin)
     rf.set(qn("w:eastAsia"), cn)
+    rf.set(qn("w:cs"), latin)
+    # 让中文引号、破折号、省略号等“歧义宽度”字符走中文字体而不是西文字体
+    rf.set(qn("w:hint"), "eastAsia")
+
+
+# ---------- 文本规范化：中西文之间不留空格 ----------
+_CJK = r"　-〿一-鿿＀-￯"
+
+
+def clean(text):
+    """删除汉字/全角标点与英文字母、数字之间的空格。"""
+    text = re.sub(r"(?<=[" + _CJK + r"]) +(?=[A-Za-z0-9])", "", text)
+    text = re.sub(r"(?<=[A-Za-z0-9%）)]) +(?=[" + _CJK + r"])", "", text)
+    return text
+
+
+# ---------- 中文引号强制宋体 ----------
+_QUOTE_RE = re.compile(r"([‘’“”]+)")
+
+
+def _runs(p, text, cn, size, bold=False, latin=LATIN, sup=False, color=None):
+    """写入文本；中文引号单独成 run 并强制宋体，其余按指定字体。"""
+    out = []
+    for seg in _QUOTE_RE.split(text):
+        if not seg:
+            continue
+        r = p.add_run(seg)
+        if _QUOTE_RE.fullmatch(seg):
+            _font(r, SONG, size, bold=bold, latin=SONG)
+        else:
+            _font(r, cn, size, bold=bold, latin=latin, color=color)
+        if sup:
+            r.font.superscript = True
+        out.append(r)
+    return out
 
 
 def _para(doc, align=WD_ALIGN_PARAGRAPH.JUSTIFY, before=0, after=0,
@@ -60,34 +95,33 @@ def _para(doc, align=WD_ALIGN_PARAGRAPH.JUSTIFY, before=0, after=0,
 # ---------- 富文本：**加粗**；^[n] 渲染为上标角标引用 ----------
 def _add_rich(p, text, cn, size, bold=False):
     """把 **粗体** 与 ^[1] / ^[1-3] / ^[1,3] 形式的角标拆开渲染。"""
+    text = clean(text)
     for seg in re.split(r"(\*\*.+?\*\*|\^\[[0-9,\-]+\])", text):
         if not seg:
             continue
         if seg.startswith("**") and seg.endswith("**"):
-            _font(p.add_run(seg[2:-2]), cn, size, bold=True)
+            _runs(p, seg[2:-2], cn, size, bold=True)
         elif seg.startswith("^[") and seg.endswith("]"):
-            r = p.add_run(seg[1:])
-            _font(r, cn, size, bold=False)
-            r.font.superscript = True
+            _runs(p, seg[1:], cn, size, bold=False, sup=True)
         else:
-            _font(p.add_run(seg), cn, size, bold=bold)
+            _runs(p, seg, cn, size, bold=bold)
 
 
 def h1(doc, text, before=12, after=6):
     p = _para(doc, WD_ALIGN_PARAGRAPH.LEFT, before, after, 1.5, keep_next=True)
-    _font(p.add_run(text), HEI, SZ_H1, bold=True)
+    _runs(p, text, HEI, SZ_H1, bold=True)
     return p
 
 
 def h2(doc, text, before=8, after=4):
     p = _para(doc, WD_ALIGN_PARAGRAPH.LEFT, before, after, 1.5, keep_next=True)
-    _font(p.add_run(text), HEI, SZ_H2, bold=False)
+    _runs(p, text, HEI, SZ_H2, bold=False)
     return p
 
 
 def h3(doc, text, before=6, after=3):
     p = _para(doc, WD_ALIGN_PARAGRAPH.LEFT, before, after, 1.5, keep_next=True)
-    _font(p.add_run(text), HEI, SZ_H3, bold=False)
+    _runs(p, text, HEI, SZ_H3, bold=False)
     return p
 
 
@@ -99,13 +133,13 @@ def body(doc, text, indent=True, align=WD_ALIGN_PARAGRAPH.JUSTIFY):
 
 def title(doc, text):
     p = _para(doc, WD_ALIGN_PARAGRAPH.CENTER, 0, 10, 1.5)
-    _font(p.add_run(text), HEI, Pt(18), bold=True)
+    _runs(p, clean(text), HEI, Pt(18), bold=True)
     return p
 
 
 def subtitle(doc, text, size=Pt(12), cn=SONG, bold=False, after=0):
     p = _para(doc, WD_ALIGN_PARAGRAPH.CENTER, 0, after, 1.5)
-    _font(p.add_run(text), cn, size, bold=bold)
+    _runs(p, clean(text), cn, size, bold=bold)
     return p
 
 
@@ -114,7 +148,7 @@ def figure(doc, path, caption, width_cm=14.0):
     p = _para(doc, WD_ALIGN_PARAGRAPH.CENTER, 6, 0, 1.0, keep_next=True)
     p.add_run().add_picture(path, width=Cm(width_cm))
     cp = _para(doc, WD_ALIGN_PARAGRAPH.CENTER, 2, 8, 1.0)
-    _font(cp.add_run(caption), HEI, SZ_CAP)
+    _runs(cp, caption, HEI, SZ_CAP)
     return cp
 
 
@@ -141,7 +175,7 @@ def table(doc, caption, header, rows, widths=None, fs=Pt(10.5),
           align_first_left=True, note=None):
     """三线表：表名在表上方（五号黑体居中）；顶线/表头下横线/底线，无竖线。"""
     cp = _para(doc, WD_ALIGN_PARAGRAPH.CENTER, 8, 2, 1.0, keep_next=True)
-    _font(cp.add_run(caption), HEI, SZ_CAP)
+    _runs(cp, caption, HEI, SZ_CAP)
 
     t = doc.add_table(rows=1 + len(rows), cols=len(header))
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -158,7 +192,7 @@ def table(doc, caption, header, rows, widths=None, fs=Pt(10.5),
             pf.alignment = (WD_ALIGN_PARAGRAPH.LEFT if (j == 0 and align_first_left)
                             else WD_ALIGN_PARAGRAPH.CENTER)
             pf.space_before = Pt(2); pf.space_after = Pt(2); pf.line_spacing = 1.0
-            _font(p.add_run(str(v)), SONG, fs, bold=bold)
+            _runs(p, clean(str(v)), SONG, fs, bold=bold)
 
     fill(t.rows[0].cells, header, bold=True)
     for i, r in enumerate(rows):
@@ -177,7 +211,7 @@ def table(doc, caption, header, rows, widths=None, fs=Pt(10.5),
                 row.cells[j].width = Cm(w)
     if note:
         np_ = _para(doc, WD_ALIGN_PARAGRAPH.LEFT, 2, 8, 1.0, indent=Pt(0))
-        _font(np_.add_run(note), SONG, Pt(9))
+        _runs(np_, clean(note), SONG, Pt(9))
     else:
         _para(doc, WD_ALIGN_PARAGRAPH.LEFT, 0, 8, 1.0)
     return t
