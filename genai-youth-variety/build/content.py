@@ -505,13 +505,14 @@ BLOCKS = [
      "framework provides a theoretical foundation and structure for "
      "understanding the relationships between the variables under "
      "investigation. The horizontal arrow is the disturbance running from "
-     "the industry demand shock to the youth employment share; the arrow "
+     "the industry demand shock to the youth employment share; the line "
      "descending onto it is the regulatory capacity supplied by workforce "
-     "skill variety, and the double stroke on that arrow marks the "
+     "skill variety, and the double stroke on that line marks the "
      "requisite-variety gate at which the capacity becomes effective; the "
      "lower paths are the two organizational acts through which absorption "
-     "occurs; and the grey arrows are the two conditions that govern whether "
-     "latent variety is converted into actual absorption."),
+     "occurs; and the grey lines entering from the left are the two "
+     "conditions that govern whether latent variety is converted into actual "
+     "absorption."),
 
     ("fig", "fig1"),
 

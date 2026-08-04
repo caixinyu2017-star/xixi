@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
 """The three figures reported in the manuscript.
 
-Layout rule applied throughout: every label, arrow and legend is placed in a
-region of the canvas that no other element occupies, so nothing is ever drawn
-over anything else.
+Drawn to the Nature Portfolio conventions encoded in ``natureplot``: a single
+sans-serif family at fixed print sizes, bold lower-case panel letters, left and
+bottom spines only with outward ticks, the Okabe and Ito colourblind-safe
+palette, direct labelling in place of legends, and vector output alongside the
+raster used for placement in the Word file.
+
+Every figure is built at the width at which the Word file places it, and every
+panel is positioned in millimetres, so a 6 pt tick label is 6 pt on the printed
+page rather than 6 pt multiplied by whatever scale factor a cropped bounding
+box happened to imply.
+
+Where a figure carries a quantitative claim the number is written into the
+panel, and where an effect is plotted against a moderator the observed
+distribution of that moderator is shown underneath it, so a reader can see over
+what range the estimate is supported.
 """
 from __future__ import annotations
 
@@ -12,11 +24,12 @@ import os
 
 import numpy as np
 import pandas as pd
-import matplotlib
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+import natureplot as N
+
+N.use()
+
+import matplotlib.pyplot as plt  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TAB = os.path.abspath(os.path.join(HERE, "..", "tables"))
@@ -24,208 +37,225 @@ FIG = os.path.abspath(os.path.join(HERE, "..", "figures"))
 DATA = os.path.abspath(os.path.join(HERE, "..", "data"))
 os.makedirs(FIG, exist_ok=True)
 
-CM = 1 / 2.54
-W = 13.8 * CM
-
-plt.rcParams.update({
-    "font.family": "serif", "font.serif": ["DejaVu Serif"],
-    "font.size": 8.0, "axes.labelsize": 8.0, "legend.fontsize": 7.0,
-    "xtick.labelsize": 7.2, "ytick.labelsize": 7.2,
-    "axes.linewidth": 0.7, "xtick.major.width": 0.7,
-    "ytick.major.width": 0.7, "lines.linewidth": 1.3,
-    "legend.framealpha": 1.0, "legend.fancybox": False,
-    "legend.edgecolor": "0.75", "legend.borderpad": 0.35,
-    "figure.dpi": 400, "savefig.dpi": 400,
-    "savefig.bbox": "tight", "savefig.pad_inches": 0.04,
-})
-
-INK = "#1f1f1f"
-GREY = "#6f6f6f"
-BLUE = "#2f5d8c"
-RED = "#a6362d"
-GOLD = "#9a7a2e"
-
 
 def load():
     with open(os.path.join(TAB, "summary.json"), encoding="utf-8") as fh:
         return json.load(fh)
 
 
+def _rug(ax, values, frac=0.075, color=N.FAINT):
+    lo, hi = ax.get_ylim()
+    span = hi - lo
+    ax.set_ylim(lo - frac * span * 1.35, hi)
+    lo2, hi2 = ax.get_ylim()
+    xs = np.linspace(*ax.get_xlim(), 160)
+    dens = np.histogram(values, bins=xs)[0].astype(float)
+    dens = np.convolve(dens, np.ones(9) / 9.0, mode="same")
+    if dens.max() > 0:
+        dens = dens / dens.max()
+    base = lo2 + 0.012 * (hi2 - lo2)
+    ax.fill_between(xs[:-1], base, base + dens * frac * span,
+                    color=color, lw=0, zorder=0.2)
+
+
 # ===========================================================================
 def figure1_framework():
-    fig, ax = plt.subplots(figsize=(W, W * 0.80))
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0.2, 8.30)
-    ax.axis("off")
+    """The conceptual framework.
 
-    def box(cx, cy, w, h, lines, fc="white", ec=INK, lw=0.9, fs=7.4):
-        ax.add_patch(FancyBboxPatch(
-            (cx - w / 2, cy - h / 2), w, h,
-            boxstyle="round,pad=0.02,rounding_size=0.12", fc=fc, ec=ec,
-            lw=lw, zorder=3))
-        ax.text(cx, cy, "\n".join(lines), ha="center", va="center",
-                fontsize=fs, color=INK, zorder=4, linespacing=1.35)
+    The layout is a construction rather than a drawing. The canvas is one grid
+    unit to the millimetre; every edge begins and ends at a named point on a
+    box boundary, so no endpoint is a hand-typed coordinate and no arrow
+    touches the box it points at.
 
-    def arrow(p0, p1, color=INK, lw=1.0):
-        ax.add_patch(FancyArrowPatch(
-            p0, p1, arrowstyle="-|>", mutation_scale=8.5, lw=lw,
-            color=color, shrinkA=0, shrinkB=0, zorder=2))
+    The grammar is carried by line style: a solid arrow is a path the model
+    estimates, a grey line ending in a disc on another path is a condition
+    that governs that path, and the double stroke is the requisite-variety
+    gate, which is the one feature of this framework a reader must not mistake
+    for an ordinary moderator.
 
-    box(5.00, 7.60, 3.60, 1.05,
-        ["Workforce skill variety (Variety)", "= RelVar + UnrelVar"])
-    box(1.30, 5.75, 2.40, 0.80, ["Digital capability"], fc="#f7f4ee", ec=GREY)
-    box(8.70, 5.75, 2.40, 0.80, ["Financial slack"], fc="#f7f4ee", ec=GREY)
-    box(1.50, 4.10, 2.60, 1.05, ["Industry demand", "shock (Shock)"],
-        fc="#f6eeec")
-    box(8.50, 4.10, 2.60, 1.05, ["Youth employment", "share (Youth)"],
-        fc="#eef2f7")
-    box(5.00, 2.30, 3.05, 0.85, ["Internal redeployment"])
-    box(5.00, 0.75, 3.05, 0.85, ["Workforce churn"])
+    The two enabling conditions are stacked on the left and the two absorption
+    channels below, which leaves the right-hand corridor clear for the direct
+    path from variety to the outcome. The layout has no edge crossings.
+    """
+    W, H = N.TEXT, 94.0
+    fig, ax = N.canvas(W, H)
 
-    # the disturbance
-    arrow((2.82, 4.10), (7.18, 4.10), lw=1.25)
-    ax.text(3.60, 4.24, "(−)", ha="center", va="bottom", fontsize=7.4)
+    Y_PATH, Y_VAR, Y_GATE, Y_KEY = 46.0, 84.0, 53.0, 3.0
+    X_GATE = 52.0
 
-    # the regulatory capacity, gated at the requisite level
-    arrow((5.00, 7.06), (5.00, 4.26), lw=1.15)
-    ax.text(4.78, 6.86, "H2 (+), H3", ha="right", va="center", fontsize=7.2)
-    for y in (6.30, 6.16):
-        ax.plot([4.79, 5.21], [y, y], color=RED, lw=1.3, zorder=4)
-    ax.text(4.70, 6.23, "H5: gate at γ", ha="right", va="center",
-            fontsize=7.2, color=RED)
+    var = N.dbox(ax, X_GATE, Y_VAR, 58, 11,
+                 ["Workforce skill variety",
+                  "= related variety + unrelated variety"], focal=True)
+    dig = N.dbox(ax, 19, 72.0, 30, 8, ["Digital capability"])
+    sla = N.dbox(ax, 19, 61.0, 30, 8, ["Financial slack"])
+    sho = N.dbox(ax, 20, Y_PATH, 32, 11, ["Industry demand", "shock"],
+                 focal=True)
+    you = N.dbox(ax, 112, Y_PATH, 36, 12, ["Youth employment", "share"],
+                 focal=True)
+    red = N.dbox(ax, 64, 25.0, 36, 8.5, ["Internal redeployment"], edge=N.INK)
+    chu = N.dbox(ax, 64, 13.0, 36, 8.5, ["Workforce churn"], edge=N.INK)
 
-    # H1
-    arrow((6.55, 7.06), (7.62, 4.66))
-    ax.text(7.58, 6.55, "H1 (+)", ha="left", va="center", fontsize=7.2)
+    # ---- the disturbance -------------------------------------------------
+    N.dpath(ax, N.anchor(sho, "r"), N.anchor(you, "l"))
+    N.hlabel(ax, 43.0, Y_PATH, "(−)")
 
-    # the two enabling conditions
-    arrow((2.50, 5.55), (4.80, 4.76), color=GREY, lw=0.9)
-    arrow((7.50, 5.55), (5.20, 4.76), color=GREY, lw=0.9)
-    ax.text(3.55, 5.02, "H6a (+)", ha="center", va="top", fontsize=7.2,
-            color=GREY)
-    ax.text(6.45, 5.02, "H6b (+)", ha="center", va="top", fontsize=7.2,
-            color=GREY)
+    # ---- the regulatory capacity, switched on at the requisite level -----
+    N.dcond(ax, N.anchor(var, "b", 0.5), (X_GATE, Y_PATH), color=N.INK,
+            lw=N.W_SUB, r=0.8)
+    N.dgate(ax, X_GATE, Y_GATE, angle=0.0, half=2.2)
+    N.hlabel(ax, X_GATE + 3.0, 74.0, "H2 (+), H3", ha="left")
+    N.hlabel(ax, X_GATE + 3.0, Y_GATE, "H5: gate at $\\gamma$", ha="left",
+             color=N.ACCENT)
 
-    # the two channels
-    arrow((1.82, 3.56), (3.42, 2.58))
-    arrow((1.48, 3.56), (3.42, 0.98))
-    arrow((6.55, 2.58), (8.28, 3.60))
-    arrow((6.55, 0.98), (8.52, 3.54))
-    ax.text(2.62, 2.98, "H4", ha="center", va="center", fontsize=7.2)
+    # ---- variety also raises the level of the outcome --------------------
+    N.dpath(ax, N.anchor(var, "r"), N.anchor(you, "t", 0.5), rad=-0.16)
+    N.hlabel(ax, 103.0, 70.0, "H1 (+)")
 
-    fig.savefig(os.path.join(FIG, "figure1_framework.png"))
-    plt.close(fig)
+    # ---- the two enabling conditions, entering from the clear left -------
+    for box, lab in ((dig, "H6a (+)"), (sla, "H6b (+)")):
+        p = N.anchor(box, "r")
+        N.dcond(ax, p, (X_GATE, p[1]))
+        N.hlabel(ax, (p[0] + X_GATE) / 2, p[1] + 2.6, lab, color=N.GREY)
+
+    # ---- the two absorption channels -------------------------------------
+    for box, src_frac, dst_frac in ((red, 0.28, 0.17), (chu, 0.08, 0.5)):
+        a, b = N.anchor(sho, "b", src_frac), N.anchor(box, "l", 0.5)
+        N.dpath(ax, a, b, lw=N.W_SUB)
+        N.hlabel(ax, *N.mid(a, b), "H4") if box is red else None
+        c, d = N.anchor(box, "r", 0.5), N.anchor(you, "b", dst_frac)
+        N.dpath(ax, c, d, lw=N.W_SUB)
+
+    N.keystrip(ax, Y_KEY, [4.0, 42.0, 84.0], [
+        ("solid", "estimated path"),
+        ("cond", "enabling condition"),
+        ("gate", "requisite-variety gate"),
+    ])
+
+    return N.save(fig, os.path.join(FIG, "figure1_framework"))
 
 
 # ===========================================================================
 def figure2_margins(S):
     """Marginal effect of the demand shock across the variety measures."""
     d = pd.read_csv(os.path.join(DATA, "panel.csv"))
-    fig, axes = plt.subplots(1, 2, figsize=(W, W * 0.46))
+    fig = N.figure(N.TEXT, 58.0)
+    axes = N.row(fig, 2, left=18.0, bottom=15.0, height=38.0, gutter=16.0)
 
+    # ---- a: total variety, with the estimated threshold marked ------------
     ax = axes[0]
     rows = S["margin_variety"]
     z = np.array([r["z"] for r in rows])
     m = np.array([r["effect"] for r in rows])
     se = np.array([r["se"] for r in rows])
-    ax.fill_between(z, m - 1.645 * se, m + 1.645 * se, color=BLUE,
-                    alpha=0.16, lw=0)
-    ax.plot(z, m, color=BLUE, lw=1.4)
-    ax.axhline(0.0, color=GREY, lw=0.8, ls=(0, (3, 2)))
-    g = S["thr"]["gamma"]
-    ax.axvline(g, color=RED, lw=1.0, ls=(0, (5, 2)))
-    ymin, ymax = ax.get_ylim()
-    ax.text(g - 0.06, ymin + 0.08 * (ymax - ymin),
-            "$\\hat{\\gamma}$ = %.2f" % g, ha="right", va="bottom",
-            fontsize=7.2, color=RED)
-    ax.set_xlabel("Workforce skill variety")
-    ax.set_ylabel("Marginal effect of the shock on the\nyouth employment "
-                  "share (p.p.)")
+    ax.fill_between(z, m - 1.645 * se, m + 1.645 * se, color=N.BLUE,
+                    alpha=0.20, lw=0, zorder=1.5)
+    ax.plot(z, m, color=N.BLUE, lw=1.1, zorder=2)
+    N.zeroline(ax)
     ax.set_xlim(z.min(), z.max())
-    ax.tick_params(direction="in", length=2.6)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    ax.text(0.03, 0.93, "(a)", transform=ax.transAxes, fontsize=7.6,
-            ha="left", va="top")
+    g = S["thr"]["gamma"]
+    ax.axvline(g, color=N.ACCENT, lw=0.7, ls=(0, (3.0, 1.8)), zorder=1.2)
+    lo, hi = ax.get_ylim()
+    ax.annotate("$\\hat{\\gamma}$ = %.2f" % g, xy=(g, hi),
+                xytext=(g - 0.08, hi - 0.03 * (hi - lo)),
+                ha="right", va="top", fontsize=N.PT_TICK, color=N.ACCENT)
+    ax.set_xlabel("Workforce skill variety (bits)")
+    ax.set_ylabel("Marginal effect on the youth\n"
+                  "employment share (p.p.)")
+    _rug(ax, d.Variety.to_numpy())
 
+    # ---- b: the two components, per bit, over their observed support ------
     ax = axes[1]
     for key, col, lab, mu, sd in (
-            ("margin_rel", BLUE, "Related variety", S["mean_RelVar"],
+            ("margin_rel", N.BLUE, "Related", S["mean_RelVar"],
              S["sd_RelVar"]),
-            ("margin_unrel", GOLD, "Unrelated variety", S["mean_UnrelVar"],
+            ("margin_unrel", N.ORANGE, "Unrelated", S["mean_UnrelVar"],
              S["sd_UnrelVar"])):
-        rows = S[key]
-        x = mu + np.array([r["z"] for r in rows]) * sd
-        m = np.array([r["effect"] for r in rows])
-        se = np.array([r["se"] for r in rows])
+        rr = S[key]
+        x = mu + np.array([r["z"] for r in rr]) * sd
+        mm = np.array([r["effect"] for r in rr])
+        ss = np.array([r["se"] for r in rr])
         keep = x >= 0.0
-        ax.fill_between(x[keep], (m - 1.645 * se)[keep],
-                        (m + 1.645 * se)[keep], color=col, alpha=0.14, lw=0)
-        ax.plot(x[keep], m[keep], color=col, lw=1.4, label=lab)
-    ax.axhline(0.0, color=GREY, lw=0.8, ls=(0, (3, 2)))
+        ax.fill_between(x[keep], (mm - 1.645 * ss)[keep],
+                        (mm + 1.645 * ss)[keep], color=col, alpha=0.16, lw=0,
+                        zorder=1.5)
+        ax.plot(x[keep], mm[keep], color=col, lw=1.1, zorder=2)
+        xe, ye = x[keep][-1], mm[keep][-1]
+        ax.annotate(lab, xy=(xe, ye), xytext=(xe - 0.08, ye + 0.06), color=col,
+                    fontsize=N.PT_TICK, ha="right", va="bottom",
+                    annotation_clip=False)
+    N.zeroline(ax)
+    ax.set_xlim(0.0, 3.05)
     ax.set_xlabel("Variety component (bits)")
-    ax.set_xlim(0.0, 2.4)
-    ax.tick_params(direction="in", length=2.6)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    ax.legend(loc="lower right", frameon=True)
-    ax.text(0.03, 0.93, "(b)", transform=ax.transAxes, fontsize=7.6,
-            ha="left", va="top")
+    ax.set_ylabel("Marginal effect on the youth\n"
+                  "employment share (p.p.)")
+    ax.text(0.97, 0.05, "slope ratio %.2f" % S["ratio_ru"],
+            transform=ax.transAxes, ha="right", va="bottom",
+            fontsize=N.PT_TICK, color=N.INK)
 
-    fig.subplots_adjust(wspace=0.30)
-    fig.savefig(os.path.join(FIG, "figure2_margins.png"))
-    plt.close(fig)
+    N.panel(fig, axes[0], "a", dx=-15.0)
+    N.panel(fig, axes[1], "b", dx=-15.0)
+    return N.save(fig, os.path.join(FIG, "figure2_margins"))
 
 
 # ===========================================================================
 def figure3_threshold(S):
     """The requisite-variety threshold and the regime coefficients."""
     T = S["thr"]
-    fig, axes = plt.subplots(1, 2, figsize=(W, W * 0.50))
+    fig = N.figure(N.TEXT, 58.0)
+    ax1 = N.axes_mm(fig, 18.0, 15.0, 57.0, 38.0)
+    ax2 = N.axes_mm(fig, 93.0, 15.0, 36.0, 38.0)
 
-    ax = axes[0]
+    # ---- a: the likelihood-ratio profile ---------------------------------
+    ax = ax1
     g = np.array(T["grid"])
     lr = np.array(T["lr"])
     ok = np.isfinite(lr)
-    ax.plot(g[ok], lr[ok], color=BLUE, lw=1.3)
-    ax.axhline(T["crit"], color=RED, lw=1.0, ls=(0, (5, 2)))
-    ax.axvspan(T["ci_low"], T["ci_high"], color=RED, alpha=0.10, lw=0)
-    ax.axvline(T["gamma"], color=RED, lw=1.0)
-    ax.set_xlabel("Candidate threshold (bits)")
-    ax.set_ylabel("Likelihood-ratio statistic")
+    ax.axvspan(T["ci_low"], T["ci_high"], color=N.ACCENT, alpha=0.10, lw=0,
+               zorder=0.4)
+    ax.plot(g[ok], lr[ok], color=N.BLUE, lw=1.0, zorder=2)
+    ax.axhline(T["crit"], color=N.ACCENT, lw=0.7, ls=(0, (3.0, 1.8)),
+               zorder=1.2)
+    ax.axvline(T["gamma"], color=N.ACCENT, lw=0.7, zorder=1.4)
     ax.set_xlim(g.min(), g.max())
-    ax.tick_params(direction="in", length=2.6)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    ax.text(0.03, 0.27, "95%% critical\nvalue = %.2f" % T["crit"],
-            transform=ax.transAxes, ha="left", va="bottom", fontsize=7.0,
-            color=RED)
-    ax.set_title("(a)", loc="left", fontsize=7.6, pad=3.0)
+    ax.set_xlabel("Candidate threshold in workforce\nskill variety (bits)")
+    ax.set_ylabel("Likelihood ratio")
+    ax.text(0.40, 0.88, "95%% critical value %.2f" % T["crit"],
+            transform=ax.transAxes, ha="left", va="bottom",
+            fontsize=N.PT_TICK, color=N.ACCENT,
+            bbox=dict(facecolor="white", edgecolor="none", pad=1.0))
+    ax.text(0.40, 0.80,
+            "$\\hat{\\gamma}$ = %.2f  [%.2f, %.2f]"
+            % (T["gamma"], T["ci_low"], T["ci_high"]),
+            transform=ax.transAxes, ha="left", va="bottom",
+            fontsize=N.PT_TICK, color=N.ACCENT,
+            bbox=dict(facecolor="white", edgecolor="none", pad=1.0))
 
-    ax = axes[1]
-    pts = [(0, T["b_low"], T["se_low"], "Variety $\\leq\\ \\hat{\\gamma}$"),
-           (1, T["b_high"], T["se_high"], "Variety $>\\ \\hat{\\gamma}$")]
+    # ---- b: the regime coefficients --------------------------------------
+    ax = ax2
+    pts = [(0.0, T["b_low"], T["se_low"], "below $\\hat{\\gamma}$"),
+           (1.0, T["b_high"], T["se_high"], "above $\\hat{\\gamma}$")]
     for x, b, se, lab in pts:
-        ax.errorbar(x, b, yerr=1.96 * se, fmt="o", ms=4.2, color=BLUE,
-                    ecolor=BLUE, elinewidth=1.1, capsize=3.0)
-    ax.axhline(0.0, color=GREY, lw=0.8, ls=(0, (3, 2)))
-    ax.set_xticks([0, 1])
+        ax.plot([x, x], [b - 1.96 * se, b + 1.96 * se], color=N.BLUE, lw=1.0,
+                solid_capstyle="butt", zorder=2)
+        ax.plot([x], [b], marker="o", ms=3.4, color=N.BLUE, mec="white",
+                mew=0.5, zorder=3)
+        ax.annotate(N.num(b, 2), xy=(x, b), xytext=(x + 0.16, b),
+                    fontsize=N.PT_TICK, color=N.BLUE, ha="left", va="center")
+    N.zeroline(ax)
+    ax.set_xticks([0.0, 1.0])
     ax.set_xticklabels([p[3] for p in pts])
-    ax.set_xlim(-0.55, 1.55)
-    ax.set_ylabel("Effect of the shock (p.p.)")
-    ax.tick_params(direction="in", length=2.6)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    ax.set_title("(b)", loc="left", fontsize=7.6, pad=3.0)
+    ax.set_xlim(-0.45, 1.62)
+    ax.set_xlabel("Regime")
+    ax.set_ylabel("Effect on the youth\nemployment share (p.p.)")
 
-    fig.subplots_adjust(wspace=0.32)
-    fig.savefig(os.path.join(FIG, "figure3_threshold.png"))
-    plt.close(fig)
+    N.panel(fig, ax1, "a", dx=-15.0)
+    N.panel(fig, ax2, "b", dx=-15.0)
+    return N.save(fig, os.path.join(FIG, "figure3_threshold"))
 
 
 if __name__ == "__main__":
     S = load()
-    figure1_framework()
-    figure2_margins(S)
-    figure3_threshold(S)
+    for out in (figure1_framework(), figure2_margins(S),
+                figure3_threshold(S)):
+        print(" ", os.path.basename(out[0]))
     print("figures written to", FIG)

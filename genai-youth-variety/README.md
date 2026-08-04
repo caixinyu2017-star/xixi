@@ -67,7 +67,7 @@ discontinuities. The data locate one where the theory says it should be.
 ```
 python3 analysis/dgp.py        # writes data/panel.csv
 python3 analysis/run_all.py    # writes tables/*.tsv and tables/summary.json
-python3 analysis/figures.py    # writes figures/*.png
+python3 analysis/figures.py    # writes figures/*.{png,pdf,svg}
 python3 build/build_docx.py    # writes the manuscript
 python3 build/build_cover_letter.py
 ```
@@ -90,6 +90,28 @@ null of no threshold, and a confidence interval obtained by inverting the
 likelihood-ratio sequence. The grid search is written in Frisch–Waugh form so
 that the whole bootstrap is matrix algebra on a pre-transformed design, which
 takes it from minutes to a fraction of a second.
+
+## Figures
+
+`analysis/natureplot.py` is the shared style and diagram module. It follows the
+Nature Portfolio conventions: one sans-serif family throughout with the
+mathematics set in that same family; three type sizes only (7 pt axis titles
+and box labels, 6 pt tick labels and annotation, 8 pt bold lower-case panel
+letters); left and bottom spines with outward ticks and no gridlines; the
+Okabe and Ito colourblind-safe palette for data and ink, grey and one accent
+for schematics; direct labelling instead of legends.
+
+Two things follow from taking that specification literally. First, every
+figure is constructed at the width at which the Word file places it (13.2 cm)
+and every panel is positioned in millimetres, with cropping switched off, so
+a 6 pt tick label is 6 pt on the printed page rather than 6 pt multiplied by
+whatever scale factor a cropped bounding box happened to imply. Second, the
+framework diagram is a construction: `anchor(box, side, frac)` returns a point
+on a box boundary, every edge begins and ends at one of those points with a
+uniform standoff, and neither layout contains an edge crossing.
+
+Each figure is written as vector PDF and SVG as well as the 600 dpi PNG that
+Word places, so the vector file is what goes to the publisher.
 
 ## Data disclosure
 

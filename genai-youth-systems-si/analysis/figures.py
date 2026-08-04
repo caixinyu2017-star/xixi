@@ -1,9 +1,23 @@
 # -*- coding: utf-8 -*-
 """The three figures reported in the manuscript.
 
-Layout rule applied throughout: every label, arrow and legend is placed in a
-region of the canvas that no other element occupies, so nothing is ever drawn
-over anything else.
+Drawn to the Nature Portfolio conventions encoded in ``natureplot``: a single
+sans-serif family at fixed print sizes, bold lower-case panel letters, left and
+bottom spines only with outward ticks, the Okabe and Ito colourblind-safe
+palette, direct labelling in place of legends, and vector output alongside the
+raster used for placement in the Word file.
+
+Every figure is built at the width at which the Word file places it, and every
+panel is positioned in millimetres, so a 6 pt tick label is 6 pt on the printed
+page rather than 6 pt multiplied by whatever scale factor a cropped bounding
+box happened to imply.
+
+Two further habits are borrowed from the journal. Where a figure carries a
+quantitative claim the number is written into the panel, so a reader takes the
+result from the figure rather than from the caption. And where an effect is
+plotted against a moderator the observed distribution of that moderator is
+shown underneath it, so the reader can see over what range the estimate is
+supported.
 """
 from __future__ import annotations
 
@@ -11,36 +25,19 @@ import json
 import os
 
 import numpy as np
-import matplotlib
+import pandas as pd
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Circle
+import natureplot as N
+
+N.use()
+
+import matplotlib.pyplot as plt  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TAB = os.path.abspath(os.path.join(HERE, "..", "tables"))
 FIG = os.path.abspath(os.path.join(HERE, "..", "figures"))
+DATA = os.path.abspath(os.path.join(HERE, "..", "data"))
 os.makedirs(FIG, exist_ok=True)
-
-CM = 1 / 2.54
-W = 13.8 * CM
-
-plt.rcParams.update({
-    "font.family": "serif", "font.serif": ["DejaVu Serif"],
-    "font.size": 8.0, "axes.labelsize": 8.0, "legend.fontsize": 7.2,
-    "xtick.labelsize": 7.2, "ytick.labelsize": 7.2,
-    "axes.linewidth": 0.7, "xtick.major.width": 0.7,
-    "ytick.major.width": 0.7, "lines.linewidth": 1.3,
-    "legend.framealpha": 1.0, "legend.fancybox": False,
-    "legend.edgecolor": "0.75", "legend.borderpad": 0.35,
-    "figure.dpi": 400, "savefig.dpi": 400,
-    "savefig.bbox": "tight", "savefig.pad_inches": 0.04,
-})
-
-INK = "#1f1f1f"
-GREY = "#6f6f6f"
-BLUE = "#2f5d8c"
-RED = "#a6362d"
 
 
 def load():
@@ -48,153 +45,210 @@ def load():
         return json.load(fh)
 
 
+def _rug(ax, values, frac=0.075, color=N.FAINT):
+    """A shallow density strip along the foot of the axes showing the support
+    of the moderator. It occupies the bottom ``frac`` of the panel and is drawn
+    beneath everything else."""
+    lo, hi = ax.get_ylim()
+    span = hi - lo
+    ax.set_ylim(lo - frac * span * 1.35, hi)
+    lo2, hi2 = ax.get_ylim()
+    xs = np.linspace(*ax.get_xlim(), 160)
+    kde = np.histogram(values, bins=xs)[0].astype(float)
+    kde = np.convolve(kde, np.ones(9) / 9.0, mode="same")
+    if kde.max() > 0:
+        kde = kde / kde.max()
+    base = lo2 + 0.012 * (hi2 - lo2)
+    ax.fill_between(xs[:-1], base, base + kde * frac * span,
+                    color=color, lw=0, zorder=0.2)
+
+
 # ===========================================================================
 def figure1_framework():
-    """Boxes and arrows: one arrow for each numbered hypothesis."""
-    fig, ax = plt.subplots(figsize=(W, W * 0.72))
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0.1, 8.0)
-    ax.axis("off")
+    """The conceptual framework.
 
-    def box(cx, cy, w, h, lines, fc="white", ec=INK, lw=0.9, fs=7.4):
-        ax.add_patch(FancyBboxPatch(
-            (cx - w / 2, cy - h / 2), w, h,
-            boxstyle="round,pad=0.02,rounding_size=0.12", fc=fc, ec=ec,
-            lw=lw, zorder=3))
-        ax.text(cx, cy, "\n".join(lines), ha="center", va="center",
-                fontsize=fs, color=INK, zorder=4, linespacing=1.35)
+    The layout is a construction rather than a drawing. The canvas is one grid
+    unit to the millimetre; every box is placed on a five-row grid, and every
+    edge begins and ends at a named point on a box boundary, so no endpoint is
+    a hand-typed coordinate and no arrow touches the box it points at.
 
-    def arrow(p0, p1, ls="-", color=INK, lw=1.0, rad=0.0, zo=2):
-        ax.add_patch(FancyArrowPatch(
-            p0, p1, arrowstyle="-|>", mutation_scale=8.5, lw=lw,
-            linestyle=ls, color=color, shrinkA=0, shrinkB=0, zorder=zo,
-            connectionstyle="arc3,rad=%.2f" % rad))
+    The grammar is carried by line style. A solid arrow is a path the model
+    estimates; a grey line ending in a disc on another path is a condition
+    governing that path; a dashed arrow is the lagged return; and the double
+    stroke is the one-year delay on that return. The two return arcs merge
+    onto a single bus above the diagram, because they act on the same driver,
+    and the loop they close is named once rather than labelled twice.
 
-    # ------------------------------------------------------------- the chain
-    box(1.55, 4.30, 2.75, 1.06, ["Generative AI", "adoption (GenAI)"],
-        fc="#eef2f7")
-    box(5.05, 5.95, 2.60, 0.95, ["Training investment", "(Train)"])
-    box(5.05, 2.70, 2.60, 0.95, ["Routine task base", "(Routine)"])
-    box(8.50, 4.30, 2.75, 1.06, ["Youth employment", "share (Youth)"],
-        fc="#eef2f7")
+    The layout has no edge crossings.
+    """
+    W, H = N.TEXT, 87.0
+    fig, ax = N.canvas(W, H)
 
-    # H1, the direct path
-    arrow((2.95, 4.30), (7.10, 4.30), lw=1.2)
-    ax.text(5.05, 4.44, "H1 (\u2212)", ha="center", va="bottom", fontsize=7.4)
+    Y_PATH, Y_ROU, Y_TRA = 45.0, 59.0, 71.0
+    Y_COND, Y_BUS, Y_KEY = 19.0, 82.0, 3.5
 
-    # H2 and the training return
-    arrow((2.62, 4.85), (3.73, 5.55))
-    ax.text(4.12, 4.94, "H2 (\u2212)", ha="center", va="bottom", fontsize=7.2)
-    arrow((6.37, 5.58), (7.90, 4.86))
-    ax.text(7.52, 5.40, "(+)", ha="center", va="center", fontsize=7.2)
+    gen = N.dbox(ax, 21, Y_PATH, 34, 13, ["Generative AI", "adoption"],
+                 focal=True)
+    you = N.dbox(ax, 111, Y_PATH, 34, 13, ["Youth employment", "share"],
+                 focal=True)
+    rou = N.dbox(ax, 66, Y_ROU, 34, 9, ["Routine task base"], edge=N.INK)
+    tra = N.dbox(ax, 66, Y_TRA, 34, 9, ["Training investment"], edge=N.INK)
+    olc = N.dbox(ax, 30, Y_COND, 46, 10,
+                 ["Organizational learning", "capability"])
+    rlc = N.dbox(ax, 88, Y_COND, 42, 10, ["Relative labor cost"])
 
-    # H3 and the routine return
-    arrow((2.62, 3.75), (3.73, 3.05))
-    ax.text(4.12, 3.44, "H3 (\u2212)", ha="center", va="top", fontsize=7.2)
-    arrow((6.37, 3.07), (7.90, 3.76))
-    ax.text(7.52, 3.22, "(+)", ha="center", va="center", fontsize=7.2)
+    # ---- the direct path -------------------------------------------------
+    N.dpath(ax, N.anchor(gen, "r"), N.anchor(you, "l"))
+    N.hlabel(ax, 85.0, Y_PATH, "H1 (−)")
 
-    # ------------------------------------------------------- the moderators
-    box(2.55, 0.80, 3.20, 0.95,
-        ["Organizational learning", "capability (Absorp)"], fc="#f7f4ee",
-        ec=GREY)
-    box(7.55, 0.80, 3.20, 0.95, ["Relative labor cost", "(Wage)"],
-        fc="#f7f4ee", ec=GREY)
-    arrow((2.55, 1.28), (3.32, 4.26), color=GREY, lw=0.9)
-    arrow((7.55, 1.28), (6.78, 4.26), color=GREY, lw=0.9)
-    ax.text(2.58, 2.45, "H4a (+)", ha="right", va="center", fontsize=7.2,
-            color=GREY)
-    ax.text(7.52, 2.45, "H4b (\u2212)", ha="left", va="center", fontsize=7.2,
-            color=GREY)
+    # ---- the two mediating channels, stacked above the direct path -------
+    for src_frac, box, dst_frac, lab in (
+            (0.529, tra, 0.389, "H2 (−)"),
+            (0.794, rou, 0.389, "H3 (−)")):
+        a, b = N.anchor(gen, "t", src_frac), N.anchor(box, "l", dst_frac)
+        N.dpath(ax, a, b, lw=N.W_SUB)
+        N.hlabel(ax, *N.mid(a, b), lab)
+    for box, src_frac, side, dst_frac in (
+            (tra, 0.389, "t", 0.294),
+            (rou, 0.389, "l", 0.654)):
+        a, b = N.anchor(box, "r", src_frac), N.anchor(you, side, dst_frac)
+        N.dpath(ax, a, b, lw=N.W_SUB)
+        N.hlabel(ax, *N.mid(a, b), "(+)")
 
-    # ---------------------------------------------------- the feedback loop
-    ax.plot([8.50, 8.50], [4.84, 7.25], ls=(0, (4, 2)), color=RED, lw=1.1,
-            zorder=2)
-    ax.plot([8.50, 1.55], [7.25, 7.25], ls=(0, (4, 2)), color=RED, lw=1.1,
-            zorder=2)
-    arrow((1.55, 7.25), (1.55, 4.86), ls=(0, (4, 2)), color=RED, lw=1.1)
-    for dx in (-0.09, 0.09):
-        ax.plot([6.55 + dx, 6.55 + dx], [7.07, 7.43], color=RED, lw=1.1,
-                zorder=3)
-    ax.text(6.55, 6.92, "delay", ha="center", va="top", fontsize=7.0,
-            color=RED)
-    ax.text(7.75, 7.38, "H5 (\u2212)", ha="center", va="bottom", fontsize=7.4,
-            color=RED)
+    # ---- the two boundary conditions, entering the clear lower half ------
+    for box, frac, x, lab in ((olc, 0.891, 48.0, "H4a (+)"),
+                              (rlc, 0.214, 76.0, "H4b (−)")):
+        N.dcond(ax, N.anchor(box, "t", frac), (x, Y_PATH))
+        ax.text(x + 2.0, 34.0, lab, fontsize=N.PT_TICK, color=N.GREY,
+                ha="left", va="center")
 
-    arrow((3.90, 6.43), (1.92, 4.88), ls=(0, (4, 2)), color=RED, lw=1.1,
-          rad=0.32)
-    ax.text(3.05, 6.62, "H5 (\u2212)", ha="center", va="bottom", fontsize=7.4,
-            color=RED)
+    # ---- the return arcs, merging onto one bus ---------------------------
+    for box, frac in ((you, 0.706), (tra, 0.324)):
+        p = N.anchor(box, "t", frac)
+        ax.plot([p[0], p[0]], [p[1] + 0.6, Y_BUS], color=N.ACCENT,
+                lw=N.W_FEED, ls=N.DASH, zorder=2)
+    xy = N.anchor(you, "t", 0.706)[0]
+    xt = N.anchor(tra, "t", 0.324)[0]
+    ax.plot([xy, 8.0], [Y_BUS, Y_BUS], color=N.ACCENT, lw=N.W_FEED,
+            ls=N.DASH, zorder=2)
+    N.dpath(ax, (48.0, Y_BUS), (42.0, Y_BUS), color=N.ACCENT, lw=N.W_FEED,
+            shrink=0.0)                       # the direction of travel
+    N.junction(ax, xt, Y_BUS)
+    N.dpath(ax, (8.0, Y_BUS), N.anchor(gen, "t", 0.118), color=N.ACCENT,
+            lw=N.W_FEED, ls=N.DASH, shrink=0.0)
+    N.dgate(ax, 8.0, 60.0, angle=0.0)
+    N.hlabel(ax, 95.0, Y_BUS, "H5 (−)", color=N.ACCENT)
+    ax.text(20.0, Y_BUS + 1.4, "reinforcing loop R1", ha="left", va="bottom",
+            fontsize=N.PT_TICK, color=N.ACCENT, fontstyle="italic")
 
-    ax.add_patch(Circle((4.35, 7.25), 0.29, fc="white", ec=RED, lw=1.0,
-                        zorder=4))
-    ax.text(4.35, 7.25, "R1", ha="center", va="center", fontsize=7.2,
-            color=RED, zorder=5)
+    N.keystrip(ax, Y_KEY, [4.0, 34.0, 66.0, 98.0], [
+        ("solid", "estimated path"),
+        ("cond", "moderation"),
+        ("dashed", "lagged feedback"),
+        ("gate", "one-year delay"),
+    ])
 
-    fig.savefig(os.path.join(FIG, "figure1_framework.png"))
-    plt.close(fig)
+    return N.save(fig, os.path.join(FIG, "figure1_framework"))
 
 
 # ===========================================================================
 def figure2_moderation(S):
-    """Marginal effect of adoption across each moderator."""
-    fig, axes = plt.subplots(1, 2, figsize=(W, W * 0.46), sharey=True)
+    """Marginal effect of adoption on the youth employment share across each
+    boundary condition, with the observed support of the moderator beneath."""
+    d = pd.read_csv(os.path.join(DATA, "panel.csv"))
+    fig = N.figure(N.TEXT, 58.0)
+    axes = N.row(fig, 2, left=17.0, bottom=15.0, height=38.0, gutter=13.0)
+
     panels = [
-        (S["margin_absorp"], "Organizational learning capability", "(a)"),
-        (S["margin_wage"], "Relative labor cost", "(b)"),
+        (S["margin_absorp"], d.Absorp_z, "Organizational learning capability",
+         N.BLUE, "a"),
+        (S["margin_wage"], d.Wage_z, "Relative labor cost", N.VERMILION, "b"),
     ]
-    for ax, (rows, xlab, tag) in zip(axes, panels):
+    drawn = []
+    for ax, (rows, support, xlab, col, letter) in zip(axes, panels):
         z = np.array([r["z"] for r in rows])
         m = np.array([r["effect"] for r in rows])
         se = np.array([r["se"] for r in rows])
-        ax.fill_between(z, m - 1.645 * se, m + 1.645 * se, color=BLUE,
-                        alpha=0.16, lw=0)
-        ax.plot(z, m, color=BLUE, lw=1.4)
-        ax.axhline(0.0, color=GREY, lw=0.8, ls=(0, (3, 2)))
-        ax.set_xlabel(xlab)
+        ax.fill_between(z, m - 1.645 * se, m + 1.645 * se, color=col,
+                        alpha=0.20, lw=0, zorder=1.5)
+        ax.plot(z, m, color=col, lw=1.1, zorder=2)
+        N.zeroline(ax)
         ax.set_xlim(z.min(), z.max())
-        ax.tick_params(direction="in", length=2.6)
-        for s in ("top", "right"):
-            ax.spines[s].set_visible(False)
-        ax.text(0.03, 0.06, tag, transform=ax.transAxes, fontsize=7.6,
-                ha="left", va="bottom")
-    axes[0].set_ylabel("Marginal effect of GenAI on the\nyouth employment share (p.p.)")
-    fig.subplots_adjust(wspace=0.14)
-    fig.savefig(os.path.join(FIG, "figure2_moderation.png"))
-    plt.close(fig)
+        ax.set_xlabel(xlab + "\n(standard deviations from the mean)")
+        lo = float(m[np.argmin(np.abs(z + 1.0))])
+        hi = float(m[np.argmin(np.abs(z - 1.0))])
+        for zz, vv in ((-1.0, lo), (1.0, hi)):
+            ax.plot([zz], [vv], marker="o", ms=2.6, color=col, zorder=3,
+                    mec="white", mew=0.4)
+        drawn.append((ax, support.to_numpy(), col, lo, hi))
+
+    # one shared vertical range, fixed before anything is annotated, so the
+    # two panels are directly comparable and the support strips share a base
+    top = max(a.get_ylim()[1] for a, *_ in drawn)
+    bot = min(a.get_ylim()[0] for a, *_ in drawn)
+    for ax, support, col, lo, hi in drawn:
+        ax.set_ylim(bot, top)
+        ax.annotate(N.num(lo, 2), xy=(-1.0, lo),
+                    xytext=(-0.82, lo - 0.055 * (top - bot)),
+                    ha="left", va="top", fontsize=N.PT_TICK, color=col)
+        ax.annotate(N.num(hi, 2), xy=(1.0, hi),
+                    xytext=(0.82, hi + 0.055 * (top - bot)),
+                    ha="right", va="bottom", fontsize=N.PT_TICK, color=col)
+        _rug(ax, support)
+    axes[1].set_yticklabels([])
+
+    axes[0].set_ylabel("Marginal effect on the youth\n"
+                       "employment share (p.p.)")
+    N.panel(fig, axes[0], "a", dx=-14.0)
+    N.panel(fig, axes[1], "b", dx=-6.0)
+    return N.save(fig, os.path.join(FIG, "figure2_moderation"))
 
 
 # ===========================================================================
 def figure3_irf(S):
     """Orthogonalized impulse responses of the three-variable system."""
-    keys = [("Youth<-GenAI", "Youth employment share to an adoption shock"),
-            ("Train<-GenAI", "Training investment to an adoption shock"),
-            ("GenAI<-Train", "Adoption to a training shock"),
-            ("GenAI<-Youth", "Adoption to a youth employment shock")]
-    fig, axes = plt.subplots(2, 2, figsize=(W, W * 0.78))
-    for ax, (k, title) in zip(axes.ravel(), keys):
+    keys = [("Youth<-GenAI", "Youth employment share\nto an adoption shock",
+             "percentage points", "a"),
+            ("Train<-GenAI", "Training investment\nto an adoption shock",
+             "log points", "b"),
+            ("GenAI<-Train", "Adoption\nto a training shock",
+             "index points", "c"),
+            ("GenAI<-Youth", "Adoption\nto a youth employment shock",
+             "index points", "d")]
+    fig = N.figure(N.TEXT, 88.0)
+    axes = [N.axes_mm(fig, x, y, 48.0, 24.5)
+            for y in (53.5, 12.0) for x in (16.0, 81.0)]
+
+    for ax, (k, title, unit, letter) in zip(axes, keys):
         r = S["irf"][k]
         h = np.arange(len(r["m"]))
-        ax.fill_between(h, r["lo"], r["hi"], color=BLUE, alpha=0.16, lw=0)
-        ax.plot(h, r["m"], color=BLUE, lw=1.4)
-        ax.axhline(0.0, color=GREY, lw=0.8, ls=(0, (3, 2)))
-        ax.set_title(title, fontsize=7.4, pad=3.5)
+        m = np.array(r["m"])
+        ax.fill_between(h, r["lo"], r["hi"], color=N.BLUE, alpha=0.20, lw=0,
+                        zorder=1.5)
+        ax.plot(h, m, color=N.BLUE, lw=1.1, zorder=2)
+        N.zeroline(ax)
         ax.set_xlim(0, h.max())
-        ax.tick_params(direction="in", length=2.6)
-        for s in ("top", "right"):
-            ax.spines[s].set_visible(False)
-    for ax in axes[1]:
+        ax.set_title(title, fontsize=N.PT_TICK, loc="left", pad=2.5)
+        ax.set_ylabel(unit, fontsize=N.PT_TICK)
+        N.panel(fig, ax, letter, dx=-13.0, dy=5.6)
+
+        # mark the extremum and state it in the quadrant the curve vacates,
+        # so the number is readable without a caption and collides with
+        # nothing
+        j = int(np.argmax(np.abs(m)))
+        ax.plot([h[j]], [m[j]], marker="o", ms=2.6, color=N.BLUE,
+                mec="white", mew=0.4, zorder=3)
+        ax.text(0.97, 0.08, "peak %s at year %d" % (N.num(m[j]), h[j]),
+                transform=ax.transAxes, ha="right", va="bottom",
+                fontsize=N.PT_TICK, color=N.BLUE)
+
+    for ax in axes[2:]:
         ax.set_xlabel("Years after the shock")
-    for ax in axes[:, 0]:
-        ax.set_ylabel("Response")
-    fig.subplots_adjust(hspace=0.42, wspace=0.26)
-    fig.savefig(os.path.join(FIG, "figure3_irf.png"))
-    plt.close(fig)
+    return N.save(fig, os.path.join(FIG, "figure3_irf"))
 
 
 if __name__ == "__main__":
     S = load()
-    figure1_framework()
-    figure2_moderation(S)
-    figure3_irf(S)
+    for out in (figure1_framework(), figure2_moderation(S), figure3_irf(S)):
+        print(" ", os.path.basename(out[0]))
     print("figures written to", FIG)

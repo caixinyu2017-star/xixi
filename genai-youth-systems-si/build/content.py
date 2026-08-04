@@ -516,9 +516,10 @@ BLOCKS = [
      "understanding the relationships between the variables under "
      "investigation. Solid arrows represent the forward chain from adoption "
      "to the youth employment share, directly and through the two mediators; "
-     "gray arrows represent the two boundary conditions; and dashed arrows "
-     "represent the return arcs that close the reinforcing loop, marked R1, "
-     "with the double stroke denoting the one-period delay on the return."),
+     "the gray lines terminating in a disc on the direct path represent the "
+     "two boundary conditions that govern it; and the dashed arcs represent "
+     "the return paths that close the reinforcing loop, marked R1, with the "
+     "double stroke denoting the one-year delay on the return."),
 
     ("fig", "fig1"),
 
