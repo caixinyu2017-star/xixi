@@ -980,11 +980,12 @@ BLOCKS = [
      f"below the mean to {S['margin_wage'][12]['effect']:.3f} at one standard "
      "deviation above it. The effect remains negative and significant across "
      "the whole observed range of both moderators, so neither condition "
-     "eliminates the displacement; what they change is its size. The strip "
-     "beneath each panel of Figure 2 shows the observed density of the "
-     "moderator on that axis, so the range over which the estimate is "
-     "supported can be read from the figure rather than taken on trust; the "
-     "estimate is drawn only over that range."),
+     "eliminates the displacement; what they change is its size. Figure 2 "
+     "plots the two marginal effect schedules with ninety percent confidence "
+     "bands. The strip beneath each panel shows the observed density of the "
+     "moderator over the plotted range, and each schedule is drawn only "
+     "where the moderator is observed, so how far the estimate is supported "
+     "can be read from the figure rather than taken on trust."),
 
     ("fig", "fig2"),
 
@@ -1072,10 +1073,12 @@ BLOCKS = [
      f"the youth employment share by {a('impact', 3)} percentage points on "
      "impact, deepens to its trough in the following year, and decays "
      "thereafter without changing sign; the response of training investment "
-     "follows the same shape. The lower panels display the return arcs: an "
+     "is largest on impact and decays monotonically thereafter. The lower "
+     "panels display the return arcs: an "
      "innovation that raises training investment, or that raises the youth "
      "employment share, lowers adoption from the following year onward, and "
-     "the bands exclude zero over the whole visible horizon."),
+     "the bands exclude zero from year one onward; the year-zero response is "
+     "zero by construction under the recursive ordering of Section 3.6."),
 
     ("fig", "fig3"),
 

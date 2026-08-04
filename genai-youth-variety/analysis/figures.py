@@ -115,7 +115,7 @@ def figure1_framework():
 
     # ---- variety also raises the level of the outcome --------------------
     N.dpath(ax, N.anchor(var, "r"), N.anchor(you, "t", 0.5), rad=-0.16)
-    N.hlabel(ax, 103.0, 70.0, "H1 (+)")
+    N.hlabel(ax, 104.5, 70.0, "H1 (+)")
 
     # ---- the two enabling conditions, entering from the clear left -------
     for box, lab in ((dig, "H6a (+)"), (sla, "H6b (+)")):
@@ -127,7 +127,7 @@ def figure1_framework():
     for box, src_frac, dst_frac in ((red, 0.28, 0.17), (chu, 0.08, 0.5)):
         a, b = N.anchor(sho, "b", src_frac), N.anchor(box, "l", 0.5)
         N.dpath(ax, a, b, lw=N.W_SUB)
-        N.hlabel(ax, *N.mid(a, b), "H4") if box is red else None
+        N.hlabel(ax, *N.mid(a, b), "H4")
         c, d = N.anchor(box, "r", 0.5), N.anchor(you, "b", dst_frac)
         N.dpath(ax, c, d, lw=N.W_SUB)
 
@@ -156,8 +156,8 @@ def figure2_margins(S):
     main, strip = [], []
     for i in range(2):
         x = 18.0 + i * (wide + 16.0)
-        st = N.axes_mm(fig, x, 13.0, wide, 3.2)
-        mn = N.axes_mm(fig, x, 16.7, wide, 32.5)
+        st = N.axes_mm(fig, x, 11.5, wide, 3.2)
+        mn = N.axes_mm(fig, x, 15.2, wide, 32.5)
         mn.sharex(st)
         mn.tick_params(axis="x", labelbottom=False, length=0)
         mn.spines["bottom"].set_visible(False)
@@ -176,14 +176,17 @@ def figure2_margins(S):
     N.band(ax, z, m - 1.645 * se, m + 1.645 * se)
     ax.plot(z, m, color=N.BLUE, lw=1.1, zorder=2)
     N.zeroline(ax)
-    ax.axvline(T["gamma"], color=N.INK, lw=0.6, ls=(0, (1.0, 1.5)), zorder=1.2)
+    ax.axvline(T["gamma"], ymax=0.86, color=N.INK, lw=0.6,
+               ls=(0, (1.0, 1.5)), zorder=1.2)
 
     g = T["gamma"]
     eg = float(np.interp(g, z, m))
     ax.plot([g], [eg], marker="o", ms=3.0, color=N.BLUE, mec="white", mew=0.5,
             zorder=3)
+    # below and to the right of the marker: the schedule rises, so that
+    # quadrant is empty, and no halo is needed to punch a hole in the band
     ax.annotate("%s p.p." % N.num(eg, 2), xy=(g, eg),
-                xytext=(-6, -7), textcoords="offset points", ha="right",
+                xytext=(4, -6), textcoords="offset points", ha="left",
                 va="top", fontsize=N.PT_TICK, color=N.INK)
     zc = S["zero_variety"]
     ax.plot([zc], [0.0], marker="o", ms=3.2, mfc="white", mec=N.BLUE, mew=0.7,
@@ -191,7 +194,7 @@ def figure2_margins(S):
     ax.annotate("zero at %.2f bits" % zc, xy=(zc, 0.0), xytext=(-6, 5),
                 textcoords="offset points", ha="right", va="bottom",
                 fontsize=N.PT_TICK, color=N.INK)
-    ax.annotate("γ̂ = %.2f   95%% CI %.2f–%.2f"
+    ax.annotate(r"$\hat{\gamma}$ = %.2f   95%% CI %.2f–%.2f"
                 % (g, T["ci_low"], T["ci_high"]),
                 xy=((T["ci_low"] + T["ci_high"]) / 2, 1.01),
                 xycoords=("data", "axes fraction"), ha="center", va="bottom",
@@ -225,9 +228,6 @@ def figure2_margins(S):
     N.zeroline(ax)
     ax.set_ylabel("Marginal effect on the youth\n"
                   "employment share (p.p.)")
-    ax.text(0.97, 0.05, "slope ratio %.2f" % S["ratio_ru"],
-            transform=ax.transAxes, ha="right", va="bottom",
-            fontsize=N.PT_TICK, color=N.INK)
     strip[1].set_xlabel("Variety component (bits)")
     _strip(strip[1])
 
@@ -254,10 +254,10 @@ def figure3_threshold(S):
     import matplotlib.ticker as mticker
 
     T = S["thr"]
-    H = 56.0
+    H = 50.0
     fig = N.figure(N.TEXT, H)
-    ax1 = N.axes_mm(fig, 18.0, 17.0, 56.0, 32.0)
-    ax2 = N.axes_mm(fig, 93.0, 17.0, 36.0, 32.0)
+    ax1 = N.axes_mm(fig, 18.0, 10.0, 56.0, 32.0)
+    ax2 = N.axes_mm(fig, 93.0, 10.0, 36.0, 32.0)
 
     # ---- a: the likelihood-ratio profile ---------------------------------
     ax = ax1
@@ -280,7 +280,7 @@ def figure3_threshold(S):
                 xy=(g.min(), T["crit"]), xytext=(2, 2),
                 textcoords="offset points", ha="left", va="bottom",
                 fontsize=N.PT_TICK, color=N.INK)
-    ax.annotate("γ̂ = %.2f   95%% CI %.2f–%.2f"
+    ax.annotate(r"$\hat{\gamma}$ = %.2f   95%% CI %.2f–%.2f"
                 % (T["gamma"], T["ci_low"], T["ci_high"]),
                 xy=((T["ci_low"] + T["ci_high"]) / 2, 1.01),
                 xycoords=("data", "axes fraction"), ha="center", va="bottom",
@@ -288,8 +288,8 @@ def figure3_threshold(S):
 
     # ---- b: the regime coefficients --------------------------------------
     ax = ax2
-    pts = [(0.0, T["b_low"], T["se_low"], "below γ̂"),
-           (1.0, T["b_high"], T["se_high"], "above γ̂")]
+    pts = [(0.0, T["b_low"], T["se_low"], r"below $\hat{\gamma}$"),
+           (1.0, T["b_high"], T["se_high"], r"above $\hat{\gamma}$")]
     for x, b, se, lab in pts:
         ax.plot([x, x], [b - 1.96 * se, b + 1.96 * se], color=N.BLUE, lw=1.0,
                 solid_capstyle="butt", zorder=2)

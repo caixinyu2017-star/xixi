@@ -362,14 +362,35 @@ def mid(p0, p1, dx=0.0, dy=0.0):
 
 
 def dpath(ax, p0, p1, color=INK, lw=W_PATH, rad=0.0, ls="-", head=True, z=2,
-          shrink=STAND):
+          shrink=STAND, shrinkA=None, shrinkB=None):
     """An estimated path. The standoff is uniform, so no arrow ever touches or
-    enters the box it points at."""
+    enters the box it points at.
+
+    The two ends can be set independently, for the case of a path that has to
+    butt another line at its tail while still standing off the box at its head.
+
+    A dashed path is drawn in two pieces, a dashed shaft and a solid head,
+    because matplotlib strokes the outline of the filled arrowhead with the
+    same dash pattern as the shaft and leaves the head visibly nibbled.
+    """
+    a = shrink if shrinkA is None else shrinkA
+    b = shrink if shrinkB is None else shrinkB
+    style = "-|>,head_length=3.0,head_width=1.9" if head else "-"
+    if head and ls != "-" and rad == 0.0:
+        import numpy as _np
+        v = _np.array(p1, float) - _np.array(p0, float)
+        q = tuple(_np.array(p1, float) - v / _np.hypot(*v) * 1.9)
+        ax.add_patch(FancyArrowPatch(
+            p0, q, arrowstyle="-", mutation_scale=1.0, linewidth=lw,
+            linestyle=ls, color=color, shrinkA=a, shrinkB=0.0, zorder=z))
+        ax.add_patch(FancyArrowPatch(
+            q, p1, arrowstyle=style, mutation_scale=1.0, linewidth=lw,
+            color=color, shrinkA=0.0, shrinkB=b, zorder=z))
+        return
     ax.add_patch(FancyArrowPatch(
-        p0, p1,
-        arrowstyle="-|>,head_length=3.0,head_width=1.9" if head else "-",
+        p0, p1, arrowstyle=style,
         mutation_scale=1.0, linewidth=lw, linestyle=ls, color=color,
-        shrinkA=shrink, shrinkB=shrink, zorder=z,
+        shrinkA=a, shrinkB=b, zorder=z,
         connectionstyle="arc3,rad=%.3f" % rad))
 
 
@@ -425,11 +446,8 @@ def keystrip(ax, y, cols, items, size=PT_TICK, dx=4.0, pad=1.6):
                 mutation_scale=1.0, linewidth=W_PATH, color=INK,
                 shrinkA=0, shrinkB=0, zorder=3))
         elif kind == "dashed":
-            ax.add_patch(FancyArrowPatch(
-                (x, y), (x + dx, y),
-                arrowstyle="-|>,head_length=3.0,head_width=1.9",
-                mutation_scale=1.0, linewidth=W_FEED, color=ACCENT,
-                linestyle=DASH, shrinkA=0, shrinkB=0, zorder=3))
+            dpath(ax, (x, y), (x + dx, y), color=ACCENT, lw=W_FEED, ls=DASH,
+                  shrink=0.0, z=3)
         elif kind == "cond":
             ax.plot([x, x + dx], [y - 0.9, y + 0.6], color=GREY, lw=W_COND,
                     zorder=3)

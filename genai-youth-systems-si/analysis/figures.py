@@ -114,10 +114,10 @@ def figure1_framework():
     ax.plot([xy, 8.0], [Y_BUS, Y_BUS], color=N.ACCENT, lw=N.W_FEED,
             ls=N.DASH, zorder=2)
     N.dpath(ax, (48.0, Y_BUS), (42.0, Y_BUS), color=N.ACCENT, lw=N.W_FEED,
-            shrink=0.0)                       # the direction of travel
+            ls=N.DASH, shrink=0.0)            # the direction of travel
     N.junction(ax, xt, Y_BUS)
     N.dpath(ax, (8.0, Y_BUS), N.anchor(gen, "t", 0.118), color=N.ACCENT,
-            lw=N.W_FEED, ls=N.DASH, shrink=0.0)
+            lw=N.W_FEED, ls=N.DASH, shrinkA=0.0, shrinkB=N.STAND)
     N.dgate(ax, 8.0, 60.0, angle=0.0)
     N.hlabel(ax, 95.0, Y_BUS, "H5 (−)", color=N.ACCENT)
     ax.text(20.0, Y_BUS + 1.4, "reinforcing loop R1", ha="left", va="bottom",
@@ -138,10 +138,11 @@ def _density(ax, values, color=None):
     """The observed support of the moderator, drawn in its own strip so that
     it never shares a scale with the estimate above it.
 
-    The kernel is evaluated over the full range of the data and only then
-    clipped to the axis, so nothing outside the plotted window is silently
-    binned out of existence and the profile does not taper at the edges for
-    want of observations that are in fact there.
+    The kernel is built from every observation and then evaluated over the
+    plotted window, so an observation outside the window still contributes to
+    the shape inside it. Binning to the axis instead, which is the obvious
+    shortcut, discards those observations outright and makes the profile taper
+    at the edges for want of data that is in fact there.
     """
     from scipy.stats import gaussian_kde
     lo, hi = ax.get_xlim()
@@ -174,8 +175,8 @@ def figure2_moderation(S):
     main, strip = [], []
     for i in range(2):
         x = 18.0 + i * (wide + 13.0)
-        st = N.axes_mm(fig, x, 13.0, wide, 3.2)
-        mn = N.axes_mm(fig, x, 16.7, wide, 32.5)
+        st = N.axes_mm(fig, x, 11.5, wide, 3.2)
+        mn = N.axes_mm(fig, x, 15.2, wide, 32.5)
         mn.sharex(st)
         # the strip carries the x axis for the pair, so the panel above it
         # keeps only its left spine and does not repeat the rule
@@ -197,8 +198,10 @@ def figure2_moderation(S):
         N.band(ax, z[keep], (m - 1.645 * se)[keep], (m + 1.645 * se)[keep])
         ax.plot(z[keep], m[keep], color=N.BLUE, lw=1.1, zorder=2)
         N.zeroline(ax)
-        ax.set_xlim(z[keep].min(), z[keep].max())
+        # set the ticks first: set_xticks unions the view interval, so an
+        # earlier set_xlim would be silently widened back out again
         ax.set_xticks([-2, -1, 0, 1, 2])
+        ax.set_xlim(-2.0, 2.0)
         ax.set_title(title, fontsize=N.PT_LABEL, loc="left", pad=3.0)
         lo = float(m[np.argmin(np.abs(z + 1.0))])
         hi = float(m[np.argmin(np.abs(z - 1.0))])
@@ -213,19 +216,25 @@ def figure2_moderation(S):
     bot = min(a.get_ylim()[0] for a, *_ in drawn)
     for ax, st, support, lo, hi in drawn:
         ax.set_ylim(bot, top)
+        # a falling schedule vacates the opposite pair of quadrants from a
+        # rising one, so the vertical side of each label follows the slope
+        up = hi >= lo
+        off = 0.06 * (top - bot)
         ax.annotate(N.num(lo, 2), xy=(-1.0, lo),
-                    xytext=(-0.85, lo - 0.06 * (top - bot)),
-                    ha="left", va="top", fontsize=N.PT_TICK, color=N.INK)
+                    xytext=(-0.85, lo - off if up else lo + off),
+                    ha="left", va="top" if up else "bottom",
+                    fontsize=N.PT_TICK, color=N.INK)
         ax.annotate(N.num(hi, 2), xy=(1.0, hi),
-                    xytext=(0.85, hi + 0.06 * (top - bot)),
-                    ha="right", va="bottom", fontsize=N.PT_TICK, color=N.INK)
+                    xytext=(0.85, hi + off if up else hi - off),
+                    ha="right", va="bottom" if up else "top",
+                    fontsize=N.PT_TICK, color=N.INK)
         N.snap(ax, x=False)
         _density(st, support)
         N.snap(st, y=False)
     main[1].set_yticklabels([])
     main[0].set_ylabel("Marginal effect on the youth\n"
                        "employment share (p.p.)")
-    fig.text((18.0 + N.TEXT - 3.0) / 2.0 / N.TEXT, 4.0 / H,
+    fig.text((18.0 + N.TEXT - 3.0) / 2.0 / N.TEXT, 2.6 / H,
              "Moderator (standard deviations from the mean)",
              ha="center", va="bottom", fontsize=N.PT_LABEL, color=N.INK)
 
