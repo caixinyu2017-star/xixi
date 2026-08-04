@@ -1,0 +1,5 @@
+,State-owned,Non-state-owned,High technology intensity,Low technology intensity,Labour-intensive,Capital-intensive,Eastern region,Non-eastern region
+Treat (Post x Exposure),-0.1150***,-0.1188***,-0.1062***,-0.1348***,-0.1207***,-0.1207***,-0.1120***,-0.1260***
+,(0.0106),(0.0071),(0.0094),(0.0095),(0.0093),(0.0095),(0.0077),(0.0092)
+Observations,"9,844","21,171","15,507","15,508","15,507","15,508","18,030","12,985"
+Within R2,0.1961,0.1809,0.1781,0.2011,0.1809,0.1832,0.1890,0.1830
