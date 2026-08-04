@@ -57,14 +57,18 @@ def _para(doc, align=WD_ALIGN_PARAGRAPH.JUSTIFY, before=0, after=0,
     return p
 
 
-# ---------- 富文本：支持 **加粗** 与 $斜体$ 之外，主要走纯文本 ----------
+# ---------- 富文本：**加粗**；^[n] 渲染为上标角标引用 ----------
 def _add_rich(p, text, cn, size, bold=False):
-    """把 **粗体** 片段拆开渲染。"""
-    for i, seg in enumerate(re.split(r"(\*\*.+?\*\*)", text)):
+    """把 **粗体** 与 ^[1] / ^[1-3] / ^[1,3] 形式的角标拆开渲染。"""
+    for seg in re.split(r"(\*\*.+?\*\*|\^\[[0-9,\-]+\])", text):
         if not seg:
             continue
         if seg.startswith("**") and seg.endswith("**"):
             _font(p.add_run(seg[2:-2]), cn, size, bold=True)
+        elif seg.startswith("^[") and seg.endswith("]"):
+            r = p.add_run(seg[1:])
+            _font(r, cn, size, bold=False)
+            r.font.superscript = True
         else:
             _font(p.add_run(seg), cn, size, bold=bold)
 
