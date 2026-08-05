@@ -1,0 +1,27 @@
+[
+{
+"name": "r1_need",
+"size": "1536x1024",
+"prompt": "A clean flat-vector mapping diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, gray #8A8F98. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nTwo columns of boxes connected by thin gold arrows pointing left to right.\n\nLEFT column header (a gray bar with dark Chinese text): 研究环节\nFour navy rounded boxes below it, each with white Chinese text on two lines:\nBox A line1 专题一 本体论, line2 范畴阐释\nBox B line1 专题二 结构论, line2 结构建构\nBox C line1 专题三 实践论, line2 标准与机制\nBox D line1 研究难点, line2 政策话语转化\n\nRIGHT column header (a gray bar with dark Chinese text): 助手功能\nFour crimson rounded boxes below it, each with white Chinese text on one line:\nBox 1 范畴溯源\nBox 2 八体系归位\nBox 3 质量维度试标\nBox 4 话语转化对照\n\nDraw one gold arrow from A to 1, one from B to 2, one from C to 3, one from D to 4."
+},
+{
+"name": "r2_design",
+"size": "1536x1024",
+"prompt": "A clean flat-vector layered system diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nFour horizontal bands stacked vertically, from TOP to BOTTOM:\n\nBand 1 (top, a light gray wide bar with dark Chinese text on one line): 服务成果　研究报告 · 咨政报告 · 著作 · 学术论文\n\nBand 2: four crimson rounded boxes side by side in a row, each with white Chinese text on one line: 范畴溯源 / 话语转化对照 / 八体系归位 / 质量维度试标\n\nBand 3 (a narrow gold bar spanning full width, with dark Chinese text on one line): 一条规范　每条材料必须带出处\n\nBand 4 (bottom): three navy rounded boxes side by side in a row, each with a white bold Chinese title line and a smaller light-gray Chinese sub-line:\nBox 1 title 政策文本库, sub-line 文件·条款·时间序列\nBox 2 title 文献史料库, sub-line 学术文献·百年教材史料\nBox 3 title 教材案例库, sub-line 统编教材·马工程·中国系列\n\nDraw thin vertical gold arrows pointing upward from Band 4 through Band 3 to Band 2, and from Band 2 up to Band 1."
+},
+{
+"name": "r3_discourse",
+"size": "1536x1024",
+"prompt": "A clean flat-vector three-column comparison diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, gray #8A8F98. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nAt the TOP: one wide crimson rounded box with white Chinese text on one line: 输入一条政策表述　例：教材是国家事权\n\nBelow it, a downward gold arrow splitting into three, leading to THREE navy rounded columns side by side. Each column has a white bold Chinese header line and three smaller white Chinese item lines beneath:\nColumn 1 header 政策文本栏, items: 出现于哪些文件 / 表述如何演变 / 文号与条款\nColumn 2 header 学术文献栏, items: 学界如何讨论 / 对应学术概念 / 文献出处\nColumn 3 header 历史材料栏, items: 历史制度依据 / 不同时期做法 / 史料出处\n\nBelow the three columns, a downward gold arrow leading to one wide gold rounded box with dark Chinese text on one line: 研究者据此提炼学术命题\n\nAt the very bottom, a small gray rounded box with dark Chinese text on one line: 助手只做并置与溯源，不作提炼"
+},
+{
+"name": "r4_eight",
+"size": "1536x1024",
+"prompt": "A clean flat-vector two-tier grid diagram for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nUPPER tier: a crimson label bar on the far left with vertical white Chinese text 上层　内容规定, and to its right four navy rounded boxes in a row. Each box has a white bold Chinese title line and a smaller light-gray Chinese question line:\nBox 1 title 价值体系, question 为谁培养人\nBox 2 title 知识体系, question 用什么知识培养人\nBox 3 title 话语体系, question 以何种方式表达\nBox 4 title 标准体系, question 什么是高质量\n\nLOWER tier: a gold label bar on the far left with vertical dark Chinese text 下层　结构支撑, and to its right four navy rounded boxes in a row. Each box has a white bold Chinese title line and a smaller light-gray Chinese question line:\nBox 5 title 类型体系, question 用哪些教材培养人\nBox 6 title 形态体系, question 以什么载体培养人\nBox 7 title 治理体系, question 如何保障运行\nBox 8 title 重大专项体系, question 重点建什么专项\n\nBetween the two tiers, draw a horizontal gold double-headed arrow spanning the width with small dark Chinese text above it: 上下贯通　互为支撑"
+},
+{
+"name": "r5_plan",
+"size": "1792x1024",
+"prompt": "A clean flat-vector five-stage horizontal timeline for a Chinese academic report. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nOne thick horizontal gold arrow runs left to right across the middle. Five circular milestone nodes sit evenly on it, colored navy, navy, crimson, crimson, gold from left to right.\n\nABOVE each node, bold dark Chinese text on two lines (stage and date):\nNode 1: 第一阶段 / 2026.06—2026.10\nNode 2: 第二阶段 / 2026.11—2027.04\nNode 3: 第三阶段 / 2027.05—2027.10\nNode 4: 第四阶段 / 2027.11—2028.02\nNode 5: 第五阶段 / 2028.03—2028.05\n\nBELOW each node, smaller dark Chinese text on two lines:\nNode 1: 建库与规范 / 三库入库启动\nNode 2: 范畴溯源 / 支撑专题一\nNode 3: 八体系归位 / 支撑专题二\nNode 4: 质量维度试标 / 支撑专题三\nNode 5: 材料总成 / 支撑报告与著作"
+}
+]
