@@ -1,0 +1,7 @@
+[
+{
+"name": "s1_design",
+"size": "1536x1024",
+"prompt": "A WIDE LANDSCAPE flat-vector diagram for a Chinese academic report. The composition MUST be landscape: clearly wider than tall, roughly 3:2. Keep every band short in height and stretched across the full width. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nFour SHORT, FULL-WIDTH horizontal bands stacked vertically with small vertical gaps, from TOP to BOTTOM:\n\nBand 1 (a light gray wide bar, single line of dark Chinese text): 服务成果　研究报告 · 咨政报告 · 著作 · 学术论文\n\nBand 2 (three crimson rounded boxes side by side, each occupying about one third of the width): each box has a white bold Chinese title line and a smaller white Chinese sub-line:\nBox 1 title 溯源检索, sub-line 找材料 带出处\nBox 2 title 三栏对照, sub-line 政策 学术 史料并置\nBox 3 title 归位标注, sub-line 八格归位 六维标注\n\nBand 3 (a narrow gold bar spanning full width, single line of dark Chinese text): 一条规范　每条材料必须带出处\n\nBand 4 (one wide navy rounded box spanning full width): a white bold Chinese label 材料库 on the LEFT side, and to its right three white rounded chips in a horizontal row with dark Chinese text: 政策文本 / 文献史料 / 教材案例\n\nDraw short thin vertical gold arrows pointing upward between the bands."
+}
+]
