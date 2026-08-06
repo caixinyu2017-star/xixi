@@ -8,6 +8,46 @@ LAYOUT_KEEP = 'slideLayout18.xml'      # 内容与标题, inherits slideMaster2 
 
 CT = 'http://schemas.openxmlformats.org/package/2006/content-types'
 PR = 'http://schemas.openxmlformats.org/package/2006/relationships'
+RT = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
+NS_P = 'http://schemas.openxmlformats.org/presentationml/2006/main'
+NS_A = 'http://schemas.openxmlformats.org/drawingml/2006/main'
+MIME = {'png': 'image/png', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
+        'gif': 'image/gif', 'webp': 'image/webp', 'svg': 'image/svg+xml'}
+
+
+def _ensure_default(parts, ext):
+    ct = parts['[Content_Types].xml'].decode('utf-8')
+    if f'Extension="{ext}"' in ct:
+        return
+    ct = ct.replace('<Types ', '<Types ', 1)
+    ins = f'<Default Extension="{ext}" ContentType="{MIME.get(ext, "image/png")}"/>'
+    ct = re.sub(r'(<Types[^>]*>)', r'\1' + ins, ct, count=1)
+    parts['[Content_Types].xml'] = ct.encode('utf-8')
+
+
+def _notes_xml(paragraphs):
+    def para(t):
+        if not t:
+            return ('<a:p><a:endParaRPr lang="zh-CN" altLang="en-US" '
+                    'sz="1200" dirty="0"/></a:p>')
+        rpr = ('<a:rPr lang="zh-CN" altLang="en-US" sz="1200" dirty="0"/>')
+        return (f'<a:p><a:r>{rpr}<a:t>'
+                + t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+                + '</a:t></a:r></a:p>')
+    body = ''.join(para(p) for p in paragraphs)
+    return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n'
+            f'<p:notes xmlns:a="{NS_A}" xmlns:r="{RT}" xmlns:p="{NS_P}">'
+            '<p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/>'
+            '<p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm>'
+            '<a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/>'
+            '<a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>'
+            '<p:sp><p:nvSpPr><p:cNvPr id="2" name="备注占位符 1"/>'
+            '<p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr>'
+            '<p:nvPr><p:ph type="body" idx="1"/></p:nvPr></p:nvSpPr>'
+            '<p:spPr/><p:txBody><a:bodyPr/><a:lstStyle/>'
+            f'{body}</p:txBody></p:sp>'
+            '</p:spTree></p:cSld>'
+            '<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:notes>')
 
 
 def _resolve(base, target):
@@ -58,13 +98,42 @@ def build(slides, out_path, title='', author='嘉兴大学商学院'):
             del parts[n]
 
     # ---- write new slide parts -----------------------------------
+    notes_for = {}
     for i, sl in enumerate(slides, 1):
         parts[f'ppt/slides/slide{i}.xml'] = sl.xml().encode('utf-8')
+        rels = [f'<Relationship Id="rId1" Type="{RT}/slideLayout" '
+                f'Target="../slideLayouts/{LAYOUT_KEEP}"/>']
+
+        for rid, src in getattr(sl, 'pictures', []):
+            ext = os.path.splitext(src)[1].lower().lstrip('.') or 'png'
+            media = f'ppt/media/gen{i}_{rid}.{ext}'
+            with open(src, 'rb') as fh:
+                parts[media] = fh.read()
+            rels.append(f'<Relationship Id="{rid}" Type="{RT}/image" '
+                        f'Target="../media/{os.path.basename(media)}"/>')
+            _ensure_default(parts, ext)
+
+        if getattr(sl, 'notes_text', None):
+            n = len(notes_for) + 1
+            notes_for[n] = (i, sl.notes_text)
+            rels.append(f'<Relationship Id="rIdNS" Type="{RT}/notesSlide" '
+                        f'Target="../notesSlides/notesSlide{n}.xml"/>')
+
         parts[f'ppt/slides/_rels/slide{i}.xml.rels'] = (
             '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n'
-            f'<Relationships xmlns="{PR}"><Relationship Id="rId1" '
-            'Type="http://schemas.openxmlformats.org/officeDocument/2006/'
-            f'relationships/slideLayout" Target="../slideLayouts/{LAYOUT_KEEP}"/>'
+            f'<Relationships xmlns="{PR}">{"".join(rels)}</Relationships>'
+        ).encode('utf-8')
+
+    # ---- notes slides --------------------------------------------
+    for n, (slide_no, body) in notes_for.items():
+        parts[f'ppt/notesSlides/notesSlide{n}.xml'] = _notes_xml(body).encode('utf-8')
+        parts[f'ppt/notesSlides/_rels/notesSlide{n}.xml.rels'] = (
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n'
+            f'<Relationships xmlns="{PR}">'
+            f'<Relationship Id="rId1" Type="{RT}/notesMaster" '
+            'Target="../notesMasters/notesMaster1.xml"/>'
+            f'<Relationship Id="rId2" Type="{RT}/slide" '
+            f'Target="../slides/slide{slide_no}.xml"/>'
             '</Relationships>').encode('utf-8')
 
     # ---- presentation.xml : rebuild <p:sldIdLst> ------------------
@@ -92,6 +161,10 @@ def build(slides, out_path, title='', author='嘉兴大学商学院'):
         f'<Override PartName="/ppt/slides/slide{i}.xml" ContentType='
         '"application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>'
         for i in range(1, len(slides) + 1))
+    ov += ''.join(
+        f'<Override PartName="/ppt/notesSlides/notesSlide{n}.xml" ContentType='
+        '"application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml"/>'
+        for n in notes_for)
     ct = ct.replace('</Types>', ov + '</Types>')
     parts['[Content_Types].xml'] = ct.encode('utf-8')
 

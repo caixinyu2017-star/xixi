@@ -63,7 +63,7 @@ for i, (t, w, e, a) in enumerate(lv):
     text(s, CX + 2.88, y, 3.77, 0.98, [[run(w, 12, INK)]], anchor='ctr', label='LVW')
     s.shape(CX + 6.93, y, 4.24, 0.98, 'roundRect', CREAM, a, 1.0, radius=0.08)
     text(s, CX + 7.07, y, 3.96, 0.98, [[run(e, 12, a)]], anchor='ctr', label='LVE')
-banner(s, 6.78, '反常识　', '“加强教育”不是最容易的对策，是最贵的对策——它的成本被摊到了未来每一天')
+banner(s, 6.66, '反常识　', '“加强教育”不是最容易的对策，是最贵的对策——它的成本被摊到了未来每一天')
 
 # 34 防错法
 s = page(2, 0, SIDE3)
@@ -86,7 +86,7 @@ card(s, CX, 6.06, CW, 1.06, '选防错方案的顺序', [
 s = page(2, 0, SIDE3)
 heading(s, '对策评价矩阵：好想法不等于该现在做', '四个维度打分，避免“谁提的听谁的”')
 s.shape(CX, 2.30, CW, 0.50, 'rect', GOLD, None,
-        paras=[_para_xml([run('对　策　　　　　　　效果　　可行性　　成本　　时间　　合计　　结　论', 14, '2B1400')], align='ctr')],
+        paras=[_para_xml([run('对　　策　　　　效果　可行性　成本　时间　合计　　　结　　论', 14, '2B1400')], align='ctr')],
         anchor='ctr', label='TH', text_for_lint='对策评价表头', pt_for_lint=14)
 opts = [('更换夹具定位块并定寿命标准', '5', '5', '4', '4', '18', '本周实施', GREEN),
         ('刀具寿命由800件改为600件', '3', '5', '3', '5', '16', '同步实施', GREEN),
@@ -95,13 +95,13 @@ opts = [('更换夹具定位块并定寿命标准', '5', '5', '4', '4', '18', '�
 for i, r in enumerate(opts):
     y = 2.84 + i * 0.70
     s.shape(CX, y, CW, 0.66, 'rect', CREAM if i % 2 == 0 else 'F3EAD8', 'D8C9A8', 0.75)
-    text(s, CX + 0.16, y, 4.30, 0.66, [[run(r[0], 12, INK)]], anchor='ctr', label='OA')
+    text(s, CX + 0.14, y, 3.86, 0.66, [[run(r[0], 12, INK)]], anchor='ctr', label='OA')
     for j in range(4):
-        text(s, CX + 4.56 + j * 1.00, y, 0.90, 0.66,
+        text(s, CX + 4.10 + j * 0.86, y, 0.80, 0.66,
              [[run(r[1 + j], 13, INK)]], anchor='ctr', align='ctr', label='OS')
-    text(s, CX + 8.60, y, 0.90, 0.66, [[run(r[5], 14, BLUE)]], anchor='ctr',
+    text(s, CX + 7.60, y, 0.85, 0.66, [[run(r[5], 14, BLUE)]], anchor='ctr',
          align='ctr', label='OT')
-    text(s, CX + 9.60, y, 1.45, 0.66, [[run(r[6], 12, r[7])]], anchor='ctr',
+    text(s, CX + 8.55, y, 2.50, 0.66, [[run(r[6], 12, r[7])]], anchor='ctr',
          align='ctr', label='OC')
 card(s, CX, 5.72, CW, 1.40, '打分说明与一条纪律', [
     '每项 1~5 分：效果＝对真因的针对性；可行性＝班组自己能不能做；成本＝含长期人工；时间＝多快能上。',

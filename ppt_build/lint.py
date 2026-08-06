@@ -2,83 +2,83 @@
 """Geometric layout linter — stands in for visual QA, since LibreOffice
 cannot load PPTX in this environment.
 
-Checks: out-of-bounds, slide-edge margins, and text overflow estimated from
-CJK/ASCII glyph widths.
+Checks: out-of-bounds, slide-edge margins, text overflow and occlusion.
+The height model is imported from deckkit so the autofit and the linter can
+never disagree about what fits.
 """
-from deckkit import W_IN, H_IN
+from deckkit import W_IN, H_IN, PT_MIN, need_height, text_lines, _em, _wide  # noqa: F401
 
+CBOT = 7.36            # bottom of the design content area
 MARGIN = 0.03          # allowed bleed past the canvas
 MIN_EDGE = 0.02        # min distance from slide edge for text shapes
+SLACK = 0.012          # rounding tolerance, inches
 
 
-def _wide(ch):
-    o = ord(ch)
-    return (0x1100 <= o <= 0x115F or 0x2E80 <= o <= 0xA4CF or
-            0xAC00 <= o <= 0xD7A3 or 0xF900 <= o <= 0xFAFF or
-            0xFE30 <= o <= 0xFE6F or 0xFF00 <= o <= 0xFF60 or
-            0xFFE0 <= o <= 0xFFE6 or 0x3000 <= o <= 0x303F)
-
-
-def _em(s):
-    """Text advance in em units for the given string."""
-    t = 0.0
-    for ch in s:
-        if ch == '\n':
-            continue
-        t += 1.0 if _wide(ch) else (0.30 if ch == ' ' else 0.55)
-    return t
-
-
-def text_lines(s, pt, avail_in):
-    """How many wrapped lines this string needs in a box `avail_in` wide."""
-    avail_em = max(avail_in * 72.0 / pt, 0.5)
-    n = 0
-    for para in s.split('\n'):
-        if not para:
-            n += 1
-            continue
-        n += max(1, int(_em(para) / avail_em - 1e-9) + 1)
-    return n
-
-
-def check(slides, names=None, verbose=True):
+def check(slides, names=None, verbose=True, limit=80):
     issues = []
     for i, sl in enumerate(slides, 1):
         nm = (names or {}).get(i, '')
-        for (label, x, y, w, h, geom, txt, pt, pad) in sl.records:
+        for rec in sl.records:
+            (label, x, y, w, h, geom, txt, pt, pad,
+             line_pct, space, npara, tbpad) = rec
             if x < -MARGIN or y < -MARGIN or x + w > W_IN + MARGIN or y + h > H_IN + MARGIN:
                 issues.append((i, nm, label, 'OUT-OF-BOUNDS',
                                f'x={x:.2f} y={y:.2f} w={w:.2f} h={h:.2f}'))
-            if txt:
-                if x < MIN_EDGE or x + w > W_IN - MIN_EDGE:
-                    issues.append((i, nm, label, 'EDGE', f'x={x:.2f} x2={x+w:.2f}'))
-                avail = w - pad
-                if avail <= 0.05:
-                    issues.append((i, nm, label, 'NO-WIDTH', f'w={w:.2f} pad={pad:.2f}'))
-                    continue
+            elif y + h > CBOT + 0.06:
+                issues.append((i, nm, label, 'BELOW-AREA',
+                               f'底边 {y + h:.2f}" > {CBOT:.2f}"'))
+            if not txt:
+                continue
+            if pt < PT_MIN - 0.01:
+                issues.append((i, nm, label, 'TOO-SMALL',
+                               f'{pt}pt < {PT_MIN}pt 「{txt[:24]}」'))
+            if x < MIN_EDGE or x + w > W_IN - MIN_EDGE:
+                issues.append((i, nm, label, 'EDGE', f'x={x:.2f} x2={x+w:.2f}'))
+            avail = w - pad
+            if avail <= 0.05:
+                issues.append((i, nm, label, 'NO-WIDTH', f'w={w:.2f} pad={pad:.2f}'))
+                continue
+            need = need_height(txt, pt, avail, line_pct, space, npara)
+            room = h - tbpad
+            if need > room + SLACK:
                 n = text_lines(txt, pt, avail)
-                need = n * pt * 1.34 / 72.0
-                if need > h * 1.06 + 0.005:
-                    issues.append((i, nm, label, 'OVERFLOW',
-                                   f'{n}行×{pt}pt 需{need:.2f}" 实{h:.2f}" '
-                                   f'「{txt[:34].replace(chr(10), "/")}」'))
-        # overlap between cards / flow tiles / banners on the same slide
-        boxes = [r for r in sl.records
-                 if r[5] == 'roundRect' and r[3] > 1.2 and r[4] > 0.35]
-        for a in range(len(boxes)):
-            for b in range(a + 1, len(boxes)):
-                _, ax, ay, aw, ah, *_ = boxes[a]
-                _, bx, by, bw, bh, *_ = boxes[b]
-                ox = min(ax + aw, bx + bw) - max(ax, bx)
-                oy = min(ay + ah, by + bh) - max(ay, by)
-                if ox > 0.02 and oy > 0.02:
-                    issues.append((i, nm, boxes[a][0], 'OVERLAP',
-                                   f'{boxes[b][0]} 重叠 {ox:.2f}"×{oy:.2f}"'))
+                issues.append((i, nm, label, 'OVERFLOW',
+                               f'{n}行×{pt}pt 需{need:.2f}" 容{room:.2f}" '
+                               f'「{txt[:30].replace(chr(10), "/")}」'))
+        issues.extend(_occlusion(sl, i, nm))
     if verbose:
         if not issues:
-            print(f'LINT OK — {len(slides)} 页，无越界 / 无溢出')
+            print(f'LINT OK — {len(slides)} 页：无越界 / 无溢出 / 无遮挡 / 字号 ≥ {PT_MIN}pt')
         else:
-            print(f'LINT: {len(issues)} 处问题')
-            for it in issues[:70]:
-                print('  p%-3d %-22s %-11s %-13s %s' % it)
+            kinds = {}
+            for it in issues:
+                kinds[it[3]] = kinds.get(it[3], 0) + 1
+            print(f'LINT: {len(issues)} 处问题 {kinds}')
+            for it in issues[:limit]:
+                print('  p%-3d %-20s %-11s %-13s %s' % it)
     return issues
+
+
+def _occlusion(sl, i, nm):
+    """Filled panels must not sit on top of one another. Text boxes drawn
+    inside their own panel are fine, so only opaque panels are compared."""
+    out = []
+    panels = [r for r in sl.records
+              if r[5] in ('roundRect', 'rect', 'flowChartAlternateProcess')
+              and r[3] > 1.0 and r[4] > 0.30]
+    for a in range(len(panels)):
+        for b in range(a + 1, len(panels)):
+            _, ax, ay, aw, ah, *_ = panels[a]
+            _, bx, by, bw, bh, *_ = panels[b]
+            ox = min(ax + aw, bx + bw) - max(ax, bx)
+            oy = min(ay + ah, by + bh) - max(ay, by)
+            if ox <= 0.02 or oy <= 0.02:
+                continue
+            # a header bar sitting on the top edge of its own card is by design
+            inside = (bx >= ax - 0.01 and bx + bw <= ax + aw + 0.01 and
+                      by >= ay - 0.01 and by + bh <= ay + ah + 0.01)
+            if inside:
+                continue
+            out.append((i, nm, panels[a][0], 'OVERLAP',
+                        f'{panels[b][0]} 重叠 {ox:.2f}"×{oy:.2f}"'))
+    return out

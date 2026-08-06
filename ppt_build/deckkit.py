@@ -45,17 +45,168 @@ def esc(t):
     return escape(str(t))
 
 
+# ---------------------------------------------------------------- metrics
+# 微软雅黑 single-line advance is ~1.34 em; PowerPoint's spcPct scales that.
+LH = 1.34
+PT_MIN = 18                      # hard floor requested by the client
+PT_MAX = 30                      # never grow a body run past this
+
+
+def _wide(ch):
+    o = ord(ch)
+    return (0x1100 <= o <= 0x115F or 0x2E80 <= o <= 0xA4CF or
+            0xAC00 <= o <= 0xD7A3 or 0xF900 <= o <= 0xFAFF or
+            0xFE30 <= o <= 0xFE6F or 0xFF00 <= o <= 0xFF60 or
+            0xFFE0 <= o <= 0xFFE6 or 0x3000 <= o <= 0x303F)
+
+
+def _em(s):
+    """Text advance in em units."""
+    t = 0.0
+    for ch in s:
+        if ch == '\n':
+            continue
+        t += 1.0 if _wide(ch) else (0.30 if ch == ' ' else 0.55)
+    return t
+
+
+def text_lines(s, pt, avail_in):
+    """How many wrapped lines this string needs in a box `avail_in` wide."""
+    avail_em = max(avail_in * 72.0 / pt, 0.5)
+    n = 0
+    for para in str(s).split('\n'):
+        if not para:
+            n += 1
+            continue
+        n += max(1, int(_em(para) / avail_em - 1e-9) + 1)
+    return n
+
+
+def need_height(txt, pt, avail_in, line_pct=100, space=0, npara=1):
+    """Height in inches the text needs — the single model used by both the
+    autofit and the linter, so they can never disagree."""
+    n = text_lines(txt, pt, avail_in)
+    return (n * pt * LH * (line_pct / 100.0) / 72.0
+            + max(0, npara - 1) * space / 72.0)
+
+
+# ---------------------------------------------------------------- unwrap
+# 「连贯的文字不需要断行」— drop breaks the author inserted in the middle of a
+# running sentence, keep the ones that carry structure.
+_TERM = set('。！？；：…”’」』》】）)')
+_LEAD = set('①②③④⑤⑥⑦⑧⑨⑩◆▸●○·—－※→⇒【〔「『《（(“')
+_LEADW = ('特点', '代价', '处理方式', '效果', '结果', '风险', '正确', '错误',
+          '标准', '要求', '结论', '对策', '做法', '例：', '如：', '注：', '——')
+
+
+def _joinable(a, b):
+    a, b = a.rstrip(), b.lstrip('　 ')
+    if not a or not b:
+        return False
+    if a[-1] in _TERM or b[0] in _LEAD or b.startswith(_LEADW):
+        return False
+    # 「正常：…」「双峰：…」 — a labelled item starts its own line
+    return '：' not in b[:6] and ':' not in b[:6]
+
+
+def unwrap(s):
+    segs = str(s).split('\n')
+    out = [segs[0]]
+    for seg in segs[1:]:
+        if _joinable(out[-1], seg):
+            out[-1] = out[-1].rstrip() + seg.lstrip('　 ')
+        else:
+            out.append(seg)
+    return '\n'.join(out)
+
+
+def unwrap_paras(lines):
+    """Same rule applied across paragraphs of a text box."""
+    out = []
+    for para in lines:
+        if out and para and out[-1]:
+            a = ''.join(r['t'] for r in out[-1])
+            b = ''.join(r['t'] for r in para)
+            if _joinable(a, b):
+                head = dict(para[0]); head['t'] = head['t'].lstrip('　 ')
+                out[-1] = out[-1] + [head] + list(para[1:])
+                continue
+        out.append(list(para))
+    return out
+
+
 # ---------------------------------------------------------------- runs
 # Author sizes are written on a compact scale; SCALE lifts every one of them
-# into the 16–24pt band the client asked for.
-SCALE = {11: 16, 12: 16, 13: 16, 14: 17, 15: 18, 16: 19, 17: 20,
-         20: 21, 22: 23, 24: 24, 25: 25, 26: 26, 34: 32, 40: 38}
+# to at least the 18pt floor the client asked for.
+SCALE = {11: 18, 12: 18, 13: 18, 14: 18, 15: 18, 16: 19, 17: 20,
+         20: 22, 22: 24, 24: 25, 25: 26, 26: 28, 34: 34, 40: 40}
 
 
-def run(text, pt, color=INK, bold=True, italic=False):
-    """One <a:r>. `text` may contain \n only via separate paragraphs."""
-    return {'t': str(text), 'sz': SCALE.get(pt, pt), 'c': color,
+def run(text, pt, color=INK, bold=True, italic=False, keep_breaks=False):
+    """One <a:r>. A literal \\n becomes a soft break unless the rule above
+    decides it was a hand break inside a running sentence."""
+    t = str(text) if keep_breaks else unwrap(text)
+    return {'t': t, 'sz': max(PT_MIN, SCALE.get(pt, pt)), 'c': color,
             'b': bold, 'i': italic}
+
+
+def _scaled(lines, mult):
+    if mult == 1.0:
+        return lines
+    out = []
+    for para in lines:
+        out.append([dict(r, sz=max(PT_MIN, round(r['sz'] * mult * 2) / 2.0))
+                    for r in para])
+    return out
+
+
+MIN_LINE_PCT = 88                # how tight leading may get to avoid overflow
+
+
+def autofit(lines, avail_w, avail_h, line_pct=100, space=0,
+            max_pt=PT_MAX, max_line_pct=132, grow=True):
+    """Pick the largest uniform scale (and then the largest line spacing) that
+    still fits the box — 「字体可以大一点，行间距可以大一点…也不要溢出」.
+    Never drops any run below PT_MIN; tightens leading only as a last resort."""
+    if not lines or avail_w <= 0.05 or avail_h <= 0.05:
+        return lines, line_pct, space
+    sizes = [r['sz'] for p in lines for r in p]
+    if not sizes:
+        return lines, line_pct, space
+    base_min, base_max = min(sizes), max(sizes)
+    txt = '\n'.join(''.join(r['t'] for r in p) for p in lines)
+    npara = len(lines)
+
+    def fits(mult, lp, sp):
+        return need_height(txt, base_max * mult, avail_w, lp, sp,
+                           npara) <= avail_h
+
+    lo = min(1.0, max(PT_MIN / base_min, 0.80))
+    hi = max(1.0, min(max_pt / base_max, 1.60)) if grow else 1.0
+    step = max(0.5 / base_min, 0.01)
+
+    if not fits(lo, line_pct, space):
+        # the box is genuinely tight: give back leading before giving back size
+        for sp in (space, 0):
+            lp = line_pct
+            while lp >= MIN_LINE_PCT:
+                if fits(lo, lp, sp):
+                    return _scaled(lines, lo), lp, sp
+                lp -= 2
+        return _scaled(lines, lo), MIN_LINE_PCT, 0
+
+    best, m = lo, lo
+    while m <= hi + 1e-9:
+        if not fits(m, line_pct, space):
+            break
+        best, m = m, m + step
+    lines = _scaled(lines, best)
+
+    lp = line_pct
+    if text_lines(txt, base_max * best, avail_w) > 1:
+        while lp + 2 <= max_line_pct and fits(best, lp + 2, space):
+            lp += 2
+    return lines, lp, space
 
 
 def _run_xml(r):
@@ -117,7 +268,9 @@ class Slide:
         self._gid = 0
         self._cur_grp = None
         self.name = name
-        self.records = []           # (label, x, y, w, h, kind, text, pt)
+        self.records = []           # (label, x, y, w, h, kind, text, pt, ...)
+        self.notes_text = []        # speaker notes paragraphs
+        self.pictures = []          # (rIdImg*, absolute source path)
 
     class _G:
         def __init__(self, sl):
@@ -164,7 +317,9 @@ class Slide:
     def shape(self, x, y, w, h, geom='rect', fill=None, line=None, lw=1.5,
               radius=None, paras=None, anchor='ctr', label='Shape',
               lIns=0.10, rIns=0.10, tIns=0.05, bIns=0.05, alpha=None,
-              dash=None, wrap=True, text_for_lint=None, pt_for_lint=None):
+              dash=None, wrap=True, text_for_lint=None, pt_for_lint=None,
+              line_pct_for_lint=100, space_for_lint=0, npara_for_lint=1,
+              pt_is_final=False):
         sid, nm = self._next(label)
         body = paras or [_para_xml([run('', 12, WHITE)])]
         tf = (f'<p:txBody><a:bodyPr wrap="{"square" if wrap else "none"}" '
@@ -179,11 +334,92 @@ class Slide:
                         radius=radius, alpha=alpha, dash=dash),
             'tail': tf + '</p:sp>', 'g': self._cur_grp})
         if text_for_lint is not None:
+            # content files quote author sizes; SCALE is what actually ships
+            if not pt_is_final:
+                pt_for_lint = max(PT_MIN, SCALE.get(pt_for_lint,
+                                                    pt_for_lint or 12))
             self.records.append([nm, x, y, w, h, geom, text_for_lint,
-                                 pt_for_lint or 12, lIns + rIns])
+                                 pt_for_lint, lIns + rIns,
+                                 line_pct_for_lint, space_for_lint,
+                                 npara_for_lint, tIns + bIns])
         else:
-            self.records.append([nm, x, y, w, h, geom, '', 0, 0])
+            self.records.append([nm, x, y, w, h, geom, '', 0, 0, 100, 0, 1, 0])
         self._sp[-1]['rec'] = len(self.records) - 1
+        return self
+
+    def textbox(self, x, y, w, h, lines, anchor='t', align='l', label='Text',
+                line_pct=100, space=0, lIns=0.08, rIns=0.08, tIns=0.05,
+                bIns=0.05, fit=True, max_pt=PT_MAX, max_line_pct=132):
+        """A text box whose type size is decided at render time, so a
+        grow-to-fit pass can resize the box first."""
+        sid, nm = self._next(label)
+        self._sp.append({
+            'y': y, 'h': h, 'kind': 'txt',
+            'head': f'<p:sp><p:nvSpPr><p:cNvPr id="{sid}" name="{nm}"/>'
+                    f'<p:cNvSpPr/><p:nvPr/></p:nvSpPr>',
+            'geo': dict(x=x, w=w, geom='rect', fill=None, line=None, lw=1.5,
+                        radius=None, alpha=None, dash=None),
+            'txt': dict(lines=lines, anchor=anchor, align=align,
+                        line_pct=line_pct, space=space, lIns=lIns, rIns=rIns,
+                        tIns=tIns, bIns=bIns, fit=fit, max_pt=max_pt,
+                        max_line_pct=max_line_pct),
+            'tail': '', 'g': self._cur_grp})
+        self.records.append([nm, x, y, w, h, 'rect', '', PT_MIN,
+                             lIns + rIns, line_pct, space, len(lines),
+                             tIns + bIns])
+        self._sp[-1]['rec'] = len(self.records) - 1
+        return self
+
+    def _finalize(self):
+        """Resolve every deferred text box against its current geometry."""
+        for r in self._sp:
+            if r['kind'] != 'txt':
+                continue
+            t = r['txt']
+            lines, lp, sp = t['lines'], t['line_pct'], t['space']
+            if t['fit']:
+                lines, lp, sp = autofit(
+                    lines, r['geo']['w'] - t['lIns'] - t['rIns'],
+                    r['h'] - t['tIns'] - t['bIns'], t['line_pct'], t['space'],
+                    t['max_pt'], t['max_line_pct'])
+            paras = [_para_xml(rs, align=t['align'], line_pct=lp,
+                               space_before=(sp if i else 0))
+                     for i, rs in enumerate(lines)]
+            r['tail'] = (
+                f'<p:txBody><a:bodyPr wrap="square" lIns="{_e(t["lIns"])}" '
+                f'tIns="{_e(t["tIns"])}" rIns="{_e(t["rIns"])}" '
+                f'bIns="{_e(t["bIns"])}" rtlCol="0" anchor="{t["anchor"]}">'
+                f'<a:noAutofit/></a:bodyPr><a:lstStyle/>'
+                f'{"".join(paras)}</p:txBody></p:sp>')
+            rec = self.records[r['rec']]
+            rec[2], rec[4] = r['y'], r['h']
+            rec[6] = '\n'.join(''.join(x['t'] for x in rs) for rs in lines)
+            rec[7] = max((x['sz'] for rs in lines for x in rs), default=PT_MIN)
+            rec[9], rec[10], rec[11] = lp, sp, len(lines)
+        return self
+
+    def picture(self, src_path, x, y, w, h, label='Art'):
+        """A generated illustration. `src_path` is an absolute path on disk;
+        the packager copies it into ppt/media and wires the relationship."""
+        sid, nm = self._next(label)
+        rid = f'rIdImg{len(self.pictures) + 1}'
+        self.pictures.append((rid, src_path))
+        self._sp.append({'y': y, 'h': h, 'kind': 'pic', 'fixed': True,
+            'head': f'<p:pic><p:nvPicPr><p:cNvPr id="{sid}" name="{nm}"/>'
+                    f'<p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr>'
+                    f'<p:nvPr/></p:nvPicPr>'
+                    f'<p:blipFill><a:blip r:embed="{rid}"/>'
+                    f'<a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr>',
+            'xy': (x, w, h),
+            'tail': '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom>'
+                    '</p:spPr></p:pic>'})
+        self.records.append([nm, x, y, w, h, 'pic', '', 0, 0, 100, 0, 1, 0])
+        return self
+
+    # ---- speaker notes ---------------------------------------------
+    def notes(self, *paragraphs):
+        """备注 — content that belongs to the trainer, not to the screen."""
+        self.notes_text = [p for p in paragraphs if p]
         return self
 
     def line(self, x, y, w, h, color=WHITE, lw=1.0, alpha=None, dash=None):
@@ -213,6 +449,15 @@ class Slide:
         return self
 
     def _render(self, r):
+        if r['kind'] == 'txt':
+            g = r['geo']
+            return (r['head'] + self._spPr(g['x'], r['y'], g['w'], r['h'])
+                    + r['tail'])
+        if r['kind'] == 'pic':
+            x, w, h = r['xy']
+            return (r['head'] +
+                    f'<a:xfrm><a:off x="{_e(x)}" y="{_e(r["y"])}"/>'
+                    f'<a:ext cx="{_e(w)}" cy="{_e(h)}"/></a:xfrm>' + r['tail'])
         if r['kind'] == 'cxn':
             x, w, h = r['xy']
             return (r['head'] +
@@ -266,6 +511,7 @@ class Slide:
         return self
 
     def xml(self):
+        self._finalize()
         return ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n'
                 '<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
                 'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" '
@@ -284,13 +530,27 @@ class Slide:
 
 # ---------------------------------------------------------------- text helper
 def text(sl, x, y, w, h, lines, anchor='t', align='l', label='Text',
-         line_pct=100, space=0, lIns=0.08, rIns=0.08):
-    """lines: list of list-of-run (each inner list = one paragraph)."""
-    paras = [_para_xml(rs, align=align, line_pct=line_pct,
-                       space_before=(space if i else 0))
-             for i, rs in enumerate(lines)]
-    flat = '\n'.join(''.join(r['t'] for r in rs) for rs in lines)
+         line_pct=100, space=0, lIns=0.08, rIns=0.08, tIns=0.05, bIns=0.05,
+         fit=True, unwrap_paragraphs=True, max_pt=PT_MAX, max_line_pct=132):
+    """lines: list of list-of-run (each inner list = one paragraph).
+    By default the text is unwrapped (no hand breaks mid-sentence) and then
+    grown to fill the box without overflowing."""
+    if unwrap_paragraphs:
+        lines = unwrap_paras(lines)
+    return sl.textbox(x, y, w, h, lines, anchor=anchor, align=align,
+                      label=label, line_pct=line_pct, space=space,
+                      lIns=lIns, rIns=rIns, tIns=tIns, bIns=bIns, fit=fit,
+                      max_pt=max_pt, max_line_pct=max_line_pct)
+
+
+def label_paras(lines, align='ctr', avail_w=1.0, avail_h=1.0, line_pct=100,
+                max_pt=PT_MAX, fit=True):
+    """Autofit helper for the label text that lives directly on a filled
+    shape (card headers, nav chips, bars). Returns (paras, pt, line_pct)."""
+    if fit:
+        lines, line_pct, _ = autofit(lines, avail_w, avail_h, line_pct, 0,
+                                     max_pt, max(line_pct, 100))
     pt = max((r['sz'] for rs in lines for r in rs), default=12)
-    return sl.shape(x, y, w, h, 'rect', None, None, paras=paras, anchor=anchor,
-                    label=label, lIns=lIns, rIns=rIns,
-                    text_for_lint=flat, pt_for_lint=pt)
+    flat = '\n'.join(''.join(r['t'] for r in rs) for rs in lines)
+    return ([_para_xml(rs, align=align, line_pct=line_pct) for rs in lines],
+            pt, line_pct, flat, len(lines))

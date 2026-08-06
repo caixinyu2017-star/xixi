@@ -15,7 +15,8 @@ S = []
 def new():
     s = Slide(); S.append(s); return s
 def page(sec, side, sidebar):
-    s = new(); chrome(s, COURSE, SEC, sec, sidebar, side); return s
+    s = new(); s.chrome_args = (sec, side, sidebar)
+    chrome(s, COURSE, SEC, sec, sidebar, side); return s
 
 
 # 1 封面
@@ -49,9 +50,9 @@ for i, (h, b, a) in enumerate([
      '最常见的翻车：5Why 问到“员工不认真”就停了\n5Why 与陷阱｜鱼骨图 5M1E｜是/不是分析\n直方图｜散布图｜真因三条件｜现场再现', ORANGE),
     ('第三节  对策与固化：不反弹',
      '最常见的翻车：对策＝加人、加检查、加强调\n源流对策｜防错十原理｜对策评价矩阵\nSDCA 标准化｜水平展开｜A3 与 8D', BLUE)]):
-    y = 2.16 + i * 1.50
-    card(s, CX, y, CW, 1.40, h, [b], a, hpt=15, bpt=13, line_pct=104)
-banner(s, 6.72, '全天主线　', '不追求把问题分析得多漂亮，只追求这个问题以后不再回来')
+    y = 2.30 + i * 1.46
+    card(s, CX, y, CW, 1.36, h, [b], a, hpt=15, bpt=13, line_pct=104)
+banner(s, 6.68, '全天主线　', '不追求把问题分析得多漂亮，只追求这个问题以后不再回来')
 
 # ================================================= 第一节
 # 4 节封面
@@ -216,24 +217,24 @@ card(s, CX, 6.30, CW, 0.82, '班组长最大的陷阱', [
 s = page(0, 1, SIDE1)
 heading(s, '柏拉图：80% 的损失，通常来自 20% 的原因',
         '别平均用力——先打最大的那一根柱子')
-s.shape(CX, 2.30, CW, 2.30, 'roundRect', CREAM, BLUE, 1.5, radius=0.10)
+s.shape(CX, 2.30, CW, 2.52, 'roundRect', CREAM, BLUE, 1.5, radius=0.10)
 bars = [('内孔超差', 42, 4.9, RED), ('毛刺', 18, 2.1, ORANGE), ('划伤', 9, 1.05, BLUE),
         ('装配错', 5, 0.58, PURPLE), ('其他', 4, 0.47, TEAL)]
 bx = CX + 0.55
 for nm, n, hgt, col in bars:
-    s.shape(bx, 4.28 - hgt * 0.30, 1.55, hgt * 0.30, 'rect', col, None)
-    text(s, bx, 3.96 - hgt * 0.30, 1.55, 0.30, [[run(str(n), 13, col)]],
+    s.shape(bx, 4.34 - hgt * 0.30, 1.55, hgt * 0.30, 'rect', col, None)
+    text(s, bx, 3.94 - hgt * 0.30, 1.55, 0.38, [[run(str(n), 13, col)]],
          anchor='ctr', align='ctr', label='BarV')
-    text(s, bx - 0.10, 4.30, 1.75, 0.30, [[run(nm, 12, INK)]], anchor='ctr',
+    text(s, bx - 0.10, 4.38, 1.75, 0.38, [[run(nm, 12, INK)]], anchor='ctr',
          align='ctr', label='BarL')
     bx += 2.05
-text(s, CX + 0.30, 2.38, 5.60, 0.32, [[run('近两周不良件数（共 78 件）', 12, INK)]],
+text(s, CX + 0.30, 2.38, 5.60, 0.40, [[run('近两周不良件数（共 78 件）', 12, INK)]],
      anchor='ctr', label='ChartT')
-card(s, CX, 4.74, 5.45, 1.40, '读法', [
+card(s, CX, 4.96, 5.45, 2.16, '读法', [
     '前两项（内孔超差 + 毛刺）占 77%。',
     '把这两项解决掉，问题就基本解决了；',
     '后三项现在做，投入产出比很低。'], GREEN, hpt=15, bpt=13, line_pct=104)
-card(s, CX + 5.72, 4.74, 5.45, 1.40, '常见误用', [
+card(s, CX + 5.72, 4.96, 5.45, 2.16, '常见误用', [
     '按“件数”排完就动手，忘了看金额和风险：',
     '有的不良件数少，但一件就是一次客诉。',
     '正确做法：件数、金额、风险三张柏拉图都画。'], ORANGE, hpt=15, bpt=13, line_pct=104)
@@ -480,9 +481,9 @@ tools = [('直方图', '看分布形状', '正常：中间高两边低\n双峰�
          ('散布图', '看两件事相关不相关', '横轴刀具使用时长\n纵轴尺寸偏差\n点子成一条斜线 → 高度相关\n用途：验证你的假设', GREEN),
          ('趋势图', '看随时间怎么变', '按小时/按班次画出来\n看是突变还是渐变\n突变→找那天改了什么\n渐变→找磨损、老化', ORANGE)]
 for i, (t, w, d, a) in enumerate(tools):
-    card(s, CX + i * 3.79, 2.30, 3.59, 3.26, t + '　' + w, [d], a,
+    card(s, CX + i * 3.79, 2.30, 3.59, 3.16, t + '　' + w, [d], a,
          hpt=15, bpt=12, line_pct=104)
-card(s, CX, 5.72, CW, 1.40, '一条最实用的经验', [
+card(s, CX, 5.56, CW, 1.74, '一条最实用的经验', [
     '先画趋势图。突变和渐变对应完全不同的原因族：',
     '突变一定是某个动作（换料、换人、改参数、修过设备）；渐变一定是某种消耗（磨损、老化、污染）。',
     '光这一条判断，就能砍掉一半的可能原因。'], AMBER, hpt=15, bpt=13, line_pct=104)

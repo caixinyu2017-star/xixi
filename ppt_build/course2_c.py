@@ -7,7 +7,8 @@ from course2_a import COURSE, SEC, SIDE1, SIDE2, SIDE3
 
 EXTRA = []
 def xpage(sec, side, sidebar):
-    s = Slide(); chrome(s, COURSE, SEC, sec, sidebar, side); EXTRA.append(s); return s
+    s = Slide(); s.chrome_args = (sec, side, sidebar)
+    chrome(s, COURSE, SEC, sec, sidebar, side); EXTRA.append(s); return s
 
 
 # X1 问题意识
@@ -60,20 +61,20 @@ flow(s, 2.36, [('选位置', '能同时看到\n上下工序的地方'),
                ('只记录', '记动作和时间\n不做判断'),
                ('数异常', '每一次停顿、\n返身、找东西')],
      h=1.26, accent=[GREEN, BLUE, ORANGE, PURPLE], pt=15, subpt=12)
-card(s, CX, 3.86, 5.45, 1.86, '你会看到的东西', [
+card(s, CX, 3.84, 5.45, 2.02, '你会看到的东西', [
     '员工一个循环走了多少步；',
     '有几次弯腰去拿东西；',
     '等下工序空出来等了多久；',
     '一小时里有几次找工具、找图纸；',
     '——这些都不在任何报表里。'], BLUE, hpt=15, bpt=13, line_pct=104)
-card(s, CX + 5.72, 3.86, 5.45, 1.86, '三条纪律', [
+card(s, CX + 5.72, 3.84, 5.45, 2.02, '三条纪律', [
     '① 不打断、不指导、不评价；',
     '② 只记录事实，不写“效率低”；',
     '③ 看完之后先问操作者：',
     '　　“刚才那一步为什么要这样做？”',
     '　　——他的答案通常会让你意外。'], GREEN, hpt=15, bpt=13, line_pct=104)
-banner(s, 5.88, '反常识　', '你觉得现场没问题，通常只说明你在现场待的时间不够长')
-note(s, 6.54, '很多班组长每天在现场走十几趟，却从没有一次站着看完一个完整循环', h=0.56)
+banner(s, 5.98, '反常识　', '你觉得现场没问题，通常只说明你在现场待的时间不够长')
+note(s, 6.66, '很多班组长每天在现场走十几趟，却从没有一次站着看完一个完整循环', h=0.56)
 
 # X4 关联图
 s = xpage(1, 0, SIDE2)
@@ -218,9 +219,10 @@ items = [('1 问题描述', '（5W2H，含数据与标准）'),
          ('9 效果确认', '（结案时 / 三个月后，同口径）')]
 for i, (t, d) in enumerate(items):
     x = CX + (i % 3) * 3.79
-    y = 2.32 + (i // 3) * 1.30
-    s.shape(x, y, 3.59, 1.16, 'roundRect', CREAM, ACCENTS[i % 6], 1.25, radius=0.08)
-    text(s, x + 0.14, y + 0.10, 3.31, 0.44, [[run(t, 14, ACCENTS[i % 6])]],
-         anchor='ctr', label='TK')
-    text(s, x + 0.14, y + 0.56, 3.31, 0.52, [[run(d, 12, INK)]], anchor='ctr', label='TD')
-banner(s, 6.34, '用法　', '每个改善课题都填这一张，填不满的那一栏，就是你还没做的那一步')
+    y = 2.30 + (i // 3) * 1.44
+    s.shape(x, y, 3.59, 1.30, 'roundRect', CREAM, ACCENTS[i % 6], 1.25, radius=0.08)
+    text(s, x + 0.12, y + 0.08, 3.35, 0.46, [[run(t, 14, ACCENTS[i % 6])]],
+         anchor='ctr', label='TK', lIns=0.05, rIns=0.05)
+    text(s, x + 0.10, y + 0.56, 3.39, 0.70, [[run(d, 12, INK)]], anchor='ctr',
+         label='TD', lIns=0.05, rIns=0.05)
+banner(s, 6.62, '用法　', '每个改善课题都填这一张，填不满的那一栏，就是你还没做的那一步')
