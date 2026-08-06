@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "filename": "fig1_dimension_system.png",
+      "size": "1536x1024",
+      "prompt": "Flat vector academic schematic for a scholarly journal page, clean white background, thin 1pt dark-slate outlines, restrained palette of deep teal green and warm grey only, no photorealism, no 3D, no drop shadows, no gradients, no background texture. Layout: a single rounded header bar at the top spanning the full width, containing the Chinese title '五维文化素养指标体系'. Below it, exactly five equal-width vertical columns separated by generous white space, each column drawn as a tall rounded rectangle. Each column contains, stacked from top to bottom: (a) a bold Chinese heading, (b) a thin horizontal divider line, (c) a small circled Chinese character, (d) the small Chinese line '4 个观测点'. Column headings from left to right: '文化体验', '文化认知', '文化志趣', '文化认同', '文化研创'. The circled characters from left to right: '知', '情', '意', '信', '行'. A thin horizontal arrow runs beneath all five columns from left to right, labelled in small Chinese type '由感知到实践的递进'. All Chinese text set in a clean Chinese sans-serif (Hei) typeface, characters written correctly and legibly, no garbled or invented glyphs, no Latin text anywhere. Precise technical illustration style, generous margins, publication quality."
+    },
+    {
+      "filename": "fig2_pipeline.png",
+      "size": "1536x1024",
+      "prompt": "Flat vector academic schematic for a scholarly journal page, clean white background, thin 1pt dark-slate outlines, restrained palette of deep teal green and warm grey only, no photorealism, no 3D, no drop shadows, no gradients. Layout: a horizontal five-stage pipeline. At the top a single thin rounded band spanning the full width with the Chinese label '禾灵儿平台原始数据'. Beneath it, five rounded rectangular stage boxes in a row, connected left to right by short thin arrows. Each stage box carries a small circled step numeral at its top-left corner, numbered one through five, and a bold Chinese heading inside. Headings left to right: '证据抽取', '三因子计量', '渠道加权汇总', '问卷初始得分', '维度合成'. Directly under each stage box, outside it, place one line of smaller Chinese caption text, left to right respectively: '六类渠道逐条落库', '计量 质量 相关度', '按渠道加权并截断', '自陈量表压缩换算', '饱和函数封顶', with each caption horizontally centred under its own box. At the far right an output box labelled in Chinese '五维得分与综合指数'. All Chinese text set in a clean Chinese sans-serif (Hei) typeface, characters written correctly and legibly, no garbled or invented glyphs, no Latin text anywhere. Precise technical illustration style, generous white space, publication quality."
+    },
+    {
+      "filename": "fig3_three_factor.png",
+      "size": "1536x1024",
+      "prompt": "Flat vector academic schematic for a scholarly journal page, clean white background, thin 1pt dark-slate outlines, restrained palette of deep teal green and warm grey only, no photorealism, no 3D, no drop shadows, no gradients. Layout: on the left a small rounded rectangle labelled in Chinese '一条学习行为记录'. A thin arrow leads right into three stacked rounded boxes arranged vertically in a column, each box containing a bold Chinese heading and a smaller Chinese line beneath it. Top box heading '计量', subline '做了多少'. Middle box heading '质量', subline '做得怎么样'. Bottom box heading '文化相关度', subline '与文化主题的贴合度'. To the right of the three boxes draw a large circled multiplication sign, then a thin arrow leading into a final rounded box labelled in Chinese '该条证据的有效证据量'. Thin connector lines join all three boxes to the multiplication sign. All Chinese text set in a clean Chinese sans-serif (Hei) typeface, characters written correctly and legibly, no garbled or invented glyphs, no Latin text anywhere. Precise technical illustration style, generous white space, publication quality."
+    }
+  ]
+}
