@@ -41,7 +41,11 @@ input,select,textarea{padding:8px 12px;border:1px solid #d7e3de;border-radius:8p
      background:#fff;color:#1f2937;font-size:14px}
 input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+/* 同一行的两块卡片等高，底边对齐；卡片内用 flex 让主体内容撑满剩余高度 */
+.grid2>.card{display:flex;flex-direction:column}
+.rwrap{flex:1;display:flex;gap:14px;flex-wrap:wrap;
+       align-items:center;justify-content:space-between}
 @media(max-width:960px){.grid2{grid-template-columns:1fr}}
 .muted{color:#5b6b7c;font-size:13px}
 .pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:13px;font-weight:800}
@@ -122,7 +126,7 @@ input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
           <button class="btn" id="btnUp">上传并解析</button>
         </div>
         <div class="muted">首次使用请先上传<b>学生报名情况</b>建立学号索引，再上传其余表格；
-          问卷用于生成五维底分。同一份材料重复上传不会重复计分。</div>
+          问卷用于生成五维初始得分。同一份材料重复上传不会重复计分。</div>
         <div class="prog"><i id="prog"></i></div>
       </div>
       <div class="log" id="log" style="margin-top:12px">就绪。</div>
@@ -135,7 +139,7 @@ input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
         <button class="btn" id="btnQ">查询</button>
         <label class="muted">排序</label>
         <select id="sortBy">
-          <option value="complete">默认（材料最全的排在前面）</option>
+          <option value="complete">默认</option>
           <option value="cci">综合指数从高到低</option>
           <option value="cci_asc">综合指数从低到高</option>
           <option value="class">班级 / 学号</option>
@@ -192,7 +196,7 @@ const CHANNEL_WEIGHTS = {
   artifact:  {"文化体验":0.35,"文化认知":0.45,"文化志趣":0.30,"文化认同":0.40,"文化研创":0.85},
   agent:     {"文化体验":0.20,"文化认知":0.50,"文化志趣":0.40,"文化认同":0.35,"文化研创":1.00},
 };
-const CHANNEL_LABEL = {questionnaire:"五维问卷（底分）",dialogue:"文化对话",
+const CHANNEL_LABEL = {questionnaire:"五维问卷（初始得分）",dialogue:"文化对话",
   enrollment:"文化课程报名",homework:"课程作业",video:"课程视频",
   artifact:"学生作业成果",agent:"学生自建智能体"};
 const KIND_LABEL = {questionnaire:"五维问卷",enrollment:"学生报名情况",
@@ -590,7 +594,7 @@ function computePortrait(sid){
     let B,bsrc;
     if(rec&&rec.baseline){ B={...rec.baseline}; bsrc="本年级五维问卷"; }
     else if(carry){ B={...carry}; bsrc="承接上一学年画像"; }
-    else { B=Object.fromEntries(DIMS.map(d=>[d,BASELINE_DEFAULT])); bsrc="默认中性底分 0.50"; }
+    else { B=Object.fromEntries(DIMS.map(d=>[d,BASELINE_DEFAULT])); bsrc="默认初始得分 0.50"; }
     const {A,perChannel}=aggregateA(rec);
     const S={},rho={};
     const r4=x=>Math.round(x*1e4)/1e4;   // 与 Python 版一致，统一保留 4 位小数
@@ -651,7 +655,7 @@ function completenessOf(sid,all){
              +COMPLETENESS_W.rho*bestRho
              +COMPLETENESS_W.volume*vol;
   const missing=[];
-  if(!hasQ) missing.push("问卷底分");
+  if(!hasQ) missing.push("问卷初始得分");
   for(const ch of ALL_CHANNELS) if(!chans.has(ch)) missing.push(CHANNEL_LABEL[ch]);
   return {score:Math.round(score*1e4)/1e4,hasQ,channels:chans.size,items,
           gradesWithData,rho:bestRho,missing};
@@ -913,7 +917,7 @@ function importQuestionnaire(sheets,grade){
   const detail=Object.keys(qcols).length
     ? DIMS.map(d=>d+" "+counts[d]+" 题").join("、") : "使用维度得分列";
   return {n_rows:rows.length-1,n_new:n,n_dup:0,
-          note:"识别到 "+n+" 名学生的问卷底分；题目归类："+detail};
+          note:"识别到 "+n+" 名学生的问卷初始得分；题目归类："+detail};
 }
 const IMPORTERS={enrollment:importEnrollment,homework:importHomework,
                  video:importVideo,dialogue:importDialogue,questionnaire:importQuestionnaire};
@@ -1224,11 +1228,11 @@ function buildReportDocx(stu,grade,pr,lines,matrix,advice){
   body+=wPara(`学院：${stu.college||"—"}　　专业：${stu.major||"—"}`,{indent:2});
   body+=wPara("二、五维素养得分",{font:"黑体",size:28,bold:true});
   for(const d of DIMS){
-    body+=wPara(`${d}：底分 ${pr.baseline[d].toFixed(2)} → 本学年 ${pr.scores[d].toFixed(2)}`+
+    body+=wPara(`${d}：初始得分 ${pr.baseline[d].toFixed(2)} → 本学年 ${pr.scores[d].toFixed(2)}`+
       `（增幅 +${(pr.scores[d]-pr.baseline[d]).toFixed(2)}，${levelOf(pr.scores[d])}）`,{indent:2});
   }
   body+=wPara(`综合文化素养指数 CCI = ${pr.cci.toFixed(2)}（${levelOf(pr.cci)}），`+
-    `较上一学年 ${pr.delta>=0?"+":""}${pr.delta.toFixed(2)}。底分来源：${pr.baseline_source}。`,{indent:2});
+    `较上一学年 ${pr.delta>=0?"+":""}${pr.delta.toFixed(2)}。`,{indent:2});
   body+=wPara("三、支撑得分的过程证据",{font:"黑体",size:28,bold:true});
   if(!lines.length) body+=wPara("本学年暂未采集到过程性证据。",{indent:2});
   for(const ln of lines){
@@ -1245,7 +1249,7 @@ function buildReportDocx(stu,grade,pr,lines,matrix,advice){
   for(const a of advice) body+=wPara(a,{indent:2});
   body+=wPara("六、说明",{font:"黑体",size:28,bold:true});
   body+=wPara("本报告由禾灵儿文化德育数字画像系统自动生成。五个维度取值区间为 0 至 1，"+
-    "底分来自开课第一节课的五维问卷，其后依据学生在平台上的课程学习、作业提交、文化对话、"+
+    "初始得分来自开课第一节课的五维问卷，其后依据学生在平台上的课程学习、作业提交、文化对话、"+
     "作品创作与智能体开发等过程证据动态累加，得分随材料增加而单调上升并以 1.00 为上限。"+
     "全部计分规则公开、可复算，每一项得分均可追溯到具体的学习事件。",{indent:2});
 
@@ -1355,11 +1359,11 @@ function openDetail(sid,grade){
       lines.map(ln=>`<div class="ev"><b>${ln.label}</b> · ${ln.count} 项`+
         ln.items.map(it=>`<span class="it">· ${esc(it)}</span>`).join("")+
         (ln.more?`<span class="it">· …… 另有 ${ln.more} 项</span>`:"")+`</div>`).join("")
-    : '<div class="nodata">本学年尚未采集到过程性证据。五维得分等于底分，请先上传该年级的导出表或学生作业。</div>';
+    : '<div class="nodata">本学年尚未采集到过程性证据。五维得分等于初始得分，请先上传该年级的导出表或学生作业。</div>';
   const mat=matrix.map(m=>`<div style="margin-bottom:11px">
       <span class="pill p-${m.code}">${m.dim}</span>
       <b style="color:#0f766e">${m.score.toFixed(2)}</b>
-      <span class="muted">底分 ${m.baseline.toFixed(2)} → 证据充分度 ${Math.round(m.rho*100)}%</span>
+      <span class="muted">初始得分 ${m.baseline.toFixed(2)} → 证据充分度 ${Math.round(m.rho*100)}%</span>
       <div class="bar"><i style="width:${(m.score*100).toFixed(0)}%"></i></div>
       <div class="muted" style="margin-top:4px">证据来源：${
         m.sources.slice(0,4).map(s=>`${s.name} ${Math.round(s.share*100)}%`).join("；")||"暂无"}</div>
@@ -1386,7 +1390,7 @@ function openDetail(sid,grade){
   <div class="grid2">
     <div class="card"><h2><span class="n">1</span>上传材料提取到的指标信息</h2>${ind}</div>
     <div class="card"><h2><span class="n">2</span>五维素养雷达（画像输出）</h2>
-      <div class="row" style="align-items:center;justify-content:space-between">
+      <div class="rwrap">
         <div style="flex:1;min-width:250px">${radarSvg(pr.scores,pr.baseline)}</div>
         <div class="cci">
           <div style="font-size:15px;font-weight:700;color:#0f766e">综合指数</div>
@@ -1396,7 +1400,7 @@ function openDetail(sid,grade){
           <div style="font-size:14px;font-weight:600;color:#5b6b7c">环比增长 ${(pr.growth*100>=0?"+":"")}${(pr.growth*100).toFixed(1)}%</div>
           <div style="font-size:15px;font-weight:800;color:#065f46;margin-top:7px">${levelOf(pr.cci)}</div></div>
       </div>
-      <div class="radarnote">实线为当前得分，虚线为底分参考；底分来源：${pr.baseline_source}。</div>
+      <div class="radarnote">实线为当前得分，虚线为初始得分。</div>
     </div>
     <div class="card"><h2><span class="n">3</span>指标与五维的对应关系（量化依据）</h2>${mat}
       <div class="muted" style="margin-top:8px">评分可溯源：每一项得分均可回溯到上表列出的具体学习事件与过程数据。</div></div>
@@ -1461,7 +1465,7 @@ function openTraj(sid){
   <div class="row" style="margin-bottom:14px"><button class="btn ghost sm" id="tBack">‹ 返回画像</button></div>
   <div class="card"><h2><span class="n">◎</span>${esc(stu.name||sid)} · 四学年德育成长轨迹</h2>
     <div class="muted" style="margin-bottom:10px">学号 ${esc(sid)} ｜ 班级 ${esc(stu.class_name||"—")}。
-      虚线为综合指数，各学年底分自动承接上一学年结果，因此曲线体现的是德育养成的累积过程。</div>
+      虚线为综合指数，各学年初始得分自动承接上一学年结果，因此曲线体现的是德育养成的累积过程。</div>
     ${trajectorySvg(all)}</div>
   <div class="card"><h2><span class="n">◎</span>逐年得分表</h2>
     <table><thead><tr><th style="text-align:left">维度</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;

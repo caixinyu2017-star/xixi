@@ -16,14 +16,14 @@
     五个维度：文化体验 / 文化认知 / 文化志趣 / 文化认同 / 文化研创
     取值区间 [0, 1]，满分 1.0。
 
-    底分来自开课第一节课的五维问卷；此后学生在平台上的每一次学习、作业、
+    初始得分来自开课第一节课的五维问卷；此后学生在平台上的每一次学习、作业、
     创作、智能体开发都会转化为"增量证据"，令对应维度得分单调上升并趋近 1.0，
     但永远不会超过 1.0：
 
         S_d = B_d + (1 - B_d) * (1 - exp(-A_d / kappa_d))
 
-    其中 B_d 为底分，A_d 为该维度累计的有效证据量。该式保证：
-        · A_d = 0        -> S_d = B_d          （只做问卷时就是底分）
+    其中 B_d 为初始得分，A_d 为该维度累计的有效证据量。该式保证：
+        · A_d = 0        -> S_d = B_d          （只做问卷时就是初始得分）
         · A_d 增大       -> S_d 严格单调上升    （材料越多分越高）
         · A_d -> 无穷    -> S_d -> 1.0          （封顶 1.0，永不越界）
 
@@ -109,7 +109,7 @@ CODE_DIM: Dict[str, str] = {v: k for k, v in DIM_CODE.items()}
 GRADES: Tuple[str, ...] = ("大一", "大二", "大三", "大四")
 GRADE_INDEX: Dict[str, int] = {g: i for i, g in enumerate(GRADES)}
 
-BASELINE_DEFAULT = 0.50          # 未做问卷时的中性底分
+BASELINE_DEFAULT = 0.50          # 未做问卷时的中性初始得分
 EPS = 1e-9
 
 # 各维度的"证据饱和常数"：A_d 达到 kappa 时，与满分的差距缩小约 63%。
@@ -152,7 +152,7 @@ CHANNEL_WEIGHTS: Dict[str, Dict[str, float]] = {
 }
 
 CHANNEL_LABEL: Dict[str, str] = {
-    "questionnaire": "五维问卷（底分）",
+    "questionnaire": "五维问卷（初始得分）",
     "dialogue": "文化对话",
     "enrollment": "文化课程报名",
     "homework": "课程作业",
@@ -1238,7 +1238,7 @@ def _question_dim(header: str, override: Dict[str, Dict[str, Any]]) -> Optional[
 
 def import_questionnaire(store: Store, path: str, grade_sel: Optional[str],
                          batch_id: str) -> Dict[str, Any]:
-    """解析问卷星等平台导出的 xlsx，生成五维底分。"""
+    """解析问卷星等平台导出的 xlsx，生成五维初始得分。"""
     override: Dict[str, Dict[str, Any]] = {}
     cfg_path = os.path.join(config_dir(), "questionnaire_map.json")
     if os.path.isfile(cfg_path):
@@ -1326,7 +1326,7 @@ def import_questionnaire(store: Store, path: str, grade_sel: Optional[str],
 
     detail = "、".join(f"{d} {dim_counts[d]} 题" for d in DIMS) if q_cols else "使用维度得分列"
     return {"n_rows": len(rows) - 1, "n_new": n_students, "n_dup": 0,
-            "note": f"识别到 {n_students} 名学生的问卷底分；题目归类：{detail}"}
+            "note": f"识别到 {n_students} 名学生的问卷初始得分；题目归类：{detail}"}
 
 
 # ---- 6.6 学生作业成果 / 自建智能体 -----------------------------------------
@@ -1451,7 +1451,7 @@ def _has_evidence(store: Store, sid: str, grade: str) -> bool:
 
 
 def compute_portrait(store: Store, sid: str) -> Dict[str, Any]:
-    """计算一名学生四个年级的完整画像（含底分承接与成长轨迹）。"""
+    """计算一名学生四个年级的完整画像（含初始得分承接与成长轨迹）。"""
     grades: Dict[str, Any] = {}
     carry: Optional[Dict[str, float]] = None
 
@@ -1462,7 +1462,7 @@ def compute_portrait(store: Store, sid: str) -> Dict[str, Any]:
         elif carry is not None:
             B, b_src = dict(carry), "承接上一学年画像"
         else:
-            B, b_src = {d: BASELINE_DEFAULT for d in DIMS}, "默认中性底分 0.50"
+            B, b_src = {d: BASELINE_DEFAULT for d in DIMS}, "默认初始得分 0.50"
 
         A, per_channel = _aggregate_A(store, sid, g)
         S: Dict[str, float] = {}
@@ -1659,7 +1659,7 @@ def completeness_of(store: Store, sid: str,
              + COMPLETENESS_W["channels"] * cov
              + COMPLETENESS_W["rho"] * best_rho
              + COMPLETENESS_W["volume"] * vol)
-    missing = ([] if has_q else ["问卷底分"]) + \
+    missing = ([] if has_q else ["问卷初始得分"]) + \
               [CHANNEL_LABEL[c] for c in ALL_CHANNELS if c not in chans]
     return {"score": round(score, 4), "has_q": has_q, "channels": len(chans),
             "items": items, "rho": round(best_rho, 4), "missing": missing}
@@ -1692,7 +1692,7 @@ def level_of(x: float) -> str:
 # ==========================================================================
 def radar_svg(scores: Dict[str, float], baseline: Dict[str, float],
               size: int = 340) -> str:
-    """五维雷达图。实线为当前得分，虚线为底分参考。
+    """五维雷达图。实线为当前得分，虚线为初始得分。
 
     画布刻意做成横向更宽的矩形：左右两侧要放下 4 个汉字的维度名与分值，
     正方形画布会把标签裁掉。
@@ -1873,7 +1873,7 @@ def build_report_docx(store: Store, sid: str, grade: str) -> bytes:
     heading('二、五维素养得分')
     tbl = doc.add_table(rows=1, cols=5)
     tbl.style = 'Table Grid'
-    for j, h in enumerate(['维度', '底分', '本学年得分', '增幅', '等级']):
+    for j, h in enumerate(['维度', '初始得分', '本学年得分', '增幅', '等级']):
         c = tbl.rows[0].cells[j]
         c.text = ''
         run_style(c.paragraphs[0].add_run(h), '黑体', 10.5, False)
@@ -1889,7 +1889,7 @@ def build_report_docx(store: Store, sid: str, grade: str) -> bytes:
             c.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     para()
     para(f'综合文化素养指数 CCI = {pr["cci"]:.2f}（{level_of(pr["cci"])}），'
-         f'较上一学年 {pr["delta"]:+.2f}。底分来源：{pr["baseline_source"]}。', indent=True)
+         f'较上一学年 {pr["delta"]:+.2f}。', indent=True)
 
     heading('三、支撑得分的过程证据')
     if not lines:
@@ -1913,7 +1913,7 @@ def build_report_docx(store: Store, sid: str, grade: str) -> bytes:
 
     heading('六、说明')
     para('本报告由禾灵儿文化德育数字画像系统自动生成。五个维度取值区间为 0 至 1，'
-         '底分来自开课第一节课的五维问卷，其后依据学生在平台上的课程学习、作业提交、'
+         '初始得分来自开课第一节课的五维问卷，其后依据学生在平台上的课程学习、作业提交、'
          '文化对话、作品创作与智能体开发等过程证据动态累加，得分随材料增加而单调上升'
          '并以 1.00 为上限。全部计分规则公开、可复算，每一项得分均可追溯到具体的学习事件。',
          indent=True)
@@ -1992,7 +1992,11 @@ input,select,textarea{font-family:inherit;font-size:14px;padding:8px 12px;
      border:1px solid #d7e3de;border-radius:8px;background:#fff;color:#1f2937}
 input:focus,select:focus,textarea:focus{outline:2px solid #99f6e4;outline-offset:-1px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+/* 同一行的两块卡片等高，底边对齐；卡片内用 flex 让主体内容撑满剩余高度 */
+.grid2>.card{display:flex;flex-direction:column}
+.rwrap{flex:1;display:flex;gap:14px;flex-wrap:wrap;
+       align-items:center;justify-content:space-between}
 @media(max-width:940px){.grid2{grid-template-columns:1fr}}
 .muted{color:#5b6b7c;font-size:13px}
 .pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:13px;font-weight:800}
@@ -2075,7 +2079,7 @@ if FastAPI is not None:
       <button class="btn" onclick="up()">上传并解析</button>
     </div>
     <div class="muted">首次使用请先上传<b>学生报名情况</b>建立学号索引，再上传其余表格；
-      问卷用于生成五维底分。重复上传同一文件不会重复计分。</div>
+      问卷用于生成五维初始得分。重复上传同一文件不会重复计分。</div>
   </div>
   <div class="log" id="log" style="margin-top:12px">就绪。</div>
 </div>
@@ -2088,7 +2092,7 @@ if FastAPI is not None:
     <button class="btn" onclick="load(1)">查询</button>
     <label class="muted">排序</label>
     <select id="sortBy" onchange="load(1)">
-      <option value="complete">默认（材料最全的排在前面）</option>
+      <option value="complete">默认</option>
       <option value="cci">综合指数从高到低</option>
       <option value="cci_asc">综合指数从低到高</option>
       <option value="class">班级 / 学号</option>
@@ -2325,13 +2329,13 @@ load(1);'''
                     + '</div>' for ln in lines))
         else:
             ind_html = ('<div class="nodata">本学年尚未采集到过程性证据。'
-                        '五维得分等于底分，请先上传该年级的导出表或学生作业。</div>')
+                        '五维得分等于初始得分，请先上传该年级的导出表或学生作业。</div>')
 
         mat_html = ''.join(
             f'<div style="margin-bottom:11px">'
             f'<span class="pill p-{m["code"]}">{m["dim"]}</span> '
             f'<b style="color:#0f766e">{m["score"]:.2f}</b> '
-            f'<span class="muted">底分 {m["baseline"]:.2f} → 证据充分度 '
+            f'<span class="muted">初始得分 {m["baseline"]:.2f} → 证据充分度 '
             f'{m["rho"] * 100:.0f}%</span>'
             f'<div class="bar"><i style="width:{m["score"] * 100:.0f}%"></i></div>'
             f'<div class="muted" style="margin-top:4px">证据来源：'
@@ -2371,7 +2375,7 @@ load(1);'''
   </div>
   <div class="card">
     <h2><span class="n">2</span>五维素养雷达（画像输出）</h2>
-    <div class="row" style="align-items:center;justify-content:space-between">
+    <div class="rwrap">
       <div style="flex:1;min-width:260px">{radar_svg(pr['scores'], pr['baseline'])}</div>
       <div class="cci">
         <div style="font-size:15px;font-weight:700;color:#0f766e">综合指数</div>
@@ -2383,8 +2387,7 @@ load(1);'''
           {level_of(pr['cci'])}</div>
       </div>
     </div>
-    <div class="radarnote">实线为当前得分，虚线为底分参考；
-      底分来源：{pr['baseline_source']}。</div>
+    <div class="radarnote">实线为当前得分，虚线为初始得分。</div>
   </div>
   <div class="card">
     <h2><span class="n">3</span>指标与五维的对应关系（量化依据）</h2>
@@ -2472,7 +2475,7 @@ function upw(){{
 <div class="card">
   <h2><span class="n">◎</span>{stu.get('name') or sid} · 四学年德育成长轨迹</h2>
   <div class="muted" style="margin-bottom:10px">学号 {sid} ｜ 班级
-    {stu.get('class_name') or '—'}。虚线为综合指数，各学年底分自动承接上一学年结果，
+    {stu.get('class_name') or '—'}。虚线为综合指数，各学年初始得分自动承接上一学年结果，
     因此曲线体现的是德育养成的累积过程。</div>
   {trajectory_svg(all_g)}
 </div>
@@ -2520,7 +2523,7 @@ def _cli() -> int:
 
     sub.add_parser('health', help='查看数据库统计')
     sub.add_parser('reset-evidence',
-                   help='清空过程证据（保留学生库与问卷底分），用于调整计量参数后重新导入')
+                   help='清空过程证据（保留学生库与问卷初始得分），用于调整计量参数后重新导入')
 
     args = ap.parse_args()
     if args.cmd == 'import':
@@ -2541,7 +2544,7 @@ def _cli() -> int:
         cx.execute('DELETE FROM evidences')
         cx.execute('DELETE FROM uploads')
         cx.commit()
-        print(f'已清空 {n} 条证据与上传记录，学生库与问卷底分保留。请重新导入各表。')
+        print(f'已清空 {n} 条证据与上传记录，学生库与问卷初始得分保留。请重新导入各表。')
     elif args.cmd == 'health':
         print(json.dumps(health(), ensure_ascii=False, indent=2))
     elif args.cmd == 'serve':
