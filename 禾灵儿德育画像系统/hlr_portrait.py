@@ -1691,15 +1691,15 @@ def level_of(x: float) -> str:
 # 八、图形（服务端生成内联 SVG，无外部依赖、离线可用）
 # ==========================================================================
 def radar_svg(scores: Dict[str, float], baseline: Dict[str, float],
-              size: int = 330) -> str:
+              size: int = 340) -> str:
     """五维雷达图。实线为当前得分，虚线为底分参考。
 
     画布刻意做成横向更宽的矩形：左右两侧要放下 4 个汉字的维度名与分值，
     正方形画布会把标签裁掉。
     """
-    w, h = int(size * 1.46), int(size * 1.06)
+    w, h = int(size * 1.50), int(size * 1.20)
     cx, cy = w / 2.0, h / 2.0 + 4
-    R = size * 0.30
+    R = size * 0.34
     n = len(DIMS)
     pts_s, pts_b, axes, labels, dots = [], [], [], [], []
     for i, d in enumerate(DIMS):
@@ -1713,8 +1713,8 @@ def radar_svg(scores: Dict[str, float], baseline: Dict[str, float],
         sx, sy = cx + ux * R * sv, cy + uy * R * sv
         pts_s.append(f"{sx:.1f},{sy:.1f}")
         pts_b.append(f"{cx + ux * R * bv:.1f},{cy + uy * R * bv:.1f}")
-        dots.append(f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="3.4" fill="#059669"/>')
-        lx, ly = cx + ux * (R + 34), cy + uy * (R + 24)
+        dots.append(f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="4" fill="#059669"/>')
+        lx, ly = cx + ux * (R + 40), cy + uy * (R + 27)
         if ux > 0.25:
             anchor = "start"
         elif ux < -0.25:
@@ -1723,9 +1723,9 @@ def radar_svg(scores: Dict[str, float], baseline: Dict[str, float],
             anchor = "middle"
         labels.append(
             f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anchor}" '
-            f'font-size="12.5" fill="#334155">{d}</text>'
-            f'<text x="{lx:.1f}" y="{ly + 16:.1f}" text-anchor="{anchor}" '
-            f'font-size="13" font-weight="700" fill="#0f766e">{sv:.2f}</text>')
+            f'font-size="16" font-weight="700" fill="#1f2937">{d}</text>'
+            f'<text x="{lx:.1f}" y="{ly + 21:.1f}" text-anchor="{anchor}" '
+            f'font-size="19" font-weight="800" fill="#0f766e">{sv:.2f}</text>')
     rings = "".join(
         '<polygon points="{}" fill="none" stroke="#eef2f6" stroke-width="1"/>'.format(
             " ".join(
@@ -1738,8 +1738,8 @@ def radar_svg(scores: Dict[str, float], baseline: Dict[str, float],
         f'xmlns="http://www.w3.org/2000/svg">{rings}{"".join(axes)}'
         f'<polygon points="{" ".join(pts_b)}" fill="none" stroke="#94a3b8" '
         f'stroke-width="1.4" stroke-dasharray="5 4"/>'
-        f'<polygon points="{" ".join(pts_s)}" fill="#10b981" fill-opacity="0.18" '
-        f'stroke="#059669" stroke-width="2"/>'
+        f'<polygon points="{" ".join(pts_s)}" fill="#10b981" fill-opacity="0.20" '
+        f'stroke="#059669" stroke-width="2.6"/>'
         + "".join(dots) + "".join(labels) + "</svg>")
 
 
@@ -1999,12 +1999,16 @@ input:focus,select:focus,textarea:focus{outline:2px solid #99f6e4;outline-offset
 .p-E{background:#fff7ed;color:#c2410c}.p-C{background:#eff6ff;color:#1d4ed8}
 .p-I{background:#f0fdf4;color:#15803d}.p-D{background:#fef2f2;color:#b91c1c}
 .p-R{background:#f5f3ff;color:#6d28d9}
-.ev{border-left:3px solid #a7f3d0;padding:4px 0 4px 10px;margin-bottom:7px;
-     font-size:13.5px;line-height:1.55}
-.ev b{color:#0f766e;font-size:14.5px;font-weight:800}
-.ev .it{color:#475569;font-size:13px;display:block;margin-top:1px}
-.cci{background:linear-gradient(160deg,#ecfdf5,#d1fae5);border-radius:12px;padding:16px;
-     text-align:center;min-width:150px}
+.ev{border-left:4px solid #6ee7b7;padding:6px 0 6px 12px;margin-bottom:11px;
+     line-height:1.6}
+.ev b{color:#0f766e;font-size:16.5px;font-weight:800;letter-spacing:.3px}
+.ev .it{color:#243b53;font-size:15px;font-weight:600;display:block;margin-top:3px}
+.sum{font-size:15px;font-weight:600;color:#334155;margin-bottom:11px;
+     background:#f0fdfa;border-radius:8px;padding:8px 12px}
+.sum b{color:#0f766e;font-size:17px;font-weight:800}
+.radarnote{font-size:14px;font-weight:600;color:#475569;margin-top:8px}
+.cci{background:linear-gradient(160deg,#ecfdf5,#d1fae5);border-radius:12px;padding:18px 20px;
+     text-align:center;min-width:172px}
 .cci .v{font-size:46px;font-weight:900;color:#065f46;line-height:1.05}
 .adv{background:#f0fdf4;border-radius:9px;padding:12px 14px;margin-bottom:10px;
      font-size:14px;line-height:1.72;border-left:4px solid #34d399;color:#14342b}
@@ -2084,17 +2088,16 @@ if FastAPI is not None:
     <button class="btn" onclick="load(1)">查询</button>
     <label class="muted">排序</label>
     <select id="sortBy" onchange="load(1)">
-      <option value="complete">信息完整度（默认，材料最全的在前）</option>
+      <option value="complete">默认（材料最全的排在前面）</option>
       <option value="cci">综合指数从高到低</option>
-      <option value="cci_asc">综合指数从低到高（优先关注短板学生）</option>
+      <option value="cci_asc">综合指数从低到高</option>
       <option value="class">班级 / 学号</option>
     </select>
     <span class="muted" id="cnt"></span>
   </div>
   <table><thead><tr><th>学号</th><th>姓名</th><th>班级</th>
-    <th style="min-width:190px">信息完整度</th>
     <th>大一</th><th>大二</th><th>大三</th><th>大四</th></tr></thead>
-    <tbody id="tb"><tr><td colspan="8" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
+    <tbody id="tb"><tr><td colspan="7" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
   </table>
   <div class="row" style="margin-top:12px;justify-content:center">
     <button class="btn ghost sm" onclick="load(page-1)">上一页</button>
@@ -2128,7 +2131,7 @@ function load(p){
   var sb=document.getElementById('sortBy').value;
   fetch('api/students?q='+q+'&page='+p+'&sort='+sb).then(r=>r.json()).then(d=>{
     var tb=document.getElementById('tb');
-    if(!d.items.length){tb.innerHTML='<tr><td colspan="8" class="nodata">没有匹配的学生</td></tr>';}
+    if(!d.items.length){tb.innerHTML='<tr><td colspan="7" class="nodata">没有匹配的学生</td></tr>';}
     else{
       tb.innerHTML=d.items.map(function(s){
         var cells=s.grades.map(function(g){
@@ -2136,16 +2139,7 @@ function load(p){
             ? '<td><a class="btn sm" href="s/'+encodeURIComponent(s.sid)+'?grade='+encodeURIComponent(g.grade)+'">查看</a>'
               +'<div style="margin-top:3px;font-weight:800;color:#0f766e">'+g.cci.toFixed(2)+'</div></td>'
             : '<td><span class="nodata">未采集</span></td>';}).join('');
-        var c=s.completeness;
-        var miss=c.missing.length
-          ? ('缺 '+c.missing.slice(0,3).join('、')+(c.missing.length>3?(' 等 '+c.missing.length+' 项'):''))
-          : '六类材料齐备';
-        var cp='<td><div class="cp"><div class="hd">'
-          +'<span class="pc">'+Math.round(c.score*100)+'%</span>'
-          +'<span class="tg '+c.cls+'">'+c.tag+'</span></div>'
-          +'<div class="bar"><i style="width:'+Math.round(c.score*100)+'%"></i></div>'
-          +'<div class="ms">'+miss+'</div></div></td>';
-        return '<tr><td>'+s.sid+'</td><td>'+(s.name||'—')+'</td><td>'+(s.class_name||'—')+'</td>'+cp+cells+'</tr>';
+        return '<tr><td>'+s.sid+'</td><td>'+(s.name||'—')+'</td><td>'+(s.class_name||'—')+'</td>'+cells+'</tr>';
       }).join('');
     }
     document.getElementById('cnt').textContent='共 '+d.total+' 名学生';
@@ -2309,8 +2303,8 @@ load(1);'''
         pr = all_g[grade]
         lines = indicator_lines(STORE, sid, grade, limit_per_channel=3)
         matrix = dimension_matrix(STORE, sid, grade, pr)
+        # 完整度只用于列表排序，不在界面上呈现；这里取值仅为统计证据渠道数
         comp = completeness_of(STORE, sid, all_g)
-        c_tag, c_cls = completeness_tag(comp['score'])
         advice = teacher_advice(pr, stu)
 
         tabs = ''.join(
@@ -2321,8 +2315,8 @@ load(1);'''
         if lines:
             total_items = sum(ln['count'] for ln in lines)
             ind_html = (
-                f'<div class="muted" style="margin-bottom:8px">本学年共 {total_items} 项'
-                f'过程证据，覆盖 {comp["channels"]}/6 类材料渠道</div>'
+                f'<div class="sum">本学年共采集到 <b>{total_items}</b> 项过程证据，'
+                f'来自 <b>{comp["channels"]}</b> 类材料</div>'
                 + ''.join(
                     f'<div class="ev"><b>{ln["label"]}</b> · {ln["count"]} 项'
                     + ''.join(f'<span class="it">· {it}</span>' for it in ln['items'])
@@ -2360,13 +2354,7 @@ load(1);'''
         · 文化德育数字画像</h2>
       <div class="muted">学号 {sid} ｜ 班级 {stu.get('class_name') or '—'}
         ｜ 学院 {stu.get('college') or '—'} ｜ 专业 {stu.get('major') or '—'}</div>
-      <div style="margin-top:8px">
-        <span class="tg {c_cls}" style="font-size:13px;font-weight:800;
-              padding:3px 10px;border-radius:6px">材料完整度
-          {comp['score'] * 100:.0f}% · {c_tag}</span>
-        <span class="muted" style="margin-left:8px">{
-          ('尚缺：' + '、'.join(comp['missing'])) if comp['missing'] else '六类材料齐备'}</span>
-      </div>
+
     </div>
     <div class="row">
       <a class="btn ghost" href="../api/report/{sid}?grade={grade}">生成学习报告</a>
@@ -2386,15 +2374,16 @@ load(1);'''
     <div class="row" style="align-items:center;justify-content:space-between">
       <div style="flex:1;min-width:260px">{radar_svg(pr['scores'], pr['baseline'])}</div>
       <div class="cci">
-        <div class="muted">综合指数</div>
+        <div style="font-size:15px;font-weight:700;color:#0f766e">综合指数</div>
         <div class="v">{pr['cci']:.2f}</div>
-        <div style="font-size:12px;color:#047857;font-weight:600">
+        <div style="font-size:14.5px;color:#047857;font-weight:800">
           {'↑' if delta >= 0 else '↓'} 较上学年 {delta:+.2f}</div>
-        <div class="muted">环比增长 {growth:+.1f}%</div>
-        <div class="muted" style="margin-top:6px">{level_of(pr['cci'])}</div>
+        <div style="font-size:14px;font-weight:600;color:#5b6b7c">环比增长 {growth:+.1f}%</div>
+        <div style="font-size:15px;font-weight:800;color:#065f46;margin-top:7px">
+          {level_of(pr['cci'])}</div>
       </div>
     </div>
-    <div class="muted" style="margin-top:6px">实线为当前得分，虚线为底分参考；
+    <div class="radarnote">实线为当前得分，虚线为底分参考；
       底分来源：{pr['baseline_source']}。</div>
   </div>
   <div class="card">
