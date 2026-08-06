@@ -1,0 +1,1488 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>禾灵儿 · 文化德育数字画像</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",system-ui,sans-serif;
+     background:#f2f7f5;color:#1f2937;font-size:14px;line-height:1.65}
+a{color:inherit;text-decoration:none}
+.top{background:linear-gradient(90deg,#0f766e,#10b981);color:#fff;padding:16px 0}
+.top .in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;
+         align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.top h1{font-size:19px;font-weight:700}
+.top .sub{font-size:12px;opacity:.9;margin-top:2px}
+.top .rt{font-size:12px;opacity:.92;text-align:right}
+.wrap{max-width:1280px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,.07);
+      padding:18px 20px;margin-bottom:16px}
+.card h2{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;
+         align-items:center;gap:8px;color:#0f766e}
+.card h2 .n{background:#10b981;color:#fff;min-width:20px;height:20px;border-radius:5px;
+            display:inline-flex;align-items:center;justify-content:center;font-size:12px;padding:0 4px}
+table{width:100%;border-collapse:collapse}
+th{background:#f8fafc;color:#475569;font-weight:600;font-size:13px;
+   padding:11px 10px;text-align:center;border-bottom:1px solid #e2e8f0}
+td{padding:10px;text-align:center;border-bottom:1px solid #f1f5f9;font-size:13px}
+tbody tr:hover{background:#f0fdf9}
+.btn{display:inline-block;background:#10b981;color:#fff;border:none;border-radius:999px;
+     padding:7px 18px;font-size:13px;cursor:pointer;transition:.15s;font-family:inherit}
+.btn:hover{background:#0d9488}
+.btn.ghost{background:#fff;color:#0f766e;border:1px solid #99f6e4}
+.btn.ghost:hover{background:#f0fdfa}
+.btn.sm{padding:4px 14px;font-size:12px}
+.btn:disabled{background:#e2e8f0;color:#94a3b8;cursor:not-allowed}
+.btn.danger{background:#fff;color:#b91c1c;border:1px solid #fecaca}
+input,select,textarea,button{font-family:inherit;font-size:13px}
+input,select,textarea{padding:8px 12px;border:1px solid #d7e3de;border-radius:8px;
+     background:#fff;color:#1f2937}
+input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:960px){.grid2{grid-template-columns:1fr}}
+.muted{color:#64748b;font-size:12px}
+.pill{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11px;font-weight:600}
+.p-E{background:#fff7ed;color:#c2410c}.p-C{background:#eff6ff;color:#1d4ed8}
+.p-I{background:#f0fdf4;color:#15803d}.p-D{background:#fef2f2;color:#b91c1c}
+.p-R{background:#f5f3ff;color:#6d28d9}
+.ev{border-left:3px solid #a7f3d0;padding:6px 0 6px 11px;margin-bottom:9px;font-size:12.5px}
+.ev b{color:#0f766e}
+.cci{background:linear-gradient(160deg,#ecfdf5,#d1fae5);border-radius:12px;padding:16px;
+     text-align:center;min-width:158px}
+.cci .v{font-size:40px;font-weight:800;color:#065f46;line-height:1.1}
+.adv{background:#f0fdf4;border-radius:9px;padding:11px 13px;margin-bottom:9px;
+     font-size:12.5px;border-left:3px solid #34d399}
+.up{border:1.5px dashed #99f6e4;border-radius:10px;padding:14px;background:#f7fefc}
+.log{max-height:210px;overflow:auto;background:#0f172a;color:#c9f7e5;border-radius:8px;
+     padding:10px 12px;font-size:12px;font-family:ui-monospace,Consolas,monospace;
+     white-space:pre-wrap;line-height:1.6}
+.tabs{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+.tab{padding:7px 16px;border-radius:999px;background:#fff;border:1px solid #d7e3de;
+     cursor:pointer;font-size:13px}
+.tab.on{background:#0f766e;color:#fff;border-color:#0f766e}
+.bar{height:6px;background:#eef2f6;border-radius:3px;overflow:hidden;margin-top:4px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#34d399,#0f766e)}
+.nodata{color:#94a3b8;font-size:12px}
+.hide{display:none!important}
+.prog{height:8px;background:#e6f4ef;border-radius:4px;overflow:hidden;margin-top:8px}
+.prog>i{display:block;height:100%;background:#10b981;width:0;transition:width .2s}
+.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:9px;
+      padding:10px 13px;font-size:12.5px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <div>
+    <h1>禾灵儿 · 文化德育数字画像</h1>
+    <div class="sub">五维素养动态评价 ｜ 文化体验 · 文化认知 · 文化志趣 · 文化认同 · 文化研创</div>
+  </div>
+  <div class="rt">嘉兴大学 &nbsp;｜&nbsp; 网页版 v1.0.0<br>
+    <span id="dbstat" style="opacity:.85"></span></div>
+</div></div>
+
+<div class="wrap">
+  <div id="compatWarn" class="warn hide"></div>
+
+  <!-- ============ 列表视图 ============ -->
+  <div id="viewList">
+    <div class="card">
+      <h2><span class="n">1</span>上传材料</h2>
+      <div class="up">
+        <div class="row" style="margin-bottom:10px">
+          <label>材料类别</label>
+          <select id="kind">
+            <option value="auto">自动识别（推荐）</option>
+            <option value="questionnaire">五维问卷</option>
+            <option value="enrollment">学生报名情况</option>
+            <option value="homework">学生作业完成率</option>
+            <option value="video">学生视频完成率</option>
+            <option value="dialogue">文化对话记录</option>
+          </select>
+          <label>年级</label>
+          <select id="grade"></select>
+          <input type="file" id="files" multiple accept=".xlsx,.xlsm">
+          <button class="btn" id="btnUp">上传并解析</button>
+        </div>
+        <div class="muted">首次使用请先上传<b>学生报名情况</b>建立学号索引，再上传其余表格；
+          问卷用于生成五维底分。同一份材料重复上传不会重复计分。</div>
+        <div class="prog"><i id="prog"></i></div>
+      </div>
+      <div class="log" id="log" style="margin-top:12px">就绪。</div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">2</span>学生画像总览</h2>
+      <div class="row" style="margin-bottom:12px">
+        <input id="q" placeholder="搜索 班级 / 学号 / 姓名" style="width:280px">
+        <button class="btn" id="btnQ">查询</button>
+        <span class="muted" id="cnt"></span>
+        <span style="flex:1"></span>
+        <button class="btn ghost sm" id="btnExport">导出数据备份</button>
+        <input type="file" id="impFile" accept=".json" class="hide">
+        <button class="btn ghost sm" id="btnImport">导入数据备份</button>
+        <button class="btn danger sm" id="btnClear">清空全部数据</button>
+      </div>
+      <table><thead><tr><th>学号</th><th>姓名</th><th>班级</th>
+        <th>大一</th><th>大二</th><th>大三</th><th>大四</th></tr></thead>
+        <tbody id="tb"><tr><td colspan="7" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
+      </table>
+      <div class="row" style="margin-top:12px;justify-content:center">
+        <button class="btn ghost sm" id="btnPrev">上一页</button>
+        <span class="muted" id="pg"></span>
+        <button class="btn ghost sm" id="btnNext">下一页</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 详情视图 ============ -->
+  <div id="viewDetail" class="hide"></div>
+  <!-- ============ 轨迹视图 ============ -->
+  <div id="viewTraj" class="hide"></div>
+</div>
+
+<script>
+"use strict";
+/* =====================================================================
+ * 禾灵儿文化德育数字画像 · 网页版
+ * ---------------------------------------------------------------------
+ * 单文件、零依赖、可离线。双击用 Edge / Chrome 打开即可使用。
+ * 全部计算在本机浏览器内完成，数据存在浏览器的 IndexedDB 里，不上传任何服务器。
+ * 算法与 Python 版 hlr_portrait.py 完全一致，同样的材料算出同样的分。
+ * ===================================================================== */
+
+/* ---------- 0. 基础工具 ---------- */
+const DIMS = ["文化体验","文化认知","文化志趣","文化认同","文化研创"];
+const DIM_CODE = {"文化体验":"E","文化认知":"C","文化志趣":"I","文化认同":"D","文化研创":"R"};
+const CODE_DIM = {E:"文化体验",C:"文化认知",I:"文化志趣",D:"文化认同",R:"文化研创"};
+const GRADES = ["大一","大二","大三","大四"];
+const BASELINE_DEFAULT = 0.50;
+
+const KAPPA = {"文化体验":4.5,"文化认知":5.0,"文化志趣":4.5,"文化认同":4.0,"文化研创":3.5};
+const CHANNEL_A_CAP = {dialogue:6.0,enrollment:6.0,homework:8.0,video:6.0,artifact:12.0,agent:12.0};
+const CHANNEL_WEIGHTS = {
+  dialogue:  {"文化体验":0.20,"文化认知":0.55,"文化志趣":0.50,"文化认同":0.40,"文化研创":0.25},
+  enrollment:{"文化体验":0.40,"文化认知":0.25,"文化志趣":0.60,"文化认同":0.25,"文化研创":0.10},
+  homework:  {"文化体验":0.25,"文化认知":0.65,"文化志趣":0.40,"文化认同":0.20,"文化研创":0.35},
+  video:     {"文化体验":0.60,"文化认知":0.45,"文化志趣":0.35,"文化认同":0.20,"文化研创":0.05},
+  artifact:  {"文化体验":0.35,"文化认知":0.45,"文化志趣":0.30,"文化认同":0.40,"文化研创":0.85},
+  agent:     {"文化体验":0.20,"文化认知":0.50,"文化志趣":0.40,"文化认同":0.35,"文化研创":1.00},
+};
+const CHANNEL_LABEL = {questionnaire:"五维问卷（底分）",dialogue:"文化对话",
+  enrollment:"文化课程报名",homework:"课程作业",video:"课程视频",
+  artifact:"学生作业成果",agent:"学生自建智能体"};
+const KIND_LABEL = {questionnaire:"五维问卷",enrollment:"学生报名情况",
+  homework:"学生作业完成率",video:"学生视频完成率",dialogue:"文化对话记录"};
+
+const clamp=(x,lo=0,hi=1)=>Math.max(lo,Math.min(hi,x));
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function normText(s){
+  if(s==null) return "";
+  return String(s).normalize("NFKC").replace(/\s+/g,"").trim().toLowerCase();
+}
+function normName(s){ return normText(s).replace(/[\-—_·．.]+/g,""); }
+function normSid(s){
+  if(s==null) return "";
+  let t=String(s).normalize("NFKC").trim();
+  if(t.endsWith(".0")) t=t.slice(0,-2);
+  return t.replace(/[^0-9A-Za-z]/g,"");
+}
+function parsePercent(v){
+  if(v==null) return 0;
+  if(typeof v==="number") return v>1?v/100:Math.max(0,v);
+  const t=normText(v).replace("%","");
+  if(!t) return 0;
+  const x=parseFloat(t);
+  if(isNaN(x)) return 0;
+  return x>1?x/100:Math.max(0,x);
+}
+const toInt=(v,d=0)=>{const x=parseFloat(String(v??"").trim());return isNaN(x)?d:Math.trunc(x);};
+const toNum=(v,d=0)=>{const x=parseFloat(String(v??"").trim());return isNaN(x)?d:x;};
+
+/* ---------- 1. 纯 JS SHA-256 ----------
+   file:// 打开时 crypto.subtle 不可用（非安全上下文），故自带实现。
+   用于给每条证据生成内容指纹，实现"重复上传不重复计分"。            */
+const SHA_K=new Uint32Array([
+0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2]);
+function sha256Bytes(bytes){
+  const ml=bytes.length, bitLenHi=Math.floor(ml/536870912), bitLenLo=(ml<<3)>>>0;
+  const withPad=((ml+9+63)>>6)<<6;
+  const m=new Uint8Array(withPad); m.set(bytes); m[ml]=0x80;
+  const dv=new DataView(m.buffer);
+  dv.setUint32(withPad-8,bitLenHi); dv.setUint32(withPad-4,bitLenLo);
+  let h0=0x6a09e667,h1=0xbb67ae85,h2=0x3c6ef372,h3=0xa54ff53a,
+      h4=0x510e527f,h5=0x9b05688c,h6=0x1f83d9ab,h7=0x5be0cd19;
+  const w=new Uint32Array(64);
+  const rr=(x,n)=>(x>>>n)|(x<<(32-n));
+  for(let off=0;off<withPad;off+=64){
+    for(let i=0;i<16;i++) w[i]=dv.getUint32(off+i*4);
+    for(let i=16;i<64;i++){
+      const s0=rr(w[i-15],7)^rr(w[i-15],18)^(w[i-15]>>>3);
+      const s1=rr(w[i-2],17)^rr(w[i-2],19)^(w[i-2]>>>10);
+      w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0;
+    }
+    let a=h0,b=h1,c=h2,d=h3,e=h4,f=h5,g=h6,h=h7;
+    for(let i=0;i<64;i++){
+      const S1=rr(e,6)^rr(e,11)^rr(e,25);
+      const ch=(e&f)^((~e)&g);
+      const t1=(h+S1+ch+SHA_K[i]+w[i])>>>0;
+      const S0=rr(a,2)^rr(a,13)^rr(a,22);
+      const maj=(a&b)^(a&c)^(b&c);
+      const t2=(S0+maj)>>>0;
+      h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b;b=a;a=(t1+t2)>>>0;
+    }
+    h0=(h0+a)>>>0;h1=(h1+b)>>>0;h2=(h2+c)>>>0;h3=(h3+d)>>>0;
+    h4=(h4+e)>>>0;h5=(h5+f)>>>0;h6=(h6+g)>>>0;h7=(h7+h)>>>0;
+  }
+  return [h0,h1,h2,h3,h4,h5,h6,h7].map(x=>x.toString(16).padStart(8,"0")).join("");
+}
+const TE=new TextEncoder();
+function sha256Text(...parts){
+  const chunks=[]; let total=0;
+  for(const p of parts){
+    const b=TE.encode(String(p)); chunks.push(b,Uint8Array.of(0x1f)); total+=b.length+1;
+  }
+  const all=new Uint8Array(total); let o=0;
+  for(const c of chunks){ all.set(c,o); o+=c.length; }
+  return sha256Bytes(all);
+}
+
+/* ---------- 2. ZIP 读取（用浏览器原生 DecompressionStream，无需第三方库） ---------- */
+async function inflateRaw(u8){
+  const ds=new DecompressionStream("deflate-raw");
+  const w=ds.writable.getWriter(); w.write(u8); w.close();
+  return new Uint8Array(await new Response(ds.readable).arrayBuffer());
+}
+async function readZip(buf){
+  const u8=new Uint8Array(buf), dv=new DataView(buf);
+  // 从尾部回扫 EOCD (0x06054b50)
+  let eocd=-1;
+  for(let i=u8.length-22;i>=Math.max(0,u8.length-66000);i--){
+    if(dv.getUint32(i,true)===0x06054b50){ eocd=i; break; }
+  }
+  if(eocd<0) throw new Error("不是有效的 zip / Office 文件");
+  const nEnt=dv.getUint16(eocd+10,true);
+  let p=dv.getUint32(eocd+16,true);
+  const entries=[];
+  for(let i=0;i<nEnt;i++){
+    if(dv.getUint32(p,true)!==0x02014b50) break;
+    const method=dv.getUint16(p+10,true);
+    const csize=dv.getUint32(p+20,true);
+    const nameLen=dv.getUint16(p+28,true);
+    const extraLen=dv.getUint16(p+30,true);
+    const cmtLen=dv.getUint16(p+32,true);
+    const lho=dv.getUint32(p+42,true);
+    const name=new TextDecoder("utf-8").decode(u8.subarray(p+46,p+46+nameLen));
+    entries.push({name,method,csize,lho});
+    p+=46+nameLen+extraLen+cmtLen;
+  }
+  const files={};
+  for(const e of entries){
+    if(dv.getUint32(e.lho,true)!==0x04034b50) continue;
+    const nl=dv.getUint16(e.lho+26,true), el=dv.getUint16(e.lho+28,true);
+    const start=e.lho+30+nl+el;
+    const raw=u8.subarray(start,start+e.csize);
+    files[e.name]={method:e.method,raw};
+  }
+  return {
+    names:()=>Object.keys(files),
+    has:n=>Object.prototype.hasOwnProperty.call(files,n),
+    async bytes(n){
+      const f=files[n]; if(!f) return null;
+      return f.method===0?f.raw:await inflateRaw(f.raw);
+    },
+    async text(n){
+      const b=await this.bytes(n);
+      return b?new TextDecoder("utf-8").decode(b):null;
+    }
+  };
+}
+
+/* ---------- 3. XLSX 解析 ---------- */
+function colToIdx(ref){
+  let n=0;
+  for(const ch of ref){
+    const c=ch.charCodeAt(0);
+    if(c>=65&&c<=90) n=n*26+(c-64); else break;
+  }
+  return n-1;
+}
+function excelSerialToStr(v){
+  // Excel 序列号 -> "YYYY-MM-DD HH:MM:SS"（1900 日期系统，含著名的 1900 闰年偏移）
+  const ms=Math.round((v-25569)*86400*1000);
+  const d=new Date(ms);
+  if(isNaN(d.getTime())) return String(v);
+  const p=n=>String(n).padStart(2,"0");
+  return d.getUTCFullYear()+"-"+p(d.getUTCMonth()+1)+"-"+p(d.getUTCDate())+" "+
+         p(d.getUTCHours())+":"+p(d.getUTCMinutes())+":"+p(d.getUTCSeconds());
+}
+async function parseXlsx(buf){
+  const zip=await readZip(buf);
+  const dom=s=>new DOMParser().parseFromString(s,"application/xml");
+
+  // 共享字符串
+  let shared=[];
+  if(zip.has("xl/sharedStrings.xml")){
+    const d=dom(await zip.text("xl/sharedStrings.xml"));
+    shared=Array.from(d.getElementsByTagName("si")).map(si=>
+      Array.from(si.getElementsByTagName("t")).map(t=>t.textContent).join(""));
+  }
+  // 工作表名与路径
+  const wb=dom(await zip.text("xl/workbook.xml"));
+  const relsTxt=await zip.text("xl/_rels/workbook.xml.rels");
+  const rels={};
+  if(relsTxt){
+    for(const r of Array.from(dom(relsTxt).getElementsByTagName("Relationship"))){
+      let t=r.getAttribute("Target")||"";
+      if(t.startsWith("/xl/")) t=t.slice(4);
+      rels[r.getAttribute("Id")]=t.replace(/^\/?xl\//,"").replace(/^\.\//,"");
+    }
+  }
+  const sheets=[];
+  for(const sh of Array.from(wb.getElementsByTagName("sheet"))){
+    const rid=sh.getAttribute("r:id")||sh.getAttributeNS(
+      "http://schemas.openxmlformats.org/officeDocument/2006/relationships","id");
+    let path=rels[rid];
+    if(!path){ path="worksheets/sheet"+(sheets.length+1)+".xml"; }
+    sheets.push({name:sh.getAttribute("name")||("Sheet"+(sheets.length+1)),
+                 path:"xl/"+path});
+  }
+  // 逐表读单元格
+  const out={};
+  for(const s of sheets){
+    const txt=await zip.text(s.path);
+    if(!txt){ out[s.name]=[]; continue; }
+    const d=dom(txt);
+    const rows=[];
+    for(const row of Array.from(d.getElementsByTagName("row"))){
+      const arr=[];
+      for(const c of Array.from(row.getElementsByTagName("c"))){
+        const ref=c.getAttribute("r")||"";
+        const idx=ref?colToIdx(ref):arr.length;
+        const t=c.getAttribute("t");
+        let val=null;
+        if(t==="inlineStr"){
+          val=Array.from(c.getElementsByTagName("t")).map(x=>x.textContent).join("");
+        }else{
+          const v=c.getElementsByTagName("v")[0];
+          if(v){
+            if(t==="s") val=shared[parseInt(v.textContent,10)]??"";
+            else if(t==="str"||t==="e") val=v.textContent;
+            else{
+              const num=parseFloat(v.textContent);
+              // 日期序列号：1900-01-01 之后、2200 年之前的整数/小数
+              val=(!isNaN(num)&&num>20000&&num<120000&&c.getAttribute("s")!=null)
+                   ?{__num:num}:num;
+            }
+          }
+        }
+        while(arr.length<idx) arr.push(null);
+        arr[idx]=val;
+      }
+      rows.push(arr);
+    }
+    out[s.name]=rows;
+  }
+  return out;
+}
+// 取值：日期型候选自动转字符串
+function cellVal(v,asDate){
+  if(v==null) return null;
+  if(typeof v==="object"&&v.__num!=null) return asDate?excelSerialToStr(v.__num):v.__num;
+  return v;
+}
+
+/* ---------- 4. 文化主题词典（与 Python 版逐字一致） ---------- */
+const LEX_GENERIC=["文化", "传统", "非遗", "非物质文化遗产", "民俗", "历史", "文脉", "艺术", "美学", "传承", "遗产", "古镇", "民族", "中华", "国学", "经典", "诗词", "书法", "绘画", "戏曲", "民歌", "手工艺", "技艺", "习俗", "节气", "节日", "古建筑", "文物", "考古", "典籍", "礼仪", "家风", "乡土", "地方志", "博物馆", "纪念馆", "美术馆", "文创", "国潮", "汉服", "茶文化", "陶瓷", "剪纸", "年画", "皮影", "刺绣", "织造", "木雕", "石刻", "碑刻", "楹联"];
+const LEX_REGION=["嘉兴", "禾城", "南湖", "乌镇", "西塘", "南浔", "月河", "运河", "京杭大运河", "江南", "水乡", "浙北", "桐乡", "平湖", "海盐", "海宁", "秀洲", "嘉善", "粽子", "五芳斋", "蓝印花布", "灶画", "掼牛", "皮影", "硖石灯彩", "田歌", "船拳", "网船会", "三跳", "紫砂", "浔溪", "子城", "文生修船", "槜李", "茅盾", "丰子恺", "金庸", "王国维", "徐志摩", "李叔同", "沈钧儒", "张乐平", "马家浜", "良渚", "崧泽", "运河文化带", "江南文化", "水乡文脉"];
+const LEX_REVOLUTION=["红船", "红船精神", "建党", "一大", "革命", "烈士", "长征", "抗战", "初心", "使命", "党史", "南湖革命纪念馆", "红色", "先烈", "延安", "井冈山", "五四", "爱国", "统一战线", "社会主义先进文化", "中国共产党"];
+const LEX_DIM_CUES={"文化体验": ["参观", "走访", "研学", "实地", "打卡", "漫游", "体验", "现场", "亲历", "沉浸", "展馆", "场馆", "展品", "街区", "景区", "遗址", "游览", "采风", "考察", "调研", "手作", "亲手", "参与", "工作坊", "实践活动", "志愿", "夏令营", "游学", "踏访", "寻访"], "文化认知": ["是什么", "为什么", "起源", "由来", "发展", "含义", "内涵", "区别", "特点", "特征", "原因", "解释", "知识", "概念", "演变", "历史沿革", "分类", "结构", "原理", "背景", "考证", "辨析", "综述", "梳理", "怎么形成", "如何理解", "有哪些"], "文化志趣": ["想了解", "感兴趣", "喜欢", "还有哪些", "继续", "更多", "深入", "拓展", "追问", "再讲讲", "详细说说", "接着", "另外", "此外", "延伸", "自学", "主动", "坚持", "每天", "持续", "课外", "业余"], "文化认同": ["我们", "自豪", "骄傲", "家乡", "认同", "归属", "弘扬", "传播", "推荐", "介绍", "分享给", "传承", "文化自信", "讲好中国故事", "向世界", "对外", "国际", "翻译", "外译", "责任", "担当", "使命感", "情怀", "热爱", "根脉", "乡愁", "民族精神"], "文化研创": ["设计", "创作", "生成", "制作", "方案", "脚本", "剧本", "策划", "文创", "作品", "创意", "海报", "视频", "短片", "微视频", "logo", "标识", "开发", "智能体", "提示词", "研究", "论文", "调查报告", "课题", "原创", "改编", "再创作", "产品", "衍生品", "插画", "动画"]};
+const LEX_FILLER=new Set(["1", "?", "hello", "hi", "ok", "test", "。", "你好", "再来一个", "哦", "嗯", "在吗", "好的", "您好", "测试", "继续", "谢谢", "还有吗", "？"]);
+
+/* ---------- 5. 文本的文化特征分析（确定性，无模型） ---------- */
+function analyzeText(text,maxKw=12){
+  const sig={length:0,generic:0,region:0,revolution:0,
+             dim:Object.fromEntries(DIMS.map(d=>[d,0])),keywords:[]};
+  if(!text) return sig;
+  const low=String(text).normalize("NFKC").toLowerCase();
+  sig.length=low.length;
+  const hits=[];
+  for(const w of LEX_GENERIC)    if(low.includes(w.toLowerCase())){sig.generic++;   hits.push([w,2]);}
+  for(const w of LEX_REGION)     if(low.includes(w.toLowerCase())){sig.region++;    hits.push([w,0]);}
+  for(const w of LEX_REVOLUTION) if(low.includes(w.toLowerCase())){sig.revolution++;hits.push([w,1]);}
+  for(const d of DIMS){
+    let c=0;
+    for(const w of LEX_DIM_CUES[d]) if(low.includes(w.toLowerCase())) c++;
+    sig.dim[d]=c;
+  }
+  hits.sort((a,b)=>a[1]-b[1]);
+  sig.keywords=hits.slice(0,maxKw).map(h=>h[0]);
+  return sig;
+}
+function relevanceOf(sig){
+  return clamp(0.40+0.08*sig.generic+0.12*sig.region+0.12*sig.revolution,0.40,1.00);
+}
+function cultureHits(sig){ return sig.generic+sig.region+sig.revolution; }
+function dimDistribution(sig){
+  const raw={}; for(const d of DIMS) raw[d]=sig.dim[d];
+  raw["文化认知"]+=0.5*sig.generic;
+  raw["文化认同"]+=0.6*sig.region+0.8*sig.revolution;
+  let total=0; for(const d of DIMS) total+=raw[d];
+  if(total<=1e-9){ const u={}; for(const d of DIMS) u[d]=1/DIMS.length; return u; }
+  const smooth=0.25, out={};
+  for(const d of DIMS) out[d]=smooth/DIMS.length+(1-smooth)*raw[d]/total;
+  return out;
+}
+
+/* ---------- 6. 数据存储（IndexedDB） ----------
+   students : {sid,name,school,college,major,class_name,grade_raw}
+   aliases  : {alias,sid}                 昵称 / 平台账号 -> 学号
+   recs     : {key:"sid|grade", sid, grade, baseline, channels:{ch:{items:{fp:item}}}}
+   meta     : 上传日志等                                                        */
+const DB_NAME="hlr_portrait", DB_VER=1;
+let DB=null;
+function openDB(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open(DB_NAME,DB_VER);
+    r.onupgradeneeded=e=>{
+      const db=e.target.result;
+      if(!db.objectStoreNames.contains("students")) db.createObjectStore("students",{keyPath:"sid"});
+      if(!db.objectStoreNames.contains("aliases"))  db.createObjectStore("aliases",{keyPath:"alias"});
+      if(!db.objectStoreNames.contains("recs"))     db.createObjectStore("recs",{keyPath:"key"});
+      if(!db.objectStoreNames.contains("meta"))     db.createObjectStore("meta",{keyPath:"k"});
+    };
+    r.onsuccess=e=>{DB=e.target.result;res(DB);};
+    r.onerror=()=>rej(r.error);
+  });
+}
+function tx(stores,mode="readonly"){ return DB.transaction(stores,mode); }
+function pReq(req){ return new Promise((res,rej)=>{req.onsuccess=()=>res(req.result);
+                                                   req.onerror=()=>rej(req.error);}); }
+async function getAll(store){ return pReq(tx([store]).objectStore(store).getAll()); }
+async function putAll(store,items){
+  if(!items.length) return;
+  return new Promise((res,rej)=>{
+    const t=tx([store],"readwrite"), os=t.objectStore(store);
+    for(const it of items) os.put(it);
+    t.oncomplete=()=>res(); t.onerror=()=>rej(t.error);
+  });
+}
+async function clearAll(){
+  return new Promise((res,rej)=>{
+    const t=tx(["students","aliases","recs","meta"],"readwrite");
+    for(const s of ["students","aliases","recs","meta"]) t.objectStore(s).clear();
+    t.oncomplete=()=>res(); t.onerror=()=>rej(t.error);
+  });
+}
+
+/* 内存索引：学生表与别名表体量小（数千条），整表驻留内存以便快速搜索与匹配 */
+const MEM={students:new Map(),aliases:new Map(),recs:new Map()};
+async function loadMem(){
+  MEM.students.clear(); MEM.aliases.clear(); MEM.recs.clear();
+  for(const s of await getAll("students")) MEM.students.set(s.sid,s);
+  for(const a of await getAll("aliases"))  MEM.aliases.set(a.alias,a.sid);
+  for(const r of await getAll("recs"))     MEM.recs.set(r.key,r);
+}
+function upsertStudent(sid,f){
+  if(!sid) return;
+  let s=MEM.students.get(sid);
+  if(!s){ s={sid,name:"",school:"",college:"",major:"",class_name:"",grade_raw:""};
+          MEM.students.set(sid,s); }
+  for(const k of ["name","school","college","major","class_name","grade_raw"]){
+    if(!s[k] && f[k]) s[k]=String(f[k]);     // 只补空，不覆盖已有值
+  }
+}
+function addAlias(alias,sid){
+  const a=normName(alias);
+  if(a&&sid&&!MEM.aliases.has(a)) MEM.aliases.set(a,sid);
+}
+function resolveSid(...cands){
+  for(const c of cands){ const s=normSid(c); if(s&&MEM.students.has(s)) return s; }
+  for(const c of cands){ const a=normName(c); if(a&&MEM.aliases.has(a)) return MEM.aliases.get(a); }
+  return null;
+}
+function recOf(sid,grade){
+  const key=sid+"|"+grade;
+  let r=MEM.recs.get(key);
+  if(!r){ r={key,sid,grade,baseline:null,channels:{}}; MEM.recs.set(key,r); }
+  return r;
+}
+/* 写入一条证据。返回 true 表示新增，false 表示指纹重复（不重复计分）。
+   item: {a 计量, q 质量, r 文化相关度, dist 维度分配或 null, label, detail} */
+function addEvidence(sid,grade,channel,fp,item){
+  const rec=recOf(sid,grade);
+  if(!rec.channels[channel]) rec.channels[channel]={items:{}};
+  const items=rec.channels[channel].items;
+  if(Object.prototype.hasOwnProperty.call(items,fp)) return false;
+  items[fp]=item;
+  return true;
+}
+
+/* ---------- 7. 打分引擎（与 Python 版同式同参） ---------- */
+function amountForDim(ch,item,d){
+  if(item.dist){
+    const k=(ch==="dialogue")?[0.4,0.6]:[0.45,0.55];
+    return item.a*(k[0]+k[1]*item.dist[d]*DIMS.length/2.0);
+  }
+  return item.a;
+}
+function aggregateA(rec){
+  const A=Object.fromEntries(DIMS.map(d=>[d,0]));
+  const perChannel={};
+  if(!rec) return {A,perChannel};
+  for(const [ch,box] of Object.entries(rec.channels||{})){
+    const w=CHANNEL_WEIGHTS[ch]; if(!w) continue;
+    const cap=CHANNEL_A_CAP[ch]??8.0;
+    const sub={};
+    for(const d of DIMS){
+      let s=0;
+      for(const item of Object.values(box.items)) s+=amountForDim(ch,item,d)*item.q*item.r*w[d];
+      sub[d]=Math.min(s,cap);            // 截断作用于汇总值，与上传顺序无关
+      A[d]+=sub[d];
+    }
+    perChannel[ch]=sub;
+  }
+  return {A,perChannel};
+}
+function hasEvidence(rec){
+  if(!rec) return false;
+  for(const box of Object.values(rec.channels||{}))
+    if(Object.keys(box.items).length) return true;
+  return false;
+}
+function computePortrait(sid){
+  const out={}; let carry=null, prevCci=null;
+  for(const g of GRADES){
+    const rec=MEM.recs.get(sid+"|"+g);
+    let B,bsrc;
+    if(rec&&rec.baseline){ B={...rec.baseline}; bsrc="本年级五维问卷"; }
+    else if(carry){ B={...carry}; bsrc="承接上一学年画像"; }
+    else { B=Object.fromEntries(DIMS.map(d=>[d,BASELINE_DEFAULT])); bsrc="默认中性底分 0.50"; }
+    const {A,perChannel}=aggregateA(rec);
+    const S={},rho={};
+    const r4=x=>Math.round(x*1e4)/1e4;   // 与 Python 版一致，统一保留 4 位小数
+    for(const d of DIMS){
+      const r=A[d]>0?(1-Math.exp(-A[d]/KAPPA[d])):0;
+      rho[d]=r4(r);
+      S[d]=r4(clamp(B[d]+(1-B[d])*r));
+      A[d]=r4(A[d]);
+    }
+    const hasData=!!(rec&&(rec.baseline||hasEvidence(rec)));
+    const cci=r4(DIMS.reduce((s,d)=>s+S[d],0)/DIMS.length);
+    const item={grade:g,has_data:hasData,baseline:B,baseline_source:bsrc,
+                A,rho,scores:S,cci,per_channel:perChannel,rec};
+    item.delta = prevCci==null?0:r4(cci-prevCci);
+    item.growth= prevCci?r4((cci-prevCci)/prevCci):0;
+    if(hasData){ carry=S; prevCci=cci; }
+    out[g]=item;
+  }
+  return out;
+}
+function levelOf(x){
+  if(x>=0.85) return "A 引领级";
+  if(x>=0.70) return "B 胜任级";
+  if(x>=0.55) return "C 发展级";
+  return "D 起步级";
+}
+
+/* ---------- 8. 导入器：自动识别 4 类导出表 + 问卷 ---------- */
+function headerMap(row){
+  const hm={};
+  (row||[]).forEach((h,i)=>{ if(h!=null) hm[normText(h)]=i; });
+  return hm;
+}
+function pick(hm,...keys){
+  for(const k of keys){ const nk=normText(k); if(nk in hm) return hm[nk]; }
+  for(const k of keys){
+    const nk=normText(k);
+    for(const [name,idx] of Object.entries(hm)) if(nk&&name.includes(nk)) return idx;
+  }
+  return null;
+}
+const G=(row,idx,asDate)=> (idx==null||row==null||idx>=row.length)?null:cellVal(row[idx],asDate);
+
+function detectKind(sheets){
+  const names=Object.keys(sheets).join(" ");
+  if(names.includes("报名")) return "enrollment";
+  if(names.includes("作业")) return "homework";
+  if(names.includes("视频")) return "video";
+  for(const rows of Object.values(sheets)){
+    if(!rows||!rows.length) continue;
+    const j=Object.keys(headerMap(rows[0])).join(" ");
+    if(j.includes("用户提问")||j.includes("ai回复")) return "dialogue";
+    if(j.includes("报名课程")||j.includes("文化课程")) return "enrollment";
+    if(j.includes("需提交作业数")) return "homework";
+    if(j.includes("视频总数")) return "video";
+    if(j.includes("提交答卷时间")||j.includes("答卷")) return "questionnaire";
+  }
+  return "unknown";
+}
+
+function importEnrollment(sheets,grade){
+  let rows=null;
+  for(const [n,r] of Object.entries(sheets)){ if(n.includes("汇总")){rows=r;break;} if(!rows) rows=r; }
+  if(!rows||rows.length<2) return {n_rows:0,n_new:0,n_dup:0,note:"未找到有效数据行"};
+  const hm=headerMap(rows[0]);
+  const cNick=pick(hm,"学生昵称","姓名","昵称"), cSid=pick(hm,"学号");
+  const cSchool=pick(hm,"学校"), cCol=pick(hm,"学院"), cMaj=pick(hm,"专业");
+  const cGrade=pick(hm,"年级"), cCls=pick(hm,"行政班级","班级");
+  const cCourses=pick(hm,"报名课程","文化课程"), cN=pick(hm,"报名课程数");
+  let n_new=0,n_dup=0,n_rows=0,noSid=0;
+  for(let i=1;i<rows.length;i++){
+    const row=rows[i]; if(!row||row.every(c=>c==null)) continue;
+    n_rows++;
+    const nick=String(G(row,cNick)??"").trim();
+    let sid=normSid(G(row,cSid));
+    if(!sid){ sid="NICK:"+(normName(nick)||sha256Text(i,nick).slice(0,12)); noSid++; }
+    const gradeRaw=String(G(row,cGrade)??"");
+    upsertStudent(sid,{name:nick,school:G(row,cSchool),college:G(row,cCol),
+                       major:G(row,cMaj),class_name:G(row,cCls),grade_raw:gradeRaw});
+    addAlias(nick,sid);
+    let courses=String(G(row,cCourses)??"").split(/[；;、\n]+/).map(s=>s.trim()).filter(Boolean);
+    if(!courses.length&&cN!=null){
+      const k=toInt(G(row,cN));
+      courses=Array.from({length:k},(_,j)=>"未命名课程"+(j+1));
+    }
+    for(const course of courses.slice(0,12)){
+      const sig=analyzeText(course), rel=relevanceOf(sig);
+      const fp=sha256Text(sid,grade,"enrollment",course);
+      const ok=addEvidence(sid,grade,"enrollment",fp,{a:2.0,q:1.0,r:rel,dist:null,
+        label:"报名文化课程",detail:"《"+course+"》（文化相关度 "+rel.toFixed(2)+"）"});
+      ok?n_new++:n_dup++;
+    }
+  }
+  return {n_rows,n_new,n_dup,note:"无学号学生 "+noSid+" 人（已按昵称建档）"};
+}
+
+function importHomework(sheets,grade){
+  let rows=null;
+  for(const [n,r] of Object.entries(sheets)){ if(n.includes("课程")&&r&&r.length){rows=r;break;} }
+  if(!rows) rows=Object.values(sheets).find(r=>r&&r.length);
+  if(!rows||rows.length<2) return {n_rows:0,n_new:0,n_dup:0,note:"未找到有效数据行"};
+  const hm=headerMap(rows[0]);
+  const cNick=pick(hm,"学生昵称","姓名"), cSid=pick(hm,"学号");
+  const cCourse=pick(hm,"课程（班级）","课程"), cNeed=pick(hm,"需提交作业数");
+  const cDone=pick(hm,"已提交数"), cRate=pick(hm,"作业提交率");
+  const cScore=pick(hm,"作业得分合计"), cFull=pick(hm,"作业满分合计"), cSr=pick(hm,"得分率");
+  let n_new=0,n_dup=0,n_rows=0,skip=0;
+  for(let i=1;i<rows.length;i++){
+    const row=rows[i]; if(!row||row.every(c=>c==null)) continue;
+    n_rows++;
+    const sid=resolveSid(G(row,cSid),G(row,cNick));
+    if(!sid){ skip++; continue; }
+    const done=toInt(G(row,cDone)); if(done<=0) continue;
+    const need=Math.max(toInt(G(row,cNeed)),done);
+    const submit=parsePercent(G(row,cRate))||(need?done/need:0);
+    let sr=parsePercent(G(row,cSr));
+    if(!sr&&cFull!=null){ const full=toNum(G(row,cFull)); sr=full>0?toNum(G(row,cScore))/full:0; }
+    const course=String(G(row,cCourse)??"课程作业");
+    const rel=relevanceOf(analyzeText(course));
+    const q=clamp(0.35*submit+0.65*(sr||0.6));
+    const a=Math.min(done,20)*1.2*(0.5+0.5*(sr||0.6));
+    const fp=sha256Text(sid,grade,"homework",course+"|"+done+"|"+need+"|"+sr.toFixed(4));
+    const ok=addEvidence(sid,grade,"homework",fp,{a,q,r:rel,dist:null,label:"课程作业完成",
+      detail:"《"+course+"》提交 "+done+"/"+need+" 份，得分率 "+Math.round(sr*100)+"%"});
+    ok?n_new++:n_dup++;
+  }
+  return {n_rows,n_new,n_dup,note:"未匹配到学生的记录 "+skip+" 条（建议先导入报名表）"};
+}
+
+function importVideo(sheets,grade){
+  let rows=null;
+  for(const [n,r] of Object.entries(sheets)){ if(n.includes("课程")&&r&&r.length){rows=r;break;} }
+  if(!rows) rows=Object.values(sheets).find(r=>r&&r.length);
+  if(!rows||rows.length<2) return {n_rows:0,n_new:0,n_dup:0,note:"未找到有效数据行"};
+  const hm=headerMap(rows[0]);
+  const cNick=pick(hm,"学生昵称","姓名"), cSid=pick(hm,"学号");
+  const cCourse=pick(hm,"课程（班级）","课程"), cTotal=pick(hm,"视频总数");
+  const cDone=pick(hm,"已完成视频数"), cRate=pick(hm,"课程视频完成率","总体视频完成率","完成率");
+  let n_new=0,n_dup=0,n_rows=0,skip=0;
+  for(let i=1;i<rows.length;i++){
+    const row=rows[i]; if(!row||row.every(c=>c==null)) continue;
+    n_rows++;
+    const sid=resolveSid(G(row,cSid),G(row,cNick));
+    if(!sid){ skip++; continue; }
+    const done=toInt(G(row,cDone)); if(done<=0) continue;
+    const total=Math.max(toInt(G(row,cTotal)),done);
+    const rate=parsePercent(G(row,cRate))||(total?done/total:0);
+    const course=String(G(row,cCourse)??"课程视频");
+    const rel=relevanceOf(analyzeText(course));
+    const fp=sha256Text(sid,grade,"video",course+"|"+done+"|"+total);
+    const ok=addEvidence(sid,grade,"video",fp,{a:Math.min(done,40)/4.0,
+      q:clamp(0.4+0.6*rate),r:rel,dist:null,label:"课程视频学习",
+      detail:"《"+course+"》完成 "+done+"/"+total+" 个，完成率 "+Math.round(rate*100)+"%"});
+    ok?n_new++:n_dup++;
+  }
+  return {n_rows,n_new,n_dup,note:"未匹配到学生的记录 "+skip+" 条（建议先导入报名表）"};
+}
+
+function importDialogue(sheets,grade){
+  const rows=Object.values(sheets).find(r=>r&&r.length);
+  if(!rows||rows.length<2) return {n_rows:0,n_new:0,n_dup:0,note:"未找到有效数据行"};
+  const hm=headerMap(rows[0]);
+  const cNick=pick(hm,"学生昵称","姓名"), cAcct=pick(hm,"账号");
+  const cTime=pick(hm,"提问时间"), cQ=pick(hm,"用户提问");
+  const cA=pick(hm,"ai回复","回复"), cTok=pick(hm,"消耗token","token");
+  let n_new=0,n_dup=0,n_rows=0,skip=0; const unmatched=new Set();
+  for(let i=1;i<rows.length;i++){
+    const row=rows[i]; if(!row||row.every(c=>c==null)) continue;
+    n_rows++;
+    const nick=String(G(row,cNick)??""), acct=String(G(row,cAcct)??"");
+    const sid=resolveSid(nick,acct);
+    if(!sid){ unmatched.add(nick||acct); skip++; continue; }
+    if(acct) addAlias(acct,sid);
+    const question=String(G(row,cQ)??""), answer=String(G(row,cA)??"");
+    const qn=normText(question); if(!qn) continue;
+    const filler=LEX_FILLER.has(qn)||qn.length<4;
+    const sig=analyzeText(question+"\n"+answer.slice(0,1500));
+    const rel=relevanceOf(sig);
+    let q=filler?0.12:clamp(0.35+0.65*Math.min(1,qn.length/60));
+    if(toNum(G(row,cTok))>1500) q=clamp(q+0.10);
+    const stamp=String(G(row,cTime,true)??"");
+    const fp=sha256Text(sid,grade,"dialogue",sha256Text(stamp,question.slice(0,400)));
+    const ok=addEvidence(sid,grade,"dialogue",fp,{a:0.45,q,r:rel,dist:dimDistribution(sig),
+      label:"与禾灵儿的文化问答",
+      detail:stamp.slice(0,16)+"｜"+question.trim().slice(0,48)+(question.trim().length>48?"…":"")});
+    ok?n_new++:n_dup++;
+  }
+  return {n_rows,n_new,n_dup,
+          note:"未关联到学号的对话 "+skip+" 条，涉及 "+unmatched.size+" 个昵称"};
+}
+
+/* 问卷：文字量表 / 1~5 数字 / 百分数 均可 */
+const LIKERT={"完全不符合":0,"非常不符合":0,"很不符合":0,"完全不同意":0,
+ "不符合":0.25,"比较不符合":0.25,"不太符合":0.25,"不同意":0.25,
+ "一般":0.5,"中立":0.5,"说不清":0.5,"不确定":0.5,
+ "比较符合":0.75,"基本符合":0.75,"较符合":0.75,"同意":0.75,
+ "完全符合":1,"非常符合":1,"很符合":1,"完全同意":1,
+ "从不":0,"很少":0.25,"有时":0.5,"经常":0.75,"总是":1};
+function likert(v,scaleMax=5){
+  if(v==null) return null;
+  if(typeof v==="number") return v<=1?clamp(v):clamp((v-1)/Math.max(1,scaleMax-1));
+  const t=normText(v); if(!t) return null;
+  for(const [k,val] of Object.entries(LIKERT)) if(normText(k)===t) return val;
+  for(const [k,val] of Object.entries(LIKERT)) if(t.includes(normText(k))) return val;
+  const m=t.match(/(\d+(\.\d+)?)/);
+  if(m){ const x=parseFloat(m[1]);
+         if(t.includes("%")) return clamp(x/100);
+         return x<=1?clamp(x):clamp((x-1)/Math.max(1,scaleMax-1)); }
+  return null;
+}
+let QMAP={};        // 题干片段 -> {dim, reverse}，由使用者在界面上导入
+function questionDim(header){
+  const raw=String(header||""), key=normText(raw);
+  for(const [pat,cfg] of Object.entries(QMAP)){
+    if(normText(pat)&&key.includes(normText(pat))&&DIMS.includes(cfg.dim))
+      return [cfg.dim,!!cfg.reverse];
+  }
+  for(const d of DIMS) if(key.includes(normText(d))) return [d,false];
+  const m=raw.match(/[\[\(（【]?\s*([ECIDR])\s*\d{1,2}\s*[\]\)）】]?/i);
+  if(m) return [CODE_DIM[m[1].toUpperCase()],false];
+  const sig=analyzeText(raw);
+  const spec={"文化体验":1,"文化认知":1,"文化志趣":0.8,"文化认同":1,"文化研创":1};
+  let best=null,bn=0;
+  for(const d of DIMS){ const v=sig.dim[d]*spec[d]; if(v>bn){best=d;bn=v;} }
+  return bn>0?[best,false]:null;
+}
+function importQuestionnaire(sheets,grade){
+  const rows=Object.values(sheets).find(r=>r&&r.length>1);
+  if(!rows) return {n_rows:0,n_new:0,n_dup:0,note:"未找到有效数据行"};
+  const header=rows[0], hm=headerMap(header);
+  const cSid=pick(hm,"学号","学生学号"), cName=pick(hm,"姓名","学生姓名","昵称");
+  const cCls=pick(hm,"班级","行政班级");
+  const direct={};
+  for(const d of DIMS){ const i=pick(hm,d+"得分",d+"分",d); if(i!=null) direct[d]=i; }
+  const qcols={};
+  if(Object.keys(direct).length<DIMS.length){
+    const skip=new Set(["序号","提交答卷时间","所用时间","来源","来源详情","来自ip",
+                        "总分","答题时长","用户id","微信昵称"].map(normText));
+    header.forEach((h,i)=>{
+      if(h==null||i===cSid||i===cName||i===cCls) return;
+      if(skip.has(normText(h))) return;
+      const r=questionDim(String(h));
+      if(r) qcols[i]=r;
+    });
+  }
+  const counts=Object.fromEntries(DIMS.map(d=>[d,0]));
+  for(const [,v] of Object.entries(qcols)) counts[v[0]]++;
+  let n=0;
+  for(let i=1;i<rows.length;i++){
+    const row=rows[i]; if(!row||row.every(c=>c==null)) continue;
+    const sidRaw=cSid!=null?row[cSid]:null, nameRaw=cName!=null?row[cName]:null;
+    let sid=resolveSid(sidRaw,nameRaw);
+    if(!sid){
+      sid=normSid(sidRaw); if(!sid) continue;
+      upsertStudent(sid,{name:String(nameRaw??""),class_name:cCls!=null?String(row[cCls]??""):""});
+      if(nameRaw) addAlias(String(nameRaw),sid);
+    }
+    const acc=Object.fromEntries(DIMS.map(d=>[d,[]]));
+    for(const [d,idx] of Object.entries(direct)){
+      const v=likert(cellVal(row[idx])); if(v!=null) acc[d].push(v);
+    }
+    for(const [idx,[d,rev]] of Object.entries(qcols)){
+      const v=likert(cellVal(row[idx])); if(v==null) continue;
+      acc[d].push(rev?1-v:v);
+    }
+    let any=false; const base={};
+    for(const d of DIMS){
+      if(acc[d].length){ any=true; base[d]=acc[d].reduce((a,b)=>a+b,0)/acc[d].length; }
+      else base[d]=BASELINE_DEFAULT;
+    }
+    if(any){ recOf(sid,grade).baseline=base; n++; }
+  }
+  const detail=Object.keys(qcols).length
+    ? DIMS.map(d=>d+" "+counts[d]+" 题").join("、") : "使用维度得分列";
+  return {n_rows:rows.length-1,n_new:n,n_dup:0,
+          note:"识别到 "+n+" 名学生的问卷底分；题目归类："+detail};
+}
+const IMPORTERS={enrollment:importEnrollment,homework:importHomework,
+                 video:importVideo,dialogue:importDialogue,questionnaire:importQuestionnaire};
+
+/* ---------- 9. 学生作业成果 / 自建智能体 ---------- */
+const VIDEO_EXT=new Set(["mp4","mov","avi","mkv","wmv","flv","m4v","webm","rmvb"]);
+const IMAGE_EXT=new Set(["jpg","jpeg","png","gif","bmp","webp"]);
+const TEXT_EXT =new Set(["txt","md","json","yaml","yml","log","csv"]);
+
+function videoDuration(file){
+  return new Promise(res=>{
+    const url=URL.createObjectURL(file), v=document.createElement("video");
+    let done=false;
+    const fin=d=>{ if(done) return; done=true; URL.revokeObjectURL(url); res(d); };
+    v.preload="metadata";
+    v.onloadedmetadata=()=>fin(isFinite(v.duration)?v.duration:null);
+    v.onerror=()=>fin(null);
+    setTimeout(()=>fin(null),8000);
+    v.src=url;
+  });
+}
+async function extractFromFile(file){
+  const name=file.name, ext=(name.split(".").pop()||"").toLowerCase();
+  const meta={"文件名":name,"类型":ext||"未知",
+              "大小MB":Math.round(file.size/1048576*100)/100};
+  let text="";
+  try{
+    if(ext==="docx"){
+      const zip=await readZip(await file.arrayBuffer());
+      const xml=await zip.text("word/document.xml")||"";
+      const doc=new DOMParser().parseFromString(xml,"application/xml");
+      text=Array.from(doc.getElementsByTagName("w:t")).map(t=>t.textContent).join("");
+      meta["段落数"]=doc.getElementsByTagName("w:p").length;
+      meta["表格数"]=doc.getElementsByTagName("w:tbl").length;
+      meta["插图数"]=zip.names().filter(n=>n.startsWith("word/media/")).length;
+    }else if(ext==="pptx"){
+      const zip=await readZip(await file.arrayBuffer());
+      const slides=zip.names().filter(n=>/^ppt\/slides\/slide\d+\.xml$/.test(n));
+      const notes =zip.names().filter(n=>/^ppt\/notesSlides\//.test(n));
+      const chunks=[];
+      for(const s of slides.concat(notes)){
+        const d=new DOMParser().parseFromString(await zip.text(s)||"","application/xml");
+        chunks.push(Array.from(d.getElementsByTagName("a:t")).map(t=>t.textContent).join(""));
+      }
+      text=chunks.join("\n");
+      meta["页数"]=slides.length;
+      meta["插图数"]=zip.names().filter(n=>n.startsWith("ppt/media/")).length;
+    }else if(ext==="xlsx"||ext==="xlsm"){
+      const sh=await parseXlsx(await file.arrayBuffer());
+      const chunks=[]; let cells=0;
+      for(const [n,rows] of Object.entries(sh)){
+        chunks.push(n);
+        for(const r of rows) for(const c of (r||[])){
+          if(c!=null){ chunks.push(String(cellVal(c))); cells++; }
+        }
+        if(cells>20000) break;
+      }
+      text=chunks.join("\n"); meta["有效单元格"]=cells;
+    }else if(TEXT_EXT.has(ext)){
+      text=await file.text(); meta["字符数"]=text.length;
+    }else if(VIDEO_EXT.has(ext)){
+      const d=await videoDuration(file);
+      meta["时长来源"]=d!=null?"容器元数据":"按体积估算";
+      meta["时长秒"]=Math.round(d!=null?d:(meta["大小MB"]/1.2*60));
+      text=name.replace(/\.[^.]+$/,"");
+    }else if(IMAGE_EXT.has(ext)){
+      text=name.replace(/\.[^.]+$/,""); meta["说明"]="图片仅按文件名与数量计量";
+    }else if(ext==="pdf"){
+      // 浏览器内不解析 PDF 内容，只按文件名与体积计量；
+      // 需要正文分析请把 PDF 另存为 docx 后再上传。
+      text=name.replace(/\.[^.]+$/,""); meta["说明"]="PDF 按文件名与体积计量";
+    }else{
+      try{ text=await file.text(); }catch(e){ text=""; }
+      if(!text.trim()) text=name.replace(/\.[^.]+$/,"");
+    }
+  }catch(e){
+    meta["解析异常"]=String(e).slice(0,160);
+    text=name.replace(/\.[^.]+$/,"");
+  }
+  return {text,meta,ext};
+}
+async function importArtifact(file,sid,grade,channel,note){
+  const bytes=new Uint8Array(await file.arrayBuffer());
+  const digest=sha256Bytes(bytes);
+  const {text,meta,ext}=await extractFromFile(file);
+  const full=(text||"")+"\n"+(note||"");
+  const sig=analyzeText(full,16), rel=relevanceOf(sig);
+  let base;
+  if(channel==="agent")            base=4.0+Math.min(2.0,full.length/1500);
+  else if(VIDEO_EXT.has(ext))      base=2.0+Math.min(3.0,(meta["时长秒"]||0)/90);
+  else if(ext==="pptx"||ext==="ppt") base=1.5+Math.min(2.5,(meta["页数"]||0)/8);
+  else if(ext==="docx"||ext==="doc"||ext==="pdf") base=1.5+Math.min(2.5,full.length/1200);
+  else if(ext==="xlsx"||ext==="xlsm") base=1.2+Math.min(2.0,(meta["有效单元格"]||0)/400);
+  else if(IMAGE_EXT.has(ext))      base=1.0;
+  else                             base=1.2+Math.min(2.0,full.length/1500);
+
+  let q=0.45;
+  q+=Math.min(0.25,full.length/4000);
+  q+=Math.min(0.15,((meta["插图数"]||0)+(meta["表格数"]||0))/8);
+  if(cultureHits(sig)>=3) q+=0.15;
+  q=clamp(q);
+
+  const kw=sig.keywords.slice(0,6).join("、")||"未检出文化主题词";
+  const bits=Object.entries(meta).filter(([k,v])=>k!=="文件名"&&v!==""&&v!=null)
+                   .map(([k,v])=>k+" "+v).join("，");
+  const fp=sha256Text(sid,grade,channel,digest);
+  const ok=addEvidence(sid,grade,channel,fp,{a:base,q,r:rel,dist:dimDistribution(sig),
+    label:channel==="agent"?"自建文化智能体":"学生作业成果",
+    detail:file.name+"｜"+bits+"｜主题词："+kw});
+  return {n_new:ok?1:0,n_dup:ok?0:1,relevance:rel,keywords:sig.keywords,sha256:digest,
+          note:ok?("已计入，文化相关度 "+rel.toFixed(2)+"，主题词："+kw):"重复文件，未重复计分"};
+}
+
+/* ---------- 10. 图形（内联 SVG） ---------- */
+function radarSvg(scores,baseline,size=330){
+  const w=Math.round(size*1.46), h=Math.round(size*1.06);
+  const cx=w/2, cy=h/2+4, R=size*0.30, n=DIMS.length;
+  const ps=[],pb=[],ax=[],lb=[],dt=[];
+  DIMS.forEach((d,i)=>{
+    const ang=-Math.PI/2+2*Math.PI*i/n, ux=Math.cos(ang), uy=Math.sin(ang);
+    ax.push(`<line x1="${cx}" y1="${cy}" x2="${(cx+ux*R).toFixed(1)}" y2="${(cy+uy*R).toFixed(1)}" stroke="#e2e8f0" stroke-width="1"/>`);
+    const sv=clamp(scores[d]||0), bv=clamp(baseline[d]||0);
+    const sx=cx+ux*R*sv, sy=cy+uy*R*sv;
+    ps.push(`${sx.toFixed(1)},${sy.toFixed(1)}`);
+    pb.push(`${(cx+ux*R*bv).toFixed(1)},${(cy+uy*R*bv).toFixed(1)}`);
+    dt.push(`<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="3.4" fill="#059669"/>`);
+    const lx=cx+ux*(R+34), ly=cy+uy*(R+24);
+    const anchor=ux>0.25?"start":(ux<-0.25?"end":"middle");
+    lb.push(`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" font-size="12.5" fill="#334155">${d}</text>`+
+            `<text x="${lx.toFixed(1)}" y="${(ly+16).toFixed(1)}" text-anchor="${anchor}" font-size="13" font-weight="700" fill="#0f766e">${sv.toFixed(2)}</text>`);
+  });
+  const rings=[0.25,0.5,0.75,1].map(k=>{
+    const pts=DIMS.map((_,i)=>{
+      const a=-Math.PI/2+2*Math.PI*i/n;
+      return `${(cx+Math.cos(a)*R*k).toFixed(1)},${(cy+Math.sin(a)*R*k).toFixed(1)}`;
+    }).join(" ");
+    return `<polygon points="${pts}" fill="none" stroke="#eef2f6" stroke-width="1"/>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${w}px" xmlns="http://www.w3.org/2000/svg">`+
+    rings+ax.join("")+
+    `<polygon points="${pb.join(" ")}" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="5 4"/>`+
+    `<polygon points="${ps.join(" ")}" fill="#10b981" fill-opacity="0.18" stroke="#059669" stroke-width="2"/>`+
+    dt.join("")+lb.join("")+`</svg>`;
+}
+function trajectorySvg(all,width=660,height=270){
+  const pl=46,pr=16,pt=22,pb=34, pw=width-pl-pr, ph=height-pt-pb;
+  const colors={"文化体验":"#0f766e","文化认知":"#10b981","文化志趣":"#0ea5e9",
+                "文化认同":"#f59e0b","文化研创":"#ef4444"};
+  const xs=GRADES.map((_,i)=>pl+pw*i/(GRADES.length-1));
+  const yOf=v=>pt+ph*(1-clamp(v));
+  const P=[`<svg viewBox="0 0 ${width} ${height}" width="100%" style="max-width:${width}px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">`];
+  [0,0.25,0.5,0.75,1].forEach(k=>{
+    const y=yOf(k);
+    P.push(`<line x1="${pl}" y1="${y.toFixed(1)}" x2="${width-pr}" y2="${y.toFixed(1)}" stroke="#eef2f6"/>`);
+    P.push(`<text x="${pl-8}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="10" fill="#94a3b8">${k.toFixed(2)}</text>`);
+  });
+  GRADES.forEach((g,i)=>P.push(`<text x="${xs[i].toFixed(1)}" y="${height-12}" text-anchor="middle" font-size="12" fill="#475569">${g}</text>`));
+  const act=GRADES.map((g,i)=>all[g].has_data?i:-1).filter(i=>i>=0);
+  if(!act.length){
+    P.push(`<text x="${width/2}" y="${height/2}" text-anchor="middle" font-size="13" fill="#94a3b8">暂无可用于绘制轨迹的数据</text></svg>`);
+    return P.join("");
+  }
+  for(const d of DIMS){
+    const pts=act.map(i=>`${xs[i].toFixed(1)},${yOf(all[GRADES[i]].scores[d]).toFixed(1)}`);
+    P.push(`<polyline points="${pts.join(" ")}" fill="none" stroke="${colors[d]}" stroke-width="1.8"/>`);
+    pts.forEach(p=>{const[a,b]=p.split(",");P.push(`<circle cx="${a}" cy="${b}" r="2.8" fill="${colors[d]}"/>`);});
+  }
+  const cp=act.map(i=>`${xs[i].toFixed(1)},${yOf(all[GRADES[i]].cci).toFixed(1)}`);
+  P.push(`<polyline points="${cp.join(" ")}" fill="none" stroke="#1e293b" stroke-width="2.6" stroke-dasharray="6 3"/>`);
+  let lx=pl;
+  for(const d of DIMS){
+    P.push(`<rect x="${lx}" y="${pt-14}" width="10" height="3" fill="${colors[d]}"/><text x="${lx+14}" y="${pt-9}" font-size="10" fill="#475569">${d}</text>`);
+    lx+=80;
+  }
+  P.push(`<rect x="${lx}" y="${pt-14}" width="10" height="3" fill="#1e293b"/><text x="${lx+14}" y="${pt-9}" font-size="10" fill="#475569">综合指数</text></svg>`);
+  return P.join("");
+}
+
+/* ---------- 11. 指标明细 / 维度矩阵 / 教师建议 ---------- */
+const CH_ORDER=["dialogue","enrollment","video","homework","artifact","agent"];
+function indicatorLines(rec,limit=4){
+  if(!rec) return [];
+  const out=[];
+  const chs=Object.keys(rec.channels||{}).sort(
+    (a,b)=>(CH_ORDER.indexOf(a)+99)%100-(CH_ORDER.indexOf(b)+99)%100);
+  for(const ch of chs){
+    const items=Object.values(rec.channels[ch].items);
+    if(!items.length) continue;
+    const sorted=items.slice().sort((x,y)=>(y.a*y.q*y.r)-(x.a*x.q*x.r));
+    const seen=new Set(), picked=[];
+    for(const it of sorted){
+      if(seen.has(it.detail)) continue;
+      seen.add(it.detail); picked.push(it.detail);
+      if(picked.length>=limit) break;
+    }
+    const uniq=new Set(items.map(i=>i.detail)).size;
+    out.push({channel:ch,label:CHANNEL_LABEL[ch]||ch,count:uniq,
+              items:picked,more:Math.max(0,uniq-picked.length)});
+  }
+  return out;
+}
+function dimensionMatrix(pr){
+  return DIMS.map(d=>{
+    const parts=[];
+    for(const [ch,m] of Object.entries(pr.per_channel)){
+      const v=m[d]||0;
+      if(v>0.01) parts.push({name:CHANNEL_LABEL[ch]||ch,value:v});
+    }
+    parts.sort((a,b)=>b.value-a.value);
+    const total=pr.A[d]||1;
+    return {dim:d,code:DIM_CODE[d],score:pr.scores[d],baseline:pr.baseline[d],
+            A:pr.A[d],rho:pr.rho[d],
+            sources:parts.map(p=>({name:p.name,share:p.value/total}))};
+  });
+}
+const SUGGEST={
+"文化体验":{"证据不足":"该生几乎没有留下现场性、亲历性的学习痕迹。建议指派 1 次“运河文化带”或“南湖—月河历史街区”线下研学打卡，并要求在禾灵儿上提交不少于 5 条文化意象记录；同步开放 1 条虚拟漫游线路作为线上补充。",
+            "表现不足":"该生有参与但停留较浅（视频完成率或任务完成度偏低）。建议把大课任务拆成 3 次小任务分周推进，每次配 1 个必答的现场观察问题，把“到过”变成“看懂”。"},
+"文化认知":{"证据不足":"缺少可评的知识性证据。建议布置 1 次“嘉兴文脉关键词”闯关测验，并要求就 1 个薄弱知识点与禾灵儿完成 3 轮追问式问答后提交小结。",
+            "表现不足":"知识点掌握零散、迁移不足。建议采用“一图一史”作业：让学生用一张概念图串起江南文化的时间线与地理线，教师批注后二次修改。"},
+"文化志趣":{"证据不足":"自主学习行为很少，基本是被动完成任务。建议设置“7 天文化打卡”轻量任务（每天在资讯中心读 1 篇并收藏），先把习惯建立起来。",
+            "表现不足":"有兴趣但不持久、主题过窄。建议用兴趣锚点扩面：从该生已关注的主题出发，推荐 2 个相邻主题的智能体，鼓励跨主题提问。"},
+"文化认同":{"证据不足":"尚未观察到明确的情感归属与价值表达。建议安排 1 次“我身边的红船精神”口述作业，要求结合本人或家人的真实经历，并参与同伴互评。",
+            "表现不足":"表达停留在结论层面，缺少论证与个人立场。建议开展 1 次小型辩论或“向外国朋友介绍嘉兴”的双语短讲，倒逼其组织论据。"},
+"文化研创":{"证据不足":"没有可评的创作或研究成果。建议定制 1 次低门槛微创作：用禾灵儿视频生成完成 1 部 60 秒文化微视频，5 天内提交并发布到视频广场。",
+            "表现不足":"有作品但原创度或规范性不够。建议开展 1 次“跨文化叙事再创作”：要求提供原创脚本、标注素材出处，并在 4 天内提交创意方案与修改说明。"}};
+function teacherAdvice(pr){
+  const S=pr.scores,A=pr.A,rho=pr.rho;
+  const ordered=DIMS.slice().sort((a,b)=>S[a]-S[b]);
+  const out=[];
+  for(const d of ordered.slice(0,2)){
+    const cause=A[d]<1.2?"证据不足":"表现不足";
+    out.push(`【${d}｜${S[d].toFixed(2)}｜短板，归因：${cause}】（证据充分度 ${Math.round(rho[d]*100)}%）`+SUGGEST[d][cause]);
+  }
+  const top=ordered[ordered.length-1];
+  const role=top==="文化体验"?"研学领队":(top==="文化研创"?"创作主创":"朋辈领学");
+  out.push(`【${top}｜${S[top].toFixed(2)}｜优势】该生在${top}上表现突出，建议赋予拓展性角色——担任小组${role}，用其长板带动小组其余同学的短板。`);
+  const spread=Math.max(...DIMS.map(d=>S[d]))-Math.min(...DIMS.map(d=>S[d]));
+  if(spread>=0.25)
+    out.push(`【整体】五维极差 ${spread.toFixed(2)}，发展明显不均衡。建议本学期只抓${ordered[0]}一个维度，集中投放任务与资源，避免样样都补、样样不深。`);
+  else if(pr.cci<0.60)
+    out.push("【整体】综合指数偏低且各维度均衡偏弱，属参与总量不足。建议先解决“上平台”的问题：约定每周固定 1 次禾灵儿学习时段，先把行为量提上来。");
+  else
+    out.push("【整体】五维发展较为均衡，建议保持现有节奏，下阶段可尝试把单项优势转化为公开成果（作品发布、朋辈分享）。");
+  return out;
+}
+
+/* ---------- 12. 学习报告导出（浏览器内生成 .docx） ---------- */
+const CRC_T=(()=>{const t=new Uint32Array(256);
+  for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}
+  return t;})();
+function crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=CRC_T[(c^u8[i])&0xFF]^(c>>>8);
+  return (c^0xFFFFFFFF)>>>0;}
+function zipStore(files){          // files: [{name, data:Uint8Array}] 全部用 STORE，无需压缩
+  const parts=[],central=[]; let off=0;
+  const enc=new TextEncoder();
+  for(const f of files){
+    const nb=enc.encode(f.name), crc=crc32(f.data), sz=f.data.length;
+    const lh=new Uint8Array(30+nb.length), dv=new DataView(lh.buffer);
+    dv.setUint32(0,0x04034b50,true); dv.setUint16(4,20,true); dv.setUint16(6,0x0800,true);
+    dv.setUint16(8,0,true); dv.setUint16(10,0,true); dv.setUint16(12,0,true);
+    dv.setUint32(14,crc,true); dv.setUint32(18,sz,true); dv.setUint32(22,sz,true);
+    dv.setUint16(26,nb.length,true); dv.setUint16(28,0,true);
+    lh.set(nb,30);
+    parts.push(lh,f.data);
+    const ch=new Uint8Array(46+nb.length), cv=new DataView(ch.buffer);
+    cv.setUint32(0,0x02014b50,true); cv.setUint16(4,20,true); cv.setUint16(6,20,true);
+    cv.setUint16(8,0x0800,true); cv.setUint16(10,0,true);
+    cv.setUint32(16,crc,true); cv.setUint32(20,sz,true); cv.setUint32(24,sz,true);
+    cv.setUint16(28,nb.length,true); cv.setUint32(42,off,true);
+    ch.set(nb,46);
+    central.push(ch);
+    off+=lh.length+sz;
+  }
+  let cs=0; for(const c of central) cs+=c.length;
+  const eo=new Uint8Array(22), ev=new DataView(eo.buffer);
+  ev.setUint32(0,0x06054b50,true); ev.setUint16(8,central.length,true);
+  ev.setUint16(10,central.length,true); ev.setUint32(12,cs,true); ev.setUint32(16,off,true);
+  const all=parts.concat(central,[eo]);
+  let total=0; for(const p of all) total+=p.length;
+  const out=new Uint8Array(total); let o=0;
+  for(const p of all){ out.set(p,o); o+=p.length; }
+  return out;
+}
+function xmlEsc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function wPara(text,{font="宋体",size=24,bold=false,align=null,indent=0}={}){
+  const en=font==="宋体"?"Times New Roman":font;
+  return `<w:p><w:pPr>${align?`<w:jc w:val="${align}"/>`:""}`+
+    `<w:spacing w:before="0" w:after="0" w:line="360" w:lineRule="auto"/>`+
+    (indent?`<w:ind w:firstLineChars="${indent*100}" w:firstLine="${indent*size*10}"/>`:"")+
+    `</w:pPr><w:r><w:rPr><w:rFonts w:ascii="${en}" w:hAnsi="${en}" w:eastAsia="${font}"/>`+
+    (bold?"<w:b/>":"")+`<w:sz w:val="${size}"/><w:szCs w:val="${size}"/></w:rPr>`+
+    `<w:t xml:space="preserve">${xmlEsc(text)}</w:t></w:r></w:p>`;
+}
+function buildReportDocx(stu,grade,pr,lines,matrix,advice){
+  let body="";
+  body+=wPara(`${stu.name||"该生"}文化德育数字画像学习报告`,{font:"黑体",size:32,bold:true,align:"center"});
+  body+=wPara(`${grade}学年　｜　生成时间 ${new Date().toLocaleString("zh-CN")}`,{font:"楷体",size:21,align:"center"});
+  body+=wPara("");
+  body+=wPara("一、基本信息",{font:"黑体",size:28,bold:true});
+  body+=wPara(`学号：${stu.sid}　　姓名：${stu.name||"—"}　　班级：${stu.class_name||"—"}`,{indent:2});
+  body+=wPara(`学院：${stu.college||"—"}　　专业：${stu.major||"—"}`,{indent:2});
+  body+=wPara("二、五维素养得分",{font:"黑体",size:28,bold:true});
+  for(const d of DIMS){
+    body+=wPara(`${d}：底分 ${pr.baseline[d].toFixed(2)} → 本学年 ${pr.scores[d].toFixed(2)}`+
+      `（增幅 +${(pr.scores[d]-pr.baseline[d]).toFixed(2)}，${levelOf(pr.scores[d])}）`,{indent:2});
+  }
+  body+=wPara(`综合文化素养指数 CCI = ${pr.cci.toFixed(2)}（${levelOf(pr.cci)}），`+
+    `较上一学年 ${pr.delta>=0?"+":""}${pr.delta.toFixed(2)}。底分来源：${pr.baseline_source}。`,{indent:2});
+  body+=wPara("三、支撑得分的过程证据",{font:"黑体",size:28,bold:true});
+  if(!lines.length) body+=wPara("本学年暂未采集到过程性证据。",{indent:2});
+  for(const ln of lines){
+    body+=wPara(`${ln.label}（${ln.count} 项）`,{font:"黑体",size:24});
+    ln.items.forEach((it,i)=>{ body+=wPara(`　·　${it}`,{size:21}); });
+    if(ln.more) body+=wPara(`　…… 另有 ${ln.more} 项未列出`,{size:21});
+  }
+  body+=wPara("四、维度归因",{font:"黑体",size:28,bold:true});
+  for(const m of matrix){
+    const src=m.sources.slice(0,4).map(s=>`${s.name} ${Math.round(s.share*100)}%`).join("；")||"暂无";
+    body+=wPara(`${m.dim}：得分 ${m.score.toFixed(2)}，证据充分度 ${Math.round(m.rho*100)}%。主要证据来源：${src}。`,{indent:2});
+  }
+  body+=wPara("五、给授课教师的改进建议",{font:"黑体",size:28,bold:true});
+  for(const a of advice) body+=wPara(a,{indent:2});
+  body+=wPara("六、说明",{font:"黑体",size:28,bold:true});
+  body+=wPara("本报告由禾灵儿文化德育数字画像系统自动生成。五个维度取值区间为 0 至 1，"+
+    "底分来自开课第一节课的五维问卷，其后依据学生在平台上的课程学习、作业提交、文化对话、"+
+    "作品创作与智能体开发等过程证据动态累加，得分随材料增加而单调上升并以 1.00 为上限。"+
+    "全部计分规则公开、可复算，每一项得分均可追溯到具体的学习事件。",{indent:2});
+
+  const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${body}
+<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1440" w:right="1797" w:bottom="1440" w:left="1797"/></w:sectPr>
+</w:body></w:document>`;
+  const ct=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+<Default Extension="xml" ContentType="application/xml"/>
+<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+</Types>`;
+  const rels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>`;
+  const E=new TextEncoder();
+  return zipStore([
+    {name:"[Content_Types].xml",data:E.encode(ct)},
+    {name:"_rels/.rels",data:E.encode(rels)},
+    {name:"word/document.xml",data:E.encode(doc)},
+  ]);
+}
+function download(name,data,mime){
+  const blob=data instanceof Uint8Array?new Blob([data],{type:mime}):new Blob([data],{type:mime});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=name;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
+}
+
+/* ---------- 13. 界面 ---------- */
+const $=id=>document.getElementById(id);
+let PAGE=1, PAGE_SIZE=20, QUERY="";
+function log(t){const l=$("log"); l.textContent+="\n"+t; l.scrollTop=l.scrollHeight;}
+function setProg(p){ $("prog").style.width=(p*100).toFixed(0)+"%"; }
+function show(view){
+  for(const v of ["viewList","viewDetail","viewTraj"]) $(v).classList.add("hide");
+  $(view).classList.remove("hide");
+  window.scrollTo(0,0);
+}
+function updStat(){
+  let ev=0;
+  for(const r of MEM.recs.values())
+    for(const b of Object.values(r.channels||{})) ev+=Object.keys(b.items).length;
+  $("dbstat").textContent=`学生 ${MEM.students.size} 人 ｜ 证据 ${ev} 条`;
+}
+
+function filteredStudents(){
+  const q=QUERY.trim().toLowerCase();
+  let arr=Array.from(MEM.students.values());
+  if(q) arr=arr.filter(s=>[s.sid,s.name,s.class_name,s.college,s.major]
+      .some(v=>String(v||"").toLowerCase().includes(q)));
+  arr.sort((a,b)=>(a.class_name||"").localeCompare(b.class_name||"","zh")||
+                  String(a.sid).localeCompare(String(b.sid)));
+  return arr;
+}
+function renderList(){
+  const arr=filteredStudents();
+  const pages=Math.max(1,Math.ceil(arr.length/PAGE_SIZE));
+  PAGE=Math.max(1,Math.min(PAGE,pages));
+  const slice=arr.slice((PAGE-1)*PAGE_SIZE,PAGE*PAGE_SIZE);
+  const tb=$("tb");
+  if(!slice.length){
+    tb.innerHTML='<tr><td colspan="7" class="nodata">'+
+      (MEM.students.size?"没有匹配的学生":"尚无数据，请先上传材料")+'</td></tr>';
+  }else{
+    tb.innerHTML=slice.map(s=>{
+      const pr=computePortrait(s.sid);
+      const cells=GRADES.map(g=>pr[g].has_data
+        ? `<td><button class="btn sm" data-sid="${esc(s.sid)}" data-grade="${g}">查看</button>`+
+          `<div class="muted" style="margin-top:3px">${pr[g].cci.toFixed(2)}</div></td>`
+        : '<td><span class="nodata">未采集</span></td>').join("");
+      return `<tr><td>${esc(s.sid)}</td><td>${esc(s.name||"—")}</td>`+
+             `<td>${esc(s.class_name||"—")}</td>${cells}</tr>`;
+    }).join("");
+    tb.querySelectorAll("button[data-sid]").forEach(b=>
+      b.onclick=()=>openDetail(b.dataset.sid,b.dataset.grade));
+  }
+  $("cnt").textContent="共 "+arr.length+" 名学生";
+  $("pg").textContent="第 "+PAGE+" / "+pages+" 页";
+  updStat();
+}
+
+function openDetail(sid,grade){
+  const stu=MEM.students.get(sid)||{sid,name:"",class_name:""};
+  const all=computePortrait(sid), pr=all[grade];
+  const lines=indicatorLines(pr.rec), matrix=dimensionMatrix(pr), advice=teacherAdvice(pr);
+  const tabs=GRADES.map(g=>`<button class="tab${g===grade?" on":""}" data-g="${g}">${g}${all[g].has_data?"":"（未采集）"}</button>`).join("");
+  const ind=lines.length
+    ? lines.map(ln=>`<div class="ev"><b>${ln.label}</b> · 共 ${ln.count} 项<br>`+
+        ln.items.map((it,i)=>`　${i+1}）${esc(it)}`).join("<br>")+
+        (ln.more?`<br>　…… 另有 ${ln.more} 项`:"")+`</div>`).join("")
+    : '<div class="nodata">本学年尚未采集到过程性证据。五维得分等于底分，请先上传该年级的导出表或学生作业。</div>';
+  const mat=matrix.map(m=>`<div style="margin-bottom:11px">
+      <span class="pill p-${m.code}">${m.dim}</span>
+      <b style="color:#0f766e">${m.score.toFixed(2)}</b>
+      <span class="muted">底分 ${m.baseline.toFixed(2)} → 证据充分度 ${Math.round(m.rho*100)}%</span>
+      <div class="bar"><i style="width:${(m.score*100).toFixed(0)}%"></i></div>
+      <div class="muted" style="margin-top:4px">证据来源：${
+        m.sources.slice(0,4).map(s=>`${s.name} ${Math.round(s.share*100)}%`).join("；")||"暂无"}</div>
+    </div>`).join("");
+  const adv=advice.map(a=>`<div class="adv">${esc(a)}</div>`).join("");
+
+  $("viewDetail").innerHTML=`
+  <div class="row" style="margin-bottom:14px"><button class="btn ghost sm" id="dBack">‹ 返回列表</button></div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div>
+        <h2 style="margin-bottom:6px"><span class="n">◎</span>${esc(stu.name||"未命名")} · 文化德育数字画像</h2>
+        <div class="muted">学号 ${esc(sid)} ｜ 班级 ${esc(stu.class_name||"—")}
+          ｜ 学院 ${esc(stu.college||"—")} ｜ 专业 ${esc(stu.major||"—")}</div>
+      </div>
+      <div class="row">
+        <button class="btn ghost" id="dReport">生成学习报告</button>
+        <button class="btn" id="dTraj">查看成长轨迹</button>
+      </div>
+    </div>
+    <div class="tabs">${tabs}</div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2><span class="n">1</span>上传材料提取到的指标信息</h2>${ind}</div>
+    <div class="card"><h2><span class="n">2</span>五维素养雷达（画像输出）</h2>
+      <div class="row" style="align-items:center;justify-content:space-between">
+        <div style="flex:1;min-width:250px">${radarSvg(pr.scores,pr.baseline)}</div>
+        <div class="cci"><div class="muted">综合指数</div>
+          <div class="v">${pr.cci.toFixed(2)}</div>
+          <div style="font-size:12px;color:#047857;font-weight:600">
+            ${pr.delta>=0?"↑":"↓"} 较上学年 ${pr.delta>=0?"+":""}${pr.delta.toFixed(2)}</div>
+          <div class="muted">环比增长 ${(pr.growth*100>=0?"+":"")}${(pr.growth*100).toFixed(1)}%</div>
+          <div class="muted" style="margin-top:6px">${levelOf(pr.cci)}</div></div>
+      </div>
+      <div class="muted" style="margin-top:6px">实线为当前得分，虚线为底分参考；底分来源：${pr.baseline_source}。</div>
+    </div>
+    <div class="card"><h2><span class="n">3</span>指标与五维的对应关系（量化依据）</h2>${mat}
+      <div class="muted" style="margin-top:8px">评分可溯源：每一项得分均可回溯到上表列出的具体学习事件与过程数据。</div></div>
+    <div class="card"><h2><span class="n">4</span>给授课教师的改进建议</h2>${adv}</div>
+  </div>
+  <div class="card">
+    <h2><span class="n">5</span>补充上传该生的作业成果 / 自建智能体</h2>
+    <div class="up">
+      <div class="row">
+        <select id="wch"><option value="artifact">作业成果（视频 / Word / Excel / PPT）</option>
+          <option value="agent">学生自建智能体（提示词、知识库导出文件）</option></select>
+        <select id="wg">${GRADES.map(g=>`<option${g===grade?" selected":""}>${g}</option>`).join("")}</select>
+        <input type="file" id="wf" multiple>
+        <button class="btn" id="wup">上传并计分</button>
+      </div>
+      <input id="wnote" placeholder="可选：补充说明（作品主题、创作思路等，将参与文化主题识别）"
+             style="width:100%;margin-top:9px">
+    </div>
+    <div class="log" id="wlog" style="margin-top:12px">就绪。同一份文件重复上传不会重复加分。</div>
+  </div>`;
+  show("viewDetail");
+  $("dBack").onclick=()=>{show("viewList");renderList();};
+  $("dTraj").onclick=()=>openTraj(sid);
+  $("dReport").onclick=()=>{
+    const data=buildReportDocx(stu,grade,pr,indicatorLines(pr.rec,6),matrix,advice);
+    download(`${stu.name||sid}-${grade}-文化德育画像报告.docx`,data,
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+  };
+  $("viewDetail").querySelectorAll(".tab[data-g]").forEach(b=>
+    b.onclick=()=>openDetail(sid,b.dataset.g));
+  $("wup").onclick=async()=>{
+    const fs=$("wf").files;
+    if(!fs.length){ alert("请先选择文件"); return; }
+    const ch=$("wch").value, g=$("wg").value, note=$("wnote").value||"";
+    const wl=$("wlog");
+    for(const f of fs){
+      wl.textContent+="\n正在解析 "+f.name+" ...";
+      try{
+        const r=await importArtifact(f,sid,g,ch,note);
+        wl.textContent+="\n  "+(r.n_new?"√":"·")+" "+CHANNEL_LABEL[ch]+"："+r.note;
+      }catch(e){ wl.textContent+="\n  × "+e; }
+      wl.scrollTop=wl.scrollHeight;
+    }
+    await persist();
+    wl.textContent+="\n全部完成，正在刷新画像 ...";
+    setTimeout(()=>openDetail(sid,g),500);
+  };
+}
+
+function openTraj(sid){
+  const stu=MEM.students.get(sid)||{sid,name:""};
+  const all=computePortrait(sid);
+  const head=GRADES.map(g=>`<th>${g}</th>`).join("");
+  let rows=DIMS.map(d=>`<tr><td style="text-align:left"><span class="pill p-${DIM_CODE[d]}">${d}</span></td>`+
+    GRADES.map(g=>all[g].has_data?`<td><b>${all[g].scores[d].toFixed(2)}</b></td>`
+      :'<td class="nodata">—</td>').join("")+"</tr>").join("");
+  rows+=`<tr><td style="text-align:left"><b>综合指数 CCI</b></td>`+
+    GRADES.map(g=>all[g].has_data
+      ?`<td><b style="color:#065f46">${all[g].cci.toFixed(2)}</b><div class="muted">${levelOf(all[g].cci)}</div></td>`
+      :'<td class="nodata">—</td>').join("")+"</tr>";
+  $("viewTraj").innerHTML=`
+  <div class="row" style="margin-bottom:14px"><button class="btn ghost sm" id="tBack">‹ 返回画像</button></div>
+  <div class="card"><h2><span class="n">◎</span>${esc(stu.name||sid)} · 四学年德育成长轨迹</h2>
+    <div class="muted" style="margin-bottom:10px">学号 ${esc(sid)} ｜ 班级 ${esc(stu.class_name||"—")}。
+      虚线为综合指数，各学年底分自动承接上一学年结果，因此曲线体现的是德育养成的累积过程。</div>
+    ${trajectorySvg(all)}</div>
+  <div class="card"><h2><span class="n">◎</span>逐年得分表</h2>
+    <table><thead><tr><th style="text-align:left">维度</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  show("viewTraj");
+  $("tBack").onclick=()=>openDetail(sid,GRADES.find(g=>all[g].has_data)||GRADES[0]);
+}
+
+/* ---------- 14. 持久化 ---------- */
+async function persist(){
+  await putAll("students",Array.from(MEM.students.values()));
+  await putAll("aliases",Array.from(MEM.aliases.entries()).map(([alias,sid])=>({alias,sid})));
+  await putAll("recs",Array.from(MEM.recs.values()));
+}
+
+/* ---------- 15. 上传处理 ---------- */
+async function handleUpload(){
+  const fs=$("files").files;
+  if(!fs.length){ alert("请先选择文件"); return; }
+  const kindSel=$("kind").value, grade=$("grade").value;
+  $("btnUp").disabled=true;
+  let i=0;
+  for(const f of fs){
+    i++;
+    setProg(i/fs.length*0.05+( (i-1)/fs.length ));
+    log("正在解析 "+f.name+" ...");
+    try{
+      const sheets=await parseXlsx(await f.arrayBuffer());
+      const kind=kindSel==="auto"?detectKind(sheets):kindSel;
+      if(!IMPORTERS[kind]){
+        log("  × 无法识别文件类型，请在下拉框中手动指定材料类别。");
+        continue;
+      }
+      const t0=performance.now();
+      const r=IMPORTERS[kind](sheets,grade);
+      log(`  √ 识别为【${KIND_LABEL[kind]}】，数据行 ${r.n_rows}，新增证据 ${r.n_new}，`+
+          `重复忽略 ${r.n_dup}${r.note?("，"+r.note):""}（${((performance.now()-t0)/1000).toFixed(1)}s）`);
+    }catch(e){ log("  × "+e); }
+    setProg(i/fs.length);
+  }
+  log("正在写入本机数据库 ...");
+  await persist();
+  $("btnUp").disabled=false;
+  setProg(0);
+  log("全部完成。");
+  PAGE=1; renderList();
+}
+
+/* ---------- 16. 备份 / 恢复 / 清空 ---------- */
+function exportBackup(){
+  const data={v:1,exported:new Date().toISOString(),
+    students:Array.from(MEM.students.values()),
+    aliases:Array.from(MEM.aliases.entries()),
+    recs:Array.from(MEM.recs.values()),qmap:QMAP};
+  download("禾灵儿画像数据备份-"+new Date().toISOString().slice(0,10)+".json",
+    JSON.stringify(data),"application/json");
+}
+async function importBackup(file){
+  const d=JSON.parse(await file.text());
+  if(!d||!d.students) throw new Error("备份文件格式不正确");
+  for(const s of d.students) MEM.students.set(s.sid,s);
+  for(const [a,sid] of (d.aliases||[])) MEM.aliases.set(a,sid);
+  for(const r of (d.recs||[])){
+    const cur=MEM.recs.get(r.key);
+    if(!cur){ MEM.recs.set(r.key,r); continue; }
+    if(r.baseline&&!cur.baseline) cur.baseline=r.baseline;      // 合并：以已有为准
+    for(const [ch,box] of Object.entries(r.channels||{})){
+      if(!cur.channels[ch]) cur.channels[ch]={items:{}};
+      for(const [fp,it] of Object.entries(box.items))
+        if(!(fp in cur.channels[ch].items)) cur.channels[ch].items[fp]=it;
+    }
+  }
+  if(d.qmap) QMAP=d.qmap;
+  await persist();
+}
+
+/* ---------- 17. 启动 ---------- */
+(async function boot(){
+  $("grade").innerHTML=GRADES.map(g=>`<option>${g}</option>`).join("");
+  const miss=[];
+  if(typeof DecompressionStream==="undefined") miss.push("DecompressionStream");
+  if(typeof indexedDB==="undefined") miss.push("IndexedDB");
+  if(miss.length){
+    $("compatWarn").classList.remove("hide");
+    $("compatWarn").innerHTML="当前浏览器缺少必要能力："+miss.join("、")+
+      "。请改用 <b>Microsoft Edge</b> 或 <b>Google Chrome</b>（版本 103 及以上）打开本文件。";
+  }
+  try{
+    await openDB(); await loadMem();
+  }catch(e){
+    $("compatWarn").classList.remove("hide");
+    $("compatWarn").textContent="无法访问浏览器本地数据库："+e+
+      "。若使用了无痕/隐私模式，请改用普通窗口打开。";
+  }
+  $("btnUp").onclick=handleUpload;
+  $("btnQ").onclick=()=>{QUERY=$("q").value;PAGE=1;renderList();};
+  $("q").onkeydown=e=>{ if(e.key==="Enter"){QUERY=$("q").value;PAGE=1;renderList();} };
+  $("btnPrev").onclick=()=>{PAGE--;renderList();};
+  $("btnNext").onclick=()=>{PAGE++;renderList();};
+  $("btnExport").onclick=exportBackup;
+  $("btnImport").onclick=()=>$("impFile").click();
+  $("impFile").onchange=async e=>{
+    if(!e.target.files.length) return;
+    try{ await importBackup(e.target.files[0]); log("备份导入完成。"); renderList(); }
+    catch(err){ alert("导入失败："+err); }
+    e.target.value="";
+  };
+  $("btnClear").onclick=async()=>{
+    if(!confirm("将清空本机保存的全部学生与证据数据，且不可撤销。确定继续？")) return;
+    await clearAll(); await loadMem(); QUERY=""; $("q").value=""; PAGE=1;
+    log("已清空全部数据。"); renderList();
+  };
+  renderList();
+  log("本机数据库已就绪。全部计算在您的浏览器内完成，数据不会上传到任何服务器。");
+})();
+</script>
+</body>
+</html>

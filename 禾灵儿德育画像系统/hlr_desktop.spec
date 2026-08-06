@@ -2,7 +2,7 @@
 """PyInstaller 打包配置：生成单文件 exe。
 
 在 Windows 上执行：pyinstaller hlr_desktop.spec --noconfirm
-产物：dist/禾灵儿德育画像.exe
+产物：dist/HelingrPortrait.exe
 """
 block_cipher = None
 
@@ -39,7 +39,7 @@ pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
     pyz, a.scripts, a.binaries, a.zipfiles, a.datas, [],
-    name='禾灵儿德育画像',
+    name='HelingrPortrait',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

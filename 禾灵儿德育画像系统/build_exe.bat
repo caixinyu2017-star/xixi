@@ -1,47 +1,54 @@
 @echo off
-chcp 65001 >nul
-REM ===================================================================
-REM  禾灵儿文化德育数字画像 —— Windows 一键打包脚本
-REM  用法：安装 Python 3.10~3.12 后，双击本文件即可
-REM  产物：dist\禾灵儿德育画像.exe
-REM ===================================================================
 setlocal
 cd /d "%~dp0"
 
+REM ==================================================================
+REM  Helingr Cultural Portrait - Windows EXE builder
+REM  Requires Python 3.10 - 3.12 with "Add Python to PATH" checked.
+REM  Output: dist\HelingrPortrait.exe
+REM  NOTE: this file is ASCII-only with CRLF line endings on purpose,
+REM        so cmd.exe parses it correctly on any Windows code page.
+REM ==================================================================
+
 echo.
-echo [1/3] 检查 Python ...
+echo [1/3] Checking Python ...
 python --version >nul 2>&1
-if errorlevel 1 (
-    echo     × 未检测到 Python。请先到 https://www.python.org/downloads/ 安装
-    echo       Python 3.10 至 3.12，安装时务必勾选 "Add Python to PATH"。
-    pause
-    exit /b 1
-)
+if errorlevel 1 goto NOPY
 python --version
 
 echo.
-echo [2/3] 安装依赖（首次运行约需 2-5 分钟）...
+echo [2/3] Installing dependencies (first run takes 2-5 minutes) ...
 python -m pip install --upgrade pip -q
 python -m pip install -r requirements.txt -q
-if errorlevel 1 (
-    echo     × 依赖安装失败，请检查网络后重试。
-    pause
-    exit /b 1
-)
+if errorlevel 1 goto PIPFAIL
 
 echo.
-echo [3/3] 开始打包 ...
+echo [3/3] Building ...
 python -m PyInstaller hlr_desktop.spec --noconfirm --clean
-if errorlevel 1 (
-    echo     × 打包失败。
-    pause
-    exit /b 1
-)
+if errorlevel 1 goto BUILDFAIL
 
 echo.
-echo ===================================================================
-echo   打包完成！
-echo   可执行文件： %cd%\dist\禾灵儿德育画像.exe
-echo   直接双击即可运行，数据会保存在 exe 同目录的 hlr_data 文件夹。
-echo ===================================================================
+echo ==================================================================
+echo   BUILD OK
+echo   Executable: %cd%\dist\HelingrPortrait.exe
+echo   Double-click it to run. Data is stored in hlr_data next to it.
+echo ==================================================================
 pause
+exit /b 0
+
+:NOPY
+echo   ERROR: Python not found.
+echo   Install Python 3.10-3.12 from https://www.python.org/downloads/
+echo   and tick "Add Python to PATH" during setup.
+pause
+exit /b 1
+
+:PIPFAIL
+echo   ERROR: dependency installation failed. Check your network.
+pause
+exit /b 1
+
+:BUILDFAIL
+echo   ERROR: PyInstaller build failed.
+pause
+exit /b 1
