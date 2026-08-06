@@ -2095,13 +2095,13 @@ if FastAPI is not None:
       <option value="complete">默认</option>
       <option value="cci">综合指数从高到低</option>
       <option value="cci_asc">综合指数从低到高</option>
-      <option value="class">班级 / 学号</option>
+      <option value="class">学号</option>
     </select>
     <span class="muted" id="cnt"></span>
   </div>
-  <table><thead><tr><th>学号</th><th>姓名</th><th>班级</th>
+  <table><thead><tr><th>学号</th><th>姓名</th>
     <th>大一</th><th>大二</th><th>大三</th><th>大四</th></tr></thead>
-    <tbody id="tb"><tr><td colspan="7" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
+    <tbody id="tb"><tr><td colspan="6" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
   </table>
   <div class="row" style="margin-top:12px;justify-content:center">
     <button class="btn ghost sm" onclick="load(page-1)">上一页</button>
@@ -2135,7 +2135,7 @@ function load(p){
   var sb=document.getElementById('sortBy').value;
   fetch('api/students?q='+q+'&page='+p+'&sort='+sb).then(r=>r.json()).then(d=>{
     var tb=document.getElementById('tb');
-    if(!d.items.length){tb.innerHTML='<tr><td colspan="7" class="nodata">没有匹配的学生</td></tr>';}
+    if(!d.items.length){tb.innerHTML='<tr><td colspan="6" class="nodata">没有匹配的学生</td></tr>';}
     else{
       tb.innerHTML=d.items.map(function(s){
         var cells=s.grades.map(function(g){
@@ -2143,7 +2143,7 @@ function load(p){
             ? '<td><a class="btn sm" href="s/'+encodeURIComponent(s.sid)+'?grade='+encodeURIComponent(g.grade)+'">查看</a>'
               +'<div style="margin-top:3px;font-weight:800;color:#0f766e">'+g.cci.toFixed(2)+'</div></td>'
             : '<td><span class="nodata">未采集</span></td>';}).join('');
-        return '<tr><td>'+s.sid+'</td><td>'+(s.name||'—')+'</td><td>'+(s.class_name||'—')+'</td>'+cells+'</tr>';
+        return '<tr><td>'+s.sid+'</td><td>'+(s.name||'—')+'</td>'+cells+'</tr>';
       }).join('');
     }
     document.getElementById('cnt').textContent='共 '+d.total+' 名学生';
@@ -2256,6 +2256,8 @@ load(1);'''
             enriched.sort(key=lambda x: (-x[3], -x[2]['score']))
         elif sort == 'cci_asc':
             enriched.sort(key=lambda x: (x[3], -x[2]['score']))
+        elif sort == 'class':
+            enriched.sort(key=lambda x: str(x[0]['sid']))
 
         pages = max(1, (total + size - 1) // size)
         page_no = max(1, min(page_no, pages))

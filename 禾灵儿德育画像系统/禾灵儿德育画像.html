@@ -142,7 +142,7 @@ input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
           <option value="complete">默认</option>
           <option value="cci">综合指数从高到低</option>
           <option value="cci_asc">综合指数从低到高</option>
-          <option value="class">班级 / 学号</option>
+          <option value="class">学号</option>
         </select>
         <span class="muted" id="cnt"></span>
         <span style="flex:1"></span>
@@ -151,9 +151,9 @@ input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
         <button class="btn ghost sm" id="btnImport">导入数据备份</button>
         <button class="btn danger sm" id="btnClear">清空全部数据</button>
       </div>
-      <table><thead><tr><th>学号</th><th>姓名</th><th>班级</th>
+      <table><thead><tr><th>学号</th><th>姓名</th>
         <th>大一</th><th>大二</th><th>大三</th><th>大四</th></tr></thead>
-        <tbody id="tb"><tr><td colspan="7" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
+        <tbody id="tb"><tr><td colspan="6" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
       </table>
       <div class="row" style="margin-top:12px;justify-content:center">
         <button class="btn ghost sm" id="btnPrev">上一页</button>
@@ -1318,7 +1318,7 @@ function filteredStudents(){
   if(SORT_BY==="complete")     rows.sort((a,b)=>b.comp.score-a.comp.score||b.bestCci-a.bestCci||byClass(a,b));
   else if(SORT_BY==="cci")     rows.sort((a,b)=>b.bestCci-a.bestCci||b.comp.score-a.comp.score||byClass(a,b));
   else if(SORT_BY==="cci_asc") rows.sort((a,b)=>a.bestCci-b.bestCci||b.comp.score-a.comp.score||byClass(a,b));
-  else                         rows.sort(byClass);
+  else                         rows.sort((a,b)=>String(a.stu.sid).localeCompare(String(b.stu.sid)));
   return rows;
 }
 function renderList(){
@@ -1328,7 +1328,7 @@ function renderList(){
   const slice=rows.slice((PAGE-1)*PAGE_SIZE,PAGE*PAGE_SIZE);
   const tb=$("tb");
   if(!slice.length){
-    tb.innerHTML='<tr><td colspan="7" class="nodata">'+
+    tb.innerHTML='<tr><td colspan="6" class="nodata">'+
       (MEM.students.size?"没有匹配的学生":"尚无数据，请先上传材料")+'</td></tr>';
   }else{
     tb.innerHTML=slice.map(r=>{
@@ -1337,8 +1337,7 @@ function renderList(){
         ? `<td><button class="btn sm" data-sid="${esc(s.sid)}" data-grade="${g}">查看</button>`+
           `<div style="margin-top:3px;font-weight:800;color:#0f766e">${pr[g].cci.toFixed(2)}</div></td>`
         : '<td><span class="nodata">未采集</span></td>').join("");
-      return `<tr><td>${esc(s.sid)}</td><td>${esc(s.name||"—")}</td>`+
-             `<td>${esc(s.class_name||"—")}</td>${cells}</tr>`;
+      return `<tr><td>${esc(s.sid)}</td><td>${esc(s.name||"—")}</td>${cells}</tr>`;
     }).join("");
     tb.querySelectorAll("button[data-sid]").forEach(b=>
       b.onclick=()=>openDetail(b.dataset.sid,b.dataset.grade));
