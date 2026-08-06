@@ -2017,9 +2017,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid #99f6e4;outline-offset
 .adv{background:#f0fdf4;border-radius:9px;padding:12px 14px;margin-bottom:10px;
      font-size:14px;line-height:1.72;border-left:4px solid #34d399;color:#14342b}
 .up{border:1.5px dashed #99f6e4;border-radius:10px;padding:14px;background:#f7fefc}
-.log{max-height:190px;overflow:auto;background:#0f172a;color:#c9f7e5;border-radius:8px;
+/* 解析日志默认收起，只在出错或用户主动展开时显示 */
+.log{max-height:210px;overflow:auto;background:#0f172a;color:#c9f7e5;border-radius:8px;
      padding:10px 12px;font-size:12px;font-family:ui-monospace,Consolas,monospace;
-     white-space:pre-wrap;line-height:1.55}
+     white-space:pre-wrap;line-height:1.6;margin-top:10px}
+.statusbar{display:none;align-items:center;gap:10px;margin-top:10px;
+           font-size:14px;font-weight:700;color:#0f766e}
+.statusbar.on{display:flex}
+.statusbar.err{color:#b91c1c}
+.statusbar .dot{width:8px;height:8px;border-radius:50%;background:#10b981;flex:none}
+.statusbar.err .dot{background:#ef4444}
+.statusbar .lnk{margin-left:auto;color:#94a3b8;font-size:12.5px;font-weight:400;
+                text-decoration:underline;cursor:pointer}
+.statusbar .lnk:hover{color:#0f766e}
 .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .tab{padding:7px 16px;border-radius:999px;background:#fff;border:1px solid #d7e3de;
      cursor:pointer;font-size:13px}
@@ -2027,6 +2037,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #99f6e4;outline-offset
 .bar{height:6px;background:#eef2f6;border-radius:3px;overflow:hidden;margin-top:4px}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,#34d399,#0f766e)}
 .nodata{color:#94a3b8;font-size:13px}
+.hide{display:none!important}
 .cp{display:flex;flex-direction:column;gap:3px;align-items:stretch;text-align:left}
 .cp .hd{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
 .cp .pc{font-weight:800;font-size:15px;color:#0f766e}
@@ -2081,7 +2092,11 @@ if FastAPI is not None:
     <div class="muted">首次使用请先上传<b>学生报名情况</b>建立学号索引，再上传其余表格；
       问卷用于生成五维初始得分。重复上传同一文件不会重复计分。</div>
   </div>
-  <div class="log" id="log" style="margin-top:12px">就绪。</div>
+  <div class="statusbar" id="status">
+    <span class="dot"></span><span id="statusText"></span>
+    <span class="lnk" id="toggleLog" onclick="toggleLog()">查看详情</span>
+  </div>
+  <div class="log hide" id="log"></div>
 </div>
 
 <div class="card">
@@ -2111,22 +2126,42 @@ if FastAPI is not None:
 </div>'''
         js = r'''
 var page=1;
-function log(t){var l=document.getElementById('log');l.textContent+='\n'+t;l.scrollTop=l.scrollHeight;}
+// 解析明细只写进隐藏的日志区；界面上只呈现一行状态
+function log(t){var l=document.getElementById('log');
+  l.textContent+=(l.textContent?'\n':'')+t;l.scrollTop=l.scrollHeight;}
+function status(t,isErr){
+  var b=document.getElementById('status');
+  b.classList.add('on'); b.classList.toggle('err',!!isErr);
+  document.getElementById('statusText').textContent=t;
+  if(isErr) document.getElementById('log').classList.remove('hide');
+}
+function toggleLog(){
+  var l=document.getElementById('log'), hidden=l.classList.toggle('hide');
+  document.getElementById('toggleLog').textContent=hidden?'查看详情':'收起详情';
+}
 function up(){
   var f=document.getElementById('files').files;
   if(!f.length){alert('请先选择文件');return;}
   var kind=document.getElementById('kind').value,g=document.getElementById('grade').value;
-  var i=0;
+  var i=0,added=0,dup=0,bad=0;
   (function next(){
-    if(i>=f.length){log('全部完成。');load(1);return;}
+    if(i>=f.length){
+      log('全部完成。');
+      status(bad
+        ? ('完成，但有 '+bad+' 个文件未能解析；本次新增 '+added+' 条、重复忽略 '+dup+' 条')
+        : ('解析完成：'+f.length+' 个文件，新增 '+added+' 条记录，重复忽略 '+dup+' 条'), bad>0);
+      load(1);return;
+    }
     var fd=new FormData();fd.append('file',f[i]);fd.append('kind',kind);fd.append('grade',g);
+    status('正在解析 '+f[i].name+'（'+(i+1)+'/'+f.length+'）…');
     log('正在解析 '+f[i].name+' ...');
     fetch('api/upload',{method:'POST',body:fd}).then(r=>r.json()).then(d=>{
-      if(d.error){log('  × '+d.error);}
-      else{log('  √ 识别为['+d.kind_label+']，数据行 '+d.n_rows+
-              '，新增证据 '+d.n_new+'，重复忽略 '+d.n_dup+(d.note?('，'+d.note):''));}
+      if(d.error){bad++;log('  × '+d.error);}
+      else{added+=d.n_new;dup+=d.n_dup;
+           log('  √ 识别为['+d.kind_label+']，数据行 '+d.n_rows+
+               '，新增证据 '+d.n_new+'，重复忽略 '+d.n_dup+(d.note?('，'+d.note):''));}
       i++;next();
-    }).catch(e=>{log('  × '+e);i++;next();});
+    }).catch(e=>{bad++;log('  × '+e);i++;next();});
   })();
 }
 function load(p){
@@ -2417,32 +2452,55 @@ load(1);'''
     <input id="note" placeholder="可选：补充说明（作品主题、创作思路等，将参与文化主题识别）"
            style="width:100%;margin-top:9px">
   </div>
-  <div class="log" id="wlog" style="margin-top:12px">就绪。同一份文件重复上传不会重复加分。</div>
+  <div class="statusbar" id="wstatus">
+    <span class="dot"></span><span id="wstatusText"></span>
+    <span class="lnk" id="wToggle" onclick="wToggleLog()">查看详情</span>
+  </div>
+  <div class="log hide" id="wlog"></div>
 </div>'''
 
         js = f'''
 var SID={json.dumps(sid)};
 function wlog(t){{var l=document.getElementById('wlog');
-  l.textContent+='\\n'+t;l.scrollTop=l.scrollHeight;}}
+  l.textContent+=(l.textContent?'\\n':'')+t;l.scrollTop=l.scrollHeight;}}
+function wstatus(t,isErr){{
+  var b=document.getElementById('wstatus');
+  b.classList.add('on'); b.classList.toggle('err',!!isErr);
+  document.getElementById('wstatusText').textContent=t;
+  if(isErr) document.getElementById('wlog').classList.remove('hide');
+}}
+function wToggleLog(){{
+  var l=document.getElementById('wlog'), hidden=l.classList.toggle('hide');
+  document.getElementById('wToggle').textContent=hidden?'查看详情':'收起详情';
+}}
 function upw(){{
   var f=document.getElementById('wf').files;
   if(!f.length){{alert('请先选择文件');return;}}
   var ch=document.getElementById('ch').value,g=document.getElementById('g2').value;
   var note=document.getElementById('note').value||'';
-  var i=0;
+  var i=0,added=0,dup=0,bad=0;
   (function next(){{
-    if(i>=f.length){{wlog('全部完成，正在刷新画像 ...');setTimeout(function(){{
-      location.href='?grade='+encodeURIComponent(g);}},700);return;}}
+    if(i>=f.length){{
+      wlog('全部完成。');
+      wstatus(bad
+        ? ('完成，但有 '+bad+' 个文件未能解析；已计入 '+added+' 份')
+        : ('已计入 '+added+' 份材料'+(dup?('，'+dup+' 份为重复上传未重复计分'):'')+'，正在刷新画像…'), bad>0);
+      if(!bad) setTimeout(function(){{
+        location.href='?grade='+encodeURIComponent(g);}},900);
+      return;
+    }}
     var fd=new FormData();
     fd.append('file',f[i]);fd.append('sid',SID);fd.append('grade',g);
     fd.append('channel',ch);fd.append('note',note);
+    wstatus('正在解析 '+f[i].name+'（'+(i+1)+'/'+f.length+'）…');
     wlog('正在解析 '+f[i].name+' ...');
     fetch('../api/upload/work',{{method:'POST',body:fd}}).then(r=>r.json()).then(d=>{{
-      if(d.error){{wlog('  × '+d.error);}}
-      else{{wlog('  √ '+d.kind_label+'：'+(d.note||'')+
+      if(d.error){{bad++;wlog('  × '+d.error);}}
+      else{{d.n_new?added++:dup++;
+           wlog('  '+(d.n_new?'√':'·')+' '+d.kind_label+'：'+(d.note||'')+
                (d.keywords&&d.keywords.length?('｜主题词 '+d.keywords.slice(0,6).join('、')):''));}}
       i++;next();
-    }}).catch(e=>{{wlog('  × '+e);i++;next();}});
+    }}).catch(e=>{{bad++;wlog('  × '+e);i++;next();}});
   }})();
 }}'''
         return page(f'{stu.get("name") or sid} · {grade}', body, js)

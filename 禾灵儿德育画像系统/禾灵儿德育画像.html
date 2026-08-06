@@ -67,9 +67,19 @@ input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
      font-size:14px;line-height:1.72;border-left:4px solid #34d399;color:#14342b}
 .adv b{font-weight:800;color:#065f46}
 .up{border:1.5px dashed #99f6e4;border-radius:10px;padding:14px;background:#f7fefc}
+/* 解析日志默认收起，只在出错或用户主动展开时显示 */
 .log{max-height:210px;overflow:auto;background:#0f172a;color:#c9f7e5;border-radius:8px;
      padding:10px 12px;font-size:12px;font-family:ui-monospace,Consolas,monospace;
-     white-space:pre-wrap;line-height:1.6}
+     white-space:pre-wrap;line-height:1.6;margin-top:10px}
+.statusbar{display:none;align-items:center;gap:10px;margin-top:10px;
+           font-size:14px;font-weight:700;color:#0f766e}
+.statusbar.on{display:flex}
+.statusbar.err{color:#b91c1c}
+.statusbar .dot{width:8px;height:8px;border-radius:50%;background:#10b981;flex:none}
+.statusbar.err .dot{background:#ef4444}
+.statusbar .lnk{margin-left:auto;color:#94a3b8;font-size:12.5px;font-weight:400;
+                text-decoration:underline;cursor:pointer}
+.statusbar .lnk:hover{color:#0f766e}
 .tabs{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
 .tab{padding:7px 16px;border-radius:999px;background:#fff;border:1px solid #d7e3de;
      cursor:pointer;font-size:13px}
@@ -129,7 +139,11 @@ input:focus,select:focus{outline:2px solid #99f6e4;outline-offset:-1px}
           问卷用于生成五维初始得分。同一份材料重复上传不会重复计分。</div>
         <div class="prog"><i id="prog"></i></div>
       </div>
-      <div class="log" id="log" style="margin-top:12px">就绪。</div>
+      <div class="statusbar" id="status">
+        <span class="dot"></span><span id="statusText"></span>
+        <span class="lnk" id="toggleLog">查看详情</span>
+      </div>
+      <div class="log hide" id="log"></div>
     </div>
 
     <div class="card">
@@ -514,8 +528,12 @@ async function clearAll(){
 
 /* 内存索引：学生表与别名表体量小（数千条），整表驻留内存以便快速搜索与匹配 */
 const MEM={students:new Map(),aliases:new Map(),recs:new Map()};
+// 脏标记：只有本次真正改动过的条目才写回 IndexedDB。
+// 全量写一次 5000+ 学生要约 5 秒，增量写通常在 10 毫秒以内。
+const DIRTY={s:new Set(),a:new Set(),r:new Set()};
 async function loadMem(){
   MEM.students.clear(); MEM.aliases.clear(); MEM.recs.clear();
+  DIRTY.s.clear(); DIRTY.a.clear(); DIRTY.r.clear();
   for(const s of await getAll("students")) MEM.students.set(s.sid,s);
   for(const a of await getAll("aliases"))  MEM.aliases.set(a.alias,a.sid);
   for(const r of await getAll("recs"))     MEM.recs.set(r.key,r);
@@ -528,10 +546,11 @@ function upsertStudent(sid,f){
   for(const k of ["name","school","college","major","class_name","grade_raw"]){
     if(!s[k] && f[k]) s[k]=String(f[k]);     // 只补空，不覆盖已有值
   }
+  DIRTY.s.add(sid);
 }
 function addAlias(alias,sid){
   const a=normName(alias);
-  if(a&&sid&&!MEM.aliases.has(a)) MEM.aliases.set(a,sid);
+  if(a&&sid&&!MEM.aliases.has(a)){ MEM.aliases.set(a,sid); DIRTY.a.add(a); }
 }
 function resolveSid(...cands){
   for(const c of cands){ const s=normSid(c); if(s&&MEM.students.has(s)) return s; }
@@ -552,6 +571,7 @@ function addEvidence(sid,grade,channel,fp,item){
   const items=rec.channels[channel].items;
   if(Object.prototype.hasOwnProperty.call(items,fp)) return false;
   items[fp]=item;
+  DIRTY.r.add(rec.key);
   return true;
 }
 
@@ -912,7 +932,7 @@ function importQuestionnaire(sheets,grade){
       if(acc[d].length){ any=true; base[d]=acc[d].reduce((a,b)=>a+b,0)/acc[d].length; }
       else base[d]=BASELINE_DEFAULT;
     }
-    if(any){ recOf(sid,grade).baseline=base; n++; }
+    if(any){ const rc=recOf(sid,grade); rc.baseline=base; DIRTY.r.add(rc.key); n++; }
   }
   const detail=Object.keys(qcols).length
     ? DIMS.map(d=>d+" "+counts[d]+" 题").join("、") : "使用维度得分列";
@@ -1285,7 +1305,15 @@ function download(name,data,mime){
 /* ---------- 13. 界面 ---------- */
 const $=id=>document.getElementById(id);
 let PAGE=1, PAGE_SIZE=20, QUERY="";
-function log(t){const l=$("log"); l.textContent+="\n"+t; l.scrollTop=l.scrollHeight;}
+// 解析明细只写进隐藏的日志区；界面上只呈现一行状态
+function log(t){const l=$("log"); l.textContent+=(l.textContent?"\n":"")+t; l.scrollTop=l.scrollHeight;}
+function status(text,isErr){
+  const bar=$("status");
+  bar.classList.add("on");
+  bar.classList.toggle("err",!!isErr);
+  $("statusText").textContent=text;
+  if(isErr) $("log").classList.remove("hide");   // 出错时自动展开，便于排查
+}
 function setProg(p){ $("prog").style.width=(p*100).toFixed(0)+"%"; }
 function show(view){
   for(const v of ["viewList","viewDetail","viewTraj"]) $(v).classList.add("hide");
@@ -1418,7 +1446,11 @@ function openDetail(sid,grade){
       <input id="wnote" placeholder="可选：补充说明（作品主题、创作思路等，将参与文化主题识别）"
              style="width:100%;margin-top:9px">
     </div>
-    <div class="log" id="wlog" style="margin-top:12px">就绪。同一份文件重复上传不会重复加分。</div>
+    <div class="statusbar" id="wstatus">
+      <span class="dot"></span><span id="wstatusText"></span>
+      <span class="lnk" id="wToggle">查看详情</span>
+    </div>
+    <div class="log hide" id="wlog"></div>
   </div>`;
   show("viewDetail");
   $("dBack").onclick=()=>{show("viewList");renderList();};
@@ -1430,22 +1462,36 @@ function openDetail(sid,grade){
   };
   $("viewDetail").querySelectorAll(".tab[data-g]").forEach(b=>
     b.onclick=()=>openDetail(sid,b.dataset.g));
+  $("wToggle").onclick=()=>{
+    const l=$("wlog"), hidden=l.classList.toggle("hide");
+    $("wToggle").textContent=hidden?"查看详情":"收起详情";
+  };
+  const wlog=t=>{const l=$("wlog");l.textContent+=(l.textContent?"\n":"")+t;l.scrollTop=l.scrollHeight;};
+  const wstatus=(t,e)=>{const b=$("wstatus");b.classList.add("on");
+    b.classList.toggle("err",!!e);$("wstatusText").textContent=t;
+    if(e) $("wlog").classList.remove("hide");};
   $("wup").onclick=async()=>{
     const fs=$("wf").files;
     if(!fs.length){ alert("请先选择文件"); return; }
     const ch=$("wch").value, g=$("wg").value, note=$("wnote").value||"";
-    const wl=$("wlog");
+    let added=0, dup=0, bad=0, i=0;
     for(const f of fs){
-      wl.textContent+="\n正在解析 "+f.name+" ...";
+      i++;
+      wstatus(`正在解析 ${f.name}（${i}/${fs.length}）…`);
+      wlog("正在解析 "+f.name+" ...");
+      await new Promise(r=>setTimeout(r,0));
       try{
         const r=await importArtifact(f,sid,g,ch,note);
-        wl.textContent+="\n  "+(r.n_new?"√":"·")+" "+CHANNEL_LABEL[ch]+"："+r.note;
-      }catch(e){ wl.textContent+="\n  × "+e; }
-      wl.scrollTop=wl.scrollHeight;
+        r.n_new?added++:dup++;
+        wlog("  "+(r.n_new?"√":"·")+" "+CHANNEL_LABEL[ch]+"："+r.note);
+      }catch(e){ bad++; wlog("  × "+f.name+"："+e); }
     }
     await persist();
-    wl.textContent+="\n全部完成，正在刷新画像 ...";
-    setTimeout(()=>openDetail(sid,g),500);
+    wlog("全部完成。");
+    wstatus(bad
+      ? `完成，但有 ${bad} 个文件未能解析；已计入 ${added} 份`
+      : `已计入 ${added} 份材料${dup?`，${dup} 份为重复上传未重复计分`:""}，正在刷新画像…`, bad>0);
+    if(!bad) setTimeout(()=>openDetail(sid,g),900);
   };
 }
 
@@ -1474,9 +1520,20 @@ function openTraj(sid){
 
 /* ---------- 14. 持久化 ---------- */
 async function persist(){
-  await putAll("students",Array.from(MEM.students.values()));
-  await putAll("aliases",Array.from(MEM.aliases.entries()).map(([alias,sid])=>({alias,sid})));
-  await putAll("recs",Array.from(MEM.recs.values()));
+  const stu=[],ali=[],rec=[];
+  for(const sid of DIRTY.s){ const v=MEM.students.get(sid); if(v) stu.push(v); }
+  for(const a of DIRTY.a){ const sid=MEM.aliases.get(a); if(sid) ali.push({alias:a,sid}); }
+  for(const k of DIRTY.r){ const v=MEM.recs.get(k); if(v) rec.push(v); }
+  await putAll("students",stu);
+  await putAll("aliases",ali);
+  await putAll("recs",rec);
+  DIRTY.s.clear(); DIRTY.a.clear(); DIRTY.r.clear();
+}
+async function persistAll(){          // 导入备份后需要整库落盘
+  for(const sid of MEM.students.keys()) DIRTY.s.add(sid);
+  for(const a of MEM.aliases.keys())    DIRTY.a.add(a);
+  for(const k of MEM.recs.keys())       DIRTY.r.add(k);
+  await persist();
 }
 
 /* ---------- 15. 上传处理 ---------- */
@@ -1485,30 +1542,37 @@ async function handleUpload(){
   if(!fs.length){ alert("请先选择文件"); return; }
   const kindSel=$("kind").value, grade=$("grade").value;
   $("btnUp").disabled=true;
-  let i=0;
+  let i=0, added=0, dup=0, bad=0;
   for(const f of fs){
     i++;
-    setProg(i/fs.length*0.05+( (i-1)/fs.length ));
+    setProg((i-1)/fs.length);
+    status(`正在解析 ${f.name}（${i}/${fs.length}）…`);
     log("正在解析 "+f.name+" ...");
+    await new Promise(r=>setTimeout(r,0));      // 让状态行先渲染出来
     try{
       const sheets=await parseXlsx(await f.arrayBuffer());
       const kind=kindSel==="auto"?detectKind(sheets):kindSel;
       if(!IMPORTERS[kind]){
+        bad++;
         log("  × 无法识别文件类型，请在下拉框中手动指定材料类别。");
         continue;
       }
       const t0=performance.now();
       const r=IMPORTERS[kind](sheets,grade);
+      added+=r.n_new; dup+=r.n_dup;
       log(`  √ 识别为【${KIND_LABEL[kind]}】，数据行 ${r.n_rows}，新增证据 ${r.n_new}，`+
           `重复忽略 ${r.n_dup}${r.note?("，"+r.note):""}（${((performance.now()-t0)/1000).toFixed(1)}s）`);
-    }catch(e){ log("  × "+e); }
+    }catch(e){ bad++; log("  × "+f.name+"："+e); }
     setProg(i/fs.length);
   }
   log("正在写入本机数据库 ...");
   await persist();
+  log("全部完成。");
   $("btnUp").disabled=false;
   setProg(0);
-  log("全部完成。");
+  status(bad
+    ? `完成，但有 ${bad} 个文件未能解析；本次新增 ${added} 条、重复忽略 ${dup} 条`
+    : `解析完成：${fs.length} 个文件，新增 ${added} 条记录，重复忽略 ${dup} 条`, bad>0);
   PAGE=1; renderList();
 }
 
@@ -1537,7 +1601,7 @@ async function importBackup(file){
     }
   }
   if(d.qmap) QMAP=d.qmap;
-  await persist();
+  await persistAll();
 }
 
 /* ---------- 17. 启动 ---------- */
@@ -1559,6 +1623,10 @@ async function importBackup(file){
       "。若使用了无痕/隐私模式，请改用普通窗口打开。";
   }
   $("btnUp").onclick=handleUpload;
+  $("toggleLog").onclick=()=>{
+    const l=$("log"), hidden=l.classList.toggle("hide");
+    $("toggleLog").textContent=hidden?"查看详情":"收起详情";
+  };
   $("btnQ").onclick=()=>{QUERY=$("q").value;PAGE=1;renderList();};
   $("sortBy").onchange=e=>{SORT_BY=e.target.value;PAGE=1;renderList();};
   $("q").onkeydown=e=>{ if(e.key==="Enter"){QUERY=$("q").value;PAGE=1;renderList();} };
@@ -1579,6 +1647,7 @@ async function importBackup(file){
   };
   renderList();
   log("本机数据库已就绪。全部计算在您的浏览器内完成，数据不会上传到任何服务器。");
+  $("log").classList.add("hide");
 })();
 </script>
 </body>
