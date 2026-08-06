@@ -109,46 +109,79 @@ CODE_DIM: Dict[str, str] = {v: k for k, v in DIM_CODE.items()}
 GRADES: Tuple[str, ...] = ("大一", "大二", "大三", "大四")
 GRADE_INDEX: Dict[str, int] = {g: i for i, g in enumerate(GRADES)}
 
-BASELINE_DEFAULT = 0.50          # 未做问卷时的中性初始得分
+BASELINE_DEFAULT = 0.30          # 未做问卷时的中性初始得分
 EPS = 1e-9
+
+# ---- 问卷 -> 初始得分的映射 ------------------------------------------------
+# 问卷是自陈量表，只能说明"入学时的自我认知起点"，不能直接当成素养水平，
+# 否则学生只要全选最高档就一次拿满分，四年的成长再也无从体现。因此把问卷
+# 均分压缩到 [BASE_MIN, BASE_MAX] 这一条窄带上，并用凸函数（指数 > 1）让
+# 高分段更难触顶：认真作答的高分学生约 0.38，问卷满分上限也只有 0.50。
+BASE_MIN = 0.15
+BASE_MAX = 0.50
+BASE_GAMMA = 2.0
+
+# ---- 无区分度作答（"一条直线全选最高档"）的折减 ----------------------------
+# 判据是题目级作答的标准差：整份问卷每道题都选同一档时标准差为 0，说明作答
+# 没有任何区分度。只有在均分很高（存在拔高动机）时才折减，如实报告中低分的
+# 学生不受影响。SL_MIN_ITEMS 以下的题量不足以判断，一律不折减。
+SL_SD_FULL = 0.18       # 题目标准差达到该值即视为作答充分展开，不折减
+SL_PENALTY = 0.72       # 完全无区分度时的折减系数
+SL_MEAN_HI = 0.80       # 均分低于此值起，折减逐步撤销
+SL_MEAN_SPAN = 0.15
+SL_MIN_ITEMS = 8
 
 # 各维度的"证据饱和常数"：A_d 达到 kappa 时，与满分的差距缩小约 63%。
 # 数值越小，同样的材料带来的提分越快。研创类材料稀缺，故取值最小。
+# 取值整体抬高，使四年的持续投入能拉出台阶，而不是大一一年就接近满分。
 KAPPA: Dict[str, float] = {
-    "文化体验": 4.5,
-    "文化认知": 5.0,
-    "文化志趣": 4.5,
-    "文化认同": 4.0,
-    "文化研创": 3.5,
+    "文化体验": 6.5,
+    "文化认知": 7.0,
+    "文化志趣": 6.5,
+    "文化认同": 5.5,
+    "文化研创": 5.0,
 }
 
 # 单一渠道对某维度的证据量上限。在汇总时截断（而非按上传批次截断），
 # 因此与上传顺序无关，重算结果始终一致，同时抑制"单一渠道刷量"。
+# 报名与视频是"参与型"行为，上限压低；文化对话是"投入型"行为，上限抬高，
+# 保证今后大量使用文化对话时仍有持续的上升空间。
 CHANNEL_A_CAP: Dict[str, float] = {
-    "dialogue": 6.0, "enrollment": 6.0, "homework": 8.0,
-    "video": 6.0, "artifact": 12.0, "agent": 12.0,
+    "dialogue": 10.0, "enrollment": 3.0, "homework": 8.0,
+    "video": 4.0, "artifact": 12.0, "agent": 12.0,
 }
 
+# 等级阈值：随年级递增的发展性常模。同一个分数在大一是"发展级"，
+# 到大四只能算"起步级"——原地不动即等于退步，四年的成长因此可见。
+LEVEL_CUTS: Tuple[float, float, float] = (0.60, 0.48, 0.36)   # A / B / C
+LEVEL_STEP = 0.08                                             # 每升一个年级抬高
+
 # 渠道 -> 维度 贡献权重（行内不必归一，直接作为乘子）
+#
+# 权重按"单位行为的投入强度"重新标定。原先"报名 1 门课"的证据量约等于
+# "8 轮有质量的文化对话"，而报名只是一次点击，这是明显的计量失衡：
+# 全体学生都报了课、都看了视频，分数被这两个渠道顶得很高，真正体现投入的
+# 对话、作业、作品反而没有分量。现在把参与型渠道压到原来的 0.35~0.40，
+# 把投入型渠道抬上去（文化对话 ×3.2），一轮有质量的对话约等于报名一门课。
 CHANNEL_WEIGHTS: Dict[str, Dict[str, float]] = {
-    # 与禾灵儿智能体的文化对话
-    "dialogue":   {"文化体验": 0.20, "文化认知": 0.55, "文化志趣": 0.50,
-                   "文化认同": 0.40, "文化研创": 0.25},
-    # 文化课程报名（广度与主动选学）
-    "enrollment": {"文化体验": 0.40, "文化认知": 0.25, "文化志趣": 0.60,
-                   "文化认同": 0.25, "文化研创": 0.10},
-    # 课程作业完成与得分
-    "homework":   {"文化体验": 0.25, "文化认知": 0.65, "文化志趣": 0.40,
-                   "文化认同": 0.20, "文化研创": 0.35},
-    # 课程视频学习完成率
-    "video":      {"文化体验": 0.60, "文化认知": 0.45, "文化志趣": 0.35,
-                   "文化认同": 0.20, "文化研创": 0.05},
+    # 与禾灵儿智能体的文化对话（投入型，本次大幅加权）
+    "dialogue":   {"文化体验": 0.640, "文化认知": 1.760, "文化志趣": 1.600,
+                   "文化认同": 1.280, "文化研创": 0.800},
+    # 文化课程报名（参与型：只反映选学意愿，权重压低）
+    "enrollment": {"文化体验": 0.140, "文化认知": 0.088, "文化志趣": 0.210,
+                   "文化认同": 0.088, "文化研创": 0.035},
+    # 课程作业完成与得分（投入型）
+    "homework":   {"文化体验": 0.350, "文化认知": 0.910, "文化志趣": 0.560,
+                   "文化认同": 0.280, "文化研创": 0.490},
+    # 课程视频学习完成率（参与型：观看时长不等于素养，权重压低）
+    "video":      {"文化体验": 0.240, "文化认知": 0.180, "文化志趣": 0.140,
+                   "文化认同": 0.080, "文化研创": 0.020},
     # 学生提交的作业成果（文档 / 演示 / 表格 / 视频）
-    "artifact":   {"文化体验": 0.35, "文化认知": 0.45, "文化志趣": 0.30,
-                   "文化认同": 0.40, "文化研创": 0.85},
+    "artifact":   {"文化体验": 0.473, "文化认知": 0.608, "文化志趣": 0.405,
+                   "文化认同": 0.540, "文化研创": 1.148},
     # 学生自建的文化智能体
-    "agent":      {"文化体验": 0.20, "文化认知": 0.50, "文化志趣": 0.40,
-                   "文化认同": 0.35, "文化研创": 1.00},
+    "agent":      {"文化体验": 0.270, "文化认知": 0.675, "文化志趣": 0.540,
+                   "文化认同": 0.473, "文化研创": 1.350},
 }
 
 CHANNEL_LABEL: Dict[str, str] = {
@@ -278,6 +311,26 @@ def _load_external_config() -> None:
             for d, v in (data.get("kappa") or {}).items():
                 if d in KAPPA:
                     KAPPA[d] = float(v)
+            for ch, v in (data.get("channel_cap") or {}).items():
+                if ch in CHANNEL_A_CAP:
+                    CHANNEL_A_CAP[ch] = float(v)
+            band = data.get("baseline_band") or {}
+            if band:
+                globals()["BASE_MIN"] = float(band.get("min", BASE_MIN))
+                globals()["BASE_MAX"] = float(band.get("max", BASE_MAX))
+                globals()["BASE_GAMMA"] = float(band.get("gamma", BASE_GAMMA))
+                globals()["BASELINE_DEFAULT"] = float(
+                    band.get("default", BASELINE_DEFAULT))
+            sl = data.get("straight_line") or {}
+            if sl:
+                globals()["SL_SD_FULL"] = float(sl.get("sd_full", SL_SD_FULL))
+                globals()["SL_PENALTY"] = float(sl.get("penalty", SL_PENALTY))
+            lv = data.get("level") or {}
+            if lv:
+                cuts = lv.get("cuts")
+                if isinstance(cuts, list) and len(cuts) == 3:
+                    globals()["LEVEL_CUTS"] = tuple(float(x) for x in cuts)
+                globals()["LEVEL_STEP"] = float(lv.get("step", LEVEL_STEP))
         except Exception:
             pass
 
@@ -836,6 +889,19 @@ def _header_map(header_row: Sequence[Any]) -> Dict[str, int]:
     return {norm_text(h): i for i, h in enumerate(header_row) if h is not None}
 
 
+def _pick_exact(hm: Dict[str, int], *keys: str) -> Optional[int]:
+    """只按完全相同的列名取列号。
+
+    问卷里"文化体验第 1 题"这类逐题列名含有维度名，若用模糊匹配会被误判成
+    "维度总分列"，导致其余题目全部作废、直线作答也无从识别，故此处必须精确。
+    """
+    for k in keys:
+        nk = norm_text(k)
+        if nk in hm:
+            return hm[nk]
+    return None
+
+
 def _pick(hm: Dict[str, int], *keys: str) -> Optional[int]:
     """按候选关键字模糊取列号。"""
     for k in keys:
@@ -1236,6 +1302,29 @@ def _question_dim(header: str, override: Dict[str, Dict[str, Any]]) -> Optional[
     return None
 
 
+def straight_line_penalty(items: Sequence[float]) -> float:
+    """「一条直线全选最高档」的折减系数。
+
+    判据是题目级作答的标准差：整份问卷每道题都选同一档时标准差为 0，
+    说明这份作答没有任何区分度，不能据此认为该生五维素养全面拔尖。
+    只有在均分很高（存在拔高动机）时才折减；如实报告中低分的学生不受影响。
+    题量不足 SL_MIN_ITEMS 时无法判断，一律不折减。
+    """
+    n = len(items)
+    if n < SL_MIN_ITEMS:
+        return 1.0
+    mean = sum(items) / n
+    sd = math.sqrt(sum((x - mean) ** 2 for x in items) / n)
+    pen = SL_PENALTY + (1.0 - SL_PENALTY) * min(1.0, sd / SL_SD_FULL)
+    relief = clamp((SL_MEAN_HI - mean) / SL_MEAN_SPAN)   # 均分不高则撤销折减
+    return pen + (1.0 - pen) * relief
+
+
+def baseline_from_intensity(q: float) -> float:
+    """问卷作答强度（0~1）-> 初始得分。压缩到窄带且高分段更难触顶。"""
+    return BASE_MIN + (BASE_MAX - BASE_MIN) * (clamp(q) ** BASE_GAMMA)
+
+
 def import_questionnaire(store: Store, path: str, grade_sel: Optional[str],
                          batch_id: str) -> Dict[str, Any]:
     """解析问卷星等平台导出的 xlsx，生成五维初始得分。"""
@@ -1262,7 +1351,7 @@ def import_questionnaire(store: Store, path: str, grade_sel: Optional[str],
     # 若表内已有各维度总分列，直接采用
     direct: Dict[str, int] = {}
     for dim in DIMS:
-        idx = _pick(hm, f"{dim}得分", f"{dim}分", dim)
+        idx = _pick_exact(hm, f"{dim}得分", f"{dim}分", f"{dim}总分", dim)
         if idx is not None:
             direct[dim] = idx
 
@@ -1315,13 +1404,20 @@ def import_questionnaire(store: Store, path: str, grade_sel: Optional[str],
                 continue
             scores[dim].append(1.0 - v if rev else v)
 
+        if not any(scores[d] for d in DIMS):
+            continue
+        items = [v for vals in scores.values() for v in vals]
+        pen = straight_line_penalty(items)
+        overall = sum(items) / len(items)
+        # 存入的是"问卷作答强度"（0~1），换算成初始得分放在打分时进行，
+        # 便于日后只改 weights.json 的区间参数就能重算，无需重新导入。
         final: Dict[str, float] = {}
         for dim in DIMS:
             vals = scores[dim]
-            final[dim] = round(sum(vals) / len(vals), 4) if vals else BASELINE_DEFAULT
-        if any(scores[d] for d in DIMS):
-            store.set_baseline(sid, grade_sel or GRADES[0], final)
-            n_students += 1
+            q_d = (sum(vals) / len(vals)) if vals else overall
+            final[dim] = round(clamp(q_d * pen), 4)
+        store.set_baseline(sid, grade_sel or GRADES[0], final)
+        n_students += 1
     store.commit()
 
     detail = "、".join(f"{d} {dim_counts[d]} 题" for d in DIMS) if q_cols else "使用维度得分列"
@@ -1439,7 +1535,7 @@ def _explicit_baseline(store: Store, sid: str, grade: str) -> Optional[Dict[str,
     b = {d: BASELINE_DEFAULT for d in DIMS}
     for r in rows:
         if r["dim"] in DIMS:
-            b[r["dim"]] = float(r["score"])
+            b[r["dim"]] = baseline_from_intensity(float(r["score"]))
     return b
 
 
@@ -1462,7 +1558,7 @@ def compute_portrait(store: Store, sid: str) -> Dict[str, Any]:
         elif carry is not None:
             B, b_src = dict(carry), "承接上一学年画像"
         else:
-            B, b_src = {d: BASELINE_DEFAULT for d in DIMS}, "默认初始得分 0.50"
+            B, b_src = {d: BASELINE_DEFAULT for d in DIMS}, "默认初始得分 0.30"
 
         A, per_channel = _aggregate_A(store, sid, g)
         S: Dict[str, float] = {}
@@ -1677,12 +1773,15 @@ def completeness_tag(score: float) -> Tuple[str, str]:
     return "严重不足", "cp-d"
 
 
-def level_of(x: float) -> str:
-    if x >= 0.85:
+def level_of(x: float, grade: str = "") -> str:
+    """发展性常模：阈值随年级抬高，原地不动即等于退步。"""
+    off = LEVEL_STEP * GRADE_INDEX.get(grade, 0)
+    a, b, c = (t + off for t in LEVEL_CUTS)
+    if x >= a:
         return "A 引领级"
-    if x >= 0.70:
+    if x >= b:
         return "B 胜任级"
-    if x >= 0.55:
+    if x >= c:
         return "C 发展级"
     return "D 起步级"
 
@@ -1881,14 +1980,15 @@ def build_report_docx(store: Store, sid: str, grade: str) -> bytes:
     for d in DIMS:
         row = tbl.add_row()
         vals = [d, f'{pr["baseline"][d]:.2f}', f'{pr["scores"][d]:.2f}',
-                f'+{pr["scores"][d] - pr["baseline"][d]:.2f}', level_of(pr['scores'][d])]
+                f'+{pr["scores"][d] - pr["baseline"][d]:.2f}',
+                level_of(pr['scores'][d], pr['grade'])]
         for j, v in enumerate(vals):
             c = row.cells[j]
             c.text = ''
             run_style(c.paragraphs[0].add_run(v), '宋体', 10.5, False)
             c.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     para()
-    para(f'综合文化素养指数 CCI = {pr["cci"]:.2f}（{level_of(pr["cci"])}），'
+    para(f'综合文化素养指数 CCI = {pr["cci"]:.2f}（{level_of(pr["cci"], pr["grade"])}），'
          f'较上一学年 {pr["delta"]:+.2f}。', indent=True)
 
     heading('三、支撑得分的过程证据')
@@ -2421,7 +2521,7 @@ load(1);'''
           {'↑' if delta >= 0 else '↓'} 较上学年 {delta:+.2f}</div>
         <div style="font-size:14px;font-weight:600;color:#5b6b7c">环比增长 {growth:+.1f}%</div>
         <div style="font-size:15px;font-weight:800;color:#065f46;margin-top:7px">
-          {level_of(pr['cci'])}</div>
+          {level_of(pr['cci'], pr['grade'])}</div>
       </div>
     </div>
     <div class="radarnote">实线为当前得分，虚线为初始得分。</div>
@@ -2524,7 +2624,7 @@ function upw(){{
                      f'<span class="pill p-{DIM_CODE[d]}">{d}</span></td>{cells}</tr>')
         cci_cells = ''.join(
             (f'<td><b style="color:#065f46">{all_g[g]["cci"]:.2f}</b>'
-             f'<div class="muted">{level_of(all_g[g]["cci"])}</div></td>'
+             f'<div class="muted">{level_of(all_g[g]["cci"], g)}</div></td>'
              if all_g[g]['has_data'] else '<td class="nodata">—</td>') for g in GRADES)
         rows += f'<tr><td style="text-align:left"><b>综合指数 CCI</b></td>{cci_cells}</tr>'
 

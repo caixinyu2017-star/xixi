@@ -198,18 +198,49 @@ const DIMS = ["文化体验","文化认知","文化志趣","文化认同","文�
 const DIM_CODE = {"文化体验":"E","文化认知":"C","文化志趣":"I","文化认同":"D","文化研创":"R"};
 const CODE_DIM = {E:"文化体验",C:"文化认知",I:"文化志趣",D:"文化认同",R:"文化研创"};
 const GRADES = ["大一","大二","大三","大四"];
-const BASELINE_DEFAULT = 0.50;
+const BASELINE_DEFAULT = 0.30;
 
-const KAPPA = {"文化体验":4.5,"文化认知":5.0,"文化志趣":4.5,"文化认同":4.0,"文化研创":3.5};
-const CHANNEL_A_CAP = {dialogue:6.0,enrollment:6.0,homework:8.0,video:6.0,artifact:12.0,agent:12.0};
+/* 问卷 -> 初始得分：自陈量表只说明"入学时的自我认知起点"，不能直接当成
+   素养水平，否则全选最高档就一次拿满分，四年的成长再也无从体现。
+   因此压缩到 [BASE_MIN, BASE_MAX] 窄带，并用凸函数让高分段更难触顶。 */
+const BASE_MIN = 0.15, BASE_MAX = 0.50, BASE_GAMMA = 2.0;
+/* "一条直线全选最高档"的折减：判据是题目级作答的标准差。 */
+const SL_SD_FULL = 0.18, SL_PENALTY = 0.72,
+      SL_MEAN_HI = 0.80, SL_MEAN_SPAN = 0.15, SL_MIN_ITEMS = 8;
+
+/* κ 整体抬高，让四年的持续投入拉出台阶，而不是大一一年就接近满分。 */
+const KAPPA = {"文化体验":6.5,"文化认知":7.0,"文化志趣":6.5,"文化认同":5.5,"文化研创":5.0};
+/* 报名与视频是"参与型"行为，上限压低；文化对话是"投入型"行为，上限抬高，
+   保证今后大量使用文化对话时仍有持续的上升空间。 */
+const CHANNEL_A_CAP = {dialogue:10.0,enrollment:3.0,homework:8.0,video:4.0,artifact:12.0,agent:12.0};
+/* 权重按"单位行为的投入强度"重新标定：原先"报名 1 门课"≈"8 轮有质量的
+   文化对话"，而报名只是一次点击。现在参与型压到原来的 0.35~0.40，投入型
+   抬上去（文化对话 ×3.2），一轮有质量的对话约等于报名一门课。 */
 const CHANNEL_WEIGHTS = {
-  dialogue:  {"文化体验":0.20,"文化认知":0.55,"文化志趣":0.50,"文化认同":0.40,"文化研创":0.25},
-  enrollment:{"文化体验":0.40,"文化认知":0.25,"文化志趣":0.60,"文化认同":0.25,"文化研创":0.10},
-  homework:  {"文化体验":0.25,"文化认知":0.65,"文化志趣":0.40,"文化认同":0.20,"文化研创":0.35},
-  video:     {"文化体验":0.60,"文化认知":0.45,"文化志趣":0.35,"文化认同":0.20,"文化研创":0.05},
-  artifact:  {"文化体验":0.35,"文化认知":0.45,"文化志趣":0.30,"文化认同":0.40,"文化研创":0.85},
-  agent:     {"文化体验":0.20,"文化认知":0.50,"文化志趣":0.40,"文化认同":0.35,"文化研创":1.00},
+  dialogue:  {"文化体验":0.640,"文化认知":1.760,"文化志趣":1.600,"文化认同":1.280,"文化研创":0.800},
+  enrollment:{"文化体验":0.140,"文化认知":0.088,"文化志趣":0.210,"文化认同":0.088,"文化研创":0.035},
+  homework:  {"文化体验":0.350,"文化认知":0.910,"文化志趣":0.560,"文化认同":0.280,"文化研创":0.490},
+  video:     {"文化体验":0.240,"文化认知":0.180,"文化志趣":0.140,"文化认同":0.080,"文化研创":0.020},
+  artifact:  {"文化体验":0.473,"文化认知":0.608,"文化志趣":0.405,"文化认同":0.540,"文化研创":1.148},
+  agent:     {"文化体验":0.270,"文化认知":0.675,"文化志趣":0.540,"文化认同":0.473,"文化研创":1.350},
 };
+/* 等级阈值随年级抬高：同一个分数在大一是"发展级"，到大四只算"起步级"。 */
+const LEVEL_CUTS = [0.60, 0.48, 0.36], LEVEL_STEP = 0.08;
+
+/* 问卷作答强度（0~1）-> 初始得分 */
+function baselineFromIntensity(q){
+  return BASE_MIN+(BASE_MAX-BASE_MIN)*Math.pow(clamp(q),BASE_GAMMA);
+}
+/* 无区分度作答的折减系数 */
+function straightLinePenalty(items){
+  const n=items.length;
+  if(n<SL_MIN_ITEMS) return 1.0;
+  const mean=items.reduce((a,b)=>a+b,0)/n;
+  const sd=Math.sqrt(items.reduce((s,x)=>s+(x-mean)*(x-mean),0)/n);
+  const pen=SL_PENALTY+(1-SL_PENALTY)*Math.min(1,sd/SL_SD_FULL);
+  const relief=clamp((SL_MEAN_HI-mean)/SL_MEAN_SPAN);
+  return pen+(1-pen)*relief;
+}
 const CHANNEL_LABEL = {questionnaire:"五维问卷（初始得分）",dialogue:"文化对话",
   enrollment:"文化课程报名",homework:"课程作业",video:"课程视频",
   artifact:"学生作业成果",agent:"学生自建智能体"};
@@ -612,9 +643,12 @@ function computePortrait(sid){
   for(const g of GRADES){
     const rec=MEM.recs.get(sid+"|"+g);
     let B,bsrc;
-    if(rec&&rec.baseline){ B={...rec.baseline}; bsrc="本年级五维问卷"; }
+    if(rec&&rec.baseline){
+      B=Object.fromEntries(DIMS.map(d=>[d,baselineFromIntensity(rec.baseline[d])]));
+      bsrc="本年级五维问卷";
+    }
     else if(carry){ B={...carry}; bsrc="承接上一学年画像"; }
-    else { B=Object.fromEntries(DIMS.map(d=>[d,BASELINE_DEFAULT])); bsrc="默认初始得分 0.50"; }
+    else { B=Object.fromEntries(DIMS.map(d=>[d,BASELINE_DEFAULT])); bsrc="默认初始得分 0.30"; }
     const {A,perChannel}=aggregateA(rec);
     const S={},rho={};
     const r4=x=>Math.round(x*1e4)/1e4;   // 与 Python 版一致，统一保留 4 位小数
@@ -635,10 +669,12 @@ function computePortrait(sid){
   }
   return out;
 }
-function levelOf(x){
-  if(x>=0.85) return "A 引领级";
-  if(x>=0.70) return "B 胜任级";
-  if(x>=0.55) return "C 发展级";
+function levelOf(x,grade){
+  /* 发展性常模：阈值随年级抬高，原地不动即等于退步。 */
+  const off=LEVEL_STEP*Math.max(0,GRADES.indexOf(grade||""));
+  if(x>=LEVEL_CUTS[0]+off) return "A 引领级";
+  if(x>=LEVEL_CUTS[1]+off) return "B 胜任级";
+  if(x>=LEVEL_CUTS[2]+off) return "C 发展级";
   return "D 起步级";
 }
 
@@ -694,6 +730,12 @@ function headerMap(row){
   const hm={};
   (row||[]).forEach((h,i)=>{ if(h!=null) hm[normText(h)]=i; });
   return hm;
+}
+/* 只按完全相同的列名取列号：问卷里"文化体验第1题"这类逐题列名含有维度名，
+   模糊匹配会把它误判成"维度总分列"，导致其余题目作废、直线作答无从识别。 */
+function pickExact(hm,...keys){
+  for(const k of keys){ const nk=normText(k); if(nk in hm) return hm[nk]; }
+  return null;
 }
 function pick(hm,...keys){
   for(const k of keys){ const nk=normText(k); if(nk in hm) return hm[nk]; }
@@ -895,7 +937,8 @@ function importQuestionnaire(sheets,grade){
   const cSid=pick(hm,"学号","学生学号"), cName=pick(hm,"姓名","学生姓名","昵称");
   const cCls=pick(hm,"班级","行政班级");
   const direct={};
-  for(const d of DIMS){ const i=pick(hm,d+"得分",d+"分",d); if(i!=null) direct[d]=i; }
+  for(const d of DIMS){
+    const i=pickExact(hm,d+"得分",d+"分",d+"总分",d); if(i!=null) direct[d]=i; }
   const qcols={};
   if(Object.keys(direct).length<DIMS.length){
     const skip=new Set(["序号","提交答卷时间","所用时间","来源","来源详情","来自ip",
@@ -927,12 +970,17 @@ function importQuestionnaire(sheets,grade){
       const v=likert(cellVal(row[idx])); if(v==null) continue;
       acc[d].push(rev?1-v:v);
     }
-    let any=false; const base={};
+    const items=[]; for(const d of DIMS) items.push(...acc[d]);
+    if(!items.length) continue;
+    const pen=straightLinePenalty(items);
+    const overall=items.reduce((a,b)=>a+b,0)/items.length;
+    // 存入的是"问卷作答强度"（0~1），换算成初始得分放在打分时进行
+    const base={};
     for(const d of DIMS){
-      if(acc[d].length){ any=true; base[d]=acc[d].reduce((a,b)=>a+b,0)/acc[d].length; }
-      else base[d]=BASELINE_DEFAULT;
+      const q=acc[d].length?acc[d].reduce((a,b)=>a+b,0)/acc[d].length:overall;
+      base[d]=Math.round(clamp(q*pen)*1e4)/1e4;
     }
-    if(any){ const rc=recOf(sid,grade); rc.baseline=base; DIRTY.r.add(rc.key); n++; }
+    { const rc=recOf(sid,grade); rc.baseline=base; DIRTY.r.add(rc.key); n++; }
   }
   const detail=Object.keys(qcols).length
     ? DIMS.map(d=>d+" "+counts[d]+" 题").join("、") : "使用维度得分列";
@@ -1249,9 +1297,9 @@ function buildReportDocx(stu,grade,pr,lines,matrix,advice){
   body+=wPara("二、五维素养得分",{font:"黑体",size:28,bold:true});
   for(const d of DIMS){
     body+=wPara(`${d}：初始得分 ${pr.baseline[d].toFixed(2)} → 本学年 ${pr.scores[d].toFixed(2)}`+
-      `（增幅 +${(pr.scores[d]-pr.baseline[d]).toFixed(2)}，${levelOf(pr.scores[d])}）`,{indent:2});
+      `（增幅 +${(pr.scores[d]-pr.baseline[d]).toFixed(2)}，${levelOf(pr.scores[d],pr.grade)}）`,{indent:2});
   }
-  body+=wPara(`综合文化素养指数 CCI = ${pr.cci.toFixed(2)}（${levelOf(pr.cci)}），`+
+  body+=wPara(`综合文化素养指数 CCI = ${pr.cci.toFixed(2)}（${levelOf(pr.cci,pr.grade)}），`+
     `较上一学年 ${pr.delta>=0?"+":""}${pr.delta.toFixed(2)}。`,{indent:2});
   body+=wPara("三、支撑得分的过程证据",{font:"黑体",size:28,bold:true});
   if(!lines.length) body+=wPara("本学年暂未采集到过程性证据。",{indent:2});
@@ -1425,7 +1473,7 @@ function openDetail(sid,grade){
           <div style="font-size:14.5px;color:#047857;font-weight:800">
             ${pr.delta>=0?"↑":"↓"} 较上学年 ${pr.delta>=0?"+":""}${pr.delta.toFixed(2)}</div>
           <div style="font-size:14px;font-weight:600;color:#5b6b7c">环比增长 ${(pr.growth*100>=0?"+":"")}${(pr.growth*100).toFixed(1)}%</div>
-          <div style="font-size:15px;font-weight:800;color:#065f46;margin-top:7px">${levelOf(pr.cci)}</div></div>
+          <div style="font-size:15px;font-weight:800;color:#065f46;margin-top:7px">${levelOf(pr.cci,pr.grade)}</div></div>
       </div>
       <div class="radarnote">实线为当前得分，虚线为初始得分。</div>
     </div>
@@ -1504,7 +1552,7 @@ function openTraj(sid){
       :'<td class="nodata">—</td>').join("")+"</tr>").join("");
   rows+=`<tr><td style="text-align:left"><b>综合指数 CCI</b></td>`+
     GRADES.map(g=>all[g].has_data
-      ?`<td><b style="color:#065f46">${all[g].cci.toFixed(2)}</b><div class="muted">${levelOf(all[g].cci)}</div></td>`
+      ?`<td><b style="color:#065f46">${all[g].cci.toFixed(2)}</b><div class="muted">${levelOf(all[g].cci,g)}</div></td>`
       :'<td class="nodata">—</td>').join("")+"</tr>";
   $("viewTraj").innerHTML=`
   <div class="row" style="margin-bottom:14px"><button class="btn ghost sm" id="tBack">‹ 返回画像</button></div>
