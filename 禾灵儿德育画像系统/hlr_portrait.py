@@ -1562,26 +1562,26 @@ def dimension_matrix(store: Store, sid: str, grade: str,
 # ---- 教师干预建议：详情页右下 ----------------------------------------------
 SUGGESTION_BANK: Dict[str, Dict[str, str]] = {
     "文化体验": {
-        "证据不足": "该生几乎没有留下现场性、亲历性的学习痕迹。建议指派 1 次“运河文化带”或“南湖—月河历史街区”线下研学打卡，"
+        "覆盖型": "该生几乎没有留下现场性、亲历性的学习痕迹。建议指派 1 次“运河文化带”或“南湖—月河历史街区”线下研学打卡，"
                     "并要求在禾灵儿上提交不少于 5 条文化意象记录；同步开放 1 条虚拟漫游线路作为线上补充。",
-        "表现不足": "该生有参与但停留较浅（视频完成率或任务完成度偏低）。建议把大课任务拆成 3 次小任务分周推进，"
+        "效能型": "该生有参与但停留较浅（视频完成率或任务完成度偏低）。建议把大课任务拆成 3 次小任务分周推进，"
                     "每次配 1 个必答的现场观察问题，把“到过”变成“看懂”。",
     },
     "文化认知": {
-        "证据不足": "缺少可评的知识性证据。建议布置 1 次“嘉兴文脉关键词”闯关测验，并要求就 1 个薄弱知识点与禾灵儿完成 3 轮追问式问答后提交小结。",
-        "表现不足": "知识点掌握零散、迁移不足。建议采用“一图一史”作业：让学生用一张概念图串起江南文化的时间线与地理线，教师批注后二次修改。",
+        "覆盖型": "缺少可评的知识性证据。建议布置 1 次“嘉兴文脉关键词”闯关测验，并要求就 1 个薄弱知识点与禾灵儿完成 3 轮追问式问答后提交小结。",
+        "效能型": "知识点掌握零散、迁移不足。建议采用“一图一史”作业：让学生用一张概念图串起江南文化的时间线与地理线，教师批注后二次修改。",
     },
     "文化志趣": {
-        "证据不足": "自主学习行为很少，基本是被动完成任务。建议设置“7 天文化打卡”轻量任务（每天在资讯中心读 1 篇并收藏），先把习惯建立起来。",
-        "表现不足": "有兴趣但不持久、主题过窄。建议用兴趣锚点扩面：从该生已关注的主题出发，推荐 2 个相邻主题的智能体，鼓励跨主题提问。",
+        "覆盖型": "自主学习行为很少，基本是被动完成任务。建议设置“7 天文化打卡”轻量任务（每天在资讯中心读 1 篇并收藏），先把习惯建立起来。",
+        "效能型": "有兴趣但不持久、主题过窄。建议用兴趣锚点扩面：从该生已关注的主题出发，推荐 2 个相邻主题的智能体，鼓励跨主题提问。",
     },
     "文化认同": {
-        "证据不足": "尚未观察到明确的情感归属与价值表达。建议安排 1 次“我身边的红船精神”口述作业，要求结合本人或家人的真实经历，并参与同伴互评。",
-        "表现不足": "表达停留在结论层面，缺少论证与个人立场。建议开展 1 次小型辩论或“向外国朋友介绍嘉兴”的双语短讲，倒逼其组织论据。",
+        "覆盖型": "尚未观察到明确的情感归属与价值表达。建议安排 1 次“我身边的红船精神”口述作业，要求结合本人或家人的真实经历，并参与同伴互评。",
+        "效能型": "表达停留在结论层面，缺少论证与个人立场。建议开展 1 次小型辩论或“向外国朋友介绍嘉兴”的双语短讲，倒逼其组织论据。",
     },
     "文化研创": {
-        "证据不足": "没有可评的创作或研究成果。建议定制 1 次低门槛微创作：用禾灵儿视频生成完成 1 部 60 秒文化微视频，5 天内提交并发布到视频广场。",
-        "表现不足": "有作品但原创度或规范性不够。建议开展 1 次“跨文化叙事再创作”：要求提供原创脚本、标注素材出处，并在 4 天内提交创意方案与修改说明。",
+        "覆盖型": "没有可评的创作或研究成果。建议定制 1 次低门槛微创作：用禾灵儿视频生成完成 1 部 60 秒文化微视频，5 天内提交并发布到视频广场。",
+        "效能型": "有作品但原创度或规范性不够。建议开展 1 次“跨文化叙事再创作”：要求提供原创脚本、标注素材出处，并在 4 天内提交创意方案与修改说明。",
     },
 }
 
@@ -1593,30 +1593,88 @@ def teacher_advice(portrait: Dict[str, Any], stu: Dict[str, Any]) -> List[str]:
     advice: List[str] = []
 
     for d in ordered[:2]:
-        # 归因：证据太少（没参与）还是表现不够（参与了但质量低）
-        cause = "证据不足" if A[d] < 1.2 else "表现不足"
-        head = (f"【{d}｜{S[d]:.2f}｜短板，归因：{cause}】"
-                f"（证据充分度 {rho[d] * 100:.0f}%）")
+        # 归因分两类：覆盖型＝过程证据太少，样本不足以判断；
+        #             效能型＝证据量已够，问题出在达成水平。
+        cause = "覆盖型" if A[d] < 1.2 else "效能型"
+        pct = rho[d] * 100
+        why = (f"过程证据覆盖度仅 {pct:.0f}%，现有样本量尚不足以支撑稳定判断，属采集侧受限"
+               if cause == "覆盖型" else
+               f"过程证据覆盖度 {pct:.0f}%，样本量已过判定阈值，短板源于达成水平而非参与量")
+        head = f"【{d} {S[d]:.2f} · 优先干预项】归因：{cause}短板 —— {why}。"
         advice.append(head + SUGGESTION_BANK[d][cause])
 
     top = ordered[-1]
     advice.append(
-        f"【{top}｜{S[top]:.2f}｜优势】该生在{top}上表现突出，建议赋予拓展性角色——"
+        f"【{top} {S[top]:.2f} · 相对优势项】该生在{top}上表现突出，建议赋予拓展性角色——"
         f"担任小组{('研学领队' if top == '文化体验' else '创作主创' if top == '文化研创' else '朋辈领学')}，"
         f"用其长板带动小组其余同学的短板。")
 
     spread = max(S.values()) - min(S.values())
     if spread >= 0.25:
         advice.append(
-            f"【整体】五维极差 {spread:.2f}，发展明显不均衡。建议本学期只抓"
+            f"【整体研判】五维极差 {spread:.2f}，结构性失衡明显。建议本学期只抓"
             f"{ordered[0]}一个维度，集中投放任务与资源，避免样样都补、样样不深。")
     elif portrait["cci"] < 0.60:
-        advice.append("【整体】综合指数偏低且各维度均衡偏弱，属参与总量不足。"
+        advice.append("【整体研判】综合指数偏低且各维度普遍偏弱，属整体参与总量不足而非单项薄弱。"
                       "建议先解决“上平台”的问题：约定每周固定 1 次禾灵儿学习时段，先把行为量提上来。")
     else:
-        advice.append("【整体】五维发展较为均衡，建议保持现有节奏，"
+        advice.append("【整体研判】五维发展结构较为均衡，建议保持现有节奏，"
                       "下阶段可尝试把单项优势转化为公开成果（作品发布、朋辈分享）。")
     return advice
+
+
+ALL_CHANNELS = ("dialogue", "enrollment", "video", "homework", "artifact", "agent")
+COMPLETENESS_W = {"questionnaire": 0.25, "channels": 0.30, "rho": 0.25, "volume": 0.20}
+
+
+def completeness_of(store: Store, sid: str,
+                    grades: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """材料完整度：这份画像有多少证据在撑着。
+
+    完整度低不等于分低，而是"证据不足、结论不可靠"，因此列表默认把材料最全的
+    学生排在最前面，教师可以先看结论最可信的那批人。
+
+        完整度 = 0.25·问卷 + 0.30·渠道覆盖 + 0.25·证据充分度 + 0.20·证据体量
+    """
+    grades = grades or compute_portrait(store, sid)
+    cx = store.conn()
+    # 注意：evidences 表里一条逻辑证据会展开成 5 行（每个维度一行），
+    # 这里必须按 detail 去重，才能与网页版"证据条数"的口径一致。
+    rows = cx.execute(
+        "SELECT channel, COUNT(DISTINCT detail) AS n FROM evidences "
+        "WHERE sid=? GROUP BY channel", (sid,)).fetchall()
+    chans = {r["channel"] for r in rows if r["n"]}
+    items = sum(r["n"] for r in rows)
+    has_q = cx.execute("SELECT 1 FROM baselines WHERE sid=? LIMIT 1",
+                       (sid,)).fetchone() is not None
+    best_rho = 0.0
+    for g in GRADES:
+        pr = grades[g]
+        if pr["has_data"]:
+            m = sum(pr["rho"][d] for d in DIMS) / len(DIMS)
+            best_rho = max(best_rho, m)
+    cov = len(chans) / len(ALL_CHANNELS)
+    vol = min(1.0, math.log(1 + items) / math.log(1 + 60))
+    score = (COMPLETENESS_W["questionnaire"] * (1.0 if has_q else 0.0)
+             + COMPLETENESS_W["channels"] * cov
+             + COMPLETENESS_W["rho"] * best_rho
+             + COMPLETENESS_W["volume"] * vol)
+    missing = ([] if has_q else ["问卷底分"]) + \
+              [CHANNEL_LABEL[c] for c in ALL_CHANNELS if c not in chans]
+    return {"score": round(score, 4), "has_q": has_q, "channels": len(chans),
+            "items": items, "rho": round(best_rho, 4), "missing": missing}
+
+
+def completeness_tag(score: float) -> Tuple[str, str]:
+    # 用界面上显示的整数百分比判档，避免出现“显示 50% 却标偏少”的割裂感
+    score = round(score, 2)
+    if score >= 0.75:
+        return "材料完整", "cp-a"
+    if score >= 0.50:
+        return "较完整", "cp-b"
+    if score >= 0.28:
+        return "偏少", "cp-c"
+    return "严重不足", "cp-d"
 
 
 def level_of(x: float) -> str:
@@ -1903,7 +1961,7 @@ KIND_LABEL = {
 CSS = r'''
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",system-ui,sans-serif;
-     background:#f2f7f5;color:#1f2937;font-size:14px;line-height:1.65}
+     background:#f2f7f5;color:#1f2937;font-size:15.5px;line-height:1.7}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1280px;margin:0 auto;padding:20px}
 .top{background:linear-gradient(90deg,#0f766e,#10b981);color:#fff;padding:18px 0}
@@ -1913,40 +1971,43 @@ a{color:inherit;text-decoration:none}
 .top .rt{font-size:12px;opacity:.92;text-align:right}
 .card{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,.07);
       padding:18px 20px;margin-bottom:16px}
-.card h2{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;
+.card h2{font-size:17px;font-weight:800;margin-bottom:12px;display:flex;
          align-items:center;gap:8px;color:#0f766e}
 .card h2 .n{background:#10b981;color:#fff;width:20px;height:20px;border-radius:5px;
             display:inline-flex;align-items:center;justify-content:center;font-size:12px}
 table{width:100%;border-collapse:collapse}
-th{background:#f8fafc;color:#475569;font-weight:600;font-size:13px;
-   padding:11px 10px;text-align:center;border-bottom:1px solid #e2e8f0}
-td{padding:10px;text-align:center;border-bottom:1px solid #f1f5f9;font-size:13px}
+th{background:#f8fafc;color:#334155;font-weight:700;font-size:14.5px;
+   padding:12px 10px;text-align:center;border-bottom:1px solid #e2e8f0}
+td{padding:11px 10px;text-align:center;border-bottom:1px solid #f1f5f9;
+   font-size:14.5px;font-weight:600}
 tbody tr:hover{background:#f0fdf9}
 .btn{display:inline-block;background:#10b981;color:#fff;border:none;border-radius:999px;
-     padding:6px 18px;font-size:13px;cursor:pointer;transition:.15s}
+     padding:8px 19px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
 .btn:hover{background:#0d9488}
 .btn.ghost{background:#fff;color:#0f766e;border:1px solid #99f6e4}
 .btn.ghost:hover{background:#f0fdfa}
 .btn[disabled]{background:#e2e8f0;color:#94a3b8;cursor:not-allowed}
 .btn.sm{padding:4px 14px;font-size:12px}
-input,select,textarea{font-family:inherit;font-size:13px;padding:8px 12px;
+input,select,textarea{font-family:inherit;font-size:14px;padding:8px 12px;
      border:1px solid #d7e3de;border-radius:8px;background:#fff;color:#1f2937}
 input:focus,select:focus,textarea:focus{outline:2px solid #99f6e4;outline-offset:-1px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:940px){.grid2{grid-template-columns:1fr}}
-.muted{color:#64748b;font-size:12px}
-.pill{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11px;font-weight:600}
+.muted{color:#5b6b7c;font-size:13px}
+.pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:13px;font-weight:800}
 .p-E{background:#fff7ed;color:#c2410c}.p-C{background:#eff6ff;color:#1d4ed8}
 .p-I{background:#f0fdf4;color:#15803d}.p-D{background:#fef2f2;color:#b91c1c}
 .p-R{background:#f5f3ff;color:#6d28d9}
-.ev{border-left:3px solid #a7f3d0;padding:6px 0 6px 11px;margin-bottom:8px;font-size:12.5px}
-.ev b{color:#0f766e}
+.ev{border-left:3px solid #a7f3d0;padding:4px 0 4px 10px;margin-bottom:7px;
+     font-size:13.5px;line-height:1.55}
+.ev b{color:#0f766e;font-size:14.5px;font-weight:800}
+.ev .it{color:#475569;font-size:13px;display:block;margin-top:1px}
 .cci{background:linear-gradient(160deg,#ecfdf5,#d1fae5);border-radius:12px;padding:16px;
      text-align:center;min-width:150px}
-.cci .v{font-size:40px;font-weight:800;color:#065f46;line-height:1.1}
-.adv{background:#f0fdf4;border-radius:9px;padding:11px 13px;margin-bottom:9px;
-     font-size:12.5px;border-left:3px solid #34d399}
+.cci .v{font-size:46px;font-weight:900;color:#065f46;line-height:1.05}
+.adv{background:#f0fdf4;border-radius:9px;padding:12px 14px;margin-bottom:10px;
+     font-size:14px;line-height:1.72;border-left:4px solid #34d399;color:#14342b}
 .up{border:1.5px dashed #99f6e4;border-radius:10px;padding:14px;background:#f7fefc}
 .log{max-height:190px;overflow:auto;background:#0f172a;color:#c9f7e5;border-radius:8px;
      padding:10px 12px;font-size:12px;font-family:ui-monospace,Consolas,monospace;
@@ -1957,7 +2018,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid #99f6e4;outline-offset
 .tab.on{background:#0f766e;color:#fff;border-color:#0f766e}
 .bar{height:6px;background:#eef2f6;border-radius:3px;overflow:hidden;margin-top:4px}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,#34d399,#0f766e)}
-.nodata{color:#94a3b8;font-size:12px}
+.nodata{color:#94a3b8;font-size:13px}
+.cp{display:flex;flex-direction:column;gap:3px;align-items:stretch;text-align:left}
+.cp .hd{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.cp .pc{font-weight:800;font-size:15px;color:#0f766e}
+.cp .tg{font-size:12px;font-weight:700;padding:1px 8px;border-radius:5px}
+.cp-a{background:#dcfce7;color:#15803d}.cp-b{background:#e0f2fe;color:#0369a1}
+.cp-c{background:#fef3c7;color:#b45309}.cp-d{background:#fee2e2;color:#b91c1c}
+.cp .ms{font-size:11.5px;color:#94a3b8;font-weight:400;line-height:1.4}
 '''
 
 
@@ -2011,14 +2079,22 @@ if FastAPI is not None:
 <div class="card">
   <h2><span class="n">2</span>学生画像总览</h2>
   <div class="row" style="margin-bottom:12px">
-    <input id="q" placeholder="搜索 班级 / 学号 / 姓名" style="width:280px"
+    <input id="q" placeholder="搜索 班级 / 学号 / 姓名" style="width:250px"
            onkeydown="if(event.key==='Enter')load(1)">
     <button class="btn" onclick="load(1)">查询</button>
+    <label class="muted">排序</label>
+    <select id="sortBy" onchange="load(1)">
+      <option value="complete">信息完整度（默认，材料最全的在前）</option>
+      <option value="cci">综合指数从高到低</option>
+      <option value="cci_asc">综合指数从低到高（优先关注短板学生）</option>
+      <option value="class">班级 / 学号</option>
+    </select>
     <span class="muted" id="cnt"></span>
   </div>
   <table><thead><tr><th>学号</th><th>姓名</th><th>班级</th>
+    <th style="min-width:190px">信息完整度</th>
     <th>大一</th><th>大二</th><th>大三</th><th>大四</th></tr></thead>
-    <tbody id="tb"><tr><td colspan="7" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
+    <tbody id="tb"><tr><td colspan="8" class="nodata">尚无数据，请先上传材料</td></tr></tbody>
   </table>
   <div class="row" style="margin-top:12px;justify-content:center">
     <button class="btn ghost sm" onclick="load(page-1)">上一页</button>
@@ -2049,17 +2125,27 @@ function up(){
 function load(p){
   if(p<1)p=1;page=p;
   var q=encodeURIComponent(document.getElementById('q').value||'');
-  fetch('api/students?q='+q+'&page='+p).then(r=>r.json()).then(d=>{
+  var sb=document.getElementById('sortBy').value;
+  fetch('api/students?q='+q+'&page='+p+'&sort='+sb).then(r=>r.json()).then(d=>{
     var tb=document.getElementById('tb');
-    if(!d.items.length){tb.innerHTML='<tr><td colspan="7" class="nodata">没有匹配的学生</td></tr>';}
+    if(!d.items.length){tb.innerHTML='<tr><td colspan="8" class="nodata">没有匹配的学生</td></tr>';}
     else{
       tb.innerHTML=d.items.map(function(s){
         var cells=s.grades.map(function(g){
           return g.has_data
             ? '<td><a class="btn sm" href="s/'+encodeURIComponent(s.sid)+'?grade='+encodeURIComponent(g.grade)+'">查看</a>'
-              +'<div class="muted" style="margin-top:3px">'+g.cci.toFixed(2)+'</div></td>'
+              +'<div style="margin-top:3px;font-weight:800;color:#0f766e">'+g.cci.toFixed(2)+'</div></td>'
             : '<td><span class="nodata">未采集</span></td>';}).join('');
-        return '<tr><td>'+s.sid+'</td><td>'+(s.name||'—')+'</td><td>'+(s.class_name||'—')+'</td>'+cells+'</tr>';
+        var c=s.completeness;
+        var miss=c.missing.length
+          ? ('缺 '+c.missing.slice(0,3).join('、')+(c.missing.length>3?(' 等 '+c.missing.length+' 项'):''))
+          : '六类材料齐备';
+        var cp='<td><div class="cp"><div class="hd">'
+          +'<span class="pc">'+Math.round(c.score*100)+'%</span>'
+          +'<span class="tg '+c.cls+'">'+c.tag+'</span></div>'
+          +'<div class="bar"><i style="width:'+Math.round(c.score*100)+'%"></i></div>'
+          +'<div class="ms">'+miss+'</div></div></td>';
+        return '<tr><td>'+s.sid+'</td><td>'+(s.name||'—')+'</td><td>'+(s.class_name||'—')+'</td>'+cp+cells+'</tr>';
       }).join('');
     }
     document.getElementById('cnt').textContent='共 '+d.total+' 名学生';
@@ -2140,7 +2226,13 @@ load(1);'''
     # ---------------- 学生列表 ----------------
     @app.get('/api/students')
     def api_students(q: str = Query(''), page_no: int = Query(1, alias='page'),
-                     size: int = Query(20)) -> Dict[str, Any]:
+                     size: int = Query(20),
+                     sort: str = Query('complete')) -> Dict[str, Any]:
+        """学生列表。默认按材料完整度降序——先看结论最可信的那批学生。
+
+        排序需要对候选集整体算完整度，因此先取全部匹配行再分页；
+        学生量在万级以内，实测开销可接受。
+        """
         cx = STORE.conn()
         size = max(1, min(200, size))
         where, args = '', []
@@ -2149,19 +2241,35 @@ load(1);'''
             where = ('WHERE sid LIKE ? OR name LIKE ? OR class_name LIKE ? '
                      'OR college LIKE ? OR major LIKE ?')
             args = [like] * 5
-        total = cx.execute(f'SELECT COUNT(*) AS n FROM students {where}',
-                           args).fetchone()['n']
-        pages = max(1, (total + size - 1) // size)
-        page_no = max(1, min(page_no, pages))
         rows = cx.execute(
-            f'SELECT * FROM students {where} ORDER BY class_name, sid '
-            f'LIMIT ? OFFSET ?', args + [size, (page_no - 1) * size]).fetchall()
-        items = []
+            f'SELECT * FROM students {where} ORDER BY class_name, sid', args).fetchall()
+        total = len(rows)
+
+        enriched = []
         for r in rows:
             pr = compute_portrait(STORE, r['sid'])
+            comp = completeness_of(STORE, r['sid'], pr)
+            best = max((pr[g]['cci'] for g in GRADES if pr[g]['has_data']), default=0.0)
+            enriched.append((r, pr, comp, best))
+
+        if sort == 'complete':
+            enriched.sort(key=lambda x: (-x[2]['score'], -x[3]))
+        elif sort == 'cci':
+            enriched.sort(key=lambda x: (-x[3], -x[2]['score']))
+        elif sort == 'cci_asc':
+            enriched.sort(key=lambda x: (x[3], -x[2]['score']))
+
+        pages = max(1, (total + size - 1) // size)
+        page_no = max(1, min(page_no, pages))
+        page_rows = enriched[(page_no - 1) * size: page_no * size]
+
+        items = []
+        for r, pr, comp, _best in page_rows:
+            tag, cls = completeness_tag(comp['score'])
             items.append({
                 'sid': r['sid'], 'name': r['name'], 'class_name': r['class_name'],
                 'college': r['college'],
+                'completeness': {**comp, 'tag': tag, 'cls': cls},
                 'grades': [{'grade': g, 'has_data': pr[g]['has_data'],
                             'cci': pr[g]['cci']} for g in GRADES]})
         return {'total': total, 'page': page_no, 'pages': pages, 'items': items}
@@ -2199,8 +2307,10 @@ load(1);'''
         stu = student_row(STORE, sid)
         all_g = compute_portrait(STORE, sid)
         pr = all_g[grade]
-        lines = indicator_lines(STORE, sid, grade)
+        lines = indicator_lines(STORE, sid, grade, limit_per_channel=3)
         matrix = dimension_matrix(STORE, sid, grade, pr)
+        comp = completeness_of(STORE, sid, all_g)
+        c_tag, c_cls = completeness_tag(comp['score'])
         advice = teacher_advice(pr, stu)
 
         tabs = ''.join(
@@ -2209,11 +2319,16 @@ load(1);'''
             for g in GRADES)
 
         if lines:
-            ind_html = ''.join(
-                f'<div class="ev"><b>{ln["label"]}</b> · 共 {ln["count"]} 项<br>'
-                + '<br>'.join(f'　{i + 1}）{it}' for i, it in enumerate(ln['items']))
-                + (f'<br>　…… 另有 {ln["more"]} 项' if ln['more'] else '')
-                + '</div>' for ln in lines)
+            total_items = sum(ln['count'] for ln in lines)
+            ind_html = (
+                f'<div class="muted" style="margin-bottom:8px">本学年共 {total_items} 项'
+                f'过程证据，覆盖 {comp["channels"]}/6 类材料渠道</div>'
+                + ''.join(
+                    f'<div class="ev"><b>{ln["label"]}</b> · {ln["count"]} 项'
+                    + ''.join(f'<span class="it">· {it}</span>' for it in ln['items'])
+                    + (f'<span class="it">· …… 另有 {ln["more"]} 项</span>'
+                       if ln['more'] else '')
+                    + '</div>' for ln in lines))
         else:
             ind_html = ('<div class="nodata">本学年尚未采集到过程性证据。'
                         '五维得分等于底分，请先上传该年级的导出表或学生作业。</div>')
@@ -2245,6 +2360,13 @@ load(1);'''
         · 文化德育数字画像</h2>
       <div class="muted">学号 {sid} ｜ 班级 {stu.get('class_name') or '—'}
         ｜ 学院 {stu.get('college') or '—'} ｜ 专业 {stu.get('major') or '—'}</div>
+      <div style="margin-top:8px">
+        <span class="tg {c_cls}" style="font-size:13px;font-weight:800;
+              padding:3px 10px;border-radius:6px">材料完整度
+          {comp['score'] * 100:.0f}% · {c_tag}</span>
+        <span class="muted" style="margin-left:8px">{
+          ('尚缺：' + '、'.join(comp['missing'])) if comp['missing'] else '六类材料齐备'}</span>
+      </div>
     </div>
     <div class="row">
       <a class="btn ghost" href="../api/report/{sid}?grade={grade}">生成学习报告</a>
