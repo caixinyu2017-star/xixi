@@ -1,0 +1,102 @@
+{
+  "我参观过嘉兴的博物馆、纪念馆": {
+    "dim": "文化体验",
+    "reverse": false,
+    "code": "E1"
+  },
+  "在文化场馆里我会认真观察展品": {
+    "dim": "文化体验",
+    "reverse": false,
+    "code": "E2"
+  },
+  "我参加过与传统文化有关的研学": {
+    "dim": "文化体验",
+    "reverse": false,
+    "code": "E3"
+  },
+  "我体验过书法、剪纸、印染、茶": {
+    "dim": "文化体验",
+    "reverse": false,
+    "code": "E4"
+  },
+  "我了解嘉兴运河文化与江南水乡": {
+    "dim": "文化认知",
+    "reverse": false,
+    "code": "C1"
+  },
+  "我能解释红船精神的内涵及其形": {
+    "dim": "文化认知",
+    "reverse": false,
+    "code": "C2"
+  },
+  "我清楚中华优秀传统文化的主要": {
+    "dim": "文化认知",
+    "reverse": false,
+    "code": "C3"
+  },
+  "我能说出本地非遗项目的分类及": {
+    "dim": "文化认知",
+    "reverse": false,
+    "code": "C4"
+  },
+  "我会主动去了解自己感兴趣的文": {
+    "dim": "文化志趣",
+    "reverse": false,
+    "code": "I1"
+  },
+  "课外我也会持续阅读文化类的书": {
+    "dim": "文化志趣",
+    "reverse": false,
+    "code": "I2"
+  },
+  "遇到不懂的文化知识，我会追问": {
+    "dim": "文化志趣",
+    "reverse": false,
+    "code": "I3"
+  },
+  "我愿意花更多时间拓展新的文化": {
+    "dim": "文化志趣",
+    "reverse": false,
+    "code": "I4"
+  },
+  "我为家乡的文化传统感到自豪": {
+    "dim": "文化认同",
+    "reverse": false,
+    "code": "D1"
+  },
+  "我认同中华文化的价值，并愿意": {
+    "dim": "文化认同",
+    "reverse": false,
+    "code": "D2"
+  },
+  "我愿意主动向他人推荐、介绍本": {
+    "dim": "文化认同",
+    "reverse": false,
+    "code": "D3"
+  },
+  "面对外国朋友，我能自信地讲好": {
+    "dim": "文化认同",
+    "reverse": false,
+    "code": "D4"
+  },
+  "我曾以文化为主题进行过创作或": {
+    "dim": "文化研创",
+    "reverse": false,
+    "code": "R1"
+  },
+  "我做过与文化相关的调查报告或": {
+    "dim": "文化研创",
+    "reverse": false,
+    "code": "R2"
+  },
+  "我的文化作品讲究原创，并会标": {
+    "dim": "文化研创",
+    "reverse": false,
+    "code": "R3"
+  },
+  "我制作的文化作品曾被他人传播": {
+    "dim": "文化研创",
+    "reverse": false,
+    "code": "R4"
+  }
+}

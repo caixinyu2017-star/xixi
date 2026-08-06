@@ -1,0 +1,16 @@
+# 禾灵儿文化德育数字画像 —— 运行依赖
+fastapi>=0.110
+uvicorn>=0.27
+python-multipart>=0.0.9
+openpyxl>=3.1
+python-docx>=1.1
+python-pptx>=0.6.23
+
+# 可选：装了才支持 PDF 作业解析（不装不影响其余功能）
+pypdf>=4.0
+
+# 可选：装了桌面版会用原生窗口而不是浏览器
+pywebview>=4.4
+
+# 仅打包 exe 时需要
+pyinstaller>=6.3
