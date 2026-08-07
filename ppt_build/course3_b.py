@@ -62,7 +62,7 @@ for _r, (_y, _h) in enumerate(_rows):
     for _c, (_x, _w) in enumerate(_cols):
         _t, _b, _a = _labels[_r][_c]
         card(s, _x, _y, _w, _h, _t, [_b], _a, hpt=15, bpt=12,
-             line_pct=106, max_pt=22, head_h=0.38)
+             line_pct=106, max_pt=22, head_h=0.38, keep_breaks=True)
 bar(s, CX + 0.98, 6.34, CW - 0.98, 0.46, '绩效　', GOLD2,
     '低　←　　　　　　　　　　　　　　→　高',
     '3A3A3A', '9A9A9A', pt=13, label='XAxis', max_pt=20)

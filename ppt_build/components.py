@@ -99,7 +99,8 @@ def _fit(lines, pt, avail_w, line_pct=100, space=0):
 
 
 def card(sl, x, y, w, h, header, body, accent=GREEN, hpt=15, bpt=14,
-         head_h=0.38, body_align='l', line_pct=100, space=3, max_pt=26):
+         head_h=0.38, body_align='l', line_pct=100, space=3, max_pt=26,
+         keep_breaks=False):
     """Cream rounded card with a solid accent header bar."""
     body_h = h - head_h - 0.03
     with sl.group():
@@ -113,11 +114,13 @@ def card(sl, x, y, w, h, header, body, accent=GREEN, hpt=15, bpt=14,
                  text_for_lint=flat, pt_for_lint=pt, pt_is_final=True,
                  npara_for_lint=npara)
         if body:
-            lines = body if isinstance(body[0], list) else [[run(b, bpt, INK)] for b in body]
+            lines = (body if isinstance(body[0], list)
+                     else [[run(b, bpt, INK, keep_breaks=keep_breaks)] for b in body])
             text(sl, x + 0.09, y + head_h + 0.01, w - 0.18, body_h,
                  lines, anchor='t', align=body_align, label='CardBody',
                  line_pct=line_pct, space=space, max_pt=max_pt,
-                 lIns=0.05, rIns=0.05, tIns=0.015, bIns=0.015)
+                 lIns=0.05, rIns=0.05, tIns=0.015, bIns=0.015,
+                 unwrap_paragraphs=not keep_breaks)
     return sl
 
 
@@ -168,9 +171,11 @@ def flow(sl, y, items, h=0.95, x0=CX, total=CW, accent=GREEN, pt=14, subpt=11,
                  npara_for_lint=npara)
             if s:
                 text(sl, x + 0.05, y + head_h + 0.02, bw - 0.10,
-                     h - head_h - 0.05, [[run(s, subpt, INK)]], anchor='ctr',
+                     h - head_h - 0.05,
+                     [[run(s, subpt, INK, keep_breaks=True)]], anchor='ctr',
                      align='ctr', label='FlowBody', line_pct=96, max_pt=21,
-                     tIns=0.02, bIns=0.02)
+                     lIns=0.04, rIns=0.04, tIns=0.02, bIns=0.02,
+                     unwrap_paragraphs=False)
         if i < n - 1:
             sl.arrow(x + bw + 0.04, y + h / 2, gap - 0.08, WHITE, 2.0)
     return sl
