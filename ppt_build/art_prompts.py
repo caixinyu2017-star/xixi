@@ -235,3 +235,134 @@ has a crimson header "标准写了没人用的三个原因" and body lines "① 
 full-width amber footer bar with white text "核心要点　成果不写进标准，就只是
 这一批人的临时表现，不是班组的能力".
 """)
+
+
+# ---------------------------------------------------------------- 《价值 & 开发》
+def vspec(page, name, body):
+    SPECS[page] = (name, body.strip().replace('\n', ' ') + ' ' + STYLE)
+
+
+vspec(1009, 'v9_iceberg', """
+A landscape iceberg infographic for a sales-talent training class. Top banner in
+deep green with white heading "潜力评估：冰山之上教得会，冰山之下换不掉". A light
+blue waterline crosses the canvas. The small tip above the water is blue and
+carries two labelled bands, "知识" and "技能", with the caption to its right
+"教得会：培训一周补一半，刻意练习三个月见变化". The large mass below the water is
+deep green and carries four stacked labelled bands from top to bottom,
+"社会角色", "自我认知", "特质", "动机", with the caption to its right "换不掉：
+选比育更划算，决定这个人的天花板". A crimson downward arrow along the left edge is
+labelled "越往下越难改". On the right a cream note card with an orange header
+"投放顺序" and body "培训预算：技能 → 知识；招聘筛选：动机 → 特质。很多公司把两者
+搞反了". A full-width amber footer bar with white text "反常识　面试最该问的不是
+「你会什么」，而是「上一次被客户拒绝后你做了什么」".
+""")
+
+vspec(1016, 'v16_flow', """
+A landscape infographic drawn as a four-step ascending staircase, lowest on the
+left. Top banner in deep green with white heading "价值流：从「可训练」到「胜任
+愉快」，卡点在哪一段". Step one blue labelled "可训练" with caption "愿意学、教得会，
+还不能独立交付"; step two teal labelled "可用" with caption "能做完标准动作，遇到
+例外就卡住"; step three deep green labelled "胜任" with caption "独立拿结果，例外
+也能处理"; step four orange labelled "胜任愉快" with caption "越干越有劲，开始产出
+方法和人". Between the steps three crimson gap markers each carry a short label:
+between one and two "没人教，或者只让他跟着看", between two and three "只做重复的事，
+从不给例外", between three and four "看不到下一步——这一段最容易丢人". A dashed
+crimson box hovering between step three and four is tagged "能干但不想干". A
+full-width amber footer bar with white text "现场动作　把团队每个人贴到这四级上，
+这就是写 IDP 的起点".
+""")
+
+vspec(1021, 'v21_funnel', """
+A landscape sales-funnel infographic. Top banner in deep green with white heading
+"过程跟踪：结果出来才管，就永远在救火". The left two thirds show a horizontal funnel
+narrowing left to right, split into six coloured segments labelled in order
+"触达", "首访", "试用", "报价", "成交", "复购"; under each segment a small caption
+reads "拿到对的人", "拿到工况", "占住一个工位", "拿到决策链", "写进图纸", "扩品类".
+Small crimson drip arrows fall out of the bottom of the 首访 and 试用 segments,
+tagged "漏得最多". Above the funnel a dashed bracket spans 触达 to 报价 labelled
+"这一段才管得住结果". The right third holds two stacked cream cards: the first with
+a blue header "该盯的过程指标" and body "拿到工况参数的家数 / 送样上机的工位数 /
+试用后两周内跟进的家数"; the second with an orange header "两个被低估的事实" and
+body "平均要七次以上触达才成交，多数人第三次就停了；决策链常有 5~8 人，技术话语权
+远高于采购". A full-width amber footer bar with white text "周会只问一句　这周漏斗
+每一环各推进了几家".
+""")
+
+vspec(1026, 'v26_ninebox', """
+A landscape nine-box talent grid infographic. Top banner in deep green with white
+heading "九宫格：把「绩效 × 潜力」摆到桌面上". The body is a 3 by 3 grid of rounded
+cells. A vertical axis label on the left reads "潜力" with tick labels "高", "中",
+"低" from top to bottom; a horizontal axis label under the grid reads "绩效" with
+tick labels "低", "中", "高" from left to right. Top row cells, left to right:
+green "疑似错配 / 换位置或换主管" is at the LEFT, mid-green "潜力新秀 / 找卡点、加
+陪练" in the middle, bright green "明日之星 / 给舞台、给难题" at the RIGHT. Middle
+row: amber "待观察 / 定期限、给标准" left, teal "核心员工 / 稳定输出、别折腾" middle,
+blue "中坚骨干 / 守住他、扩品类" right. Bottom row: crimson "待改进 / 三个月内给结论"
+left, grey "一般贡献 / 维持、控成本" middle, purple "专才熟手 / 认可、别硬提拔" right.
+The top-right cell has a thicker highlighted border. A full-width amber footer bar
+with white text "盘点不产生价值，盘点之后的那三次谈话才产生价值".
+""")
+
+vspec(1036, 'v36_702010', """
+A landscape infographic explaining the 70-20-10 development mix. Top banner in
+deep green with white heading "三条开发路径：七成靠做事，两成靠带教，一成靠上课".
+Centre-left: a large donut chart split into three arcs — a deep green arc taking
+70 percent labelled "70　在岗做事", a blue arc taking 20 percent labelled
+"20　他人带教", an orange arc taking 10 percent labelled "10　脱岗学习"; the donut
+centre reads "行为改变发生在现场". Right side: three stacked cream note cards
+matching the arc colours. The green one headed "在岗做事" with body "任务委派、陪访
+复盘、独立负责一块客户——关键不在让他做，在做完有人陪他复盘". The blue one headed
+"他人带教" with body "师徒制、案例分享；产出物必须是可复用的东西，不只是跟着跑了几趟".
+The orange one headed "脱岗学习" with body "课程、展会、认证；回来没有任务承接，两周
+后就归零". A small grey footnote strip under the donut reads "这个比例是启发式，不是
+被严格验证过的定律". A full-width amber footer bar with white text "安排培训时真正该问
+的是——他回来用哪一件真实的事把它跑一遍".
+""")
+
+vspec(1037, 'v37_ojt', """
+A landscape infographic showing a four-step teaching ladder, left to right, joined
+by arrows. Top banner in deep green with white heading "OJT 的正确姿势：任务委派的
+四个台阶". Step one blue labelled "我做你看" with caption "边做边说，把判断讲出来";
+step two green labelled "你做我看" with caption "他上手，我不插嘴"; step three
+orange labelled "你做我问" with caption "做完复盘，只问不评"; step four purple
+labelled "你做你说" with caption "他能教别人，才算真会". Under step one a crimson
+callout box reads "最容易被跳过的一步" and beside it three quoted lines in a cream
+card headed "要讲出来的三句判断": "我为什么先问节拍不问预算", "他说「再考虑」时我为什么
+没追价格", "这一单我为什么宁可不接". On the right a cream card with a green header
+"任务委派三件套" and body "① 交付物：两周内拿到产线节拍与现用型号 ② 权限边界：他能自己
+定什么 ③ 复盘时间：开始时就约进日程". A full-width amber footer bar with white text
+"检验　新人能不能把你的判断复述出来——复述不出来，他只是模仿了动作".
+""")
+
+vspec(1042, 'v42_tco', """
+A landscape infographic titled as a cost-of-ownership calculator for industrial
+sales. Top banner in deep green with white heading "把价格谈判掰成价值谈判：四个算账
+锚点". A large equation strip near the top reads "客户的一年总成本 ＝ 采购价 ＋ 停机
+損失 ＋ 备件持有 ＋ 换型时间" — render that strip with the correct characters
+"客户的一年总成本 ＝ 采购价 ＋ 停机损失 ＋ 备件持有 ＋ 换型时间". Below it a row of four
+equal cream cards, each with a coloured header, a large number and a caption. Card
+one, crimson header "停机", big number "63.6 万元/小时", caption "行业调研给出的中国
+企业均值——先问他这条线是多少". Card two, blue header "寿命", big number "1000 万次",
+caption "标准工况气缸平均往复次数，按每分钟 10 次约合 3 年". Card three, purple header
+"备件", big number "20%~30%", caption "备件年持有成本占账面价值的比例". Card four,
+green header "换型", big number "＋12.5%", caption "换型由 45 分钟压到 25 分钟带来的
+OEE 提升". Under the four cards a horizontal arrow points from a grey box labelled
+"只谈单价" to a green box labelled "谈一年总成本". A full-width amber footer bar with
+white text "客户越是只谈价格，越说明你还没让他看见别的账".
+""")
+
+vspec(1052, 'v52_grow', """
+A landscape infographic for the GROW coaching model, drawn as four large connected
+circles in a row joined by right-pointing arrows, each circle carrying one big
+letter and a Chinese label beneath. Top banner in deep green with white heading
+"GROW：把「我告诉你怎么做」换成「你打算怎么做」". Circle one green with letter "G" and
+label "Goal　收窄"; circle two blue with letter "R" and label "Reality　只问事实";
+circle three orange with letter "O" and label "Options　逼出三个"; circle four
+crimson with letter "W" and label "Will　落到日期". Under each circle a cream speech
+bubble holds a ready-made question: under G "这 20 分钟，你最想理清哪一件事？"; under
+R "你上一次跟他联系是什么时候、他说了什么原话？"; under O "如果不能降价，你还能给他
+什么？"; under W "具体哪一天？需要我做什么？". Two crimson warning tags float above
+the row: one over R reading "别在这一步给答案", one over W reading "别接受「我尽快」".
+A full-width amber footer bar with white text "他说出口的才会做；你说的，他只记住你
+说过".
+""")

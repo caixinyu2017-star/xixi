@@ -14,13 +14,15 @@ MIN_EDGE = 0.02        # min distance from slide edge for text shapes
 SLACK = 0.012          # rounding tolerance, inches
 
 
-def check(slides, names=None, verbose=True, limit=80):
+def check(slides, names=None, verbose=True, limit=80, coverage=False,
+          min_fill=0.80, max_hole=0.62):
     issues = []
     for i, sl in enumerate(slides, 1):
         nm = (names or {}).get(i, '')
-        for rec in sl.records:
+        sl._finalize()          # deferred text boxes must be resolved first,
+        for rec in sl.records:  # otherwise their records are still placeholders
             (label, x, y, w, h, geom, txt, pt, pad,
-             line_pct, space, npara, tbpad) = rec
+             line_pct, space, npara, tbpad) = rec[:13]
             if x < -MARGIN or y < -MARGIN or x + w > W_IN + MARGIN or y + h > H_IN + MARGIN:
                 issues.append((i, nm, label, 'OUT-OF-BOUNDS',
                                f'x={x:.2f} y={y:.2f} w={w:.2f} h={h:.2f}'))
@@ -46,6 +48,8 @@ def check(slides, names=None, verbose=True, limit=80):
                                f'{n}行×{pt}pt 需{need:.2f}" 容{room:.2f}" '
                                f'「{txt[:30].replace(chr(10), "/")}」'))
         issues.extend(_occlusion(sl, i, nm))
+        if coverage:
+            issues.extend(_coverage(sl, i, nm, min_fill, max_hole))
     if verbose:
         if not issues:
             print(f'LINT OK — {len(slides)} 页：无越界 / 无溢出 / 无遮挡 / 字号 ≥ {PT_MIN}pt')
@@ -81,4 +85,53 @@ def _occlusion(sl, i, nm):
                 continue
             out.append((i, nm, panels[a][0], 'OVERLAP',
                         f'{panels[b][0]} 重叠 {ox:.2f}"×{oy:.2f}"'))
+    return out
+
+
+# ------------------------------------------------------------------ coverage
+# 「边框不要留有大部分空白，整体内容部分也不要有大部分留白」——
+# 把内容区栅格化，统计被形状盖住的比例，并找出最高的一条空白横带。
+NAV_BOTTOM = 1.28          # content starts below the section-chip rule
+FULL_TOP = 0.34            # pages without chrome (cover / team task)
+CONTENT_L, CONTENT_R = 2.06, 13.28
+FULL_L, FULL_R = 0.34, 12.99
+
+
+def _content_rect(sl):
+    has_nav = any(r[0].startswith('Nav') for r in sl.records)
+    if has_nav:
+        return CONTENT_L, NAV_BOTTOM, CONTENT_R, CBOT
+    return FULL_L, FULL_TOP, FULL_R, CBOT
+
+
+def _coverage(sl, i, nm, min_fill, max_hole, nx=112, ny=64):
+    x0, y0, x1, y1 = _content_rect(sl)
+    cw, ch = (x1 - x0) / nx, (y1 - y0) / ny
+    rows = [[False] * nx for _ in range(ny)]
+    for r in sl.records:
+        _, sx, sy, sw, sh, geom, txt = r[:7]
+        if sw <= 0.02 or sh <= 0.02 or not r[13]:
+            continue                      # zero-size, or an unfilled helper box
+        ca = max(0, int((sx - x0) / cw)); cb = min(nx, int((sx + sw - x0) / cw) + 1)
+        ra = max(0, int((sy - y0) / ch)); rb = min(ny, int((sy + sh - y0) / ch) + 1)
+        for rr in range(ra, rb):
+            row = rows[rr]
+            for cc in range(ca, cb):
+                row[cc] = True
+    filled = sum(sum(r) for r in rows)
+    frac = filled / float(nx * ny)
+    out = []
+    if frac < min_fill:
+        out.append((i, nm, '内容区', 'SPARSE', f'覆盖率 {frac*100:.0f}% < {min_fill*100:.0f}%'))
+    # tallest run of near-empty rows
+    run_len = best = 0
+    for r in rows:
+        if sum(r) < nx * 0.12:
+            run_len += 1
+            best = max(best, run_len)
+        else:
+            run_len = 0
+    hole = best * ch
+    if hole > max_hole:
+        out.append((i, nm, '内容区', 'HOLE', f'空白横带 {hole:.2f}" > {max_hole:.2f}"'))
     return out

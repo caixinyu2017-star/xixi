@@ -12,7 +12,7 @@ reported by the linter.
 from deckkit import need_height
 
 CBOT = 7.34          # bottom of the design content area
-GAP = 0.08           # breathing room kept between a grown box and its neighbour
+GAP = 0.06           # breathing room kept between a grown box and its neighbour
 MAX_GROW = 1.40
 
 

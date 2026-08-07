@@ -21,8 +21,23 @@ CBOT = 7.14                   # content bottom limit
 ART_X, ART_Y = 2.06, 1.30
 ART_W, ART_H = 11.22, 6.04
 
-# nav chips: wide enough that 第一节 / 第二节 / 第三节 each sit on one line
+# nav chips: wide enough that every section label sits on one line
 NAV_XS = [(0.16, 4.45), (4.75, 4.14), (9.03, 4.14)]
+NAV_MARGIN, NAV_GAP = 0.16, 0.14
+
+
+def nav_boxes(labels, margin=NAV_MARGIN, gap=NAV_GAP):
+    """Widths proportional to how much room each label actually needs, so no
+    chip wraps and the row spans the full width evenly."""
+    from deckkit import _em
+    need = [max(_em(s), 1.0) for s in labels]
+    free = W_IN - 2 * margin - gap * (len(labels) - 1)
+    out, x = [], margin
+    for n in need:
+        w = free * n / sum(need)
+        out.append((x, w))
+        x += w + gap
+    return out
 
 
 def chrome(sl, course, sections, active_sec, sidebar, active_side):
@@ -32,7 +47,8 @@ def chrome(sl, course, sections, active_sec, sidebar, active_side):
          tIns=0.03, bIns=0.03, max_pt=28)
     sl.line(0.03, RULE1_Y, 13.27, 0, WHITE, 1.0)
 
-    for i, (label, (x, w)) in enumerate(zip(sections, NAV_XS)):
+    xs = NAV_XS if len(sections) == 3 else nav_boxes(sections)
+    for i, (label, (x, w)) in enumerate(zip(sections, xs)):
         on = (i == active_sec)
         paras, pt, lp, flat, npara = label_paras(
             [[run(label, 15, RED2 if on else '000000')]],
@@ -64,13 +80,13 @@ def chrome(sl, course, sections, active_sec, sidebar, active_side):
 
 def heading(sl, gold, white=None, x=CX, y=CY, w=CW):
     """Big gold headline + optional white sub-line. Returns next free y."""
-    text(sl, x, 1.30, w, 0.54, [[run(gold, 25, GOLD)]], anchor='ctr',
-         label='H1', tIns=0.02, bIns=0.02, max_pt=28)
+    text(sl, x, 1.27, w, 0.52, [[run(gold, 25, GOLD)]], anchor='ctr',
+         label='H1', tIns=0.01, bIns=0.01, max_pt=28)
     if white:
-        text(sl, x, 1.84, w, 0.40, [[run(white, 16, WHITE)]],
-             anchor='ctr', label='H2', tIns=0.02, bIns=0.02, max_pt=21)
-        return 2.26
-    return 1.86
+        text(sl, x, 1.79, w, 0.38, [[run(white, 16, WHITE)]],
+             anchor='ctr', label='H2', tIns=0.01, bIns=0.01, max_pt=21)
+        return 2.18
+    return 1.80
 
 
 def _fit(lines, pt, avail_w, line_pct=100, space=0):
@@ -83,9 +99,9 @@ def _fit(lines, pt, avail_w, line_pct=100, space=0):
 
 
 def card(sl, x, y, w, h, header, body, accent=GREEN, hpt=15, bpt=14,
-         head_h=0.40, body_align='l', line_pct=100, space=3, max_pt=26):
+         head_h=0.38, body_align='l', line_pct=100, space=3, max_pt=26):
     """Cream rounded card with a solid accent header bar."""
-    body_h = h - head_h - 0.05
+    body_h = h - head_h - 0.03
     with sl.group():
         sl.shape(x, y, w, h, 'roundRect', CREAM, accent, 1.25, radius=0.06)
         paras, pt, lp, flat, npara = label_paras(
@@ -98,10 +114,10 @@ def card(sl, x, y, w, h, header, body, accent=GREEN, hpt=15, bpt=14,
                  npara_for_lint=npara)
         if body:
             lines = body if isinstance(body[0], list) else [[run(b, bpt, INK)] for b in body]
-            text(sl, x + 0.10, y + head_h + 0.02, w - 0.20, body_h,
+            text(sl, x + 0.09, y + head_h + 0.01, w - 0.18, body_h,
                  lines, anchor='t', align=body_align, label='CardBody',
                  line_pct=line_pct, space=space, max_pt=max_pt,
-                 lIns=0.06, rIns=0.06, tIns=0.02, bIns=0.02)
+                 lIns=0.05, rIns=0.05, tIns=0.015, bIns=0.015)
     return sl
 
 
@@ -186,8 +202,14 @@ def banner(sl, y, label, body, h=0.66, x=CX, w=CW, fill=AMBER, pt=14,
 
 
 def note(sl, y, body, h=0.52, x=CX, w=CW, pt=13, color=GOLD, max_pt=22):
+    """One-line hint under the content. 18pt needs 0.37"; clamp the box so a
+    hand-picked height can never squeeze the type below the floor, and keep it
+    inside the content area."""
+    h = max(h, 0.42)
+    y = min(y, 7.32 - h)
     text(sl, x, y, w, h, [[run(body, pt, color)]], anchor='ctr',
-         align='ctr', label='Note', max_pt=max_pt)
+         align='ctr', label='Note', max_pt=max_pt, tIns=0.015, bIns=0.015,
+         lIns=0.05, rIns=0.05)
     return sl
 
 
@@ -263,8 +285,8 @@ def team_task(sl, badge, title, situation, tasks, scoring, intro=False,
 
     sit_lines = unwrap_paras([[run(p, 13, '1A1A1A')] for p in situation])
     sit_txt = '\n'.join(''.join(r['t'] for r in ln) for ln in sit_lines)
-    sit_h = need_height(sit_txt, PT_MIN, 10.83, 104, 5, len(sit_lines)) + 0.16
-    sit_h = max(1.05, min(sit_h, 2.70))
+    sit_h = need_height(sit_txt, PT_MIN, 10.83, 104, 5, len(sit_lines)) + 0.10
+    sit_h = max(1.05, min(sit_h, 2.95))
     sl.shape(0.40, 1.16, 12.55, sit_h, 'rect', WHITE, GREEN2, 1.5)
     paras, hp, lp, flat, npara = label_paras(
         [[run('情  境', 14, WHITE)]], avail_w=1.30 - 0.16,
@@ -279,7 +301,7 @@ def team_task(sl, badge, title, situation, tasks, scoring, intro=False,
 
     ty = 1.16 + sit_h + 0.18
     th = bottom - ty
-    head_h, foot_h = 0.50, 0.52
+    head_h, foot_h = 0.48, 0.46
     sl.shape(0.40, ty, 12.55, th, 'rect', CREAM, AMBER, 1.75)
     paras, hp, lp, flat, npara = label_paras(
         [[run('团  队  任  务', 15, WHITE)]], avail_w=12.55 - 0.24,
@@ -294,7 +316,7 @@ def team_task(sl, badge, title, situation, tasks, scoring, intro=False,
     lines = [[run(t[0], 14, RED if intro else GREEN),
               run('　' + t[1], 14, INK)] if isinstance(t, tuple)
              else [run(t, 14, INK)] for t in tasks]
-    text(sl, 0.60, body_y, 12.15, th - head_h - foot_h - 0.08, lines,
+    text(sl, 0.60, body_y, 12.15, th - head_h - foot_h - 0.05, lines,
          anchor='t', label='TTTasks', space=6, line_pct=104, max_pt=24)
 
     bar(sl, 0.40, ty + th - foot_h, 12.55, foot_h, '产　出　', '2B1400',
@@ -337,4 +359,80 @@ def cover(sl, title, subtitle, bullets_, presenter):
 def artwork(sl, path_rel, x=ART_X, y=ART_Y, w=ART_W, h=ART_H):
     """Drop a generated illustration into the content area (chrome excluded)."""
     sl.picture(path_rel, x, y, w, h)
+    return sl
+
+
+# ---------------------------------------------------------------- layout grid
+# 「边框和文字横向、纵向分布均匀…整体内容部分也不要有大部分留白」——
+# 这几个函数按给定区间精确等分，行/列之间只留 gap，不留残余空白。
+def vspan(n, top, bottom, gap=0.16):
+    """n 行，正好铺满 [top, bottom]。返回 [(y, h), ...]"""
+    h = (bottom - top - gap * (n - 1)) / n
+    return [(top + i * (h + gap), h) for i in range(n)]
+
+
+def hspan(n, left=CX, width=CW, gap=0.24):
+    """n 列，正好铺满 [left, left+width]。返回 [(x, w), ...]"""
+    w = (width - gap * (n - 1)) / n
+    return [(left + i * (w + gap), w) for i in range(n)]
+
+
+def vsplit(weights, top, bottom, gap=0.16):
+    """按权重纵向切分，同样正好铺满。返回 [(y, h), ...]"""
+    total = float(sum(weights))
+    free = bottom - top - gap * (len(weights) - 1)
+    out, y = [], top
+    for w in weights:
+        h = free * w / total
+        out.append((y, h))
+        y += h + gap
+    return out
+
+
+def hsplit(weights, left=CX, width=CW, gap=0.24):
+    total = float(sum(weights))
+    free = width - gap * (len(weights) - 1)
+    out, x = [], left
+    for w in weights:
+        ww = free * w / total
+        out.append((x, ww))
+        x += ww + gap
+    return out
+
+
+def grid(nrow, ncol, top, bottom, left=CX, width=CW, vgap=0.16, hgap=0.24):
+    """行列都铺满，返回 [(x, y, w, h), ...]，按行优先。"""
+    rows = vspan(nrow, top, bottom, vgap)
+    cols = hspan(ncol, left, width, hgap)
+    return [(x, y, w, h) for (y, h) in rows for (x, w) in cols]
+
+
+def cover_wide(sl, title, subtitle, tiles, spine, presenter, foot):
+    """封面（第三门课用）：比 cover() 更满，四块要点 + 一条主线 + 署名，
+    上下左右都贴到内容区边缘，不留大片空白。"""
+    sl.shape(0.60, 0.56, 12.13, 1.86, 'roundRect', None, GOLD, 2.5, radius=0.08)
+    text(sl, 0.80, 0.66, 11.73, 1.06, [[run(title, 40, GOLD)]],
+         anchor='ctr', align='ctr', label='CoverTitle', tIns=0.03, bIns=0.03,
+         max_pt=48)
+    text(sl, 0.80, 1.74, 11.73, 0.62, [[run(subtitle, 17, WHITE)]],
+         anchor='ctr', align='ctr', label='CoverSub', max_pt=24)
+    for i, ((x, w), (h, s)) in enumerate(zip(hsplit([1] * len(tiles), 0.60, 12.13, 0.26), tiles)):
+        sl.shape(x, 2.60, w, 2.16, 'roundRect', CREAM, ACCENTS[i % 6], 1.5, radius=0.10)
+        paras, hp, lp, flat, npara = label_paras(
+            [[run(h, 15, WHITE)]], avail_w=w - 0.16, avail_h=0.44, max_pt=23)
+        sl.shape(x, 2.60, w, 0.48, 'rect', ACCENTS[i % 6], None, paras=paras,
+                 anchor='ctr', label='CovHead', lIns=0.08, rIns=0.08,
+                 tIns=0.02, bIns=0.02,
+                 text_for_lint=flat, pt_for_lint=hp, pt_is_final=True,
+                 npara_for_lint=npara)
+        text(sl, x + 0.08, 3.10, w - 0.16, 1.60, [[run(s, 13, INK)]],
+             anchor='ctr', align='ctr', label='CovBody', line_pct=106,
+             max_pt=24, tIns=0.02, bIns=0.02)
+    card(sl, 0.60, 4.92, 12.13, 1.34, spine[0], [spine[1]], AMBER,
+         hpt=15, bpt=13, line_pct=108, max_pt=24, body_align='ctr')
+    bar(sl, 0.60, 6.38, 12.13, 0.58, '主讲　', '2B1400', presenter, GREEN, GOLD2,
+        pt=14, label='CoverBy', max_pt=22)
+    text(sl, 0.60, 7.00, 12.13, 0.32, [[run(foot, 12, GOLD)]],
+         anchor='ctr', align='ctr', label='CoverFoot', max_pt=19,
+         tIns=0.01, bIns=0.01)
     return sl

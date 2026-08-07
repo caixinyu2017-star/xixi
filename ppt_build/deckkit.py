@@ -160,7 +160,7 @@ def _scaled(lines, mult):
     return out
 
 
-MIN_LINE_PCT = 88                # how tight leading may get to avoid overflow
+MIN_LINE_PCT = 82                # how tight leading may get to avoid overflow
 
 
 def autofit(lines, avail_w, avail_h, line_pct=100, space=0,
@@ -341,9 +341,10 @@ class Slide:
             self.records.append([nm, x, y, w, h, geom, text_for_lint,
                                  pt_for_lint, lIns + rIns,
                                  line_pct_for_lint, space_for_lint,
-                                 npara_for_lint, tIns + bIns])
+                                 npara_for_lint, tIns + bIns, True])
         else:
-            self.records.append([nm, x, y, w, h, geom, '', 0, 0, 100, 0, 1, 0])
+            self.records.append([nm, x, y, w, h, geom, '', 0, 0, 100, 0, 1, 0,
+                                 bool(fill or line)])
         self._sp[-1]['rec'] = len(self.records) - 1
         return self
 
@@ -366,7 +367,7 @@ class Slide:
             'tail': '', 'g': self._cur_grp})
         self.records.append([nm, x, y, w, h, 'rect', '', PT_MIN,
                              lIns + rIns, line_pct, space, len(lines),
-                             tIns + bIns])
+                             tIns + bIns, True])
         self._sp[-1]['rec'] = len(self.records) - 1
         return self
 
@@ -413,7 +414,7 @@ class Slide:
             'xy': (x, w, h),
             'tail': '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom>'
                     '</p:spPr></p:pic>'})
-        self.records.append([nm, x, y, w, h, 'pic', '', 0, 0, 100, 0, 1, 0])
+        self.records.append([nm, x, y, w, h, 'pic', '', 0, 0, 100, 0, 1, 0, True])
         return self
 
     # ---- speaker notes ---------------------------------------------
