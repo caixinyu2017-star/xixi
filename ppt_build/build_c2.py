@@ -48,10 +48,12 @@ def assemble():
         if not os.path.exists(path):
             missing.append(n)
             continue
-        sec, side, sidebar = slides[n - 1].chrome_args
+        old = slides[n - 1]
+        sec, side, sidebar = old.chrome_args
         s = Slide()
         chrome(s, COURSE, SEC, sec, sidebar, side)
         artwork(s, path)
+        s.notes_text = list(getattr(old, 'notes_text', []))   # keep 讲法与段子
         slides[n - 1] = s
         swapped.append(n)
     if swapped:
