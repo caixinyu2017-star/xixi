@@ -15,6 +15,11 @@ MIME = {'png': 'image/png', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
         'gif': 'image/gif', 'webp': 'image/webp', 'svg': 'image/svg+xml'}
 
 
+def _esc(t):
+    return (str(t).replace('&', '&amp;').replace('<', '&lt;')
+            .replace('>', '&gt;'))
+
+
 def _ensure_default(parts, ext):
     ct = parts['[Content_Types].xml'].decode('utf-8')
     if f'Extension="{ext}"' in ct:
@@ -169,6 +174,9 @@ def build(slides, out_path, title='', author='嘉兴大学商学院'):
     parts['[Content_Types].xml'] = ct.encode('utf-8')
 
     # ---- docProps -------------------------------------------------
+    # titles carry things like 「价值 & 开发」 — an unescaped & makes the whole
+    # package invalid XML and PowerPoint reports the file as corrupt
+    title, author = _esc(title), _esc(author)
     if 'docProps/core.xml' in parts:
         c = parts['docProps/core.xml'].decode('utf-8')
         c = re.sub(r'<dc:title>.*?</dc:title>', f'<dc:title>{title}</dc:title>', c, flags=re.S)

@@ -22,6 +22,17 @@ def validate(path):
         defaults = set(re.findall(r'<Default Extension="([^"]+)"', ct))
         overrides = set(re.findall(r'<Override PartName="/([^"]+)"', ct))
 
+        # every XML part must actually parse — an unescaped & in a title is
+        # invalid XML and PowerPoint reports the file as corrupt
+        from xml.etree import ElementTree
+        for n in sorted(names):
+            if not (n.endswith('.xml') or n.endswith('.rels')):
+                continue
+            try:
+                ElementTree.fromstring(z.read(n))
+            except Exception as e:
+                bad.append(f'XML 解析失败: {n} — {e}')
+
         for n in names:
             if n.endswith('/') or n == '[Content_Types].xml':
                 continue
