@@ -95,11 +95,9 @@ ABSTRACT = (
     "policymakers seeking to convert a record cohort\u2019s anxiety into "
     "adaptation rather than avoidance.")
 
-KEYWORDS = ("generative artificial intelligence; fresh graduates; career "
-            "anxiety; human capital depreciation; occupational adaptation; "
-            "socio-technical systems; complex adaptive systems; moderated "
-            "mediation; fuzzy-set qualitative comparative analysis; "
-            "workforce development")
+KEYWORDS = ("generative artificial intelligence; career anxiety; human "
+            "capital depreciation; occupational adaptation; "
+            "socio-technical systems")
 
 BLOCKS = [
     # =====================================================================
