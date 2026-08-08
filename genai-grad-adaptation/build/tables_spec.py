@@ -67,11 +67,12 @@ def table2():
     hdr, rows = read("t02_measurement.tsv")
     return dict(number=2,
                 caption="Constructs, items, and convergent validity.",
-                header=["Construct and items", "Standardized loading",
-                        "Cronbach's α", "CR", "AVE"],
+                header=["Construct and items", "Loading", "α", "CR",
+                        "AVE"],
                 rows=[R(*r) for r in rows],
-                widths=[0.40, 0.17, 0.15, 0.13, 0.15],
-                note=("Maximum-likelihood confirmatory factor analysis on "
+                widths=[0.44, 0.15, 0.13, 0.13, 0.15],
+                note=("Loadings are standardized; α is Cronbach's alpha. "
+                      "Maximum-likelihood confirmatory factor analysis on "
                       "the matched sample (N = %s). Model fit: χ2(%d) = "
                       "%.2f, CFI = %.3f, TLI = %.3f, RMSEA = %.3f, SRMR = "
                       "%.3f. CR is composite reliability; AVE is average "
@@ -89,7 +90,7 @@ def table3():
     return dict(number=3, caption="Discriminant validity.",
                 header=hdr, rows=[R(*r) for r in rows],
                 widths=[0.16] + [0.14] * 6,
-                note=("Diagonal (bold position): square root of the average "
+                note=("Diagonal: square root of the average "
                       "variance extracted. Below the diagonal: latent "
                       "correlations from the confirmatory model. Above the "
                       "diagonal: heterotrait–monotrait ratios. The "
@@ -184,8 +185,9 @@ def table8():
                       "procedure on the full specification of Table 7, "
                       "column (4); the turning point interval is a Fieller "
                       "construction, and the literacy-conditional turning "
-                      "points come from the specification that adds the "
-                      "quadratic-by-literacy term." + SRC),
+                      "points and their displacement are Equation (4) "
+                      "evaluated on the same specification, with "
+                      "delta-method standard errors." + SRC),
                 italic_col=None, wide=False, align="lc")
 
 
@@ -199,9 +201,10 @@ def table9():
                 note=("The dependent variable is career avoidance at the "
                       "second wave, standardized. Column (2) adds the "
                       "quadratic term, which is insignificant; columns "
-                      "(3)–(4) add literacy and its interaction; column (5) "
-                      "clusters standard errors on occupation groups. "
-                      + SE_HC3 + STARS + SRC),
+                      "(3)–(4) add literacy and its interaction. Values in "
+                      "parentheses are HC3 standard errors in columns "
+                      "(1)–(4) and occupation-clustered standard errors in "
+                      "column (5). " + STARS + SRC),
                 italic_col=None, wide=False, align="l" + "c" * 5)
 
 
@@ -246,7 +249,7 @@ def table12():
                                    "stage.",
                 header=["Specification", "ANX", "(SE)", "ANX²", "(SE)", "N"],
                 rows=[R(*r) for r in rows],
-                widths=[0.40, 0.12, 0.12, 0.12, 0.12, 0.12],
+                widths=[0.34, 0.13, 0.12, 0.17, 0.12, 0.12],
                 note=("Each row replicates the full adaptation "
                       "specification under the stated change. Row (2) "
                       "weights by inverse retention probabilities from a "
@@ -288,7 +291,7 @@ def table14():
                 header=["", "PHCD", "ANX", "LIT", "SUP", "EXPO",
                         "Consistency", "Raw cov.", "Unique cov."],
                 rows=[R(*r) for r in rows],
-                widths=[0.16] + [0.084] * 5 + [0.14, 0.12, 0.16],
+                widths=[0.11] + [0.086] * 5 + [0.17, 0.11, 0.18],
                 note=("● indicates the presence of a condition and ⊗ its "
                       "absence; a blank cell means the condition is "
                       "irrelevant to the configuration. All marked "

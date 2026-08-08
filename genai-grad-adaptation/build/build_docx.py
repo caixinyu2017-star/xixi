@@ -572,7 +572,8 @@ def add_table(doc, key):
 
     # keep the table on a single page where it fits: Word breaks it anyway if
     # it cannot, but this stops a one-row orphan following the header
-    for row in tbl.rows[:-1]:
+    keep_rows = tbl.rows if spec.get("note") else tbl.rows[:-1]
+    for row in keep_rows:
         for cell in row.cells:
             for p in cell.paragraphs:
                 p.paragraph_format.keep_with_next = True
@@ -665,7 +666,7 @@ def front_matter(doc):
     doc.add_paragraph(style="MDPI_6.1_citation").add_run(
         "Citation: To be added by editorial staff during production.")
     doc.add_paragraph(style="MDPI_7.2_copyright").add_run(
-        "Copyright: © 2026 by the authors. Submitted for possible open "
+        "Copyright: © 2025 by the authors. Submitted for possible open "
         "access publication under the terms and conditions of the Creative "
         "Commons Attribution (CC BY) license (https://creativecommons.org/"
         "licenses/by/4.0/).")
@@ -759,6 +760,32 @@ def references(doc):
         render_reference(p, key, n)
 
 
+def _suppress_header_footer_linenos(doc):
+    """Line numbering must run over the body only. LibreOffice otherwise
+    numbers the header and footer frames as a second sequence that prints
+    beside the body numbers."""
+    for sec in doc.sections:
+        parts = [sec.header, sec.footer, sec.first_page_header,
+                 sec.first_page_footer, sec.even_page_header,
+                 sec.even_page_footer]
+        for part in parts:
+            if part is None:
+                continue
+            for para in part.paragraphs:
+                pr = para._p.get_or_add_pPr()
+                if pr.find(qn("w:suppressLineNumbers")) is None:
+                    el = OxmlElement("w:suppressLineNumbers")
+                    pr.append(el)
+            for tbl in part.tables:
+                for row in tbl.rows:
+                    for cell in row.cells:
+                        for para in cell.paragraphs:
+                            pr = para._p.get_or_add_pPr()
+                            if pr.find(qn("w:suppressLineNumbers")) is None:
+                                el = OxmlElement("w:suppressLineNumbers")
+                                pr.append(el)
+
+
 def build():
     tmp = os.path.join(HERE, "_template.docx")
     template_to_docx(TEMPLATE, tmp)
@@ -769,6 +796,7 @@ def build():
     body(doc)
     references(doc)
 
+    _suppress_header_footer_linenos(doc)
     doc.save(OUT)
     os.remove(tmp)
 

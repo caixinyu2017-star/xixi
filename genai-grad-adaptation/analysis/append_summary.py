@@ -77,9 +77,11 @@ near = sorted(near, key=lambda r: -r["cons"])[:3]
 S["qca_near"] = [dict(bits=dict(zip(conds, r["bits"])), n=r["n"],
                       cons=round(r["cons"], 3), pri=round(r["pri"], 3))
                  for r in near]
-neg_cons_max = max(r["cons"] for r in qca.truth_table(M, 1 - yq, 10, 0.8, 0.7)
-                   if r["n"] >= 10)
-S["neg_cons_max"] = round(float(neg_cons_max), 3)
+neg_rows = [r for r in qca.truth_table(M, 1 - yq, 10, 0.8, 0.7)
+            if r["n"] >= 10]
+best_neg = max(neg_rows, key=lambda r: r["cons"])
+S["neg_cons_max"] = round(float(best_neg["cons"]), 3)
+S["neg_pri_best"] = round(float(best_neg["pri"]), 3)
 
 # occupation-level exposure descriptives for the sample section
 S["expo_mean"] = round(float(ret.exposure.mean()), 2)

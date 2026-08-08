@@ -387,15 +387,32 @@ S["ut"] = dict(slope_lo=round(UT["slope_lo"], 3),
 S["tp"] = dict(tau=round(TP["tau"], 3), se=round(TP["se"], 3),
                ci_low=round(TP["ci_low"], 3), ci_high=round(TP["ci_high"], 3))
 S["share_beyond"] = round(100 * float((ret.ANX > TP["tau"]).mean()), 1)
+# Turning points at levels of literacy, from the SAME specification the
+# tables report and the figures draw (Table 7, column (4)): with the
+# curvature unmoderated, tau(l) = -(b1 + b3 l) / (2 b2), and its
+# displacement per unit of literacy is -b3 / (2 b2). Standard errors by
+# the delta method on (b1, b2, b3). The quadratic-by-literacy term is
+# estimated once, in an augmented model, only to show it is not needed.
+names3 = ["ANX", "ANX2", "ANXxLIT"]
+b3v = np.array([MAIN.params[nm] for nm in names3])
+V3 = MAIN.cov.loc[names3, names3].to_numpy()
+S["tp_lit"] = []
+for zl in (-1.0, 0.0, 1.0):
+    num, den = b3v[0] + b3v[2] * zl, 2 * b3v[1]
+    tau = -num / den
+    g = np.array([-1.0 / den, 2 * num / den ** 2, -zl / den])
+    S["tp_lit"].append(dict(z=zl, tau=round(float(tau), 3),
+                            se=round(float(np.sqrt(g @ V3 @ g)), 3)))
+dt = -b3v[2] / (2 * b3v[1])
+gd = np.array([0.0, -b3v[2] / (2 * b3v[1] ** 2), -1.0 / (2 * b3v[1])])
+sed = float(np.sqrt(gd @ V3 @ gd))
+S["tp_shift"] = dict(dtau=round(float(dt), 3), se=round(sed, 3),
+                     p=round(float(2 * (1 - stats.norm.cdf(abs(dt) / sed))),
+                             4))
 full_q = ols(ret, "ADP", ["ANX", "ANX2", "LIT", "ANXxLIT", "ANX2xLIT",
                           "SUP", "PHCD"] + CONTROLS)
-MT, SHIFT = curve.mod_turning(full_q, "ANX", "ANX2", "ANXxLIT", "ANX2xLIT",
-                              [-1.0, 0.0, 1.0])
-S["tp_lit"] = [dict(z=m["z"], tau=round(m["tau"], 3), se=round(m["se"], 3))
-               for m in MT]
-S["tp_shift"] = dict(dtau=round(SHIFT["dtau"], 3), se=round(SHIFT["se"], 3),
-                     p=round(SHIFT["p"], 3))
 S["b_anx2xlit_p"] = round(float(full_q.pval["ANX2xLIT"]), 3)
+MT = S["tp_lit"]
 
 rows = [
     ["Slope at the 1st percentile of ANX (%.2f)" % xl,
@@ -411,6 +428,8 @@ rows = [
      % (MT[0]["tau"], MT[0]["se"])],
     ["Turning point at LIT = +1 SD", "%.3f (SE %.3f)"
      % (MT[2]["tau"], MT[2]["se"])],
+    ["Displacement of the turning point per SD of literacy",
+     "%.3f (SE %.3f)" % (S["tp_shift"]["dtau"], S["tp_shift"]["se"])],
 ]
 w("t08_utest.tsv", ["Quantity", "Estimate"], rows)
 

@@ -647,11 +647,11 @@ BLOCKS = [
      f"{CFA['df']}) = {CFA['chi2']:.2f} (χ2/df = {CFA['chi2df']:.2f}), "
      f"CFI = {CFA['cfi']:.3f}, TLI = {CFA['tli']:.3f}, RMSEA = "
      f"{CFA['rmsea']:.3f}, SRMR = {CFA['srmr']:.3f}, comfortably inside "
-     "the conventional cutoffs [[hu1999]]. Every standardized loading "
-     f"exceeds {n('load_min', 2)}, every Cronbach alpha and composite "
-     f"reliability exceeds {n('alpha_min', 2)}, and every average "
-     f"variance extracted exceeds {n('ave_min', 2)}, establishing "
-     "convergent validity [[fornell1981]]."),
+     "the conventional cutoffs [[hu1999]]. The smallest standardized "
+     f"loading is {n('load_min')}, the smallest Cronbach alpha and "
+     f"composite reliability are {n('alpha_min', 2)}, and the smallest "
+     f"average variance extracted is {n('ave_min')}, above the 0.50 "
+     "benchmark, establishing convergent validity [[fornell1981]]."),
 
     ("table", "table2"),
 
@@ -752,7 +752,7 @@ BLOCKS = [
      f"anxiety is {UT['slope_lo']:.3f} (t = {UT['t_lo']:.2f}); at the "
      f"99th percentile it is {UT['slope_hi']:.3f} (t = "
      f"{UT['t_hi']:.2f}); the Sasabuchi p-value for the composite null "
-     f"of monotonicity is {UT['p']:.4f}. The turning point sits at "
+     "of monotonicity is below 0.0001. The turning point sits at "
      f"{TP['tau']:.2f} standard deviations above mean anxiety, with a "
      f"95 percent Fieller interval of [{TP['ci_low']:.2f}, "
      f"{TP['ci_high']:.2f}] that excludes both extremes of the observed "
@@ -762,13 +762,14 @@ BLOCKS = [
      "Figure 1a draws the estimated response with its 95 percent "
      "confidence band, the turning point with its interval, and the "
      "observed anxiety distribution beneath the axes; the estimate is "
-     "drawn only over the observed support. H2 is supported, and the "
-     "peak of the curve sits close to one third of a standard "
-     "deviation of predicted adaptation above the mean-anxiety level "
-     f"(peak height {n('peak_height', 2)}), while at two standard "
-     f"deviations of anxiety the prediction is {n('height_p2', 2)} — "
-     f"a swing of {n('drop_tp_to_p2', 2)} standard deviations of the "
-     "outcome between the optimum and the far tail."),
+     "drawn only over the observed support. H2 is supported. The peak "
+     f"sits {TP['tau']:.2f} standard deviations of anxiety above the "
+     "mean, where predicted adaptation is "
+     f"{n('peak_height', 2)} standard deviations of the outcome higher "
+     "than at mean anxiety; at two standard deviations of anxiety the "
+     f"same prediction is {a('height_p2', 2)} lower — a swing of "
+     f"{n('drop_tp_to_p2', 2)} standard deviations of the outcome "
+     "between the optimum and the far tail."),
 
     ("table", "table8"),
     ("fig", "fig1"),
@@ -830,7 +831,7 @@ BLOCKS = [
      f"high-literacy curve at {S['tp_lit'][2]['tau']:.2f}, a "
      f"displacement of {S['tp_shift']['dtau']:.2f} standard deviations "
      f"per standard deviation of literacy (SE {S['tp_shift']['se']:.2f}, "
-     f"p = {S['tp_shift']['p']:.3f}) [[haans2016]]. Literacy does not "
+     f"p {pfmt(S['tp_shift']['p'])}) [[haans2016]]. Literacy does not "
      "flatten the curve — a quadratic-by-literacy term is small and "
      f"insignificant (p = {n('b_anx2xlit_p')}) — it moves the peak, "
      "which is precisely the actuator-range prediction: capability "
@@ -917,8 +918,10 @@ BLOCKS = [
      "anxiety-with-literacy-but-without-support configurations reach "
      "raw consistencies near 0.91 yet fail the proportional-reduction "
      "screen, and the highest-consistency row for the negation of "
-     f"adaptation reaches only {n('neg_cons_max', 3)}, so no "
-     "configuration is reliably sufficient for failing to adapt. H7b "
+     f"adaptation (raw consistency {n('neg_cons_max', 3)}) fails the "
+     f"proportional-reduction screen (PRI {n('neg_pri_best', 3)} < "
+     "0.70), so no configuration is reliably sufficient for failing to "
+     "adapt. H7b "
      "is therefore not supported, and its failure is the finding: the "
      "system offers one road to adaptation, not many. Anxiety appears "
      "in the recipe — the signal is an ingredient of correction — but "

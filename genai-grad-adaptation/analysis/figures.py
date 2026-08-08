@@ -105,8 +105,7 @@ def figure1_dual(S):
                 fontsize=N.PT_TICK, color=N.INK)
     ax.set_title("Occupational adaptation", fontsize=N.PT_LABEL, loc="left",
                  pad=3.0)
-    ax.set_ylabel("Predicted outcome, relative to the\n"
-                  "mean of anxiety (SD units)")
+    ax.set_ylabel("Predicted outcome\n(SD units; 0 = sample mean)")
 
     # ---- b: avoidance ----------------------------------------------------
     ax = main[1]
@@ -145,9 +144,9 @@ def figure2_boundaries(S):
     # ---- a: second stage at low and high literacy ------------------------
     ax = main[0]
     tps = {m["z"]: m for m in S["tp_lit"]}
-    for rows, col, lv, lab, dy in (
-            (S["curve_adp_litlo"], N.ORANGE, -1.0, "literacy −1 SD", -0.16),
-            (S["curve_adp_lithi"], N.BLUE, +1.0, "literacy +1 SD", 0.10)):
+    for rows, col, lv, lab in (
+            (S["curve_adp_litlo"], N.ORANGE, -1.0, "literacy −1 SD"),
+            (S["curve_adp_lithi"], N.BLUE, +1.0, "literacy +1 SD")):
         z = np.array([r["z"] for r in rows])
         m = np.array([r["effect"] for r in rows])
         se = np.array([r["se"] for r in rows])
@@ -157,14 +156,18 @@ def figure2_boundaries(S):
         j = int(np.argmin(np.abs(z - t)))
         ax.plot([t], [m[j]], marker="o", ms=3.0, color=col, mec="white",
                 mew=0.5, zorder=3)
-        # label each series at its left-hand end, where the two curves are
-        # far apart: the low-literacy label above its own curve, the
-        # high-literacy label below its own curve, both over bare paper
-        va = "top" if lv > 0 else "bottom"
-        dy = -6 if lv > 0 else 6
-        ax.annotate(lab, xy=(z[0], m[0]), xytext=(2, dy),
-                    textcoords="offset points", ha="left", va=va,
-                    fontsize=N.PT_TICK, color=col)
+        # label each series at its left-hand end, anchored at its own band
+        # limit rather than its mean, so the text clears the band entirely:
+        # the low-literacy label above its band, the high-literacy label
+        # below its band, both over bare paper
+        if lv < 0:
+            ax.annotate(lab, xy=(z[0], m[0] + 1.96 * se[0]), xytext=(2, 4),
+                        textcoords="offset points", ha="left", va="bottom",
+                        fontsize=N.PT_TICK, color=col)
+        else:
+            ax.annotate(lab, xy=(z[0], m[0] - 1.96 * se[0]), xytext=(2, -4),
+                        textcoords="offset points", ha="left", va="top",
+                        fontsize=N.PT_TICK, color=col)
         ax.set_xlim(z.min(), z.max())
     N.zeroline(ax)
     ax.set_title("Adaptation, by literacy", fontsize=N.PT_LABEL, loc="left",
@@ -182,14 +185,15 @@ def figure2_boundaries(S):
     ax.plot(z, m, color=N.BLUE, lw=1.1, zorder=2)
     ax.set_xlim(z.min(), z.max())
     N.zeroline(ax)
-    for sv, key, side in ((-1.0, "fslo", "left"), (1.0, "fshi", "right")):
+    for sv, key in ((-1.0, "fslo"), (1.0, "fshi")):
         e = S[key]
         j = int(np.argmin(np.abs(z - sv)))
         ax.plot([sv], [m[j]], marker="o", ms=2.8, color=N.BLUE, mec="white",
                 mew=0.4, zorder=3)
-        ax.annotate("%.2f" % e["est"], xy=(sv, m[j]), xytext=(0, 6),
-                    textcoords="offset points", ha="center", va="bottom",
-                    fontsize=N.PT_TICK, color=N.INK)
+        # anchored at the band's upper limit, so the number sits on paper
+        ax.annotate("%.2f" % e["est"], xy=(sv, m[j] + 1.96 * se[j]),
+                    xytext=(0, 3), textcoords="offset points", ha="center",
+                    va="bottom", fontsize=N.PT_TICK, color=N.INK)
     ax.set_title("First stage, by support", fontsize=N.PT_LABEL, loc="left",
                  pad=3.0)
     ax.set_ylabel("Effect of depreciation on\nanxiety (SD units)")
@@ -272,13 +276,9 @@ def figure3_generality(S):
     ax.set_yticks([0, 0.5, 1])
     ax.set_xlabel("Membership in ANX · LIT · SUP")
     ax.set_ylabel("Membership in\nhigh adaptation")
-    # the annotation sits in the lower-right triangle, which sufficiency
-    # itself keeps sparse: points below the diagonal are the violations
-    q = S["qca_top"]
-    ax.text(0.96, 0.05, "consistency %.3f\ncoverage %.3f"
-            % (q["cons"], q["rawcov"]),
-            transform=ax.transAxes, ha="right", va="bottom",
-            fontsize=N.PT_TICK, color=N.INK)
+    # no in-panel annotation: with 914 points there is no empty paper for
+    # one, and the consistency and coverage are stated in Table 14 and in
+    # the body text, where the house rules put them
     N.snap(ax)
 
     N.panels(fig, [(ax1, "a"), (ax2, "b")])
