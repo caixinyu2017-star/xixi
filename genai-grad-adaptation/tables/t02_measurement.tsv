@@ -1,0 +1,30 @@
+Construct and items	Loading	α	CR	AVE
+Perceived human capital depreciation (PHCD)				
+    phcd1	0.800	0.873	0.873	0.633
+    phcd2	0.780			
+    phcd3	0.810			
+    phcd4	0.791			
+AI-related career anxiety (ANX)				
+    anx1	0.822	0.889	0.889	0.667
+    anx2	0.823			
+    anx3	0.806			
+    anx4	0.817			
+Generative-AI literacy (LIT)				
+    lit1	0.795	0.865	0.865	0.616
+    lit2	0.790			
+    lit3	0.771			
+    lit4	0.784			
+Perceived employability support (SUP)				
+    sup1	0.787	0.855	0.856	0.597
+    sup2	0.767			
+    sup3	0.767			
+    sup4	0.770			
+Occupational adaptation (ADP)				
+    adp1	0.768	0.845	0.845	0.577
+    adp2	0.762			
+    adp3	0.757			
+    adp4	0.750			
+Career avoidance (AVD)				
+    avd1	0.758	0.790	0.790	0.556
+    avd2	0.749			
+    avd3	0.731			

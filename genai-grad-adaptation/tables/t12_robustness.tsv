@@ -1,0 +1,7 @@
+Specification	ANX	(SE)	ANX²	(SE)	N
+(1) log reskilling hours	0.090***	(0.029)	-0.140***	(0.022)	914
+(2) inverse-probability weighted	0.174***	(0.029)	-0.237***	(0.021)	914
+(3) excluding software and IT	0.170***	(0.035)	-0.235***	(0.027)	838
+(4) unit-weighted composites	0.174***	(0.034)	-0.237***	(0.025)	914
+(5) marker-partialled scores	0.178***	(0.034)	-0.240***	(0.025)	914
+(6) wild cluster bootstrap p for ANX² (20 occupation clusters)			0.001		914
