@@ -34,7 +34,9 @@ def p_subtitle(text):
             '<w:jc w:val="center"/><w:textAlignment w:val="auto"/><w:rPr>' + rpr + '</w:rPr></w:pPr>'
             '<w:r><w:rPr>' + rpr + '</w:rPr><w:t xml:space="preserve">' + E(text) + '</w:t></w:r></w:p>')
 
-TBL = ('<w:tbl><w:tblPr><w:tblStyle w:val="32"/><w:tblW w:w="9360" w:type="dxa"/>'
+def TBL(unit='班组'):
+  """页首信息栏：单位（班组/营业部）、姓名、得分。"""
+  return ('<w:tbl><w:tblPr><w:tblStyle w:val="32"/><w:tblW w:w="9360" w:type="dxa"/>'
        '<w:tblInd w:w="0" w:type="dxa"/><w:tblBorders>'
        '<w:top w:val="single" w:color="auto" w:sz="4" w:space="0"/>'
        '<w:left w:val="single" w:color="auto" w:sz="4" w:space="0"/>'
@@ -54,7 +56,7 @@ TBL = ('<w:tbl><w:tblPr><w:tblStyle w:val="32"/><w:tblW w:w="9360" w:type="dxa"/
            '<w:p><w:pPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr>'
            '<w:rFonts w:ascii="微软雅黑" w:hAnsi="微软雅黑" w:eastAsia="微软雅黑" w:cs="微软雅黑"/>'
            '<w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t>' + c + '</w:t></w:r></w:p></w:tc>'
-           for c in ('班组：____________', '姓名：____________', '得分：____________')) +
+           for c in (unit + '：____________', '姓名：____________', '得分：____________')) +
        '</w:tr></w:tbl>')
 
 SPACER = ('<w:p><w:pPr><w:spacing w:after="80"/><w:rPr><w:sz w:val="28"/>'
@@ -94,7 +96,8 @@ SECT = ('<w:sectPr><w:pgSz w:w="11906" w:h="16838"/>'
 
 
 def build_document_xml(head_xml, paper):
-    body = [p_title(paper['title']), p_subtitle('（考试时长：60分钟 满分：100分）'), TBL, SPACER]
+    body = [p_title(paper['title']), p_subtitle('（考试时长：60分钟 满分：100分）'),
+            TBL(paper.get('unit', '班组')), SPACER]
     body.append(p_head('一、简答题（共20分）'))
     body.append(p_q(paper['short'], after=60))
     body.append(p_answer_space())
