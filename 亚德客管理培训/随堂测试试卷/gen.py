@@ -71,11 +71,20 @@ def p_body(text, bold=False, sz=24, after=20):
             '<w:rPr><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr></w:pPr>'
             '<w:r><w:rPr>' + rpr + '</w:rPr><w:t xml:space="preserve">' + E(text) + '</w:t></w:r></w:p>')
 
-ANS = '答：______________________________________________________________'
-p_head    = lambda t: p_body(t, bold=True, sz=28, after=20)   # 一、二、三 大题标题
-p_q       = lambda t, after=20: p_body(t, sz=24, after=after) # 题干
-p_ans_big = lambda: p_body(ANS, sz=24, after=40)              # 简答题作答线
-p_ans     = lambda: p_body(ANS, sz=22, after=20)              # 其余作答线
+p_head = lambda t: p_body(t, bold=True, sz=28, after=20)      # 一、二、三 大题标题
+p_q    = lambda t, after=20: p_body(t, sz=24, after=after)    # 题干
+
+BLANK_LINES = 8   # 每题留给学员作答的空行数
+
+def p_blank():
+    """空行（一个回车），行距与正文一致，供学员手写作答。"""
+    return ('<w:p><w:pPr>' + PPR_COMMON +
+            '<w:spacing w:before="0" w:after="20" w:line="360" w:lineRule="auto"/>'
+            '<w:jc w:val="both"/><w:textAlignment w:val="auto"/>'
+            '<w:rPr><w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>'
+            '<w:sz w:val="24"/><w:szCs w:val="28"/></w:rPr></w:pPr></w:p>')
+
+p_answer_space = lambda: ''.join(p_blank() for _ in range(BLANK_LINES))
 
 SECT = ('<w:sectPr><w:pgSz w:w="11906" w:h="16838"/>'
         '<w:pgMar w:top="1304" w:right="1247" w:bottom="1134" w:left="1361" '
@@ -88,17 +97,16 @@ def build_document_xml(head_xml, paper):
     body = [p_title(paper['title']), p_subtitle('（考试时长：60分钟 满分：100分）'), TBL, SPACER]
     body.append(p_head('一、简答题（共20分）'))
     body.append(p_q(paper['short'], after=60))
-    body.append(p_ans_big())
+    body.append(p_answer_space())
     body.append(p_head('二、论述题（每题25分，共50分）'))
     for i, q in enumerate(paper['essays'], 1):
         body.append(p_q('%d. %s' % (i, q), after=40))
-        body.append(p_ans())
+        body.append(p_answer_space())
     body.append(p_head('三、案例分析（共30分）'))
     body.append(p_q(paper['case'], after=40))
     body.append(p_body('问题：', bold=True, sz=24, after=20))
-    for i, q in enumerate(paper['case_qs'], 1):
-        body.append(p_q('%d. %s' % (i, q), after=20))
-    body.append(p_ans())
+    body.append(p_q(paper['case_q'], after=20))
+    body.append(p_answer_space())
     return head_xml + '<w:body>' + ''.join(body) + SECT + '</w:body></w:document>'
 
 
