@@ -396,9 +396,10 @@ class BookBuilder:
                 a = col_align[j] if j < len(col_align) else 'center'
                 self._set_cell_font(t.cell(i + 1, j), str(txt), size_pt, align=a)
         self._three_line_borders(t)
-        # 表注（五号宋体，左对齐）
+        # 表注（小五宋体，无缩进，两端对齐——与图注同格式）
         if note:
             np_ = self.doc.add_paragraph()
+            np_.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
             np_.paragraph_format.space_after = Pt(10)
             np_.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
             self._append_rich(np_, note, SONG, SIZE['小五'])
