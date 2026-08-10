@@ -1692,5 +1692,225 @@
   "verified": true,
   "url": "https://blog.csdn.net/PPdata_Academy/article/details/151710545",
   "note": "主题④新质生产力测度（指标体系含劳动者/人才维度）；卷期页码41(6):5-25经多来源核实。"
+ },
+ {
+  "key": "acemoglu2022x",
+  "intext": "Acemoglu和Restrepo，2022",
+  "gb": "ACEMOGLU D, RESTREPO P. Tasks, automation, and the rise in US wage inequality[J]. Econometrica, 2022, 90(5): 1973-2016.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://ideas.repec.org/a/wly/emetrp/v90y2022i5p1973-2016.html",
+  "note": "主题①自动化任务模型与工资不平等；DOI:10.3982/ECTA19815"
+ },
+ {
+  "key": "acemoglu2022bx",
+  "intext": "Acemoglu等，2022",
+  "gb": "ACEMOGLU D, AUTOR D, HAZELL J, et al. Artificial intelligence and jobs: evidence from online vacancies[J]. Journal of Labor Economics, 2022, 40(S1): S293-S340.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/718327",
+  "note": "主题①AI对岗位与技能需求影响；DOI:10.1086/718327"
+ },
+ {
+  "key": "braxton2023",
+  "intext": "Braxton和Taska，2023",
+  "gb": "BRAXTON J C, TASKA B. Technological change and the consequences of job loss[J]. American Economic Review, 2023, 113(2): 279-316.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/aer.20210182",
+  "note": "主题①技术变迁与失业者技能贬值；DOI:10.1257/aer.20210182"
+ },
+ {
+  "key": "noy2023x",
+  "intext": "Noy和Zhang，2023",
+  "gb": "NOY S, ZHANG W. Experimental evidence on the productivity effects of generative artificial intelligence[J]. Science, 2023, 381(6654): 187-192.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.science.org/doi/10.1126/science.adh2586",
+  "note": "主题①生成式AI生产率效应实验证据；DOI:10.1126/science.adh2586"
+ },
+ {
+  "key": "acemoglu2025",
+  "intext": "Acemoglu，2025",
+  "gb": "ACEMOGLU D. The simple macroeconomics of AI[J]. Economic Policy, 2025, 40(121): 13-58.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://academic.oup.com/economicpolicy/article-abstract/40/121/13/7728473",
+  "note": "主题①AI宏观经济与劳动需求效应测算；DOI:10.1093/epolic/eiae042"
+ },
+ {
+  "key": "brunello2021",
+  "intext": "Brunello和Wruuck，2021",
+  "gb": "BRUNELLO G, WRUUCK P. Skill shortages and skill mismatch: a review of the literature[J]. Journal of Economic Surveys, 2021, 35(4): 1145-1167.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/joes.12424",
+  "note": "主题②技能短缺与技能错配文献综述；DOI:10.1111/joes.12424"
+ },
+ {
+  "key": "green2021",
+  "intext": "Green和Henseke，2021",
+  "gb": "GREEN F, HENSEKE G. Europe's evolving graduate labour markets: supply, demand, underemployment and pay[J]. Journal for Labour Market Research, 2021, 55(1): 2.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://link.springer.com/article/10.1186/s12651-021-00288-y",
+  "note": "主题②毕业生过度教育与低度就业实证；DOI:10.1186/s12651-021-00288-y"
+ },
+ {
+  "key": "michaillat2021",
+  "intext": "Michaillat和Saez，2021",
+  "gb": "MICHAILLAT P, SAEZ E. Beveridgean unemployment gap[J]. Journal of Public Economics Plus, 2021, 2: 100009.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/pii/S2666551421000048",
+  "note": "主题②贝弗里奇曲线与失业缺口测算；DOI:10.1016/j.pubecp.2021.100009"
+ },
+ {
+  "key": "mcguinness2023",
+  "intext": "McGuinness等，2023",
+  "gb": "MCGUINNESS S, POULIAKAS K, REDMOND P. Skills-displacing technological change and its impact on jobs: challenging technological alarmism?[J]. Economics of Innovation and New Technology, 2023, 32(3): 370-392.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.tandfonline.com/doi/abs/10.1080/10438599.2021.1919517",
+  "note": "主题②技能替代型技术变迁实证；DOI:10.1080/10438599.2021.1919517"
+ },
+ {
+  "key": "forsythe2022",
+  "intext": "Forsythe等，2022",
+  "gb": "FORSYTHE E, KAHN L B, LANGE F, et al. Where have all the workers gone? Recalls, retirements, and reallocation in the COVID recovery[J]. Labour Economics, 2022, 78: 102251.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/abs/pii/S0927537122001415",
+  "note": "主题②劳动力市场匹配与再配置实证；DOI:10.1016/j.labeco.2022.102251"
+ },
+ {
+  "key": "borah2021",
+  "intext": "Borah等，2021",
+  "gb": "BORAH D, MALIK K, MASSINI S. Teaching-focused university-industry collaborations: determinants and impact on graduates' employability competencies[J]. Research Policy, 2021, 50(3): 104172.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/abs/pii/S0048733320302468",
+  "note": "主题③教学型校企合作与就业能力；DOI:10.1016/j.respol.2020.104172"
+ },
+ {
+  "key": "odwyer2023",
+  "intext": "O'Dwyer等，2023",
+  "gb": "O'DWYER M, FILIERI R, O'MALLEY L. Establishing successful university-industry collaborations: barriers and enablers deconstructed[J]. The Journal of Technology Transfer, 2023, 48(3): 900-931.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://link.springer.com/article/10.1007/s10961-022-09932-2",
+  "note": "主题③校企合作障碍与促进因素；DOI:10.1007/s10961-022-09932-2"
+ },
+ {
+  "key": "healy2022",
+  "intext": "Healy等，2022",
+  "gb": "HEALY M, HAMMER S, MCILVEEN P. Mapping graduate employability and career development in higher education research: a citation network analysis[J]. Studies in Higher Education, 2022, 47(4): 799-811.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.tandfonline.com/doi/abs/10.1080/03075079.2020.1804851",
+  "note": "主题③毕业生就业能力研究图谱；DOI:10.1080/03075079.2020.1804851"
+ },
+ {
+  "key": "jackson2021",
+  "intext": "Jackson和Bridgstock，2021",
+  "gb": "JACKSON D, BRIDGSTOCK R. What actually works to enhance graduate employability? The relative value of curricular, co-curricular, and extra-curricular learning and paid work[J]. Higher Education, 2021, 81(4): 723-739.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://eric.ed.gov/?id=EJ1299422",
+  "note": "主题③课内外学习与就业能力；DOI:10.1007/s10734-020-00570-x"
+ },
+ {
+  "key": "johri2023",
+  "intext": "Johri等，2023",
+  "gb": "JOHRI A, KATZ A S, QADIR J, et al. Generative artificial intelligence and engineering education[J]. Journal of Engineering Education, 2023, 112(3): 572-577.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/jee.20537",
+  "note": "主题③生成式AI与工程教育；DOI:10.1002/jee.20537"
+ },
+ {
+  "key": "ng2021",
+  "intext": "Ng等，2021",
+  "gb": "NG D T K, LEUNG J K L, CHU S K W, et al. Conceptualizing AI literacy: an exploratory review[J]. Computers and Education: Artificial Intelligence, 2021, 2: 100041.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/pii/S2666920X21000357",
+  "note": "主题④AI素养概念框架；DOI:10.1016/j.caeai.2021.100041"
+ },
+ {
+  "key": "laupichler2022",
+  "intext": "Laupichler等，2022",
+  "gb": "LAUPICHLER M C, ASTER A, SCHIRCH J, et al. Artificial intelligence literacy in higher and adult education: a scoping literature review[J]. Computers and Education: Artificial Intelligence, 2022, 3: 100101.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/pii/S2666920X2200056X",
+  "note": "主题④高等教育AI素养综述；DOI:10.1016/j.caeai.2022.100101"
+ },
+ {
+  "key": "crompton2023",
+  "intext": "Crompton和Burke，2023",
+  "gb": "CROMPTON H, BURKE D. Artificial intelligence in higher education: the state of the field[J]. International Journal of Educational Technology in Higher Education, 2023, 20: 22.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://link.springer.com/article/10.1186/s41239-023-00392-8",
+  "note": "主题④高等教育AI应用系统综述；DOI:10.1186/s41239-023-00392-8"
+ },
+ {
+  "key": "southworth2023",
+  "intext": "Southworth等，2023",
+  "gb": "SOUTHWORTH J, MIGLIACCIO K, GLOVER J, et al. Developing a model for AI across the curriculum: transforming the higher education landscape via innovation in AI literacy[J]. Computers and Education: Artificial Intelligence, 2023, 4: 100127.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/pii/S2666920X23000061",
+  "note": "主题④全课程AI人才培养模式；DOI:10.1016/j.caeai.2023.100127"
+ },
+ {
+  "key": "alekseeva2021x",
+  "intext": "Alekseeva等，2021",
+  "gb": "ALEKSEEVA L, AZAR J, GINE M, et al. The demand for AI skills in the labor market[J]. Labour Economics, 2021, 71: 102002.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/abs/pii/S0927537121000373",
+  "note": "主题⑤招聘大数据测量AI技能需求与工资溢价；DOI:10.1016/j.labeco.2021.102002"
+ },
+ {
+  "key": "goldfarb2023",
+  "intext": "Goldfarb等，2023",
+  "gb": "GOLDFARB A, TASKA B, TEODORIDIS F. Could machine learning be a general purpose technology? A comparison of emerging technologies using data from online job postings[J]. Research Policy, 2023, 52(1): 104653.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://econpapers.repec.org/RePEc:eee:respol:v:52:y:2023:i:1:s0048733322001743",
+  "note": "主题⑤在线招聘文本识别通用目的技术属性；DOI:10.1016/j.respol.2022.104653"
+ },
+ {
+  "key": "lyu2021",
+  "intext": "Lyu和Liu，2021",
+  "gb": "LYU W, LIU J. Soft skills, hard skills: what matters most? Evidence from job postings[J]. Applied Energy, 2021, 300: 117307.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://ideas.repec.org/a/eee/appene/v300y2021ics0306261921007194.html",
+  "note": "主题⑤招聘广告文本测量软硬技能需求；DOI:10.1016/j.apenergy.2021.117307"
  }
 ]
