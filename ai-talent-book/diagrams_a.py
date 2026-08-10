@@ -269,7 +269,7 @@ def fig5_1():
   TM [label="文本挖掘\\n分词与短语抽取·TF-IDF\\n能力词共现网络", fillcolor="{C['ltblue']}", color="{C['blue']}"];
   DICT [label="能力词典构建\\n{ds['vocab']} 个词条·五层归类\\n双人标注一致性 κ={ds['kappa']}", fillcolor="{C['ltblue']}", color="{C['blue']}"];
   MAP [label="能力条目识别与词频—权重估计\\nJD 文本→五层能力模型映射", fillcolor="{C['ltteal']}", color="{C['teal']}", fontsize=13];
-  subgraph cluster_w {{ label="五层能力需求权重 w_k（总体，行和=1）"; style=dashed; color="{C['gold']}"; fontcolor="{C['gold']}"; fontsize=12;
+  subgraph cluster_w {{ label="五层能力需求权重 w_k（总体，权重和＝1）"; style=dashed; color="{C['gold']}"; fontcolor="{C['gold']}"; fontsize=12;
     W1 [label="基础理论层\\n{ov['base']:.2f}", fillcolor="{C['ltgold']}", color="{C['gold']}", fontsize=11.5];
     W2 [label="技术方法层\\n{ov['tech']:.2f}", fillcolor="{C['ltgold']}", color="{C['gold']}", fontsize=11.5];
     W3 [label="工程实践层\\n{ov['eng']:.2f}", fillcolor="{C['ltgold']}", color="{C['gold']}", fontsize=11.5];

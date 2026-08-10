@@ -348,11 +348,19 @@ def c(key, paren=True, prefix='', suffix=''):
     return f'（{body}）' if paren else body
 
 
+def _year_of(key):
+    import re as _re
+    m = _re.search(r'(\d{4})', REFS[key]['intext'])
+    return int(m.group(1)) if m else 9999
+
+
 def cc(*keys):
-    parts = []
+    """合引：自动按年份升序排列（同年保持传入顺序）。"""
     for k in keys:
         if k not in REFS:
             raise KeyError(f'未知文献 key: {k}')
+    parts = []
+    for k in sorted(keys, key=_year_of):
         if k not in _ORDER:
             _ORDER.append(k)
         parts.append(REFS[k]['intext'])
