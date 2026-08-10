@@ -85,7 +85,7 @@ def fig2_1():
     ax.annotate('新一代人工智能\n发展规划（2017）', (2016.7, 11800), fontsize=8,
                 color=PAL['gray'], ha='right', va='top', bbox=WBOX)
     ax.axvline(2022.9, color=PAL['gray'], ls=':', lw=1)
-    ax.annotate('大模型浪潮\n（2022年末）', (2022.6, 11800), fontsize=8,
+    ax.annotate('大模型浪潮\n（2022年末）', (2022.6, 10500), fontsize=8,
                 color=PAL['gray'], ha='right', va='top', bbox=WBOX)
     # 末年数值直接标注
     ax.annotate(f'{yc[-1]:.0f}', (xc[-1], yc[-1]), textcoords='offset points',
@@ -123,8 +123,8 @@ def fig3_1():
     ax2.plot(x[5], g[4], marker='s', ms=4.5, mfc='white', mec=PAL['orange'],
              mew=1.3, ls='none')
     for xi, gi, (dx, dy, ha) in zip(x[1:], g,
-                                    [(0, 6, 'center'), (0, 6, 'center'),
-                                     (0, 6, 'center'), (0, -13, 'center'),
+                                    [(-9, 2, 'right'), (0, 7, 'center'),
+                                     (0, 7, 'center'), (0, 8, 'center'),
                                      (-7, 0, 'right')]):
         ax2.annotate(f'{gi:.1f}%', (xi, gi), textcoords='offset points',
                      xytext=(dx, dy), ha=ha, fontsize=8,
@@ -268,9 +268,6 @@ def fig4_1():
     ax2.plot(x, cum, color=PAL['orange'], marker='o', ms=4, lw=1.9)
     ax2.annotate(f'累计 {cum[-1]:.0f} 所', (x[-1], cum[-1]),
                  textcoords='offset points', xytext=(-2, 8), ha='right',
-                 fontsize=8, color=PAL['orange'])
-    ax2.annotate(f'{cum[0]:.0f} 所起步', (x[0], cum[0]),
-                 textcoords='offset points', xytext=(4, 8), ha='left',
                  fontsize=8, color=PAL['orange'])
     ax2.set_ylabel('累计布点数（所）', color=PAL['orange'])
     ax2.set_ylim(0, 700)
