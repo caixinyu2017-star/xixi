@@ -10,7 +10,7 @@ import subprocess
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import (FancyBboxPatch, FancyArrowPatch, Ellipse,
-                                Polygon, Rectangle)
+                                Polygon, Rectangle, Arc)
 
 from figstyle import save, PAL, CJK  # noqa: F401
 
@@ -70,18 +70,24 @@ def txt(ax, x, y, s, fs=7, c='#333333', ha='center', va='center', bold=False, ro
             fontweight='bold' if bold else 'normal', linespacing=1.35, zorder=z)
 
 
-def loopmark(ax, x, y, lab, c, ccw=True, rx=2.9, ry=2.3):
-    """CLD 回路徽标：R/B 字样 + 环形旋转箭头。"""
-    if ccw:
-        th1, th2, rad = math.radians(-100), math.radians(150), 1.15
-    else:
-        th1, th2, rad = math.radians(280), math.radians(30), -1.15
-    p1 = (x + rx * math.cos(th1), y + ry * math.sin(th1))
-    p2 = (x + rx * math.cos(th2), y + ry * math.sin(th2))
-    a = FancyArrowPatch(p1, p2, arrowstyle='-|>', mutation_scale=7, color=c,
-                        lw=1.1, connectionstyle=f'arc3,rad={rad}', zorder=3,
-                        shrinkA=0, shrinkB=0)
-    ax.add_patch(a)
+def loopmark(ax, x, y, lab, c, ccw=True, rx=2.4, ry=2.0):
+    """CLD 回路徽标：R/B 字样 + 环形旋转箭头（Arc 精确控制外扩范围，防压线）。"""
+    th1, th2 = -55, 205  # 留 100° 缺口放旋转箭头
+    ax.add_patch(Arc((x, y), 2 * rx, 2 * ry, theta1=th1, theta2=th2,
+                     color=c, lw=1.2, zorder=3))
+    the = math.radians(th2 if ccw else th1)
+    px, py = x + rx * math.cos(the), y + ry * math.sin(the)
+    tx, ty = -rx * math.sin(the), ry * math.cos(the)
+    L = math.hypot(tx, ty)
+    tx, ty = tx / L, ty / L
+    if not ccw:
+        tx, ty = -tx, -ty
+    hl, hw = 0.95, 0.55
+    nx, ny = -ty, tx
+    ax.add_patch(Polygon([(px + tx * hl, py + ty * hl),
+                          (px + nx * hw, py + ny * hw),
+                          (px - nx * hw, py - ny * hw)],
+                         closed=True, fc=c, ec=c, zorder=3))
     txt(ax, x, y, lab, fs=8, c=c, bold=True, z=4)
 
 
@@ -137,7 +143,7 @@ def fig9_1():
     txt(ax, 75.0, 41.5, '专项补贴 s·绩效拨款\n（对冲转型成本 c_U）', fs=7.0, c=PAL['gold'], rot=-67)
     # E—G（底部两条水平直线）
     arr(ax, (42.5, 15.5), (57.5, 15.5), c=PAL['teal'], lw=1.4)
-    txt(ax, 50, 18.9, '深度参与提升治理绩效', fs=7.0, c=PAL['teal'])
+    txt(ax, 49.7, 18.9, '深度参与提升治理绩效', fs=6.7, c=PAL['teal'])
     arr(ax, (57.5, 10.5), (42.5, 10.5), c=PAL['gold'], lw=1.4)
     txt(ax, 50, 6.4, '税费激励与补贴\n分担参与成本 c_E', fs=7.0, c=PAL['gold'])
     # 中心：复制动态系统
@@ -279,21 +285,21 @@ def fig11_1():
             txt(ax, labp[0], labp[1], lab, fs=6.5, c=col)
 
     # 外生驱动与缺口
-    edge('DEM', 'GAP', '+', rad=0.0, sp=(12.5, 52.5))
-    edge('GAP', 'F', '+', rad=0.10, lab='缺口牵引政策与\n企业激励', labp=(11.5, 55.5),
+    edge('DEM', 'GAP', '+', rad=0.0, sp=(12.2, 51.8))
+    edge('GAP', 'F', '+', rad=0.10, lab='缺口牵引政策与\n企业激励', labp=(14.8, 55.5),
          sp=(25.5, 52.5), shB=30)
-    # R1 需求牵引增强回路：F→FIT→DIV→F
+    # R1 需求牵引增强回路：F→FIT→DIV→F（顺时针）
     edge('F', 'FIT', '+', rad=0.12, lab='能力图谱传导', labp=(44, 62.6), sp=(51.5, 60.7), shB=30)
     edge('FIT', 'DIV', '+', rad=0.12, lab='适配人才增加红利', labp=(80, 58.0), sp=(78.5, 53.8), shB=24)
-    edge('DIV', 'F', '+', rad=0.12, lab='红利驱动企业加大参与投入', labp=(55, 47.2), sp=(41.5, 51.8), shB=28)
+    edge('DIV', 'F', '+', rad=-0.12, lab='红利驱动企业加大参与投入', labp=(57, 45.3), sp=(40.5, 50.3), shB=28)
     # F→Q
-    edge('F', 'Q', '+', rad=-0.06, lab='双师与实训\n提升质量', labp=(37.5, 41.5), sp=(53, 35.0), shB=22)
+    edge('F', 'Q', '+', rad=-0.06, lab='双师与实训\n提升质量', labp=(37.5, 41.5), sp=(51.5, 35.5), shB=22)
     # R2 质量声誉增强回路：Q→REP→STU→Q
-    edge('Q', 'REP', '+', rad=0.10, lab='就业口碑', labp=(49.5, 27.6), sp=(41.5, 24.6), shB=22)
-    edge('REP', 'STU', '+', rad=0.14, lab='声誉吸引生源', labp=(48, 12.2), sp=(58, 12.6), shB=24)
-    edge('STU', 'Q', '+', rad=0.14, lab='生源支撑质量', labp=(70.5, 22.5), sp=(62.5, 23.5), shB=20)
+    edge('Q', 'REP', '+', rad=0.10, lab='就业口碑', labp=(48.5, 28.5), sp=(41.5, 24.6), shB=22)
+    edge('REP', 'STU', '+', rad=0.14, lab='声誉吸引生源', labp=(50, 11.6), sp=(59.5, 11.2), shB=24)
+    edge('STU', 'Q', '+', rad=0.14, lab='生源支撑质量', labp=(70.5, 22.5), sp=(63, 23.5), shB=20)
     # B1 师资约束平衡回路：REP→ENR→LOAD→Q（－）→REP
-    edge('REP', 'ENR', '+', rad=0.10, lab='声誉扩大招生', labp=(27, 17.6), sp=(20.5, 13.7), shB=30)
+    edge('REP', 'ENR', '+', rad=0.10, lab='声誉扩大招生', labp=(23.5, 12.7), sp=(19, 15.6), shB=30)
     edge('ENR', 'LOAD', '+', rad=0.10, lab='规模推高负荷', labp=(24, 3.6), sp=(31.5, 5.6), shB=20)
     edge('LOAD', 'Q', '-', rad=0.10, lab='生师比恶化\n制约质量', labp=(50.5, 6.8), sp=(55, 22.0), shB=22)
     # 培养延迟与供给闭环
@@ -306,13 +312,13 @@ def fig11_1():
         ax.text(x, y, lab, fontsize=8.5, color='#1a1a1a', fontweight='bold',
                 ha='center', va='center', linespacing=1.3, zorder=5,
                 bbox=dict(boxstyle='round,pad=0.32', fc='white', ec='none', alpha=0.92))
-    # 回路徽标（旋转箭头）与回路名
-    loopmark(ax, 56, 53.5, 'R1', PAL['blue'], ccw=True)
-    txt(ax, 63.5, 50.5, '需求牵引\n增强回路', fs=6.6, c=PAL['blue'], z=5)
-    loopmark(ax, 53, 20, 'R2', PAL['teal'], ccw=True)
-    txt(ax, 53, 15.2, '质量声誉增强回路', fs=6.6, c=PAL['teal'], z=5)
-    loopmark(ax, 29, 11.5, 'B1', PAL['red'], ccw=False)
-    txt(ax, 27.5, 7.6, '师资约束平衡回路', fs=6.6, c=PAL['red'], z=5)
+    # 回路徽标（旋转箭头）与回路名（置于回路内空白处，避开弧线）
+    loopmark(ax, 56, 53.2, 'R1', PAL['blue'], ccw=False)
+    txt(ax, 62.5, 51.6, '需求牵引\n增强回路', fs=6.6, c=PAL['blue'], z=5)
+    loopmark(ax, 58.5, 17.5, 'R2', PAL['teal'], ccw=True)
+    txt(ax, 78, 17, '质量声誉增强回路', fs=6.6, c=PAL['teal'], z=5)
+    loopmark(ax, 30.5, 11.5, 'B1', PAL['red'], ccw=True)
+    txt(ax, 31, 15.2, '师资约束平衡回路', fs=6.2, c=PAL['red'], z=5)
     txt(ax, 50, 0.8, '＋＝同向变动　－＝反向变动　R＝增强回路　B＝平衡回路　∥＝延迟',
         fs=6.6, c='#666666')
     save(fig, f'{FIG}/fig11_1.png')
@@ -337,7 +343,7 @@ def fig11_2():
     ax.plot([10.5, 25.8], [yM, yM], color=PAL['blue'], lw=2.2, zorder=1)
     arr(ax, (23, yM), (25.8, yM), c=PAL['blue'], lw=2.2, ms=14)
     valve(ax, 17, yM, PAL['blue'])
-    txt(ax, 16, yM - 6.0, '招生流入 HI_t', fs=7.6, c=PAL['blue'], bold=True)
+    txt(ax, 14.5, yM + 5.8, '招生流入 HI_t', fs=7.6, c=PAL['blue'], bold=True)
     ax.plot([44.2, 59.8], [yM, yM], color=PAL['teal'], lw=2.2, zorder=1)
     arr(ax, (57, yM), (59.8, yM), c=PAL['teal'], lw=2.2, ms=14)
     valve(ax, 52, yM, PAL['teal'])
@@ -346,18 +352,18 @@ def fig11_2():
     ax.plot([78.2, 93.5], [yM, yM], color=PAL['gray'], lw=2.0, zorder=1)
     arr(ax, (91, yM), (93.5, yM), c=PAL['gray'], lw=2.0, ms=13)
     valve(ax, 85, yM, PAL['gray'])
-    txt(ax, 85, yM - 6.0, '离职与流失 AT_t', fs=7.2, c=PAL['gray'])
+    txt(ax, 89, yM + 6.2, '离职与流失 AT_t', fs=7.2, c=PAL['gray'])
     # 顶部：产业需求与缺口
     bx(ax, 56, 62, 32, 7, '产业人才需求 D_t（第6章三情景预测）',
        fc=C['ltorange'], ec=PAL['orange'], fs=7.8, pad=0.35)
     e = Ellipse((78, 33), 28, 9.5, fc=C['ltgold'], ec=PAL['gold'], lw=1.5, zorder=2)
     ax.add_patch(e)
     txt(ax, 78, 33, '人才需求缺口\nGAP_t＝D_t－ES_t', fs=7.6, bold=True)
-    ax.plot([80, 80], [61.6, 51.5], color=PAL['orange'], lw=1.3, zorder=1)
-    arr(ax, (80, 43), (79, 38.2), c=PAL['orange'], lw=1.3)
-    ax.plot([80, 80], [51.5, 43], color=PAL['orange'], lw=0, zorder=1)
-    arr(ax, (86, 61.6), (86, 55), c=PAL['orange'], lw=1.3, ls='-')
-    txt(ax, 90.5, 58.4, '＋', fs=10, c=PAL['orange'], bold=True)
+    # D_t → GAP（信息线，跨主链处断线避让）
+    ax.plot([80, 80], [61.6, 51.0], color=PAL['orange'], lw=1.3, zorder=1)
+    ax.plot([80, 80], [48.9, 43.4], color=PAL['orange'], lw=1.3, zorder=1)
+    arr(ax, (80, 43.4), (79.2, 38.6), c=PAL['orange'], lw=1.3)
+    txt(ax, 82.5, 45.0, '＋', fs=10, c=PAL['orange'], bold=True)
     arr(ax, (72, 43.2), (76, 38.3), c=PAL['teal'], lw=1.3)
     txt(ax, 72.2, 40.6, '－', fs=10, c=PAL['teal'], bold=True)
     # GAP → 招生（虚线信息反馈，正交折线）
@@ -437,7 +443,7 @@ def fig13_1():
              ('腾讯犀牛鸟\n（项目牵引型）', PAL['teal']),
              ('百度松果\n（平台课程型）', PAL['purple']),
              ('示范性软件学院\n（院校建制型）', PAL['green'])]
-    x0, cw, gap = 24, 21, 1.4
+    x0, cw, gap = 24, 20.4, 1.3
     for j, (nm, ec) in enumerate(cases):
         bx(ax, x0 + j * (cw + gap), 81, cw, 9, nm, fc=ec, ec=ec, fs=7.2, tc='white',
            bold=True, pad=0.3)
@@ -530,9 +536,9 @@ def fig14_1():
   S1 -> S2 -> S3 [style=invis];
   M1 -> M2 -> M3 [style=invis];
   GOAL -> D1 [lhead=cluster_d]; GOAL -> S1 [lhead=cluster_s]; GOAL -> M1 [lhead=cluster_m];
-  BASE -> D3 [ltail=cluster_d, dir=back, style=dashed, color="{C['gray']}"];
-  BASE -> S3 [ltail=cluster_s, dir=back, style=dashed, color="{C['gray']}", label="数据支撑与动态校准", fontcolor="{C['gray']}"];
-  BASE -> M3 [ltail=cluster_m, dir=back, style=dashed, color="{C['gray']}"];
+  D3 -> BASE [ltail=cluster_d, dir=back, style=dashed, color="{C['gray']}"];
+  S3 -> BASE [ltail=cluster_s, dir=back, style=dashed, color="{C['gray']}", label="数据支撑与动态校准", fontcolor="{C['gray']}"];
+  M3 -> BASE [ltail=cluster_m, dir=back, style=dashed, color="{C['gray']}"];
 '''
     render(d, 'fig14_1', splines='polyline')
 

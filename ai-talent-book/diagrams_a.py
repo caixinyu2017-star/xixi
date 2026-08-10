@@ -283,7 +283,7 @@ def fig5_1():
   {{rank=same; W1; W2; W3; W4; W5;}} W1 -> W2 -> W3 -> W4 -> W5 [style=invis];
   {{rank=same; MTX; JDX;}} MTX -> JDX [style=invis];
   SRC -> TM; SRC -> DICT;
-  SRC -> JDX [label="岗位需求量统计"];
+  SRC -> JDX [xlabel="岗位需求量统计    "];
   TM -> MAP; DICT -> MAP;
   MAP -> W3 [lhead=cluster_w];
   W3 -> MTX [ltail=cluster_w, label="分岗位族分解"];
