@@ -27,11 +27,14 @@ def blocks():
     # 由 results 派生的量（仅 f-string 格式化，不手写数字）
     SCEN = ('fast', 'base', 'slow')
     cagr = {s: ((sc[s]['2035'] / d25) ** 0.1 - 1) * 100 for s in SCEN}          # 2025—2035 复合增速
-    g_ind = {s: cagr[s] / eta['coef'] for s in SCEN}                            # 隐含产业年均增速
+    g_ind = {s: ((1 + cagr[s] / 100) ** (1 / eta['coef']) - 1) * 100
+             for s in SCEN}                                                     # 按式(6-14)反解的隐含产业增速
     inc = {s: (sc[s]['2035'] - d25) / 10 for s in SCEN}                         # 年均净增
     g_h1 = ((base['2030'] / d25) ** 0.2 - 1) * 100                              # 前五年复合增速
     g_h2 = ((base['2035'] / base['2030']) ** 0.2 - 1) * 100                     # 后五年复合增速
     gmg = (math.exp(-gm['a']) - 1) * 100                                        # GM 隐含年均增速
+    lam = math.exp(gm['a'])                                                     # GM 隐含级比 e^a
+    lam_lo, lam_hi = math.exp(-2 / 9), math.exp(2 / 9)                          # n=8 的级比可容覆盖区间
     dbl = (2 ** eta['coef'] - 1) * 100                                          # 产业翻番的需求响应
     band30 = fast['2030'] - slow['2030']
     band35 = fast['2035'] - slow['2035']
