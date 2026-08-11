@@ -208,7 +208,7 @@ def blocks():
     A({'p': '记院校$i$的投入向量为$x_{i}=(x_{i1},\\dots,x_{iM})^{\\top}$（生均经费、师资、产教融合投入，'
           '$M=3$），产出向量为$y_{i}=(y_{i1},\\dots,y_{iQ})^{\\top}$（能力增值与就业结果，$Q=2$）。'
           '投入导向的变动规模报酬模型（BCC型）求解如下线性规划：'})
-    A({'eq': r'\theta_{i}^{*}=\min\left\{\theta\ \Big|\ \sum_{i^{\prime}=1}^{n}\lambda_{i^{\prime}}\,'
+    A({'eq': r'\theta_{i}^{*}=\min\left\{\theta\ \mid\ \sum_{i^{\prime}=1}^{n}\lambda_{i^{\prime}}\,'
              r'x_{i^{\prime}m}\le\theta x_{im},\ \sum_{i^{\prime}=1}^{n}\lambda_{i^{\prime}}\,'
              r'y_{i^{\prime}q}\ge y_{iq},\ \sum_{i^{\prime}=1}^{n}\lambda_{i^{\prime}}=1,\ '
              r'\lambda_{i^{\prime}}\ge 0\right\}', 'num': '12-1'})
