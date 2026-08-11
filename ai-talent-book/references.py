@@ -319,6 +319,8 @@ _DATA = [
   'GOLDFARB A, TASKA B, TEODORIDIS F. Could machine learning be a general purpose technology? A comparison of emerging technologies using data from online job postings[J]. Research Policy, 2023, 52(1): 104653.'),
  ('lyu2021', 'Lyu和Liu，2021',
   'LYU W, LIU J. Soft skills, hard skills: what matters most? Evidence from job postings[J]. Applied Energy, 2021, 300: 117307.'),
+ ('maikesi2025', '麦可思研究院，2025',
+  '麦可思研究院. 2025年中国本科生就业报告[M]. 北京: 社会科学文献出版社, 2025.'),
 ]
 
 REFS = {k: {'intext': it, 'gb': gb} for k, it, gb in _DATA}
