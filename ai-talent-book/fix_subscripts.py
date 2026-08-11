@@ -13,7 +13,8 @@ TOKENS = ['SMI_kt', 'VMI_t', 'D_kt', 'Q_kt', 'R_E', 'R_U', 'c_E', 'c_U', 'c_G',
           'x_c', 'δ_a', 'φ0', 'φ1', 'ψ0', 'ψ1']
 # 长 token 先替换，避免前缀冲突
 TOKENS.sort(key=len, reverse=True)
-RE_TOK = re.compile('|'.join(re.escape(t) for t in TOKENS))
+# 词边界保护：token 前后不得再接字母/数字/下划线，避免误伤 x_crit、by_job_2025 等标识符
+RE_TOK = re.compile(r'(?<![A-Za-z0-9_])(?:' + '|'.join(re.escape(t) for t in TOKENS) + r')(?![A-Za-z0-9_])')
 SKIP = re.compile(r'\$[^$]*\$|\{sub:[^}]*\}|\{sup:[^}]*\}')
 
 
