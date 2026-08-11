@@ -125,12 +125,12 @@ def fig7_3():
                  label=f'{t}（均值 {byt[t]:.2f}）')
         ax1.fill_between(xs, d, color=TYPE_C[t], alpha=0.10, lw=0)
     ax1.axvline(mean_all, color=PAL['gray'], ls='--', lw=1.2)
-    ax1.annotate(f'全样本均值\nTE={mean_all:.2f}', (mean_all - 0.008, 5.45),
-                 fontsize=7.5, color=PAL['gray'], ha='right', va='top')
+    ax1.annotate(f'全样本均值 TE={mean_all:.2f}', (mean_all + 0.012, 6.28),
+                 fontsize=7.5, color=PAL['gray'], ha='left', va='top')
     ax1.set_xlabel('技术效率 TE')
     ax1.set_ylabel('核密度')
     ax1.set_xlim(0.38, 1.02)
-    ax1.set_ylim(0, 6.0)
+    ax1.set_ylim(0, 6.5)
     ax1.legend(loc='upper left', fontsize=7.5)
     panel_label(ax1, '（a）', x=-0.13)
     # （b）小提琴＋类型均值标记
@@ -189,10 +189,10 @@ def fig8_2():
                         xytext=(4, 0), va='center', fontsize=8)
         ax.set_xlabel('技能错配指数 SMI（2025年）')
         ax.set_xlim(0, 0.55)
-    ax1.annotate('工程实践维度\n错配最突出', (0.47, 0.62), fontsize=7.5,
-                 color=PAL['red'], ha='center', va='top')
-    ax2.annotate('模型工程岗位族\n错配最突出', (0.465, 0.62), fontsize=7.5,
-                 color=PAL['red'], ha='center', va='top')
+    ax1.annotate('工程实践维度\n错配最突出', (0.97, 0.30), xycoords='axes fraction',
+                 fontsize=7.5, color=PAL['red'], ha='right', va='center')
+    ax2.annotate('模型工程岗位族\n错配最突出', (0.97, 0.30), xycoords='axes fraction',
+                 fontsize=7.5, color=PAL['red'], ha='right', va='center')
     panel_label(ax1, '（a）能力维度', x=-0.24)
     panel_label(ax2, '（b）岗位族', x=-0.24)
     fig.tight_layout()
@@ -317,8 +317,8 @@ def fig9_3():
     ax1.plot(rec, 1, 'o', color=PAL['blue'], ms=5.5, zorder=5)
     ax1.axvline(rec, color=PAL['red'], ls='--', lw=1.2)
     ax1.axvline(rss, color=PAL['gray'], ls='--', lw=1.1)
-    ax1.annotate(f'$R_E^c$={rec:.2f}', (rec, 1.10), ha='center', fontsize=8.5,
-                 color=PAL['red'])
+    ax1.annotate(f'$R_E^c$={rec:.2f}', (rec - 0.015, 1.10), ha='right',
+                 fontsize=8.5, color=PAL['red'])
     ax1.annotate(f'自我维持临界 {rss:.1f}', (rss + 0.02, 1.10), ha='left',
                  fontsize=8, color=PAL['gray'])
     for txt, xm in [('校热企冷\n均衡区', (1.6 + rec) / 2),
@@ -328,9 +328,9 @@ def fig9_3():
                      color='#505050')
     # 三情景仿真终值校验点
     ax1.plot(1.6, conv['scenA']['y'], 's', color=PAL['orange'], ms=5, zorder=6)
-    ax1.annotate(f"情景A终值 {conv['scenA']['y']:.3f}",
-                 (1.63, conv['scenA']['y'] + 0.05), fontsize=7.2,
-                 color=PAL['orange'])
+    ax1.annotate(f"情景A终值\n{conv['scenA']['y']:.3f}",
+                 (1.615, conv['scenA']['y'] + 0.06), fontsize=7.2,
+                 color=PAL['orange'], va='bottom')
     ax1.plot([2.6, 2.6], [conv['scenB']['y'], conv['scenC']['y']], 's',
              color=PAL['orange'], ms=5, zorder=6)
     ax1.annotate(f"情景B/C终值\n{conv['scenB']['y']:.3f}/{conv['scenC']['y']:.3f}",
@@ -348,7 +348,7 @@ def fig9_3():
     ax2.plot(xc, 0, 'o', mfc='white', mec=PAL['teal'], ms=5.5, zorder=5)
     ax2.plot(xc, 1, 'o', color=PAL['teal'], ms=5.5, zorder=5)
     ax2.axvline(xc, color=PAL['red'], ls='--', lw=1.2)
-    ax2.annotate(f'$x_c$={xc:.2f}', (xc, 1.10), ha='center', fontsize=8.5,
+    ax2.annotate(f'$x_c$={xc:.2f}', (xc + 0.025, 1.10), ha='left', fontsize=8.5,
                  color=PAL['red'])
     ax2.annotate('高校转型不足：\n企业策略退向\n浅层合作（$y^*$→0）', (0.16, 0.50),
                  ha='center', va='center', fontsize=7.5, color='#505050')
@@ -374,9 +374,9 @@ def _cross_t(t, v, level=0.5):
 def fig9_4():
     """图9.4 “校热企冷”→“深度融合”的跃迁路径：三情景 y(t) 对比。"""
     conv = R['game']['conv']
-    scen = [('scenA', '情景A（$R_E$=1.6）：锁定“校热企冷”', PAL['gray'], '--'),
-            ('scenB', '情景B（$R_E$=2.6）：跃迁至深度融合', PAL['blue'], '-'),
-            ('scenC', '情景C（$R_E$=2.6，$c_E$=0.8）：加速跃迁', PAL['orange'], '-.')]
+    scen = [('scenA', '情景A（$R_E$=1.6）', PAL['gray'], '--'),
+            ('scenB', '情景B（$R_E$=2.6）', PAL['blue'], '-'),
+            ('scenC', '情景C（$R_E$=2.6，$c_E$=0.8）', PAL['orange'], '-.')]
     fig, ax = plt.subplots(figsize=(6.4, 3.7))
     ax.axhline(0.5, color=PAL['gray'], ls=':', lw=1.1)
     ax.annotate('跃迁临界 y=0.5', (0.8, 0.515), fontsize=7.5, color=PAL['gray'],
@@ -396,7 +396,7 @@ def fig9_4():
         vT = v[np.argmin(np.abs(t - T))]
         ax.plot(T, vT, '*', color=c, ms=12, zorder=6)
     ax.annotate(f"T≈{conv['scenC']['T']:.0f} 收敛\ny={conv['scenC']['y']:.3f}",
-                (conv['scenC']['T'] + 1.5, 0.90), fontsize=7.5,
+                (conv['scenC']['T'] + 2.2, 0.80), fontsize=7.5,
                 color=PAL['orange'], va='top')
     ax.annotate(f"T≈{conv['scenB']['T']:.0f} 收敛\ny={conv['scenB']['y']:.3f}",
                 (58.8, 0.86), fontsize=7.5, color=PAL['blue'], ha='right',
@@ -485,9 +485,9 @@ def fig11_3():
     ax1.legend(fontsize=7.5, loc='upper left')
     xb, vb = ser('sd_gap.base')
     i30 = int(np.argmax(vb))
-    ax2.annotate(f'基准情景缺口峰值\n{vb[i30]:.0f}万人（{xb[i30]:.0f}年）',
-                 (xb[i30] - 0.3, vb[i30] + 14), fontsize=7.5, color=PAL['blue'],
-                 ha='center', bbox=WBOX)
+    ax2.annotate(f'峰值 {vb[i30]:.0f}万人（{xb[i30]:.0f}年）',
+                 (xb[i30], vb[i30] + 9), fontsize=7.5, color=PAL['blue'],
+                 ha='center', va='bottom')
     panel_label(ax1, '（a）人才存量', x=-0.17)
     panel_label(ax2, '（b）人才缺口', x=-0.15)
     fig.tight_layout(w_pad=2.6)
@@ -600,8 +600,9 @@ def fig12_3():
         ax2.annotate(f'{v:.2f}', (i, v), textcoords='offset points',
                      xytext=(0, 3), ha='center', fontsize=8.5)
     ax2.axhline(mq['index'], color=PAL['gray'], ls='--', lw=1.1)
-    ax2.annotate(f"全样本 MQ={mq['index']:.2f}", (2.42, mq['index'] + 0.012),
-                 ha='right', fontsize=7.5, color=PAL['gray'])
+    ax2.annotate(f"虚线：全样本 MQ={mq['index']:.2f}", (0.04, 0.955),
+                 xycoords='axes fraction', ha='left', va='top', fontsize=7.5,
+                 color=PAL['gray'])
     ax2.set_xticks(x2)
     ax2.set_xticklabels(TYPE3, fontsize=8.5)
     ax2.set_ylabel('MQ 指数')
