@@ -30,7 +30,7 @@ WBOX = dict(boxstyle='round,pad=0.2', fc='white', ec='none', alpha=0.85)
 
 JOB_CN = {'algo': '算法', 'meng': '模型工程', 'data': '数据',
           'prod': '产品应用', 'gov': '治理安全'}
-ABI_CN = {'base': '基础素养', 'tech': '技术能力', 'eng': '工程实践',
+ABI_CN = {'base': '基础理论', 'tech': '技术方法', 'eng': '工程实践',
           'innov': '创新应用', 'ethic': '伦理治理'}
 JOB_KEYS = ['algo', 'meng', 'data', 'prod', 'gov']
 ABI_KEYS = ['base', 'tech', 'eng', 'innov', 'ethic']
