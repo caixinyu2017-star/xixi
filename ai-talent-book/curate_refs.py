@@ -17,7 +17,9 @@ DROP = {'katz1992', 'hanushek2008', 'sattinger1993', 'ryan2001', 'card1999',
         'agrawal2018', 'diamond1982', 'hall2001', 'mcguinness2006', 'flisi2017',
         'green2016', 'romer1990', 'hvide2018', 'bianchi2020', 'nafilyan2019',
         'silva2018', 'jackson2018', 'valero2019', 'chen2019', 'yang2020',
-        'cai2019', 'lin2017', 'li2018'}
+        'cai2019', 'lin2017', 'li2018',
+        # 止页无法核实（各来源仅给出起始页），按"页码必须完整"原则剔除
+        '孟颖颖2023', 'mengyingying2023'}
 
 seen_title = {}
 by_key = {}

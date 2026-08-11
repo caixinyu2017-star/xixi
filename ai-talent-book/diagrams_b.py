@@ -123,32 +123,32 @@ def fig9_1():
     th = R['game']['threshold']
     fig, ax = canvas(8.6, 6.6, 100, 80)
     bx(ax, 29, 62, 42, 15,
-       '高　校　U\n策略：深度融合转型（x）／传统模式（1－x）\n参数：转型成本 c_U＝%g·融合收益 R_U＝%g' % (g['cU'], g['RU']),
+       '高　校　U\n策略：深度融合转型（x）／传统模式（1－x）\n参数：转型成本 $c_U$＝%g·融合收益 $R_U$＝%g' % (g['cU'], g['RU']),
        fc=C['ltblue'], ec=PAL['blue'], fs=8.3, lw=1.6)
     bx(ax, 2, 6, 40, 15,
-       '企　业　E\n策略：深度参与（y）／浅层合作（1－y）\n参数：参与成本 c_E＝%g·人才红利 R_E＝%g～%g' % (g['cE'], g['RE_base'], g['RE_hi']),
+       '企　业　E\n策略：深度参与（y）／浅层合作（1－y）\n参数：参与成本 $c_E$＝%g·人才红利 $R_E$＝%g～%g' % (g['cE'], g['RE_base'], g['RE_hi']),
        fc=C['ltteal'], ec=PAL['teal'], fs=8.3, lw=1.6)
     bx(ax, 58, 6, 40, 15,
-       '政　府　G\n策略：强激励（z）／常规支持（1－z）\n参数：激励成本 c_G＝%g·补贴 s＝%g\n错配损失 L＝%g' % (g['cG'], g['s'], g['L']),
+       '政　府　G\n策略：强激励（z）／常规支持（1－z）\n参数：激励成本 $c_G$＝%g·补贴 $s$＝%g\n错配损失 $L$＝%g' % (g['cG'], g['s'], g['L']),
        fc=C['ltgold'], ec=PAL['gold'], fs=8.3, lw=1.6)
     # U—E（左侧两条平行直线）
     arr(ax, (30, 61.5), (12, 21.5), c=PAL['blue'], lw=1.4)
-    txt(ax, 16.7, 43.3, '定制化人才输送\n（人才红利 R_E 之源）', fs=7.0, c=PAL['blue'], rot=66)
+    txt(ax, 16.7, 43.3, '定制化人才输送\n（人才红利 $R_E$ 之源）', fs=7.0, c=PAL['blue'], rot=66)
     arr(ax, (20, 21.5), (37, 61.5), c=PAL['teal'], lw=1.4)
-    txt(ax, 25.0, 41.5, '项目·导师·实训投入\n（分担成本·实现 R_U）', fs=7.0, c=PAL['teal'], rot=67)
+    txt(ax, 25.0, 41.5, '项目·导师·实训投入\n（分担成本·实现 $R_U$）', fs=7.0, c=PAL['teal'], rot=67)
     # U—G（右侧两条平行直线）
     arr(ax, (70, 61.5), (88, 21.5), c=PAL['blue'], lw=1.4)
     txt(ax, 83.3, 43.3, '培养成效与错配缓解\n（降低社会损失 L）', fs=7.0, c=PAL['blue'], rot=-66)
     arr(ax, (80, 21.5), (63, 61.5), c=PAL['gold'], lw=1.4)
-    txt(ax, 75.0, 41.5, '专项补贴 s·绩效拨款\n（对冲转型成本 c_U）', fs=7.0, c=PAL['gold'], rot=-67)
+    txt(ax, 75.0, 41.5, '专项补贴 $s$·绩效拨款\n（对冲转型成本 $c_U$）', fs=7.0, c=PAL['gold'], rot=-67)
     # E—G（底部两条水平直线）
     arr(ax, (42.5, 15.5), (57.5, 15.5), c=PAL['teal'], lw=1.4)
     txt(ax, 49.7, 18.9, '深度参与提升治理绩效', fs=6.7, c=PAL['teal'])
     arr(ax, (57.5, 10.5), (42.5, 10.5), c=PAL['gold'], lw=1.4)
-    txt(ax, 50, 6.4, '税费激励与补贴\n分担参与成本 c_E', fs=7.0, c=PAL['gold'])
+    txt(ax, 50, 6.4, '税费激励与补贴\n分担参与成本 $c_E$', fs=7.0, c=PAL['gold'])
     # 中心：复制动态系统
     bx(ax, 33, 33, 34, 14,
-       '复制动态系统\ndx/dt·dy/dt·dz/dt（三维演化）\n跃迁阈值：R_E＞%.2f → 深度融合均衡' % th['RE_crit'],
+       '复制动态系统\ndx/dt·dy/dt·dz/dt（三维演化）\n跃迁阈值：$R_E$＞%.2f → 深度融合均衡' % th['RE_crit'],
        fc=C['ltred'], ec=PAL['red'], fs=7.8, lw=1.4, ls='dashed', bold=True)
     for p1, p2 in [((44, 61.5), (46, 47.8)), ((30, 21.7), (38, 32.2)),
                    ((70, 21.7), (62, 32.2))]:
@@ -319,8 +319,7 @@ def fig11_1():
     txt(ax, 78, 17, '质量声誉增强回路', fs=6.6, c=PAL['teal'], z=5)
     loopmark(ax, 30.5, 11.5, 'B1', PAL['red'], ccw=True)
     txt(ax, 31, 15.2, '师资约束平衡回路', fs=6.2, c=PAL['red'], z=5)
-    txt(ax, 50, 0.8, '＋＝同向变动　－＝反向变动　R＝增强回路　B＝平衡回路　∥＝延迟',
-        fs=6.6, c='#666666')
+    # 符号说明不入图内，改由 Word 图注承载（图题下方）
     save(fig, f'{FIG}/fig11_1.png')
     print('ok fig11_1')
 
@@ -336,29 +335,29 @@ def fig11_2():
     cloud(ax, 98, yM, '汇')
     ax.add_patch(Rectangle((26, yM - 6.5), 18, 13, fc=C['ltblue'], ec=PAL['blue'],
                            lw=1.8, zorder=2))
-    txt(ax, 35, yM, '在培人才存量\nHS_t', fs=8.5, bold=True)
+    txt(ax, 35, yM, '在培人才存量\n$HS_t$', fs=8.5, bold=True)
     ax.add_patch(Rectangle((60, yM - 6.5), 18, 13, fc=C['ltteal'], ec=PAL['teal'],
                            lw=1.8, zorder=2))
-    txt(ax, 69, yM, '就业人才存量\nES_t', fs=8.5, bold=True)
+    txt(ax, 69, yM, '就业人才存量\n$ES_t$', fs=8.5, bold=True)
     ax.plot([10.5, 25.8], [yM, yM], color=PAL['blue'], lw=2.2, zorder=1)
     arr(ax, (23, yM), (25.8, yM), c=PAL['blue'], lw=2.2, ms=14)
     valve(ax, 17, yM, PAL['blue'])
-    txt(ax, 14.5, yM + 5.8, '招生流入 HI_t', fs=7.6, c=PAL['blue'], bold=True)
+    txt(ax, 14.5, yM + 5.8, '招生流入 $HI_t$', fs=7.6, c=PAL['blue'], bold=True)
     ax.plot([44.2, 59.8], [yM, yM], color=PAL['teal'], lw=2.2, zorder=1)
     arr(ax, (57, yM), (59.8, yM), c=PAL['teal'], lw=2.2, ms=14)
     valve(ax, 52, yM, PAL['teal'])
-    txt(ax, 52, yM + 6.0, '毕业流出 HO_t\n（培养延迟 τ＝%g 年）' % tau, fs=7.6,
+    txt(ax, 52, yM + 6.0, '毕业流出 $HO_t$\n（培养延迟 τ＝%g 年）' % tau, fs=7.6,
         c=PAL['teal'], bold=True)
     ax.plot([78.2, 93.5], [yM, yM], color=PAL['gray'], lw=2.0, zorder=1)
     arr(ax, (91, yM), (93.5, yM), c=PAL['gray'], lw=2.0, ms=13)
     valve(ax, 85, yM, PAL['gray'])
-    txt(ax, 89, yM + 6.2, '离职与流失 AT_t', fs=7.2, c=PAL['gray'])
+    txt(ax, 89, yM + 6.2, '离职与流失 $AT_t$', fs=7.2, c=PAL['gray'])
     # 顶部：产业需求与缺口
-    bx(ax, 56, 62, 32, 7, '产业人才需求 D_t（第6章三情景预测）',
+    bx(ax, 56, 62, 32, 7, '产业人才需求 $D_t$（第6章三情景预测）',
        fc=C['ltorange'], ec=PAL['orange'], fs=7.8, pad=0.35)
     e = Ellipse((78, 33), 28, 9.5, fc=C['ltgold'], ec=PAL['gold'], lw=1.5, zorder=2)
     ax.add_patch(e)
-    txt(ax, 78, 33, '人才需求缺口\nGAP_t＝D_t－ES_t', fs=7.6, bold=True)
+    txt(ax, 78, 33, '人才需求缺口\n$GAP_t=D_t-ES_t$', fs=7.6, bold=True)
     # D_t → GAP（信息线，跨主链处断线避让）
     ax.plot([80, 80], [61.6, 51.0], color=PAL['orange'], lw=1.3, zorder=1)
     ax.plot([80, 80], [48.9, 43.4], color=PAL['orange'], lw=1.3, zorder=1)
@@ -371,18 +370,18 @@ def fig11_2():
     arr(ax, (17, 44), (17, 47.6), c=PAL['red'], lw=1.3, ls='--', ms=11)
     txt(ax, 39, 35.8, '缺口驱动扩招（＋）', fs=7.0, c=PAL['red'])
     # 底部：CTD 阈值触发课程修订
-    bx(ax, 4, 22, 20, 8, 'AI 技术前沿\nTL_t', fc=C['ltgreen'], ec=PAL['green'], fs=7.6, pad=0.35)
-    bx(ax, 30, 22, 20, 8, '课程技术水平\nCL_t', fc=C['ltblue'], ec=PAL['blue'], fs=7.6, pad=0.35)
+    bx(ax, 4, 22, 20, 8, 'AI 技术前沿\n$TL_t$', fc=C['ltgreen'], ec=PAL['green'], fs=7.6, pad=0.35)
+    bx(ax, 30, 22, 20, 8, '课程技术水平\n$CL_t$', fc=C['ltblue'], ec=PAL['blue'], fs=7.6, pad=0.35)
     e2 = Ellipse((27, 11), 32, 8.5, fc=C['ltgold'], ec=PAL['gold'], lw=1.4, zorder=2)
     ax.add_patch(e2)
-    txt(ax, 27, 11, '课程滞后度\nCTD_t＝(TL_t－CL_t)/TL_t', fs=7.2, bold=True)
+    txt(ax, 27, 11, '课程滞后度\n$CTD_t=(TL_t-CL_t)/TL_t$', fs=7.2, bold=True)
     arr(ax, (13, 21.6), (20, 15.0), c=PAL['green'], lw=1.3)
     txt(ax, 13.5, 17.5, '＋', fs=10, c=PAL['green'], bold=True)
     arr(ax, (39, 21.6), (33, 15.2), c=PAL['blue'], lw=1.3)
     txt(ax, 39.5, 17.5, '－', fs=10, c=PAL['blue'], bold=True)
     ax.add_patch(Polygon([(48, 11), (58, 5.5), (68, 11), (58, 16.5)], closed=True,
                          fc=C['ltred'], ec=PAL['red'], lw=1.4, zorder=2))
-    txt(ax, 58, 11, '触发判断\nCTD_t＞CTD*？\n（CTD*＝%.2f）' % ctd, fs=6.4, c=PAL['red'], bold=True)
+    txt(ax, 58, 11, '触发判断\n$CTD_t>CTD^*$？\n（$CTD^*$＝%.2f）' % ctd, fs=6.4, c=PAL['red'], bold=True)
     arr(ax, (43.2, 11), (47.6, 11), c=PAL['gold'], lw=1.3)
     bx(ax, 72, 7, 24, 8, '课程修订\n（新增模块·更新内容）', fc=C['ltpurple'],
        ec=PAL['purple'], fs=7.2, pad=0.35)
@@ -396,9 +395,7 @@ def fig11_2():
     ax.plot([76, 76, 51], [15.4, 18.8, 18.8], color=PAL['purple'], lw=1.3, ls='--', zorder=1)
     arr(ax, (51, 18.8), (44, 22.6), c=PAL['purple'], lw=1.3, ls='--', ms=11)
     txt(ax, 62, 20.9, '修订后课程水平提升（＋）', fs=6.6, c=PAL['purple'])
-    # 图例（符号说明）
-    txt(ax, 52, 1.2, '矩形＝存量　蝶形阀＝流量　虚线云朵＝系统边界源汇　实线＝人才流　虚线＝信息反馈',
-        fs=6.6, c='#666666')
+    # 符号说明不入图内，改由 Word 图注承载（图题下方）
     save(fig, f'{FIG}/fig11_2.png')
     print('ok fig11_2')
 
