@@ -143,10 +143,8 @@ def fig7_3():
         body.set_edgecolor(TYPE_C[t])
         body.set_linewidth(1.1)
     for p, t in zip(pos, TYPE3):
-        q1, med, q3 = np.percentile(samples[t], [25, 50, 75])
+        q1, q3 = np.percentile(samples[t], [25, 75])
         ax2.vlines(p, q1, q3, color=TYPE_C[t], lw=4, alpha=0.9)
-        ax2.plot(p, med, 'o', color='white', ms=4, mec=TYPE_C[t], mew=1.1,
-                 zorder=5)
         ax2.plot(p, byt[t], 'D', color=PAL['red'], ms=5, zorder=6)
         ax2.annotate(f'{byt[t]:.2f}', (p + 0.16, byt[t]), va='center',
                      ha='left', fontsize=8, color=PAL['red'])
@@ -161,8 +159,8 @@ def fig7_3():
     ax2.legend(handles=[
         Line2D([], [], marker='D', color='none', mfc=PAL['red'], ms=5,
                label='SFA 类型均值'),
-        Line2D([], [], marker='o', color='none', mfc='white', mec='#404040',
-               ms=4.5, label='样本中位数')],
+        Line2D([], [], color=TYPE_C[TYPE3[0]], lw=4, alpha=0.9,
+               label='四分位距')],
         loc='lower left', fontsize=7.2)
     panel_label(ax2, '（b）', x=-0.22)
     fig.tight_layout()
@@ -408,7 +406,7 @@ def fig9_4():
     ax.set_ylabel('企业深度参与比例 y')
     ax.set_xlim(0, 61.5)
     ax.set_ylim(-0.03, 1.06)
-    ax.legend(loc='upper left', fontsize=7.5)
+    ax.legend(loc='lower right', bbox_to_anchor=(0.99, 0.07), fontsize=7.5)
     save(fig, f'{FIG}/fig9_4.png')
 
 

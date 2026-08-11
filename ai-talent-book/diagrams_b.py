@@ -129,7 +129,7 @@ def fig9_1():
        '企　业　E\n策略：深度参与（y）／浅层合作（1－y）\n参数：参与成本 c_E＝%g·人才红利 R_E＝%g～%g' % (g['cE'], g['RE_base'], g['RE_hi']),
        fc=C['ltteal'], ec=PAL['teal'], fs=8.3, lw=1.6)
     bx(ax, 58, 6, 40, 15,
-       '政　府　G\n策略：强激励（z）／常规支持（1－z）\n参数：激励成本 c_G＝%g·补贴 s＝%g·错配损失 L＝%g' % (g['cG'], g['s'], g['L']),
+       '政　府　G\n策略：强激励（z）／常规支持（1－z）\n参数：激励成本 c_G＝%g·补贴 s＝%g\n错配损失 L＝%g' % (g['cG'], g['s'], g['L']),
        fc=C['ltgold'], ec=PAL['gold'], fs=8.3, lw=1.6)
     # U—E（左侧两条平行直线）
     arr(ax, (30, 61.5), (12, 21.5), c=PAL['blue'], lw=1.4)
