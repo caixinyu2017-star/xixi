@@ -463,6 +463,105 @@ def normalize_grade(raw: Any) -> Optional[str]:
 # ==========================================================================
 # 三、文本的文化特征分析（确定性，无模型）
 # ==========================================================================
+# ---- 3.0 自由文本的清洗与概括 ---------------------------------------------
+# 学生常把整页 HTML、程序代码或长提示词直接粘进对话框。这些内容既不该原样
+# 显示在教师界面上，也不该拿去和文化词典做匹配，因此先统一剥掉标记再处理。
+_RE_IMTAG = re.compile(r"<\|[^|>]*\|>\s*(?:assistant|user|system)?", re.I)
+_RE_FENCE = re.compile(r"```[\s\S]*?```")
+_RE_INLINE = re.compile(r"`([^`\n]*)`")   # 行内代码多是术语，保留内容
+_RE_HCOMMENT = re.compile(r"<!--[\s\S]*?-->")
+_RE_SCRIPT = re.compile(r"<(script|style)\b[^>]*>[\s\S]*?</\1>", re.I)
+_RE_TAG = re.compile(r"</?[a-zA-Z!][^>]*>")
+_RE_ENTITY = re.compile(r"&(?:[a-zA-Z]{2,8}|#\d{2,5});")
+_RE_URL = re.compile(r"(?:https?://|www\.)\S+")
+_RE_MDLINE = re.compile(r"^[ \t]*(?:[#>*+=-]{1,6}|\d+[.、)])[ \t]*", re.M)
+_RE_DECOR = re.compile(r"[`*_~^|\\]+|[-=]{3,}")
+# 清洗后常留下孤立的“ . ”“ - ”这类分隔符碎片，一并收掉
+_RE_ORPHAN = re.compile(r"(?<=\s)[.\-–—·•*+/\\:;=~]+(?=\s)")
+_RE_WS = re.compile(r"[\s\u3000]+")
+_RE_EMOJI = re.compile("[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF"
+                       "\u2190-\u21FF\uFE0F\u200D]")
+_RE_CJK = re.compile(r"[\u4e00-\u9fff]")
+_CUT_PUNCT = "。！？；，、.!?;,"
+
+
+def clean_prompt_text(s: Any) -> str:
+    """剥掉标记语言、代码块与控制标记，只留可读的自然语言。"""
+    if not s:
+        return ""
+    t = str(s)
+    for rx in (_RE_IMTAG, _RE_FENCE, _RE_HCOMMENT, _RE_SCRIPT):
+        t = rx.sub(" ", t)
+    t = _RE_TAG.sub(" ", t)
+    t = _RE_ENTITY.sub(" ", t)
+    t = _RE_INLINE.sub(r" \1 ", t)
+    t = _RE_URL.sub(" ", t)
+    t = _RE_MDLINE.sub(" ", t)
+    t = _RE_DECOR.sub(" ", t)
+    t = _RE_EMOJI.sub(" ", t)
+    t = _RE_ORPHAN.sub(" ", " " + t + " ")
+    return _RE_WS.sub(" ", t).strip(" .-–—·•*+/\\:;=~\t\n\r\u3000")
+
+
+def _cjk_ratio(s: str) -> float:
+    return len(_RE_CJK.findall(s)) / max(1, len(s))
+
+
+def _first_sentence(s: str, n: int) -> str:
+    """取前 n 个字符，尽量断在标点处，避免把句子拦腰截断。"""
+    s = (s or "").strip()
+    if len(s) <= n:
+        return s
+    seg = s[:n]
+    cut = max((seg.rfind(c) for c in _CUT_PUNCT), default=-1)
+    if cut >= int(n * 0.5):
+        return seg[:cut].rstrip("，、,； ") + "……"
+    return seg.rstrip() + "……"
+
+
+def dialogue_kind(raw: str, clean: str) -> str:
+    """按提问的形态归成六类，全部用中文表述。"""
+    low = (raw or "").lower()
+    markup = bool(re.search(r"<!doctype|<html|</div>|</span>|</p>|<meta\b|</body>|```",
+                            low))
+    codey = sum(low.count(x) for x in
+                ("{", "}", ";", "=>", "def ", "function ", "import ", "class ", "</"))
+    if markup or (codey >= 10 and _cjk_ratio(clean) < 0.35):
+        return "代码与网页片段"
+    if len(clean) < 4:
+        return "简短追问"
+    if re.search(r"帮我|生成|制作|写一[个篇份]|设计|做一个|画一|续写|改写|润色|创作|"
+                 r"修改|调整|优化|新增|增加|取消", clean):
+        return "创作与生成请求"
+    if re.search(r"报错|打不开|跑不起来|运行|无法|失败|怎么办|在哪里|不行|没反应|"
+                 r"闪退|安装|下载|双击|浏览器|闪退", clean):
+        return "操作求助"
+    if re.search(r"为什么|怎么|如何|什么|哪些|哪个|多少|区别|介绍|解释|由来|起源|"
+                 r"含义|内涵|特点|定义|意义|谈谈|分析|说明|评价", clean):
+        return "知识性提问"
+    return "学习交流"
+
+
+def summarize_dialogue(stamp: Any, question: str, sig: "TextSignal",
+                       clean: str = "", limit: int = 40) -> str:
+    """把一轮对话概括成一句中文，供教师界面与学习报告使用。"""
+    clean = clean if clean else clean_prompt_text(question)
+    kind = dialogue_kind(question or "", clean)
+    if kind == "代码与网页片段":
+        n = len(str(question or ""))
+        size = f"约 {n / 1000:.1f} 千字符" if n >= 1000 else f"约 {n} 字符"
+        gist = _first_sentence(clean, 20)
+        core = f"粘贴{size}的代码或网页内容"
+        # 只有当附言确实是成句的中文时才展示，避免把符号碎片当成说明
+        if len(gist) >= 8 and _cjk_ratio(gist) >= 0.45:
+            core += f"，附带说明“{gist}”"
+    else:
+        core = _first_sentence(clean, limit) or "无可读文字内容"
+    kw = "、".join(sig.keywords[:3]) if sig and sig.keywords else ""
+    tail = f" · 主题：{kw}" if kw else ""
+    return f"{str(stamp or '')[:16]}｜{kind} · {core}{tail}"
+
+
 @dataclass
 class TextSignal:
     """一段文本的文化特征画像。"""
@@ -816,6 +915,13 @@ class Store:
 
     # ---- 证据 -----------------------------------------------------------
     def add_evidence(self, ev: "Evidence") -> bool:
+        """按内容指纹入库。返回 True 表示新增，False 表示这条内容已经有了。
+
+        指纹已存在时只就地刷新展示用的描述（label / detail），
+        计量与分数一律保持首次入库的结果——"同一份材料重复上传得分完全不变"
+        是硬要求，不能因为重传而抖动。程序升级后若要让分数也按新口径重算，
+        用 reset-evidence 清空过程证据再重新导入。
+        """
         cx = self.conn()
         cur = cx.execute(
             "INSERT OR IGNORE INTO evidences"
@@ -823,7 +929,11 @@ class Store:
             " batch_id,created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
             (ev.fp, ev.sid, ev.grade, ev.channel, ev.dim, ev.amount, ev.quality,
              ev.relevance, ev.label, ev.detail, ev.batch_id, now_iso()))
-        return cur.rowcount > 0
+        if cur.rowcount > 0:
+            return True
+        cx.execute("UPDATE evidences SET label=?, detail=? WHERE fp=?",
+                   (ev.label, ev.detail, ev.fp))
+        return False
 
     def set_baseline(self, sid: str, grade: str, scores: Dict[str, float],
                      src: str = "问卷") -> None:
@@ -1194,22 +1304,28 @@ def import_dialogue(store: Store, path: str, grade_sel: Optional[str],
 
         question = str(g(row, c_q) or "")
         answer = str(g(row, c_a) or "")
-        q_norm = norm_text(question)
-        if not q_norm:
+        if not norm_text(question):
             continue
-        # 口水轮次直接降权，不给"你好/继续"刷分空间
+        # 先剥掉标记与代码：整页 HTML 里的 <meta charset> 不是文化内容，
+        # 既不该拿去匹配文化词典，也不该算进"这轮问得有多充实"。
+        q_clean = clean_prompt_text(question)
+        a_clean = clean_prompt_text(answer)
+        q_norm = norm_text(q_clean)
+        # 口水轮次直接降权，不给"你好/继续"刷分空间；
+        # 纯代码粘贴清洗后同样只剩很短的文字，会落到同一档。
         filler = q_norm in LEX_FILLER or len(q_norm) < 4
-        sig = analyze_text(question + "\n" + answer[:1500])
+        sig = analyze_text(q_clean + "\n" + a_clean[:1500])
         rel = sig.relevance
         length_q = len(q_norm)
         quality = 0.12 if filler else clamp(0.35 + 0.65 * min(1.0, length_q / 60.0))
         tokens = to_float(g(row, c_tok))
-        if tokens > 1500:
+        if tokens > 1500 and not filler:
             quality = clamp(quality + 0.10)
 
         dist = dim_distribution(sig)
         stamp = str(g(row, c_time) or "")
         key = sha256_text(stamp, question[:400])
+        summary = summarize_dialogue(stamp, question, sig, q_clean)
 
         for dim in DIMS:
             w = CHANNEL_WEIGHTS["dialogue"][dim]
@@ -1219,8 +1335,7 @@ def import_dialogue(store: Store, path: str, grade_sel: Optional[str],
             ev = Evidence(sid=sid, grade=grade_sel or GRADES[0], channel="dialogue",
                           dim=dim, amount=amount, quality=quality, relevance=rel,
                           label="与禾灵儿的文化问答",
-                          detail=(f"{stamp[:16]}｜{question.strip()[:48]}"
-                                  + ("…" if len(question.strip()) > 48 else "")),
+                          detail=summary,
                           batch_id=batch_id).finalize(key)
             if store.add_evidence(ev):
                 n_new += 1

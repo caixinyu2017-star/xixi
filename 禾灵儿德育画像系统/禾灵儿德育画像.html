@@ -597,10 +597,15 @@ function recOf(sid,grade){
 /* 写入一条证据。返回 true 表示新增，false 表示指纹重复（不重复计分）。
    item: {a 计量, q 质量, r 文化相关度, dist 维度分配或 null, label, detail} */
 function addEvidence(sid,grade,channel,fp,item){
+  /* 按内容指纹入库。返回 true 表示新增，false 表示这条内容已经有了。
+     指纹已存在时只就地刷新展示用的描述（label / detail），计量与分数一律
+     保持首次入库的结果——"同一份材料重复上传得分完全不变"是硬要求，
+     不能因为重传而抖动。升级后若要让分数也按新口径重算，请清空数据重导。 */
   const rec=recOf(sid,grade);
   if(!rec.channels[channel]) rec.channels[channel]={items:{}};
   const items=rec.channels[channel].items;
-  if(Object.prototype.hasOwnProperty.call(items,fp)) return false;
+  const prev=items[fp];
+  if(prev){ prev.label=item.label; prev.detail=item.detail; DIRTY.r.add(rec.key); return false; }
   items[fp]=item;
   DIRTY.r.add(rec.key);
   return true;
@@ -862,6 +867,81 @@ function importVideo(sheets,grade){
   return {n_rows,n_new,n_dup,note:"未匹配到学生的记录 "+skip+" 条（建议先导入报名表）"};
 }
 
+/* ---------- 6.5 自由文本的清洗与概括（与 Python 版同逻辑） ---------- */
+/* 学生常把整页 HTML、程序代码或长提示词直接粘进对话框。这些内容既不该原样
+   显示在教师界面上，也不该拿去和文化词典做匹配，因此先统一剥掉标记再处理。 */
+const RE_IMTAG=/<\|[^|>]*\|>\s*(?:assistant|user|system)?/gi;
+const RE_FENCE=/```[\s\S]*?```/g;
+const RE_INLINE=/`([^`\n]*)`/g;   /* 行内代码多是术语，保留内容 */
+const RE_HCOMMENT=/<!--[\s\S]*?-->/g;
+const RE_SCRIPT=/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi;
+const RE_TAG=/<\/?[a-zA-Z!][^>]*>/g;
+const RE_ENTITY=/&(?:[a-zA-Z]{2,8}|#\d{2,5});/g;
+const RE_URL=/(?:https?:\/\/|www\.)\S+/g;
+const RE_MDLINE=/^[ \t]*(?:[#>*+=-]{1,6}|\d+[.、)])[ \t]*/gm;
+const RE_DECOR=/[`*_~^|\\]+|[-=]{3,}/g;
+/* 清洗后常留下孤立的“ . ”“ - ”这类分隔符碎片，一并收掉 */
+const RE_ORPHAN=/(?<=\s)[.\-–—·•*+/\\:;=~]+(?=\s)/g;
+const RE_WS=/[\s　]+/g;
+const RE_EMOJI=/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{FE0F}\u{200D}]/gu;
+const RE_CJK=/[一-鿿]/g;
+const CUT_PUNCT="。！？；，、.!?;,";
+
+function cleanPromptText(s){
+  if(!s) return "";
+  let t=String(s);
+  for(const rx of [RE_IMTAG,RE_FENCE,RE_HCOMMENT,RE_SCRIPT]) t=t.replace(rx," ");
+  t=t.replace(RE_TAG," ").replace(RE_ENTITY," ").replace(RE_INLINE," $1 ")
+     .replace(RE_URL," ").replace(RE_MDLINE," ").replace(RE_DECOR," ").replace(RE_EMOJI," ");
+  t=(" "+t+" ").replace(RE_ORPHAN," ");
+  return t.replace(RE_WS," ").replace(/^[\s.\-–—·•*+/\\:;=~　]+|[\s.\-–—·•*+/\\:;=~　]+$/g,"");
+}
+function cjkRatio(s){ const m=String(s||"").match(RE_CJK); return (m?m.length:0)/Math.max(1,String(s||"").length); }
+function firstSentence(s,n){
+  s=String(s||"").trim();
+  if(s.length<=n) return s;
+  const seg=s.slice(0,n);
+  let cut=-1;
+  for(const c of CUT_PUNCT){ const i=seg.lastIndexOf(c); if(i>cut) cut=i; }
+  if(cut>=Math.floor(n*0.5)) return seg.slice(0,cut).replace(/[，、,；\s]+$/,"")+"……";
+  return seg.replace(/\s+$/,"")+"……";
+}
+function dialogueKind(raw,clean){
+  const low=String(raw||"").toLowerCase();
+  const markup=/<!doctype|<html|<\/div>|<\/span>|<\/p>|<meta\b|<\/body>|```/.test(low);
+  let codey=0;
+  for(const x of ["{","}",";","=>","def ","function ","import ","class ","</"]){
+    let i=0; while((i=low.indexOf(x,i))>=0){ codey++; i+=x.length; }
+  }
+  if(markup||(codey>=10&&cjkRatio(clean)<0.35)) return "代码与网页片段";
+  if(clean.length<4) return "简短追问";
+  if(/帮我|生成|制作|写一[个篇份]|设计|做一个|画一|续写|改写|润色|创作|修改|调整|优化|新增|增加|取消/.test(clean))
+    return "创作与生成请求";
+  if(/报错|打不开|跑不起来|运行|无法|失败|怎么办|在哪里|不行|没反应|闪退|安装|下载|双击|浏览器/.test(clean))
+    return "操作求助";
+  if(/为什么|怎么|如何|什么|哪些|哪个|多少|区别|介绍|解释|由来|起源|含义|内涵|特点|定义|意义|谈谈|分析|说明|评价/.test(clean))
+    return "知识性提问";
+  return "学习交流";
+}
+function summarizeDialogue(stamp,question,sig,clean,limit){
+  limit=limit||40;
+  clean=clean||cleanPromptText(question);
+  const kind=dialogueKind(question||"",clean);
+  let core;
+  if(kind==="代码与网页片段"){
+    const n=String(question||"").length;
+    const size=n>=1000?("约 "+(n/1000).toFixed(1)+" 千字符"):("约 "+n+" 字符");
+    const gist=firstSentence(clean,20);
+    core="粘贴"+size+"的代码或网页内容";
+    /* 只有当附言确实是成句的中文时才展示，避免把符号碎片当成说明 */
+    if(gist.length>=8&&cjkRatio(gist)>=0.45) core+="，附带说明“"+gist+"”";
+  }else{
+    core=firstSentence(clean,limit)||"无可读文字内容";
+  }
+  const kw=(sig&&sig.keywords)?sig.keywords.slice(0,3).join("、"):"";
+  return String(stamp||"").slice(0,16)+"｜"+kind+" · "+core+(kw?(" · 主题："+kw):"");
+}
+
 function importDialogue(sheets,grade){
   const rows=Object.values(sheets).find(r=>r&&r.length);
   if(!rows||rows.length<2) return {n_rows:0,n_new:0,n_dup:0,note:"未找到有效数据行"};
@@ -878,17 +958,21 @@ function importDialogue(sheets,grade){
     if(!sid){ unmatched.add(nick||acct); skip++; continue; }
     if(acct) addAlias(acct,sid);
     const question=String(G(row,cQ)??""), answer=String(G(row,cA)??"");
-    const qn=normText(question); if(!qn) continue;
+    if(!normText(question)) continue;
+    /* 先剥掉标记与代码：整页 HTML 里的 <meta charset> 不是文化内容，
+       既不该拿去匹配文化词典，也不该算进"这轮问得有多充实"。 */
+    const qClean=cleanPromptText(question), aClean=cleanPromptText(answer);
+    const qn=normText(qClean);
     const filler=LEX_FILLER.has(qn)||qn.length<4;
-    const sig=analyzeText(question+"\n"+answer.slice(0,1500));
+    const sig=analyzeText(qClean+"\n"+aClean.slice(0,1500));
     const rel=relevanceOf(sig);
     let q=filler?0.12:clamp(0.35+0.65*Math.min(1,qn.length/60));
-    if(toNum(G(row,cTok))>1500) q=clamp(q+0.10);
+    if(toNum(G(row,cTok))>1500&&!filler) q=clamp(q+0.10);
     const stamp=String(G(row,cTime,true)??"");
     const fp=sha256Text(sid,grade,"dialogue",sha256Text(stamp,question.slice(0,400)));
     const ok=addEvidence(sid,grade,"dialogue",fp,{a:0.45,q,r:rel,dist:dimDistribution(sig),
       label:"与禾灵儿的文化问答",
-      detail:stamp.slice(0,16)+"｜"+question.trim().slice(0,48)+(question.trim().length>48?"…":"")});
+      detail:summarizeDialogue(stamp,question,sig,qClean)});
     ok?n_new++:n_dup++;
   }
   return {n_rows,n_new,n_dup,
