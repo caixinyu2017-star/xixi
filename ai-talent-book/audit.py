@@ -46,8 +46,9 @@ for idx, mod in enumerate(CHAPTERS, 1):
             tag = f'图{c}.{k}'
             if not any(tag in t for t in seen_text):
                 P(f'{mod}: {tag} 未在图前正文提及（先文后图）')
-            if not b.get('note'):
-                P(f'{mod}: {tag} 缺图注')
+            nt = b.get('note')
+            if nt and not nt.startswith('注：'):
+                P(f'{mod}: {tag} 图注未以“注：”开头')
             p = os.path.join(HERE, b['fig'])
             if not os.path.exists(p):
                 P(f'{mod}: {tag} 图片文件缺失 {b["fig"]}')
@@ -65,8 +66,9 @@ for idx, mod in enumerate(CHAPTERS, 1):
             tag = f'表{c}.{k}'
             if not any(tag in t for t in seen_text):
                 P(f'{mod}: {tag} 未在表前正文提及（先文后表）')
-            if not tb.get('note'):
-                P(f'{mod}: {tag} 缺表注')
+            nt = tb.get('note')
+            if nt and not nt.startswith('注：'):
+                P(f'{mod}: {tag} 表注未以“注：”开头')
         if 'eq' in b and b.get('num'):
             mo = re.match(r'(\d+)-(\d+)$', str(b['num']))
             if not mo:
