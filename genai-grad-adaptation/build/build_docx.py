@@ -678,6 +678,22 @@ def front_matter(doc):
         r.font.bold = not sup.isdigit()
         p.add_run("\t" + rest)
 
+    # Highlights, in the journal's current front-matter format: a bold
+    # section word, then each prompt in bold followed by its bullets
+    if getattr(C, "HIGHLIGHTS", None):
+        p = doc.add_paragraph(style="MDPI_1.7_abstract")
+        r = p.add_run("Highlights")
+        r.font.bold = True
+        for prompt, bullets in C.HIGHLIGHTS:
+            p = doc.add_paragraph(style="MDPI_1.7_abstract")
+            r = p.add_run(prompt)
+            r.font.bold = True
+            for b in bullets:
+                p = doc.add_paragraph(style="MDPI_1.7_abstract")
+                set_ind(p, left=BODY_INDENT + 280, first=-200)
+                p.add_run("•	")
+                add_rich(p, b)
+
     p = doc.add_paragraph(style="MDPI_1.7_abstract")
     r = p.add_run("Abstract")
     r.font.bold = True

@@ -54,16 +54,19 @@ BODY = [
      "is being measured intensively; the supply side \u2014 what the "
      "entrants themselves perceive, feel and then do \u2014 is nearly "
      "unstudied, even though early-career scarring is among the most "
-     "persistent phenomena in labor economics. This manuscript treats the "
-     "fresh graduate as an adaptive agent in a socio-technical labor "
-     "system: perceived human capital depreciation is the input, "
-     "AI-related career anxiety is the error signal of a cybernetic "
-     "control loop, and occupational adaptation or career avoidance is "
+     "persistent phenomena in labor economics. Drawing on socio-technical "
+     "systems theory and a cybernetic control perspective, the manuscript "
+     "models the fresh graduate as an adaptive agent: perceived human "
+     "capital depreciation is the input, AI-related career anxiety is the "
+     "error signal, and occupational adaptation or career avoidance is "
      "how the loop closes. Three properties follow \u2014 transmission, "
      "saturation, and conjunction \u2014 and each is tested on a two-wave "
-     f"survey of {S['n_t1']:,} Chinese graduates within three years of "
-     f"graduation ({S['n_t2']:,} matched across waves, outcomes measured "
-     "six months after their antecedents)."),
+     f"survey of {S['n_t1']:,} Chinese fresh graduates ({S['n_t2']:,} "
+     "matched across waves, outcomes measured six months after their "
+     "antecedents) using confirmatory factor analysis, bootstrapped "
+     "conditional-process models, and fuzzy-set qualitative comparative "
+     "analysis, in the methodological register of recent articles in the "
+     "Systems Practice in Social Science section."),
 
     "The highlights of the paper are as follows.",
 ]

@@ -309,18 +309,15 @@ TABLES = {"table%d" % i: fn for i, fn in enumerate(
      table10, table11, table12, table13, table14], start=1)}
 
 FIGURES = {
-    "fig1": dict(number=1, file="figure1_dual.png", width_cm=13.2,
-                 caption="The dual response to AI-related career anxiety: "
-                         "(a) occupational adaptation; (b) career "
-                         "avoidance.", note=None),
-    "fig2": dict(number=2, file="figure2_boundaries.png", width_cm=13.2,
-                 caption="Boundary conditions of the control loop: (a) the "
-                         "adaptation response at low and high generative-AI "
-                         "literacy; (b) the first stage across employability "
-                         "support.", note=None),
-    "fig3": dict(number=3, file="figure3_generality.png", width_cm=13.2,
-                 caption="Generality and sufficiency: (a) the marginal "
-                         "effect of anxiety on adaptation by subsample; "
-                         "(b) case-level sufficiency of the single "
-                         "configuration.", note=None),
+    "fig1": dict(number=1, file="figure1_framework.png", width_cm=13.2,
+                 caption="Theoretical research framework.", note=None),
+    "fig2": dict(number=2, file="figure2_firststage.png", width_cm=13.2,
+                 caption="The moderating effect of perceived employability "
+                         "support on the relationship between perceived "
+                         "human capital depreciation and AI-related career "
+                         "anxiety.", note=None),
+    "fig3": dict(number=3, file="figure3_dual.png", width_cm=13.2,
+                 caption="Predicted occupational adaptation (a) and career "
+                         "avoidance (b) across AI-related career anxiety.",
+                 note=None),
 }
