@@ -1,0 +1,15 @@
+Indicator/Statistic	Value		
+Kaiser-Meyer-Olkin measure	0.778		
+Bartlett's test of sphericity	χ2 = 88.185; df = 6; p < 0.001		
+Extraction method	Principal Axis Factoring		
+Number of factors extracted	1		
+Initial eigenvalue, Factor 1	3.296		
+Initial variance explained	82.388%		
+Extraction sum of squared loadings	3.076		
+Variance explained after extraction	76.898%		
+Rotation	No rotation		
+SEC:Communalities	Initial	Extraction	Factor 1
+AIENT	0.723	0.760	0.872
+GAIY	0.866	0.950	0.975
+DSKY	0.775	0.689	0.830
+ICTS	0.691	0.676	0.822
