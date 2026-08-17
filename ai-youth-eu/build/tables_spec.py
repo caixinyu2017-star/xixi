@@ -55,7 +55,7 @@ def table1():
           "or more employees, 2024", "isoc_eb_ai"),
         R("GAIY", "Use of generative AI tools in the last three months, "
           "young individuals", "Percentage of individuals aged 16–29, "
-          "2025", "ICT survey 2025"),
+          "2025", "isoc_ci_ax_i"),
         R("DSKY", "Young people with basic or above-basic overall "
           "digital skills", "Percentage of individuals aged 16–24, "
           "2023", "isoc_sk_dskl_i21"),
@@ -71,7 +71,7 @@ def table1():
           "Percentage of the population aged 25–34, 2024",
           "edat_lfse_03"),
         R("GDPC", "GDP per capita in purchasing power standards",
-          "Index, EU-27 = 100, 2024", "prc_ppp_ind"),
+          "Index, EU-27 = 100, 2024", "tec00114"),
         R("RDI", "Gross domestic expenditure on R&D",
           "Percentage of GDP, 2023", "rd_e_gerdtot"),
         R("ELET", "Early leavers from education and training",
@@ -82,7 +82,7 @@ def table1():
                 header=["Variable", "Dataset", "Measure",
                         "Eurostat Code"],
                 rows=rows,
-                widths=[0.11, 0.36, 0.35, 0.18],
+                widths=[0.14, 0.32, 0.32, 0.22],
                 note=("Source: authors' design based on "
                       "[[es_ai],[es_gai],[es_dsk],[es_icts],[es_neet],"
                       "[es_yur],[es_tert],[es_gdp],[es_rd],[es_elet]]."),
@@ -136,6 +136,15 @@ def table5():
                       "indicators.")
 
 
+def _nbsp_stats(c):
+    """Keep statistical parentheticals unbreakable: a cell may wrap
+    before ``(p = 0.032)`` but never inside it."""
+    return (c.replace("(p = ", "(p = ")
+             .replace("(p < ", "(p < ")
+             .replace("p < 0.001", "p < 0.001")
+             .replace("p = 0.", "p = 0."))
+
+
 def table6():
     hdr, raw = read("t06_context.tsv")
     return dict(number=6,
@@ -143,8 +152,8 @@ def table6():
                         "structural contextual variables.",
                 header=["Structural Contextual Variable", "AIENT",
                         "GAIY", "DSKY", "ICTS"],
-                rows=[R(*r) for r in raw],
-                widths=[0.30] + [0.175] * 4,
+                rows=[R(*[_nbsp_stats(c) for c in r]) for r in raw],
+                widths=[0.26] + [0.185] * 4,
                 note=("Pearson correlation coefficients with p-values in "
                       "parentheses; N = 27. TERT—population aged "
                       "25–34 with tertiary education; GDPC—GDP "
@@ -164,7 +173,7 @@ def table7():
             rows.append(S(r[0][4:]))
             rows.append(R("Factor", r[1], r[2], r[3]))
         else:
-            rows.append(R(*r))
+            rows.append(R(*[_nbsp_stats(c) for c in r]))
     return dict(number=7,
                 caption="Exploratory factor analysis of the artificial "
                         "intelligence readiness indicators.",

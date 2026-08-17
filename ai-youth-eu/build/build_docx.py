@@ -755,6 +755,25 @@ def body(doc):
         elif kind == "stmt2":
             # continuation of the preceding bold back-matter label
             add_rich(doc.paragraphs[-1], block[2], size=9)
+        elif kind == "abbr":
+            # the abbreviation list: a borderless two-column layout in
+            # the back-matter zone, as the journal's articles set it
+            entries = block[1]
+            tbl = doc.add_table(rows=len(entries), cols=2)
+            configure_table(tbl, FULL_W, indent=None, center=False)
+            tbl.columns[0].width = Emu(int(1500 * 635))
+            tbl.columns[1].width = Emu(int((FULL_W - 1500) * 635))
+            for (term, expansion), row in zip(entries, tbl.rows):
+                for j, (text, w) in enumerate(((term, 1500),
+                                               (expansion, FULL_W - 1500))):
+                    cell = row.cells[j]
+                    cell.width = Emu(int(w * 635))
+                    p = cell.paragraphs[0]
+                    p.style = doc.styles["MDPI_6.2_back_matter"]
+                    set_ind(p, left=0, first=0)
+                    single_spaced(p, before=0, after=1)
+                    r = p.add_run(text)
+                    r.font.size = Pt(9)
         prev = kind
 
 
@@ -807,6 +826,13 @@ def build():
     template_to_docx(TEMPLATE, tmp)
     doc = Document(tmp)
     clear_body(doc)
+
+    # a heading must never be stranded at the bottom of a page
+    for name in ("MDPI_2.1_heading1", "MDPI_2.2_heading2",
+                 "MDPI_2.3_heading3"):
+        fmt = doc.styles[name].paragraph_format
+        fmt.keep_with_next = True
+        fmt.keep_together = True
 
     front_matter(doc)
     body(doc)

@@ -23,7 +23,7 @@ YUR     Youth unemployment rate, % of the labour force aged 15-24,
 TERT    Tertiary educational attainment, % of the population aged
         25-34, 2024 (edat_lfse_03).
 GDPC    GDP per capita in purchasing power standards, index EU-27 =
-        100, 2024 (prc_ppp_ind).
+        100, 2024 (tec00114).
 RDI     Gross domestic expenditure on R&D, % of GDP, 2023 (rd_e_gerdtot).
 ELET    Early leavers from education and training, % of the population
         aged 18-24, 2024 (edat_lfse_14).

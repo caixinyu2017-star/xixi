@@ -248,7 +248,7 @@ BLOCKS = [
      "[[acemoglurestrepo2019]] argue that automation both displaces "
      "labour and creates new activities that are complementary to it, "
      "while Autor et al. [[autor2024]] document that most contemporary "
-     "occupations contain work that did not exist a generation ago. "
+     "employment is in kinds of work that did not exist in 1940. "
      "For the generative wave specifically, occupational exposure "
      "measurement shows that the affected tasks are concentrated in "
      "clerical, analytical, and information-processing work "
@@ -713,18 +713,17 @@ BLOCKS = [
      "not reject normality in any of the eight univariate equations "
      f"(smallest p = {f3(min(min(m['uni'][dv]['shapiro_p'] for dv in ('NEET', 'YUR')) for m in M.values()))})."),
     ("p",
-     "Given the position of Romania, which records the lowest "
-     "readiness values and the highest NEET rate in the sample, an "
-     "additional robustness check was conducted. Cook's distances "
+     "Given the position of Romania, which records the lowest values "
+     "on three of the four readiness dimensions and the highest NEET "
+     "rate in the sample, an additional robustness check was conducted. Cook's distances "
      "identify Romania as the most influential observation in the "
      "NEET equations and Sweden in two of the youth unemployment "
-     "equations. Excluding Romania, the direction of all associations "
-     "remains unchanged, all four NEET associations remain "
-     f"significant (largest p = "
-     f"{f3(max(e['NEET']['p'] for e in RB['models'].values()))}), and "
+     "equations. Excluding Romania, all four NEET associations retain "
+     "their negative direction and remain significant (largest "
+     f"{pv(max(e['NEET']['p'] for e in RB['models'].values()))}), and "
      "all four youth unemployment associations remain insignificant "
-     f"(smallest p = "
-     f"{f3(min(e['YUR']['p'] for e in RB['models'].values()))}). "
+     f"(smallest "
+     f"{pv(min(e['YUR']['p'] for e in RB['models'].values()))}). "
      "These results suggest that the divergence between the two "
      "margins is not produced by a single extreme case. The Swedish "
      "pattern is nevertheless informative: Sweden combines the "
@@ -805,7 +804,7 @@ BLOCKS = [
      "The first regression analyzed the relationship between the "
      "latent factor and the youth NEET rate. The model indicates a "
      "negative and statistically significant relationship, with a "
-     f"correlation coefficient of {f3(FR['NEET']['r'])} and an "
+     f"correlation coefficient of {f3(FR['NEET']['beta'])} and an "
      f"explanatory capacity of approximately "
      f"{pctv(FR['NEET']['r2'])} of the variation in the share of "
      f"disengaged young people (R-squared = {f3(FR['NEET']['r2'])}; "
@@ -924,11 +923,11 @@ BLOCKS = [
      "Table A1 in Appendix A shows the composition of the two "
      "clusters, with a strong concentration of Nordic, Western, and "
      "Alpine-Adriatic economies in the higher-readiness category, "
-     "joined by the Baltic states of Estonia and the island economy "
+     "joined by the Baltic state of Estonia and the island economy "
      "of Malta. The second cluster is primarily composed of Southern, "
-     "Central, and South-Eastern European countries, together with "
-     "France, whose enterprise adoption rate remains below the EU "
-     "average. From the perspective of complex adaptive systems, "
+     "Central, and South-Eastern European countries, joined by the "
+     "remaining Baltic states of Latvia and Lithuania and by France, "
+     "whose enterprise adoption rate remains below the EU average. From the perspective of complex adaptive systems, "
      "these patterns show how interactions among technology, human "
      "capital, and institutional frameworks produce persistent, "
      "emerging configurations [[holland1995]]. Overall, the cluster "
@@ -1243,6 +1242,34 @@ BLOCKS = [
      "[es_tert],[es_gdp],[es_rd],[es_elet]]."),
     ("h1b", "Conflicts of Interest"),
     ("stmt2", "", "The authors declare no conflicts of interest."),
+    ("h1b", "Abbreviations"),
+    ("stmt2", "",
+     "The following abbreviations are used in this manuscript:"),
+    ("abbr", [
+        ("AI", "Artificial intelligence"),
+        ("AIENT", "Enterprises using at least one AI technology, "
+                  "percentage of enterprises"),
+        ("ANOVA", "Analysis of variance"),
+        ("DSKY", "Young people with basic or above-basic overall "
+                 "digital skills, percentage"),
+        ("ELET", "Early leavers from education and training, "
+                 "percentage"),
+        ("EU", "European Union"),
+        ("FACT_AIR", "Latent factor score of artificial intelligence "
+                     "readiness"),
+        ("GAIY", "Young individuals who used generative AI tools in "
+                 "the last three months, percentage"),
+        ("GDPC", "GDP per capita in purchasing power standards"),
+        ("ICT", "Information and communication technologies"),
+        ("ICTS", "ICT specialists, percentage of total employment"),
+        ("KMO", "Kaiser–Meyer–Olkin measure of sampling adequacy"),
+        ("NEET", "Young people neither in employment nor in education "
+                 "and training, percentage"),
+        ("RDI", "Gross domestic expenditure on R&D, percentage of GDP"),
+        ("TERT", "Tertiary educational attainment, percentage of the "
+                 "population aged 25–34"),
+        ("YUR", "Youth unemployment rate, percentage"),
+    ]),
 
     # =======================================================================
     ("h1", "Appendix A"),

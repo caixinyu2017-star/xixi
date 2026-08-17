@@ -93,14 +93,16 @@ POINTS = [
      f"(R\u00b2 = {FR['NEET']['r2']:.3f})."),
 
     ("(3) A two-regime map of Europe. Hierarchical and k-means "
-     f"clustering agree on a higher-readiness group of {C1['n']} "
-     f"economies (average NEET {C1['NEET']:.1f}%) and a "
-     f"lower-readiness group of {C2['n']} economies (average NEET "
-     f"{C2['NEET']:.1f}%), with France's below-average enterprise "
-     "adoption placing it in the second group. The typology separates "
-     "engaged from disengaged youth labour markets \u2014 not "
-     "low-unemployment from high-unemployment ones \u2014 and "
-     "motivates differentiated policy for the two regimes."),
+     "clustering converge on a two-group structure, agreeing for 25 "
+     "of the 27 countries; the k-means solution comprises a "
+     f"higher-readiness group of {C1['n']} economies (average NEET "
+     f"{C1['NEET']:.1f}%) and a lower-readiness group of {C2['n']} "
+     f"economies (average NEET {C2['NEET']:.1f}%), with France's "
+     "below-average enterprise adoption placing it in the second "
+     "group. The typology separates engaged from disengaged youth "
+     "labour markets \u2014 not low-unemployment from "
+     "high-unemployment ones \u2014 and motivates differentiated "
+     "policy for the two regimes."),
 
     ("(4) Disciplined, transparent inference. All conclusions are "
      "presented as exploratory cross-sectional associations: "
