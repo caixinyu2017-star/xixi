@@ -73,6 +73,9 @@ def evaluate(model, X, M, Y, used, weights=None, topk=TOPK):
     # of the exact decomposition, so that the manuscript can report what
     # is lost by summarising the score with its attention alone.
     if getattr(model, "_contrib", None) is not None:
+        ca, sa = B.faithfulness(model, X, M, alpha.data, topk=topk)
+        out["comprehensiveness_attention"] = ca
+        out["sufficiency_attention"] = sa
         out["alignment_attention"] = B.justification_alignment(
             alpha.data, used, M, topk=topk)
         out["alignment_detector"] = B.justification_alignment(
@@ -108,8 +111,9 @@ def run_variant(name, factory, data, tr, va, te, lam=LAM, ig=False,
                info["epochs_run"]))
     agg = {}
     for key in ("auc_roc", "auc_pr", "comprehensiveness", "sufficiency",
-                "alignment", "alignment_attention", "alignment_detector",
-                "val_bce"):
+                "alignment", "comprehensiveness_attention",
+                "sufficiency_attention", "alignment_attention",
+                "alignment_detector", "val_bce"):
         vals = [r[1][key] for r in runs if key in r[1]]
         if vals:
             agg[key] = float(np.mean(vals))
@@ -274,6 +278,18 @@ def main():
     np.save(os.path.join(TAB, "example_mask.npy"), M[idx][ex])
     np.save(os.path.join(TAB, "test_scores.npy"), S)
     np.save(os.path.join(TAB, "test_labels.npy"), Y[te])
+
+    # How closely do the two ways of judging an explanation agree?
+    # Rank correlation across the models that supply both, so that the
+    # manuscript can state the relationship instead of asserting one.
+    pairs = [(m["comprehensiveness"], m["alignment"])
+             for m in R["models"].values() if "alignment" in m]
+    from scipy import stats as st
+    rho, prho = st.spearmanr([c for c, _ in pairs], [a for _, a in pairs])
+    R["criterion_agreement"] = dict(n=len(pairs), spearman_rho=float(rho),
+                                    p=float(prho))
+    log("  comprehensiveness vs alignment across %d models: "
+        "rho = %.2f (p = %.2f)" % (len(pairs), rho, prho))
 
     R["runtime_seconds"] = time.time() - t_start
     with open(os.path.join(TAB, "results.json"), "w",

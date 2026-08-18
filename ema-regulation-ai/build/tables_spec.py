@@ -63,19 +63,22 @@ def table2():
                                   "gradients [[vaswani2017]], "
                                   "[[sundararajan2017]]",
         "Attentive diagnostic model": "Attentive diagnostic model "
-                                      "(attention) [[koh2020]]",
+                                      "(score decomposition) "
+                                      "[[koh2020]]",
         "Temporal graph encoder": "Temporal graph encoder (score "
                                   "decomposition) [[zhao2020]]",
     }
     for key, lab in labels.items():
         rows.append([lab, pm(key, "comprehensiveness"),
                      pm(key, "sufficiency"), pm(key, "alignment")])
+    # the attention row is read entirely through the attention
+    # distribution, so all three of its columns come from that reading
     av = R["ablation"]["with attention over episodes"]
     rows.append(["DP-APT with attention (attention distribution)",
-                 "%s (%s)" % (f3(av["comprehensiveness"]),
-                              f3(av["comprehensiveness_sd"])),
-                 "%s (%s)" % (f3(av["sufficiency"]),
-                              f3(av["sufficiency_sd"])),
+                 "%s (%s)" % (f3(av["comprehensiveness_attention"]),
+                              f3(av["comprehensiveness_attention_sd"])),
+                 "%s (%s)" % (f3(av["sufficiency_attention"]),
+                              f3(av["sufficiency_attention_sd"])),
                  "%s (%s)" % (f3(av["alignment_attention"]),
                               f3(av["alignment_attention_sd"]))])
     rows.append(["DP-APT (ours, score decomposition)",
@@ -114,12 +117,14 @@ def table3():
             "+ attention over episodes",
         "full model": "Full DP-APT",
     }
+    def sd(a, key):
+        return "%s (%s)" % (f3(a[key]), f3(a[key + "_sd"]))
+
     rows = []
     for k in order:
         a = R["ablation"][k]
-        rows.append([pretty[k], f3(a["auc_roc"]),
-                     f3(a.get("sufficiency", float("nan"))),
-                     f3(a.get("alignment", float("nan")))])
+        rows.append([pretty[k], sd(a, "auc_roc"), sd(a, "sufficiency"),
+                     sd(a, "alignment")])
     return dict(number=3,
                 caption="Ablation Study Results (Test Set)",
                 header=["Model variant", "AUC-ROC\n↑", "Sufficiency\n↓",

@@ -28,6 +28,9 @@ def numeric_grad(fn, x, eps=1e-6):
     return g
 
 
+WORST = {"value": 0.0, "n": 0}
+
+
 def check(name, fn, params):
     out = fn()
     out.backward()
@@ -39,6 +42,8 @@ def check(name, fn, params):
         worst = max(worst, float(np.max(np.abs(ana - num) / denom)))
     status = "ok " if worst < 1e-6 else "FAIL"
     print("  %-28s max rel. deviation %.3e  %s" % (name, worst, status))
+    WORST["value"] = max(WORST["value"], worst)
+    WORST["n"] += 1
     return worst < 1e-6
 
 
@@ -109,6 +114,18 @@ def main():
     ok &= check("attention entropy", ent, [a, b])
 
     print("ALL GRADIENT CHECKS PASSED" if ok else "SOME CHECKS FAILED")
+    # the manuscript quotes the worst deviation, so it is recorded here
+    # rather than restated by hand
+    import json
+    import os
+    tab = os.path.abspath(os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), "..", "tables"))
+    os.makedirs(tab, exist_ok=True)
+    with open(os.path.join(tab, "gradcheck.json"), "w",
+              encoding="utf-8") as fh:
+        json.dump(dict(n_checks=WORST["n"],
+                       max_relative_deviation=WORST["value"],
+                       all_passed=bool(ok)), fh, indent=1)
     return 0 if ok else 1
 
 

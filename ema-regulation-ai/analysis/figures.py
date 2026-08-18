@@ -123,36 +123,36 @@ def figure1_pipeline():
 # ===========================================================================
 def figure2_architecture():
     """The internal architecture of the DP-APT engine."""
-    W, H = 88.0, 66.0
+    W, H = 88.0, 62.0
     fig = plt.figure(figsize=(W / 25.4, H / 25.4))
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(0, W); ax.set_ylim(0, H); ax.set_axis_off()
 
-    ax.text(21.0, 63.0, "Episode pathway", ha="center", fontsize=6.6,
+    ax.text(21.0, 59.0, "Episode pathway", ha="center", fontsize=6.6,
             fontweight="bold")
-    ax.text(67.0, 63.0, "Ontology pathway", ha="center", fontsize=6.6,
+    ax.text(67.0, 59.0, "Ontology pathway", ha="center", fontsize=6.6,
             fontweight="bold")
 
-    x1 = _box(ax, 21.0, 56.0, 40, 9,
+    x1 = _box(ax, 21.0, 52.0, 40, 9,
               ["Momentary EMA", "sequence"], fs=6.0)
-    x2 = _box(ax, 21.0, 44.5, 40, 9,
+    x2 = _box(ax, 21.0, 40.5, 40, 9,
               ["Temporal Affect", "Graph Network"], fs=6.0)
-    x3 = _box(ax, 21.0, 34.0, 40, 7,
+    x3 = _box(ax, 21.0, 30.0, 40, 7,
               ["Episode representations"], fs=6.0, bold=False)
 
-    y1 = _box(ax, 67.0, 56.0, 40, 9,
+    y1 = _box(ax, 67.0, 52.0, 40, 9,
               ["Process-model", "ontology"], fs=6.0)
-    y2 = _box(ax, 67.0, 44.5, 40, 9,
+    y2 = _box(ax, 67.0, 40.5, 40, 9,
               ["Regulatory Process", "Ontology Parser"], fs=6.0)
-    y3 = _box(ax, 67.0, 34.0, 40, 7,
+    y3 = _box(ax, 67.0, 30.0, 40, 7,
               ["Concept vectors"], fs=6.0, bold=False)
 
-    f1 = _box(ax, 44.0, 22.5, 52, 8,
+    f1 = _box(ax, 44.0, 18.5, 52, 8,
               ["Concept-conditioned evidence fusion"], fs=6.2,
               fill=LIGHT)
-    o1 = _box(ax, 22.0, 10.0, 40, 9,
+    o1 = _box(ax, 22.0, 6.5, 40, 9,
               ["Per-family", "regulation score"], fs=6.0)
-    o2 = _box(ax, 66.0, 10.0, 40, 9,
+    o2 = _box(ax, 66.0, 6.5, 40, 9,
               ["Per-episode", "contributions"], fs=6.0)
 
     for a, b in ((x1, x2), (x2, x3), (y1, y2), (y2, y3)):
@@ -161,8 +161,6 @@ def figure2_architecture():
     _arrow(ax, (y3["cx"], y3["b"]), (54.0, f1["t"]))
     _arrow(ax, (34.0, f1["b"]), (o1["cx"], o1["t"]))
     _arrow(ax, (54.0, f1["b"]), (o2["cx"], o2["t"]))
-    ax.text(44.0, 2.4, "the contributions sum to the score exactly",
-            ha="center", fontsize=5.8, style="italic")
     return save(fig, "figure2_architecture")
 
 
