@@ -1,0 +1,8 @@
+build/*
+!build/标准词元与智能经济——Token的价值计量、定价机制与配置效率研究.docx
+!build/标准词元与智能经济——Token的价值计量、定价机制与配置效率研究.pdf
+figs_ai/*
+!figs_ai/prompts*.json
+build/eqchk_*
+build/chk_*
+__pycache__/
