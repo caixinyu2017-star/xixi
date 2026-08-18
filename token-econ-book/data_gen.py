@@ -133,7 +133,7 @@ Q = {'2024Q1': 0, '2024Q2': 1, '2024Q3': 2, '2024Q4': 3, '2025Q1': 4,
 QI = {v: k for k, v in Q.items()}
 OFFICIAL = {0: 0.10, 5: 30.0, 7: 100.0, 8: 140.0}         # 官方发布点位
 daily_log = anchor_series({k: np.log(v) for k, v in OFFICIAL.items()} | {9: np.log(168.0)},
-                          range(10), noise=0.0)
+                          range(10), noise=0.0, positive=False)   # 对数空间，负值合法
 daily = {QI[i]: round(float(np.exp(v)), 2) for i, v in daily_log.items()}
 R['usage'] = {
     'daily_tokens': daily,
@@ -334,26 +334,37 @@ for k, v in R['ahp']['items'].items():
 # ============================ 8. green：绿色词元 ============================
 ENERGY = {'light': 0.9, 'mid': 2.6, 'open': 5.4, 'flag': 9.8, 'reason': 17.2, 'multi': 7.1}
 GRID, GREEN = 0.53, 0.04             # kgCO2/kWh
+# 量纲：kWh/百万STE × kgCO2/kWh = kg/百万STE = g/千STE（换算系数恰为 1）
+IOTA = {k: round(v * GRID, 3) for k, v in ENERGY.items()}
+# 2026 年各档位词元用量份额（校准复算，用于加总加权平均碳强度）
+TIER_SHARE = {'light': 0.28, 'mid': 0.34, 'open': 0.20,
+              'flag': 0.10, 'reason': 0.05, 'multi': 0.03}
+IOTA_AVG = round(sum(TIER_SHARE[k] * IOTA[k] for k in TIERS), 3)
+IOTA_GREEN = round(IOTA_AVG * GREEN / GRID, 3)        # 全绿电情形
 R['green'] = {
     'energy_kwh_per_m_ste': ENERGY,
+    'iota_by_tier': IOTA,
+    'tier_share': TIER_SHARE,
     'carbon': {'grid_factor': GRID, 'green_factor': GREEN,
-               'iota_avg': 218, 'iota_green': 41,
-               'unit': 'gCO2e/千标准词元'},
+               'iota_avg': IOTA_AVG, 'iota_green': IOTA_GREEN,
+               'unit': 'gCO2e/千标准词元',
+               'note': '碳强度＝单位能耗×电网排放因子；kWh/百万STE 与 kg/kWh 相乘即得 g/千STE'},
     'mix': {2024: 0.28, 2025: 0.36, 2026: 0.44},
     'premium': tstats(0.083, 0.021) | {'N': 612, 'R2': 0.41},
-    'threshold_iota': 80,
+    'threshold_iota': 1.0,
 }
 for k, v in ENERGY.items():
     emit('green.energy', k, v)
-    emit('green.iota', k, v * GRID * 1000 / 1000)     # gCO2e/千STE
+    emit('green.iota', k, IOTA[k])
+    emit('green.tier_share', k, TIER_SHARE[k])
 for k, v in R['green']['mix'].items():
     emit('green.mix', k, v)
 sc = {}
-for nm, anc in {'base': {2026: 218, 2035: 126},
-                'green': {2026: 218, 2035: 62},
-                'deep': {2026: 218, 2035: 34}}.items():
-    s = anchor_series(anc, range(2026, 2036), noise=1.2)
-    sc[nm] = {int(y): round(v, 1) for y, v in s.items()}
+for nm, anc in {'base': {2026: IOTA_AVG, 2035: 1.30},
+                'green': {2026: IOTA_AVG, 2035: 0.62},
+                'deep': {2026: IOTA_AVG, 2035: 0.34}}.items():
+    s = anchor_series(anc, range(2026, 2036), noise=0.012)
+    sc[nm] = {int(y): round(v, 3) for y, v in s.items()}
     for y, v in s.items():
         emit(f'green.scen_{nm}', int(y), v)
 R['green']['scenario'] = sc
@@ -442,6 +453,14 @@ R['facts_seed'] = {
     'jiaxing': {'万卡级算力中心': 4, '算力占浙江省比重': 0.60,
                 '规上工业企业': 6327, 'AI科创企业': 230,
                 '超算峰值(亿亿次/秒)': 18},
+    # OpenRouter 口径的中国模型周调用量（万亿枚/周）与可得的全球总量
+    'openrouter_weeks': {
+        '7/20—7/26': {'cn': 33.0, 'global': 58.0},
+        '7/27—8/2': {'cn': 28.13, 'global': None},
+        '8/3—8/9': {'cn': 34.25, 'global': 69.0},
+        '8/10—8/16': {'cn': 36.84, 'global': None},
+    },
+    'openrouter_note': '媒体依据 OpenRouter 数据整理；仅第13、15周披露全球总量；截至8月16日当周中国模型连续16周超过美国',
     # 五城运营中心启动时点
     'cities_launch': {'温州': '2026-07-15', '嘉兴': '2026-07-30',
                       '广州': '2026-07-30', '苏州': '2026-08-11',
@@ -451,6 +470,11 @@ for k, v in R['facts_seed']['daily_call'].items():
     emit('facts.daily_call', k, v)
 for k, v in R['facts_seed']['util_idc'].items():
     emit('facts.util_idc', k, v)
+for k, v in R['facts_seed']['openrouter_weeks'].items():
+    emit('facts.or_cn', k, v['cn'])
+    if v['global']:
+        emit('facts.or_global', k, v['global'])
+        emit('facts.or_share', k, v['cn'] / v['global'])
 
 # ============================ 输出 ============================
 os.makedirs(DATA, exist_ok=True)
@@ -471,4 +495,5 @@ print('game conv =', json.dumps(R['game']['conv'], ensure_ascii=False))
 print('game threshold =', R['game']['threshold'])
 print('词元贡献 2026 =', R['growth']['decomp'][2026]['cT'], '个百分点，占比',
       R['growth']['decomp'][2026]['share_T'])
+print('碳强度：分档位', IOTA, '｜加权均值', IOTA_AVG, '｜阈值', R['green']['threshold_iota'], 'gCO2e/千STE')
 print('series rows =', len(SERIES_ROWS))

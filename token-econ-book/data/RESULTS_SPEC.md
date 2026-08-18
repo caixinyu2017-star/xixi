@@ -87,11 +87,14 @@
 `ahp: {criteria: {efficiency 0.412, fairness 0.318, sustain 0.270, CR 0.031, lambda_max 3.036}, items: {metering(统一计量) 0.271, settlement(统一结算) 0.223, entry(统一入口) 0.196, audit(统一安全审计) 0.166, subsidy(统一政策抵扣) 0.144, CR 0.038}, experts: {n 26, rounds 2, kendall_w 0.69}}`
 
 ## 8. `green`：绿色词元（第11章）
-`green: {energy: {档位: kWh per 百万 STE}, carbon: {grid_factor 0.53, green_factor 0.04, iota_avg 218, iota_green 41}, mix: {2024 0.28 → 2026 0.44 绿电占比}, premium: {coef 0.083, se 0.021, t 3.95, N 612}, scenario: {base/green/deep 2026—2035 碳强度}}`
+`green: {energy_kwh_per_m_ste, iota_by_tier, tier_share, carbon: {grid_factor 0.53, green_factor 0.04, iota_avg, iota_green}, mix, premium, threshold_iota 1.0, scenario}`
 - 每百万标准词元耗电（kWh）：light 0.9、mid 2.6、open 5.4、flag 9.8、reason 17.2、multi 7.1。
-- 电网排放因子 0.53 kgCO₂/kWh，绿电 0.04；平均碳强度 218 gCO₂e/千 STE，绿色词元 41。
+- **量纲纪律（务必遵守）**：kWh/百万 STE × kgCO₂/kWh ＝ kg/百万 STE ＝ **g/千 STE**，换算系数恰为 1。碳强度 $\iota$ 一律以 **gCO₂e/千标准词元**表示。
+- 电网排放因子 0.53 kgCO₂/kWh，绿电 0.04。分档位碳强度：light 0.477、mid 1.378、open 2.862、flag 5.194、reason 9.116、multi 3.763。
+- 2026 年各档位用量份额（校准复算）：light 0.28、mid 0.34、open 0.20、flag 0.10、reason 0.05、multi 0.03；**用量加权平均碳强度 $\bar{\iota}$＝2.263 gCO₂e/千 STE**；全绿电情形 0.171。
+- **绿色词元阈值 $\iota^{*}$＝1.0 gCO₂e/千 STE**（约为当前平均值的 44%，需绿电占比或服务效率显著提升方可达到）。
 - 绿色词元溢价：出海导向企业支付意愿溢价系数 0.083（8.3%），显著。
-- 碳强度情景（gCO₂e/kSTE）：2026 = 218；2035 基准 126、绿色 62、深度 34。
+- 碳强度情景（gCO₂e/千 STE）：2026 ＝ 2.263；2035 基准 1.30、绿色 0.62、深度 0.34（**仅绿色与深度情景可降至阈值 1.0 以下**）。
 
 ## 9. `growth`：增长贡献核算（第12章）
 `growth: {prodfn: {lnK 0.318, lnL 0.276, lnD 0.094, lnT 0.108, R2 0.86, N 1240}, decomp: {年份: {gY, cK, cL, cD, cT, tfp}}, tfp_bias: {without_token 2.41, with_token 2.12, overstate 0.29}, region: {east/central/west 贡献率}}`
