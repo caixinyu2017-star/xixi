@@ -1,0 +1,143 @@
+# key → 文中引用（c(key) 输出加外括号）。仅可使用本清单中的 key。
+acemoglu2025	（Acemoglu，2025）	ACEMOGLU D. The simple macroeconomics of AI[J]. Economic Pol
+brynjolfsson2021	（Brynjolfsson等，2021）	BRYNJOLFSSON E, ROCK D, SYVERSON C. The productivity J-curve
+bresnahan1995	（Bresnahan和Trajtenberg，1995）	BRESNAHAN T F, TRAJTENBERG M. General purpose technologies "
+eloundou2024	（Eloundou等，2024）	ELOUNDOU T, MANNING S, MISHKIN P, 等. GPTs are GPTs: labor ma
+felten2021	（Felten等，2021）	FELTEN E, RAJ M, SEAMANS R. Occupational, industry, and geog
+noy2023	（Noy和Zhang，2023）	NOY S, ZHANG W. Experimental evidence on the productivity ef
+brynjolfsson2025	（Brynjolfsson等，2025）	BRYNJOLFSSON E, LI D, RAYMOND L. Generative AI at work[J]. T
+acemoglu2022	（Acemoglu等，2022a）	ACEMOGLU D, MAKHDOUMI A, MALEKIAN A, et al. Too much data: p
+acemoglu2019	（Acemoglu和Restrepo，2019）	ACEMOGLU D, RESTREPO P. Automation and new tasks: how techno
+aghion2019	（Aghion等，2019）	AGHION P, JONES B F, JONES C I. Artificial intelligence and 
+brynjolfsson2019	（Brynjolfsson等，2019）	BRYNJOLFSSON E, ROCK D, SYVERSON C. Artificial intelligence 
+goldfarb2023	（Goldfarb等，2023）	GOLDFARB A, TASKA B, TEODORIDIS F. Could machine learning be
+crafts2021	（Crafts，2021）	CRAFTS N. Artificial intelligence as a general-purpose techn
+korinek2023	（Korinek，2023）	KORINEK A. Generative AI for economic research: use cases an
+acemoglu2022b	（Acemoglu等，2022b）	ACEMOGLU D, AUTOR D, HAZELL J, 等. Artificial intelligence an
+felten2023	（Felten等，2023）	FELTEN E W, RAJ M, SEAMANS R. How will language modelers lik
+autor2024	（Autor，2024）	AUTOR D. Applying AI to rebuild middle class jobs: NBER work
+acemoglu2024	（Acemoglu和Johnson，2024）	ACEMOGLU D, JOHNSON S. Learning from Ricardo and Thompson: m
+bergemann2022	（Bergemann等，2022）	BERGEMANN D, BONATTI A, GAN T. The economics of social data[
+pei2022	（Pei，2022）	PEI J. A survey on data pricing: from economics to data scie
+armstrong2006	（Armstrong，2006）	ARMSTRONG M. Competition in two-sided markets[J]. RAND Journ
+yu2021	（余玲铮等，2021）	余玲铮, 魏下海, 孙中伟, 等. 工业机器人、工作任务与非常规能力溢价——来自制造业“企业—工人”匹配调查的证据[J]
+hu2021	（胡晟明等，2021）	胡晟明, 王林辉, 朱利莹. 工业机器人应用存在人力资本提升效应吗？[J]. 财经研究, 2021, 47(6): 61
+bai2021	（柏培文和张云，2021）	柏培文, 张云. 数字经济、人口红利下降与中低技能劳动者权益[J]. 经济研究, 2021, 56(5): 91-108
+he2021	（何建坤，2021）	何建坤. 碳达峰碳中和目标导向下能源和经济的低碳转型[J]. 环境经济研究, 2021, 6(1): 1-9.
+zhang2021	（张希良等，2021）	张希良, 张达, 余润心. 中国特色全国碳市场设计理论与实践[J]. 管理世界, 2021, 37(8): 80-95.
+wang2022	（王林辉等，2022）	王林辉, 胡晟明, 董直庆. 人工智能技术、任务属性与职业可替代风险——来自微观层面的经验证据[J]. 管理世界, 20
+tian2022	（田鸽和张勋，2022）	田鸽, 张勋. 数字经济、非农就业与社会分工[J]. 管理世界, 2022, 38(5): 72-84.
+xiao2022	（肖土盛等，2022）	肖土盛, 孙瑞琦, 袁淳, 等. 企业数字化转型、人力资本结构调整与劳动收入份额[J]. 管理世界, 2022, 38(
+chen2022	（陈东和秦子洋，2022）	陈东, 秦子洋. 人工智能与包容性增长——来自全球工业机器人使用的证据[J]. 经济研究, 2022, 57(4): 8
+chen2022b	（陈贵富等，2022）	陈贵富, 韩静, 韩恺明. 城市数字经济发展、技能偏向型技术进步与劳动力不充分就业[J]. 中国工业经济, 2022(8
+wang2023	（王林辉等，2023）	王林辉, 钱圆圆, 宋冬林, 等. 机器人应用的岗位转换效应及就业敏感性群体特征——来自微观个体层面的经验证据[J]. 
+he2023	（何小钢等，2023）	何小钢, 朱国悦, 冯大威. 工业机器人应用与劳动收入份额——来自中国工业企业的证据[J]. 中国工业经济, 2023(
+zhou2023	（周文和许凌云，2023）	周文, 许凌云. 论新质生产力：内涵特征与重要着力点[J]. 改革, 2023(10): 1-13.
+yang2023	（杨豪等，2023）	杨豪, 潘颖豪, 才国伟. 碳排放总量控制、配置效率与产出收益[J]. 中国工业经济, 2023(7): 46-65.
+zhao2023	（赵思琦等，2023）	赵思琦, 刘庆富, 杨金强, 等. 全国碳市场的碳排放权配额管理机制设计——基于碳交易和风险对冲的视角[J]. 金融研究
+duan2023	（段玉婉等，2023）	段玉婉, 蔡龙飞, 陈一文. 全球化背景下中国碳市场的减排和福利效应[J]. 经济研究, 2023, 58(7): 12
+hong2024	（洪银兴，2024）	洪银兴. 新质生产力及其培育和发展[J]. 经济学动态, 2024(1): 3-11.
+han2024	（韩文龙等，2024）	韩文龙, 张瑞生, 赵峰. 新质生产力水平测算与中国经济增长新动能[J]. 数量经济技术经济研究, 2024, 41(6
+jiang2024	（姜春海等，2024）	姜春海, 闫振好, 王敏. “双碳”目标约束下的能耗双控到碳排放双控：规制工具、效应模拟与政策评价[J]. 中国工业经济
+lan2024	（蓝虹和杜彦霖，2024）	蓝虹, 杜彦霖. 自愿碳交易市场：产权量化标准与生态价值实现路径[J]. 改革, 2024(4): 77-92.
+chen2025	（陈丹丹等，2025）	陈丹丹, 史代敏, 祁丹越, 等. 绿色金融统计标准的国际比较与中国实践[J]. 统计研究, 2025, 42(1): 
+he2025	（何凡等，2025）	何凡, 黄炜, 陈波. 标准的力量：物流标准化与企业全要素生产率提升[J]. 数量经济技术经济研究, 2025, 42(
+wang2020	（王永钦和董雯，2020）	王永钦, 董雯. 机器人的兴起如何影响中国劳动力市场？——来自制造业上市公司的证据[J]. 经济研究, 2020, 55
+kong2020	（孔高文等，2020）	孔高文, 刘莎莎, 孔东民. 机器人与就业——基于行业与地区异质性的探索性分析[J]. 中国工业经济, 2020(8):
+chen2019	（陈彦斌等，2019）	陈彦斌, 林晨, 陈小亮. 人工智能、老龄化与经济增长[J]. 经济研究, 2019, 54(7): 47-63.
+cai2019	（蔡跃洲和陈楠，2019）	蔡跃洲, 陈楠. 新技术革命下人工智能与高质量增长、高质量就业[J]. 数量经济技术经济研究, 2019, 36(5):
+chen2011	（陈红敏，2011）	陈红敏. 国际碳核算体系发展及其评价[J]. 中国人口·资源与环境, 2011, 21(9): 111-116.
+tong2018	（童庆蒙等，2018）	童庆蒙, 沈雪, 张露, 等. 基于生命周期评价法的碳足迹核算体系：国际标准与实践[J]. 华中农业大学学报(社会科学版
+sennrich2016	（Sennrich等，2016）	SENNRICH R, HADDOW B, BIRCH A. Neural machine translation of
+kudo2018	（Kudo和Richardson，2018）	KUDO T, RICHARDSON J. SentencePiece: a simple and language i
+rust2021	（Rust等，2021）	RUST P, PFEIFFER J, VULIĆ I, et al. How good is your tokeniz
+petrov2023	（Petrov等，2023）	PETROV A, LA MALFA E, TORR P H S, et al. Language model toke
+ahia2023	（Ahia等，2023）	AHIA O, KUMAR S, GONEN H, et al. Do all languages cost the s
+kwon2023	（Kwon等，2023）	KWON W, LI Z, ZHUANG S, et al. Efficient memory management f
+yu2022	（Yu等，2022）	YU G I, JEONG J S, KIM G W, et al. Orca: a distributed servi
+agrawal2024	（Agrawal等，2024）	AGRAWAL A, KEDIA N, PANWAR A, et al. Taming throughput-laten
+zhong2024	（Zhong等，2024）	ZHONG Y, LIU S, CHEN J, et al. DistServe: disaggregating pre
+dao2022	（Dao等，2022）	DAO T, FU D Y, ERMON S, et al. FlashAttention: fast and memo
+pope2023	（Pope等，2023）	POPE R, DOUGLAS S, CHOWDHERY A, et al. Efficiently scaling T
+kaplan2020	（Kaplan等，2020）	KAPLAN J, MCCANDLISH S, HENIGHAN T, et al. Scaling laws for 
+hoffmann2022	（Hoffmann等，2022）	HOFFMANN J, BORGEAUD S, MENSCH A, et al. Training compute-op
+liang2022	（Liang等，2022）	LIANG P, BOMMASANI R, LEE T, et al. Holistic evaluation of l
+hendrycks2021	（Hendrycks等，2021）	HENDRYCKS D, BURNS C, BASART S, et al. Measuring massive mul
+zheng2023	（Zheng等，2023）	ZHENG L, CHIANG W L, SHENG Y, et al. Judging LLM-as-a-judge 
+luccioni2023	（Luccioni等，2023）	LUCCIONI A S, VIGUIER S, LIGOZAT A L. Estimating the carbon 
+luccioni2024	（Luccioni等，2024）	LUCCIONI A S, JERNITE Y, STRUBELL E. Power hungry processing
+patterson2022	（Patterson等，2022）	PATTERSON D, GONZALEZ J, HÖLZLE U, et al. The carbon footpri
+devries2023	（de Vries，2023）	DE VRIES A. The growing energy footprint of artificial intel
+crawford2024	（Crawford，2024）	CRAWFORD K. Generative AI's environmental costs are soaring 
+dathathri2024	（Dathathri等，2024）	DATHATHRI S, SEE A, GHAISAS S, et al. Scalable watermarking 
+kirchenbauer2023	（Kirchenbauer等，2023）	KIRCHENBAUER J, GEIPING J, WEN Y, et al. A watermark for lar
+guojiawangxinban2023	（国家互联网信息办公室等，2023）	国家互联网信息办公室, 国家发展和改革委员会, 教育部, 等. 生成式人工智能服务管理暂行办法: 国家互联网信息办公室等
+xu2025	（许诺等，2025）	许诺, 毛聚, 毛新述, 等. 算力部署、数据跨域流动与企业全要素生产率——来自智算中心的证据[J]. 中国工业经济, 
+wang2025	（王勇等，2025）	王勇, 傅芳宁, 陆树檀. 算力共享与算力市场培育——基于需求侧的算力资源配置研究[J]. 财经问题研究, 2025(4
+huang2024	（黄群慧和盛方富，2024）	黄群慧, 盛方富. 新质生产力系统：要素特质、结构承载与功能取向[J]. 改革, 2024(2): 15-24.
+cai2021	（蔡跃洲和马文君，2021）	蔡跃洲, 马文君. 数据要素对高质量发展影响与数据流动制约[J]. 数量经济技术经济研究, 2021, 38(3): 6
+xiong2021	（熊巧琴和汤珂，2021）	熊巧琴, 汤珂. 数据要素的界权、交易和定价研究进展[J]. 经济学动态, 2021(2): 143-158.
+ouyang2022	（欧阳日辉和杜青青，2022）	欧阳日辉, 杜青青. 数据要素定价机制研究进展[J]. 经济学动态, 2022(2): 124-141.
+luo2023	（罗玫等，2023）	罗玫, 李金璞, 汤珂. 企业数据资产化：会计确认与价值评估[J]. 清华大学学报(哲学社会科学版), 2023, 38
+ren2023	（任英华等，2023）	任英华, 刘宇钊, 李海彤. 人工智能技术创新与企业全要素生产率[J]. 经济管理, 2023, 45(9): 50-6
+cai2021b	（蔡跃洲和牛新星，2021）	蔡跃洲, 牛新星. 中国数字经济增加值规模测算及结构分析[J]. 中国社会科学, 2021(11): 4-30.
+xu2021	（许宪春等，2021）	许宪春, 张美慧, 张钟文. 数字化转型与经济社会统计的挑战和创新[J]. 统计研究, 2021, 38(1): 15-
+yang2019	（杨仲山和张美慧，2019）	杨仲山, 张美慧. 数字经济卫星账户：国际经验及中国编制方案的设计[J]. 统计研究, 2019, 36(5): 16-
+liu2023	（刘诚和夏杰长，2023）	刘诚, 夏杰长. 线上市场、数字平台与资源配置效率：价格机制与数据机制的作用[J]. 中国工业经济, 2023(7): 
+wu2024	（吴双和王勇，2024）	吴双, 王勇. 新结构经济学视角下的平台经济：一个分析框架[J]. 浙江社会科学, 2024(4): 4-13.
+gu2023	（顾聪等，2023）	顾聪, 刘颖, 吕本富, 等. 市场结构、经济福利与平台经济反垄断[J]. 中国管理科学, 2023, 31(11): 
+zhang2022	（张希良等，2022）	张希良, 黄晓丹, 张达, 等. 碳中和目标下的能源经济转型路径与政策研究[J]. 管理世界, 2022, 38(1):
+samr2020	（国家市场监督管理总局和国家标准化管理委员会，2020）	国家市场监督管理总局, 国家标准化管理委员会. 综合能耗计算通则: GB/T 2589—2020[S]. 北京: 中国标
+samr2024	（国家市场监督管理总局和国家标准化管理委员会，2024）	国家市场监督管理总局, 国家标准化管理委员会. 温室气体 产品碳足迹 量化要求和指南: GB/T 24067—2024[
+shengtaibu2024	（生态环境部等，2024）	生态环境部, 国家发展改革委, 工业和信息化部, 等. 关于建立碳足迹管理体系的实施方案: 环气候〔2024〕30号[E
+fagaiwei2023	（国家发展改革委等，2023）	国家发展改革委, 国家数据局, 中央网信办, 等. 关于深入实施“东数西算”工程 加快构建全国一体化算力网的实施意见: 
+fagaiwei2023b	（国家发展改革委等，2023b）	国家发展改革委, 财政部, 国家能源局. 关于做好可再生能源绿色电力证书全覆盖工作 促进可再生能源电力消费的通知: 发改
+fagaiwei2025	（国家发展改革委和国家能源局，2025）	国家发展改革委, 国家能源局. 关于促进可再生能源绿色电力证书市场高质量发展的意见: 发改能源〔2025〕262号[EB
+caizhengbu2023	（财政部，2023）	财政部. 关于印发《企业数据资源相关会计处理暂行规定》的通知: 财会〔2023〕11号[EB/OL]. (2023-08
+guowuyuan2025	（国务院，2025）	国务院. 关于深入实施“人工智能+”行动的意见: 国发〔2025〕11号[EB/OL]. (2025-08-26)[20
+xintongyuan2025	（中国信息通信研究院，2025）	中国信息通信研究院. 算力电力协同发展研究报告(2025年)[R]. 北京: 中国信息通信研究院, 2025.
+bick2024	（Bick等，2024）	BICK A, BLANDIN A, DEMING D J. The rapid adoption of generat
+czarnitzki2023	（Czarnitzki等，2023）	CZARNITZKI D, FERNÁNDEZ G P, RAMMER C. Artificial intelligen
+humlum2025	（Humlum和Vestergaard，2025）	HUMLUM A, VESTERGAARD E. The unequal adoption of ChatGPT exa
+syverson2017	（Syverson，2017）	SYVERSON C. Challenges to mismeasurement explanations for th
+byrne2018	（Byrne等，2018）	BYRNE D M, CORRADO C A, SICHEL D E. The rise of cloud comput
+destefano2025	（DeStefano等，2025）	DESTEFANO T, KNELLER R, TIMMIS J. Cloud computing and firm g
+weng2022	（Weng等，2022）	WENG Q, XIAO W, YU Y, et al. MLaaS in the wild: workload ana
+coyle2019	（Coyle和Nguyen，2019）	COYLE D, NGUYEN D. Cloud computing, cross-border data flows 
+mussa1978	（Mussa和Rosen，1978）	MUSSA M, ROSEN S. Monopoly and product quality[J]. Journal o
+bhargava2008	（Bhargava和Choudhary，2008）	BHARGAVA H K, CHOUDHARY V. Research note: when is versioning
+jones2020	（Jones和Tonetti，2020）	JONES C I, TONETTI C. Nonrivalry and the economics of data[J
+dube2023	（Dubé和Misra，2023）	DUBÉ J P, MISRA S. Personalized pricing and consumer welfare
+griliches1961	（Griliches，1961）	GRILICHES Z. Hedonic price indexes for automobiles: an econo
+pakes2003	（Pakes，2003）	PAKES A. A reconsideration of hedonic price indexes with an 
+erickson2011	（Erickson和Pakes，2011）	ERICKSON T, PAKES A. An experimental component index for the
+groshen2017	（Groshen等，2017）	GROSHEN E L, MOYER B C, AIZCORBE A M, et al. How government 
+redding2020	（Redding和Weinstein，2020）	REDDING S J, WEINSTEIN D E. Measuring aggregate price indice
+akerlof1970	（Akerlof，1970）	AKERLOF G A. The market for "lemons": quality uncertainty an
+dranove2010	（Dranove和Jin，2010）	DRANOVE D, JIN G Z. Quality disclosure and certification: th
+farrell1985	（Farrell和Saloner，1985）	FARRELL J, SALONER G. Standardization, compatibility, and in
+simcoe2012	（Simcoe，2012）	SIMCOE T. Standard setting committees: consensus governance 
+katz1985	（Katz和Shapiro，1985）	KATZ M L, SHAPIRO C. Network externalities, competition, and
+jullien2021	（Jullien等，2021）	JULLIEN B, PAVAN A, RYSMAN M. Two-sided markets, pricing, an
+bergemann2024	（Bergemann和Bonatti，2024）	BERGEMANN D, BONATTI A. Data, competition, and digital platf
+masanet2020	（Masanet等，2020）	MASANET E, SHEHABI A, LEI N, et al. Recalibrating global dat
+shehabi2024	（Shehabi等，2024）	SHEHABI A, SMITH S J, HUBBARD A, 等. 2024 United States data 
+iea2025	（IEA，2025）	INTERNATIONAL ENERGY AGENCY. Energy and AI[R]. Paris: Intern
+li2025	（Li等，2025）	LI P, YANG J, ISLAM M A, 等. Making AI less "thirsty": uncove
+ndrc2021	（「国家发展改革委等，2021」）	国家发展改革委, 中央网信办, 工业和信息化部, 等. 全国一体化大数据中心协同创新体系算力枢纽实施方案: 发改高技〔2
+nda2023	（「国家数据局等，2023」）	国家数据局, 中央网信办, 科技部, 等. “数据要素×”三年行动计划（2024—2026年）: 国数政策〔2023〕1
+cac2022	（「国家互联网信息办公室等，2022」）	国家互联网信息办公室, 工业和信息化部, 公安部. 互联网信息服务深度合成管理规定: 国家互联网信息办公室、工业和信息化
+mee2024b	（「生态环境部等，2024」）	生态环境部, 国家发展和改革委员会, 国家市场监督管理总局, 等. 产品碳足迹核算标准编制工作指引: 环气候〔2024〕
+shanghai2026	（「上海市经济和信息化委员会，2026」）	上海市经济和信息化委员会. 上海市软件和信息服务业发展“十五五”规划: 沪经信软〔2026〕471号[EB/OL]. (
+zhejiang2026	（「浙江省人民代表大会，2026」）	浙江省第十四届人民代表大会第四次会议. 浙江省国民经济和社会发展第十五个五年规划纲要[EB/OL]. (2026-01-
+caict2025	（「中国信息通信研究院，2025」）	中国信息通信研究院. 算力经济发展研究报告（2025年）[R/OL]. 北京: 中国信息通信研究院, 2025[2026
+caict2026	（「中国信息通信研究院，2026」）	中国信息通信研究院. 人工智能产业发展研究报告（2025年）[R/OL]. 北京: 中国信息通信研究院, 2026[20
+nda2026	（「国家数据局，2026」）	国家数据局. 全国数据资源调查报告（2025年）[R/OL]. 北京: 国家数据局, 2026[2026-08-13].
+idc2025	（「IDC，2025」）	国际数据公司. 中国智算云基础设施市场（AI IaaS）（2025上半年）跟踪[R/OL]. 北京: IDC中国, 20
+stanford2026	（「Stanford HAI，2026」）	STANFORD INSTITUTE FOR HUMAN-CENTERED ARTIFICIAL INTELLIGENC
+oecd2024	（「OECD，2024」）	OECD. The impact of artificial intelligence on productivity,
+cazzaniga2024	（「Cazzaniga等，2024」）	CAZZANIGA M, JAUMOTTE F, LI L, et al. Gen-AI: artificial int
+chui2023	（「Chui等，2023」）	CHUI M, HAZAN E, ROBERTS R, et al. The economic potential of
+iso2018	（「ISO，2018」）	INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. Greenhouse g
+wri2011	（「WRI和WBCSD，2011」）	WORLD RESOURCES INSTITUTE, WORLD BUSINESS COUNCIL FOR SUSTAI
+eu2023	（「European Parliament和Council，2023」）	EUROPEAN PARLIAMENT, COUNCIL OF THE EUROPEAN UNION. Establis

@@ -13,13 +13,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 raw = json.load(open(os.path.join(HERE, 'data', 'refs_raw.json'), encoding='utf-8'))
 
 # 边缘旧文献裁剪名单（保证 2021+ 占比过半；理论/方法经典、政策文件、教育经典一律保留）
-DROP = {'katz1992', 'hanushek2008', 'sattinger1993', 'ryan2001', 'card1999',
-        'agrawal2018', 'diamond1982', 'hall2001', 'mcguinness2006', 'flisi2017',
-        'green2016', 'romer1990', 'hvide2018', 'bianchi2020', 'nafilyan2019',
-        'silva2018', 'jackson2018', 'valero2019', 'chen2019', 'yang2020',
-        'cai2019', 'lin2017', 'li2018',
-        # 止页无法核实（各来源仅给出起始页），按"页码必须完整"原则剔除
-        '孟颖颖2023', 'mengyingying2023'}
+DROP = set()   # 本书暂无需剔除的条目
+
 
 seen_title = {}
 by_key = {}
