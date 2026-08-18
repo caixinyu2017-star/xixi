@@ -1,12 +1,12 @@
 Variable	Coefficient	Std. Error	z-Statistic	p-Value
-L.YUR	0.7025	0.0553	12.6915	0.0000
-CDD100	0.1485	0.1549	0.9591	0.3375
-CDD100 × GRN	-0.0004	0.0071	-0.0580	0.9537
-GDPG	-0.4040	0.0193	-20.9093	0.0000
-TERT	0.1267	0.0572	2.2130	0.0269
+L.YUR	0.7025	0.0596	11.7820	0.0000
+CDD100	0.1485	0.1696	0.8759	0.3811
+CDD100 × GRN	-0.0004	0.0093	-0.0447	0.9644
+GDPG	-0.4040	0.0208	-19.4405	0.0000
+TERT	0.1267	0.0621	2.0389	0.0415
 SEC:Diagnostic Test	Value			
-Arellano–Bond AR(1), p-value	0.0000			
-Arellano–Bond AR(2), p-value	0.0956			
+Arellano–Bond AR(1), p-value	0.0004			
+Arellano–Bond AR(2), p-value	0.0922			
 Hansen test, p-value	0.8745			
 Number of instruments	8			
 Number of countries/groups	27			

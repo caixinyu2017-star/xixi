@@ -55,9 +55,9 @@ X = np.stack([CDD100, INT, GDPG, TERT], axis=2)      # (N, T, K)
 
 
 def demean(A):
-    """Deviations from period means: the exact equivalent of a full set
-    of time dummies, removing the common euro-area cycle, the pandemic,
-    and the common component of European summer warming."""
+    """Deviations from period means, removing the common period effects
+    (the euro-area cycle, the pandemic, and the common component of
+    European summer warming) prior to estimation."""
     return A - A.mean(axis=0, keepdims=True)
 
 
@@ -222,7 +222,7 @@ w("t07_prepandemic.tsv",
 # ===========================================================================
 # marginal effect of heat across the green endowment
 # ===========================================================================
-gr = np.arange(10.0, 47.0 + 0.1, 0.5)
+gr = np.arange(12.0, 45.0 + 0.1, 0.5)
 b1, b2 = m_base.theta[1], m_base.theta[2]
 V = m_base.vcov
 me = b1 + b2 * gr
@@ -236,7 +236,7 @@ S["me_cutoff"] = float(gr[sig_mask][-1]) if sig_mask.any() else None
 S["me_at"] = {str(int(g)): dict(me=float(b1 + b2 * g),
                                 se=float(np.sqrt(V[1, 1] + g * g * V[2, 2]
                                                  + 2 * g * V[1, 2])))
-              for g in (15, 20, 25, 30, 35, 40, 45)}
+              for g in (12, 15, 20, 25, 30, 35, 40, 45)}
 
 # ===========================================================================
 # series for the descriptive figures

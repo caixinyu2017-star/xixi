@@ -118,7 +118,7 @@ def figure3_margins():
     if S["me_cutoff"]:
         ax.axvline(S["me_cutoff"], color=BLACK, lw=0.7,
                    ls=(0, (1.2, 1.6)), zorder=1.9)
-    ax.set_xlim(10, 47)
+    ax.set_xlim(12, 45)
     ax.set_ylim(-0.5, 0.7)
     ax.set_xlabel("Green infrastructure share of functional urban "
                   "areas (%)")

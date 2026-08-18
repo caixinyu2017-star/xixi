@@ -151,7 +151,7 @@ REFS = {
      'pages': '5807',
      'doi': '10.1038/s41467-021-26050-z'},
     "ilo2019heat": {'kind': 'report',
-     'authors': 'ILO',
+     'authors': 'International Labour Organization',
      'title': 'Working on a Warmer Planet: The Impact of Heat Stress on '
               'Labour Productivity and Decent Work',
      'publisher': 'International Labour Office',
@@ -332,8 +332,8 @@ REFS = {
     "wolch2014": {'kind': 'article',
      'authors': 'Wolch, J.R.; Byrne, J.; Newell, J.P.',
      'title': 'Urban Green Space, Public Health, and Environmental '
-              "Justice: The Challenge of Making Cities 'Just Green "
-              "Enough'",
+              "Justice: The Challenge of Making Cities ‘Just Green "
+              "Enough’",
      'journal': 'Landsc. Urban Plan.',
      'year': 2014,
      'volume': '125',

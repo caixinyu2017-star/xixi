@@ -10,8 +10,10 @@ Moment conditions, deliberately parsimonious (collapsed a la Roodman):
     (y_{i,t-2}, y_{i,t-3}) as instruments for Delta y_{i,t-1}; the
     exogenous regressors instrument themselves in differences;
 *   levels equation (t = 3..T): the collapsed lagged difference
-    Delta y_{i,t-1} as instrument for y_{i,t-1}; the exogenous
-    regressors and the constant instrument themselves in levels.
+    Delta y_{i,t-1} as instrument for y_{i,t-1}, plus the constant
+    (or the period dummies). The substantive regressors do NOT serve
+    as level-equation instruments, because they may be correlated
+    with the country effects.
 
 Inference: two-step GMM with the Windmeijer (2005) finite-sample
 correction; Arellano-Bond tests for first- and second-order serial
@@ -145,8 +147,11 @@ class SystemGMM:
         Om2 = self._omega(self.theta)
         B = G.T @ W1 @ Om1 @ W1 @ G
         V1r = (M1 @ B @ M1) / self.N
-        # Windmeijer correction
-        gbar1 = sum(self._moments(self.theta1)) / self.N
+        # Windmeijer (2005) correction: the derivative of the two-step
+        # estimator with respect to the first-step estimate, with the
+        # weighting-matrix derivative evaluated at the one-step
+        # residuals and the moment vector at the two-step estimate
+        gbar2 = sum(self._moments(self.theta)) / self.N
         D = np.zeros((self.P, self.P))
         for j in range(self.P):
             dOm = np.zeros_like(Om1)
@@ -155,10 +160,18 @@ class SystemGMM:
                 dgi = -(Z_.T @ W_[:, j])
                 dOm += np.outer(dgi, gi) + np.outer(gi, dgi)
             dOm /= self.N
-            D[:, j] = (M2 @ G.T @ W2 @ dOm @ W2 @ gbar1)
+            D[:, j] = -(M2 @ G.T @ W2 @ dOm @ W2 @ gbar2)
         Vw = V2 + D @ V2 + V2 @ D.T + D @ V1r @ D.T
-        self.se = np.sqrt(np.abs(np.diag(Vw)))
+        dg = np.diag(Vw).copy()
+        # numerical safeguard: fall back to the naive two-step variance
+        # on any (non-occurring in practice) negative diagonal element
+        bad = dg <= 0
+        if bad.any():
+            dg[bad] = np.diag(V2)[bad]
+        self.se = np.sqrt(dg)
         self.vcov = Vw
+        self._A_influence = M2 @ G.T @ W2 / self.N
+        self._V1r = V1r
         self.z = self.theta / self.se
         self.p = 2 * st.norm.sf(np.abs(self.z))
         # Hansen J at the two-step estimate
@@ -171,21 +184,30 @@ class SystemGMM:
         self._ar_tests()
 
     def _ar_tests(self):
-        """Arellano-Bond style tests on the differenced residuals."""
+        """Arellano-Bond (1991) m-statistics on the differenced
+        residuals, with the full three-term variance: the outer-product
+        leading term, the cross term with the estimated coefficients,
+        and the quadratic term in the estimator's variance."""
         n_d = self.blocks[0][3]
-        E = []
-        for W, y, Z, _ in self.blocks:
-            e = (y - W @ self.theta)[:n_d]      # difference-equation part
-            E.append(e)
-        E = np.array(E)                          # (N, n_d)
         out = {}
         for k in (1, 2):
-            num, den = 0.0, 0.0
-            for i in range(E.shape[0]):
-                s = float(E[i, k:] @ E[i, :-k])
-                num += s
-                den += s * s
-            zstat = num / np.sqrt(den) if den > 0 else np.nan
+            d0 = 0.0
+            lead = 0.0
+            b = np.zeros(self.P)                 # sum_i W_i' e_{i,-k}
+            c = np.zeros(self.nz)                # sum_i (Z_i' u_i) s_i
+            for W, y, Z, _ in self.blocks:
+                u = y - W @ self.theta
+                e = u[:n_d]                      # difference-equation part
+                elag = np.zeros(n_d)
+                elag[k:] = e[:-k]
+                s = float(elag @ e)
+                d0 += s
+                lead += s * s
+                b += W[:n_d].T @ elag
+                c += (Z.T @ u) * s
+            A = self._A_influence                # theta = A (sum Z_i'y_i)
+            v = lead - 2.0 * float(b @ (A @ c)) + float(b @ self.vcov @ b)
+            zstat = d0 / np.sqrt(v) if v > 0 else np.nan
             out[k] = (float(zstat), float(2 * st.norm.sf(abs(zstat))))
         self.ar1_z, self.ar1_p = out[1]
         self.ar2_z, self.ar2_p = out[2]

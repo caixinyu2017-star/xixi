@@ -72,9 +72,9 @@ BODY = [
 POINTS = [
     ("(1) Summer heat measurably raises youth disengagement. An "
      "additional hundred cooling degree days raises the NEET rate by "
-     f"{B['coef']['CDD100']:.2f} percentage points at a zero green "
-     "endowment ({}), with persistence implying substantially larger "
-     "long-run effects.".format(
+     f"{ME['12']['me']:.2f} percentage points at the least green "
+     "endowment observed in the sample ({}), with persistence "
+     "implying substantially larger long-run effects.".format(
          "p < 0.001" if B['p']['CDD100'] < 0.001
          else "p = %.3f" % B['p']['CDD100'])),
 
@@ -102,7 +102,7 @@ POINTS = [
      f"{B['groups']} countries), clean Arellano\u2013Bond and Hansen "
      f"diagnostics (AR(2) p = {B['ar2_p']:.3f}; Hansen p = "
      f"{B['hansen_p']:.3f}), a pre-pandemic robustness estimation, "
-     "and period demeaning equivalent to full time dummies."),
+     "and period demeaning that removes common time effects."),
 ]
 
 CLOSING = (

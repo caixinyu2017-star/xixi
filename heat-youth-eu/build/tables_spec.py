@@ -112,9 +112,9 @@ def table4():
                 widths=[0.24, 0.20, 0.16, 0.40],
                 note=("Two-step System GMM with the Windmeijer "
                       "finite-sample correction; all variables enter "
-                      "as deviations from period means, which is "
-                      "equivalent to including a full set of time "
-                      "dummies." + SRC),
+                      "as deviations from period means, which removes "
+                      "the common period effects prior to "
+                      "estimation." + SRC),
                 italic_col=None, wide=False, align="lccl")
 
 
@@ -137,7 +137,7 @@ def table5():
 def _fullnote(dep):
     return ("The dependent variable is %s. Two-step System GMM with "
             "the Windmeijer correction; variables enter as deviations "
-            "from period means. AR(1) and AR(2) denote the p-values of "
+            "from period means, removing common period effects. AR(1) and AR(2) denote the p-values of "
             "the Arellano–Bond serial-correlation tests; the "
             "Hansen test reports the p-value for the joint validity of "
             "the instruments." % dep + SRC)
@@ -148,14 +148,14 @@ def _sens_table(number, tsv, caption, dep):
     rows = []
     for r in raw:
         if r[0].startswith("SEC:"):
-            rows.append(S(r[0][4:]))
+            rows.append(R(r[0][4:], r[1], "", "", ""))
         else:
             rows.append(R(*r))
     return dict(number=number, caption=caption,
                 header=["Variable", "Coefficient", "Std. Error",
                         "z-Statistic", "p-Value"],
                 rows=rows,
-                widths=[0.30, 0.19, 0.17, 0.17, 0.17],
+                widths=[0.36, 0.17, 0.16, 0.16, 0.15],
                 note=_fullnote(dep),
                 italic_col=None, wide=False, align="l" + "c" * 4)
 

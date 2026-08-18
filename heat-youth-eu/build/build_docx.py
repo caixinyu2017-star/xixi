@@ -438,6 +438,7 @@ def add_equation(doc, latex, number):
 def add_note(doc, style, text, prefix="Note: ", size=8):
     """Caption note: body-zone left edge, no indent, single line spacing."""
     n = doc.add_paragraph(style=style)
+    n.paragraph_format.keep_together = True
     set_ind(n, left=BODY_INDENT, first=0)
     single_spaced(n, before=2, after=10)
     if prefix:
@@ -635,8 +636,12 @@ def render_reference(p, key, number):
         txt(_typo(ref["title"]) + "; ", italic=True)
         if ref.get("series"):
             txt(ref["series"] + "; ")
-        txt("%s: %s, %s, %d." % (ref["publisher"], ref["city"],
-                                 ref["country"], ref["year"]))
+        if ref["city"] == ref["country"]:
+            txt("%s: %s, %d." % (ref["publisher"], ref["city"],
+                                 ref["year"]))
+        else:
+            txt("%s: %s, %s, %d." % (ref["publisher"], ref["city"],
+                                     ref["country"], ref["year"]))
     elif kind == "web":
         txt(title_of(ref))
         txt("Available online: " + ref["url"] +
@@ -705,7 +710,9 @@ def front_matter(doc):
     r.font.bold = True
     p.add_run(C.KEYWORDS)
 
-    doc.add_paragraph(style="MDPI_1.9_line")
+    p = doc.add_paragraph(style="MDPI_1.9_line")
+    pr = p._p.get_or_add_pPr()
+    pr.append(OxmlElement("w:suppressLineNumbers"))
 
 
 def body(doc):
