@@ -31,16 +31,19 @@ OUT = os.path.join(
     ROOT, "Dual_Pathway_Affective_Process_Tracing_manuscript.docx")
 
 # ---------------------------------------------------------------------------
-# style identifiers taken from the template
-S_TITLE = "style62"
-S_BODY = "style0"
-S_AFFIL = "style179"
-S_ABSTRACT = "style4105"
-S_REF = "style94"
-S_TABLE = "style105"
+# Style identifiers taken from the template. The template is the
+# author's own copy of the manuscript, which WPS re-saved with renumbered
+# style identifiers; the mapping below is to that file, so that the
+# author's formatting and title block survive a rebuild.
+S_TITLE = "25"       # Title, carries the frame
+S_BODY = "45"        # the custom body style ("Text")
+S_AFFIL = "74"       # List Paragraph, used for the affiliation line
+S_ABSTRACT = "45"    # abstract shares the body style; size set per run
+S_REF = "24"         # Normal (Web), used for the reference list
+S_TABLE = "27"       # Normal Table
 NUM_HEAD = 3         # upper-Roman / upper-letter heading list
 NUM_REF = 4          # [1], [2], ... reference list
-NUM_AFFIL = 6        # (1. ... affiliation list
+HEADER_RID = "rId4"  # the running header in the template
 
 XMLNS = ('xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/'
          '2006/main" xmlns:r="http://schemas.openxmlformats.org/'
@@ -306,23 +309,28 @@ def front_matter():
         aruns.append(run(text, sup=sup))
     out.append('<w:p><w:pPr><w:pStyle w:val="%s"/><w:jc w:val="center"/>'
                '</w:pPr>%s</w:p>' % (S_BODY, "".join(aruns)))
+    # A single-affiliation title block needs no numbered list, and the
+    # template no longer defines one; the parentheses are literal, as in
+    # the author's own copy.
     for aff in C.AFFILIATIONS:
-        out.append('<w:p><w:pPr><w:pStyle w:val="%s"/><w:numPr>'
-                   '<w:ilvl w:val="0"/><w:numId w:val="%d"/></w:numPr>'
+        out.append('<w:p><w:pPr><w:pStyle w:val="%s"/>'
+                   '<w:numPr><w:ilvl w:val="0"/><w:numId w:val="0"/>'
+                   '</w:numPr><w:ind w:left="420" w:leftChars="0" '
+                   'w:hanging="420" w:firstLineChars="0"/>'
                    '<w:jc w:val="center"/></w:pPr>%s</w:p>'
-                   % (S_AFFIL, NUM_AFFIL, run(" " + aff)))
+                   % (S_AFFIL, run("( " + aff + ")")))
     # the empty paragraph that carries the one-column section break
     out.append('<w:p><w:pPr><w:pStyle w:val="%s"/>'
                '<w:spacing w:before="20" w:after="320"/>'
                '<w:ind w:firstLine="202"/><w:jc w:val="both"/>'
                '<w:sectPr><w:headerReference w:type="default" '
-               'r:id="rId2"/><w:type w:val="continuous"/>'
+               'r:id="%s"/><w:type w:val="continuous"/>'
                '<w:pgSz w:w="12240" w:h="15840" w:orient="portrait"/>'
                '<w:pgMar w:top="1008" w:right="936" w:bottom="1008" '
                'w:left="936" w:header="432" w:footer="432" '
                'w:gutter="0"/><w:pgNumType w:start="1"/>'
                '<w:cols w:space="288" w:num="1"></w:cols></w:sectPr>'
-               '</w:pPr></w:p>' % S_BODY)
+               '</w:pPr></w:p>' % (S_BODY, HEADER_RID))
     # abstract and index terms, nine point
     out.append('<w:p><w:pPr><w:pStyle w:val="%s"/>'
                '<w:ind w:firstLine="0"/></w:pPr>%s%s</w:p>'

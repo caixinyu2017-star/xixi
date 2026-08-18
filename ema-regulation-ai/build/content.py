@@ -63,13 +63,11 @@ SW_MAX = SW[-1]
 TITLE = ("Dual-Pathway Affective Process Tracing for Auditable "
          "Assessment of Emotion Regulation in Daily Life")
 
-AUTHORS = [("Xinyu Cai", False), ("1", True), (", Qi Zhang", False),
-           ("2", True), (" and Tiantian Mo", False), ("1,*", True)]
+AUTHORS = [("Liming Cai", False)]
 
 AFFILIATIONS = [
-    "College of Business, Jiaxing University, Jiaxing, Zhejiang "
+    "Jiaxing Nanhu Alliance Experimental School, Jiaxing, Zhejiang "
     "314001, China",
-    "Jiaxing University, Jiaxing, Zhejiang 314001, China",
 ]
 
 ABSTRACT = (
