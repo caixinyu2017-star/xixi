@@ -23,13 +23,6 @@ REFS = {
         "Psychol. Inq.",
         ", vol. 26, no. 1, pp. 1–26, Jan. 2015, "
         "doi: 10.1080/1047840X.2014.940781."),
-    "grossjohn2003": (
-        "J. J. Gross and O. P. John, “Individual differences in two "
-        "emotion regulation processes: Implications for affect, "
-        "relationships, and well-being,” ",
-        "J. Pers. Soc. Psychol.",
-        ", vol. 85, no. 2, pp. 348–362, Aug. 2003, "
-        "doi: 10.1037/0022-3514.85.2.348."),
     "aldao2010": (
         "A. Aldao, S. Nolen-Hoeksema, and S. Schweizer, “Emotion-"
         "regulation strategies across psychopathology: A meta-analytic "
@@ -57,14 +50,6 @@ REFS = {
         "Psychol. Sci.",
         ", vol. 27, no. 12, pp. 1651–1659, Dec. 2016, "
         "doi: 10.1177/0956797616669086."),
-    "gratz2004": (
-        "K. L. Gratz and L. Roemer, “Multidimensional assessment of "
-        "emotion regulation and dysregulation: Development, factor "
-        "structure, and initial validation of the Difficulties in "
-        "Emotion Regulation Scale,” ",
-        "J. Psychopathol. Behav. Assess.",
-        ", vol. 26, no. 1, pp. 41–54, Mar. 2004, "
-        "doi: 10.1023/B:JOBA.0000007455.08539.94."),
     "webb2012": (
         "T. L. Webb, E. Miles, and P. Sheeran, “Dealing with "
         "feeling: A meta-analysis of the effectiveness of strategies "
@@ -78,6 +63,66 @@ REFS = {
         "Psychol. Sci.",
         ", vol. 22, no. 11, pp. 1391–1396, Nov. 2011, "
         "doi: 10.1177/0956797611418350."),
+
+    # ---- emotion regulation in childhood ---------------------------
+    "gullone2012": (
+        "E. Gullone and J. Taffe, “The Emotion Regulation "
+        "Questionnaire for Children and Adolescents (ERQ-CA): "
+        "A psychometric evaluation,” ",
+        "Psychol. Assess.",
+        ", vol. 24, no. 2, pp. 409–417, Jun. 2012, "
+        "doi: 10.1037/a0025777."),
+    "shields1997": (
+        "A. Shields and D. Cicchetti, “Emotion regulation among "
+        "school-age children: The development and validation of a new "
+        "criterion Q-sort scale,” ",
+        "Dev. Psychol.",
+        ", vol. 33, no. 6, pp. 906–916, Nov. 1997, "
+        "doi: 10.1037/0012-1649.33.6.906."),
+    "gullone2010": (
+        "E. Gullone, S. Hughes, N. J. King, and D. Tonge, “The "
+        "normative development of emotion regulation strategy use in "
+        "children and adolescents: A 2-year follow-up study,” ",
+        "J. Child Psychol. Psychiatry",
+        ", vol. 51, no. 5, pp. 567–574, May 2010, "
+        "doi: 10.1111/j.1469-7610.2009.02183.x."),
+    "zeman2006": (
+        "J. Zeman, M. Cassano, C. Perry-Parrish, and S. Stegall, "
+        "“Emotion regulation in children and adolescents,” ",
+        "J. Dev. Behav. Pediatr.",
+        ", vol. 27, no. 2, pp. 155–168, Apr. 2006, "
+        "doi: 10.1097/00004703-200604000-00014."),
+    "compas2017": (
+        "B. E. Compas et al., “Coping, emotion regulation, and "
+        "psychopathology in childhood and adolescence: A meta-analysis "
+        "and narrative review,” ",
+        "Psychol. Bull.",
+        ", vol. 143, no. 9, pp. 939–991, Sep. 2017, "
+        "doi: 10.1037/bul0000110."),
+    "durlak2011": (
+        "J. A. Durlak, R. P. Weissberg, A. B. Dymnicki, R. D. "
+        "Taylor, and K. B. Schellinger, “The impact of enhancing "
+        "students’ social and emotional learning: A meta-analysis of "
+        "school-based universal interventions,” ",
+        "Child Dev.",
+        ", vol. 82, no. 1, pp. 405–432, Jan. 2011, "
+        "doi: 10.1111/j.1467-8624.2010.01564.x."),
+    "taylor2017": (
+        "R. D. Taylor, E. Oberle, J. A. Durlak, and R. P. Weissberg, "
+        "“Promoting positive youth development through school-based "
+        "social and emotional learning interventions: A meta-analysis "
+        "of follow-up effects,” ",
+        "Child Dev.",
+        ", vol. 88, no. 4, pp. 1156–1171, Jul. 2017, "
+        "doi: 10.1111/cdev.12864."),
+    "wen2017": (
+        "C. K. F. Wen, S. Schneider, A. A. Stone, and D. "
+        "Spruijt-Metz, “Compliance with mobile ecological momentary "
+        "assessment protocols in children and adolescents: "
+        "A systematic review and meta-analysis,” ",
+        "J. Med. Internet Res.",
+        ", vol. 19, no. 4, p. e132, Apr. 2017, "
+        "doi: 10.2196/jmir.6641."),
 
     # ---- affect dynamics and EMA -----------------------------------
     "kuppens2010": (

@@ -16,7 +16,7 @@ with open(os.path.join(TAB, "results.json"), encoding="utf-8") as _fh:
 
 MINUS = "−"
 BASELINE_ORDER = [
-    ("Aggregated logistic regression", "[[gratz2004]]"),
+    ("Aggregated logistic regression", "[[trull2013]]"),
     ("Gated recurrent encoder", "[[cho2014]]"),
     ("Self-attentive encoder", "[[vaswani2017]]"),
     ("Temporal graph encoder", "[[zhao2020]]"),
@@ -136,9 +136,9 @@ def table3():
 def table4():
     """Convergent validity against trait questionnaires."""
     rows = []
-    names = {"ERQ_reappraisal": "ERQ reappraisal [[grossjohn2003]]",
-             "ERQ_suppression": "ERQ suppression [[grossjohn2003]]",
-             "DERS_total": "DERS total [[gratz2004]]"}
+    names = {"ERQCA_reappraisal": "ERQ-CA reappraisal [[gullone2012]]",
+             "ERQCA_suppression": "ERQ-CA suppression [[gullone2012]]",
+             "ERC_teacher": "ERC, teacher-reported [[shields1997]]"}
     for label, v in R["validity"].items():
         p = v["p"]
         ptxt = "< .001" if p < 0.001 else ("%.3f" % p).lstrip("0")
@@ -158,17 +158,17 @@ FIGURES = {
     "fig1": dict(number=1, file="figure1_pipeline.png", width_cm=8.6,
                  caption="The assessment pipeline in which the proposed "
                          "engine is deployed. Momentary self-reports and "
-                         "context channels enter the engine, which "
-                         "returns both a regulation profile and the "
-                         "episode-level evidence trail that a clinician "
-                         "audits."),
+                         "context channels collected across the school "
+                         "day enter the engine, which returns both a "
+                         "regulation profile and the episode-level "
+                         "evidence trail that a class teacher audits."),
     "fig2": dict(number=2, file="figure2_architecture.png",
                  width_cm=8.6,
                  caption="Internal architecture of the Dual-Pathway "
                          "Affective Process Tracing engine."),
     "fig3": dict(number=3, file="figure3_alignment.png", width_cm=8.6,
                  caption="Evidence trail of the proposed model over the "
-                         "momentary reports of one test participant. "
+                         "momentary reports of one test pupil. "
                          "Open squares mark the family actually "
                          "deployed in each episode."),
     "fig4": dict(number=4, file="figure4_tradeoff.png", width_cm=8.6,

@@ -6,7 +6,7 @@ pipeline and the internal architecture of the proposed engine. They are
 drawn as vector line art in a restrained monochrome idiom rather than
 generated as images, so every label is typeset text. Figures 3 and 4 are
 data figures produced from the trained model: the evidence trail of the
-proposed model over one participant's episodes, and what regularising
+proposed model over one pupil's episodes, and what regularising
 the attention of the attention variant does to accuracy, faithfulness
 and alignment.
 
@@ -92,7 +92,7 @@ def figure1_pipeline():
     ax.set_xlim(0, W); ax.set_ylim(0, H); ax.set_axis_off()
 
     a = _box(ax, 14.0, 37.0, 26, 12,
-             ["Momentary", "self-reports", "(6 prompts/day)"], fs=5.8)
+             ["Momentary", "self-reports", "(4 prompts/school day)"], fs=5.5)
     b = _box(ax, 14.0, 16.5, 26, 12,
              ["Context and", "affect channels", "(17 features)"], fs=5.8)
     c = _box(ax, 44.0, 26.8, 22, 15,
@@ -106,7 +106,7 @@ def figure1_pipeline():
     _arrow(ax, (b["r"], b["cy"]), (c["l"], c["cy"] - 3.5))
     _arrow(ax, (c["r"], c["cy"] + 3.5), (d["l"], d["cy"]))
     _arrow(ax, (c["r"], c["cy"] - 3.5), (e["l"], e["cy"]))
-    # the clinician's feedback loop, routed below the boxes so that it
+    # the teacher's feedback loop, routed below the boxes so that it
     # crosses nothing
     yb = 3.4
     ax.plot([e["cx"], e["cx"]], [e["b"], yb], color=BLACK, lw=0.8,
@@ -114,7 +114,7 @@ def figure1_pipeline():
     ax.plot([e["cx"], b["cx"]], [yb, yb], color=BLACK, lw=0.8, ls="--",
             zorder=2)
     _arrow(ax, (b["cx"], yb), (b["cx"], b["b"]), dashed=True)
-    ax.text(44.0, yb + 1.9, "clinician review and feedback",
+    ax.text(44.0, yb + 1.9, "class teacher review and feedback",
             ha="center", va="bottom", fontsize=5.8, style="italic",
             bbox=dict(facecolor="white", edgecolor="none", pad=0.6))
     return save(fig, "figure1_pipeline")
@@ -166,7 +166,7 @@ def figure2_architecture():
 
 # ===========================================================================
 def figure3_alignment():
-    """Evidence trail of the proposed model over one participant."""
+    """Evidence trail of the proposed model over one pupil."""
     A = np.load(os.path.join(TAB, "example_attention.npy"))   # (K,T)
     used = np.load(os.path.join(TAB, "example_used.npy"))
     mask = np.load(os.path.join(TAB, "example_mask.npy"))

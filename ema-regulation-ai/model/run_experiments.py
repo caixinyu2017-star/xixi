@@ -141,6 +141,7 @@ def main():
                         epochs=EPOCHS, batch=BATCH, lam=LAM,
                         warmup=WARMUP, heads=4, layers=2,
                         topk=TOPK, compliance=float(M.mean()),
+                        n_days=D.N_DAYS, n_prompt=D.N_PROMPT,
                         n_families=len(D.FAMILIES))}
 
     # ---------------- descriptive properties of the corpus ------------
@@ -158,11 +159,11 @@ def main():
         prevalence=Y.mean(0).tolist(),
         deployment=[float(((data["used"] == k) & data["mask"]).sum()
                           / data["mask"].sum()) for k in range(5)],
-        erq_reap=[float(q["ERQ_reappraisal"].mean()),
-                  float(q["ERQ_reappraisal"].std())],
-        erq_supp=[float(q["ERQ_suppression"].mean()),
-                  float(q["ERQ_suppression"].std())],
-        ders=[float(q["DERS_total"].mean()), float(q["DERS_total"].std())],
+        erq_reap=[float(q["ERQCA_reappraisal"].mean()),
+                  float(q["ERQCA_reappraisal"].std())],
+        erq_supp=[float(q["ERQCA_suppression"].mean()),
+                  float(q["ERQCA_suppression"].std())],
+        erc=[float(q["ERC_teacher"].mean()), float(q["ERC_teacher"].std())],
         chance_alignment=B.chance_alignment(data["used"], M))
     oa, oacc = B.oracle_alignment(X, M, data["used"], tr, te, topk=TOPK)
     R["corpus"]["oracle_alignment"] = oa
@@ -252,9 +253,9 @@ def main():
     log("assessing convergent validity ...")
     S = best_ev["scores"]
     idx = te
-    pairs = [("Cognitive change score", 3, "ERQ_reappraisal"),
-             ("Response modulation score", 4, "ERQ_suppression"),
-             ("Mean regulation score", None, "DERS_total")]
+    pairs = [("Cognitive change score", 3, "ERQCA_reappraisal"),
+             ("Response modulation score", 4, "ERQCA_suppression"),
+             ("Mean regulation score", None, "ERC_teacher")]
     val = {}
     for label, k, qk in pairs:
         v = S.mean(axis=1) if k is None else S[:, k]
