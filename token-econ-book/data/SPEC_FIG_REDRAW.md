@@ -54,7 +54,12 @@
 - **字号是本轮的第一目标**，务必在提示词里明确要求，例如：
   `text must be LARGE and fill its box — each label should occupy at least 70% of
   its box width, with tight padding; the smallest character height must be no less
-  than 1/28 of the image height; prefer fewer words over smaller type`。
+  than 1/30 of the image height; prefer fewer words over smaller type`。
+- **字形必须是简体中文**，务必写死：`all Chinese text must be SIMPLIFIED Chinese
+  (mainland China standard), never Traditional characters, never a mix of both`。
+  实测中把「践」写成「踐」这类繁简混用是最常见的失败模式，比字号问题严重得多。
+- 标签宁短勿长：**每个方框的文字尽量控制在 8 个汉字以内、最多两行**。
+  字数是字号的死敌，删字比调字号有效。
 
 ### 第 3 步 生成
 ```bash
@@ -70,12 +75,18 @@ python3 /root/.claude/skills/synced/gpt-image-2/scripts/gpt_image2.py "<英文�
 - [ ] 图释列出的要素一个不少，没有凭空多出的元素、水印、签名
 - [ ] 箭头方向与图释一致
 - [ ] 图内没有图名、图注、资料来源文字
-- [ ] **最小字符高度 ≥ 图高的 1/28**（即 1024 高的图上不小于 36 px）；
-      框内留白收紧，不再出现「大框小字」
+- [ ] **字号判据**：主标签墨迹高度 ≥ 图高的 1/22；**任何**文字的墨迹高度 ≥ 图高的 1/34
+      （1024 高的图上不小于 30 px，按 14.8 cm 版心折合约 7.5 pt）。框内留白收紧，
+      不再出现「大框小字」。次级小字略低于主标签属正常，只要过 1/34 即算达标。
 
-不合格就改提示词重生成，**最多两轮**。两轮仍不达标：保留
-`figs_mpl_backup/figN_M.png` 的原 matplotlib 版本（`cp` 回 `figs/`），
-并在返回结果里明确写出失败模式，不要无限重试。
+不合格就改提示词重生成，**最多三轮**。
+
+**回退规则（重要）**：`figs_mpl_backup/` 里的原 matplotlib 图正是本轮要解决的病灶
+（框大字小，印刷折合仅约 4.4 pt），**它几乎总是比新图更差**。因此：
+- 只有当新图出现**中文乱码／伪汉字／错字／繁简混用**，或**要素缺失、箭头指反、数字错误**，
+  且三轮都修不好时，才 `cp figs_mpl_backup/figN_M.png figs/figN_M.png` 回退。
+- **仅仅是字号略小于阈值，不构成回退理由**——只要中文正确、要素齐全、数字无误，
+  就保留新图并如实记录实测字号。判 ok=false 但不要回退，把情况写进 issues 由上级裁决。
 
 ## 3. 硬性约束
 
