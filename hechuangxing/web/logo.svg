@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="禾创星">
+  <defs>
+    <linearGradient id="g-green" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0" stop-color="#3AAE68"/><stop offset="1" stop-color="#0A6234"/>
+    </linearGradient>
+    <linearGradient id="g-blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2E77D0"/><stop offset="1" stop-color="#10305F"/>
+    </linearGradient>
+    <linearGradient id="g-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8D782"/><stop offset="1" stop-color="#C4870F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 左上稻穗 -->
+  <g fill="url(#g-green)">
+    <ellipse cx="52" cy="30" rx="6" ry="11" transform="rotate(-30 52 30)"/>
+    <ellipse cx="38" cy="46" rx="6" ry="11" transform="rotate(-30 38 46)"/>
+    <ellipse cx="26" cy="64" rx="6" ry="11" transform="rotate(-30 26 64)"/>
+    <ellipse cx="66" cy="42" rx="6" ry="11" transform="rotate(-30 66 42)"/>
+    <ellipse cx="52" cy="58" rx="6" ry="11" transform="rotate(-30 52 58)"/>
+    <ellipse cx="40" cy="76" rx="6" ry="11" transform="rotate(-30 40 76)"/>
+    <path d="M20 148 C22 112 34 74 58 44 C46 84 38 118 36 152 Z"/>
+    <path d="M8 118 C16 96 28 76 44 62 C32 84 24 104 22 124 Z"/>
+  </g>
+
+  <!-- 主体“禾” -->
+  <text x="140" y="176" font-size="152" font-weight="700" fill="url(#g-green)"
+        text-anchor="middle" font-family="'Hiragino Sans GB','PingFang SC','Microsoft YaHei','Source Han Sans SC','Noto Sans CJK SC',sans-serif">禾</text>
+
+  <!-- 中心金星 -->
+  <path fill="url(#g-gold)" stroke="#fff" stroke-width="3" stroke-linejoin="round"
+        d="M140 92 l12.4 25.1 27.7 4 -20 19.6 4.7 27.6 -24.8-13 -24.8 13 4.7-27.6 -20-19.6 27.7-4 Z"/>
+
+  <!-- 右下水波 -->
+  <g fill="url(#g-blue)">
+    <path d="M182 140 C202 140 216 152 222 168 C206 162 192 160 178 163 C184 155 184 147 182 140 Z"/>
+    <path d="M158 176 C186 168 210 178 226 200 C206 214 178 216 154 208 C170 199 166 187 158 176 Z"/>
+    <path d="M136 210 C166 200 200 204 224 224 C194 236 156 236 128 224 C134 220 138 216 136 210 Z"/>
+  </g>
+</svg>

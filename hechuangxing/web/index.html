@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>禾创星 · 嘉兴本地化创业智能体</title>
+<link rel="icon" href="logo.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ======================= 左栏 ======================= -->
+  <aside class="side">
+    <div class="brand">
+      <img src="logo.svg" alt="禾创星" class="brand-logo">
+      <div class="brand-text">
+        <h1>禾创星</h1>
+        <p>文化赋能 · 全周期陪跑</p>
+      </div>
+    </div>
+
+    <div class="mode" id="mode-badge"><span class="dot"></span><span id="mode-text">正在连接…</span></div>
+
+    <nav class="chain">
+      <div class="chain-title">全链条服务</div>
+      <ul id="chain-list">
+        <li data-q="我是嘉兴的大学生，第一次创业，从哪一步开始？个体工商户和有限公司怎么选？"><i>01</i>创业启蒙</li>
+        <li data-q="帮我打磨商业模式，算一下单位经济模型，并判断我的模式有没有政策适配性。"><i>02</i>商业模式打磨</li>
+        <li data-q="在嘉兴注册公司的完整流程是什么？经营范围怎么写才能归到软件和信息技术服务业？"><i>03</i>工商注册</li>
+        <li data-q="嘉兴哪家银行开基本户最合适？哪些银行是创业担保贷款经办行？"><i>04</i>开户行比选</li>
+        <li data-q="我该做小规模纳税人还是一般纳税人？嘉兴社保怎么缴，用工成本多少？"><i>05</i>税务社保</li>
+        <li data-q="根据我的项目，列出所有能申报的国家、浙江省、嘉兴市政策，写清金额和条件。"><i>06</i>政策匹配</li>
+        <li data-q="我要融资，先拿哪种钱？创业担保贷款怎么办？BP 里投资人到底看什么？"><i>07</i>融资对接</li>
+        <li data-q="公司跑了一年，帮我做一次成长复盘，给出月度指标和资质升级路线。"><i>08</i>企业成长复盘</li>
+      </ul>
+    </nav>
+
+    <div class="corpus">
+      <div class="chain-title">专属语料库</div>
+      <div class="corpus-stat"><b id="corpus-docs">–</b> 篇本地语料 · <b id="corpus-pol">–</b> 条结构化政策</div>
+      <ul id="corpus-list"></ul>
+    </div>
+
+    <div class="side-foot">
+      红船精神 · 步鑫生改革创业精神<br>为嘉兴创业者而生
+    </div>
+  </aside>
+
+  <!-- ======================= 中栏 ======================= -->
+  <main class="main">
+    <header class="top">
+      <div>
+        <h2>禾创星工作台</h2>
+        <p>懂嘉兴 · 懂政策 · 懂创业</p>
+      </div>
+      <button class="ghost" id="btn-clear">清空对话</button>
+    </header>
+
+    <div class="chat" id="chat">
+      <div class="welcome">
+        <img src="logo.svg" alt="" class="welcome-logo">
+        <h3>把你的创业计划书丢进来</h3>
+        <p>我会先判断它能不能吃到嘉兴的政策，够不上就直接说够不上，然后给你一份改得到政策的方案，
+           以及一份从注册、开户、选址到申报的落地清单。</p>
+        <div class="chips">
+          <button class="chip" data-q="我想在嘉兴开一家帮客户把稿件投到网络媒体上发表的公司，帮我看看能不能享受政策，该怎么改。">网媒投稿公司能拿到政策吗</button>
+          <button class="chip" data-q="我是嘉兴某高校 2026 届毕业生，想创业，能领哪些补贴？把金额和条件列清楚。">大学生能领哪些补贴</button>
+          <button class="chip" data-q="我的项目怎么改造才能申报科技型中小企业和研发费用加计扣除？">怎么改才够得上科技类政策</button>
+          <button class="chip" data-q="按租金和人流帮我在嘉兴推荐三个选址方案，并说明推荐理由。">嘉兴选址推荐</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer" id="composer">
+      <div class="attach-bar" id="attach-bar"></div>
+      <div class="composer-box">
+        <button class="icon-btn" id="btn-attach" title="上传创业计划书（docx / pdf / txt / 图片）">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16.5 6.5v9a4.5 4.5 0 0 1-9 0V6a3 3 0 1 1 6 0v9a1.5 1.5 0 0 1-3 0V6.5H9V15a3 3 0 0 0 6 0V6a4.5 4.5 0 0 0-9 0v9.5a6 6 0 0 0 12 0V6.5Z"/></svg>
+        </button>
+        <input type="file" id="file-input" multiple hidden
+               accept=".docx,.pdf,.txt,.md,.csv,.json,.png,.jpg,.jpeg,.webp,.gif">
+        <textarea id="input" rows="1" placeholder="描述你的创业思路，或上传创业计划书后按回车发送…"></textarea>
+        <button class="send" id="btn-send" title="发送">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 21 21 12 3 3v7l12 2-12 2v7Z"/></svg>
+        </button>
+      </div>
+      <div class="hint">支持拖拽、粘贴上传 · Enter 发送，Shift + Enter 换行</div>
+    </div>
+  </main>
+
+  <!-- ======================= 右栏 ======================= -->
+  <aside class="right">
+    <section class="panel">
+      <h4>可下载交付物</h4>
+      <p class="panel-note">按你的排版规范生成：一级标题黑体小三居中，二级黑体四号，三级宋体加粗小四，正文宋体加 Times New Roman，首行缩进 2 字符。</p>
+      <button class="deliver" id="btn-improve">
+        <b>创业计划改进方案</b>
+        <span>把方案改造成能享受国家、浙江省、嘉兴市补贴与税优的版本</span>
+      </button>
+      <button class="deliver" id="btn-landing">
+        <b>全链条创业落地方案</b>
+        <span>启蒙、模式、注册、选址、开户、税社保、政策、融资、复盘</span>
+      </button>
+      <div class="downloads" id="downloads"></div>
+    </section>
+
+    <section class="panel">
+      <h4>政策雷达</h4>
+      <p class="panel-note" id="radar-note">上传计划书或描述项目后，这里会列出命中的政策。</p>
+      <div id="radar"></div>
+    </section>
+
+    <section class="panel">
+      <h4>示例文件</h4>
+      <div class="downloads" id="samples"></div>
+    </section>
+  </aside>
+
+</div>
+
+<div class="drop-mask" id="drop-mask"><div>松手即可上传创业计划书</div></div>
+<script src="app.js"></script>
+</body>
+</html>
