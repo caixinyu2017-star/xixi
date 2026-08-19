@@ -73,6 +73,15 @@ def latex_batch_to_omml(latex_list, workdir):
     return out
 
 
+# 负号排版：正文里的「-3.2」应使用真正的减号 U+2212，半角连字符在宋体／TNR 下过短。
+# 仅当前一字符不是字母数字或连字符、且后一字符是数字时替换，
+# 以免误伤页码范围 13-58、日期 2026-08-13、AI-Token 等。
+_MINUS_RE = re.compile(r'(?<![0-9A-Za-z\-])-(?=\d)')
+
+
+def _minus(t):
+    return _MINUS_RE.sub('\u2212', t)
+
 def _fix_omml_order(om):
     """修正 pandoc 输出中不符合 ECMA-376 顺序的 OMML 子元素。
 
@@ -237,7 +246,7 @@ class BookBuilder:
         pos = 0
         for m in INLINE_RE.finditer(text):
             if m.start() > pos:
-                r = para.add_run(text[pos:m.start()])
+                r = para.add_run(_minus(text[pos:m.start()]))
                 self._set_run_font(r, cn_font, size_pt, bold, western=western, color=color)
             seg = m.group(0)
             if seg.startswith('$'):
@@ -249,11 +258,11 @@ class BookBuilder:
                     self._append_rich(para, inner, cn_font, size_pt,
                                       bold=True, western=western, color=color)
                 else:
-                    r = para.add_run(inner)
+                    r = para.add_run(_minus(inner))
                     self._set_run_font(r, cn_font, size_pt, True,
                                        western=western, color=color)
             elif seg.startswith('*'):
-                r = para.add_run(seg[1:-1])
+                r = para.add_run(_minus(seg[1:-1]))
                 self._set_run_font(r, cn_font, size_pt, bold, italic=True, western=western, color=color)
             elif seg.startswith('{sup:'):
                 r = para.add_run(seg[5:-1])
@@ -265,7 +274,7 @@ class BookBuilder:
                 r.font.subscript = True
             pos = m.end()
         if pos < len(text):
-            r = para.add_run(text[pos:])
+            r = para.add_run(_minus(text[pos:]))
             self._set_run_font(r, cn_font, size_pt, bold, western=western, color=color)
 
     # ------------------------------------------------------------- 标题
@@ -382,8 +391,12 @@ class BookBuilder:
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.first_line_indent = Pt(0)
         # 表内行高按单倍严格执行，不随文档网格上浮
+        pPr = p.paragraph_format.element.get_or_add_pPr()
         sg = OxmlElement('w:snapToGrid'); sg.set(qn('w:val'), '0')
-        p.paragraph_format.element.get_or_add_pPr().append(sg)
+        pPr.append(sg)
+        # 关闭「按字符断行」，避免西文词与数字被从中间拆开（如 2006→200/6）
+        ww = OxmlElement('w:wordWrap'); ww.set(qn('w:val'), '0')
+        pPr.append(ww)
         self._append_rich(p, text, cn_font, size_pt, bold=bold)
         # 垂直居中
         tcPr = cell._tc.get_or_add_tcPr()
@@ -404,9 +417,9 @@ class BookBuilder:
         ncol = len(header)
         t = self.doc.add_table(rows=1 + len(rows), cols=ncol)
         t.alignment = 1  # center
-        t.autofit = True
-        if width_cm:
-            self._set_table_width(t, width_cm)
+        t.autofit = False
+        total_cm = width_cm or self.text_width_cm
+        self._set_table_width(t, total_cm)
         # 版式要求：表内一律居中（段前段后 0 磅、单倍行距见 _set_cell_font）。
         # col_align／first_col_left 仅为历史兼容参数，不再改变对齐方式。
         col_align = ['center'] * ncol
@@ -416,6 +429,7 @@ class BookBuilder:
             for j, txt in enumerate(row):
                 a = col_align[j] if j < len(col_align) else 'center'
                 self._set_cell_font(t.cell(i + 1, j), str(txt), size_pt, align=a)
+        self._apply_col_widths(t, header, rows, total_cm, size_pt)
         self._three_line_borders(t)
         # 表注（小五宋体，无缩进，两端对齐——与图注同格式）
         if note:
@@ -428,6 +442,69 @@ class BookBuilder:
             sp = self.doc.add_paragraph()
             sp.paragraph_format.space_after = Pt(8)
         return t
+
+    @staticmethod
+    def _visual_len(text):
+        """粗估文本视觉宽度：汉字与全角标点计 1，西文与数字计 0.55。"""
+        w = 0.0
+        for ch in str(text):
+            w += 1.0 if ord(ch) > 0x2E7F else 0.55
+        return w
+
+    def _apply_col_widths(self, table, header, rows, total_cm, size_pt=SIZE['五号']):
+        """按内容长度分配列宽：先保底、再按权重分配余量。
+
+        保底＝该列内容（至多 5 个汉字）所需的宽度，防止窄列把文字挤成竖排；
+        余量按最长单元格视觉宽度的 0.72 次幂分配，避免超长说明列吃掉全部宽度。
+        """
+        ncol = len(header)
+        char_cm = size_pt / 72.0 * 2.54          # 一个汉字的宽度
+        pad_cm = 0.32                            # 单元格左右内边距＋边框余量
+        need = []
+        for j in range(ncol):
+            cells = [self._visual_len(header[j]) * 1.15] + \
+                    [self._visual_len(r[j] if j < len(r) else '') for r in rows]
+            need.append(max(max(cells), 1.0))
+
+        floors = [min(n, 5.0) * char_cm + pad_cm for n in need]
+        if sum(floors) >= total_cm:              # 列太多，按比例缩保底
+            k = total_cm / sum(floors)
+            widths = [f * k for f in floors]
+        else:
+            rest = total_cm - sum(floors)
+            w = [n ** 0.72 for n in need]
+            widths = [f + rest * wi / sum(w) for f, wi in zip(floors, w)]
+
+        # 收窄单元格内边距，把版面让给文字
+        tblPr = table._tbl.tblPr
+        old_mar = tblPr.find(qn('w:tblCellMar'))
+        if old_mar is not None:
+            tblPr.remove(old_mar)
+        mar = OxmlElement('w:tblCellMar')
+        for side, v in (('top', 0), ('left', 62), ('bottom', 0), ('right', 62)):
+            el = OxmlElement(f'w:{side}')
+            el.set(qn('w:w'), str(v))
+            el.set(qn('w:type'), 'dxa')
+            mar.append(el)
+        tblPr.append(mar)
+
+        layout = OxmlElement('w:tblLayout')
+        layout.set(qn('w:type'), 'fixed')
+        old = tblPr.find(qn('w:tblLayout'))
+        if old is not None:
+            tblPr.remove(old)
+        tblPr.append(layout)
+
+        for j, wcm in enumerate(widths):
+            for row in table.rows:
+                row.cells[j].width = Cm(wcm)
+        # 固定布局下渲染器以 tblGrid 为准，tcW 单独设置不生效，须同步改写
+        grid = table._tbl.find(qn('w:tblGrid'))
+        if grid is not None:
+            for j, col in enumerate(grid.findall(qn('w:gridCol'))):
+                if j < len(widths):
+                    col.set(qn('w:w'), str(int(round(widths[j] * 567))))
+        return widths
 
     def _set_table_width(self, table, width_cm):
         table.autofit = False

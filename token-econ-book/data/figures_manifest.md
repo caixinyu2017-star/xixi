@@ -1,4 +1,4 @@
-# 全书图件清单（45 幅）。D＝机制／框架图（diagrams_a/b.py，matplotlib 矢量式绘制）；A＝分析图（figures_a/b.py，matplotlib）
+# 全书图件清单（45 幅）。D＝机制／框架图（gpt-image-2 重绘，源要素定义见 diagrams_a/b.py）；A＝分析图（figures_a/b.py，matplotlib）
 # 文件名 figs/figN_M.png；图名格式「图N.M  名称」；**注按学术惯例取舍：正文已交代者不设注**
 # 分析图数据来源 series.csv / results.json / facts.md；图内不得出现图名、图注与资料来源文字
 

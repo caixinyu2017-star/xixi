@@ -232,10 +232,9 @@ def fig9_1():
 
     # ---- 底部小结条 ----
     bx(ax, 6, 1, 124, 8.4,
-       '名义算力利用率 %d%%　−　空转 %d ＋ 批次 %d ＋ 匹配 %d ＋ 效值 %d ＝ %d 个百分点　→　有效效值利用率 %d%%'
+       '名义算力利用率 %d%%　×（1−%d%%）（1−%d%%）（1−%d%%）（1−%d%%）　→　有效效值利用率 %d%%'
        % (round(e['nominal_util'] * 100), round(ls_['idle'] * 100), round(ls_['batch'] * 100),
           round(ls_['match'] * 100), round(ls_['value'] * 100),
-          round((ls_['idle'] + ls_['batch'] + ls_['match'] + ls_['value']) * 100),
           round(e['effective_util'] * 100)),
        fc=C['ltgold'], ec=PAL['gold'], fs=7.4, lw=1.4, bold=True, pad=0.32)
 
