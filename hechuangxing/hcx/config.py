@@ -30,7 +30,28 @@ def _load_dotenv():
 
 _load_dotenv()
 
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+def _usable_key(raw: str) -> str:
+    """判断 Key 是不是真的填了。
+
+    很多人会把配置模板里的占位符原样留着（比如 sk-ant-在这里填你的key），
+    这种情况下如果当成真 Key 去调接口，演示时第一句话就会报鉴权错误。
+    所以这里做一次形状检查，不像真 Key 的一律当成没填，直接走离线演示模式。
+    """
+    key = (raw or "").strip().strip('"').strip("'")
+    if not key:
+        return ""
+    if not key.isascii():                      # 含中文占位符
+        return ""
+    if len(key) < 20:                          # 太短，不可能是真 Key
+        return ""
+    lowered = key.lower()
+    for placeholder in ("your", "xxx", "here", "填", "示例", "example", "changeme"):
+        if placeholder in lowered:
+            return ""
+    return key
+
+
+ANTHROPIC_API_KEY = _usable_key(os.environ.get("ANTHROPIC_API_KEY", ""))
 ANTHROPIC_BASE_URL = os.environ.get("ANTHROPIC_BASE_URL", "").strip()
 MODEL = os.environ.get("HCX_MODEL", "claude-sonnet-4-5-20250929").strip()
 MAX_TOKENS = int(os.environ.get("HCX_MAX_TOKENS", "8000"))

@@ -55,15 +55,30 @@ def stream_chat(messages: List[dict], attachment_text: str = "") -> Iterator[str
         yield from demo_stream(messages, attachment_text)
         return
 
-    client = _client()
-    with client.messages.stream(
-        model=config.MODEL,
-        max_tokens=config.MAX_TOKENS,
-        system=system,
-        messages=messages,
-    ) as stream:
-        for text in stream.text_stream:
-            yield text
+    from .demo import demo_stream
+
+    emitted = False
+    try:
+        client = _client()
+        with client.messages.stream(
+            model=config.MODEL,
+            max_tokens=config.MAX_TOKENS,
+            system=system,
+            messages=messages,
+        ) as stream:
+            for text in stream.text_stream:
+                emitted = True
+                yield text
+    except Exception as exc:                                   # noqa: BLE001
+        # 已经开始输出了就不能偷偷换内容，只能把错误接在后面说清楚
+        if emitted:
+            yield f"\n\n[生成中断] {exc}"
+            return
+        # 一个字都还没输出：直接退回离线演示脚本，保证演示不中断
+        yield (f"[提示] 调用 Claude 失败（{exc}），已自动切换到离线演示模式，"
+               "下面是内置的嘉兴案例回答。检查 .env 里的 ANTHROPIC_API_KEY "
+               "与网络后重启即可恢复实时生成。\n\n")
+        yield from demo_stream(messages, attachment_text)
 
 
 # -------------------------------------------------------------- 文档生成 ---
@@ -94,9 +109,14 @@ def gen_improve_doc(plan_text: str) -> dict:
     if config.DEMO_MODE:
         from .demo import demo_improve_blocks
         return demo_improve_blocks(plan_text)
+    from .demo import demo_improve_blocks
     ctx = CORPUS.context_for(plan_text + " 政策 税收 改造 人工智能 资质", top_k=8)
     prompt = prompts.improve_plan_prompt(plan_text, ctx, _policy_digest(plan_text))
-    return _extract_json(_complete(prompt))
+    try:
+        return _extract_json(_complete(prompt))
+    except Exception:                                          # noqa: BLE001
+        # 接口或解析失败时退回内置内容，保证演示时按钮点下去一定出 Word
+        return demo_improve_blocks(plan_text)
 
 
 def gen_landing_doc(plan_text: str, improve_summary: str = "") -> dict:
@@ -110,4 +130,8 @@ def gen_landing_doc(plan_text: str, improve_summary: str = "") -> dict:
         plan_text, improve_summary or "把人工服务产品化、引入人工智能、形成软件著作权、按科技类企业路径申报政策。",
         ctx, _policy_digest(plan_text),
     )
-    return _extract_json(_complete(prompt, max_tokens=20000))
+    try:
+        return _extract_json(_complete(prompt, max_tokens=20000))
+    except Exception:                                          # noqa: BLE001
+        from .demo import demo_landing_blocks
+        return demo_landing_blocks(plan_text)
