@@ -633,7 +633,7 @@ def fig14_1():
           '有效利用率纳入考核\n现状 %d%% → 目标 %d%%（上界 %d%%）'
           % (round(e['effective_util'] * 100), round(e['sched']['matched_util'] * 100),
              round(e['sched']['upper_bound'] * 100)),
-          '绿色词元认证与碳足迹凭证\n碳强度阈值 %d g' % gr['threshold_iota'] + CO2E + '／千' + TT])]
+          '绿色词元认证与碳足迹凭证\n碳强度阈值 %.1f g' % gr['threshold_iota'] + CO2E + '／千' + TT])]
     px = [3, 44, 85]
     for k, (hd, fc, ec, pts) in enumerate(pillars):
         x = px[k]

@@ -111,6 +111,12 @@ def _fix_omml_order(om):
     for tag, rank in RANKS.items():
         for el in om.iter('{%s}%s' % (M_NS, tag)):
             resort(el, rank)
+    # pandoc 会为 m:dPr 生成空的 m:sepChr（val=""），Word 可容忍但部分渲染器
+    # 会据此把定界符误绘为竖线；分隔符本就只在多元素定界符中有意义，故删去。
+    for dpr in om.iter('{%s}dPr' % M_NS):
+        sep = dpr.find('{%s}sepChr' % M_NS)
+        if sep is not None and not (sep.get('{%s}val' % M_NS) or ''):
+            dpr.remove(sep)
     return om
 
 
@@ -233,8 +239,15 @@ class BookBuilder:
             if seg.startswith('$'):
                 para._p.append(self._omml_for(seg[1:-1]))
             elif seg.startswith('**'):
-                r = para.add_run(seg[2:-2])
-                self._set_run_font(r, cn_font, size_pt, True, western=western, color=color)
+                # 粗体段内可能嵌有行内公式 $...$，需递归处理，否则会被原样输出
+                inner = seg[2:-2]
+                if '$' in inner:
+                    self._append_rich(para, inner, cn_font, size_pt,
+                                      bold=True, western=western, color=color)
+                else:
+                    r = para.add_run(inner)
+                    self._set_run_font(r, cn_font, size_pt, True,
+                                       western=western, color=color)
             elif seg.startswith('*'):
                 r = para.add_run(seg[1:-1])
                 self._set_run_font(r, cn_font, size_pt, bold, italic=True, western=western, color=color)

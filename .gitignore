@@ -4,3 +4,8 @@ green-standards-book/build/_*
 green-standards-book/build/eqchk_*
 green-standards-book/build/*.md
 green-standards-book/build/pages/
+token-econ-book/build/_*
+token-econ-book/build/eqchk*
+token-econ-book/build/eqprobe/
+token-econ-book/build/ch0*test/
+token-econ-book/build/*.md
