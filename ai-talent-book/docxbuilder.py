@@ -202,6 +202,9 @@ class BookBuilder:
         rfonts.set(qn('w:eastAsia'), SONG)
         rfonts.set(qn('w:ascii'), TNR)
         rfonts.set(qn('w:hAnsi'), TNR)
+        # 引号“”‘’、破折号、省略号等属 Unicode 东亚宽度「歧义」类，
+        # 由 w:hint 决定归属；置 eastAsia 方能随中文走宋体而非西文字体。
+        rfonts.set(qn('w:hint'), 'eastAsia')
 
     # ------------------------------------------------------------- 字体工具
     @staticmethod
@@ -212,13 +215,14 @@ class BookBuilder:
         run.font.italic = italic or None
         if color is not None:
             run.font.color.rgb = color
-        west = western or cn_font
+        west = western or TNR          # 西文一律 Times New Roman
         run.font.name = west
         rpr = run._element.get_or_add_rPr()
         rfonts = rpr.get_or_add_rFonts()
         rfonts.set(qn('w:eastAsia'), cn_font)
         rfonts.set(qn('w:ascii'), west)
         rfonts.set(qn('w:hAnsi'), west)
+        rfonts.set(qn('w:hint'), 'eastAsia')
 
     def _omml_for(self, latex):
         om = self.omml_cache.get(latex)
@@ -373,8 +377,13 @@ class BookBuilder:
                        'left': WD_ALIGN_PARAGRAPH.LEFT,
                        'right': WD_ALIGN_PARAGRAPH.RIGHT}[align]
         p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
-        p.paragraph_format.space_after = Pt(1)
-        p.paragraph_format.space_before = Pt(1)
+        p.paragraph_format.line_spacing = 1.0
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.first_line_indent = Pt(0)
+        # 表内行高按单倍严格执行，不随文档网格上浮
+        sg = OxmlElement('w:snapToGrid'); sg.set(qn('w:val'), '0')
+        p.paragraph_format.element.get_or_add_pPr().append(sg)
         self._append_rich(p, text, cn_font, size_pt, bold=bold)
         # 垂直居中
         tcPr = cell._tc.get_or_add_tcPr()
@@ -383,7 +392,7 @@ class BookBuilder:
         tcPr.append(va)
 
     def add_table(self, caption, header, rows, note=None, size_pt=SIZE['五号'],
-                  col_align=None, first_col_left=True, width_cm=None):
+                  col_align=None, first_col_left=False, width_cm=None):
         # 表名（表上方，五号黑体，居中）
         cp = self.doc.add_paragraph()
         cp.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -398,10 +407,9 @@ class BookBuilder:
         t.autofit = True
         if width_cm:
             self._set_table_width(t, width_cm)
-        if col_align is None:
-            col_align = ['center'] * ncol
-            if first_col_left:
-                col_align[0] = 'left'
+        # 版式要求：表内一律居中（段前段后 0 磅、单倍行距见 _set_cell_font）。
+        # col_align／first_col_left 仅为历史兼容参数，不再改变对齐方式。
+        col_align = ['center'] * ncol
         for j, txt in enumerate(header):
             self._set_cell_font(t.cell(0, j), str(txt), size_pt, bold=True, align='center')
         for i, row in enumerate(rows):

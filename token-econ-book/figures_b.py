@@ -578,7 +578,7 @@ def fig10_4():
     ax2.grid(axis='y', visible=False)
     ax2.annotate(f'CR＝{itm["CR"]:.3f}＜0.1（通过一致性检验）', (0.005, -0.72),
                  ha='left', va='center', fontsize=7.6, color='#444444')
-    panel_label(ax2, '（b）「五个统一」制度要件', x=-0.34)
+    panel_label(ax2, '（b）“五个统一”制度要件', x=-0.34)
     fig.tight_layout(w_pad=2.6)
     save(fig, f'{FIG}/fig10_4.png')
     print('ok fig10_4')
