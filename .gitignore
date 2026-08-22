@@ -10,3 +10,8 @@ token-econ-book/build/eqprobe/
 token-econ-book/build/ch0*test/
 token-econ-book/build/*.md
 token-econ-book/figs_mpl_backup/
+
+# 论文构建中间件
+health-insurance-paper/build/_*
+health-insurance-paper/build/*.zip
+health-insurance-paper/__pycache__/
