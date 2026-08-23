@@ -1,0 +1,1 @@
+EQMARK0000 $Y_{it} = \alpha + \beta D_{it} + \mu_i + \lambda_t + \varepsilon_{it}$

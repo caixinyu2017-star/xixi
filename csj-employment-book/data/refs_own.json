@@ -1,0 +1,51 @@
+[
+ {
+  "id": "own_biomimetics",
+  "gb7714": "CAI X, ZHANG C. An innovative differentiated creative search based on collaborative development and population evaluation[J]. Biomimetics, 2025, 10(5): 260.",
+  "doi": "10.3390/biomimetics10050260",
+  "note": "用户前期成果；DOI 与卷期页取自原文 PDF 版权页（Citation: Cai, X. … Biomimetics 2025, 10, 260）",
+  "use": "第13章 就业资源配置优化算法思想（一笔带过）"
+ },
+ {
+  "id": "own_cluster",
+  "gb7714": "QIAN C, CAI X. An efficient social-driven educational competition optimizer for numerical optimization[J]. Cluster Computing, 2025, 28: 1024.",
+  "doi": "10.1007/s10586-025-05728-9",
+  "note": "原文页眉 Cluster Computing (2025) 28:1024（文章号）",
+  "use": "第13章 同上"
+ },
+ {
+  "id": "own_scirep",
+  "gb7714": "ZHAO D, FENG L, WANG Y, et al. An improved enterprise development optimizer based on labor migration for numerical optimization[J]. Scientific Reports, 2025, 15: 26227.",
+  "doi": "10.1038/s41598-025-07328-4",
+  "note": "原文页脚 Scientific Reports | (2025) 15:26227；蔡鑫宇为第四作者",
+  "use": "第13章 劳动力迁移启发的优化思想"
+ },
+ {
+  "id": "own_pension",
+  "gb7714": "蔡鑫宇, 张琳. 社会养老政策、劳动供给与生育率[J]. 数学的实践与认识, 2026, 56(4).",
+  "doi": "",
+  "note": "原文头部：第56卷第4期，2026年4月；页码在提取文本中不可得，付印前如可查知网补页码",
+  "use": "第8章 家庭代际结构与择业观念"
+ },
+ {
+  "id": "own_youngwomen",
+  "gb7714": "CAI X, ZHANG L, CHEN X, et al. Young women's employment in China: trends, challenges, and policy responses[C]//Proceedings of the 2025 11th International Conference on Humanities and Social Science Research (ICHSSR 2025). Dordrecht: Atlantis Press, 2025.",
+  "doi": "10.2991/978-2-38476-440-2_63",
+  "note": "丛书 Advances in Social Science, Education and Humanities Research, vol. 945；DOI 取自原文",
+  "use": "第5、6章 女大学生就业质量与满意度性别差异"
+ },
+ {
+  "id": "own_cefv",
+  "gb7714": "JIANG K, CAI X, LV Y, et al. Causal-enhanced feature validation for robust big data-driven employment market analysis[J/OL]. Journal of Emerging Applied AI, 2025[2026-08-23]. https://www.inno-press.com/index.php/JAAI/article/view/14.",
+  "doi": "",
+  "note": "网络检索核实：INNO-PRESS Journal of Emerging Applied AI，2025-05 出版；作者序取自特刊合订本正文页",
+  "use": "第10章 变量筛选稳健性思想；第2章方法述评"
+ },
+ {
+  "id": "own_cnnatt",
+  "gb7714": "WANG M, CHEN X, CAI X. Interpretable CNN-attention hybrid framework for spatiotemporal feature engineering in youth employment market trend prediction[J/OL]. Journal of Emerging Applied AI, 2025[2026-08-23]. https://www.inno-press.com/index.php/JAAI/article/view/11.",
+  "doi": "",
+  "note": "网络检索核实：同上，2025-05-31 出版",
+  "use": "第9、13章 就业监测预警系统对策素材"
+ }
+]
