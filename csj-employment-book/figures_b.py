@@ -130,10 +130,11 @@ def fig8_3():
 
 # ---------------------------------------------------------------- 图9.2 服务使用与评价
 def fig9_2():
-    # 服务链四环节的使用率与有效性评价（设定口径，与正文一致）
-    items = ['生涯规划课程', '实习实践项目', '就业信息服务', '重点群体帮扶']
-    use = [68.5, 54.2, 81.3, 23.6]
-    eff = [3.21, 3.62, 3.35, 3.58]
+    # 服务链四环节的使用率与有效性评价（R['service']，与正文同源）
+    SV = R['service']
+    items = list(SV['use'])
+    use = [SV['use'][k] for k in items]
+    eff = [SV['eff'][k] for k in items]
     x = np.arange(4)
     fig, ax = plt.subplots(figsize=(5.6, 2.9))
     ax.bar(x, use, width=0.5, label='使用率（左轴，%）', **bar_kw(0))
@@ -276,7 +277,7 @@ def fig11_3():
     ax.annotate(f'实际估计 {att:.2f}', (att, ax.get_ylim()[1] * 0.9), fontsize=7.8,
                 ha='right', xytext=(-5, 0), textcoords='offset points')
     ax.set_xlabel('随机化政策年份的估计系数（百分点）')
-    ax.set_ylabel('核密度')
+    ax.set_ylabel('密度')
     grid_y(ax)
     fig.tight_layout()
     save(fig, f'{FIG}/fig11_3.png')

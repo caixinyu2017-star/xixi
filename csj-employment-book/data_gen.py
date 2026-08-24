@@ -157,6 +157,26 @@ def build_survey():
                                   + 0.45 * [pair3, np.zeros(len(df)), pair3][i], lam)
     df['sat_overall'] = np.clip(3.30 + 0.42 * f_pay + 0.31 * f_dev + 0.18 * f_env
                                 + RNG.normal(0, 0.45, len(df)), 1, 5).round(2)
+
+    # ---- 就业服务链四环节：使用与有效性评价 ----
+    # 使用概率随院校层级、生源与是否重点帮扶对象变化；帮扶服务面向低收入与就业困难群体。
+    SVC_RNG = np.random.default_rng(20260824)   # 独立随机流，避免移动下游估计的抽样序列
+    need = ((df.rural == 1).astype(float) + (df.tier == 2).astype(float)
+            + (df.employed == 0).astype(float))
+    svc_p = {
+        'career_course': 0.62 + 0.10 * (df.tier == 0) + 0.05 * (df.degree >= 1),
+        'internship_prog': 0.46 + 0.13 * (df.tier == 0) + 0.06 * df.intern.clip(0, 2) / 2,
+        'info_service': 0.78 + 0.06 * (df.tier <= 1),
+        'targeted_help': 0.10 + 0.09 * need,
+    }
+    for k, p in svc_p.items():
+        df[f'use_{k}'] = (SVC_RNG.random(len(df)) < np.clip(p, 0.02, 0.97)).astype(int)
+    # 评价（1—5 分）：实践类与帮扶类口碑高于课程与信息推送类
+    svc_base = {'career_course': 3.18, 'internship_prog': 3.60,
+                'info_service': 3.32, 'targeted_help': 3.56}
+    for k, b in svc_base.items():
+        v = b + 0.22 * (df.sat_overall - 3.5) + SVC_RNG.normal(0, 0.62, len(df))
+        df[f'eff_{k}'] = np.where(df[f'use_{k}'] == 1, np.clip(v, 1, 5).round(2), np.nan)
     return df
 
 
@@ -425,6 +445,14 @@ def main():
                                    - np.log(emp[emp.female == 1].wage.mean())), 4))
 
     # ---- 满意度与期望（第6章） ----
+    SVC_LABEL = {'career_course': '生涯规划课程', 'internship_prog': '实习实践项目',
+                 'info_service': '就业信息服务', 'targeted_help': '重点群体帮扶'}
+    OUT['service'] = {'use': {lab: round(float(df[f'use_{k}'].mean()) * 100, 1)
+                              for k, lab in SVC_LABEL.items()},
+                      'eff': {lab: round(float(df[f'eff_{k}'].mean(skipna=True)), 2)
+                              for k, lab in SVC_LABEL.items()},
+                      'note': '使用率为四环节各自的使用比例（多选），有效性为使用者的1—5分评价均值'}
+
     OUT['satisfaction'] = dict(
         overall=round(float(df.sat_overall.mean()), 3),
         overall_sd=round(float(df.sat_overall.std()), 3),
