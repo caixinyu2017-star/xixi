@@ -27,3 +27,4 @@ csj-employment-book/build/*.md
 token-econ-papers/paper2/data/panel.csv
 token-econ-papers/*/build/_*
 token-econ-papers/*/__pycache__/
+token-econ-papers/*/build/_eq.*
