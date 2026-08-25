@@ -1,0 +1,15 @@
+input	index_hours_saved	index_baseline_loss
+canopy_air_cooling	0.274	0.011
+divergence	0.129	0.006
+climate	0.103	0.652
+erf	0.102	0.126
+outdoor_share_moderate	0.019	0.026
+work_hours_per_day	0.011	0.015
+outdoor_share_high	0.009	0.008
+svf_under_canopy	0.006	0.001
+radiant_gain	0.005	0.031
+wind_floor_ms	0.004	0.003
+youth_incident_ratio	0.004	0.003
+svf_open	0.004	0.004
+svf_canyon	0.004	0.003
+youth_share_low	0.004	0.003
