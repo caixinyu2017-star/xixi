@@ -22,3 +22,8 @@ csj-employment-book/refs_src/*.zip
 csj-employment-book/refs_src/*.docx
 csj-employment-book/build/_*
 csj-employment-book/build/*.md
+
+# 词元论文中间件
+token-econ-papers/paper2/data/panel.csv
+token-econ-papers/*/build/_*
+token-econ-papers/*/__pycache__/
