@@ -18,6 +18,7 @@ import microclimate as MC
 import params as PA
 import siting as SI
 import thermal as TH
+import eudata as ED
 import uncertainty as UQ
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -49,6 +50,43 @@ def write_tsv(name, header, rows):
 def main():
     t0 = time.time()
     S = {}
+
+    # ------------------------------------------------- observed EU anchors
+    log("reading the observed European data ...")
+    u = ED.ucdb_stats()
+    cp = ED.climate_percentiles()
+    yu = ED.youth_unemployment_latest()
+    S["eu"] = {"ucdb": u, "climate": {k: v for k, v in cp.items()
+                                      if k != "by_country"},
+               "youth_unemployment": yu}
+    log("   %d EU-27 urban centres; EU summer means %.1f to %.1f C; "
+        "EU youth unemployment %.1f%% (%d)"
+        % (u["n"], cp["min"], cp["max"], yu["value"], yu["year"]))
+    write_tsv("t08_eu.tsv",
+              ["quantity", "p25", "median", "p75", "unit"],
+              [["Average greenness, 2014",
+                "%.3f" % u["greenness_2014"]["p25"],
+                "%.3f" % u["greenness_2014"]["median"],
+                "%.3f" % u["greenness_2014"]["p75"], "index"],
+               ["Population with access to open space (SDG 11.7)",
+                "%.3f" % u["green_access_sdg11_7"]["p25"],
+                "%.3f" % u["green_access_sdg11_7"]["median"],
+                "%.3f" % u["green_access_sdg11_7"]["p75"], "share"],
+               ["Heatwave exposure index",
+                "%.2f" % u["heatwave_index"]["p25"],
+                "%.2f" % u["heatwave_index"]["median"],
+                "%.2f" % u["heatwave_index"]["p75"], "index"],
+               ["Urban centre area",
+                "%.0f" % u["area_km2"]["p25"],
+                "%.0f" % u["area_km2"]["median"],
+                "%.0f" % u["area_km2"]["p75"], "km2"],
+               ["Residential density",
+                "%.0f" % u["density_per_km2"]["p25"],
+                "%.0f" % u["density_per_km2"]["median"],
+                "%.0f" % u["density_per_km2"]["p75"], "persons per km2"],
+               ["Summer (JJA) mean temperature, 2001-2020",
+                "%.2f" % cp["p25"], "%.2f" % cp["median"],
+                "%.2f" % cp["p75"], "degrees C"]])
 
     # ---------------------------------------------------------------- city
     log("building the reference city ...")
@@ -148,13 +186,21 @@ def main():
     wins, pair = UQ.rank_stability(recs)
 
     bl = np.array([r["baseline_youth_per_worker"] for r in recs])
+    zero = float((bl <= 1e-6).mean())
+    nz = bl[bl > 1e-6]
     S["ensemble"] = {
         "n": len(recs), "n_params": len(names),
         "youth_loss_p05": float(np.percentile(bl, 5)),
+        "youth_loss_p25": float(np.percentile(bl, 25)),
         "youth_loss_p50": float(np.percentile(bl, 50)),
+        "youth_loss_p75": float(np.percentile(bl, 75)),
         "youth_loss_p95": float(np.percentile(bl, 95)),
         "youth_loss_min": float(bl.min()), "youth_loss_max": float(bl.max()),
-        "youth_loss_ratio_p95_p05": float(np.percentile(bl, 95) / max(np.percentile(bl, 5), 1e-9)),
+        "share_zero_loss": zero,
+        "youth_loss_ratio_p95_p25": float(
+            np.percentile(bl, 95) / max(np.percentile(bl, 25), 1e-9)),
+        "youth_loss_nonzero_p05": float(np.percentile(nz, 5)) if nz.size else 0.0,
+        "youth_loss_nonzero_p95": float(np.percentile(nz, 95)) if nz.size else 0.0,
         "wins": wins,
         "p_exposure_beats_population": pair[("exposure", "population")],
         "p_exposure_beats_population_heat": pair[("exposure", "population_heat")],
@@ -163,10 +209,23 @@ def main():
         "p_exposure_beats_uniform": pair[("exposure", "uniform")],
         "p_youth_beats_exposure": pair[("youth", "exposure")],
     }
-    log("   youth loss p05-p95: %.3f to %.3f h/day (x%.1f)"
-        % (S["ensemble"]["youth_loss_p05"], S["ensemble"]["youth_loss_p95"],
-           S["ensemble"]["youth_loss_ratio_p95_p05"]))
+    log("   youth loss p25-p95: %.3f to %.3f h/day (x%.1f); %.1f%% of draws predict zero"
+        % (S["ensemble"]["youth_loss_p25"], S["ensemble"]["youth_loss_p95"],
+           S["ensemble"]["youth_loss_ratio_p95_p25"], 100 * S["ensemble"]["share_zero_loss"]))
     log("   P(exposure > population) = %.3f" % S["ensemble"]["p_exposure_beats_population"])
+
+    by_erf = {}
+    for e in TH.ERF_NAMES:
+        v = np.array([r["baseline_youth_per_worker"] for r in recs if r["erf"] == e])
+        by_erf[e] = {"n": int(v.size), "median": float(np.median(v)),
+                     "share_zero": float((v <= 1e-6).mean()),
+                     "p95": float(np.percentile(v, 95))}
+    S["ensemble"]["by_erf"] = by_erf
+    write_tsv("t07_byerf.tsv",
+              ["erf", "draws", "median_youth_h", "p95_youth_h", "share_zero_loss"],
+              [[e, by_erf[e]["n"], "%.3f" % by_erf[e]["median"],
+                "%.3f" % by_erf[e]["p95"], "%.3f" % by_erf[e]["share_zero"]]
+               for e in TH.ERF_NAMES])
 
     write_tsv("t04_stability.tsv",
               ["comparison", "probability"],

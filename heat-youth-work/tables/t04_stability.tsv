@@ -1,14 +1,14 @@
 comparison	probability
-Exposure-targeted better than population-weighted	0.870
-Exposure-targeted better than deprivation-weighted	0.996
-Exposure-targeted better than uniform	1.000
-Youth-targeted better than population-weighted	0.895
-Youth-targeted better than exposure-targeted	0.993
-Optimum better than population-weighted	0.986
-Best rule in draw: greedy	0.972
-Best rule in draw: youth	0.016
-Best rule in draw: population_heat	0.009
-Best rule in draw: exposure	0.003
-Best rule in draw: uniform	0.000
+Exposure-targeted better than population-weighted	0.831
+Exposure-targeted better than deprivation-weighted	0.918
+Exposure-targeted better than uniform	0.916
+Youth-targeted better than population-weighted	0.850
+Youth-targeted better than exposure-targeted	0.895
+Optimum better than population-weighted	0.906
+Best rule in draw: greedy	0.864
+Best rule in draw: uniform	0.071
+Best rule in draw: youth	0.034
+Best rule in draw: population_heat	0.022
+Best rule in draw: exposure	0.009
+Best rule in draw: deprivation	0.001
 Best rule in draw: population	0.000
-Best rule in draw: deprivation	0.000

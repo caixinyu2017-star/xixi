@@ -206,6 +206,36 @@ class City:
         self.youth_jobs = {w: jobs[w] * youth[w] for w in WORKLOADS}
         self.older_jobs = {w: jobs[w] * (1.0 - youth[w]) for w in WORKLOADS}
 
+        self._scale_to_observed_density()
+
+    def _scale_to_observed_density(self):
+        """Scale the city so its residential density matches European practice.
+
+        The GHS-UCDB gives a median residential density across the 556 EU-27
+        urban centres on European territory. Residents and jobs are scaled by a
+        single common factor to reach it, so every ratio and every per-worker
+        quantity in the study is unchanged and only the absolute counts move
+        onto a realistic footing.
+        """
+        try:
+            import eudata as _ED
+            target = _ED.ucdb_stats()["density_per_km2"]["median"]
+        except Exception:
+            return
+        area_km2 = (N * CELL_M / 1000.0) ** 2
+        want = target * area_km2
+        have = float(self.residents.sum())
+        if have <= 0:
+            return
+        f = want / have
+        self.residents *= f
+        for w in WORKLOADS:
+            self.jobs[w] *= f
+            self.youth_jobs[w] *= f
+            self.older_jobs[w] *= f
+        self.density_scale = f
+        self.target_density = target
+
     # -- summaries --------------------------------------------------------
     def exposed_youth(self):
         """Young workers in the two heat-exposed workload classes."""

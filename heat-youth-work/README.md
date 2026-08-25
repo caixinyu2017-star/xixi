@@ -33,6 +33,24 @@ manuscript reports the counts and prints the whole registry as an appendix
 table. Assumed parameters are swept in the uncertainty analysis rather than
 defended.
 
+## Headline results
+
+* Weighting a planting budget by exposed workplaces rather than by residents
+  protects 3.05 times as many hours of young workers' work capacity, against
+  a control rule that targets the same heat but counts residents.
+* That advantage is conditional: absent where workplaces and homes coincide,
+  5.6-fold where they are opposed, crossing into materiality once the
+  workplace-residence correlation falls below about 0.25.
+* The magnitude of the loss is NOT identified. Across 4000 draws the estimate
+  varies by more than an order of magnitude and is exactly zero in 6.7% of
+  draws, because the five published response functions disagree about whether
+  European summer conditions cause any loss at all.
+
+## Deliverables
+
+* `Workplace_Weighted_Green_Infrastructure_Young_Workers_Sustainability_manuscript.docx`
+* `Cover_Letter.docx`
+
 ## Pipeline
 
 ```

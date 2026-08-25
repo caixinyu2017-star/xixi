@@ -1,11 +1,11 @@
 quantity	value	unit
 Grid cells	1600	cells of 250 m
 City extent	10.0	km across
-Residents	74710	persons
-Jobs, heavy outdoor	12632	jobs
-Jobs, moderate	15908	jobs
-Jobs, light service	16313	jobs
-Young workers in exposed classes	9375	workers
+Residents	300939	persons
+Jobs, heavy outdoor	50883	jobs
+Jobs, moderate	64080	jobs
+Jobs, light service	65711	jobs
+Young workers in exposed classes	37765	workers
 Mean existing canopy cover	0.203	fraction
 Workplace-residence correlation	-0.271	Pearson r
 Land use, core	0.043	share of cells

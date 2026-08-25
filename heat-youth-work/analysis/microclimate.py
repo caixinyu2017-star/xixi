@@ -27,18 +27,49 @@ import city as C
 import params as PA
 import thermal as TH
 
-# Summer climate settings. Each is a declared modelling input, not a
-# measurement of any particular place.
-CLIMATES = {
-    "maritime":      dict(tmax=24.0, tmin=14.0, rh_day=62.0, lat=53.0,
-                          label="cool maritime north-western summer"),
-    "continental":   dict(tmax=28.0, tmin=16.0, rh_day=52.0, lat=50.0,
-                          label="temperate continental summer"),
-    "pannonian":     dict(tmax=32.0, tmin=18.0, rh_day=45.0, lat=46.0,
-                          label="warm continental summer"),
-    "mediterranean": dict(tmax=36.0, tmin=22.0, rh_day=38.0, lat=38.0,
-                          label="hot Mediterranean summer"),
-}
+# Summer climate settings, anchored to observation.
+#
+# The four settings are not invented temperatures. Each is placed at a
+# percentile of the distribution of mean summer (JJA) land-surface temperature
+# across the twenty-seven EU Member States over 2001-2020, computed from
+# Berkeley Earth country series in eudata.py. The value anchored is the
+# twenty-four-hour summer mean; a declared diurnal range then sets the daily
+# maximum and minimum around it, and the urban heat island increment is added
+# afterwards inside the model, so the anchor is the regional background rather
+# than the urban value.
+#
+# Representative latitudes are those of a country sitting near each
+# percentile, and enter only through the latitude scaling of blue-space
+# cooling.
+import eudata as ED
+
+_PCT = ED.climate_percentiles()
+
+_SETTINGS = (
+    # key,            percentile, diurnal range, latitude, label
+    ("maritime",      "p10",      8.0,  53.0, "cool maritime summer, tenth percentile of EU-27"),
+    ("continental",   "median",  11.0,  48.7, "temperate continental summer, EU-27 median"),
+    ("pannonian",     "p75",     11.5,  45.1, "warm continental summer, EU-27 upper quartile"),
+    ("mediterranean", "max",     12.0,  35.1, "hot Mediterranean summer, EU-27 maximum"),
+)
+
+# Relative humidity declines as the summer mean rises across Europe; the two
+# end points are declared modelling choices and are swept in params.py.
+_RH_COOL, _RH_HOT = 64.0, 38.0
+
+CLIMATES = {}
+for _k, _p, _range, _lat, _lab in _SETTINGS:
+    _mean = _PCT[_p]
+    _span = max(_PCT["max"] - _PCT["min"], 1e-9)
+    _frac = (_mean - _PCT["min"]) / _span
+    CLIMATES[_k] = dict(
+        tmax=_mean + _range / 2.0,
+        tmin=_mean - _range / 2.0,
+        rh_day=_RH_COOL + (_RH_HOT - _RH_COOL) * _frac,
+        lat=_lat,
+        jja_mean=_mean,
+        percentile=_p,
+        label=_lab)
 
 WORK_HOURS = np.arange(8, 17)          # 08:00 to 16:00 inclusive
 

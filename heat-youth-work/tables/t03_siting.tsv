@@ -1,8 +1,8 @@
 rule	youth_hours_saved	older_hours_saved	youth_hours_per_ha	ratio_to_population	youth_share_pct
-uniform	589.2	1204.0	1.9639	1.33	32.9
-population	441.8	913.3	1.4725	1.00	32.6
-deprivation	477.5	983.3	1.5918	1.08	32.7
-population_heat	434.0	900.8	1.4466	0.98	32.5
-exposure	1119.6	2260.9	3.7321	2.53	33.1
-youth	1125.3	2259.7	3.7511	2.55	33.2
-greedy	2200.4	4354.2	7.3347	4.98	33.6
+uniform	1422.9	2836.2	4.7431	1.40	33.4
+population	1015.3	2032.7	3.3845	1.00	33.3
+deprivation	1099.2	2200.3	3.6641	1.08	33.3
+population_heat	1014.3	2032.4	3.3808	1.00	33.3
+exposure	3091.3	6110.5	10.3043	3.04	33.6
+youth	3107.3	6111.9	10.3577	3.06	33.7
+greedy	5299.0	10301.7	17.6632	5.22	34.0

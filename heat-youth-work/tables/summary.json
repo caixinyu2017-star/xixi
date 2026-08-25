@@ -1,4 +1,88 @@
 {
+ "eu": {
+  "ucdb": {
+   "n": 556,
+   "greenness_2014": {
+    "n": 556,
+    "min": 0.0895545185659731,
+    "p25": 0.383699013982673,
+    "median": 0.442017029111405,
+    "p75": 0.477222278647032,
+    "max": 0.57462049058748,
+    "mean": 0.4208705703800632
+   },
+   "green_access_sdg11_7": {
+    "n": 556,
+    "min": 0.0,
+    "p25": 0.151941706263,
+    "median": 0.299269584491,
+    "p75": 0.447584958383,
+    "max": 0.845257870762,
+    "mean": 0.30566217677841995
+   },
+   "heatwave_index": {
+    "n": 535,
+    "min": 1.225939989,
+    "p25": 6.247719765,
+    "median": 9.712320328,
+    "p75": 14.49330044,
+    "max": 45.06470108,
+    "mean": 11.357429914854206
+   },
+   "area_km2": {
+    "n": 556,
+    "min": 5.0,
+    "p25": 24.0,
+    "median": 37.0,
+    "p75": 67.0,
+    "max": 1638.0,
+    "mean": 77.30395683453237
+   },
+   "builtup_km2": {
+    "n": 556,
+    "min": 0.939902901649,
+    "p25": 12.5909128189,
+    "median": 20.4126014709,
+    "p75": 38.0416374207,
+    "max": 1157.58740234,
+    "mean": 44.124372253088055
+   },
+   "population_2015": {
+    "n": 556,
+    "min": 50069.7497559,
+    "p25": 67099.5462646,
+    "median": 104289.434784,
+    "p75": 207455.321335,
+    "max": 9711652.2566,
+    "mean": 272186.26897894894
+   },
+   "density_per_km2": {
+    "n": 556,
+    "min": 1327.444761496154,
+    "p25": 2519.225784491409,
+    "median": 3009.3898277894737,
+    "p75": 3746.78823089375,
+    "max": 12103.127536333333,
+    "mean": 3267.6929023806474
+   },
+   "area_percentile_of_100km2": 0.8435251798561151
+  },
+  "climate": {
+   "n_countries": 27,
+   "min": 14.1482,
+   "p10": 15.05345,
+   "p25": 17.5161,
+   "median": 18.48585,
+   "p75": 21.69635,
+   "p90": 22.92315,
+   "max": 27.0335
+  },
+  "youth_unemployment": {
+   "year": 2023,
+   "value": 16.1432965469102,
+   "indicator": "Unemployment, youth total (% of total labor force ages 15-24) (modeled ILO estimate)"
+  }
+ },
  "city": {
   "cells": 1600,
   "cell_m": 250.0,
@@ -12,32 +96,32 @@
    "park": 0.099375,
    "water": 0.025
   },
-  "residents_total": 74710.35734120257,
+  "residents_total": 300938.98277894745,
   "jobs_total": {
-   "high": 12632.05820482234,
-   "moderate": 15908.314146778623,
-   "low": 16313.25835765911
+   "high": 50882.88802049654,
+   "moderate": 64079.89531083718,
+   "low": 65711.04128900518
   },
   "youth_jobs_total": {
-   "high": 4298.548304817528,
-   "moderate": 5076.839425676104,
-   "low": 4889.495267914363
+   "high": 17314.878422680737,
+   "moderate": 20449.894055752746,
+   "low": 19695.257586689793
   },
-  "exposed_youth_total": 9375.38773049363,
+  "exposed_youth_total": 37764.772478433486,
   "mean_canopy": 0.20295934729727227,
-  "workplace_residence_r": -0.27057976960503155
+  "workplace_residence_r": -0.2705797696050317
  },
  "erf_spread": {
   "climate": "pannonian",
-  "min": 1.288268884099183,
-  "max": 2.4029851182168795,
-  "ratio": 1.8652822775403426,
+  "min": 0.412040694033049,
+  "max": 1.094378754150638,
+  "ratio": 2.6559967741022685,
   "by_erf": {
-   "hothaps": 1.288268884099183,
-   "iso": 2.3167918919626715,
-   "niosh": 2.1695768117858294,
-   "dunne": 2.4029851182168795,
-   "foster": 1.3101393420566538
+   "hothaps": 0.412040694033049,
+   "iso": 0.7604357972799836,
+   "niosh": 0.6319481328771608,
+   "dunne": 1.094378754150638,
+   "foster": 0.8115472281917584
   }
  },
  "reference": {
@@ -46,114 +130,151 @@
   "divergence": 0.75,
   "budget_ha": 300.0,
   "budget_eur": 16200000.0,
-  "baseline_youth_h": 18377.004902164474,
+  "baseline_youth_h": 23675.87066719326,
   "rules": {
    "uniform": {
-    "hours_saved_youth": 589.1568499890673,
-    "hours_saved_older": 1203.9639114146921,
-    "hours_saved_total": 1793.1207614037594,
-    "per_ha_youth": 1.9638561666302234,
+    "hours_saved_youth": 1422.9357826299238,
+    "hours_saved_older": 2836.2338085515075,
+    "hours_saved_total": 4259.169591181431,
+    "per_ha_youth": 4.743119275433077,
     "ha_placed": 300.0000000000001,
-    "youth_share_of_saving": 0.3285650708365236,
-    "residual_youth_gap": 0.07993730740967475
+    "youth_share_of_saving": 0.33408760843336655,
+    "residual_youth_gap": 0.029886956578959456
    },
    "population": {
-    "hours_saved_youth": 441.7539872514244,
-    "hours_saved_older": 913.3040714640156,
-    "hours_saved_total": 1355.05805871544,
-    "per_ha_youth": 1.4725132908380814,
-    "ha_placed": 300.0,
-    "youth_share_of_saving": 0.32600373423866114,
-    "residual_youth_gap": 0.08076839393080437
+    "hours_saved_youth": 1015.3360129113826,
+    "hours_saved_older": 2032.697386271131,
+    "hours_saved_total": 3048.0333991825137,
+    "per_ha_youth": 3.384453376371276,
+    "ha_placed": 299.99999999999994,
+    "youth_share_of_saving": 0.3331118396483769,
+    "residual_youth_gap": 0.03045909819373438
    },
    "deprivation": {
-    "hours_saved_youth": 477.5346044764592,
-    "hours_saved_older": 983.3384779435946,
-    "hours_saved_total": 1460.8730824200538,
-    "per_ha_youth": 1.591782014921531,
-    "ha_placed": 299.99999999999994,
-    "youth_share_of_saving": 0.32688301962918276,
-    "residual_youth_gap": 0.08054964115662488
+    "hours_saved_youth": 1099.2190301592454,
+    "hours_saved_older": 2200.278363873862,
+    "hours_saved_total": 3299.4973940331074,
+    "per_ha_youth": 3.6640634338641513,
+    "ha_placed": 300.0,
+    "youth_share_of_saving": 0.3331474157691715,
+    "residual_youth_gap": 0.030359331247715726
    },
    "population_heat": {
-    "hours_saved_youth": 433.9845897004707,
-    "hours_saved_older": 900.7629022298061,
-    "hours_saved_total": 1334.7474919302767,
-    "per_ha_youth": 1.4466152990015688,
-    "ha_placed": 300.0,
-    "youth_share_of_saving": 0.3251435888243203,
-    "residual_youth_gap": 0.08090305307039225
+    "hours_saved_youth": 1014.2539755488033,
+    "hours_saved_older": 2032.3549605569642,
+    "hours_saved_total": 3046.6089361057675,
+    "per_ha_youth": 3.380846585162677,
+    "ha_placed": 300.00000000000006,
+    "youth_share_of_saving": 0.33291242716738095,
+    "residual_youth_gap": 0.030475150206570212
    },
    "exposure": {
-    "hours_saved_youth": 1119.6290773967667,
-    "hours_saved_older": 2260.923053071041,
-    "hours_saved_total": 3380.5521304678077,
-    "per_ha_youth": 3.732096924655889,
+    "hours_saved_youth": 3091.2798357793035,
+    "hours_saved_older": 6110.457958885752,
+    "hours_saved_total": 9201.737794665056,
+    "per_ha_youth": 10.304266119264344,
     "ha_placed": 300.0,
-    "youth_share_of_saving": 0.33119710455162543,
-    "residual_youth_gap": 0.07730387999228383
+    "youth_share_of_saving": 0.3359452208659491,
+    "residual_youth_gap": 0.027425613732146414
    },
    "youth": {
-    "hours_saved_youth": 1125.320917327499,
-    "hours_saved_older": 2259.7183024190454,
-    "hours_saved_total": 3385.0392197465444,
-    "per_ha_youth": 3.7510697244249966,
-    "ha_placed": 300.0,
-    "youth_share_of_saving": 0.33243955070386383,
-    "residual_youth_gap": 0.07686548394455994
+    "hours_saved_youth": 3107.297687981816,
+    "hours_saved_older": 6111.886968288105,
+    "hours_saved_total": 9219.184656269921,
+    "per_ha_youth": 10.357658959939391,
+    "ha_placed": 299.9999999999999,
+    "youth_share_of_saving": 0.3370469085754301,
+    "residual_youth_gap": 0.027158446415390114
    },
    "greedy": {
-    "hours_saved_youth": 2200.416769608768,
-    "hours_saved_older": 4354.176194434287,
-    "hours_saved_total": 6554.592964043055,
-    "per_ha_youth": 7.33472256536256,
+    "hours_saved_youth": 5298.955285440679,
+    "hours_saved_older": 10301.718418380791,
+    "hours_saved_total": 15600.67370382147,
+    "per_ha_youth": 17.663184284802263,
     "ha_placed": 300.0,
-    "youth_share_of_saving": 0.3357060891011438,
-    "residual_youth_gap": 0.06997039025529017
+    "youth_share_of_saving": 0.33966195217214695,
+    "residual_youth_gap": 0.02302071299247105
    }
   },
-  "ratio_exposure_to_population": 2.5345081418801763,
-  "ratio_exposure_to_population_heat": 2.5798821063428012,
-  "ratio_greedy_to_population": 4.981090908312278
+  "ratio_exposure_to_population": 3.0445879949784733,
+  "ratio_exposure_to_population_heat": 3.047836055172119,
+  "ratio_greedy_to_population": 5.218917893246407
  },
  "ensemble": {
   "n": 4000,
   "n_params": 28,
-  "youth_loss_p05": 0.18325773139779386,
-  "youth_loss_p50": 1.3697895134901337,
-  "youth_loss_p95": 3.103561791087631,
-  "youth_loss_min": 0.010862644594985323,
-  "youth_loss_max": 4.47729231310825,
-  "youth_loss_ratio_p95_p05": 16.93550262472033,
+  "youth_loss_p05": 0.0,
+  "youth_loss_p25": 0.10776749578703394,
+  "youth_loss_p50": 0.49893113677289036,
+  "youth_loss_p75": 1.1945010118994264,
+  "youth_loss_p95": 2.50036605099556,
+  "youth_loss_min": 0.0,
+  "youth_loss_max": 3.823105056254264,
+  "share_zero_loss": 0.06675,
+  "youth_loss_ratio_p95_p25": 23.201486057880466,
+  "youth_loss_nonzero_p05": 0.002540533528680145,
+  "youth_loss_nonzero_p95": 2.5187243504130956,
   "wins": {
-   "uniform": 0.0,
-   "population": 0.0,
-   "deprivation": 0.0,
-   "population_heat": 0.00925,
-   "exposure": 0.003,
-   "youth": 0.01625,
-   "greedy": 0.9715
+   "uniform": 0.07075,
+   "population": 0.00025,
+   "deprivation": 0.0005,
+   "population_heat": 0.02225,
+   "exposure": 0.009,
+   "youth": 0.03375,
+   "greedy": 0.8635
   },
-  "p_exposure_beats_population": 0.86975,
-  "p_exposure_beats_population_heat": 0.727,
-  "p_youth_beats_population": 0.89525,
-  "p_exposure_beats_deprivation": 0.99575,
-  "p_exposure_beats_uniform": 1.0,
-  "p_youth_beats_exposure": 0.99325
+  "p_exposure_beats_population": 0.83125,
+  "p_exposure_beats_population_heat": 0.67925,
+  "p_youth_beats_population": 0.8495,
+  "p_exposure_beats_deprivation": 0.91775,
+  "p_exposure_beats_uniform": 0.916,
+  "p_youth_beats_exposure": 0.8955,
+  "by_erf": {
+   "hothaps": {
+    "n": 807,
+    "median": 0.2359662306866881,
+    "share_zero": 0.0,
+    "p95": 1.476805338684432
+   },
+   "iso": {
+    "n": 841,
+    "median": 0.5086167384744894,
+    "share_zero": 0.12366230677764566,
+    "p95": 2.669755727251871
+   },
+   "niosh": {
+    "n": 827,
+    "median": 0.36159070957961276,
+    "share_zero": 0.16928657799274485,
+    "p95": 2.5777733802093
+   },
+   "dunne": {
+    "n": 746,
+    "median": 0.7204713721832599,
+    "share_zero": 0.030831099195710455,
+    "p95": 2.833261867023889
+   },
+   "foster": {
+    "n": 779,
+    "median": 0.6414588028470846,
+    "share_zero": 0.0,
+    "p95": 1.5701129252231316
+   }
+  }
  },
  "sensitivity_top": {
-  "canopy_air_cooling": 0.27425888506975843,
-  "divergence": 0.12937804567753494,
-  "climate": 0.1031964778234884,
-  "erf": 0.10222852071178319,
-  "outdoor_share_moderate": 0.01927066416713255,
-  "work_hours_per_day": 0.011185902323428734,
-  "outdoor_share_high": 0.009494534747230577,
-  "svf_under_canopy": 0.0059660935133057785,
-  "radiant_gain": 0.004783639456908334,
-  "wind_floor_ms": 0.00446929520174255,
-  "youth_incident_ratio": 0.00440656819096164,
-  "svf_open": 0.004268443299586144
+  "climate": 0.3331352687249884,
+  "canopy_air_cooling": 0.12176331271705905,
+  "erf": 0.08392509881181949,
+  "divergence": 0.052559415774868744,
+  "outdoor_share_moderate": 0.012013833155609487,
+  "work_hours_per_day": 0.011348164776963288,
+  "radiant_gain": 0.01120792818131935,
+  "wind_canyon_ms": 0.006912286268210427,
+  "wind_open_ms": 0.0068351259863384094,
+  "outdoor_share_high": 0.00681594564353647,
+  "uhi_max_c": 0.006493312197338147,
+  "cost_blue_eur_ha": 0.005662825721480929
  },
  "threshold": {
   "divergence": 0.45,
@@ -163,74 +284,74 @@
     375,
     "0.928",
     "1.00",
-    "0.520"
+    "0.440"
    ],
    [
     "0.1-0.2",
     414,
     "0.872",
     "0.96",
-    "0.012"
+    "0.063"
    ],
    [
     "0.2-0.3",
     405,
     "0.741",
     "0.96",
-    "0.096"
+    "0.158"
    ],
    [
     "0.3-0.4",
     389,
     "0.512",
-    "1.02",
-    "0.661"
+    "1.03",
+    "0.684"
    ],
    [
     "0.4-0.5",
     401,
     "0.249",
-    "1.16",
-    "0.988"
+    "1.17",
+    "0.875"
    ],
    [
     "0.5-0.6",
     392,
     "0.021",
-    "1.42",
-    "1.000"
+    "1.43",
+    "0.923"
    ],
    [
     "0.6-0.7",
     401,
     "-0.148",
-    "1.82",
-    "1.000"
+    "1.85",
+    "0.898"
    ],
    [
     "0.7-0.8",
     403,
     "-0.268",
-    "2.47",
-    "1.000"
+    "2.51",
+    "0.935"
    ],
    [
     "0.8-0.9",
     439,
     "-0.354",
-    "3.55",
-    "1.000"
+    "3.64",
+    "0.907"
    ],
    [
     "0.9-1.0",
     381,
     "-0.414",
-    "5.29",
-    "1.000"
+    "5.63",
+    "0.913"
    ]
   ],
-  "median_ratio_top_bin": 5.286596410114921,
-  "median_ratio_bottom_bin": 1.001515245236606
+  "median_ratio_top_bin": 5.627014860310851,
+  "median_ratio_bottom_bin": 0.9969530533336491
  },
  "params": {
   "counts": {
@@ -268,6 +389,6 @@
    "youth",
    "greedy"
   ],
-  "runtime_s": 157.5
+  "runtime_s": 161.5
  }
 }

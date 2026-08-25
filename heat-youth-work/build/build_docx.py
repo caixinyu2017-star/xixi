@@ -38,7 +38,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 FIGDIR = os.path.join(ROOT, "figures")
 TEMPLATE = os.path.join(HERE, "sustainabilitytemplate.dot")
-OUT = os.path.join(ROOT, "Heat_Green_Infrastructure_Youth_EU_Sustainability_manuscript.docx")
+OUT = os.path.join(ROOT, "Workplace_Weighted_Green_Infrastructure_Young_Workers_Sustainability_manuscript.docx")
 
 BODY_INDENT = 2608          # twips, left edge of the MDPI body zone
 BODY_W = 7858               # twips, width of the body zone
@@ -612,11 +612,20 @@ def render_reference(p, key, number):
         txt(ref["journal"] + " ", italic=True)
         txt(str(ref["year"]), bold=True)
         txt(", ")
-        if ref.get("volume"):
-            txt(str(ref["volume"]), italic=True)
-            txt(", " + str(ref["pages"]) + ".")
+        # Volume and pages are omitted from an entry when they could not be
+        # verified; the renderer must therefore tolerate their absence rather
+        # than invent a citation that looks complete.
+        vol, pages = ref.get("volume"), ref.get("pages")
+        if vol and pages:
+            txt(str(vol), italic=True)
+            txt(", " + str(pages) + ".")
+        elif vol:
+            txt(str(vol), italic=True)
+            txt(".")
+        elif pages:
+            txt(str(pages) + ".")
         else:
-            txt(str(ref["pages"]) + ".")
+            txt("in press.")
         if ref.get("doi"):
             txt(" [CrossRef]")
     elif kind == "book":
@@ -636,12 +645,17 @@ def render_reference(p, key, number):
         txt(_typo(ref["title"]) + "; ", italic=True)
         if ref.get("series"):
             txt(ref["series"] + "; ")
-        if ref["city"] == ref["country"]:
-            txt("%s: %s, %d." % (ref["publisher"], ref["city"],
-                                 ref["year"]))
+        if ref.get("city"):
+            if ref["city"] == ref.get("country"):
+                txt("%s: %s, %d." % (ref["publisher"], ref["city"],
+                                     ref["year"]))
+            else:
+                txt("%s: %s, %s, %d." % (ref["publisher"], ref["city"],
+                                         ref.get("country", ""), ref["year"]))
         else:
-            txt("%s: %s, %s, %d." % (ref["publisher"], ref["city"],
-                                     ref["country"], ref["year"]))
+            txt("%s, %d." % (ref["publisher"], ref["year"]))
+        if ref.get("url"):
+            txt(" Available online: " + ref["url"] + ".")
     elif kind == "web":
         txt(title_of(ref))
         txt("Available online: " + ref["url"] +
@@ -743,6 +757,10 @@ def body(doc):
             r = p.add_run(block[1] + " ")
             r.font.bold = True
             add_rich(p, block[2], italic=True)
+        elif kind == "where":
+            # the gloss that follows a display equation: flush with the body
+            # zone, no first-line indent
+            para(doc, "MDPI_3.2_text_no_indent", block[1])
         elif kind == "eq":
             add_equation(doc, block[1], block[2])
         elif kind == "fig":
