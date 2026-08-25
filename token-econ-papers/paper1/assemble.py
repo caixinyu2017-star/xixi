@@ -19,8 +19,7 @@ def collect_blocks():
     import content_a as A
     import content_b as B
     import content_c as C
-    import content_lit as L
-    return (A.front() + A.sec1() + L.sec_lit() + A.sec2()
+    return (A.front() + A.sec1() + A.sec2()
             + B.sec3() + B.sec4() + C.sec5() + C.sec6() + C.sec7())
 
 
@@ -90,7 +89,7 @@ def build():
         lang, s = refs_pool.POOL.get(key, ('zh', f'【缺失著录：{key}】'))
         p.para(f'[{i}] {s}', indent=False, size=SIZE['五号'], spacing=1.0, space_after=2)
 
-    name = '医保异地结算改革、患者跨区流动与医院竞争.docx'
+    name = '词元价格下行与智能服务支出的背离.docx'
     path = os.path.join(OUT, name)
     p.save(path)
 
