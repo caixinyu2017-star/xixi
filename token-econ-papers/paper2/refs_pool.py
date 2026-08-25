@@ -67,6 +67,10 @@ POOL = {
     'stigler1961': ('en', 'STIGLER G J. The economics of information[J]. Journal of Political Economy, 1961, 69(3): 213-225.'),
     'yang2024': ('en', 'YANG L. The economics of standards: A literature review[J]. Journal of Economic Surveys, 2024, 38(3): 717-758. DOI:10.1111/joes.12555.'),
     'zhong2022': ('zh', '种照辉, 高志红, 覃成林. 网络基础设施建设与城市间合作创新——“宽带中国”试点及其推广的证据[J]. 财经研究, 2022, 48(3): 79-93.'),
+    # ---------------- 英文：交错双重差分的估计量 ----------------
+    'callaway2021': ('en', 'CALLAWAY B, SANT\'ANNA P H C. Difference-in-differences with multiple time periods[J]. Journal of Econometrics, 2021, 225(2): 200-230.'),
+    'goodman2021': ('en', 'GOODMAN-BACON A. Difference-in-differences with variation in treatment timing[J]. Journal of Econometrics, 2021, 225(2): 254-277.'),
+    'sun2021': ('en', 'SUN L, ABRAHAM S. Estimating dynamic treatment effects in event studies with heterogeneous treatment effects[J]. Journal of Econometrics, 2021, 225(2): 175-199.'),
     # ---------------- 英文：补核新增（平台价格离散与云计算价格质量调整） ----------------
     'mohapatra2024': ('en', 'MOHAPATRA D, MOHAPATRA D P, DUBEY R S. Price dispersion across online platforms: evidence from hotel room prices in London (UK)[J]. Applied Economics, 2024, 56(52): 6598-6610. DOI:10.1080/00036846.2023.2275219.'),
     'sawyer2023': ('en', 'SAWYER S D, O\'BRYAN C. Exploring quality adjustment in PPI cloud computing[J]. Monthly Labor Review, 2023.'),
@@ -92,6 +96,9 @@ INTEXT = {
     'byrne2018cloud': 'Byrne 等，2018',
     'byrne2021': 'Byrne 和 Corrado，2021',
     'caict2025': '中国信息通信研究院，2025',
+    'callaway2021': 'Callaway 和 Sant\'Anna，2021',
+    'goodman2021': 'Goodman-Bacon，2021',
+    'sun2021': 'Sun 和 Abraham，2021',
     'chen2018': '陈永伟，2018',
     'chen2026': '陈钊等，2026',
     'chen2026a': '陈斌开等，2026',

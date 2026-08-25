@@ -195,5 +195,32 @@
    "【环境说明】本轮 WebSearch 配额 14 次已用尽（Varian／Baye／Bizzotto／Creane 各 1，Yang／Schmidt／Kim／DeStefano 各 1，Bick／Humlum／Otis／Byrne 各 1，新文献 2）。WebFetch 全程不可用于核验：api.crossref.org、api.openalex.org、api.semanticscholar.org、ideas.repec.org、www.nber.org、doi.org、www.bls.gov 等均被出口代理拦截（EGRESS_BLOCKED，网关对 CONNECT 返回 403），故所有卷期页均只能依赖 WebSearch 返回的题录路径与摘要，凡未逐字见到者一律留「待核」。",
    "【下一轮建议】若能在可访问 Crossref／ScienceDirect／Wiley 的环境中再跑一轮，只需按 DOI 补齐 6 项即可全部定稿：10.1016/j.ijindorg.2023.102921 类的 IJIO 两条文章编号、JIE 第 137 卷文章编号、10.1111/jems.12643（Kim 的名与卷期页）、10.1111/joes.12555（Yang 的名）、Elsevier Handbook 第 6 章起止页。"
   ]
+ },
+ {
+  "group": "交错双重差分方法学文献（2026-08-25 主循环补核，EconPapers/RePEc 题录逐字核对）",
+  "fixed": [
+   {
+    "old": "CALLAWAY B, SANT'ANNA",
+    "gb7714": "CALLAWAY B, SANT'ANNA P H C. Difference-in-differences with multiple time periods[J]. Journal of Econometrics, 2021, 225(2): 200-230.",
+    "intext": "Callaway 和 Sant'Anna，2021",
+    "evidence": "EconPapers 题录 RePEc:eee:econom:v:225:y:2021:i:2:p:200-230 与 IDEAS 结果 URL ideas.repec.org/a/eee/econom/v225y2021i2p200-230.html 逐字给出卷 225、期 2、页 200-230。",
+    "confidence": "conf"
+   },
+   {
+    "old": "SUN L, ABRAHAM S",
+    "gb7714": "SUN L, ABRAHAM S. Estimating dynamic treatment effects in event studies with heterogeneous treatment effects[J]. Journal of Econometrics, 2021, 225(2): 175-199.",
+    "intext": "Sun 和 Abraham，2021",
+    "evidence": "EconPapers 题录 RePEc:eee:econom:v:225:y:2021:i:2:p:175-199 逐字给出卷期页；ScienceDirect 条目 S030440762030378X 同名。",
+    "confidence": "conf"
+   },
+   {
+    "old": "GOODMAN-BACON A",
+    "gb7714": "GOODMAN-BACON A. Difference-in-differences with variation in treatment timing[J]. Journal of Econometrics, 2021, 225(2): 254-277.",
+    "intext": "Goodman-Bacon，2021",
+    "evidence": "EconPapers 题录 RePEc:eee:econom:v:225:y:2021:i:2:p:254-277 逐字给出卷期页；ScienceDirect 条目 S0304407621001445 同名。",
+    "confidence": "conf"
+   }
+  ],
+  "drop": []
  }
 ]
