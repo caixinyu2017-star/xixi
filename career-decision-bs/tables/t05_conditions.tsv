@@ -1,0 +1,16 @@
+condition	level	mean_interaction	percent_amplifying
+Directive share of involvement	0.20	-0.056	17.3
+Directive share of involvement	0.50	-0.129	0.0
+Directive share of involvement	0.85	-0.205	0.0
+Weight of conflict in the difficulty score	0.25	-0.081	11.1
+Weight of conflict in the difficulty score	0.60	-0.138	6.2
+Weight of conflict in the difficulty score	1.00	-0.171	0.0
+Distance between preferred and endorsed option	0.20	-0.102	7.4
+Distance between preferred and endorsed option	0.50	-0.132	6.2
+Distance between preferred and endorsed option	0.80	-0.156	3.7
+Uncertainty actually resolved by involvement	0.15	-0.069	17.3
+Uncertainty actually resolved by involvement	0.50	-0.132	0.0
+Uncertainty actually resolved by involvement	0.90	-0.189	0.0
+Loss of standing per unit of anxiety	0.30	-0.133	4.9
+Loss of standing per unit of anxiety	0.80	-0.129	6.2
+Loss of standing per unit of anxiety	1.30	-0.128	6.2

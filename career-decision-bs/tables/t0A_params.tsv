@@ -1,0 +1,33 @@
+parameter	value	unit	low	high	provenance
+anxiety from efficacy	0.05	units per unit	0.05	1.4	assumed
+anxiety from uncertainty	1.05	units per unit	0.5	1.8	assumed
+anxiety interference	0.85	share lost per unit anxiety	0.2	0.85	assumed
+anxiety learning	0.14	per week	0.05	0.3	assumed
+assertion anxiety	0.7	units per unit	0.2	1.3	assumed
+assertion efficacy	0.85	units per unit	0.3	1.4	assumed
+conflict weight	0.55	share of measured difficulty	0.1	1	assumed
+deadline slope	1.3	multiplier over the horizon	1	2.4	assumed
+divergence mean	0.45	units	0.15	0.8	assumed
+divergence sd	0.25	units	0.1	0.45	assumed
+efficacy attribution	0.283176	share	0.2	1	assumed
+efficacy learning	0.16	per week	0.06	0.32	assumed
+expl anxiety	2.4	logit per unit	0.4	2.4	assumed
+expl efficacy	0.4	logit per unit	0.4	3.2	assumed
+expl intercept	-0.4	logit	-1.2	0.4	assumed
+expl uncertainty	0.9	logit per unit	0.2	1.8	assumed
+heterogeneity	0	share of each coefficient	0	0.9	assumed
+measurement error	0.06	share of variance	0.04	0.12	literature
+process noise	0.12	units per week	0.01	0.12	assumed
+scaffold gain	2	multiplier	0.05	2	assumed
+sd trait anxiety	0.85	units	0.3	0.85	assumed
+sd trait efficacy	0.55	units	0.3	0.85	assumed
+substitute yield	0.693728	share of own yield	0.15	1	assumed
+substitution share	0.55	share	0	1	assumed
+support intensity	0.45	units	0	1	assumed
+support pressure	0.6	multiplier per unit	0	1.6	assumed
+support reassurance	0.492541	units per unit	0	0.9	assumed
+support responsiveness	0	units per unit of difficulty	0	1.6	assumed
+trait anxiety mean	0.1	units	0.1	1	assumed
+uncertainty drift	0.02	units per week	0.005	0.045	assumed
+weeks	30	weeks	16	44	assumed
+yield rate	0.22	share of uncertainty per unit effort	0.1	0.4	assumed

@@ -1,0 +1,7 @@
+pair	reported	simulated	difference
+CA-CDSE	-0.275	-0.392	-0.117
+CA-PCS	-0.281	-0.300	-0.019
+CA-CDD	0.460	0.528	+0.068
+CDSE-PCS	0.429	0.192	-0.237
+CDSE-CDD	-0.286	-0.250	+0.036
+PCS-CDD	-0.268	-0.296	-0.028
