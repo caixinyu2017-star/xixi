@@ -1,0 +1,979 @@
+         Young Women's Employment in China: Trends,
+               Challenges, and Policy Responses
+
+                  Xinyu Cai1, Lin Zhang2, Xiaoxue Chen1,*, Mengdie Wang1
+                  1College of Business, Jiaxing University, Jiaxing, 314001, China
+     2School of Government, China University of Labor Relations, Beijing, 100048, China
+
+
+
+                                       *zlin1110@163.com
+
+         Abstract. This paper provides a comprehensive analysis of the employment land-
+         scape for young women in China, examining trends from 2000 to 2020, identify-
+         ing persistent challenges, and proposing targeted policy interventions. Despite
+         significant educational advancements—evidenced by the proportion of young
+         women with bachelor’s degrees rising from under 5% in 2000 to approximately
+         20% in 2020—the employment scale has notably declined, particularly among
+         those aged 16-19, dropping from over 2 million to under 500,000. Employment
+         quality has improved, with a shift towards commercial service and professional
+         roles, yet unemployment rates have escalated since 2020, reaching 14% for
+         women aged 15-24 by 2023, and peaking at 17.1% for the 16-24 age group (ex-
+         cluding students) in urban areas by July 2024. Occupational gender segregation
+         has worsened, reflecting deepening gender inequality in the labor market. Key
+         challenges include intensified employment pressure on female college graduates,
+         the prevalent "slow employment" phenomenon, implicit gender discrimination, a
+         lack of digital skills, and difficulties in achieving work-life balance. To address
+         these issues, the paper recommends a multifaceted policy framework: stimulating
+         job creation in female-dominated sectors, abolishing the two-year retention of
+         graduate status to curb delayed employment, reducing disparities in employment
+         security between public and private sectors, combating implicit gender biases,
+         aligning educational curricula with market demands, enhancing STEM education
+         for women, supporting female entrepreneurship, and improving work-life bal-
+         ance through expanded childcare services and flexible work arrangements.
+
+         Keywords: Female Youth Employment; Gender Inequality; Occupational Seg-
+         regation; Labor Market Policy
+
+
+1        Introduction
+
+Employment is the foundation of people’s livelihood, and the employment issue of
+young people is of utmost importance. In July 2024, the unemployment rate of the 16-
+24 year old labor force (excluding students) in Chinese urban areas reached 17.1%. The
+overall employment situation for young people is not optimistic, and female young peo-
+ple may face a worse employment situation than male young people. From 2000 to
+
+© The Author(s) 2025
+B. Majoul et al. (eds.), Proceedings of the 2025 11th International Conference on Humanities and Social Science
+Research (ICHSSR 2025), Advances in Social Science, Education and Humanities Research 945,
+https://doi.org/10.2991/978-2-38476-440-2_63
+548        X. Cai et al.
+
+2020, the employment scale of Chinese women aged 16-29 decreased significantly, and
+the employment proportion of women aged 16-34 also dropped to about 43%. The labor
+participation rate of female young people is significantly lower than that of male young
+people, and the rate of decline in the labor participation rate is also faster than that of
+males[1-2]. Globally, in 2022, the proportion of employed female young people was
+27.4%, while that of male young people was 40.3%. The probability of male young
+people being employed is nearly 1.5 times that of female young people. The duration
+of unemployment for female young people is generally longer than that of male young
+people, and the probability and duration of female young people being unemployed,
+uneducated, or without skills training are also higher than those of males[3-5]. Female
+young people are a key group in the employment market. General Secretary Xi Jinping
+emphasized that it is necessary to ensure the overall stability of the youth employment
+level and do a good job in the employment of groups such as women. Studying and
+solving the employment problems of female young people is of crucial academic sig-
+nificance and policy value for the stability of the entire social economy and the high-
+quality development of the population. Therefore, based on the data from the fifth,
+sixth, and seventh national population censuses and the data from the annual "China
+Labor Statistical Yearbook", this paper depicts the overall employment situation of fe-
+male young people from the perspectives of youth employment scale, employment
+quality, changes in the unemployment rate, and occupational segregation, analyzes the
+current problems in the employment of female young people, and proposes correspond-
+ing solutions.
+
+
+2      Current Employment Situation of Chinese Female Youth
+
+2.1    The Educational Level of Young Women has Increased, but Their
+       Employment Scale has Decreased
+
+Education is an important positive factor in promoting the employment of young
+women. Education not only improves women’s employability but also changes their
+employment concepts. From 2000 to 2020, the educational situation of young women
+has been greatly improved. In 2000, the proportion of young women with a bachelor’s
+degree in all age groups was less than 5%. By 2020, the proportion of young women
+with a bachelor’s degree was about 20%. In addition, the educational gap between
+young men and young women has gradually narrowed. In 2000, the overall educational
+level of young men was higher than that of young women. The proportions of women
+who had never been to school, only attended literacy classes, or only completed primary
+school were all higher than those of men of the same age. By 2020, the proportions of
+women with a bachelor’s degree or a master’s degree were almost all greater than those
+of men (as shown in Table 1 and Table 2). It can be seen that with the economic and
+social development and the popularization of higher education, the educational level of
+women in China has been significantly improved, which provides more potential op-
+portunities for them in the employment market and also reflects the significant improve-
+ment of the social gender concept in China to a certain extent.
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses                 549
+
+                 Table 1. Educational situation of young women in 2020 Unit: %.
+
+   Education level       Aged 15-19        Aged 20-24        Aged 25-30       Aged 30-34
+                       Male    Female    Male    Female   Male    Female    Male    Female
+   Never attended       0.23     0.20    0.30     0.30    0.31      0.36    0.37     0.48
+       school
+  Preschool educa-      0.25     0.27    0.06     0.07    0.04      0.05    0.03     0.04
+        tion
+   Primary school       2.50    2.40      2.77    2.57     3.73    3.75      5.09   5.57
+     Junior high       25.75    21.28    27.65   21.99    35.52    32.17    41.31   39.99
+       school
+    Senior high        51.61    52.03    21.98   17.93    22.99    20.04    22.07   20.11
+       school
+   Junior college      11.30    12.60    23.34   26.08    19.24    20.93    16.03   16.91
+   Undergraduate       8.35     11.20    22.17   28.62    15.84    19.57    13.29   14.77
+       degree
+  Master’s degree       0.01     0.01    1.63     2.36    2.01      2.85    1.55     1.92
+      candidate
+  Doctoral degree       0.00     0.00    0.09     0.09    0.32      0.29    0.26     0.20
+      candidate
+
+
+                Table 2. Educational Attainment of Young Women in 2000 Unit: %.
+
+    Education level       Aged 15-19       Aged 20-24        Aged 25-29       Aged 30-34
+                        Male    Female   Male    Female   Male     Female   Male    Female
+    Never attended      0.69     1.15    0.90     1.80     1.06     2.51    1.14     3.02
+        school
+    Literacy class      0.09     0.17    0.25     0.49     0.34     0.81    0.39     1.17
+    Primary school     12.05    15.44    14.89   19.66    20.20    27.95    23.88   34.65
+  Junior high school   57.64    54.79    54.40   51.35    55.18    49.29    54.38   45.92
+     Senior high       19.31    15.13    12.17    9.26    11.30     8.62    10.83    8.01
+        school
+    Secondary spe-      6.93     9.89    8.16     9.56     4.61     4.78    2.86     2.77
+    cialized school
+    Junior college      1.59     2.00    5.28     5.17     5.06     4.53    4.26     3.20
+  Undergraduate de-     1.70     1.43    3.81     2.59     2.03     1.37    2.07     1.18
+         gree
+     Postgraduate       0.00     0.00    0.15     0.12     0.21     0.14    0.19     0.09
+   In terms of the employment scale of young women, the number of employed women
+aged 16-19 has declined sharply, dropping from over 2 million in 2000 to less than
+500,000 in 2020. The main reason for this change is that the total population of women
+in this age group has rapidly decreased from 40.32 million in 2000 to 2.9 million in
+2020. Another reason is that the improvement of women’s education level and the ex-
+tension of their years of education have led to a decline in the labor-participation rate
+of women in this age group. In 2000, the proportion of women with a junior college
+550       X. Cai et al.
+
+education or above was 2.76%, while in 2020, this proportion reached 15.3%. The num-
+ber of employed young women in the 20-40 age group showed an upward trend from
+2000 to 2010, but decreased sharply in 2020. From 2000 to 2010, the total population
+of women in this age group decreased, but the number of employed women increased,
+indicating that during this period, the labor-participation rate of young women aged 20-
+24 increased significantly, which is also the result of the rapid economic development
+that created more job opportunities for women. From 2010 to 2020, the number of em-
+ployed women in this age group decreased, mainly due to the decline in the total pop-
+ulation of women in this age group. In addition, the increase in the unemployment rate
+of young women is also an important factor. The unemployment rate of young women
+aged 15-24 increased from 8.6% in 2010 to 11.4% in 2020. The number of employed
+women in the 25-29 age group has been gradually decreasing, mainly due to the decline
+in the total population of women in this age group. The employment scale of women
+aged 30-34 decreased from 2000 to 2010, mainly due to the decline in the total popula-
+tion of women in this age group; the employment scale of women in this age group
+increased from 2010 to 2020. However, the total population of women in this age group
+decreased during this period, indicating that the labor-participation rate of women in
+this age group increased significantly during this period (as shown in Figure 1).
+
+
+
+
+          Fig. 1. Young Female Employment in China by Age Group (2000-2020).
+
+   In terms of the employment proportion of young women, generally, the employment
+proportion of young women has been declining. From 2000 to 2010, the employment
+of women aged 20-34 was relatively stable, and the employment proportion of women
+aged 16-19 decreased from about 50% to about 45%, indicating that the employment
+proportion of men in this age group increased. From 2010 to 2020, the employment
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses         551
+
+proportion of women in all age groups decreased. Among them, the employment pro-
+portion of women aged 16-19 dropped below 40%, indicating that the gap in employ-
+ment opportunities between young women and young men in all age groups widened
+during this period (as shown in Figure 2).
+
+
+
+
+            Fig. 2. Employment proportion of young women from 2000 to 2020.
+
+
+2.2    The Employment Quality of Young Women Has Been Continuously
+       Improving
+
+From the perspective of the occupational changes in the employment of young women,
+the occupations of young women are constantly upgrading. Before 2010, agriculture
+and sideline industries were the occupations with the highest employment proportions
+for both men and women. However, by 2020, this proportion dropped rapidly. Espe-
+cially among young people, this proportion dropped to below 10%. Commercial service
+personnel became the main occupation of young women, accounting for more than
+40%. This is closely related to the changes in the industrial structure of China’s eco-
+nomic development. In 2000, the added-value of the primary industry and the tertiary
+industry in China accounted for 14.7% and 39.8% of the GDP respectively. In 2020,
+these proportions were7.7% and 54.5% respectively. The employment opportunities in
+the service industry increased significantly. Coupled with the improvement of the edu-
+cation level of young women, their willingness to engage in agriculture and sideline
+industries decreased significantly. In addition, the proportion of young women engaged
+in professional and technical personnel increased significantly over 20 years, from
+7.66% in 2000 to 22.5% in 2020, and this proportion was much higher than that of men
+(10.17%). The proportion of young women serving as unit leaders also increased
+slowly, but the proportion of young men serving as unit leaders has always been slightly
+higher than that of young women. Generally speaking, the career development of young
+women is gradually rising, but there is still a certain gap between their proportion in
+top-level occupations and that of young men (as shown in Table 3).
+552                 X. Cai et al.
+
+                   Table 3. Gender ratio distribution of major occupations in China Unit: %.
+
+                                       Year 2000                                           Year 2010                                      Year 2020
+  Major Occu-
+                              Female                     Male                    Female                   Male                  Female                  Male
+  pation Cate-
+                      Over-                    Over-                      Over-                  Over-                   Over-                  Over-
+      gories                      Youth                     Youth                     Youth                   Youth                 Youth                   Youth
+                       all                         all                     all                     all                    all                     all
+
+   Unit Heads          0.62        0.43        2.54             1.28       1.00       1.01        2.40           1.75    1.42        1.35        2.76           2.22
+
+  Professional
+
+ and Technical         6.51        7.66        5.04             5.15       7.83       10.58       6.04           7.06    14.16       22.50       7.90          10.17
+
+   Personnel
+
+  Clerical Staff       2.07        2.27        3.95             3.56       3.20       4.38        5.24           5.13    6.64        9.37        7.19           7.04
+
+  Commercial
+
+  and Service
+                      10.12        11.65       8.40             9.27      18.76       23.44       14.12          17.48   36.09       41.03      32.48          40.21
+    Industry
+
+    Workers
+
+  Agricultural
+
+  and Sideline        69.01        61.66       60.77            56.31     53.29       39.56       44.38          34.05   23.44       8.69       18.60           7.97
+
+    Workers
+
+   Industrial
+                      11.68        16.34       19.29            24.43     15.93       21.03       27.81          34.53   18.25       17.05      31.08          32.39
+    Workers
+
+   From the perspective of the industry distribution of young women, influenced by the
+nature of industries and traditional employment concepts, young women are mainly
+distributed in the wholesale and retail trade, manufacturing, education, accommodation
+and catering, as well as agriculture, forestry, animal husbandry and fishery. In the edu-
+cation industry and the wholesale and retail trade, the distribution of young women is
+significantly higher than that of young men. In the construction industry, transportation,
+warehousing and postal services, the distribution of young women is significantly lower
+than that of young men. In other industries, the distribution ratios of men and women
+are similar (as shown in Table 4).
+
+  Table 4. Distribution ratio of young Chinese women in various industries in 2020 Unit: %.
+
+                    Industry                        Male                Female                           Industry                        Male           Female
+      Agriculture, Forestry, Animal
+                                                     8.18                8.86                  Real Estate Industry                      2.33            2.33
+         Husbandry and Fishery
+               Mining Industry                       0.98                0.26             Leasing and Business Services                  3.54            4.03
+                                                                                          Scientific Research and Tech-
+         Manufacturing Industry                     22.74               18.63                                                            2.13            1.73
+                                                                                                  nical Services
+    Production and Supply of Elec-                                                        Management of Water Conserv-
+   tric Power, Heat Power, Gas and                   1.05                0.54             ancy, Environment and Public                   0.46            0.36
+                     Water                                                                             Facilities
+                                                                                           Resident Services, Repair and
+          Construction Industry                     13.84                3.54                                                            3.81            4.51
+                                                                                                  Other Services
+      Wholesale and Retail Trade                    13.93               20.52                          Education                         2.37            9.62
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses                        553
+
+  Transportation, Warehousing and
+                                      7.10   2.48     Health and Social Work         1.14   5.32
+             Postal Services
+      Accommodation and Catering                    Culture, Sports and Entertain-
+                                      6.01   6.02                                    1.01   1.28
+                Services                                    ment Industry
+   Information Transmission, Soft-                  Public Administration, Social
+      ware and Information Technol-   3.62   3.03   Security and Social Organiza-    4.00   4.15
+              ogy Services                                      tions
+            Financial Industry        1.76   2.78
+    From the perspective of the employment status of young women, although young
+women are increasingly prominent in the employment market, they still face many chal-
+lenges. According to the data from the China Labor Statistical Yearbook, among young
+women aged 16-29, about 90% are employees. Among young women aged 30-34, the
+proportion of employees decreases, while the proportion of employers and self-em-
+ployed individuals increases. Among young female employees, the vast majority have
+fixed employers. However, among young female employees with fixed employers, the
+proportion of those who have not signed labor contracts reaches about 20%. In addition,
+there are also some casual workers and day laborers without fixed employers. There are
+still significant problems in the job stability and rights protection of young women who
+have not signed labor contracts and those who are engaged in casual and day-labor jobs.
+An important reason for this is that in the process of recruitment and entrepreneurship,
+women often face implicit or explicit gender discrimination. Some enterprises set un-
+reasonable restrictions on women during recruitment, or give priority to investing in
+men during entrepreneurship. As a result, young women in the employment market
+often concentrate in low-paying or casual jobs, and often encounter the "ceiling effect"
+in career development, especially being at a disadvantage in terms of labor income,
+working environment, and social security.
+
+
+2.3        The Employment Quality of Young Women has Been Continuously
+           Improving
+
+Changes in the Unemployment rate of Young Women. Since December 2023, the
+National Bureau of Statistics has released the unemployment rates of the labor force
+aged 16-24 and 25-29 excluding students (as shown in Figure 3). China’s official sta-
+tistics have never released the unemployment rate specifically for young women. The
+World Bank estimated the unemployment rate of young women aged 15-24 based on
+China’s publicly available overall youth unemployment rate, and the results are shown
+in Figure 4. By combining Figure 3 and Figure 4, the following trends in the unemploy-
+ment rate of young women can be observed. First, in the long-term, after 2000, the
+unemployment rate of young women aged 15-24 has been gradually rising. From 2003
+to 2019, the unemployment rate of young women aged 15-24 remained stable at around
+8%. Since 2020, the unemployment rate of young women has started to rise rapidly,
+reaching 14% in 2023. Second, according to on-the-spot surveys and existing research,
+young women’s employment is more affected during economic shocks. Therefore, the
+overall youth survey unemployment rate reflects the unemployment situation of young
+women to a certain extent. It can be inferred that the unemployment rate of young
+554          X. Cai et al.
+
+women aged 25-29 is relatively stable, while that of young women aged 16-24 is sig-
+nificantly higher. The overall youth unemployment rate reached 17.1% in July 2024,
+and the corresponding unemployment rate of young women may not be lower than this
+figure. In addition, the youth unemployment rate shows certain cyclical changes. The
+rapid increase in the unemployment rate in July may be due to two reasons. On the one
+hand, a large number of college graduates enter the job market, increasing the labor
+supply and making the youth job market more competitive. On the other hand, the num-
+ber of unemployed college graduates has increased the total number of unemployed
+people.
+
+
+
+
+              Fig. 3. Youth Unemployment Rate from December 2023 to July 2024.
+
+
+
+
+      Fig. 4. Unemployment Rate of Young Women Aged 15-24 in China from 2000 to 2023.
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses         555
+
+   Figure 5 shows the estimated unemployment rates of young women aged 15-24 in
+major countries from 2000 to 2023 by the World Bank. The unemployment rate of
+young women in France has always been at a relatively high level. From 2010 to 2016,
+it once remained at nearly 25%, far higher than that of other major countries in the
+world. The unemployment rate of young women in the UK has also been relatively
+high, reaching around 16% in 2012. In contrast, the unemployment rate of young
+women in China remained below 10% before 2019, but started to rise rapidly after
+2019. By 2023, it was close to 15%, gradually exceeding that of the United States, the
+UK, and Japan. The unemployment rate of young women in Japan has always been
+relatively low, and since 2012, it has been gradually decreasing, showing no obvious
+upward trend after the pandemic.
+
+
+
+
+      Fig. 5. Unemployment Rates of Young Women Aged 15-24 in Various Countries.
+
+
+Analysis of the Reasons for the Changes in the Unemployment Rate of Young
+Women. First, the COVID-19 pandemic has impacted the economy, reducing the over-
+all employment absorption capacity of the economy. In the short term, after the out-
+break of the COVID-19 pandemic, many enterprises faced a sharp decline in orders and
+operational difficulties. A large number of enterprises chose to close down or halt pro-
+duction, resulting in large-scale layoffs. The youth group with less work experience
+was the first to bear the brunt. Moreover, this labor-saving employment model has de-
+veloped a certain inertia, affecting the long-term employment demand of enterprises.
+In the long term, the impact of the COVID-19 pandemic on employment through con-
+sumption, exports, and expectations has gradually emerged. First, the pandemic has
+influenced residents’ consumption behavior. Residents’ consumption behavior has be-
+come more rational, diversified, and conservative, especially among low-income
+groups. Second, in terms of exports, the COVID-19 pandemic has intensified the shocks
+on the supply and demand sides, triggered trade barriers, and spawned uncertain
+risks[6]. Coupled with the Sino-US game entering a deep-water zone, the United States
+556        X. Cai et al.
+
+and Europe have strengthened the "decoupling and disconnection" from China in the
+fields of trade and investment. In 2023, the proportion of imports from China in the
+total imports of the United States and the European Union has dropped to historical
+lows of 13.7% and 9.3% respectively[7]. Finally, due to the impact of the pandemic
+and the real estate market entering an adjustment period, the overall social expectations
+are weak, which has affected investment behavior. The superposition of these three
+factors has led to insufficient aggregate demand, a sharp reduction in enterprise invest-
+ment, and a corresponding decrease in the number of new jobs created by enterprises.
+Since the youth group has less work experience and mainly relies on newly created jobs
+to solve their employment problems[8], the insufficient creation of new jobs has grad-
+ually weakened the employment absorption capacity for young female groups. Alt-
+hough the economy has returned to normal operation for two years, the "scar effect"
+brought about by the economic shock has not disappeared.
+   Second, the growth rate of industries with strong employment absorption capacity
+for young women has slowed down. By calculating the employment multiplier of in-
+dustries and observing the development status of industries, the reasons for the rising
+unemployment rate among young women can be analyzed more meticulously at the
+industry level. The employment multiplier reflects the elastic relationship between final
+demand and employment, that is, for every one-unit increase in final demand (such as
+an increase in fixed-asset investment), the number of directly and indirectly increased
+employees. According to the definition of the employment multiplier and the availabil-
+ity of data, the input-output partial closure model is used to calculate the employment
+multiplier by industry.
+   Given the equation: . Among them, is the direct input coefficient matrix in the
+input-output table, is the column vector of the total output of sectors, and is the col-
+umn vector of the total demand of sectors. The solution vector of the above matrix
+equation is: . Let the matrix , that is, the inverse matrix of the Leontief matrix, then .
+Then the employment multiplier of the industry is: . Among them, is the coeffi-
+cient in the -th row and -th column of the inverse matrix of the Leontief matrix, and
+represents the labor demand coefficient per unit of total output[9].
+   Based on the input-output table of 2020 and the data from the 7th National Popula-
+tion Census, the total employment inducement coefficients, female employment in-
+ducement coefficients, and female youth employment inducement coefficients of vari-
+ous industries in China were calculated. The analysis shows that the industry of agri-
+cultural, forestry, animal husbandry, fishery products and services has the largest em-
+ployment inducement coefficient. The main reason is that the technological level of this
+industry develops slowly and it is a labor-intensive industry. Except for the industry of
+agricultural, forestry, animal husbandry, fishery products and services, for both female
+youth and all female labor forces, the accommodation and catering industry, and the
+industry of textile, clothing, shoes, hats, leather, down and their products have relatively
+large employment inducement coefficients. For female youth labor forces, industries
+such as textiles, residential services, repair and other services, health and social work,
+culture, sports and entertainment, and education have relatively large employment in-
+ducement coefficients, while industries such as petroleum, coking products and nuclear
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses               557
+
+fuel processing products have very small employment inducement coefficients. There-
+fore, by comparing the growth rates of added value by industry in recent years, it can
+be found that the accommodation and catering industry, which has a strong ability to
+absorb female youth employment, had a growth rate of-14.62% in 2020. Although it
+recovered later, it was still-1.51% in 2022, and the average growth rate from 2020 to
+2023 was only 5.055%. Although the overall growth rate of the manufacturing industry
+remained stable with fluctuations, the textile industry, which has a strong ability to ab-
+sorb female youth employment, declined severely. In 2022 and 2023, the growth rates
+of the added value of large-scale textile industries were -2.7% and -0.6% respectively,
+and the growth rates of the added value of large-scale clothing industries were -1.9%
+and -7.6% respectively. On the one hand, this was due to the impact of the COVID-19
+pandemic, and on the other hand, it was due to the relocation of the textile industry
+chain. Residential services, repair and other services, as well as the culture, sports and
+entertainment industries also recovered slowly after the pandemic, resulting in insuffi-
+cient employment opportunities for female youth. Generally speaking, the slow recov-
+ery of industries such as the catering and textile industries, which have a strong ability
+to absorb female youth employment, after the pandemic is the main reason for the in-
+crease in the unemployment rate of female youth after the pandemic.
+   Third, the development of automation technology has reduced the demand for labor.
+Since 2000, information technology has developed rapidly in China, and automation
+technology has penetrated into various industries. As a representative of automation
+technology, although the computer increases the demand for highly-skilled labor by
+complementing with it, its substitution effect on labor engaged in routine and codable
+tasks cannot be ignored. For example, bank tellers, cashiers, data entry clerks, etc.
+These are also industries where young female labor is concentrated. The substitution
+effect generated by automation technologies such as computers has reduced the demand
+for the corresponding labor. As can be seen from Table 5, the average number of com-
+puters used in industries that absorb more young women, such as education, wholesale
+and retail, and manufacturing, reaches more than 50 per 100 people. Robots are another
+type of automation technology with a strong labor substitution effect. In 2022, China’s
+industrial robot installation volume accounted for more than 50% of the global total.
+From 2017 to 2020, the growth rate of China’s industrial robots reached 13%. A new
+generation of information technology represented by artificial intelligence is rising rap-
+idly. From AlphaGo defeating the world-champion Go player Lee Sedol in 2016 to the
+release of the text-to-video model Sora in 2024, the time interval between each techno-
+logical leap in the field of artificial intelligence is shortening, and it is gradually trans-
+forming from professional artificial intelligence technology to general artificial intelli-
+gence technology. The expansion of professional knowledge formed by artificial intel-
+ligence technology targets non-routine tasks originally performed by highly-skilled la-
+bor, further expanding the substitutability of work tasks and reducing the demand for
+labor in the market. Although the education level of young women has been increasing
+year by year, the disconnection between the education system and market demand still
+exists. Especially for women majoring in liberal arts, they may face the unemployment
+problem caused by the mismatch between skills and market demand.
+558           X. Cai et al.
+
+                              Table 5. Computer usage by industry in 2022.
+
+                                                                                       Number of com-
+                                   Number of comput-
+             Industry                                             Industry             puters (per 100
+                                   ers (per 100 people)
+                                                                                           people)
+         Mining industry                   28                Real estate industry            39
+                                                          Leasing and business ser-
+      Manufacturing industry               33                                                24
+                                                               vices industry
+   Production and supply of                                Scientific research and
+  electric power, heat power,              76             technical services indus-          91
+    gas and water industry                                            try
+                                                          Water conservancy, envi-
+                                                          ronment and public facil-
+      Construction industry                15                                                15
+                                                           ities management indus-
+                                                                      try
+                                                          Resident services, repair
+  Wholesale and retail trade               59             and other services indus-          14
+                                                                     try
+  Transportation, storage and
+                                           40                    Education                  118
+    postal services industry
+  Accommodation and cater-
+                                           26              Health and social work            61
+          ing industry
+   Information transmission,
+                                                          Culture, sports and enter-
+   software and information                127                                               71
+                                                             tainment industry
+ technology services industry
+   Fourth, the real estate industry has entered an adjustment cycle, and there are policy
+controls in the education and training industry. Although the real estate industry ranks
+relatively low in terms of its ability to drive female youth employment, it occupies a
+very important position in the overall economy and has a significant impact on the up-
+stream financial and construction industries as well as the downstream home decoration
+and property management industries. In previous years, real estate and related enter-
+prises, which had a strong ability to absorb college graduates for employment, hardly
+had any new recruitment positions in 2024. The current downturn in the real estate
+industry has caused college graduates to lose an important employment direction. In
+addition, the real estate industry’s entry into the adjustment period has also changed
+residents’ overall economic expectations, reduced consumption, and the nature of
+houses is changing from investment products to consumer goods. Investment in the real
+estate and related industries has plummeted, reducing the creation of new jobs from the
+aggregate demand side. Meanwhile, in 2021, the "double reduction" policy in the edu-
+cation industry dealt a heavy blow to the education and training industry. Many educa-
+tion and training institutions went bankrupt, training classes closed, and some compa-
+nies transformed into other industries. The education industry itself has a relatively
+strong ability to absorb female youth employment, but currently it is unable to absorb
+relevant employment personnel, narrowing the employment channels for female youth.
+As employment opportunities in traditional industries decrease and emerging industries
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses                    559
+
+raise the skill requirements for the labor force, female youth have failed to adapt to this
+change in terms of skills and experience in a timely manner, leading to an increase in
+the unemployment rate.
+    Fifth, in the traditional gender employment concept, women are required to take on
+more responsibilities for child-rearing and housework in the family. From the perspec-
+tive of the micro-level reasons for unemployment, compared with men, at all age
+groups, the proportion of female youth who have never worked is higher than that of
+men, indicating that at all age groups, the difficulty of female youth’s first employment
+is higher than that of men. Another significant difference is that, compared with men,
+the proportion of women aged 25-34 who are unemployed due to taking care of their
+families is very high. For unemployed women aged 30-34, nearly half are unemployed
+because they need to take care of their families, while the proportion of men unem-
+ployed due to taking care of their families is less than 5% (as shown in Table 6). In the
+current difficult economic and employment situation, the increased difficulty of female
+first employment has exacerbated the rise in the unemployment rate of female youth.
+Coupled with the pressure on women’s careers caused by the gender role expectations
+of society and family, some female youth choose to withdraw from the labor market.
+
+    Table 6. Reasons for Unemployment among Young Men and Women in 2023 Unit: %.
+
+  Reasons for unemploy-                       Male                             Female
+           ment               16-19   20-24      25-29      30-34   16-19   20-24   25-29   30-34
+      Never worked            47.60   54.20      17.20      3.10    53.20   60.60   20.10   6.70
+  Health or physical rea-
+                              0.10    1.30           2.10   3.10    0.80    1.60    4.30    4.50
+            sons
+  Taking care of the fam-
+                              0.30    0.70           3.70   4.80    2.70    3.70    22.20   44.20
+             ily
+   Participating in study
+                              15.00   9.00           6.30   2.10    11.90   8.60    9.10    2.40
+        and training
+   Dissatisfied with the
+                              19.30   16.10      28.70      27.90   16.60   13.70   21.40   15.70
+       previous job
+ Completion of the previ-
+                              9.70    8.10       17.00      22.50   6.90    5.00    7.70    6.70
+        ous job task
+           Fired              1.00    1.20           2.80   3.70    2.10    1.10    2.10    2.60
+     Seasonal closure         1.30    0.60           1.70   3.00    0.40    0.20    0.70    1.40
+  Closure of the unit/self-
+                              1.40    2.80           6.70   9.30    1.80    2.00    4.20    5.40
+    employed business
+           Other              4.30     6.0       13.80      20.40   3.60    3.40    8.40    10.40
+
+
+
+The Situation of Occupational Gender Segregation Among Young People has de-
+teriorated. Occupational gender segregation refers to the phenomenon where a large
+number of people of the same gender are concentrated in the same occupation[10], or
+men and women are respectively concentrated in different occupations[11]. This may
+lead to gender inequality issues and affect overall work efficiency. By using the data
+560         X. Cai et al.
+
+from the fifth, sixth, and seventh national population censuses and adopting the stand-
+ardized Duncan index to measure the occupational gender segregation situation of Chi-
+nese young people, it is found that from 2000 to 2010, the occupational segregation
+situation among young people improved significantly. However, whether occupations
+are classified into six major categories or sixty-three categories, from 2010 to 2020, the
+occupational gender segregation situation among young people deteriorated, indicating
+a trend of increasing gender inequality in the youth employment market in the past
+decade. From 2000 to 2010, China’s economy was in a stage of rapid development,
+which provided a large number of job opportunities for young women. In addition, the
+improvement of the education level of young women and the gradual weakening of the
+society’s gender-role concept towards women led to the improvement of occupational
+gender segregation among young people. However, from 2010 to 2020, the occupa-
+tional gender segregation situation among young people deteriorated, indicating a trend
+of increasing gender inequality in the youth employment market in the past decade (as
+shown in Table 7).
+
+   Table 7. Overall level of occupational gender segregation among Chinese young people.
+
+                                                         Year        Year       Year
+                            Category
+                                                         2000        2010       2020
+      Standardized Duncan Index for Youth (Six Major
+                                                         21.36      16.81       21.63
+                   Occupation Categories)
+      Standardized Duncan Index for Youth (Sixty-three
+                                                           -        27.08       29.01
+                   Occupation Categories)
+   Based on the gender ratio within youth occupations, occupations with a proportion
+of young women below 30% are referred to as youth "male-dominated occupa-
+tions"[12]. Appendix Table 3 shows the changes in China’s youth "male-dominated
+occupations" in 2010 and 2020 and the proportion of young women in them. In 2010,
+there were only 14 "male-dominated occupations", and only 1 had a proportion of
+young women below 10%. By 2020, the number of "male-dominated occupations" had
+increased to 23, and the number with a proportion of young women below 10% had
+increased to 3. In 2010, the lowest proportion of women in occupations was 6.95%,
+while in 2020, the lowest proportion was 5.15%. Overall, the gender gap among the
+youth group has widened, and the employment situation for young women has deterio-
+rated.
+
+
+New Business forms and Young Women. The new business forms have broken the
+traditional rigid employment model and are more flexible, mobile, and inclusive. For
+young women, this flexibility is particularly important because such jobs allow them to
+better balance work and family responsibilities. The roles and impacts of young women
+in new business form jobs also reflect significant economic and social transformations
+and changes in the labor market. New forms of employment relying on the Internet,
+digital, and intelligent technologies, including e-commerce (such as product design,
+customer service, and marketing), the platform economy (such as ride-hailing and
+shared accommodation), and online education (such as remote teaching, live streaming,
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses           561
+
+and content creation), have attracted a large number of young women to participate.
+Some young women with parenting responsibilities can work from home, continue their
+careers in the form of flexible working hours, short-term contracts, and freelancing, or
+on a part-time basis, which also allows them to freely allocate their personal time.
+    Meanwhile, with continuous breakthroughs and innovations in fields such as infor-
+mation and communication, biotechnology, new materials, and new energy, the inte-
+gration with traditional industries has created a large number of new employment fields,
+providing women with a broader range of career choices, innovating traditional work
+content and forms, expanding women’s work options, and creating a relatively fair and
+open environment, making it easier for women to enter the high-skilled talent market.
+Based on the online data from China’s recruitment platforms, Appendix Table 4 shows
+the youth gender ratio in the new employment form of artificial intelligence from 2019
+to 2021 and the basic distribution of this gender ratio in different industries. Among
+them, only in the two industries of the financial sector and public administration, social
+security, and social organizations did the recruitment proportion of young women ex-
+ceed 20%. Industries with relatively low proportions include agriculture, forestry, ani-
+mal husbandry, and fishery, mining, resident services, repair, and other services, and
+real estate, all of which did not exceed 14%.
+    Furthermore, based on the online data from Chinese recruitment platforms, the gen-
+der income gap among young people and industry differences in the new employment
+format of artificial intelligence from 2019 to 2021 were analyzed, as shown in Appen-
+dix Table 5. Among them, significant gender income gaps were observed in the accom-
+modation and catering industry, information transmission, software and information
+technology services, manufacturing, health and social work, resident services, repair
+and other services, construction, real estate, wholesale and retail, education, culture,
+sports and entertainment, production and supply of electricity, heat, gas and water, sci-
+entific research and technical services, leasing and business services, and the financial
+industry. The income of young women in artificial intelligence positions was signifi-
+cantly lower than that of young men.
+    Although the new business formats have brought new opportunities, young women
+also face challenges in these new formats. First, emerging industries and future indus-
+tries have provided abundant career development opportunities for young women,
+which should have offered more chances for women to break through the old occupa-
+tional barriers. However, gender stereotypes still act like invisible shackles, hindering
+them from obtaining equal opportunities in these technology-and science-intensive
+fields. These stereotypes may be deeply rooted in industrial practices through artificial
+intelligence and data algorithms, resulting in young women often facing dual obstacles
+in education, employment, and even promotion opportunities when entering STEM
+fields, invisibly solidifying and spreading gender inequality. Second, flexible employ-
+ment forms such as remote work and flexible working hours seemingly provide greater
+freedom for women. However, this flexibility also makes it easier for society and indi-
+viduals to regard the work-life balance as an individual responsibility, blurring the
+boundaries between work and life, and even ignoring issues such as the need for social
+system support in employment. As a result, women encounter more invisible pressure
+in the workplace. That is, while taking on heavy responsibilities such as housework,
+562       X. Cai et al.
+
+child-rearing, and elderly care, they still need to maintain high-efficiency work perfor-
+mance. Finally, although the new business formats offer freedom in terms of time and
+location, they also weaken the institutional protection of workers’ rights in traditional
+labor relations. Due to the lack of a stable income source and a comprehensive social
+security system, female flexible employees are more vulnerable to market fluctuations
+economically. In addition, the lack of occupational health and safety protection also
+exposes them to greater risks at work. Therefore, it is urgent to improve legal protec-
+tion, innovate social insurance, provide career support, and raise public awareness.
+
+
+3      Challenges Faced by Young Chinese Women in Employment
+
+3.1    Female College Graduates Face Relatively High Employment Pressure
+
+The employment landscape for female college graduates has deteriorated significantly
+in 2024, despite relative stability during the pandemic period. This deterioration mani-
+fests through declining contract signing rates, insufficient institutional support posi-
+tions, heightened market competition, and elevated psychological pressure. The pri-
+mary drivers include reduced labor demand across traditionally female-employing sec-
+tors, particularly real estate, education, and manufacturing. Although the expanding
+new energy sector—characterized by the "new three export items" (electric vehicles,
+lithium batteries, and photovoltaic products)—has generated employment opportuni-
+ties, these positions typically require technical expertise that disadvantages female
+graduates concentrated in humanities and social sciences.
+
+
+3.2    The Phenomenon of Slow Employment Among Female College Graduates
+       is Prominent
+
+"Slow employment"—the strategic postponement of labor market entry after gradua-
+tion—has become increasingly prevalent among female college graduates. This phe-
+nomenon, affecting approximately 20% of graduates according to the 2024 Zhaopin
+Employment Competence Research Report, involves graduates either continuously
+seeking optimal employment opportunities or preparing for competitive public sector
+examinations despite having received employment offers. While potentially enhancing
+long-term career prospects, this approach carries significant risks: missed initial em-
+ployment opportunities, accumulated experience deficits, and the "unemployment scar
+effect" that diminishes subsequent employment quality.
+    Four primary factors drive this phenomenon. First, graduates overvalue the two-year
+"fresh graduate" status policy (instituted in 2018 and reinforced in 2020), despite its
+limited practical impact on employer recruitment practices. Second, substantial dispar-
+ities exist between employment within and outside the public system, particularly re-
+garding job security, social benefits, and family-supportive policies. Employees outside
+the system face significantly higher dismissal rates, circumvention of labor protections,
+inadequate unemployment benefits, and inferior social security provisions. Third, con-
+temporary graduates exhibit reduced financial pressure and heightened preference for
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses              563
+
+employment stability, particularly in state-owned enterprises and government institu-
+tions. Fourth, a structural mismatch persists between higher education curricula—es-
+pecially in female-dominated humanities disciplines—and labor market demands, ex-
+acerbated by insufficient enterprise involvement in curriculum development.
+
+
+3.3    Young Women Face Implicit Gender Discrimination in the Workplace
+
+Despite comprehensive legislative protections—including the Employment Promotion
+Law, the Law on the Protection of Women's Rights and Interests, and regulatory notices
+specifically prohibiting gender-based hiring restrictions—young women continue to
+encounter pervasive implicit discrimination. This manifests as disproportionately low
+female representation in interview pools, reduced selection rates, compensation dispar-
+ities, and inappropriate questioning regarding marriage and family planning. These
+practices stem from both statistical discrimination (employers' probabilistic assess-
+ments of group characteristics) and anticipated productivity disruptions associated with
+maternity leave.
+
+
+3.4    Young Women Lack Digital Skills
+
+The escalating importance of digital competencies in contemporary labor markets has
+revealed a significant gender-based skills gap. Female graduates demonstrate lower
+rates of strategic skill development in critical areas including artificial intelligence, big
+data analytics, industrial internet applications, and blockchain technologies. This defi-
+ciency correlates with persistent underrepresentation in STEM education, with
+UNESCO data indicating only 30% female participation in STEM fields globally and
+particularly low representation in information technology, natural sciences, mathemat-
+ics, and statistics.
+   This educational pathway divergence stems from deeply entrenched gender role so-
+cialization that propagates misconceptions about female aptitude in scientific disci-
+plines, emphasizes employment challenges in male-dominated fields, and channels
+women toward humanities and social sciences under the premise of enhanced work-
+family compatibility. Ironically, this educational stratification channels women away
+from precisely those occupations characterized by superior compensation and career
+advancement opportunities, particularly in the artificial intelligence era where STEM
+competencies command increasing premium. The technological displacement of hu-
+manities-oriented occupations consequently exacerbates labor market gender dispari-
+ties.
+
+
+3.5    Young Women Face Challenges in Balancing Family and Work
+Work-family reconciliation remains the paramount challenge confronting young pro-
+fessional women. The dual impact of intensive workplace demands (time constraints,
+unpredictable tasks, performance pressure) and disproportionate domestic responsibil-
+ities (particularly child-rearing and eldercare) creates acute role conflict that dispropor-
+tionately affects women. While potential mitigating factors exist—including familial
+564        X. Cai et al.
+
+support networks, domestic service utilization, and flexible work arrangements—their
+accessibility remains limited for many women. As Nobel economist Claudia Goldin
+has demonstrated, the prevalence of "greedy jobs" (positions rewarding extended avail-
+ability with enhanced compensation and advancement opportunities) fundamentally
+undermines gender equity. Family utility maximization typically results in one partner
+(predominantly women) adopting flexible, lower-remuneration employment to accom-
+modate caregiving responsibilities—a key mechanism perpetuating gender wage dis-
+parities.
+
+
+4      Policy Recommendations for Promoting the Employment of
+       Young Women
+
+4.1    Strengthen Efforts to Create New Job Opportunities
+
+Strategic investment in industries with high female employment coefficients—namely
+accommodation and catering, textiles, residential services, health and social work—
+represents an efficient mechanism for alleviating unemployment pressures. Local gov-
+ernments should implement dual-track support systems: (1) streamlining administrative
+processes for business registration, licensing, and operation, particularly for graduate
+entrepreneurs; (2) providing targeted fiscal incentives including start-up loans, rent sub-
+sidies, and tax deferrals for eligible female-owned enterprises. For the textile industry
+specifically, policies should simultaneously leverage RCEP and Belt and Road oppor-
+tunities to expand export markets while addressing persistent recruitment challenges
+through workplace environment improvements and enhanced social security provi-
+sions.
+
+
+4.2    Cancel the Regulation of Retaining the Fresh-Graduate Status for Two
+       Years
+
+The current policy allowing graduates to maintain "fresh graduate" status for two years
+post-graduation inadvertently encourages employment postponement and creates mis-
+aligned incentives. Evidence indicates this designation has minimal practical signifi-
+cance in employer hiring decisions, yet substantially influences graduate behavior, po-
+tentially causing candidates to forgo viable employment opportunities. The abolition of
+this status would encourage prompt labor market entry while maintaining essential em-
+ployment support services for genuinely unemployed graduates.
+
+
+4.3    Bridge the gap in the "Dual-track system" of Employment Security
+       between the "System-affiliated" and "Non-system-affiliated" Sectors
+The pronounced security differential between public (system-affiliated) and private
+(non-system-affiliated) employment represents a fundamental driver of female gradu-
+ates' reluctance to enter private sector employment. Policy interventions should ad-
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses          565
+
+dress: (1) employment stability—enforcing open-ended contract provisions after con-
+tinuous employment tenure, subsidizing skills development programs, equalizing ma-
+ternity provisions across sectors with partial government cost-sharing, and establishing
+robust complaint mechanisms for discrimination cases; (2) social security parity—en-
+forcing comprehensive social insurance compliance, increasing private sector contribu-
+tion bases following the pension system integration reform of October 2024, and
+streamlining administrative procedures to facilitate benefit claims.
+
+
+4.4    Address the Implicit Gender Discrimination in the Employment Market
+
+While China has made significant progress addressing explicit gender discrimination,
+countering implicit biases requires multi-dimensional intervention. Recommended
+measures include: (1) implementing gender equality awareness programs through
+workplace training and media campaigns; (2) incentivizing enterprises to adopt bias-
+mitigation strategies including anonymous resume reviews and gender-neutral perfor-
+mance evaluation frameworks; (3) establishing systematic audit mechanisms to identify
+discriminatory patterns through gender-disaggregated recruitment, promotion, and
+compensation data analytics; (4) creating enforcement mechanisms including preferen-
+tial procurement for gender-equitable employers and sanctions for non-compliant or-
+ganizations.
+
+
+4.5    Optimize the Curriculum Settings of Colleges and Universities
+
+University curricula require systematic realignment with contemporary labor market
+requirements. This necessitates structured industry-academia partnerships where lead-
+ing enterprises contribute to curriculum development through guest lectures and skills
+requirement communication. Particular emphasis should be placed on integrating digi-
+tal competencies across all disciplines, developing interdisciplinary programs combin-
+ing domain expertise with technological proficiency, and strengthening artificial intel-
+ligence teaching capacity, with targeted support for resource-constrained institutions in
+western regions.
+
+
+4.6    Strengthen the Cultivation of STEM Skills Among Young Women
+Addressing the digital skills gender gap requires coordinated interventions across edu-
+cational stages. Primary and secondary education reforms should focus on combating
+gender stereotypes through teacher training, developing gender-responsive STEM cur-
+ricula, and providing female role models in technical fields. Higher education institu-
+tions should establish specialized mentoring programs, research opportunities, and
+STEM-focused scholarships. Complementary career guidance systems and industry
+partnerships can facilitate transition pathways into technical employment sectors, while
+continuing education programs and professional networks can support workplace re-
+tention and advancement.
+566       X. Cai et al.
+
+4.7    Encourage the Cultivation of Female Entrepreneurship and the
+       Entrepreneurship of Young Women
+
+Entrepreneurial development represents a critical pathway for enhancing female eco-
+nomic empowerment. Comprehensive support mechanisms should include: (1) tailored
+entrepreneurship education programs covering business planning, financial manage-
+ment, and marketing; (2) networking and mentorship structures connecting nascent fe-
+male entrepreneurs with experienced counterparts; (3) gender-specific financial instru-
+ments including preferential loans, tax incentives, and subsidies; (4) market access fa-
+cilitation through procurement quotas for women-owned enterprises. Additionally, tar-
+geted executive development programs should be established to increase female repre-
+sentation in senior management positions.
+
+
+4.8    Promote Work-life Balance for Young Women
+
+Enhancing work-life reconciliation requires both institutional support and workplace
+culture transformation. Priority interventions include expanding childcare infrastruc-
+ture for children under three through standardization, quality assurance, workforce pro-
+fessionalization, and service model diversification. Concurrently, workplace flexibility
+policies—as mandated in the "Decision on Optimizing Fertility Policy to Promote
+Long-term Balanced Population Development"—require expanded implementation in
+private enterprises through regulatory enforcement. Additionally, strict enforcement of
+existing working hours legislation is essential to combat pervasive overtime cultures
+that disproportionately impact female workers with caregiving responsibilities.
+
+
+5      Conclusion
+
+Young women are an important force in the labor market. Adequate economic empow-
+erment not only enhances the sense of gain, security, and happiness of young women
+but also holds significant importance for high-quality population development and the
+achievement of common prosperity. Research has found that currently, young women
+in China are facing issues such as rising unemployment rates, intensified gender ine-
+quality in the job market, insufficient digital skills, and an imbalance between work and
+family. As big data and artificial intelligence technologies rapidly penetrate into eco-
+nomic life, algorithmic bias may exacerbate the potential employment dilemmas of
+young women[13]. Therefore, it is necessary to promote communication and collabo-
+ration among multiple sectors, formulate a scientific and feasible macro-policy frame-
+work, provide a basic framework and practical guidelines for the employment and ca-
+reer development of young women, and promote high-quality and full employment for
+young women. Specifically, it is necessary to start with industries with strong employ-
+ment absorption capacity for young women, create new job opportunities by promoting
+consumption and expanding investment, and fundamentally relieve the current employ-
+ment pressure on young women. At the same time, it is also necessary to address the
+Young Women’s Employment in China: Trends, Challenges, and Policy Responses              567
+
+contradictions between employment and childbearing faced by young women from as-
+pects such as improving social security, enhancing women’s employment and entrepre-
+neurship capabilities, and strengthening social support for childbearing.
+
+
+Acknowledgments
+
+This study was funded by National Social Science Foundation Youth Program (Grant
+Number: 22CSH048) and Zhejiang Provincial Philosophy and Social Sciences Plan-
+ning Special Project on "Higher Education Basic Research Funding Reform" (Grant
+Number: 25NDJC153YBMS).
+
+
+References
+ 1. Wang Meiyan. New Trends and Countermeasures of Current Youth Employment [J]. Peo-
+    ple’s Tribune, 2021 (15): 100-103.
+ 2. Guo Ran, Tian Feng, Wang Luyao. Quantity Decrease and Quality Increase: Changes and
+    Analysis of Youth Employment Status (2006-2021) — Based on CSS Survey Data [J]. China
+    Youth Study, 2022 (11): 110-119.
+ 3. RODRIGUEZ-MODRONO P. Youth unemployment, NEETs and structural inequality in
+    Spain [J]. International journal of manpower, 2019, 40(3): 433-448.
+ 4. VANCEA M, UTZET M. School-to-work transition: the case of Spanish NEETs [J]. Journal
+    of youth studies, 2018, 21 (7): 869-887.
+ 5. SENOU M, ROCH G, ACCLASSATO HOUENSOU D. Unemployment duration and
+    youths’ transition from school to work in Benin:
+ 6. is there a gender gap? [J]. The journal of developing areas, 2022, 56(1): 94-106.
+ 7. Liu Hongduo, Zhang Ni, Lu Yang, et al. Research on the Impact of the COVID-19 Pandemic
+    on Global Trade [J]. Statistical Research, 2021, 38 (12): 61-76.
+ 8. Lu Wei, Nie Xinwei. Outlook on the International Situation and Trends Faced by China
+    during the 15th Five-Year Plan Period [J]. Finance and Economics Think Tank, 2024, 9 (3):
+    5-26.
+ 9. Du Yang. Trend Changes and Countermeasure Suggestions for College Students’ Employ-
+    ment [J]. People’s Tribune, 2022, (17): 96-98.
+10. Yang Jing, Yang Xianghui, Zhang Guangyuan. Influencing Factors of Employment Creation
+    in China’s Tertiary Industry — An Empirical Analysis Based on Panel Data of 14 Industries
+    [J]. Finance & Economics, 2015, (6): 97-107.
+11. MERTON R. Priorities in scientific discovery [J]. American sociological review, 1957(6):
+    635-659.
+12. ABBOTT P, WALLACE C. Explaining economic and social transformations in Post-Soviet
+    Russia, Ukraine and Belarus [J]. European societies, 2010 (12): 653-674.
+13. Zhao Yuanyuan. Trend Analysis of the Level of Occupational Gender Segregation in Urban
+    Areas of China [J]. Population Journal, 2017, 39 (5): 56-66.
+568         X. Cai et al.
+
+Open Access This chapter is licensed under the terms of the Creative Commons Attribution-
+NonCommercial 4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/),
+which permits any noncommercial use, sharing, adaptation, distribution and reproduction in any
+medium or format, as long as you give appropriate credit to the original author(s) and the
+source, provide a link to the Creative Commons license and indicate if changes were made.
+      The images or other third party material in this chapter are included in the chapter's
+Creative Commons license, unless indicated otherwise in a credit line to the material. If material
+is not included in the chapter's Creative Commons license and your intended use is not
+permitted by statutory regulation or exceeds the permitted use, you will need to obtain
+permission directly from the copyright holder.
+

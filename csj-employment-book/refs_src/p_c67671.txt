@@ -1,0 +1,842 @@
+Special Issue–Explainable AI in Action: Advancing Applied Intelligence with Inter
+pretable Insights
+
+Guest Editor: A/Prof. Xinyu Cai
+Associate Professor, Jiaxing University
+
+A/Prof. Xinyu Cai, Associate Professor at Jiaxing University, holds a Ph.D. in Economics and serves
+as a master's supervisor. He is a Certified Information Systems Auditor (CISA) and an expert with
+the Ministry of Education’s Graduate Evaluation Program. His research focuses on human capital,
+employment and wage systems, and large-scale AI applications in sustainable development. A/Prof.
+Cai has led major national and provincial research projects and published over 20 academic papers,
+including in Nature sub-journals and top Chinese core journals. He has received multiple research
+awards and serves on national academic committees related to AI and human resources.
+
+
+
+Special Issue Overview：
+Since the rapid proliferation of Artificial Intelligence across myriad sectors, and particularly
+after the general acknowledgement of its transformative potential by mainstream discourse, the
+understanding of AI's decision-making processes has become a critical factor in its responsible
+adoption and deployment. More recent advancements, such as the remarkable capabilities of deep
+learning and large-scale models, further intensify this need for transparency. Consequently,
+stakeholders across all industries are now seeking not just "intelligent" solutions but "intelligible"
+ones as part of their operational strategy, from healthcare diagnostics to financial forecasting. The
+domain of applied AI is no exception. "Black box" models, for instance, are no longer universally
+accepted, as virtually every critical application now calls for explainable practices. On the other
+hand, the drive for innovation and competitive advantage enhances the need for increasingly
+complex AI. This combination of imperatives: catering to (or appearing to cater to) the demand for
+transparent and trustworthy AI, as well as pushing the boundaries of predictive power, is often a
+challenge for AI developers. Additionally, the complexity inherent in advanced AI can further hinder
+the achievement of accountability and ethical oversight. However, can the field of applied AI also
+be part of the solution and empower users and developers to make informed decisions and deploy
+systems that are genuinely robust, fair, and beneficial?
+      The aim of this Special Issue is to explore how applied AI research is integrating explainability
+and interpretability to achieve these goals. This will include the development and application of
+novel techniques focused on making AI systems more transparent, as well as understanding the
+psychological and practical antecedents of trust and adoption of explainable AI. It could look at how
+researchers and practitioners are addressing the apparent trade-off between model complexity and
+interpretability, as well as the role of human-AI interaction in this context. Through the expansion
+of knowledge and theory, this Special Issue aims to support AI stakeholders in addressing the
+challenges of intelligibility more effectively and transparently. Topics may include the following:
+•    Developing and applying interpretable deep learning frameworks (e.g., CNNs, RNNs,
+     Transformers, Attention Mechanisms) for complex data analysis.
+•    Innovations in explainable AI for feature engineering, dynamic feature weighting, selection,
+     and validation.
+•   The integration of causal inference and discovery (e.g., using methods like NOTEARS or
+    SHAP values) with machine learning for robust and transparent predictions.
+•   Novel applications of XAI in diverse domains such as employment market analysis,marketing
+    optimization, financial services, healthcare, and public policy.
+•   Techniques for effectively visualizing and communicating AI explanations to domain experts,
+    policymakers, and end-users.
+•   Methodologies for evaluating the effectiveness, fidelity, and real-world impact of XAI methods.
+•   Strategies for bridging model-agnostic interpretability techniques with domain-specific
+    knowledge and constraints.
+•   The ethical implications, challenges of bias, and responsible deployment strategies for
+    explainable AI systems.
+•   Human-computer interaction aspects of XAI, including user trust and reliance on explainable
+    systems.
+•   Theoretical advancements in understanding the foundations of interpretability in machine
+    learning.
+
+
+
+Keywords
+Explainable AI (XAI), Interpretable Machine Learning, Applied Artificial Intelligence, Feature
+Engineering, Causal Inference, Attention Mechanisms, Deep Learning, CNN, Transformers, SHAP
+values, Spatiotemporal Analysis, Employment Market Analysis, Marketing Analytics, Big Data
+Analytics, Decision Support Systems, Algorithmic Transparency, AI Ethics.
+
+
+
+License Note:
+This special issue is published under the terms of the Creative Commons Attribution 4.0
+International License (CC BY 4.0), which permits unrestricted use, distribution, and reproduction
+in any medium, provided the original work is properly cited.
+Editor-in-Chief
+
+Chengwei Feng
+PhD Candidate, Auckland University of Technology, New Zealand
+
+Chengwei Feng is a PhD candidate at Auckland University of Technology, specializing in
+artificial intelligence and human motion modelling. Her research integrates AI, sensor fusion, and
+time-series analytics to advance real-time motion recognition, health monitoring, and behavior
+modelling. She has authored five peer-reviewed publications and holds eleven invention patents in
+areas such as smart diagnostic systems, precursor chemical detection, IoT-enabled pharmaceutical
+management, and intelligent procurement signal tracking. Her work emphasizes practical, real-
+world applications and interdisciplinary collaboration with academic institutions and public
+security agencies.
+
+
+
+
+Section Editors
+
+A/Prof. Xing Cai
+Associate Professor, Southeast University, China
+
+A/Prof. Cai focuses on smart highways and AI in transportation systems. She leads national
+research projects supported by the NSFC and the National Key R&D Program. Her SCI-indexed
+publications have earned awards such as the First Prize from the Jiangsu Society of Engineers.
+
+
+
+
+Dr. Renda Han
+School of Computer Science and Technology, Hainan University, Haikou, China
+
+Dr. Han specializes in graph clustering and has published over 20 papers in CCF and SCI-indexed
+journals and conferences, including AAAI and ICML. He serves on the editorial boards
+of Scientific Research and Innovation and Deep Learning and Pattern Recognition, and regularly
+reviews for top-tier conferences.
+
+
+
+
+Dr. Changchun Liu
+Assistant Researcher and Postdoctoral Fellow, Nanjing University of Aeronautics and
+Astronautics (NUAA), China
+
+Dr. Liu’s research focuses on industrial AI, smart manufacturing, human–robot collaboration, and
+predictive maintenance. He has authored over ten high-impact papers in journals such
+as RCIM and Computers & Industrial Engineering, with over 200 citations.
+Dr. Meng Liu
+Research Scientist, NVIDIA
+
+Dr. Liu’s research interests include graph neural networks, clustering, and multimodal learning.
+He has published over 20 papers in leading venues such as Advanced Science, IEEE TPAMI, IEEE
+TKDE, CVPR, ICML, and ICLR. His work includes an ESI Hot Paper and a Highly Cited Paper,
+with over 1,000 citations. He has received several awards, including Best Paper at the 2024 China
+Computational Power Conference and a DAAD AInet Fellowship.
+
+
+
+
+Dr. Zhongbin Luo
+Professor-level Senior Engineer, China Merchants Chongqing Communications Research &
+Design Institute. Master’s Supervisor, Chongqing Jiaotong University & Shijiazhuang Tiedao
+University
+
+Dr. Luo’s research focuses on intelligent transportation, traffic safety, and vehicle–road
+collaboration. He has led over ten national and provincial research projects, holds 11 invention
+patents, and serves as an expert reviewer for journals such as IEEE Access and PLOS ONE.
+
+
+
+
+Dr. Ruichen Xu
+Postdoctoral Fellow, Department of Civil & Environmental Engineering,University of Missouri,
+Columbia, USA
+
+Dr. Xu's research interests include hydrological ecology, AI-based flood forecasting, and
+sediment–pollutant dynamics. He has led or contributed to more than ten projects in China and the
+U.S. and has published over 20 peer-reviewed papers. He holds patents in environmental
+monitoring and serves as a reviewer for journals like Journal of Hydrology and Ecological
+Indicators.
+
+
+
+
+A/Prof. Jinghao Yang
+Assistant Professor, Electrical and Computer Engineering, The University of Texas Rio Grande
+Valley, USA
+
+ Dr. Yang has taught in the U.S. and specializes in applying machine learning to intelligent
+manufacturing systems. His research bridges intelligent sensing, control, and adaptive design with
+industrial applications, contributing to smart production technologies and data-driven innovation.
+Yihan Zhao
+PhD Candidate, University of Auckland, New Zealand
+
+Yihan Zhao holds a Master’s degree from Peking University and is currently a PhD candidate at
+the University of Auckland. Her research explores the intersection of communication, culture, and
+technology, with a focus on how algorithms reshape cultural expression and the subjectivity of
+marginalized communities. She previously served as an Assistant Research Fellow at the
+Development Research Centre of the State Council in China, contributing to national research
+projects. She has curated and coordinated panels for the China Development Forum, facilitating
+high-level dialogue on AI, sustainability, and governance.
+
+
+
+
+Shen (Jason) Zhan
+Graduate Researcher, University of Melbourne, Australia
+
+Jason Zhan holds an Honours degree in Civil and Environmental Engineering from the University
+of Auckland and is currently a PhD researcher in the Teaching & Learning Lab at the University
+of Melbourne. He combines industry and academic experience, with a background in structural
+engineering and teaching. His research focuses on employability assessment and curriculum
+design in engineering education, with growing interest in the role of AI in authentic assessment
+and personalized learning.
+                                                                  Contents
+
+
+
+1. Adaptive Collaborative Interpretation: An AI- Enhanced Framework for Dynamic Ideological
+   and Political Education ............................................................................................................... 1
+
+2. Causal-Enhanced Feature Validation for Robust Big Data-Driven Employment Market
+   Analysis ...................................................................................................................................... 8
+
+3. Dynamic Incentive Structures and Transformer- Based Competency Mapping for Innovation
+   Talent Evaluation in Development Programs ........................................................................... 17
+
+4. Explainable AI-Driven Content Optimization for 2D Character Merchandise Marketing: A
+   Causal Feature Attribution and Attention-Guided Framework ................................................. 25
+
+5. Interpretable CNN-Attention Hybrid Framework for Spatiotemporal Feature Engineering in
+   Youth Employment Market Trend Prediction ........................................................................... 34
+  Interpretable CNN-Attention Hybrid Framework for
+      Spatiotemporal Feature Engineering in Youth
+         Employment Market Trend Prediction
+                                              Mengdie Wang, Xiaoxue Chen, and Xinyu Cai
+                                ( College of Business, Jiaxing University, Jiaxing, Zhejiang 314001, China )
+
+
+
+
+   Abstract—This research propose an interpretable hybrid                                                  I. INTRODUCTION
+neural-temporal framework for youth employment trend                                 Youth employment market dynamics present complex
+prediction that integrates dilated convolutional neural                              spatiotemporal patterns influenced by multifaceted
+networks (CNNs) with self-attention mechanisms to extract                            socioeconomic factors, including education levels, industry
+and analyze spatiotemporal features from multivariate
+                                                                                     demands, and macroeconomic shocks. Traditional forecasting
+employment indicators. The framework addresses the dual
+                                                                                     methods like Vector Autoregression [1] and ARIMA models
+challenges of capturing multi-scale temporal dependencies and
+                                                                                     [2] often struggle to capture these nonlinear interactions, while
+providing policy-actionable insights, which are critical for
+understanding complex labor market dynamics. The                                     deep learning approaches such as LSTM networks [3] and
+methodology combines a dilated CNN architecture to isolate                           Temporal Convolutional Networks [4] lack interpretability—a
+local patterns such as seasonal fluctuations and abrupt shocks,                      critical requirement for policy decisions. This limitation
+followed by a modified self-attention mechanism that                                 becomes particularly evident when analyzing heterogeneous
+dynamically weights features and time steps to enhance                               youth labor markets, where localized trends and sudden
+interpretability. Furthermore, a gating mechanism derives                            disruptions (e.g., pandemic-induced job losses) require both
+time-aggregated feature importance scores, enabling recursive                        granular temporal modeling and transparent feature attribution.
+refinement of high-impact variables during preprocessing. The                            Recent advances in hybrid neural architectures have
+proposed method interfaces with conventional modules                                 attempted to bridge this gap. The success of CNN-LSTM
+through robust median-based normalization and attention-                             hybrids [5] in capturing hierarchical temporal features
+guided feature selection, which employs LASSO                                        demonstrates the potential of combining convolutional
+regularization to prioritize influential predictors. Implemented                     operations with sequential modeling. Meanwhile, self-
+with TensorFlow/Keras and optimized for GPU acceleration,                            attention mechanisms [6] have shown promise in identifying
+the framework handles high-resolution data efficiently while                         critical time steps and features through dynamic weight
+maintaining transparency in decision-making. Experiments
+                                                                                     allocation. However, existing implementations often treat
+demonstrate its superiority over traditional ARIMA or RNN-
+                                                                                     these components as black boxes, failing to provide the
+based approaches, particularly in scenarios requiring both
+accuracy and interpretability. The results highlight its potential                   explicit linkages between input features and policy-relevant
+as a tool for policymakers to identify critical drivers of youth                     outcomes that labor economists and policymakers require. For
+employment trends, thereby supporting targeted interventions                         instance, while Google Trends data [7] can improve
+and long-term labor market planning.                                                 unemployment rate predictions, current methods cannot
+                                                                                     systematically explain how specific search queries correlate
+Index Terms—Youth employment forecasting, Interpretable                              with employment shifts across demographic subgroups.
+machine learning, Spatiotemporal modeling, CNN-attention                                 Our work introduces a novel framework that addresses
+mechanism, Labor market prediction                                                   these limitations through three key innovations. First, we
+                                                                                     employ dilated convolutions with exponentially increasing
+                                                                                     receptive fields to model both short-term fluctuations and
+                                                                                     long-term trends in youth employment indicators, avoiding the
+                                                                                     memory constraints of recurrent architectures. Second, we
+   This work was supported by the Zhejiang Provincial Philosophy and Social
+Sciences Planning Special Project on Higher Education Basic Research
+                                                                                     design a dual-path attention mechanism that separately
+Funding Reform under Grant Number: 25NDJC153YBMS and the Jiaxing                     processes temporal and cross-sectional dependencies,
+University Students' Science and Technology Innovation Training Project              generating interpretable importance scores for each feature at
+(SRT) under Grant No.8517241409. Corresponding author:Xinyu Cai,                     different time scales. Third, we integrate these scores into a
+caixinyu@zjxu.edu.cn.
+   Mengdie Wang is with the College of Business, Jiaxing University,                 feature engineering pipeline that iteratively refines the input
+Jiaxing, Zhejiang, China, 314001 (e-mail: Mmmmonday@icloud.com).                     space based on their economic significance—a process guided
+Xiaoxue Chen is with the College of Business, Jiaxing University, Jiaxing,
+Zhejiang, China, 314001 (e-mail: 3408895738@qq.com). Xinyu Cai is with
+                                                                                     by labor market theory [8] rather than purely statistical criteria.
+the College of Business, Jiaxing University, Jiaxing, Zhejiang, China, 314001            The proposed method offers distinct advantages over
+(e-mail: caixinyu@zjxu.edu.cn).
+
+
+                                                                                34
+existing approaches. Unlike traditional econometric models               introduced explainable convolutions for time series
+[9], it handles high-dimensional, non-stationary data without            classification, while [14] developed specialized attention
+requiring manual feature engineering. Compared to pure deep              mechanisms for demand forecasting. In labor market analysis,
+learning solutions [10], it maintains interpretability through           [15] employed feature importance rankings to explain
+attention-derived feature weights that align with known labor            predictions, though without the temporal granularity needed
+market drivers like educational attainment and sectoral growth.          for youth employment analysis. Notably, most existing
+Experimental results on European and Asian youth                         interpretable methods focus on post-hoc explanations rather
+employment datasets show 12-18% improvement in prediction                than building inherently transparent architectures.
+accuracy over baseline models while providing actionable                    The proposed framework advances beyond these
+insights into regional employment disparities.                           approaches through its integrated design of multi-scale pattern
+    The remainder of this paper is organized as follows:                 extraction and dynamic feature weighting. Unlike [13], our
+Section 2 reviews related work in labor market forecasting and           method processes both temporal and cross-sectional
+interpretable time series analysis. Section 3 formalizes the             dependencies simultaneously via the attention mechanism.
+problem setting and introduces necessary background                      Compared to [11], we replace recurrent connections with
+concepts. Section 4 details our hybrid architecture and its              dilated convolutions to better capture long-range dependencies
+interpretability mechanisms. Sections 5 and 6 present                    while     maintaining     computational      efficiency.     Most
+experimental setup and results, followed by discussion of                significantly, our feature importance scoring system provides
+implications and future research directions in Section 7.                policy-actionable insights that surpass the static interpretations
+                                                                         offered by [15], enabling dynamic assessment of how different
+                      II. RELATED WORK                                   factors influence youth employment across varying time
+   Recent advances in time series forecasting and interpretable          horizons.
+machine learning have produced several approaches relevant
+to youth employment trend prediction. These works can be                             III. BACKGROUND AND PRELIMINARIES
+broadly categorized into three research directions:                         Understanding youth employment trends requires grounding
+conventional econometric models, deep learning architectures,            in both time series analysis fundamentals and the specific
+and hybrid interpretable frameworks.                                     challenges of labor market dynamics. This section establishes
+                                                                         the theoretical foundations necessary to comprehend our
+A. Conventional Econometric Approaches
+                                                                         proposed framework, progressing from general temporal
+   Traditional labor market forecasting has relied heavily on            modeling concepts to specialized considerations for
+econometric techniques such as ARIMA models [2] and                      employment forecasting.
+vector autoregression [1]. While these methods provide well-
+understood statistical properties, they often fail to capture the        A. Time Series Analysis Basics
+nonlinear interactions prevalent in youth employment data.                  Time series decomposition forms the cornerstone of
+Recent extensions incorporate alternative data sources; for              temporal pattern analysis, where any observed series Xt can be
+instance, [7] demonstrated how Google Trends data could                  expressed as:
+enhance the predictive power of conventional models.                                         Xt = Tt + St + R t (1)
+However, such approaches remain limited by their linear                     where Tt represents the trend component, St captures
+assumptions and inability to process high-dimensional feature            seasonality, and R t denotes the residual noise [2]. For
+spaces effectively.                                                      employment data, the trend component often reflects long-
+                                                                         term economic cycles, while seasonality may correspond to
+B. Deep Learning for Time Series Forecasting
+                                                                         academic calendar effects or industry-specific hiring patterns.
+   The success of deep learning in sequence modeling has led             The decomposition becomes particularly challenging when
+to its adoption for economic forecasting. LSTM networks [3]              dealing with youth employment data, where structural breaks
+have become particularly prevalent due to their ability to learn         frequently occur due to policy interventions or demographic
+long-term dependencies, as evidenced by their application in             shifts [8].
+predicting Iraqi youth unemployment trends [11]. Temporal                   Stationarity represents another critical concept, typically
+convolutional networks [4] offer an alternative with parallel            assessed through the variance:
+processing advantages, while graph neural networks have                                        Var(Xt ) = σ2 (2)
+shown promise for detecting anomalies in multivariate labor                 where constant variance indicates stationarity—a common
+market indicators [12]. These methods typically outperform               assumption in traditional models like ARIMA [2]. However,
+traditional econometric models in accuracy but suffer from               youth employment series frequently violate this assumption
+opacity in decision-making—a critical drawback for policy                due to evolving labor market institutions and technological
+applications.                                                            disruptions, necessitating more flexible modeling approaches
+C. Interpretable Hybrid Frameworks                                       [16].
+  Recent efforts have sought to combine predictive                       B. Challenges in Youth Employment Trend Prediction
+performance with interpretability. The XCM architecture [13]                Youth labor markets exhibit unique characteristics that
+
+
+                                                                    35
+complicate forecasting. The variance structure often follows            engineering module.
+heteroskedastic patterns:                                                                                                                                                  Temporal Attention
+                                                                                                                                                                       A_t^temp = softmax(QK^T/ d_k)
+
+
+                      Var(Xt ) = f(t) (3)                                    Multivariate Input
+                                                                                X       ^(T×d)
+                                                                                                                   Gated Dilated CNN
+                                                                                                                  r=1        r=2       r=4        r=8
+                                                                                                                                                                            Time-step Dependencies
+                                                                                                                                                                           Multi-head: 4 heads - Eq. (7)
+                                                                                                                                                                                                                         Dynamic Feature Engineering
+
+                                                                                                                                                                                                                                    Importance Scoring
+
+   where variance changes over time due to factors like
+                                                                             Education, GDP, etc.                                                                                                                            v_imp,j = Σ α_t,j · MLP(z_t,j) - Eq. (9)
+                                                                              MAD Normalization                 Multi-scale Pattern Extraction
+                                                                                     Eq. (5)                      Depthwise-Separable Conv                                                                                        LASSO Regularization
+
+educational expansion or economic crises [17]. Unlike general
+                                                                                                                                                                                                                                   λΣ |β_j|/v_imp,j - Eq. (10)
+                                                                                                            H^(L) = ReLU(W_depth       H)     σ(W_point H)                   Feature Attention
+                                                                                                                  Dilation: [1,2,4,8,16,32] - Eq. (6)                    A_f = softmax(Q_f K_f^T/ d_k)                          Policy-Actionable Insights
+                                                                                                                            Output: H^(L)                                    Cross-sectional Weights                             Dynamic Feature Refinement
+
+unemployment series, youth employment data contains                                                                                                                            Feature Interactions
+
+
+
+
+pronounced age-cohort effects—where specific generations
+                                                                                                                                                                             Combined Features
+
+face systematically different labor market conditions—and                                                                                                          Z = [A_t^temp H W_v; A_f H^T W_v^T] - Eq. (8)
+
+
+
+
+period effects reflecting broader economic climates [18].
+   Multidimensional interactions further complicate analysis.                                                                                                Interpretable Predictions
+                                                                                                                                                              Youth Employment Forecasts
+
+Regional disparities, educational attainment levels, and                                                                                                      + Feature Importance Rankings
+                                                                                                                                                               + Temporal Attribution Scores
+
+
+
+industry compositions create complex dependency structures
+that traditional univariate models cannot capture. For instance,
+the employment prospects of university graduates in                            Temporal Interpretability
+                                                                            When do features matter?
+                                                                                                                              Feature Interpretability
+                                                                                                                         Which features drive predictions?
+                                                                                                                                                                                             Policy Applications
+                                                                                                                                                                                      Labor market intervention design
+                                                                                                                                                                                                                                                       Key Innovations
+                                                                                                                                                                                                                                                    Dual-path attention mechanism
+                                                                            Multi-scale temporal patterns                Education vs. economic factors                               Education-employment alignment                                Multi-scale dilated CNN
+
+technology      hubs     may    correlate   differently     with            Economic cycle identification
+                                                                            Policy intervention timing
+                                                                                                                         Regional disparity analysis
+                                                                                                                         Targeted intervention guidance
+                                                                                                                                                                                      Regional development priorities
+                                                                                                                                                                                      Crisis response strategies
+                                                                                                                                                                                                                                                    Dynamic regularization
+                                                                                                                                                                                                                                                    End-to-end interpretability
+
+
+macroeconomic indicators compared to vocational school
+                                                                            Crisis response analysis                     Cross-country comparisons                                    Resource allocation optimization                              Policy-guided feature selection
+
+
+
+
+graduates in manufacturing regions [19].
+                                                                                                                                         Framework Performance Advantages
+                                                                              Accuracy Improvement               Feature Importance                                  Policy Alignment                              Temporal Consistency
+
+C. Fundamentals of Multivariate Time Series Forecasting                           12-18% vs baselines               FIRC: 0.78 vs 0.52                                PAAS: 0.82 score                             Superior DTW performance
+
+
+
+
+  Multivariate approaches address these limitations by
+modeling interdependencies between variables. The vector                Fig. 1 System Architecture                                                                             with                        Proposed                                   Feature
+autoregressive (VAR) framework [1] generalizes to:                      Engineering Module.
+                        p
+
+                  Xt = ∑ Ai Xt−i + et     (4)                              The architecture processes multivariate time series inputs
+                        i=1
+                                                                        X ∈ ℝT×d where T represents time steps and d denotes feature
+   where Ai contains coefficient matrices and et represents             dimensions (e.g., education levels, regional GDP). As shown
+multivariate white noise. While VAR models capture linear               in Figure 1, the system comprises three core modules: 1) a
+cross-variable dependencies, they struggle with the high-               gated dilated CNN for hierarchical feature extraction, 2) a
+dimensional, nonlinear relationships present in youth                   dual-path attention mechanism for temporal and cross-
+employment data—such as threshold effects where certain                 sectional dependency modeling, and 3) an importance-
+education levels become prerequisites for employment during             weighted feature engineering module.
+recessions [20].                                                           The input layer applies median-based normalization
+   Modern neural approaches overcome some limitations                   (Equation 5) to handle outliers prevalent in employment data.
+through distributed representations and nonlinear activation            For feature j at time t:
+functions. However, they introduce new challenges in                                                 xt,j − μmed,j
+                                                                                             x̃t,j =               (5)
+maintaining interpretability—a crucial requirement for policy                                            σmed,j
+applications where stakeholders need to understand which                   where μmed,j and σmed,j denote the median and median
+factors drive predictions and how their influence varies across         absolute deviation (MAD) of feature j across all time steps.
+time horizons [21]. This tension between predictive power and
+explainability motivates our hybrid architecture design.                B. Component Formulations and Functions
+                                                                           The dilated CNN module employs depthwise-separable
+  IV. HYBRID NEURAL TEMPORAL MODELING FRAMEWORK                         convolutions with exponentially increasing dilation rates r =
+   The proposed framework combines the multi-scale pattern              2l at layer l, capturing patterns from quarterly cycles to multi-
+extraction capabilities of convolutional networks with the              year trends. The gated activation mechanism combines
+dynamic feature weighting of attention mechanisms,                      temporal convolutions with pointwise projections:
+                                                                              (l)             (l)      (l−1)        (l)    (l−1)
+specifically designed for interpretable youth employment                   Ht = ReLU(Wdepth ∗r Ht            ) ⊙ σ(Wpoint Ht     ) (6)
+trend prediction. This section details the architectural                   where ∗r denotes dilated convolution, Wdepth and Wpoint are
+components and their mathematical formulations.                         depthwise and pointwise weight matrices, and ⊙ represents
+A. Framework Architecture                                               element-wise multiplication. This formulation allows the
+                                                                        model to learn both local patterns and their contextual
+   The architecture processes multivariate time series inputs
+                                                                        relevance simultaneously.
+where represents time steps and denotes feature dimensions
+                                                                           The attention module processes the CNN outputs H (L)
+(e.g., education levels, regional GDP). As shown in Figure 1,
+                                                                        through parallel temporal and feature attention paths. For the
+the system comprises three core modules: 1) a gated dilated
+                                                                        temporal path:
+CNN for hierarchical feature extraction, 2) a dual-path                                                                                                                                                              ⊤
+                                                                                                                                                        (L)
+attention mechanism for temporal and cross-sectional                                 temp             (H                                                        WQ )(H (L) WK )
+                                                                                    At    = softmax (                                                                                                                    )               (7)
+dependency modeling, and 3) an importance-weighted feature                                                                                                                √dk
+
+
+                                                                   36
+  where WQ and WK project inputs into query and key spaces                       employment-population ratios, school-to-work transitions, and
+of dimension dk . The feature attention path computes cross-                     NEET (Not in Education, Employment or Training) rates.
+sectional weights Af analogously using transposed projections.                     All datasets underwent consistent preprocessing:
+The combined representation becomes:                                               Missing values were imputed using median values within
+                    temp                         ⊤                               each country/state grouping
+           Z = [At         H (L) WV ; Af (H (L) ) WV⊤ ]    (8)
+                                                                                   Features were normalized using median absolute deviation
+  preserving raw attention scores for interpretability as in                     (MAD) scaling as in Equation 5
+Equation (8).                                                                      Temporal alignment was performed to handle differing
+C. Integration, Normalization, and Regularization Techniques                     reporting frequencies
+   The feature engineering module aggregates attention scores                      The datasets were partitioned chronologically into training
+into dynamic importance weights. For policy-relevant feature                     (70%), validation (15%), and test (15%) sets, preserving
+selection, we compute:                                                           temporal ordering to avoid look-ahead bias.
+          T
+                                                  exp(u⊤ zt,j )                  B. Baseline Methods
+vimp,j = ∑ αt,j ⋅ MLP(zt,j ),         αt,j =                          (9)           We compared our framework against five categories of
+                                               ∑dk=1 exp (u⊤ zt,k )
+         t=1
+                                                                                 baseline models representing different approaches to time
+  where u is a learnable context vector that adapts to different
+                                                                                 series forecasting:
+economic regimes (e.g., recession vs. expansion periods).
+                                                                                  1) Traditional Econometric Models
+  These weights guide LASSO regularization during                                      Seasonal ARIMA [2] with automatic order selection via
+prediction:                                                                            AIC.
+                                    d
+                             2
+                                        |βj |                                          Vector Error Correction Model [25] for multivariate
+               min ∥ y − Φβ ∥2 + λ ∑                   (10)                            cointegration analysis.
+                β                      vimp,j
+                                   j=1                                            2) Machine Learning Approaches
+   The inverse weighting in Equation 10 imposes stronger                               Gradient Boosted Trees [26] with temporal feature
+sparsity constraints on less important features while retaining                        engineering.
+high-impact variables identified by the attention mechanism.                           Support Vector Regression [27] with radial basis
+This differs from standard LASSO by incorporating the                                  function kernel.
+model’s own confidence about feature relevance.                                   3) Deep Learning Architectures
+   The complete framework processes inputs through these                               LSTM Network [3] with attention mechanism.
+components in an end-to-end manner, with the CNN                                       Temporal Convolutional Network [4] with residual
+extracting multi-scale patterns, the attention mechanism                               connections.
+identifying critical time steps and features, and the regularized                 4) Hybrid Interpretable Models
+output layer generating interpretable predictions. The                                 Explainable Boosting Machine [28].
+preserved attention scores allow policymakers to trace                                 Neural Additive Models [29].
+predictions back to specific input features and temporal                          5) Recent Specialized Approaches
+contexts—for example, identifying which educational                                    Graph Neural Network for multivariate time series [12].
+                                                                                       Transformer-based forecasting model [30].
+qualifications became more predictive during economic
+                                                                                    All baselines were implemented using their respective
+recoveries.
+                                                                                 standard libraries and optimized via grid search on the
+                                                                                 validation set.
+                     V. EXPERIMENTAL SETUP
+  To validate the proposed framework, we designed                                C. Evaluation Metrics
+comprehensive experiments comparing its performance                                Performance was assessed using four complementary
+against conventional and state-of-the-art methods across                         metrics:
+multiple youth employment datasets. This section details the                      1) Predictive Accuracy
+evaluation protocol, baseline models, and implementation                              Normalized Root Mean Squared Error (NRMSE):
+specifics.
+                                                                                                           √1 ∑ni=1(yi − ŷi )2
+                                                                                                             n
+A. Datasets and Preprocessing                                                                   NRMSE=                          (11)
+                                                                                                               ymax − ymin
+   We evaluated our approach on three longitudinal datasets                           Mean Absolute Scaled Error (MASE) [31]
+capturing diverse youth labor market conditions: (1) European                     2) Temporal Consistency
+Youth Employment Survey [22] containing quarterly                                     Dynamic Time Warping (DTW) distance [32] between
+indicators from 2010-2022 across 31 countries, with 127                               predicted and actual trend trajectories
+features including education levels, vocational training                          3) Interpretability Quality
+participation, and sector-specific employment rates. (2)                              Feature Importance Rank Correlation (FIRC) comparing
+ASEAN Graduate Tracking System [23] with monthly records                              model-derived importance scores with expert rankings
+of university graduate employment outcomes from 2015-2021                             Policy Action Alignment Score (PAAS) measuring
+in six Southeast Asian nations. (3) US State-Level Youth                              agreement between model explanations and known labor
+Workforce Indicators [24] providing annual data on                                    market mechanisms
+
+
+                                                                            37
+  4) Computational Efficiency                                                     Euro     ASEA       US                ASEA       US
+     Training time per epoch                                                                                  Europe
+                                                                                  pean      N        State               N        State
+     Memory footprint during inference                              Method                                      an
+                                                                                  NRM      NRM       NRM                MAS       MAS
+                                                                                                              MASE
+ D. Implementation Details                                                         SE       SE        SE                  E         E
+    Our framework was implemented in TensorFlow 2.8 with              with
+ the following configuration:                                       Attention
+  1) Dilated CNN Module:                                                TCN       0.098    0.146     0.092     0.95      1.18     0.94
+       6 layers with dilation rates [1, 2, 4, 8, 16, 32]            Temporal
+       Kernel size of 3 for all convolutional layers                Transfor      0.091    0.139     0.087     0.89      1.12     0.89
+       64 filters per layer                                           mer
+  2) Attention Mechanism
+       4 attention heads                                            Proposed
+                                                                    Framewo       0.082    0.114     0.079     0.81      0.92     0.82
+       Key dimension dk = 32
+                                                                       rk
+       Dropout rate of 0.1
+  3) Training Protocol:
+       Batch size of 32                                                    The temporal consistency results (Figure 2) reveal another
+       Initial learning rate of 0.001 with cosine decay                 critical advantage: our method maintains coherent long-term
+       Early stopping with patience of 10 epochs                        trend predictions where other models exhibit erratic
+       Maximum 200 training epochs                                      fluctuations. This stability emerges from the dilated CNN’s
+    All experiments were conducted on NVIDIA V100 GPUs                  ability to capture multi-scale dependencies while avoiding the
+ with 32GB memory. For fair comparison, baseline models                 vanishing gradient problems of recurrent architectures.
+ were allocated equivalent computational resources.
+ E. Statistical Testing Protocol
+    To ensure robust conclusions, we employed:
+    Diebold-Mariano tests [33] for pairwise model comparisons
+    Benjamini-Hochberg procedure [34] for multiple hypothesis
+ testing correction
+    100 bootstrap samples for confidence interval estimation
+    This rigorous evaluation framework allows comprehensive
+ assessment of both predictive performance and practical utility
+ for policy analysis. The next section presents quantitative
+ results across all evaluation dimensions.
+
+                    VI. EXPERIMENTAL RESULTS
+ A. Predictive Performance Comparison
+    Table 1 presents the comparative performance across all
+ datasets, measured by NRMSE and MASE. Our hybrid                       Fig. 2 Dynamic Time Warping distances between predicted
+ framework achieves superior results, with particularly strong          and actual employment trend trajectories across methods
+ gains in the ASEAN dataset where nonlinear cross-country
+ interactions are prevalent. The 18.2% improvement over the             B. Interpretability Analysis
+ best baseline (Temporal Fusion Transformer [30])
+                                                                           The attention mechanism provides two forms of
+ demonstrates the advantage of combining dilated convolutions
+                                                                        interpretability: temporal importance scores (revealing when
+ with dynamic attention weighting.
+                                                                        features matter) and cross-sectional weights (showing which
+ Table 1. Comparative prediction accuracy across methods and            features matter). Figure 3 illustrates how these scores align
+ datasets                                                               with known labor market phenomena—for instance,
+                                                                        highlighting vocational training participation as a critical
+            Euro      ASEA     US                 ASEA       US         predictor during economic recoveries.
+                                        Europe
+            pean       N      State                N        State
+Method                                    an
+            NRM       NRM     NRM                 MAS       MAS
+                                        MASE
+             SE        SE      SE                   E         E
+Seasonal
+            0.142     0.187   0.121      1.32      1.45     1.28
+ARIMA
+XGBoost     0.118     0.165   0.108      1.18      1.32     1.15
+ LSTM       0.105     0.154   0.097      1.02      1.24     0.98
+
+
+                                                                   38
+                                                                       (4.9% improvement when included), suggesting that while the
+                                                                       attention mechanism captures critical relationships, the
+                                                                       explicit feature refinement provides additional stability—
+                                                                       particularly valuable in policy applications where consistent
+                                                                       interpretations matter.
+                                                                       E. Case Study: Pandemic Recovery Analysis
+                                                                          Applying the framework to 2020-2022 European data
+                                                                       reveals nuanced recovery patterns (Figure 4). The model
+                                                                       identifies:
+                                                                          Accelerated digital skills adoption as the strongest positive
+                                                                       predictor.
+                                                                          Persistent negative effects of early-career unemployment
+Fig. 3 Attention weights for selected features across different        scars.
+economic conditions                                                       Diverging recovery speeds across educational attainment
+   Quantitatively, our framework achieves 0.78 FIRC (vs. 0.52          levels.
+for XGBoost and 0.61 for Neural Additive Models) and 0.82
+PAAS (vs. 0.68 for Temporal Transformer), demonstrating
+superior alignment with domain knowledge. The attention-
+derived explanations successfully identify:
+   Education level as the dominant predictor in developed
+economies
+   Regional GDP growth as most influential in emerging
+markets
+   Delayed effects (6-9 month lag) of policy interventions
+C. Computational Efficiency
+   Despite its sophisticated architecture, the framework
+maintains practical efficiency:
+   Training time: 38 minutes per epoch (vs. 42 for LSTM, 29
+for TCN)
+   Memory usage: 4.2GB during inference (vs. 5.1GB for
+Transformer)
+   Scalability: Linear time complexity with respect to input           Fig. 4 Model-predicted vs. actual youth employment rates
+                                                                       during COVID-19 recovery period
+length
+   The gated convolutions (Equation 6) contribute                         These insights demonstrate the framework’s practical utility
+significantly to this efficiency by reducing redundant                 for targeted policy formulation—for instance, highlighting
+computations through their selective filtering mechanism.              where retraining programs might yield the highest returns
+                                                                       during economic transitions.
+D. Ablation Study
+   To isolate the contributions of key components, we                        VII. DISCUSSION AND FUTURE WORK
+conducted systematic ablations (Table 2). Removing the
+attention mechanism causes the largest performance drop (23% A. Limitations and Potential Biases of the Framework
+NRMSE increase), confirming its critical role in handling         While the proposed framework demonstrates strong
+feature interactions. The dilated convolutions prove essential predictive performance, several limitations warrant discussion.
+for long-horizon predictions, while the gating mechanism The attention mechanism’s interpretability remains
+improves robustness to noisy indicators.                       constrained by its reliance on post-hoc analysis of weight
+                                                               distributions, which may not fully capture complex nonlinear
+Table 2. Ablation study on European dataset (NRMSE)            interactions between socioeconomic factors. For instance, the
+                                                               model could overemphasize easily quantifiable features like
+Configuration                    NRMSE Δ vs. Full Model        educational attainment while underestimating harder-to-
+Full Framework                   0.082      -                  measure social capital effects [35].
+Without Attention                0.101      +23.2%                The framework’s current implementation also inherits
+                                                               biases present in official labor statistics, such as
+Without Dilated Convolutions 0.095          +15.9%
+                                                               underreporting of informal employment prevalent among
+Without Gating Mechanism         0.089      +8.5%              youth in developing economies [36]. This becomes
+Without Feature Engineering      0.086      +4.9%              particularly problematic when applying the model across
+   The feature engineering module shows more modest gains heterogeneous regions, where data collection methodologies
+
+
+                                                                  39
+vary substantially. Future iterations could incorporate                 superiority over conventional econometric and deep learning
+uncertainty quantification to flag predictions relying on               approaches, particularly in handling nonlinear interactions and
+potentially biased indicators.                                          sudden labor market shocks.
+                                                                           The framework’s ability to generate policy-actionable
+B. Broader Applications and Future Directions
+                                                                        insights represents its most valuable contribution. Attention-
+   Beyond employment forecasting, the framework’s hybrid                derived feature weights align with established labor economic
+architecture suggests promising extensions to related domains.          theories, enabling decision-makers to identify critical drivers
+The attention-gated convolutions could be adapted for                   of youth employment under varying economic conditions.
+analyzing educational pipeline effects in workforce                     This interpretability, combined with robust predictive
+development programs [37], where understanding the time-                performance, addresses a longstanding gap in computational
+lagged impact of curriculum reforms requires similar multi-             labor market analysis—bridging the divide between data-
+scale temporal analysis.                                                driven forecasting and theoretically grounded policy
+   Three concrete directions emerge for methodological                  formulation.
+advancement:                                                               Future enhancements could further strengthen the
+   1) Cross-modal integration: Incorporating unstructured               framework’s real-world applicability. Incorporating causal
+data from job postings or social media could enhance feature            inference techniques would allow for more rigorous evaluation
+representations while maintaining interpretability through              of policy interventions, while dynamic graph modeling could
+attention-based fusion [38].                                            better capture regional labor market interdependencies.
+   2) Causal adaptation: Extending the framework with                   Maintaining a focus on ethical considerations remains
+double machine learning techniques [39] would enable                    paramount, ensuring that model outputs do not inadvertently
+counterfactual analysis of policy interventions.                        reinforce existing inequalities or biases in labor market
+   3) Dynamic graph modeling: Explicitly encoding regional              systems.
+labor market connectivity through graph neural networks [40]               The success of this approach suggests promising directions
+could improve predictions in federal systems with strong                for interpretable machine learning in socioeconomic
+interstate labor flows.                                                 forecasting. Similar hybrid architectures could be adapted to
+C. Ethical Considerations and Responsible Deployment                    other complex temporal prediction tasks requiring both
+   The framework’s policy applications raise important ethical          accuracy and transparency, from educational outcome
+questions requiring proactive mitigation strategies. The                modeling to public health trend analysis. As labor markets
+potential for algorithmic reinforcement of existing                     continue evolving amid technological and demographic shifts,
+inequalities—such       as    systematically     underestimating        such tools will become increasingly vital for evidence-based
+employment prospects for marginalized groups—necessitates               policy design targeting youth employment challenges
+rigorous fairness testing across protected attributes [41].             worldwide.
+   Implementation guidelines should address:
+   Regular audits of feature importance distributions for                                        REFERENCES
+discriminatory patterns                                                 [1] J. H. Stock and M. W. Watson, "Vector autoregressions,"
+   Mechanisms to override automated predictions when they                   J. Econ. Perspect., vol. 15, no. 4, pp. 101-115, Fall 2001,
+conflict with ground-level observations                                     doi: 10.1257/jep.15.4.101.
+   Transparent documentation of model limitations in official           [2] R. H. Shumway and D. S. Stoffer, "ARIMA models," in
+communications                                                              Time Series Analysis and Its Applications: With R
+   These safeguards become particularly critical when the                   Examples, 4th ed. Cham, Switzerland: Springer
+framework informs resource allocation decisions affecting                   International Publishing, 2017, ch. 3, pp. 75-163, doi:
+                                                                            10.1007/978-3-319-52452-8_3.
+vulnerable youth populations. The attention weights, while
+                                                                        [3] A. Graves, "Long short-term memory," in Supervised
+providing interpretability, could inadvertently legitimize
+                                                                            Sequence Labelling with Recurrent Neural Networks,
+biased predictions if not contextualized with appropriate                   Berlin, Germany: Springer, 2012, pp. 37-45, doi:
+domain expertise [42]. Future work should develop                           10.1007/978-3-642-24797-2_4.
+participatory design frameworks to incorporate frontline                [4] C. Lea, M. D. Flynn, R. Vidal, A. Reiter, and G. D.
+practitioner knowledge into model refinement processes.                     Hager, "Temporal convolutional networks for action
+                                                                            segmentation and detection," in Proc. IEEE Conf.
+                      VIII. CONCLUSION                                      Comput. Vis. Pattern Recognit., Honolulu, HI, USA, Jul.
+   The proposed hybrid framework demonstrates significant                   21-26, 2017, pp. 156-165, doi: 10.1109/CVPR.2017.113.
+advancements in both predictive accuracy and interpretability           [5] W. Lu, J. Li, Y. Li, A. Sun, and J. Wang, "A CNN-
+for youth employment trend forecasting. By integrating dilated              LSTM-based model to forecast stock prices,"
+convolutions with a dual-path attention mechanism, the model                Complexity, vol. 2020, Art. no. 6622927, Jul. 2020, doi:
+effectively captures multi-scale temporal patterns while                    10.1155/2020/6622927.
+providing transparent feature importance rankings.                      [6] A. Vaswani et al., "Attention is all you need," in Adv.
+                                                                            Neural Inf. Process. Syst., Long Beach, CA, USA, Dec.
+Experimental results across diverse datasets confirm its
+                                                                            4-9, 2017, pp. 5998-6008.
+
+
+                                                                   40
+[7] M. Simionescu and J. Cifuentes-Faura, "Forecasting                        no.     2,      pp.     457-480,      May     2020,      doi:
+     national and regional youth unemployment in Spain                        10.1177/0143831X17720017.
+     using google trends," Soc. Indic. Res., vol. 161, no. 2, pp.        [23] G. L. Velmonte, "Job that fits for graduates in the Asean
+     699-721, Jun. 2022, doi: 10.1007/s11205-021-02756-x.                     integration," Int. J. Intell. Comput. Technol., vol. 4, no. 1,
+[8] J. Evans and W. Shen, "Youth employment and the                           pp. 19-22, Jun. 2020.
+     future of work," in Council of Europe Youth Knowledge               [24] A. L. Fernandes-Alcantara, "Youth and the labor force:
+     Series. Strasbourg, France: Council of Europe                            Background and trends," Congressional Research
+     Publishing, 2010.                                                        Service, Washington, DC, USA, Rep. R42519, May
+[9] D. Shigapova, M. Valiullin, O. Yrieva, and L. Safina,                     2012.                    [Online].                Available:
+     "The methods of prediction of demand on the labor                        https://digital.library.unt.edu/ark:/67531/metadc807010/
+     market," Procedia Econ. Finance, vol. 24, pp. 636-642,              [25] H. Lütkepohl, "Vector error correction models," in New
+     2015, doi: 10.1016/S2212-5671(15)00656-4.                                Introduction to Multiple Time Series Analysis. Berlin,
+[10] X. Dong, "Prediction of college employment rate based                    Germany: Springer-Verlag, 2005, ch. 6, pp. 237-267, doi:
+     on big data analysis," Math. Probl. Eng., vol. 2021, Art.                10.1007/978-3-540-27752-1_6.
+     no. 5574413, 2021, doi: 10.1155/2021/5574413.                       [26] T. Chen and C. Guestrin, "XGBoost: A scalable tree
+[11] M. A. H. Ashour and R. A. A. Helmi, "Predicting the                      boosting system," in Proc. 22nd ACM SIGKDD Int.
+     youth unemployment rate in Iraq until 2035 using                         Conf. Knowledge Discovery and Data Mining (KDD
+     artificial intelligence," in Proc. 14th Int. Conf. Adv.                  '16), San Francisco, CA, USA, Aug. 13-17, 2016, pp.
+     Comput. Inf. Technol. (ACIT), Kirkuk, Iraq, Apr. 24-26,                  785-794, doi: 10.1145/2939672.2939785.
+     2024,               pp.          321-326,               doi:        [27] M. Awad and R. Khanna, "Support vector regression," in
+     10.1109/ACIT56853.2024.10456832.                                         Efficient Learning Machines: Theories, Concepts, and
+[12] A. Deng and B. Hooi, "Graph neural network-based                         Applications for Engineers and System Designers.
+     anomaly detection in multivariate time series," in Proc.                 Berkeley, CA, USA: Apress, 2015, ch. 4, pp. 67-80, doi:
+     35th AAAI Conf. Artif. Intell., Virtual Event, Feb. 2-9,                 10.1007/978-1-4302-5990-9_4.
+     2021, pp. 7436-7444, doi: 10.1609/aaai.v35i8.16913.                 [28] S. Jayasundara, A. Indika, and D. Herath, "Interpretable
+[13] K. Fauvel, T. Lin, V. Masson, É. Fromont, and A.                         student performance prediction using explainable
+     Termier, "XCM: An explainable convolutional neural                       boosting machine for multi-class classification," in 2022
+     network for multivariate time series classification,"                    2nd Int. Conf. Advanced Research in Computing
+     Mathematics, vol. 9, no. 23, Art. no. 3137, 2021, doi:                   (ICARC), Belihuloya, Sri Lanka, 2022, pp. 391-396, doi:
+     10.3390/math9233137.                                                     10.1109/ICARC54489.2022.9753867.
+[14] J. Y. Oostvogel, "Interpretable deep learning for time              [29] R. Agarwal, L. Melnick, N. Frosst, X. Zhang, B.
+     series forecasting," Ph.D. dissertation, Dept. Math.                     Lengerich, R. Caruana, and G. E. Hinton, "Neural
+     Comput. Sci., Eindhoven Univ. Technol., Eindhoven,                       additive models: Interpretable machine learning with
+     Netherlands, 2025.                                                       neural nets," in Advances in Neural Information
+[15] K. Kim, "Unemployment dynamics forecasting with                          Processing Systems 34 (NeurIPS 2021), Virtual
+     machine learning regression models," arXiv preprint                      Conference, 2021, pp. 4243-4257.
+     arXiv:2505.01933, May 2025.                                         [30] B. Lim, S. Ö. Arık, N. Loeff, and T. Pfister, "Temporal
+[16] D. Couts, D. Grether, and M. Nerlove, "Forecasting non-                  fusion transformers for interpretable multi-horizon time
+     stationary economic time series," Manage. Sci., vol. 12,                 series forecasting," Int. J. Forecast., vol. 37, no. 4, pp.
+     no. 4, pp. 450-467, Dec. 1966.                                           1748-1764,             Oct.-Dec.         2021,           doi:
+[17] H. Dietrich, "Youth unemployment in Europe,"                             10.1016/j.ijforecast.2021.03.012.
+     International Policy Analysis, Friedrich-Ebert-Stiftung,            [31] R. J. Hyndman and A. B. Koehler, "Another look at
+     Berlin, Germany, 2012.                                                   measures of forecast accuracy," Int. J. Forecast., vol. 22,
+[18] P. W. Miller, "Unemployment patterns in the youth                        no. 4, pp. 679-688, Oct.-Dec. 2006, doi:
+     labour market," Australian Econ. Papers, vol. 25, no. 47,                10.1016/j.ijforecast.2006.03.001.
+     pp. 222-234, Dec. 1986.                                             [32] M. Müller, "Dynamic time warping," in Information
+[19] R. Hatos, "Skills mismatch of the young people at the                    Retrieval for Music and Motion. Berlin, Germany:
+     European level," Annals Univ. Oradea, Econ. Sci., vol.                   Springer-Verlag, 2007, ch. 4, pp. 69-84, doi:
+     23, no. 1, pp. 431-439, 2014.                                            10.1007/978-3-540-74048-3_4.
+[20] O. Ashenfelter and J. Ham, "Education, unemployment,                [33] F. X. Diebold and R. S. Mariano, "Comparing predictive
+     and earnings," J. Political Econ., vol. 87, no. 5, pp. S99-              accuracy," J. Bus. Econ. Stat., vol. 20, no. 1, pp. 134-
+     S116, Oct. 1979.                                                         144, Jan. 2002, doi: 10.1198/073500102753410444.
+[21] W. J. Murdoch, C. Singh, K. Kumbier, R. Abbasi-Asl,                 [34] Y. Benjamini and Y. Hochberg, "Controlling the false
+     and B. Yu, "Definitions, methods, and applications in                    discovery rate: A practical and powerful approach to
+     interpretable machine learning," in Proc. Nat. Acad. Sci.,               multiple testing," J. Roy. Stat. Soc. Series B
+     vol. 116, no. 44, pp. 22071-22080, Oct. 2019, doi:                       (Methodological), vol. 57, no. 1, pp. 289-300, Jan. 1995,
+     10.1073/pnas.1900654116.                                                 doi: 10.1111/j.2517-6161.1995.tb02031.x.
+[22] P. Lewis and J. Heyes, "The changing face of youth                  [35] A. Behtoui, "Beyond social ties: The impact of social
+     employment in Europe," Econ. Ind. Democracy, vol. 41,                    capital on labour market outcomes for young Swedish
+
+
+
+                                                                    41
+     people," J. Sociology, vol. 52, no. 4, pp. 711-724, Dec.
+     2016, doi: 10.1177/1440783315581217.
+[36] R. Hussmanns, "Defining and measuring informal
+     employment," Geneva, Switzerland: Int. Labour Office,
+     Bureau of Statistics, Policy Integration Dept., Working
+     Paper no. 53, Dec. 2004.
+[37] H. Metcalf, "Stuck in the pipeline: A critical review of
+     STEM workforce literature," InterActions: UCLA J. Edu.
+     Inf. Stud., vol. 6, no. 2, Article 4, 2010, doi:
+     10.5070/D462000681.
+[38] P. Xu, X. Zhu, and D. A. Clifton, "Multimodal learning
+     with transformers: A survey," IEEE Trans. Pattern Anal.
+     Mach. Intell., vol. 45, no. 10, pp. 12113-12132, Oct.
+     2023, doi: 10.1109/TPAMI.2023.3275156.
+[39] P. Hünermund, B. Louw, and I. Caspi, "Double machine
+     learning and automated confounder selection: A
+     cautionary tale," J. Causal Inference, vol. 11, no. 1,
+     Article 20220078, May 2023, doi: 10.1515/jci-2022-
+     0078.
+[40] M. Zhang, S. Wu, X. Yu, Q. Liu, and L. Wang,
+     "Dynamic graph neural networks for sequential
+     recommendation," IEEE Trans. Knowl. Data Eng., vol.
+     35, no. 5, pp. 4741-4753, May 2023, doi:
+     10.1109/TKDE.2022.3151618.
+[41] D. Pessach and E. Shmueli, "A review on fairness in
+     machine learning," ACM Comput. Surv., vol. 55, no. 3,
+     pp. 1-44, Feb. 2022, Art. no. 51, doi: 10.1145/3494672.
+[42] S. Corbett-Davies, E. Pierson, A. Feller, S. Goel, and A.
+     Huq, "Algorithmic decision making and the cost of
+     fairness," in Proc. 23rd ACM SIGKDD Int. Conf. Knowl.
+     Discovery Data Mining, Halifax, NS, Canada, Aug.
+     2017, pp. 797-806, doi: 10.1145/3097983.3098095.
+
+
+
+
+                                                                 42
+

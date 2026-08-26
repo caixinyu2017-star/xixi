@@ -1,0 +1,332 @@
+{
+ "acemoglu2025": {
+  "lang": "en",
+  "gb": "ACEMOGLU D. The simple macroeconomics of AI[J]. Economic Policy, 2025, 40(121): 13-58.",
+  "intext": "Acemoglu，2025",
+  "theme": "ai-macro"
+ },
+ "brynjolfsson2025": {
+  "lang": "en",
+  "gb": "BRYNJOLFSSON E, LI D, RAYMOND L. Generative AI at work[J]. The Quarterly Journal of Economics, 2025, 140(2): 889-942.",
+  "intext": "Brynjolfsson 等，2025",
+  "theme": "rebound"
+ },
+ "acemoglu2022": {
+  "lang": "en",
+  "gb": "ACEMOGLU D, RESTREPO P. Tasks, automation, and the rise in U.S. wage inequality[J]. Econometrica, 2022, 90(5): 1973-2016.",
+  "intext": "Acemoglu 和 Restrepo，2022",
+  "theme": "ai-macro"
+ },
+ "korinek2023": {
+  "lang": "en",
+  "gb": "KORINEK A. Generative AI for economic research: use cases and implications for economists[J]. Journal of Economic Literature, 2023, 61(4): 1281-1317.",
+  "intext": "Korinek，2023",
+  "theme": "ai-macro"
+ },
+ "autor1940": {
+  "lang": "en",
+  "gb": "AUTOR D, CHIN C, SALOMONS A, et al. New frontiers: the origins and content of new work, 1940-2018[J]. The Quarterly Journal of Economics, 2024, 139(3): 1399-1465.",
+  "intext": "Autor 等，2024",
+  "theme": "ai-macro"
+ },
+ "eloundou2024": {
+  "lang": "en",
+  "gb": "ELOUNDOU T, MANNING S, MISHKIN P, et al. GPTs are GPTs: labor market impact potential of LLMs[J]. Science, 2024, 384(6702): 1306-1308.",
+  "intext": "Eloundou 等，2024",
+  "theme": "ai-macro"
+ },
+ "noy2023": {
+  "lang": "en",
+  "gb": "NOY S, ZHANG W. Experimental evidence on the productivity effects of generative artificial intelligence[J]. Science, 2023, 381(6654): 187-192.",
+  "intext": "Noy 和 Zhang，2023",
+  "theme": "ai-macro"
+ },
+ "humlum2025": {
+  "lang": "en",
+  "gb": "HUMLUM A, VESTERGAARD E. Large language models, small labor market effects[R]. Cambridge, MA: National Bureau of Economic Research, 2025. NBER Working Paper No. 33777.",
+  "intext": "Humlum 和 Vestergaard，2025",
+  "theme": "ai-macro"
+ },
+ "acemoglu2019": {
+  "lang": "en",
+  "gb": "ACEMOGLU D, RESTREPO P. Automation and new tasks: how technology displaces and reinstates labor[J]. Journal of Economic Perspectives, 2019, 33(2): 3-30.",
+  "intext": "Acemoglu 和 Restrepo，2019",
+  "theme": "ai-macro"
+ },
+ "boskin1998": {
+  "lang": "en",
+  "gb": "BOSKIN M J, DULBERGER E R, GORDON R J, GRILICHES Z, JORGENSON D W. Consumer prices, the consumer price index, and the cost of living[J]. Journal of Economic Perspectives, 1998, 12(1): 3-26.",
+  "intext": "Boskin 等，1998",
+  "theme": "price-index"
+ },
+ "griliches1961": {
+  "lang": "en",
+  "gb": "GRILICHES Z. Hedonic price indexes for automobiles: an econometric analysis of quality change[M]//The Price Statistics of the Federal Government. New York: National Bureau of Economic Research, 1961: 173-196.",
+  "intext": "Griliches，1961",
+  "theme": "price-index"
+ },
+ "byrne2018": {
+  "lang": "en",
+  "gb": "BYRNE D M, OLINER S D, SICHEL D E. How fast are semiconductor prices falling?[J]. Review of Income and Wealth, 2018, 64(3): 679-702.",
+  "intext": "Byrne 等，2018a",
+  "theme": "price-index"
+ },
+ "byrne2018a": {
+  "lang": "en",
+  "gb": "BYRNE D M, CORRADO C A, SICHEL D E. The rise of cloud computing: minding your P's, Q's and K's[R]. Cambridge, MA: National Bureau of Economic Research, 2018. NBER Working Paper No. 25188.",
+  "intext": "Byrne 等，2018",
+  "theme": "rebound"
+ },
+ "byrne2021": {
+  "lang": "en",
+  "gb": "BYRNE D M, CORRADO C. Accounting for innovations in consumer digital services: IT still matters[M]//Measuring and Accounting for Innovation in the Twenty-First Century. Chicago: University of Chicago Press, 2021: 471-518.",
+  "intext": "Byrne 和 Corrado，2021",
+  "theme": "price-index"
+ },
+ "ehrlich2026": {
+  "lang": "en",
+  "gb": "EHRLICH G, HALTIWANGER J, JARMIN R S, JOHNSON D, OLIVARES E, PARDUE L W, SHAPIRO M D, ZHAO L. Quality adjustment at scale: hedonic versus exact demand-based price indices[J]. American Economic Review, 2026, 116(6): 1955-1995.",
+  "intext": "Ehrlich 等，2026",
+  "theme": "price-index"
+ },
+ "aizcorbe2014": {
+  "lang": "en",
+  "gb": "AIZCORBE A M. A Practical Guide to Price Index and Hedonic Techniques[M]. Oxford: Oxford University Press, 2014.",
+  "intext": "Aizcorbe，2014",
+  "theme": "price-index"
+ },
+ "aizcorbe2002": {
+  "lang": "en",
+  "gb": "AIZCORBE A M. Price measures for semiconductor devices[R]. FEDS Working Paper No. 2002-13. Washington, D.C.: Board of Governors of the Federal Reserve System, 2002.",
+  "intext": "Aizcorbe，2002",
+  "theme": "price-index"
+ },
+ "u2000": {
+  "lang": "en",
+  "gb": "U.S. GENERAL ACCOUNTING OFFICE. Consumer price index: update of Boskin Commission's estimate of bias[R]. GAO/GGD-00-50. Washington, D.C.: U.S. General Accounting Office, 2000.",
+  "intext": "U.S. GAO，2000",
+  "theme": "price-index"
+ },
+ "gillingham2016": {
+  "lang": "en",
+  "gb": "GILLINGHAM K, RAPSON D, WAGNER G. The rebound effect and energy efficiency policy[J]. Review of Environmental Economics and Policy, 2016, 10(1): 68-88.",
+  "intext": "Gillingham 等，2016",
+  "theme": "rebound"
+ },
+ "borenstein2015": {
+  "lang": "en",
+  "gb": "BORENSTEIN S. A microeconomic framework for evaluating energy efficiency rebound and some implications[J]. The Energy Journal, 2015, 36(1): 1-22.",
+  "intext": "Borenstein，2015",
+  "theme": "rebound"
+ },
+ "conlon2020": {
+  "lang": "en",
+  "gb": "CONLON C, GORTMAKER J. Best practices for differentiated products demand estimation with PyBLP[J]. The RAND Journal of Economics, 2020, 51(4): 1108-1161.",
+  "intext": "Conlon 和 Gortmaker，2020",
+  "theme": "rebound"
+ },
+ "stigler1961": {
+  "lang": "en",
+  "gb": "STIGLER G J. The economics of information[J]. Journal of Political Economy, 1961, 69(3): 213-225.",
+  "intext": "Stigler，1961",
+  "theme": "standards"
+ },
+ "varian1980": {
+  "lang": "en",
+  "gb": "VARIAN H R. A model of sales[J]. The American Economic Review, 1980, 70(4): 651-659.",
+  "intext": "Varian，1980",
+  "theme": "search-dispersion"
+ },
+ "akerlof1970": {
+  "lang": "en",
+  "gb": "AKERLOF G A. The market for \"lemons\": quality uncertainty and the market mechanism[J]. The Quarterly Journal of Economics, 1970, 84(3): 488-500.",
+  "intext": "Akerlof，1970",
+  "theme": "search-dispersion"
+ },
+ "baye2006": {
+  "lang": "en",
+  "gb": "BAYE M R, MORGAN J, SCHOLTEN P. Information, search, and price dispersion[M]//HENDERSHOTT T. Handbook on Economics and Information Systems: Volume 1. Amsterdam: Elsevier, 2006: 323-377.",
+  "intext": "Baye 等，2006",
+  "theme": "search-dispersion"
+ },
+ "ellison2009": {
+  "lang": "en",
+  "gb": "ELLISON G, ELLISON S F. Search, obfuscation, and price elasticities on the Internet[J]. Econometrica, 2009, 77(2): 427-452.",
+  "intext": "Ellison 和 Ellison，2009",
+  "theme": "search-dispersion"
+ },
+ "barzel1982": {
+  "lang": "en",
+  "gb": "BARZEL Y. Measurement cost and the organization of markets[J]. Journal of Law and Economics, 1982, 25(1): 27-48.",
+  "intext": "Barzel，1982",
+  "theme": "standards"
+ },
+ "akerlof1970a": {
+  "lang": "en",
+  "gb": "AKERLOF G A. The market for “lemons”: Quality uncertainty and the market mechanism[J]. The Quarterly Journal of Economics, 1970, 84(3): 488-500.",
+  "intext": "Akerlof，1970",
+  "theme": "standards"
+ },
+ "katz1985": {
+  "lang": "en",
+  "gb": "KATZ M L, SHAPIRO C. Network externalities, competition, and compatibility[J]. American Economic Review, 1985, 75(3): 424-440.",
+  "intext": "Katz 和 Shapiro，1985",
+  "theme": "standards"
+ },
+ "farrell1985": {
+  "lang": "en",
+  "gb": "FARRELL J, SALONER G. Standardization, compatibility, and innovation[J]. The RAND Journal of Economics, 1985, 16(1): 70-83.",
+  "intext": "Farrell 和 Saloner，1985",
+  "theme": "standards"
+ },
+ "besen1994": {
+  "lang": "en",
+  "gb": "BESEN S M, FARRELL J. Choosing how to compete: Strategies and tactics in standardization[J]. Journal of Economic Perspectives, 1994, 8(2): 117-131.",
+  "intext": "Besen 和 Farrell，1994",
+  "theme": "standards"
+ },
+ "dranove2010": {
+  "lang": "en",
+  "gb": "DRANOVE D, JIN G Z. Quality disclosure and certification: Theory and practice[J]. Journal of Economic Literature, 2010, 48(4): 935-963.",
+  "intext": "Dranove 和 Jin，2010",
+  "theme": "standards"
+ },
+ "de2012": {
+  "lang": "en",
+  "gb": "DE LOS SANTOS B, HORTAÇSU A, WILDENBEEST M R. Testing models of consumer search using data on web browsing and purchasing behavior[J]. American Economic Review, 2012, 102(6): 2955-2980.",
+  "intext": "De los Santos 等，2012",
+  "theme": "standards"
+ },
+ "jensen2007": {
+  "lang": "en",
+  "gb": "JENSEN R. The digital provide: Information (technology), market performance, and welfare in the South Indian fisheries sector[J]. The Quarterly Journal of Economics, 2007, 122(3): 879-924.",
+  "intext": "Jensen，2007",
+  "theme": "standards"
+ },
+ "goldfarb2019": {
+  "lang": "en",
+  "gb": "GOLDFARB A, TUCKER C. Digital economics[J]. Journal of Economic Literature, 2019, 57(1): 3-43.",
+  "intext": "Goldfarb 和 Tucker，2019",
+  "theme": "standards"
+ },
+ "yang2024": {
+  "lang": "en",
+  "gb": "YANG L. The economics of standards: A literature review[J]. Journal of Economic Surveys, 2024, 38(3): 717-758. DOI:10.1111/joes.12555.",
+  "intext": "Yang，2024",
+  "theme": "standards"
+ },
+ "kim2026": {
+  "lang": "en",
+  "gb": "KIM J Y. Data portability and interoperability between digital platforms[J]. Journal of Economics & Management Strategy, 2026, 35(2): 219-232. DOI:10.1111/jems.12643.",
+  "intext": "Kim，2026",
+  "theme": "standards"
+ },
+ "destefano2025": {
+  "lang": "en",
+  "gb": "DESTEFANO T, KNELLER R, TIMMIS J. Cloud computing and firm growth[J]. The Review of Economics and Statistics, 2025（网络首发）: 1-47. DOI:10.1162/rest_a_01393.",
+  "intext": "DeStefano 等，2025",
+  "theme": "standards"
+ },
+ "zhong2022": {
+  "lang": "zh",
+  "gb": "种照辉, 高志红, 覃成林. 网络基础设施建设与城市间合作创新——“宽带中国”试点及其推广的证据[J]. 财经研究, 2022, 48(3): 79-93.",
+  "intext": "种照辉等，2022",
+  "theme": "standards"
+ },
+ "caict2025": {
+  "lang": "zh",
+  "gb": "中国信息通信研究院云计算与大数据研究所. 算力经济发展研究报告（2025年）[R]. 北京: 中国信息通信研究院, 2025.",
+  "intext": "中国信息通信研究院，2025",
+  "theme": "standards"
+ },
+ "chen2026": {
+  "lang": "zh",
+  "gb": "陈钊, 张洲, 钟岳霖. 生成式人工智能的影响：个体、组织与社会[J]. 经济学(季刊), 2026, 26(3): 623-667.",
+  "intext": "陈钊等，2026",
+  "theme": "china-digital"
+ },
+ "chen2026a": {
+  "lang": "zh",
+  "gb": "陈斌开, 张梓润, 夏俊杰, 陈思. 人工智能、经济增长与财富分配[J]. 经济学(季刊), 2026, 26(3): 668-691.",
+  "intext": "陈斌开等，2026",
+  "theme": "china-digital"
+ },
+ "lei2026": {
+  "lang": "zh",
+  "gb": "雷晓燕, 张子哲, 方丹吟, 沈艳. 人工智能驱动的教育变革：技术冲击下中国高校学科布局的实证研究[J]. 经济学(季刊), 2026, 26(3): 692-712.",
+  "intext": "雷晓燕等，2026",
+  "theme": "china-digital"
+ },
+ "hu2026": {
+  "lang": "zh",
+  "gb": "胡涟漪, 盖庆恩, 潘珊. 人工智能与职业需求——基于任务内容的替代、互补与创造效应分析[J]. 经济学(季刊), 2026, 26(3): 713.",
+  "intext": "胡涟漪等，2026",
+  "theme": "china-digital"
+ },
+ "yao2024": {
+  "lang": "zh",
+  "gb": "姚加权, 张锟澎, 郭李鹏, 等. 人工智能如何提升企业生产效率？——基于劳动力技能结构调整的视角[J]. 管理世界, 2024, 40(2): 101-116+133+117-122.",
+  "intext": "姚加权等，2024",
+  "theme": "china-digital"
+ },
+ "wang2023": {
+  "lang": "zh",
+  "gb": "王林辉, 钱圆圆, 宋冬林, 等. 机器人应用的岗位转换效应及就业敏感性群体特征——来自微观个体层面的经验证据[J]. 经济研究, 2023(7): 69-85.",
+  "intext": "王林辉等，2023",
+  "theme": "china-digital"
+ },
+ "jiao2023": {
+  "lang": "zh",
+  "gb": "焦豪, 崔瑜, 张亚敏. 数字基础设施建设与城市高技能创业人才吸引[J]. 经济研究, 2023(12): 150-166.",
+  "intext": "焦豪等，2023",
+  "theme": "china-digital"
+ },
+ "cheng2021": {
+  "lang": "zh",
+  "gb": "程文. 人工智能、索洛悖论与高质量发展：通用目的技术扩散的视角[J]. 经济研究, 2021, 56(10): 22-38.",
+  "intext": "程文，2021",
+  "theme": "china-digital"
+ },
+ "xu2025": {
+  "lang": "zh",
+  "gb": "许诺, 毛聚, 毛新述. 算力部署、数据跨域流动与企业全要素生产率——来自智算中心的证据[J]. 中国工业经济, 2025(4): 61-79.",
+  "intext": "许诺等，2025",
+  "theme": "china-digital"
+ },
+ "huang2024": {
+  "lang": "zh",
+  "gb": "黄先海, 孙涌铭, 陈梦涛. 企业数字化转型与颠覆性技术创新——来自专利网络与SBERT模型的微观证据[J]. 中国工业经济, 2024(10): 137-154.",
+  "intext": "黄先海等，2024",
+  "theme": "china-digital"
+ },
+ "xiong2023": {
+  "lang": "zh",
+  "gb": "熊巧琴, 汤珂, 张丰羽. 第三方数字平台能否帮助中小微企业提升经营收益？——来自百万商户大数据的证据[J]. 经济学(季刊), 2023, 23(5): 1704-1722.",
+  "intext": "熊巧琴等，2023",
+  "theme": "china-digital"
+ },
+ "li2024": {
+  "lang": "zh",
+  "gb": "李玉花, 林雨昕, 李丹丹. 人工智能技术应用如何影响企业创新[J]. 中国工业经济, 2024(10): 155-173.",
+  "intext": "李玉花等，2024",
+  "theme": "china-digital"
+ },
+ "chen2018": {
+  "lang": "zh",
+  "gb": "陈永伟. 人工智能与经济学：关于近期文献的一个综述[J]. 东北财经大学学报, 2018(3): 6-21.",
+  "intext": "陈永伟，2018",
+  "theme": "china-digital"
+ },
+ "mohapatra2024": {
+  "lang": "en",
+  "gb": "MOHAPATRA D, MOHAPATRA D P, DUBEY R S. Price dispersion across online platforms: evidence from hotel room prices in London (UK)[J]. Applied Economics, 2024, 56(52): 6598-6610. DOI:10.1080/00036846.2023.2275219.",
+  "intext": "Mohapatra 等，2024",
+  "theme": "verified-add"
+ },
+ "sawyer2023": {
+  "lang": "en",
+  "gb": "SAWYER S D, O'BRYAN C. Exploring quality adjustment in PPI cloud computing[J]. Monthly Labor Review, 2023.",
+  "intext": "Sawyer 和 O'Bryan，2023",
+  "theme": "verified-add"
+ }
+}

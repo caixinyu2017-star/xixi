@@ -1,0 +1,795 @@
+Special Issue–Explainable AI in Action: Advancing Applied Intelligence with Inter
+pretable Insights
+
+Guest Editor: A/Prof. Xinyu Cai
+Associate Professor, Jiaxing University
+
+A/Prof. Xinyu Cai, Associate Professor at Jiaxing University, holds a Ph.D. in Economics and serves
+as a master's supervisor. He is a Certified Information Systems Auditor (CISA) and an expert with
+the Ministry of Education’s Graduate Evaluation Program. His research focuses on human capital,
+employment and wage systems, and large-scale AI applications in sustainable development. A/Prof.
+Cai has led major national and provincial research projects and published over 20 academic papers,
+including in Nature sub-journals and top Chinese core journals. He has received multiple research
+awards and serves on national academic committees related to AI and human resources.
+
+
+
+Special Issue Overview：
+Since the rapid proliferation of Artificial Intelligence across myriad sectors, and particularly
+after the general acknowledgement of its transformative potential by mainstream discourse, the
+understanding of AI's decision-making processes has become a critical factor in its responsible
+adoption and deployment. More recent advancements, such as the remarkable capabilities of deep
+learning and large-scale models, further intensify this need for transparency. Consequently,
+stakeholders across all industries are now seeking not just "intelligent" solutions but "intelligible"
+ones as part of their operational strategy, from healthcare diagnostics to financial forecasting. The
+domain of applied AI is no exception. "Black box" models, for instance, are no longer universally
+accepted, as virtually every critical application now calls for explainable practices. On the other
+hand, the drive for innovation and competitive advantage enhances the need for increasingly
+complex AI. This combination of imperatives: catering to (or appearing to cater to) the demand for
+transparent and trustworthy AI, as well as pushing the boundaries of predictive power, is often a
+challenge for AI developers. Additionally, the complexity inherent in advanced AI can further hinder
+the achievement of accountability and ethical oversight. However, can the field of applied AI also
+be part of the solution and empower users and developers to make informed decisions and deploy
+systems that are genuinely robust, fair, and beneficial?
+      The aim of this Special Issue is to explore how applied AI research is integrating explainability
+and interpretability to achieve these goals. This will include the development and application of
+novel techniques focused on making AI systems more transparent, as well as understanding the
+psychological and practical antecedents of trust and adoption of explainable AI. It could look at how
+researchers and practitioners are addressing the apparent trade-off between model complexity and
+interpretability, as well as the role of human-AI interaction in this context. Through the expansion
+of knowledge and theory, this Special Issue aims to support AI stakeholders in addressing the
+challenges of intelligibility more effectively and transparently. Topics may include the following:
+•    Developing and applying interpretable deep learning frameworks (e.g., CNNs, RNNs,
+     Transformers, Attention Mechanisms) for complex data analysis.
+•    Innovations in explainable AI for feature engineering, dynamic feature weighting, selection,
+     and validation.
+•   The integration of causal inference and discovery (e.g., using methods like NOTEARS or
+    SHAP values) with machine learning for robust and transparent predictions.
+•   Novel applications of XAI in diverse domains such as employment market analysis,marketing
+    optimization, financial services, healthcare, and public policy.
+•   Techniques for effectively visualizing and communicating AI explanations to domain experts,
+    policymakers, and end-users.
+•   Methodologies for evaluating the effectiveness, fidelity, and real-world impact of XAI methods.
+•   Strategies for bridging model-agnostic interpretability techniques with domain-specific
+    knowledge and constraints.
+•   The ethical implications, challenges of bias, and responsible deployment strategies for
+    explainable AI systems.
+•   Human-computer interaction aspects of XAI, including user trust and reliance on explainable
+    systems.
+•   Theoretical advancements in understanding the foundations of interpretability in machine
+    learning.
+
+
+
+Keywords
+Explainable AI (XAI), Interpretable Machine Learning, Applied Artificial Intelligence, Feature
+Engineering, Causal Inference, Attention Mechanisms, Deep Learning, CNN, Transformers, SHAP
+values, Spatiotemporal Analysis, Employment Market Analysis, Marketing Analytics, Big Data
+Analytics, Decision Support Systems, Algorithmic Transparency, AI Ethics.
+
+
+
+License Note:
+This special issue is published under the terms of the Creative Commons Attribution 4.0
+International License (CC BY 4.0), which permits unrestricted use, distribution, and reproduction
+in any medium, provided the original work is properly cited.
+Editor-in-Chief
+
+Chengwei Feng
+PhD Candidate, Auckland University of Technology, New Zealand
+
+Chengwei Feng is a PhD candidate at Auckland University of Technology, specializing in
+artificial intelligence and human motion modelling. Her research integrates AI, sensor fusion, and
+time-series analytics to advance real-time motion recognition, health monitoring, and behavior
+modelling. She has authored five peer-reviewed publications and holds eleven invention patents in
+areas such as smart diagnostic systems, precursor chemical detection, IoT-enabled pharmaceutical
+management, and intelligent procurement signal tracking. Her work emphasizes practical, real-
+world applications and interdisciplinary collaboration with academic institutions and public
+security agencies.
+
+
+
+
+Section Editors
+
+A/Prof. Xing Cai
+Associate Professor, Southeast University, China
+
+A/Prof. Cai focuses on smart highways and AI in transportation systems. She leads national
+research projects supported by the NSFC and the National Key R&D Program. Her SCI-indexed
+publications have earned awards such as the First Prize from the Jiangsu Society of Engineers.
+
+
+
+
+Dr. Renda Han
+School of Computer Science and Technology, Hainan University, Haikou, China
+
+Dr. Han specializes in graph clustering and has published over 20 papers in CCF and SCI-indexed
+journals and conferences, including AAAI and ICML. He serves on the editorial boards
+of Scientific Research and Innovation and Deep Learning and Pattern Recognition, and regularly
+reviews for top-tier conferences.
+
+
+
+
+Dr. Changchun Liu
+Assistant Researcher and Postdoctoral Fellow, Nanjing University of Aeronautics and
+Astronautics (NUAA), China
+
+Dr. Liu’s research focuses on industrial AI, smart manufacturing, human–robot collaboration, and
+predictive maintenance. He has authored over ten high-impact papers in journals such
+as RCIM and Computers & Industrial Engineering, with over 200 citations.
+Dr. Meng Liu
+Research Scientist, NVIDIA
+
+Dr. Liu’s research interests include graph neural networks, clustering, and multimodal learning.
+He has published over 20 papers in leading venues such as Advanced Science, IEEE TPAMI, IEEE
+TKDE, CVPR, ICML, and ICLR. His work includes an ESI Hot Paper and a Highly Cited Paper,
+with over 1,000 citations. He has received several awards, including Best Paper at the 2024 China
+Computational Power Conference and a DAAD AInet Fellowship.
+
+
+
+
+Dr. Zhongbin Luo
+Professor-level Senior Engineer, China Merchants Chongqing Communications Research &
+Design Institute. Master’s Supervisor, Chongqing Jiaotong University & Shijiazhuang Tiedao
+University
+
+Dr. Luo’s research focuses on intelligent transportation, traffic safety, and vehicle–road
+collaboration. He has led over ten national and provincial research projects, holds 11 invention
+patents, and serves as an expert reviewer for journals such as IEEE Access and PLOS ONE.
+
+
+
+
+Dr. Ruichen Xu
+Postdoctoral Fellow, Department of Civil & Environmental Engineering,University of Missouri,
+Columbia, USA
+
+Dr. Xu's research interests include hydrological ecology, AI-based flood forecasting, and
+sediment–pollutant dynamics. He has led or contributed to more than ten projects in China and the
+U.S. and has published over 20 peer-reviewed papers. He holds patents in environmental
+monitoring and serves as a reviewer for journals like Journal of Hydrology and Ecological
+Indicators.
+
+
+
+
+A/Prof. Jinghao Yang
+Assistant Professor, Electrical and Computer Engineering, The University of Texas Rio Grande
+Valley, USA
+
+ Dr. Yang has taught in the U.S. and specializes in applying machine learning to intelligent
+manufacturing systems. His research bridges intelligent sensing, control, and adaptive design with
+industrial applications, contributing to smart production technologies and data-driven innovation.
+Yihan Zhao
+PhD Candidate, University of Auckland, New Zealand
+
+Yihan Zhao holds a Master’s degree from Peking University and is currently a PhD candidate at
+the University of Auckland. Her research explores the intersection of communication, culture, and
+technology, with a focus on how algorithms reshape cultural expression and the subjectivity of
+marginalized communities. She previously served as an Assistant Research Fellow at the
+Development Research Centre of the State Council in China, contributing to national research
+projects. She has curated and coordinated panels for the China Development Forum, facilitating
+high-level dialogue on AI, sustainability, and governance.
+
+
+
+
+Shen (Jason) Zhan
+Graduate Researcher, University of Melbourne, Australia
+
+Jason Zhan holds an Honours degree in Civil and Environmental Engineering from the University
+of Auckland and is currently a PhD researcher in the Teaching & Learning Lab at the University
+of Melbourne. He combines industry and academic experience, with a background in structural
+engineering and teaching. His research focuses on employability assessment and curriculum
+design in engineering education, with growing interest in the role of AI in authentic assessment
+and personalized learning.
+                                                                  Contents
+
+
+
+1. Adaptive Collaborative Interpretation: An AI- Enhanced Framework for Dynamic Ideological
+   and Political Education ............................................................................................................... 1
+
+2. Causal-Enhanced Feature Validation for Robust Big Data-Driven Employment Market
+   Analysis ...................................................................................................................................... 8
+
+3. Dynamic Incentive Structures and Transformer- Based Competency Mapping for Innovation
+   Talent Evaluation in Development Programs ........................................................................... 17
+
+4. Explainable AI-Driven Content Optimization for 2D Character Merchandise Marketing: A
+   Causal Feature Attribution and Attention-Guided Framework ................................................. 25
+
+5. Interpretable CNN-Attention Hybrid Framework for Spatiotemporal Feature Engineering in
+   Youth Employment Market Trend Prediction ........................................................................... 34
+   Causal-Enhanced Feature Validation for Robust Big
+      Data-Driven Employment Market Analysis
+                        Kexin Jiang, Xinyu Cai, Yuke Lv, Yawen Xu, Yanyu Chen, Jiaman Wu and Jiayu Zheng
+                             ( College of Business, Jiaxing University, Jiaxing, Zhejiang 314001, China )
+
+
+                                                                                     performance. Experimental validation on real-world datasets
+   Abstract—This research propose Causal-Enhanced Feature                            demonstrates its effectiveness in identifying stable, causally
+Validation (CEFV), a novel framework for employment                                  grounded features while maintaining computational efficiency,
+market analysis that integrates causal discovery with                                making it suitable for large-scale employment market analysis.
+explainable machine learning to address the limitations of
+purely correlation-driven feature selection. The proposed                            Index Terms—Causal Discovery, Employment Market
+method introduces a hybrid architecture combining gradient-                          Analysis, Feature Validation, Explainable Machine Learning,
+boosted models with temporal causal discovery, thereby                               Temporal Causal Modeling
+ensuring that predictive features are both statistically
+influential and causally plausible. At its core, CEFV employs
+a Gradient-Boosted Causal Validator (GBCV) to quantify                                                    I. INTRODUCTION
+feature importance using SHAP values, which are then cross-                          The employment market has become increasingly complex
+validated against causal graphs constructed by a Temporal                            due to rapid technological advancements, globalization, and
+Causal Discovery Unit (TCDU) based on the NOTEARS                                    economic fluctuations. Traditional labor market analysis
+algorithm. Furthermore, the framework incorporates a rolling-
+                                                                                     methods often rely on econometric models or survey data,
+window LSTM validator to capture dynamic causal
+                                                                                     which may not capture the full dynamics of modern
+relationships in time-series employment data, enabling
+                                                                                     employment trends. With the advent of big data, machine
+adaptive feature validation across temporal contexts. The
+system bridges conventional predictive modeling with domain                          learning techniques have been applied to analyze large-scale
+knowledge by discarding features with high predictive                                employment datasets, including job postings, salary trends,
+importance but lacking causal support, hence improving                               and economic indicators [1]. However, these approaches
+interpretability and robustness. Implemented using PyTorch                           frequently prioritize predictive accuracy over interpretability
+Geometric and distributed computing tools, CEFV replaces                             and causal validity, potentially leading to spurious correlations
+manual feature selection with an automated, scalable pipeline                        that lack actionable insights.
+that outputs validated feature subsets for downstream                                    Recent advances in explainable AI, particularly model-
+predictive tasks. Moreover, the integration of causal                                agnostic feature importance techniques like SHAP values [2],
+explanations into the user interface facilitates transparent                         have improved the transparency of machine learning models.
+decision-making by visualizing feature influences alongside                          These methods quantify the contribution of individual features
+their causal pathways. The key contribution lies in the                              to model predictions, enabling analysts to identify key drivers
+unification of causal inference and model-agnostic                                   of employment trends. Nevertheless, feature importance
+interpretability, which distinguishes CEFV from existing                             scores alone cannot distinguish between causal relationships
+employment analytics systems that rely solely on predictive                          and mere statistical associations. This limitation becomes
+                                                                                     critical in employment market analysis, where policymakers
+                                                                                     and businesses require not only accurate predictions but also
+   This work was supported by the Zhejiang Provincial Philosophy and Social
+Sciences Planning Special Project on Higher Education Basic Research                 causally valid explanations to inform decisions.
+Funding Reform under Grant Number: 25NDJC153YBMS and the Jiaxing                         Causal discovery algorithms offer a promising solution to
+University Students' Science and Technology Innovation Training Project              this challenge. Methods such as the PC algorithm [3] and
+(SRT) under Grant No.8517241451. Corresponding author: Yuke Lv,
+15857171554@163.com.                                                                 NOTEARS [4] can infer causal structures from observational
+   Kexin Jiang is with the College of Business, Jiaxing University, Jiaxing,         data, providing a framework to validate whether statistically
+Zhejiang, China, 314001 (e-mail: 15068725981@163.com). Xinyu Cai is with             important features align with plausible causal mechanisms.
+the College of Business, Jiaxing University, Jiaxing, Zhejiang, China, 314001
+(e-mail: caixinyu@zjxu.edu.cn). Yuke Lv is with the College of Business,             However, existing causal discovery approaches often struggle
+Jiaxing University, Jiaxing, Zhejiang, China, 314001 (e-mail:                        with high-dimensional data and temporal dependencies, which
+15857171554@163.com). Yawen Xu is with the College of Business, Jiaxing              are inherent in employment market datasets. Moreover, the
+University,     Jiaxing,      Zhejiang,      China,      314001       (e-mail:
+15005831509@163.com). Yanyu Chen is with the College of Business,
+                                                                                     integration of causal discovery with feature importance
+Jiaxing University, Jiaxing, Zhejiang, China, 314001 (e-mail:                        techniques remains underexplored in the context of labor
+3521644803@qq.com). Jiaman Wu is with the College of Business, Jiaxing               market analysis.
+University,     Jiaxing,      Zhejiang,      China,      314001       (e-mail:
+18267159450@163.com). Jiayu Zheng is with the College of Business,
+                                                                                         We propose a hybrid framework that bridges this gap by
+Jiaxing University, Jiaxing, Zhejiang, China, 314001 (e-mail:                        combining model-agnostic feature importance with causal
+2777017864@qq.com).
+
+
+                                                                                 8
+discovery algorithms. Our approach leverages gradient-                potentially leading to misleading interpretations when
+boosted trees to generate SHAP values, which are then cross-          correlations are spurious.
+validated against causal graphs constructed from the same data.
+                                                                      B. Causal Inference in Labor Economics
+This dual validation ensures that features deemed important by
+the predictive model are also supported by causal evidence.              The labor economics literature has long recognized the
+Furthermore, we extend this framework to handle temporal              importance of causal inference, with instrumental variables
+dynamics through rolling-window analysis with LSTM                    and difference-in-differences being established methods for
+models [5], capturing how feature importance and causal               addressing endogeneity [11]. More recently, causal discovery
+relationships evolve over time.                                       algorithms have been adapted for employment market analysis,
+    The key contribution of our work is threefold. First, we          with [12] demonstrating their application to identify
+introduce a novel integration of feature importance and causal        directional relationships in occupational mobility data. The
+discovery techniques, providing a more robust validation              NOTEARS algorithm, in particular, has shown promise in
+mechanism for employment market analysis. Second, we                  learning causal structures from high-dimensional employment
+address the temporal aspect of labor market data by                   data while enforcing acyclicity constraints [4].
+incorporating time-series analysis, enabling the detection of         C. Hybrid Approaches
+dynamic causal relationships. Third, we demonstrate how this             Several studies have attempted to bridge predictive
+framework can be applied to real-world employment datasets,           modeling with causal inference in related domains. [13]
+offering practical insights for policymakers and businesses.          proposed combining g-computation with feature importance
+    Prior research in employment market analysis has explored         methods for healthcare applications, while [14] developed a
+various aspects of big data applications. For instance, [6]           framework for evaluating feature importance relative to causal
+demonstrated the use of big data for labor market analysis,           graphs. In the context of economic forecasting, [15] employed
+while [7] highlighted the potential of employer-employee              Lasso regression for both variable selection and prediction,
+microdata for understanding unemployment. However, these              though without explicit causal validation.
+studies often lack a causal perspective, focusing instead on             The proposed CEFV framework advances beyond these
+descriptive or predictive analytics. Our work builds upon these       existing approaches by systematically integrating causal
+foundations by introducing causal validation as a critical            discovery with feature importance validation. Unlike [1]
+component of employment market analysis.                              which focuses primarily on predictive analytics, or [11] which
+    The remainder of this paper is organized as follows:              emphasizes theoretical causal models, our method
+Section 2 reviews related work in employment market analysis,         operationalizes causal validation within an automated machine
+explainable AI, and causal discovery. Section 3 provides              learning pipeline. This distinguishes our work from [13] by
+background on the key techniques used in our framework.               incorporating temporal dynamics specific to employment data,
+Section 4 details the proposed hybrid framework, including its        and from [12] through the use of gradient-boosted models for
+components and integration. Section 5 describes the                   more robust feature importance estimation. The resulting
+experimental setup, while Section 6 presents the results.             system provides both the scalability of data-driven methods
+Section 7 discusses the implications and future directions, and       and the theoretical rigor of causal inference, addressing a
+Section 8 concludes the paper.                                        critical gap in current employment market analysis tools.
+                     II. RELATED WORK                                             III. BACKGROUND AND PRELIMINARIES
+   Recent advances in employment market analysis have                    Understanding employment market dynamics requires
+increasingly incorporated machine learning techniques to              combining causal inference with robust feature selection
+process large-scale datasets. Traditional econometric                 techniques while accounting for temporal patterns. This
+approaches, while theoretically grounded, often struggle with         section establishes the theoretical foundations necessary for
+the high dimensionality and nonlinear relationships present in        our proposed framework, covering three key areas: causal
+modern employment data [1]. This has led to growing interest          inference methodologies, feature selection approaches, and
+in data-driven methods that can capture complex patterns              machine learning techniques for time-series analysis.
+without relying on restrictive parametric assumptions.
+                                                                      A. Causal Inference in Data Analysis
+A. Feature Importance in Employment Analytics
+                                                                         Causal discovery has become increasingly important in
+   Model-agnostic feature importance techniques have                  data-driven fields as it moves beyond correlation to identify
+emerged as valuable tools for interpreting machine learning           directional relationships. The fundamental framework for
+models in labor economics. SHAP values, derived from                  causal analysis involves representing variables as nodes in a
+cooperative game theory, provide a unified framework for              directed acyclic graph (DAG), where edges denote causal
+explaining model predictions by quantifying each feature ’ s          relationships [16]. Structural causal models (SCMs) formalize
+marginal contribution [2]. These methods have been applied to         this approach by specifying how each variable depends on its
+analyze factors influencing wage determination [8] and                causal parents through functional relationships and noise terms.
+employment outcomes [9]. However, as noted in [10], feature           For employment market analysis, these models help
+importance scores alone cannot establish causal relationships,
+
+
+                                                                  9
+distinguish between genuine economic drivers and spurious               causal-explainable validation mechanism, and implementation
+correlations that may arise from confounding factors.                   specifics.
+   Two primary approaches dominate causal discovery:
+                                                                        A. Architecture of the Hybrid Framework
+constraint-based methods like the PC algorithm [17] that test
+conditional independencies, and score-based methods such as                The system architecture consists of three primary
+NOTEARS [4] that optimize a score function while enforcing              components: the feature importance analyzer, the causal
+acyclicity. The latter has gained prominence in high-                   discovery module, and the temporal validation unit. Figure 1
+dimensional settings due to its differentiable formulation:             illustrates the data flow and interactions between these
+                                                                        components.
+        score G� = ℒ G� + λR G�                    （1）
+                                                                          Employment Market Data                          Preprocessing Pipeline
+   where ℒ(G) measures data likelihood given graph G, and                        BLS Statistics
+                                                                                 Job Postings
+                                                                                                                                  MICE Imputation
+                                                                                                                                  Standardization
+
+
+R(G) penalizes graph complexity. This formulation enables
+gradient-based       optimization        while      maintaining            Feature Importance Analyzer                                  Causal Discovery Module                                           Temporal Validation Unit
+interpretability—a crucial requirement for employment market               Gradient-Boosted Trees (XGBoost)                                     NOTEARS Algorithm                                             Bidirectional LSTM
+
+analysis where policymakers need transparent reasoning.                             SHAP Values: φᵢⱼ                                             DAG Construction                                           Rolling-Window Analysis
+                                                                               Marginal Feature Contributions                               Acyclicity Constraint: h(W) = 0                                    Attention Weights: αₜⱼ
+
+
+B. Feature Selection and Validation Techniques
+   Feature selection methods help identify the most relevant                                                                 Causal-Explainable Validation Mechanism
+
+variables from high-dimensional employment datasets. Mutual                                                        Score Computation
+                                                                                                                s^SHAP_j = Normalized SHAP
+                                                                                                                                                                              Feature Classification
+                                                                                                                                                                                Validated (High-High)
+
+
+information provides a foundation for measuring feature                                                         s^Causal_j = Causal Influence                                 Non-Causal/Non-Predictive
+
+
+
+
+relevance through the dependence between variables X and Y:
+                                         p(x, y)                            Validated Features                                  Causal Graphs                                     Interactive Dashboard                                 Downstream Tasks
+
+         MI(X; Y) = ∑ ∑ p (x, y)log (            )       (2)                    Causal Support
+                                                                             Statistical Importance
+                                                                                                                                  Edge Weights
+                                                                                                                                 Directional Links
+                                                                                                                                                                                         Visualization UI
+                                                                                                                                                                                       Feature Explanations
+                                                                                                                                                                                                                                         Predictive Modeling
+                                                                                                                                                                                                                                           Policy Analysis
+
+                                        p(x)p(y)                              Temporal Stability                                Temporal Evolution                                      Discrepancy Alerts                               Market Forecasting
+
+                     x∈X y∈Y
+  Three main paradigms exist for feature selection: filter
+methods that rank features based on statistical measures [18],          Fig. 1 System Architecture with Causal-Enhanced Feature
+wrapper methods that evaluate subsets using predictive                  Validation Module.
+performance [19], and embedded methods like L1
+regularization that perform selection during model training                The feature importance analyzer employs gradient-boosted
+[20]. While effective for prediction, these approaches lack             decision trees (XGBoost) to generate initial feature rankings.
+causal validation—a gap our framework addresses by                      For a given dataset X ∈ ℝn×d with n samples and d features,
+combining them with causal discovery.                                   the model produces predictions f(X) and computes SHAP
+                                                                        values ϕi,j for each feature j and sample i:
+C. Machine Learning for Time-Series Data
+                                                                                           |S|! (|F| − |S| − 1)!
+   Employment market analysis requires specialized                          ϕi,j = ∑                             (f(S ∪ {j}) − f(S)) (4)
+                                                                                                    |F|!
+techniques to handle temporal dependencies in indicators like                                     S⊆F\{j}
+unemployment rates or job postings. Recurrent Neural                       where F represents the complete feature set. These values
+Networks (RNNs), particularly Long Short-Term Memory                    quantify the marginal contribution of each feature to the
+(LSTM) networks [5], have proven effective for modeling                 model’s predictions, providing a robust measure of feature
+such sequences through their gated architecture:                        importance that accounts for interactions between variables.
+                 ℎt = σ(Wℎ xt + Uℎ ℎt−1 + bℎ )              (3)            The causal discovery module implements the NOTEARS
+   where ℎt represents the hidden state at time t, and σ denotes        algorithm to construct a directed acyclic graph (DAG)
+the sigmoid activation. These models capture long-range                 representing causal relationships between features. This
+dependencies that traditional econometric methods often miss.           module solves the constrained optimization problem:
+However, they typically operate as black boxes, necessitating             min𝔼[∥ X − W T X ∥2F ] + λ ∥ W ∥1 subject to ℎ(W) = 0 (5)
+                                                                           W
+complementary techniques like SHAP values [2] to explain                  where W is the weighted adjacency matrix of the causal
+their predictions—an essential requirement for policy-relevant          graph, and ℎ(W) enforces the acyclicity constraint through a
+applications. The integration of these explainability methods           continuous characterization of DAGs. The ℓ1 penalty term
+with causal validation forms a core innovation of our proposed          promotes sparsity in the learned graph structure.
+framework.
+                                                                        B. Causal-Explainable Validation Mechanism
+             IV. PROPOSED HYBRID FRAMEWORK                                 The validation mechanism operates by comparing the
+   The proposed hybrid framework integrates model-agnostic              feature importance rankings from the SHAP analysis with the
+feature importance techniques with causal discovery                     causal structure discovered by NOTEARS. For each feature j,
+algorithms to validate machine learning model features against          we compute two scores: the normalized SHAP importance
+domain knowledge in employment market analysis. This                    sjSHAP and the causal influence score sjCausal :
+section presents the technical details of our approach,
+organized into three subsections: the overall architecture, the
+
+
+                                                                   10
+                                   ∑i |ϕi,j |                         A. Datasets and Preprocessing
+                      sjSHAP =                            (6)
+                                 max ∑i |ϕi,k |                          We evaluated our framework on three real-world
+                                  k
+                                                                      employment       market     datasets    with   complementary
+               sjCausal = ∑ |Wk,j | + ∑ |Wj,k |           (7)         characteristics:
+                         k≠j            k≠j                            1) U.S. Bureau of Labor Statistics (BLS) Employment
+   where Wk,j represents the causal influence of feature k on               Data[21]
+feature j according to the learned DAG. Features are then                   Contains monthly employment statistics across
+classified into four categories based on their scores:                      industries (2010-2022) with 127 economic indicators.
+ 1) Validated Features: High sjSHAP and high sjCausal                       We processed this into a multivariate time series with
+                                                                            144 time steps and 127 features, including sector-
+ 2) Predictive but Non-Causal: High sjSHAP but low sjCausal                 specific employment counts, wage growth rates, and
+ 3) Causal but Non-Predictive: Low sjSHAP but high sjCausal                 geographic distributions.
+ 4) Irrelevant Features: Low scores in both metrics                    2) LinkedIn Job Postings Dataset[22]
+   The framework prioritizes validated features for                         Comprises 2.3 million job postings (2018-2021) with 58
+downstream modeling tasks while flagging predictive but non-                features covering required skills, salary ranges, and
+causal features for further domain expert review. This                      company attributes. We aggregated this to quarterly
+approach ensures that the final model incorporates only                     resolution and derived 42 interpretable features through
+features with both statistical significance and causal                      NLP processing.
+plausibility.                                                          3) OECD Labor Market Indicators[23]
+                                                                            Provides cross-country quarterly labor market data
+C. Implementation and Operational Details                                   (2000-2022) for 38 countries with 89 indicators. This
+   The temporal validation component extends the framework                  dataset introduces international comparative dimensions
+to handle time-series employment data through a rolling-                    to our evaluation.
+window analysis. For a time series Xt ∈ ℝd at time t , we                All datasets underwent standardized preprocessing:
+employ a bidirectional LSTM network to capture temporal                  Missing values imputed using Multivariate Imputation by
+dependencies:                                                         Chained Equations (MICE).
+                        ℎtf = LSTMf (xt , ℎt−1
+                                           f
+                                               )           (8)           Numerical features standardized to zero mean and unit
+                        b                  b                          variance.
+                       ℎt = LSTMb (xt , ℎt+1 )             (9)
+                                                                         Categorical features encoded via target encoding.
+   where ℎtf and ℎtb represent the forward and backward hidden           Time-series alignment using dynamic time warping for
+states respectively. The attention mechanism computes time-           cross-dataset analysis.
+dependent feature importance weights αt,j :
+                                                                      B. Baseline Methods
+       αt,j = softmax (v T tanh(Wℎ ℎt + Wx xt,j + b))    (10)
+                                                                         We compared CEFV against four categories of baseline
+   These attention weights serve as temporal analogs to SHAP          feature selection and validation approaches:
+values, allowing the framework to track how feature                    1) 1.Pure Feature Importance Methods
+importance evolves over time. The causal discovery process is               SHAP-XGBoost [2].
+repeated within each rolling window to detect changes in                    Permutation Importance (Random Forest) [24].
+causal structure, enabling adaptive validation of features in          2) Causal Discovery Methods
+dynamic employment market conditions.                                       NOTEARS [4].
+   The complete implementation leverages PyTorch for neural                 PC Algorithm [3].
+network components and Dask for distributed processing of              3) Temporal Feature Selection
+large-scale employment datasets. The system outputs include                 LSTM-Attention [25].
+validated feature sets, causal graphs, and temporal importance              Granger Causality [26].
+trends, all visualized through an interactive dashboard that           4) Integrated Approaches
+highlights discrepancies between statistical and causal                     Causal-Filter (NOTEARS + SHAP thresholding).
+importance. This operational design ensures scalability to                  TEMP-Causal (Granger + LSTM-Attention).
+high-dimensional employment datasets while maintaining                   Each baseline was implemented using their original authors’
+interpretability for domain experts.                                  recommended configurations, with hyperparameters tuned via
+                                                                      Bayesian optimization on a validation set comprising 20% of
+                  V. EXPERIMENTAL SETUP                               each dataset.
+  To evaluate the proposed Causal-Enhanced Feature                    C. Evaluation Metrics
+Validation (CEFV) framework, we designed a comprehensive                We employed four complementary metric categories to
+experimental protocol that assesses both the technical                assess framework performance:
+performance and practical utility of our approach in                   1) Predictive Performance
+employment market analysis. This section details the datasets,
+baseline methods, evaluation metrics, and implementation
+specifics used in our experiments.
+
+
+                                                                 11
+                               1
+      Time-series RMSE: √ ∑Tt=1(yt − ŷt )2                                                     RMSE              Directional Accuracy
+                               T                                             Method             (×10^3)           (%)
+                                     1
+      Directional     Accuracy:           ∑Tt=2 𝕀 (sign(yt − yt−1 ) =        SHAP-XGBoost       5.72              68.3
+                                    T−1
+    sign(ŷt − ŷt−1 ))                                                      NOTEARS            6.15              62.1
+ 2) Causal Validity
+                                                                             LSTM-              5.34              71.2
+    Structural Hamming Distance (SHD) [27]
+                           Correctly Identified Causal Edges                 Attention
+    Causal Edge Precision:
+                                     Total Predicted Edges                   Causal-Filter      5.08              73.5
+ 3) Temporal Stability
+                                    1                                        TEMP-Causal        4.91              75.8
+    Feature Importance Volatility:      ∑T ∥ wt − wt−1 ∥2
+                                   T−1 t=2                                   CEFV (Ours)        4.23              79.4
+    Causal               Graph                 Consistency:
+      2     T−1 T
+          ∑t=1 ∑s=t+1 Jaccard (Gt , Gs )
+      T(T−1)                                                                    The integration of causal validation with temporal analysis
+ 4) Computational Efficiency                                                 yielded particularly strong results for directional accuracy,
+    Wall-clock time for complete feature validation                          which increased by 11.1 percentage points over pure SHAP-
+    Memory footprint during processing                                       based selection. This improvement suggests that causal
+D. Implementation Details                                                    filtering helps eliminate spurious features that may contribute
+   Our framework was implemented in TensorFlow 2.8 with                      to prediction errors during economic turning points. The
+the following configuration:                                                 rolling-window LSTM component further enhanced
+                                                                             performance by capturing time-varying relationships between
+   The CEFV framework was implemented in Python 3.9 with                     employment indicators.
+the following key components:                                                B. Causal Validation Effectiveness
+ 1) Causal Discovery Unit: NOTEARS implementation                               The causal discovery module successfully identified
+      using PyTorch with Adam optimizer (lr=0.001) and λ =                   plausible economic relationships while filtering out
+      0.1 sparsity penalty                                                   statistically important but non-causal features. Figure 2
+ 2) Feature Importance Analyzer: XGBoost (v1.6) with
+                                                                             illustrates the causal graph learned from the OECD dataset,
+      1000 trees, max_depth=6, learning_rate=0.01
+                                                                             highlighting validated relationships between key labor market
+ 3) Temporal Validator: Bidirectional LSTM (2 layers, 64
+                                                                             indicators.
+      hidden units) with attention mechanism
+ 4) Rolling Window Configuration: 12-month windows
+      with 3-month stride for BLS/OECD data, 4-quarter
+      windows for LinkedIn data
+   All experiments were conducted on AWS EC2 instances
+(r5.8xlarge) with 32 vCPUs and 256GB RAM. For
+reproducibility, we fixed random seeds (PyTorch: 42, NumPy:
+4242) and made our code available in a public repository. The
+complete validation pipeline including causal discovery and
+feature importance computation required approximately 3.2
+hours for the largest dataset (BLS).
+
+                    VI. EXPERIMENTAL RESULTS
+  Our comprehensive evaluation of the CEFV framework
+demonstrates its effectiveness across multiple dimensions of
+employment market analysis. The results reveal significant
+improvements in both predictive performance and causal
+validity compared to baseline methods, while maintaining
+computational efficiency suitable for large-scale deployment.                Fig. 2 Learned causal graph showing validated relationships
+                                                                             between employment indicators.
+A. Predictive Performance Analysis
+   The framework’s dual validation mechanism substantially
+                                                                                Quantitatively, CEFV achieved superior causal edge
+improved time-series forecasting accuracy across all datasets.
+                                                                             precision (0.82) compared to standalone NOTEARS (0.71)
+Table 1 compares the RMSE and directional accuracy of
+                                                                             and PC algorithm (0.65) implementations. The structural
+CEFV against baseline approaches on the BLS dataset, with
+                                                                             Hamming distance to expert-validated ground truth graphs
+similar patterns observed for other datasets.
+                                                                             was reduced by 38% compared to baseline causal discovery
+Table 1. Predictive performance comparison on BLS                            methods. Notably, the framework consistently identified
+employment data (2015-2022)                                                  established economic relationships such as the causal link
+
+
+
+                                                                        12
+from productivity growth to wage increases [28], while               sparse matrix operations in the NOTEARS implementation.
+flagging potentially spurious correlations like the apparent
+                                                                     E. Ablation Study
+relationship between tech job postings and manufacturing
+employment rates.                                                       To isolate the contribution of each framework component,
+                                                                     we conducted an ablation study measuring performance with
+C. Temporal Stability Assessment                                     individual modules disabled. Table 3 shows the relative
+  The rolling-window analysis revealed significant temporal          degradation in key metrics when removing specific
+variations in both feature importance and causal structures.         components.
+Figure 3 shows the volatility of feature importance weights
+across different economic periods, demonstrating CEFV’s              Table 3. Ablation study results (relative change from full
+ability to adapt to changing market conditions.                      CEFV)
+
+                                                                                          RMSE          SHD
+                                                                     Removed              Change        Change       Runtime
+                                                                     Component            (%)           (%)          Change (%)
+                                                                     Causal Validation    +18.7         +112.4       -42.1
+                                                                     Temporal             +12.3         +28.6        -37.8
+                                                                     Analysis
+                                                                     SHAP Importance      +24.5         +9.2         -23.5
+                                                                     NOTEARS              +15.1       +64.3       -18.9
+                                                                     Optimization
+                                                                        The results demonstrate that each component contributes
+                                                                     significantly to overall performance, with causal validation
+                                                                     showing the largest impact on causal validity (SHD) and
+                                                                     SHAP importance being most critical for predictive accuracy.
+                                                                     The temporal analysis module proved particularly valuable
+Fig. 3 Temporal evolution of feature importance weights              during volatile periods, reducing RMSE spikes by 31%
+across economic cycles.                                              compared to the static version.
+
+   The framework maintained strong causal graph consistency                       VII. DISCUSSION AND FUTURE WORK
+(Jaccard similarity > 0.75) during stable economic periods           A. Limitations and Potential Biases of the Proposed Framework
+while appropriately detecting structural breaks during events
+                                                                        While CEFV demonstrates strong performance across
+like the COVID-19 pandemic. This adaptability proved crucial         multiple evaluation metrics, several limitations warrant
+for maintaining prediction accuracy, as evidenced by a 22%
+                                                                     discussion. First, the framework inherits fundamental
+smaller increase in RMSE during volatile periods compared to
+                                                                     assumptions from both causal discovery and feature
+static methods.                                                      importance methodologies. The NOTEARS algorithm
+D. Computational Performance                                         assumes linear causal relationships in its basic formulation,
+   Despite its sophisticated validation pipeline, CEFV               potentially missing nonlinear interactions that may exist in
+demonstrated scalable performance suitable for operational           complex labor market dynamics [29]. This limitation could be
+deployment. Table 2 presents the computational requirements          partially addressed by incorporating kernel-based or neural
+for processing the largest dataset (BLS).                            network extensions of causal discovery methods [30].
+                                                                        Second, the validation mechanism relies on observational
+Table 2. Computational performance metrics                           data, making it susceptible to unmeasured confounding
+                                                                     variables that could distort both feature importance and causal
+Metric                                 Value                         relationships. For instance, macroeconomic shocks or policy
+Total Processing Time                  3.2 hours                     changes not captured in our datasets may simultaneously
+                                                                     affect multiple employment indicators, creating spurious
+Peak Memory Usage                      48 GB
+                                                                     causal links [31]. Future iterations could integrate instrumental
+Average Window Processing              9.4 minutes                   variables or natural experiment designs to strengthen causal
+Parallelization Speedup              6.8× (32 cores)                 claims.
+   The distributed implementation efficiently handled the               Third, the temporal analysis component assumes
+high-dimensional nature of employment data, with the causal          stationarity within each rolling window, which may not hold
+discovery module accounting for approximately 60% of total           during periods of rapid labor market transformation. The
+computation time. Memory usage remained manageable                   COVID-19 pandemic revealed this limitation, as the
+through batch processing of time windows and optimized               framework required shorter window sizes to adapt to abrupt
+                                                                     structural changes [32]. Developing adaptive windowing
+
+
+                                                                13
+strategies that automatically adjust to volatility levels could        ability to distinguish between statistically predictive and
+enhance robustness.                                                    genuinely causal features addresses a critical gap in labor
+                                                                       economics research, where actionable policy decisions require
+B. Broader Applications and Future Directions
+                                                                       not just accurate predictions but also validated explanations.
+   The principles underlying CEFV extend beyond                           Our results highlight the practical benefits of this hybrid
+employment market analysis to various domains requiring                approach, particularly in dynamic economic environments
+causal feature validation. In healthcare analytics, similar            where relationships between variables evolve over time. The
+approaches could help distinguish genuine risk factors from            rolling-window analysis component proved especially
+correlated biomarkers in electronic health records [33].               valuable for detecting structural shifts in labor markets,
+Financial risk assessment represents another promising                 enabling more responsive modeling compared to static
+application area, where distinguishing causal drivers from             methods. Furthermore, the computational efficiency of the
+coincidental market indicators is crucial [34].                        distributed implementation ensures scalability to large-scale
+   Three particularly promising research directions emerge             employment datasets, making it feasible for real-world
+from our work. First, developing semi-supervised versions of           deployment by policymakers and industry analysts.
+the framework could incorporate domain expert knowledge to                The framework’s modular design allows for future
+guide causal discovery, potentially through constrained                extensions, including the incorporation of nonlinear causal
+optimization or Bayesian priors [35]. Second, extending the            discovery methods and fairness-aware feature validation. By
+temporal analysis to handle irregularly sampled data would             bridging machine learning with causal inference, CEFV
+broaden applicability to emerging data sources like web-               provides a principled foundation for data-driven labor market
+scraped job postings or mobile location data [36]. Third,              analysis while mitigating risks associated with spurious
+creating distributed implementations optimized for streaming           correlations. This work establishes a methodological precedent
+data could enable real-time labor market monitoring.                   that could be adapted to other domains where distinguishing
+C. Ethical Considerations and Responsible Deployment                   causation from correlation is essential for decision-making.
+   The deployment of automated employment analytics
+systems raises important ethical questions that our framework                                  REFERENCES
+begins to address but does not fully resolve. While causal             [1] I. Rahhal, I. Kassou, and M. Ghogho, "Data science for
+validation reduces reliance on spurious correlations, the                  job market analysis: A survey on applications and
+potential for algorithmic bias remains if historical datasets              techniques," Expert Syst. Appl., vol. 251, p. 124101, Sep.
+encode discriminatory hiring practices or wage gaps [37].                  2024, doi: 10.1016/j.eswa.2024.124101.
+Future work should integrate fairness constraints directly into        [2] S. M. Lundberg and S.-I. Lee, "A unified approach to
+the feature validation process, perhaps through techniques like            interpreting model predictions," in Advances in Neural
+counterfactual fairness testing [38].                                      Information Processing Systems 30, I. Guyon, U. V.
+                                                                           Luxburg, S. Bengio, H. Wallach, R. Fergus, S.
+   Transparency mechanisms in CEFV represent a step toward
+                                                                           Vishwanathan, and R. Garnett, Eds. Curran Associates,
+responsible AI, but additional safeguards are needed for high-
+                                                                           Inc., 2017, pp. 4765–4774.
+stakes applications like job matching or policy formulation.           [3] C. Gong, D. Yao, C. Zhang, W. Li, J. Bi, L. Du, and J.
+Developing audit trails that document all feature validation               Wang, "Causal discovery from temporal data," in Proc.
+decisions could enhance accountability [39]. Furthermore, the              29th ACM SIGKDD Conf. Knowledge Discovery and
+framework should be complemented with human oversight                      Data Mining, Long Beach, CA, USA, Aug. 6-10, 2023,
+protocols to review edge cases where statistical and causal                pp. 5803–5804.
+evidence diverge significantly.                                        [4] P. Brouillard, S. Lachapelle, A. Lacoste, S. Lacoste-
+   Privacy considerations also merit attention, particularly               Julien, and A. Drouin, "Differentiable causal discovery
+when analyzing sensitive employment data. While our current                from interventional data," in Advances in Neural
+implementation uses aggregated statistics, extensions to                   Information Processing Systems 33, H. Larochelle, M.
+individual-level data would require differential privacy                   Ranzato, R. Hadsell, M. F. Balcan, and H. Lin, Eds.
+guarantees or federated learning approaches [40]. These                    Curran Associates, Inc., 2020, pp. 21865–21877.
+enhancements would ensure the framework’s benefits can be              [5] A. Graves, "Long short-term memory," in Supervised
+realized without compromising individual privacy rights.                   Sequence Labelling with Recurrent Neural Networks,
+                                                                           Berlin, Heidelberg: Springer, 2012, pp. 37–45, doi:
+                      VIII. CONCLUSION                                     10.1007/978-3-642-24797-2_4.
+                                                                       [6] C. Brandas, C. Panzaru, and F. G. Filip, "Data driven
+   The CEFV framework represents a significant advancement                 decision support systems: An application case in labour
+in employment market analysis by systematically integrating                market analysis," Romanian J. Inf. Sci. and Technol., vol.
+causal validation with feature importance techniques. Through              19, no. 1-2, pp. 65–77, 2016.
+rigorous experimentation on diverse datasets, we demonstrated          [7] O. A. Guerrero and E. Lopez, "Understanding
+that combining gradient-boosted models with temporal causal                unemployment in the era of big data: Policy informed by
+discovery yields more reliable and interpretable insights than             data-driven theory," Policy & Internet, vol. 9, no. 1, pp.
+conventional correlation-based approaches. The framework’s                 28–54, Mar. 2017, doi: 10.1002/poi3.136.
+
+
+                                                                  14
+[8] P. Kugler, "Using machine learning methods to study                      earnings," Monthly Labor Rev., vol. 139, no. 8, pp. 1-27,
+     research questions in health, labor and family                          Aug. 2016, doi: 10.21916/mlr.2016.38.
+     economics," Ph.D. dissertation, Eberhard Karls                     [22] O. Romanko and M. O'Mahony, "The use of online job
+     Universität Tübingen, Tübingen, Germany, 2023.                          sites for measuring skills and labour market trends: A
+[9] W. Zhong, C. Qian, W. Liu, L. Zhu, and R. Li, "Feature                   review," Econ. Stat. Centre of Excellence Tech. Rep.,
+     screening for interval-valued response with application to              ESCOE-TR-19, May 2022. [Online]. Available:
+     study association between posted salary and required                    https://www.escoe.ac.uk/publications/the-use-of-online-
+     skills," J. Amer. Statist. Assoc., vol. 118, no. 542, pp.               job-sites-for-measuring-skills-and-labour-market-trends-
+     805–817, 2023, doi: 10.1080/01621459.2022.2152342.                      a-review/
+[10] F. K. Ewald, L. Bothmann, M. N. Wright, B. Bischl, G.              [23] E. Barth, "OECD Employment Outlook: Chapters 3-4,"
+     Casalicchio, and G. König, "A guide to feature                          in Elgar Encyclopedia of Labour Studies, Cheltenham,
+     importance methods for scientific inference," in Proc.                  UK: Edward Elgar Publishing, 2023, pp. 403-430.
+     2nd World Conf. Explainable Artificial Intelligence (xAI           [24] A. Altmann, L. Toloşi, O. Sander, and T. Lengauer,
+     2024), L. Longo, S. Lapuschkin, and C. Seifert, Eds.                    "Permutation importance: a corrected feature importance
+     Springer, 2024, pp. 440–464, Communications in                          measure," Bioinformatics, vol. 26, no. 10, pp. 1340-1347,
+     Computer and Information Science, vol. 2154.                            May 2010, doi: 10.1093/bioinformatics/btq134.
+[11] F. Amodio, P. Medina, and M. Morlacco, "Labor market               [25] S.-Y. Shih, F.-K. Sun, and H. Lee, "Temporal pattern
+     power, self-employment, and development," IZA                           attention for multivariate time series forecasting," Mach.
+     Discussion Papers, no. 15477, Institute of Labor                        Learn., vol. 108, no. 8, pp. 1421-1441, Sep. 2019, doi:
+     Economics       (IZA),    Bonn,      Aug.    2022.     doi:             10.1007/s10994-019-05815-0.
+     10.2139/ssrn.4188288.                                              [26] C. W. J. Granger, "Investigating causal relations by
+[12] M. Castro, P. R. Mendes Júnior, A. Soriano-Vargas, R.                   econometric models and cross-spectral methods,"
+     de Oliveira Werneck, M. M. Gonçalves, L. Lusquino                       Econometrica: J. Econometric Soc., vol. 37, no. 3, pp.
+     Filho, R. Moura, M. Zampieri, O. Linares, V. Ferreira, A.               424-438, Jul. 1969, doi: 10.2307/1912791.
+     Ferreira, A. Davólio, D. Schiozer, and A. Rocha, "Time             [27] K. Yang, A. Katcoff, and C. Uhler, "Characterizing and
+     series causal relationships discovery through feature                   learning equivalence classes of causal DAGs under
+     importance and ensemble models," Sci. Rep., vol. 13, no.                interventions," in Proc. 35th Int. Conf. Mach. Learn.,
+     1, p. 11402, Jul. 2023. doi: 10.1038/s41598-023-37929-                  Stockholm, Sweden, Jul. 2018, pp. 5541-5550.
+     w.                                                                 [28] A. M. Stansbury and L. H. Summers, "Productivity and
+[13] A. Arzanipour, "Integrating feature importance                          pay: Is the link broken?," Nat. Bureau Econ. Research
+     techniques and causal inference to enhance early                        Working Paper, no. 24165, Dec. 2017, doi:
+     detection of heart disease," medRxiv, Aug. 2024. doi:                   10.3386/w24165.
+     10.1101/2024.08.12.24305414.                                       [29] D. Kaltenpoth and J. Vreeken, "Nonlinear causal
+[14] G. König, C. Molnar, B. Bischl, and M. Grosse-Wentrup,                  discovery with latent confounders," in Proc. 40th Int.
+     "Relative feature importance," in Proc. 25th Int. Conf.                 Conf. Mach. Learn., Honolulu, HI, USA, Jul. 2023, pp.
+     Pattern Recognit., Milan, Italy, 2021, pp. 9318–9325.                   15639-15654.
+     doi: 10.1109/ICPR48806.2021.9413090.                               [30] C. Li, X. Shen, and W. Pan, "Nonlinear causal discovery
+[15] K. Tehranian, "Can machine learning catch economic                      with confounders," J. Amer. Stat. Assoc., vol. 119, no.
+     recessions using economic and market sentiments?,"                      546,      pp.     1205-1214,      Mar.      2024,     doi:
+     arXiv preprint arXiv:2308.16200, Aug. 2023.                             10.1080/01621459.2023.2179490.
+[16] J. Pearl, M. Glymour, and N. P. Jewell, Causal inference           [31] S. Cunningham, Causal Inference: The Mixtape. New
+     in statistics: A primer. Chichester, UK: John Wiley &                   Haven, CT, USA: Yale University Press, 2021.
+     Sons, 2016.                                                        [32] O. Coibion, Y. Gorodnichenko, and M. Weber, "Labor
+[17] P. Spirtes, C. N. Glymour, and R. Scheines, Causation,                  markets during the COVID-19 crisis: A preliminary
+     prediction, and search, 2nd ed. Cambridge, MA, USA:                     view," National Bureau of Economic Research, Working
+     MIT Press, 2000.                                                        Paper 27017, Apr. 2020, doi: 10.3386/w27017.
+[18] H. Peng, F. Long, and C. Ding, "Feature selection based            [33] A. Holzinger, Ed., Machine Learning for Health
+     on mutual information criteria of max-dependency, max-                  Informatics: State-of-the-Art and Future Challenges, vol.
+     relevance, and min-redundancy," IEEE Trans. Pattern                     9605, Lecture Notes in Artificial Intelligence. Cham,
+     Anal. Mach. Intell., vol. 27, no. 8, pp. 1226-1238, Aug.                Switzerland: Springer International Publishing, 2016.
+     2005. doi: 10.1109/TPAMI.2005.159.                                 [34] G. Coqueret, "Machine Learning in Finance: From
+[19] Z. Wang, X. Xiao, and S. Rajasekaran, "Novel and                        Theory to Practice: by Matthew F. Dixon, Igor Halperin,
+     efficient randomized algorithms for feature selection,"                 and Paul Bilokon, Springer (2020). ISBN 978-3-030-
+     Big Data Min. Anal., vol. 3, no. 3, pp. 208-222, 2020.                  41067-4. Paperback," Quantitative Finance, vol. 21, no.
+[20] P. S. Bradley and O. L. Mangasarian, "Feature selection                 1, pp. 9–10, 2021.
+     via concave minimization and support vector machines,"             [35] T. Teshima and M. Sugiyama, "Incorporating causal
+     in Proc. 15th Int. Conf. Mach. Learn. (ICML), San                       graphical prior knowledge into predictive modeling via
+     Francisco, CA, USA, 1998, pp. 82–90.                                    simple data augmentation," in Proceedings of the 37th
+[21] L. Ghanbari and M. D. McCall, "Current Employment                       Conference on Uncertainty in Artificial Intelligence
+     Statistics survey: 100 years of employment, hours, and                  (UAI), Jul. 2021, pp. 86–96.
+
+
+                                                                   15
+[36] D. Moriwaki, "Nowcasting unemployment rates with
+     smartphone GPS data," in International Workshop on
+     Multiple-Aspect Analysis of Semantic Trajectories
+     (MASTER 2019), K. Tserpes, C. Renso, and S. Matwin,
+     Eds., Lecture Notes in Computer Science, vol. 11889,
+     Cham, Switzerland: Springer, 2020, pp. 21–33.
+[37] E. Albaroudi, T. Mansouri, and A. Alameer, "A
+     comprehensive review of AI techniques for addressing
+     algorithmic bias in job hiring," AI, vol. 5, no. 1, pp. 383–
+     404, 2024, doi: 10.3390/ai5010019.
+[38] M. J. Kusner, J. Loftus, C. Russell, and R. Silva,
+     "Counterfactual fairness," in Advances in Neural
+     Information Processing Systems 30 (NIPS 2017), I.
+     Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R.
+     Fergus, S. Vishwanathan, and R. Garnett, Eds., Long
+     Beach, CA, USA, 2017, pp. 4066–4076.
+[39] K. Amarasinghe, K. T. Rodolfa, H. Lamba, and R.
+     Ghani, "Explainable machine learning for public policy:
+     Use cases, gaps, and research directions," Data & Policy,
+     vol. 5, pp. e3, 2023, doi: 10.1017/dap.2022.34.
+[40] T. Li, A. K. Sahu, A. Talwalkar, and V. Smith,
+     "Federated learning: Challenges, methods, and future
+     directions," IEEE Signal Processing Magazine, vol. 37,
+     no. 3, pp. 50–60, 2020, doi: 10.1109/MSP.2020.2975749.
+
+
+
+
+                                                                    16
+

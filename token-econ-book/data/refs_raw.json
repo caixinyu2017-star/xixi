@@ -1,0 +1,1431 @@
+[
+ {
+  "key": "acemoglu2025",
+  "intext": "Acemoglu，2025",
+  "gb": "ACEMOGLU D. The simple macroeconomics of AI[J]. Economic Policy, 2025, 40(121): 13-58.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://academic.oup.com/economicpolicy/article-abstract/40/121/13/7728473",
+  "note": "经 Oxford Academic 期刊官网核实。DOI: 10.1093/epolic/eiae042。必收方向：Acemoglu 关于AI宏观效应的测算（任务暴露×成本节约→TFP 与增长贡献）。"
+ },
+ {
+  "key": "brynjolfsson2021",
+  "intext": "Brynjolfsson等，2021",
+  "gb": "BRYNJOLFSSON E, ROCK D, SYVERSON C. The productivity J-curve: how intangibles complement general purpose technologies[J]. American Economic Journal: Macroeconomics, 2021, 13(1): 333-372.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257%2Fmac.20180386",
+  "note": "经 AEA 官网及 RePEc 核实（v13, i1, p333-72）。DOI: 10.1257/mac.20180386。必收方向：Brynjolfsson 生产率J曲线。"
+ },
+ {
+  "key": "bresnahan1995",
+  "intext": "Bresnahan和Trajtenberg，1995",
+  "gb": "BRESNAHAN T F, TRAJTENBERG M. General purpose technologies \"engines of growth\"?[J]. Journal of Econometrics, 1995, 65(1): 83-108.",
+  "year": 1995,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/pii/030440769401598T",
+  "note": "经 ScienceDirect 与 RePEc 核实。DOI: 10.1016/0304-4076(94)01598-T。必收方向：GPT 通用目的技术理论奠基文献。"
+ },
+ {
+  "key": "eloundou2024",
+  "intext": "Eloundou等，2024",
+  "gb": "ELOUNDOU T, MANNING S, MISHKIN P, 等. GPTs are GPTs: labor market impact potential of LLMs[J]. Science, 2024, 384(6702): 1306-1308.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.science.org/doi/10.1126/science.adj0998",
+  "note": "经 Science 官网、PubMed（PMID 38900883）与 NASA ADS（2024Sci...384.1306E）核实。DOI: 10.1126/science.adj0998。必收方向：Eloundou 任务暴露测算。"
+ },
+ {
+  "key": "felten2021",
+  "intext": "Felten等，2021",
+  "gb": "FELTEN E, RAJ M, SEAMANS R. Occupational, industry, and geographic exposure to artificial intelligence: a novel dataset and its potential uses[J]. Strategic Management Journal, 2021, 42(12): 2195-2217.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://sms.onlinelibrary.wiley.com/doi/full/10.1002/smj.3286",
+  "note": "经 Wiley Online Library 官网核实。DOI: 10.1002/smj.3286。必收方向：Felten 的 AIOE 职业暴露指标构建。"
+ },
+ {
+  "key": "noy2023",
+  "intext": "Noy和Zhang，2023",
+  "gb": "NOY S, ZHANG W. Experimental evidence on the productivity effects of generative artificial intelligence[J]. Science, 2023, 381(6654): 187-192.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.science.org/doi/10.1126/science.adh2586",
+  "note": "经 Science 官网目录（Vol 381, Issue 6654）与 PubMed（PMID 37440646）核实。DOI: 10.1126/science.adh2586。"
+ },
+ {
+  "key": "brynjolfsson2025",
+  "intext": "Brynjolfsson等，2025",
+  "gb": "BRYNJOLFSSON E, LI D, RAYMOND L. Generative AI at work[J]. The Quarterly Journal of Economics, 2025, 140(2): 889-942.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://academic.oup.com/qje/article/140/2/889/7990658",
+  "note": "经 QJE 官网（Oxford Academic）与 RePEc 核实。DOI: 10.1093/qje/qjae044。大模型对一线劳动生产率的因果测算。"
+ },
+ {
+  "key": "acemoglu2022",
+  "intext": "Acemoglu等，2022",
+  "gb": "ACEMOGLU D, MAKHDOUMI A, MALEKIAN A, et al. Too much data: prices and inefficiencies in data markets[J]. American Economic Journal: Microeconomics, 2022, 14(4): 218-256.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1257/mic.20200200",
+  "note": "经 AEA 官网 (10.1257/mic.20200200) 核实：卷14、期4、页218-256，2022年11月。主题：数据市场的价格扭曲与配置无效率，直接对应本书\"配置效率\"章节。"
+ },
+ {
+  "key": "acemoglu2019",
+  "intext": "Acemoglu和Restrepo，2019",
+  "gb": "ACEMOGLU D, RESTREPO P. Automation and new tasks: how technology displaces and reinstates labor[J]. Journal of Economic Perspectives, 2019, 33(2): 3-30.",
+  "year": 2019,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257%2Fjep.33.2.3",
+  "note": "经 AEA 官网核实。DOI: 10.1257/jep.33.2.3。任务结构中的替代效应与复原效应，为AI劳动分析的基础框架。"
+ },
+ {
+  "key": "aghion2019",
+  "intext": "Aghion等，2019",
+  "gb": "AGHION P, JONES B F, JONES C I. Artificial intelligence and economic growth[M]//AGRAWAL A, GANS J, GOLDFARB A. The economics of artificial intelligence: an agenda. Chicago: University of Chicago Press, 2019: 237-290.",
+  "year": 2019,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.degruyterbrill.com/document/doi/10.7208/9780226613475-011/html",
+  "note": "经 University of Chicago Press / De Gruyter Brill 官网核实为该书第9章，页码 237-290。AI 内生增长与鲍莫尔成本病式增长瓶颈。"
+ },
+ {
+  "key": "brynjolfsson2019",
+  "intext": "Brynjolfsson等，2019",
+  "gb": "BRYNJOLFSSON E, ROCK D, SYVERSON C. Artificial intelligence and the modern productivity paradox: a clash of expectations and statistics[M]//AGRAWAL A, GANS J, GOLDFARB A. The economics of artificial intelligence: an agenda. Chicago: University of Chicago Press, 2019: 23-57.",
+  "year": 2019,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.degruyterbrill.com/document/doi/10.7208/9780226613475-003/html",
+  "note": "经 University of Chicago Press / De Gruyter Brill 官网核实为该书第1章，页码 23-57。索洛悖论的现代版本与四类解释。"
+ },
+ {
+  "key": "goldfarb2023",
+  "intext": "Goldfarb等，2023",
+  "gb": "GOLDFARB A, TASKA B, TEODORIDIS F. Could machine learning be a general purpose technology? A comparison of emerging technologies using data from online job postings[J]. Research Policy, 2023, 52(1): 104653.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/abs/pii/S0048733322001743",
+  "note": "经 ScienceDirect 与 RePEc（v52, i1）核实，文章号 104653。以招聘数据检验机器学习的 GPT 属性。"
+ },
+ {
+  "key": "crafts2021",
+  "intext": "Crafts，2021",
+  "gb": "CRAFTS N. Artificial intelligence as a general-purpose technology: an historical perspective[J]. Oxford Review of Economic Policy, 2021, 37(3): 521-536.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://academic.oup.com/oxrep/article/37/3/521/6374675",
+  "note": "经 Oxford Academic 官网与 RePEc 核实。DOI: 10.1093/oxrep/grab012。将AI置于蒸汽机、电力、ICT 的GPT历史序列中比较其增长贡献。"
+ },
+ {
+  "key": "korinek2023",
+  "intext": "Korinek，2023",
+  "gb": "KORINEK A. Generative AI for economic research: use cases and implications for economists[J]. Journal of Economic Literature, 2023, 61(4): 1281-1317.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257%2Fjel.20231736",
+  "note": "经 AEA 官网核实，并与 Brookings 转载的正式排版版（JEL 2023, 61(4), 1281–1317）互证。DOI: 10.1257/jel.20231736。"
+ },
+ {
+  "key": "acemoglu2022b",
+  "intext": "Acemoglu等，2022",
+  "gb": "ACEMOGLU D, AUTOR D, HAZELL J, 等. Artificial intelligence and jobs: evidence from online vacancies[J]. Journal of Labor Economics, 2022, 40(S1): S293-S340.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/718327",
+  "note": "经 University of Chicago Press 期刊官网与 LSE Research Online 核实。DOI: 10.1086/718327。企业层面AI暴露与岗位重构的实证。"
+ },
+ {
+  "key": "felten2023",
+  "intext": "Felten等，2023",
+  "gb": "FELTEN E W, RAJ M, SEAMANS R. How will language modelers like ChatGPT affect occupations and industries?[EB/OL]. (2023-03-18)[2026-08-13]. https://arxiv.org/abs/2303.01157.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://arxiv.org/abs/2303.01157",
+  "note": "经 arXiv 官网与 SSRN（abstract_id=4375268）核实，arXiv:2303.01157，2023-03-02 提交、2023-03-18 修订。该文为语言模型职业暴露（LLM exposure）测算，尚无正式期刊卷期页码，故按电子文献著录。"
+ },
+ {
+  "key": "autor2024",
+  "intext": "Autor，2024",
+  "gb": "AUTOR D. Applying AI to rebuild middle class jobs: NBER working paper No. 32140[R]. Cambridge, MA: National Bureau of Economic Research, 2024.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.nber.org/papers/w32140",
+  "note": "经检索核实为 NBER Working Paper No. 32140（2024年2月）。工作论文无卷期页码，按报告著录。AI 对中等技能岗位与专业判断权的重构。"
+ },
+ {
+  "key": "acemoglu2024",
+  "intext": "Acemoglu和Johnson，2024",
+  "gb": "ACEMOGLU D, JOHNSON S. Learning from Ricardo and Thompson: machinery and labor in the early industrial revolution, and in the age of AI: NBER working paper No. 32416[R]. Cambridge, MA: National Bureau of Economic Research, 2024.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.nber.org/papers/w32416",
+  "note": "经 NBER 官网条目（nber.org/papers/w32416）核实。工作论文无卷期页码，按报告著录。技术方向选择对劳动份额与要素分配的影响。"
+ },
+ {
+  "key": "bergemann2022",
+  "intext": "Bergemann等，2022",
+  "gb": "BERGEMANN D, BONATTI A, GAN T. The economics of social data[J]. RAND Journal of Economics, 2022, 53(2): 263-296.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1111/1756-2171.12407",
+  "note": "经 RePEc 条目 (bla/randje/v53y2022i2p263-296) 与 Wiley RAND 官网双重核实：卷53、期2、页263-296，2022年6月。主题：数据的外部性、社会数据的定价与平台数据中介。"
+ },
+ {
+  "key": "pei2022",
+  "intext": "Pei，2022",
+  "gb": "PEI J. A survey on data pricing: from economics to data science[J]. IEEE Transactions on Knowledge and Data Engineering, 2022, 34(10): 4586-4608.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1109/TKDE.2020.3045927",
+  "note": "经 IEEE/ACM DL 条目 (10.1109/TKDE.2020.3045927) 核实：卷34、期10、页4586-4608。主题：数据要素定价机制的经济学与数据科学综述，含版本化、捆绑与套利自由定价。"
+ },
+ {
+  "key": "armstrong2006",
+  "intext": "Armstrong，2006",
+  "gb": "ARMSTRONG M. Competition in two-sided markets[J]. RAND Journal of Economics, 2006, 37(3): 668-691.",
+  "year": 2006,
+  "lang": "en",
+  "verified": true,
+  "url": "https://discovery.ucl.ac.uk/4324/1/competitionintwosidedmarkets.pdf",
+  "note": "经 UCL Discovery 全文首页题名行核实：RAND Journal of Economics, Vol. 37, No. 3, Autumn 2006, pp. 668-691。双边市场定价的奠基性文献，按要求少量收录。"
+ },
+ {
+  "key": "yu2021",
+  "intext": "余玲铮等，2021",
+  "gb": "余玲铮, 魏下海, 孙中伟, 等. 工业机器人、工作任务与非常规能力溢价——来自制造业“企业—工人”匹配调查的证据[J]. 管理世界, 2021, 37(1): 47-59.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://agri.nais.net.cn/literature/casdd/BF596EF0-9F15-4CA7-BF83-8495C6C94BF7.html",
+  "note": "主题：智能技术与任务结构、非常规能力溢价，支撑本书第11章词元替代人类认知劳动的价值密度论证。四位作者（余玲铮、魏下海、孙中伟、吴春秀），取前三加“等”。原核验：文献平台题录二次检索确认37(1):47-59。【本次会话网络出口全禁、WebSearch额度耗尽，未能联网复核，沿用本项目已核验文献库记录】"
+ },
+ {
+  "key": "hu2021",
+  "intext": "胡晟明等，2021",
+  "gb": "胡晟明, 王林辉, 朱利莹. 工业机器人应用存在人力资本提升效应吗？[J]. 财经研究, 2021, 47(6): 61-75.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://qks.sufe.edu.cn/mv_html/j00001/202106/87029f2a-b664-4f3c-8ee4-0e72322a5a9c_WEB.htm",
+  "note": "主题：智能技术应用的人力资本效应，用于第11章智能资本与人力资本互补性讨论。原核验：《财经研究》官网（上海财经大学期刊社）全文页确认卷期页码。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "bai2021",
+  "intext": "柏培文和张云，2021",
+  "gb": "柏培文, 张云. 数字经济、人口红利下降与中低技能劳动者权益[J]. 经济研究, 2021, 56(5): 91-108.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：数字经济要素配置与劳动者权益，支撑第11、12章智能经济分配效应。原核验：多来源交叉核对56(5):91-108。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "he2021",
+  "intext": "何建坤，2021",
+  "gb": "何建坤. 碳达峰碳中和目标导向下能源和经济的低碳转型[J]. 环境经济研究, 2021, 6(1): 1-9.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://eer.hbue.edu.cn/_upload/article/files/c9/f9/f8a268c34646bf414210adb69551/c746d75b-ec8d-4c70-b798-6e6d8bb982aa.pdf",
+  "note": "主题：能源经济低碳转型与能耗—碳排放当量口径，支撑第5章标准词元折算对“标准煤／二氧化碳当量”当量化传统的借鉴。原核验：《环境经济研究》官网原文PDF确认6(1):1-9。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "zhang2021",
+  "intext": "张希良等，2021",
+  "gb": "张希良, 张达, 余润心. 中国特色全国碳市场设计理论与实践[J]. 管理世界, 2021, 37(8): 80-95.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://github.com/RunxinYu/RunxinYu.github.io/blob/master/content/zh/publication/JMW2021/index.md",
+  "note": "主题：当量化配额市场的机制设计与价格形成，为第7、10章词元定价基准与运营中心机制设计提供制度类比。原核验：第三作者余润心学术主页仓库著录（含卷期页码37(8):80-95与CNKI原文链接）及独立综述佐证。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "wang2022",
+  "intext": "王林辉等，2022",
+  "gb": "王林辉, 胡晟明, 董直庆. 人工智能技术、任务属性与职业可替代风险——来自微观层面的经验证据[J]. 管理世界, 2022, 38(7): 60-79.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://jlucqe.jlu.edu.cn/info/1059/14083.htm",
+  "note": "主题：人工智能任务属性与可替代性测度，支撑第6章场景效用系数S的任务价值密度设定。原核验：吉林大学数量经济研究中心转载页及多来源确认38(7):60-79。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "tian2022",
+  "intext": "田鸽和张勋，2022",
+  "gb": "田鸽, 张勋. 数字经济、非农就业与社会分工[J]. 管理世界, 2022, 38(5): 72-84.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：数字经济与社会分工重构，支撑第12章智能经济增长核算的分工渠道。原核验：北京师范大学统计学院成果页等多来源核对38(5):72-84。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "xiao2022",
+  "intext": "肖土盛等，2022",
+  "gb": "肖土盛, 孙瑞琦, 袁淳, 等. 企业数字化转型、人力资本结构调整与劳动收入份额[J]. 管理世界, 2022, 38(12): 220-237.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "url": "http://dianda.cqvip.com/Qikan/Article/Detail?id=7108578496",
+  "note": "主题：企业数字化转型的要素结构效应，用于第11章词元采纳的企业层面机制。四位作者（肖土盛、孙瑞琦、袁淳、孙健）。原核验：维普／知网著录220-237（个别转载页作220-235，以220-237为准）。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "chen2022",
+  "intext": "陈东和秦子洋，2022",
+  "gb": "陈东, 秦子洋. 人工智能与包容性增长——来自全球工业机器人使用的证据[J]. 经济研究, 2022, 57(4): 85-102.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.rwsk.sdu.edu.cn/info/1082/10402.htm",
+  "note": "主题：人工智能对增长与收入分配的跨国证据，支撑第12章智能经济增长贡献分离。原核验：山东大学人文社科研究院官网转载页及多来源确认57(4):85-102。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "chen2022b",
+  "intext": "陈贵富等，2022",
+  "gb": "陈贵富, 韩静, 韩恺明. 城市数字经济发展、技能偏向型技术进步与劳动力不充分就业[J]. 中国工业经济, 2022(8): 118-136.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://chinareal.nankai.edu.cn/info/1104/9050.htm",
+  "note": "主题：城市数字经济与技能偏向型技术进步，支撑第10章城市级词元运营中心的区域效应分析。该刊按期著录，不设卷号。原核验：南开大学区域政策研究中心转载页与《中国工业经济》官网目录PDF核对。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "wang2023",
+  "intext": "王林辉等，2023",
+  "gb": "王林辉, 钱圆圆, 宋冬林, 等. 机器人应用的岗位转换效应及就业敏感性群体特征——来自微观个体层面的经验证据[J]. 经济研究, 2023, 58(7): 69-85.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：智能技术的岗位转换效应，支撑第11章词元替代与人机任务再分配。原核验：期号页码经多来源交叉核对58(7):69-85。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "he2023",
+  "intext": "何小钢等，2023",
+  "gb": "何小钢, 朱国悦, 冯大威. 工业机器人应用与劳动收入份额——来自中国工业企业的证据[J]. 中国工业经济, 2023(4): 98-116.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://iie.jnu.edu.cn/2023/0519/c10556a753367/page.htm",
+  "note": "主题：智能技术应用与要素收入分配。原核验：暨南大学产业经济研究院官网与《中国工业经济》2023年第4期目录核对（该文常被误引为2021年，实为2023年第4期）。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "zhou2023",
+  "intext": "周文和许凌云，2023",
+  "gb": "周文, 许凌云. 论新质生产力：内涵特征与重要着力点[J]. 改革, 2023(10): 1-13.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.rmlt.com.cn/2024/0122/693593.shtml",
+  "note": "主题：新质生产力内涵界定的高被引奠基文献，支撑第1、12章词元生产能力作为新质生产力载体的定位。《改革》按期著录。原核验：权威转载全文与刊期目录核对1-13页。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "yang2023",
+  "intext": "杨豪等，2023",
+  "gb": "杨豪, 潘颖豪, 才国伟. 碳排放总量控制、配置效率与产出收益[J]. 中国工业经济, 2023(7): 46-65.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：当量化总量控制下的配置效率与产出收益，直接对应第9章算力—词元配置效率与配置悖论分解的方法论参照。原核验：CNKI题录导出数据（含摘要）核对2023(7):46-65。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "zhao2023",
+  "intext": "赵思琦等，2023",
+  "gb": "赵思琦, 刘庆富, 杨金强, 等. 全国碳市场的碳排放权配额管理机制设计——基于碳交易和风险对冲的视角[J]. 金融研究, 2023(12): 74-93.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：当量单位的配额管理与价格风险对冲机制设计，支撑第7、8章词元价格指数与市场结构分析。第四作者李源。《金融研究》按期著录，不设卷号。原核验：CNKI题录导出数据（含摘要）核对2023(12):74-93。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "duan2023",
+  "intext": "段玉婉等，2023",
+  "gb": "段玉婉, 蔡龙飞, 陈一文. 全球化背景下中国碳市场的减排和福利效应[J]. 经济研究, 2023, 58(7): 121-138.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：当量化市场的一般均衡福利效应评估，为第8、12章词元市场均衡与福利分析提供方法参照。原核验：CNKI题录导出数据（含摘要）核对58(7):121-138。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "hong2024",
+  "intext": "洪银兴，2024",
+  "gb": "洪银兴. 新质生产力及其培育和发展[J]. 经济学动态, 2024(1): 3-11.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "url": "http://ztzx.ruc.edu.cn/xzgd/e4758c4c74874b1a9e1c351effb271f8.htm",
+  "note": "主题：新质生产力的培育路径，支撑第1、13章词元基础设施与新质生产力的制度衔接。《经济学动态》按期著录。原核验：高校学者观点栏目全文与多来源核对3-11页。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "han2024",
+  "intext": "韩文龙等，2024",
+  "gb": "韩文龙, 张瑞生, 赵峰. 新质生产力水平测算与中国经济增长新动能[J]. 数量经济技术经济研究, 2024, 41(6): 5-25.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：新质生产力的量化测算方法，为第12章基于词元流量的增长核算提供指标构造参照。原核验：多来源核对41(6):5-25。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "jiang2024",
+  "intext": "姜春海等，2024",
+  "gb": "姜春海, 闫振好, 王敏. “双碳”目标约束下的能耗双控到碳排放双控：规制工具、效应模拟与政策评价[J]. 中国工业经济, 2024(11): 5-23.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：计量口径由能耗当量转向碳当量的制度切换与效应模拟，直接支撑第5章“物理计量单位不等于价值计量单位”的口径论证。原核验：CNKI题录导出数据（含CGE模拟摘要）核对2024(11):5-23。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "lan2024",
+  "intext": "蓝虹和杜彦霖，2024",
+  "gb": "蓝虹, 杜彦霖. 自愿碳交易市场：产权量化标准与生态价值实现路径[J]. 改革, 2024(4): 77-92.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：无形要素的产权量化标准与价值实现，为第3、6章词元确权与效值计量提供制度经济学参照。原核验：CNKI题录导出数据（含摘要）核对2024(4):77-92。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "chen2025",
+  "intext": "陈丹丹等，2025",
+  "gb": "陈丹丹, 史代敏, 祁丹越, 等. 绿色金融统计标准的国际比较与中国实践[J]. 统计研究, 2025, 42(1): 75-87.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://tjyj.cbpt.cnki.net/portal/journal/portal/client/paper/6315d6cce5277df9c7861aaddd4b9505",
+  "note": "主题：新兴要素的统计标准建构与国际互认，支撑第13章词元统计口径与出海互认凭证的讨论。原核验：《统计研究》官网（CNKI采编平台）论文页确认42(1):75-87。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "he2025",
+  "intext": "何凡等，2025",
+  "gb": "何凡, 黄炜, 陈波. 标准的力量：物流标准化与企业全要素生产率提升[J]. 数量经济技术经济研究, 2025, 42(8): 26-46.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：标准化（含标准箱等当量化计量）对全要素生产率的因果效应，直接支撑第5章标准词元借鉴“标准箱TEU”传统与第12章生产率论证。原核验：CNKI题录导出数据（含摘要）核对42(8):26-46。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "wang2020",
+  "intext": "王永钦和董雯，2020",
+  "gb": "王永钦, 董雯. 机器人的兴起如何影响中国劳动力市场？——来自制造业上市公司的证据[J]. 经济研究, 2020, 55(10): 159-175.",
+  "year": 2020,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://econ.fudan.edu.cn/info/1024/18520.htm",
+  "note": "主题：智能自动化的劳动力市场效应（本领域中文奠基性经验研究，少量收录的2021年前文献）。原核验：复旦大学经济学院成果页与维普题录核对55(10):159-175。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "kong2020",
+  "intext": "孔高文等，2020",
+  "gb": "孔高文, 刘莎莎, 孔东民. 机器人与就业——基于行业与地区异质性的探索性分析[J]. 中国工业经济, 2020(8): 80-98.",
+  "year": 2020,
+  "lang": "zh",
+  "verified": true,
+  "url": "http://ciejournal.ajcass.org/Magazine/GetIssueContentList?Year=2020&Issue=8",
+  "note": "主题：智能技术就业效应的行业与地区异质性（2021年前奠基文献）。该刊按期著录。原核验：《中国工业经济》官网2020年第8期目录页确认80-98。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "chen2019",
+  "intext": "陈彦斌等，2019",
+  "gb": "陈彦斌, 林晨, 陈小亮. 人工智能、老龄化与经济增长[J]. 经济研究, 2019, 54(7): 47-63.",
+  "year": 2019,
+  "lang": "zh",
+  "verified": true,
+  "url": "http://ie.cass.cn/academics/recent_papers/201908/t20190820_4959837.html",
+  "note": "主题：将人工智能引入增长模型的中文奠基文献，为第12章智能经济生产函数提供理论起点（少量收录的2021年前经典）。原核验：中国社会科学院经济研究所论文页与原文PDF核对54(7):47-63。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "cai2019",
+  "intext": "蔡跃洲和陈楠，2019",
+  "gb": "蔡跃洲, 陈楠. 新技术革命下人工智能与高质量增长、高质量就业[J]. 数量经济技术经济研究, 2019, 36(5): 3-22.",
+  "year": 2019,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://dpd.sdua.edu.cn/_upload/article/files/57/59/664f0ccd43839da265654d6264c8/c2c15833-18bc-48be-b088-75e54f8dcd4f.pdf",
+  "note": "主题：人工智能技术经济特征与增长／就业机制（2021年前奠基文献，为第2、12章理论综述必引）。原核验：原文PDF确认36(5):3-22。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "chen2011",
+  "intext": "陈红敏，2011",
+  "gb": "陈红敏. 国际碳核算体系发展及其评价[J]. 中国人口·资源与环境, 2011, 21(9): 111-116.",
+  "year": 2011,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：碳核算体系的方法学比较与当量折算规则评价，为第5章效值折算公理体系提供核算方法学参照（经典方法学文献）。原核验：多篇被引文献题录核对21(9):111-116。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "tong2018",
+  "intext": "童庆蒙等，2018",
+  "gb": "童庆蒙, 沈雪, 张露, 等. 基于生命周期评价法的碳足迹核算体系：国际标准与实践[J]. 华中农业大学学报(社会科学版), 2018(1): 46-57+158.",
+  "year": 2018,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题：生命周期评价法碳足迹核算的国际标准与实践，为第5、13章词元全生命周期能耗—碳足迹折算提供方法学基础（经典方法学文献）。该刊按期著录；“+158”为英文摘要页，按CNKI著录保留。原核验：被引文献题录确认2018(1):46-57+158。【本次会话未能联网复核，沿用已核验库记录】"
+ },
+ {
+  "key": "sennrich2016",
+  "intext": "Sennrich等，2016",
+  "gb": "SENNRICH R, HADDOW B, BIRCH A. Neural machine translation of rare words with subword units[C]//Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). Berlin: Association for Computational Linguistics, 2016: 1715-1725.",
+  "year": 2016,
+  "lang": "en",
+  "verified": true,
+  "url": "https://aclanthology.org/P16-1162/",
+  "note": "本轮经 WebSearch 交叉核实（ACL Anthology P16-1162、爱丁堡大学 Research Explorer、SciRP 引文页）：作者顺序 Rico Sennrich, Barry Haddow, Alexandra Birch，ACL 2016 长文卷，页码 1715-1725，DOI 10.18653/v1/P16-1162。BPE 子词切分原始文献，是词元计量的技术源头。"
+ },
+ {
+  "key": "kudo2018",
+  "intext": "Kudo和Richardson，2018",
+  "gb": "KUDO T, RICHARDSON J. SentencePiece: a simple and language independent subword tokenizer and detokenizer for neural text processing[C]//Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing: System Demonstrations. Brussels: Association for Computational Linguistics, 2018: 66-71.",
+  "year": 2018,
+  "lang": "en",
+  "verified": true,
+  "url": "https://aclanthology.org/D18-2012/",
+  "note": "本轮经 WebSearch 核实（dblp conf/emnlp/KudoR18、SciRP 引文页）：Taku Kudo 与 John Richardson 两位作者，EMNLP 2018 System Demonstrations，页码 66-71。当前主流大模型词元化工具的标准实现文献。"
+ },
+ {
+  "key": "rust2021",
+  "intext": "Rust等，2021",
+  "gb": "RUST P, PFEIFFER J, VULIĆ I, et al. How good is your tokenizer? On the monolingual performance of multilingual language models[C]//Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers). Online: Association for Computational Linguistics, 2021: 3118-3135.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://aclanthology.org/2021.acl-long.243/",
+  "note": "本轮经 WebSearch 核实（ACL Anthology 2021.acl-long.243、ACL-IJCNLP 2021 录用列表、Sebastian Ruder 个人发表页）：作者 Phillip Rust, Jonas Pfeiffer, Ivan Vulić, Sebastian Ruder, Iryna Gurevych 共5人，页码 3118-3135。词元器质量与跨语种性能差异的实证依据。"
+ },
+ {
+  "key": "petrov2023",
+  "intext": "Petrov等，2023",
+  "gb": "PETROV A, LA MALFA E, TORR P H S, et al. Language model tokenizers introduce unfairness between languages[C]//Advances in Neural Information Processing Systems 36 (NeurIPS 2023). Red Hook, NY: Curran Associates, 2023: 36963-36990.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/74bb24dca8334adce292883b4b651eda-Abstract-Conference.html",
+  "note": "本轮经 WebSearch 两次独立检索交叉确认（NeurIPS 2023 官方 proceedings 页、ACM DL 10.5555/3666122.3667730、proceedings.com 075280-1608、牛津 ORA）：作者 Aleksandar Petrov, Emanuele La Malfa, Philip H. S. Torr, Adel Bibi 共4人，NeurIPS 36 卷页码 36963-36990。本书「按词元计费导致跨语种价格歧视」的核心引证（部分语种付费高出英语2.5倍以上）。"
+ },
+ {
+  "key": "ahia2023",
+  "intext": "Ahia等，2023",
+  "gb": "AHIA O, KUMAR S, GONEN H, et al. Do all languages cost the same? Tokenization in the era of commercial language models[C]//Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing. Singapore: Association for Computational Linguistics, 2023: 9904-9923.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://aclanthology.org/2023.emnlp-main.614/",
+  "note": "本轮经 WebSearch 核实（ACL Anthology 2023.emnlp-main.614、dblp conf/emnlp/Ahia0GKMST23、OpenReview OUmxBN45Gl、巴伊兰大学 CRIS）：作者 Orevaoghene Ahia, Sachin Kumar, Hila Gonen, Jungo Kasai, David R. Mortensen, Noah A. Smith, Yulia Tsvetkov 共7人，页码 9904-9923。22 种语言 API 成本-效用实证，直接支撑词元定价公平性章节。"
+ },
+ {
+  "key": "kwon2023",
+  "intext": "Kwon等，2023",
+  "gb": "KWON W, LI Z, ZHUANG S, et al. Efficient memory management for large language model serving with PagedAttention[C]//Proceedings of the 29th Symposium on Operating Systems Principles (SOSP '23). New York: ACM, 2023: 611-626.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://dl.acm.org/doi/10.1145/3600006.3613165",
+  "note": "本轮经 WebSearch 核实（dblp conf/sosp/KwonLZ0ZY0ZS23、Semantic Scholar）：作者 Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody Hao Yu, Joseph E. Gonzalez, Hao Zhang, Ion Stoica 共9人，SOSP 2023 页码 611-626。vLLM/PagedAttention，词元级 KV 缓存资源配置效率的基准文献。"
+ },
+ {
+  "key": "yu2022",
+  "intext": "Yu等，2022",
+  "gb": "YU G I, JEONG J S, KIM G W, et al. Orca: a distributed serving system for Transformer-based generative models[C]//Proceedings of the 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22). Carlsbad, CA: USENIX Association, 2022: 521-538.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.usenix.org/conference/osdi22/presentation/yu",
+  "note": "本轮经 WebSearch 核实（USENIX OSDI 22 官方会议页、dblp conf/osdi/YuJKKC22、researchr、首尔大学 Pure）：作者 Gyeong-In Yu, Joo Seong Jeong, Geon-Woo Kim, Soojeong Kim, Byung-Gon Chun 共5人，页码 521-538。迭代级（连续）批处理的开创性文献，词元吞吐计量的系统基础。"
+ },
+ {
+  "key": "agrawal2024",
+  "intext": "Agrawal等，2024",
+  "gb": "AGRAWAL A, KEDIA N, PANWAR A, et al. Taming throughput-latency tradeoff in LLM inference with Sarathi-Serve[C]//Proceedings of the 18th USENIX Symposium on Operating Systems Design and Implementation (OSDI 24). Santa Clara, CA: USENIX Association, 2024: 117-134.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.usenix.org/conference/osdi24/presentation/agrawal",
+  "note": "本轮经 WebSearch 两次检索交叉确认（USENIX OSDI 24 技术议程页与论文页、dblp conf/osdi/AgrawalKPMKGTR24、ACM DL 10.5555/3691938.3691945）：作者 Amey Agrawal, Nitin Kedia, Ashish Panwar, Jayashree Mohan, Nipun Kwatra, Bhargav S. Gulavani, Alexey Tumanov, Ramachandran Ramjee 共8人，页码 117-134。chunked-prefill 与吞吐-时延权衡，对应词元服务的质量-成本前沿。"
+ },
+ {
+  "key": "zhong2024",
+  "intext": "Zhong等，2024",
+  "gb": "ZHONG Y, LIU S, CHEN J, et al. DistServe: disaggregating prefill and decoding for goodput-optimized large language model serving[C]//Proceedings of the 18th USENIX Symposium on Operating Systems Design and Implementation (OSDI 24). Santa Clara, CA: USENIX Association, 2024: 193-210.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.usenix.org/conference/osdi24/presentation/zhong-yinmin",
+  "note": "本轮经 WebSearch 核实（USENIX OSDI 24 论文页与 PDF、ACM DL 10.5555/3691938.3691949 标注 Article No. 11, Pages 193-210）：作者 Yinmin Zhong, Shengyu Liu, Junda Chen, Jianbo Hu, Yibo Zhu, Xuanzhe Liu, Xin Jin, Hao Zhang 共8人，页码 193-210。预填充/解码分离，是输入词元与输出词元差别定价的技术经济依据。"
+ },
+ {
+  "key": "dao2022",
+  "intext": "Dao等，2022",
+  "gb": "DAO T, FU D Y, ERMON S, et al. FlashAttention: fast and memory-efficient exact attention with IO-awareness[C]//Advances in Neural Information Processing Systems 35 (NeurIPS 2022). Red Hook, NY: Curran Associates, 2022: 16344-16359.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/67d57c32e20fd0a7a302cb81d36e40d5-Abstract-Conference.html",
+  "note": "本轮经 WebSearch 两次独立检索交叉确认（NeurIPS 2022 官方 proceedings 页、ACM DL 10.5555/3600270.3601459、OpenReview H4DqfPSibmx）：作者 Tri Dao, Daniel Y. Fu, Stefano Ermon, Atri Rudra, Christopher Ré 共5人，NeurIPS 35 卷页码 16344-16359。词元处理单位成本下降的关键算法文献。"
+ },
+ {
+  "key": "pope2023",
+  "intext": "Pope等，2023",
+  "gb": "POPE R, DOUGLAS S, CHOWDHERY A, et al. Efficiently scaling Transformer inference[C]//Proceedings of Machine Learning and Systems 5 (MLSys 2023). [S.l.]: MLSys, 2023: 606-624.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://proceedings.mlsys.org/paper_files/paper/2023/hash/c4be71ab8d24cdfb45e3d06dbfca2780-Abstract-mlsys2023.html",
+  "note": "本轮经 WebSearch 核实（MLSys 2023 官方 proceedings 页、dblp conf/mlsys/PopeDCDBHXAD23、Semantic Scholar）：作者 Reiner Pope, Sholto Douglas, Aakanksha Chowdhery, Jacob Devlin, James Bradbury, Jonathan Heek, Kefan Xiao, Shivani Agrawal, Jeff Dean 共9人，Proceedings of Machine Learning and Systems 第5卷页码 606-624，MLSys 2023 杰出论文奖。出版地未在官方页标注，故以 [S.l.] 著录。词元级推理成本模型（MFU、每词元时延）的标准参考。"
+ },
+ {
+  "key": "kaplan2020",
+  "intext": "Kaplan等，2020",
+  "gb": "KAPLAN J, MCCANDLISH S, HENIGHAN T, et al. Scaling laws for neural language models[EB/OL]. (2020-01-23)[2026-08-13]. https://arxiv.org/abs/2001.08361.",
+  "year": 2020,
+  "lang": "en",
+  "verified": true,
+  "url": "https://arxiv.org/abs/2001.08361",
+  "note": "本轮经 WebSearch 核实（arXiv 摘要页与 PDF、ResearchGate）：作者 Jared Kaplan, Sam McCandlish, Tom Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, Dario Amodei 共10人，2020-01-23 首次提交。该文仅有 arXiv 预印本、无正式会议或期刊卷期页码，故按规则以 [EB/OL] 著录。训练词元量与模型规模的幂律关系，是词元作为生产要素计量的理论起点。"
+ },
+ {
+  "key": "hoffmann2022",
+  "intext": "Hoffmann等，2022",
+  "gb": "HOFFMANN J, BORGEAUD S, MENSCH A, et al. Training compute-optimal large language models[C]//Advances in Neural Information Processing Systems 35 (NeurIPS 2022). Red Hook, NY: Curran Associates, 2022: 30016-30030.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/c1e2faff6f588870935f114ebe04a3e5-Abstract-Conference.html",
+  "note": "本轮经 WebSearch 核实（ACM DL 10.5555/3600270.3602446 标注 Article No. 2176, Pages 30016-30030、proceedings.com 官方 NeurIPS 2022 论文集页 068431-2176、arXiv 2203.15556）：第一作者 Jordan Hoffmann，Sebastian Borgeaud、Arthur Mensch 等共22人。Chinchilla 计算最优法则，模型参数与训练词元应等比例扩展，是词元需求侧配置效率的核心结论。"
+ },
+ {
+  "key": "liang2022",
+  "intext": "Liang等，2022",
+  "gb": "LIANG P, BOMMASANI R, LEE T, et al. Holistic evaluation of language models[EB/OL]. (2022-11-16)[2026-08-13]. https://arxiv.org/abs/2211.09110.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://arxiv.org/abs/2211.09110",
+  "note": "本轮经 WebSearch 核实（arXiv 2211.09110 v1 提交日 2022-11-16、v2 修订于 2023-10-01；正式发表于 Transactions on Machine Learning Research 2023年8月刊；普林斯顿与香港科技大学机构库著录）：第一作者 Percy Liang，Rishi Bommasani、Tony Lee 等共约50人。因 TMLR 为无卷期页码的电子期刊、起止页码无法确证，改用 [EB/OL] 著录。HELM 是模型服务质量多维计量（含 efficiency 维度）的基准框架。"
+ },
+ {
+  "key": "hendrycks2021",
+  "intext": "Hendrycks等，2021",
+  "gb": "HENDRYCKS D, BURNS C, BASART S, et al. Measuring massive multitask language understanding[EB/OL]. (2021-01-12)[2026-08-13]. https://arxiv.org/abs/2009.03300.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://arxiv.org/abs/2009.03300",
+  "note": "本轮经 WebSearch 核实（arXiv 2009.03300：v1 提交 2020-09-07、v3 定稿 2021-01-12，标注 Published as a conference paper at ICLR 2021；作者 GitHub 仓库 hendrycks/test；SlidesLive ICLR 报告页）：作者 Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, Jacob Steinhardt 共7人。ICLR 会议论文集不编排起止页码，因页码无法确证改用 EB/OL 著录，日期取 ICLR 2021 定稿版。MMLU 是模型能力单位产出计量的通用标尺。"
+ },
+ {
+  "key": "zheng2023",
+  "intext": "Zheng等，2023",
+  "gb": "ZHENG L, CHIANG W L, SHENG Y, et al. Judging LLM-as-a-judge with MT-Bench and Chatbot Arena[C]//Advances in Neural Information Processing Systems 36 (NeurIPS 2023) Datasets and Benchmarks Track. Red Hook, NY: Curran Associates, 2023: 46595-46623.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html",
+  "note": "本轮经 WebSearch 核实（NeurIPS 2023 Datasets and Benchmarks Track 海报页、ACM DL 10.5555/3666122.3668142、arXiv 2306.05685）：作者 Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric P. Xing, Hao Zhang, Joseph E. Gonzalez, Ion Stoica 等，NeurIPS 36 卷页码 46595-46623。MT-Bench 与 Chatbot Arena，是模型服务质量偏好计量与相对定价的经验基础。"
+ },
+ {
+  "key": "luccioni2023",
+  "intext": "Luccioni等，2023",
+  "gb": "LUCCIONI A S, VIGUIER S, LIGOZAT A L. Estimating the carbon footprint of BLOOM, a 176B parameter language model[J]. Journal of Machine Learning Research, 2023, 24(253): 1-15.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.jmlr.org/papers/v24/23-0069.html",
+  "note": "本轮经 WebSearch 核实（dblp journals/jmlr/LuccioniVL23 著录为 24: 253:1-253:15、JMLR 官方 PDF 23-0069、ACM DL 10.5555/3648699.3648952、arXiv 2211.02001）：作者 Alexandra Sasha Luccioni, Sylvain Viguier, Anne-Laure Ligozat 共3人，JMLR 第24卷第253篇，页 1-15。训练侧碳足迹核算（24.7~50.5 吨 CO2eq），词元生产环境成本的基准测算。"
+ },
+ {
+  "key": "luccioni2024",
+  "intext": "Luccioni等，2024",
+  "gb": "LUCCIONI A S, JERNITE Y, STRUBELL E. Power hungry processing: watts driving the cost of AI deployment?[C]//Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency (FAccT '24). New York: ACM, 2024: 85-99.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://dl.acm.org/doi/10.1145/3630106.3658542",
+  "note": "本轮经 WebSearch 核实（ACM DL 10.1145/3630106.3658542 全文页与目录页、FAccT 2024 官方论文 PDF facct24-6、arXiv 2311.16863）：作者 Alexandra Sasha Luccioni, Yacine Jernite, Emma Strubell 共3人，FAccT '24（2024年6月3-6日，巴西里约热内卢）页码 85-99。推理侧单次调用能耗与碳排的量化，直接支撑「每词元能耗成本」测算。"
+ },
+ {
+  "key": "patterson2022",
+  "intext": "Patterson等，2022",
+  "gb": "PATTERSON D, GONZALEZ J, HÖLZLE U, et al. The carbon footprint of machine learning training will plateau, then shrink[J]. Computer, 2022, 55(7): 18-28.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1109/MC.2022.3148714",
+  "note": "本轮经 WebSearch 核实（IEEE/ACM DL 10.1109/MC.2022.3148714、NSF Public Access Repository 10399992、Google Scholar 引用页、arXiv 2204.05149）：作者 David Patterson, Joseph Gonzalez, Urs Hölzle, Quoc Le, Chen Liang, Lluis-Miquel Munguia, Daniel Rothchild, David R. So, Maud Texier, Jeff Dean 共10人，IEEE Computer 2022年第55卷第7期，页码 18-28。四项最佳实践使训练能耗降低至多100倍、碳排降低至多1000倍，是能耗弹性与减排路径的关键引证。"
+ },
+ {
+  "key": "devries2023",
+  "intext": "de Vries，2023",
+  "gb": "DE VRIES A. The growing energy footprint of artificial intelligence[J]. Joule, 2023, 7(10): 2191-2194.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1016/j.joule.2023.09.004",
+  "note": "本轮经 WebSearch 核实（Cell Press Joule 全文页 S2542-4351(23)00365-3、ScienceDirect、NASA ADS 2023Joule...7.2191D、阿姆斯特丹自由大学机构库）：单一作者 Alex de Vries，Joule 2023年第7卷第10期，页码 2191-2194，DOI 10.1016/j.joule.2023.09.004。AI 推理侧电力需求外推（可比拟一个小国用电量），能耗约束章节的核心数据来源。"
+ },
+ {
+  "key": "crawford2024",
+  "intext": "Crawford，2024",
+  "gb": "CRAWFORD K. Generative AI's environmental costs are soaring — and mostly secret[J]. Nature, 2024, 626(8000): 693.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1038/d41586-024-00478-x",
+  "note": "本轮经 WebSearch 核实（Nature 官方页与 PDF d41586-024-00478-x、NASA ADS 2024Natur.626..693C、RePEc/EconPapers 著录 v:626:y:2024:i:8000、MIT 转载 PDF 标注 WORLD VIEW 20 February 2024）：单一作者 Kate Crawford，Nature World View 评论，2024年第626卷第8000期，第693页（单页文章）。用于论证生成式 AI 环境成本信息披露缺失与外部性内部化。"
+ },
+ {
+  "key": "dathathri2024",
+  "intext": "Dathathri等，2024",
+  "gb": "DATHATHRI S, SEE A, GHAISAS S, et al. Scalable watermarking for identifying large language model outputs[J]. Nature, 2024, 634(8035): 818-823.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.1038/s41586-024-08025-4",
+  "note": "本轮经 WebSearch 两次检索交叉确认（Nature 官方文章页 s41586-024-08025-4、Nature 第634卷第8035期（2024-10-24）目录页、RePEc v634y2024i8035、PubMed 39443777）：第一作者 Sumanth Dathathri，Abeba See（Abigail See）、Sumedh Ghaisas 等共同署名，Nature 2024年第634卷第8035期，页码 818-823。SynthID-Text，可规模化文本水印，是标准词元产品溯源与确权的技术前提。"
+ },
+ {
+  "key": "kirchenbauer2023",
+  "intext": "Kirchenbauer等，2023",
+  "gb": "KIRCHENBAUER J, GEIPING J, WEN Y, et al. A watermark for large language models[C]//Proceedings of the 40th International Conference on Machine Learning (ICML 2023): vol 202. [S.l.]: PMLR, 2023: 17061-17084.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://proceedings.mlr.press/v202/kirchenbauer23a.html",
+  "note": "本轮经 WebSearch 核实（ICML 2023 官方海报页、ICML 2023 Awards 页（杰出论文奖）、dblp conf/icml/KirchenbauerGWK23）：作者 John Kirchenbauer, Jonas Geiping, Yuxin Wen, Jonathan Katz, Ian Miers, Tom Goldstein 共6人，PMLR 第202卷页码 17061-17084。PMLR 出版地未标注，以 [S.l.] 著录。绿名单/红名单词元水印，构成词元产出可验证性的方法基础。"
+ },
+ {
+  "key": "guojiawangxinban2023",
+  "intext": "国家互联网信息办公室等，2023",
+  "gb": "国家互联网信息办公室, 国家发展和改革委员会, 教育部, 等. 生成式人工智能服务管理暂行办法: 国家互联网信息办公室等七部门令第15号[EB/OL]. (2023-07-13)[2026-08-13]. https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+  "note": "本轮经 WebSearch 核实（中央网信办 cac.gov.cn 全文页 c_1690898327029107 与发布消息页 c_1690898326795531、公安部网站转载页、中文维基条目）：由国家互联网信息办公室、国家发展和改革委员会、教育部、科学技术部、工业和信息化部、公安部、国家广播电视总局七部门联合公布，文号为七部门令第15号，2023年5月23日国家互联网信息办公室2023年第12次室务会会议审议通过，2023年7月13日公布，2023年8月15日起施行。原 www.gov.cn 链接被出网代理拦截，改用中央网信办官网权威全文链接。法规无卷期页码，按 GB/T 7714 法规政策条目以 [EB/OL] 著录。"
+ },
+ {
+  "key": "xu2025",
+  "intext": "许诺等，2025",
+  "gb": "许诺, 毛聚, 毛新述, 等. 算力部署、数据跨域流动与企业全要素生产率——来自智算中心的证据[J]. 中国工业经济, 2025(4): 61-79.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://ciejournal.ajcass.com/Magazine/Show?id=118422",
+  "note": "主题①算力经济＋③AI与TFP。页码61-79经两轮独立检索一致确认，DOI 10.3969/j.issn.1006-480X.2025.04.004（issue 4 第4篇）与页码相互印证。《中国工业经济》不设卷号，故只标年(期)。"
+ },
+ {
+  "key": "wang2025",
+  "intext": "王勇等，2025",
+  "gb": "王勇, 傅芳宁, 陆树檀. 算力共享与算力市场培育——基于需求侧的算力资源配置研究[J]. 财经问题研究, 2025(4): 3-14.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.tioe.tsinghua.edu.cn/info/1111/2818.htm",
+  "note": "主题①算力资源配置与算力市场培育（需求侧视角），直接对应词元／算力服务的供需匹配与市场化定价。期次(4)与页码3-14经两轮检索交叉确认；该文被《新华文摘》2025年第16期全文转载。《财经问题研究》不设卷号。"
+ },
+ {
+  "key": "huang2024",
+  "intext": "黄群慧和盛方富，2024",
+  "gb": "黄群慧, 盛方富. 新质生产力系统：要素特质、结构承载与功能取向[J]. 改革, 2024(2): 15-24.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题⑧新质生产力的要素—结构—功能系统论，为「智能经济形态」提供分析框架。《改革》不设卷号。"
+ },
+ {
+  "key": "cai2021",
+  "intext": "蔡跃洲和马文君，2021",
+  "gb": "蔡跃洲, 马文君. 数据要素对高质量发展影响与数据流动制约[J]. 数量经济技术经济研究, 2021, 38(3): 64-83.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题②数据要素市场化配置与数据流动约束，是国内数据要素经济学最高被引文献之一。"
+ },
+ {
+  "key": "xiong2021",
+  "intext": "熊巧琴和汤珂，2021",
+  "gb": "熊巧琴, 汤珂. 数据要素的界权、交易和定价研究进展[J]. 经济学动态, 2021(2): 143-158.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题②数据确权—交易—定价综述，是本书「计量与定价」章节可直接对标的中文基准文献。《经济学动态》不设卷号。"
+ },
+ {
+  "key": "ouyang2022",
+  "intext": "欧阳日辉和杜青青，2022",
+  "gb": "欧阳日辉, 杜青青. 数据要素定价机制研究进展[J]. 经济学动态, 2022(2): 124-141.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题②数据定价机制专题综述（成本法／收益法／市场法与协商定价），与词元定价机制形成方法论对照。"
+ },
+ {
+  "key": "luo2023",
+  "intext": "罗玫等，2023",
+  "gb": "罗玫, 李金璞, 汤珂. 企业数据资产化：会计确认与价值评估[J]. 清华大学学报(哲学社会科学版), 2023, 38(5): 195-209.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题②数据资产入表的会计确认与估值，是财会〔2023〕11号出台前后的核心学理支撑。"
+ },
+ {
+  "key": "ren2023",
+  "intext": "任英华等，2023",
+  "gb": "任英华, 刘宇钊, 李海彤. 人工智能技术创新与企业全要素生产率[J]. 经济管理, 2023, 45(9): 50-67.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题③AI与企业全要素生产率。期次与页码经两轮独立检索一致返回45(9): 50-67。"
+ },
+ {
+  "key": "cai2021b",
+  "intext": "蔡跃洲和牛新星，2021",
+  "gb": "蔡跃洲, 牛新星. 中国数字经济增加值规模测算及结构分析[J]. 中国社会科学, 2021(11): 4-30.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.cssn.cn/dkzgxp/zgxp_zgshkx/2021nd11q/202208/t20220822_5479809.shtml",
+  "note": "主题④数字经济增加值核算。原刊页码为「4-30+204」（204为英文摘要页），按GB/T 7714惯例取正文页4-30。《中国社会科学》不设卷号。"
+ },
+ {
+  "key": "xu2021",
+  "intext": "许宪春等，2021",
+  "gb": "许宪春, 张美慧, 张钟文. 数字化转型与经济社会统计的挑战和创新[J]. 统计研究, 2021, 38(1): 15-26.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题④数字经济统计核算的口径与方法创新。"
+ },
+ {
+  "key": "yang2019",
+  "intext": "杨仲山和张美慧，2019",
+  "gb": "杨仲山, 张美慧. 数字经济卫星账户：国际经验及中国编制方案的设计[J]. 统计研究, 2019, 36(5): 16-30.",
+  "year": 2019,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://tjyj.stats.gov.cn/CN/Y2019/V36/I5/16",
+  "note": "主题④卫星账户。DOI 10.19343/j.cnki.11-1302/c.2019.05.002，且期刊官网URL路径 /Y2019/V36/I5/16 直接印证卷期与起始页。早于2021年，但为用户点名的「数字经济卫星账户」方向的中文奠基文献，不可替代。"
+ },
+ {
+  "key": "liu2023",
+  "intext": "刘诚和夏杰长，2023",
+  "gb": "刘诚, 夏杰长. 线上市场、数字平台与资源配置效率：价格机制与数据机制的作用[J]. 中国工业经济, 2023(7): 84-102.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题⑤平台经济：价格机制与数据机制并行的资源配置效率分析，与词元市场的双机制定价高度可比。经两轮检索确认2023(7): 84-102。"
+ },
+ {
+  "key": "wu2024",
+  "intext": "吴双和王勇，2024",
+  "gb": "吴双, 王勇. 新结构经济学视角下的平台经济：一个分析框架[J]. 浙江社会科学, 2024(4): 4-13.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "note": "主题⑤平台经济理论框架。原刊页码为「4-13+155」（155为英文摘要页），按GB/T 7714惯例取正文页4-13；DOI 10.14167/j.zjss.2024.04.001 印证为2024年第4期首篇。"
+ },
+ {
+  "key": "gu2023",
+  "intext": "顾聪等，2023",
+  "gb": "顾聪, 刘颖, 吕本富, 等. 市场结构、经济福利与平台经济反垄断[J]. 中国管理科学, 2023, 31(11): 208-216.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.zgglkx.com/CN/10.16381/j.cnki.issn1003-207x.2021.0286",
+  "note": "主题⑤双边市场结构、福利与反垄断治理。四作者，故著录用「等」。卷期页码经两轮检索一致，并有期刊官网DOI页佐证。"
+ },
+ {
+  "key": "zhang2022",
+  "intext": "张希良等，2022",
+  "gb": "张希良, 黄晓丹, 张达, 等. 碳中和目标下的能源经济转型路径与政策研究[J]. 管理世界, 2022, 38(1): 35-66.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.3e.tsinghua.edu.cn/cn/article/246",
+  "note": "主题⑥能源经济转型与碳核算的中文权威文献（共7位作者，著录用「等」）。为能耗当量折算与碳足迹章节提供宏观模型基准。"
+ },
+ {
+  "key": "samr2020",
+  "intext": "国家市场监督管理总局和国家标准化管理委员会，2020",
+  "gb": "国家市场监督管理总局, 国家标准化管理委员会. 综合能耗计算通则: GB/T 2589—2020[S]. 北京: 中国标准出版社, 2020.",
+  "year": 2020,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=53D1440B68E6D50B8BA0CCAB619B6B3E",
+  "note": "主题⑥能源当量折算的法定依据：规定各类能源折标准煤系数与综合能耗计算方法，是「标准词元」当量折算类比标准煤系数的直接制度原型。2020-09-29发布，2021-04-01实施，替代GB/T 2589—2008。国家标准全文公开系统链接可核。"
+ },
+ {
+  "key": "samr2024",
+  "intext": "国家市场监督管理总局和国家标准化管理委员会，2024",
+  "gb": "国家市场监督管理总局, 国家标准化管理委员会. 温室气体 产品碳足迹 量化要求和指南: GB/T 24067—2024[S]. 北京: 中国标准出版社, 2024.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=73912F93FD4874CC426CEBFCE2898493",
+  "note": "主题⑥碳足迹核算方法学的中国国家标准（对标ISO 14067，与GB/T 24040/24044生命周期评价体系一致）。2024-08-23发布，2024-10-01实施；生态环境部提出、全国碳排放管理标准化技术委员会(SAC/TC548)归口。"
+ },
+ {
+  "key": "shengtaibu2024",
+  "intext": "生态环境部等，2024",
+  "gb": "生态环境部, 国家发展改革委, 工业和信息化部, 等. 关于建立碳足迹管理体系的实施方案: 环气候〔2024〕30号[EB/OL]. (2024-05-22)[2026-08-13]. https://www.gov.cn/zhengce/zhengceku/202406/content_6956112.htm.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.gov.cn/zhengce/zhengceku/202406/content_6956112.htm",
+  "note": "主题⑥碳足迹核算的制度框架：15部门联合印发，提出2027年前出台约100个、2030年前约200个重点产品碳足迹核算规则标准，可支撑「词元碳足迹」标准化路径论证。"
+ },
+ {
+  "key": "fagaiwei2023",
+  "intext": "国家发展改革委等，2023",
+  "gb": "国家发展改革委, 国家数据局, 中央网信办, 等. 关于深入实施“东数西算”工程 加快构建全国一体化算力网的实施意见: 发改数据〔2023〕1779号[EB/OL]. (2023-12-29)[2026-08-13]. https://www.ndrc.gov.cn/xxgk/zcfb/tz/202312/t20231229_1363000.html.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202312/t20231229_1363000.html",
+  "note": "主题①算力网与算力资源跨域配置的顶层政策（五部门联合印发），是算力交易、算力调度与算电协同的制度起点。"
+ },
+ {
+  "key": "fagaiwei2023b",
+  "intext": "国家发展改革委等，2023b",
+  "gb": "国家发展改革委, 财政部, 国家能源局. 关于做好可再生能源绿色电力证书全覆盖工作 促进可再生能源电力消费的通知: 发改能源〔2023〕1044号[EB/OL]. (2023-08-03)[2026-08-13]. https://www.ndrc.gov.cn/xxgk/zcfb/tz/202308/t20230803_1359092.html.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202308/t20230803_1359092.html",
+  "note": "主题⑦绿证全覆盖：确立绿证的权威性、唯一性、通用性，是绿电核算与算力绿电溯源的计量基础。与fagaiwei2023同为国家发展改革委牵头、同年，故key加b。"
+ },
+ {
+  "key": "fagaiwei2025",
+  "intext": "国家发展改革委和国家能源局，2025",
+  "gb": "国家发展改革委, 国家能源局. 关于促进可再生能源绿色电力证书市场高质量发展的意见: 发改能源〔2025〕262号[EB/OL]. (2025-03-18)[2026-08-13]. https://www.ndrc.gov.cn/xxgk/zcfb/tz/202503/t20250318_1396627.html.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202503/t20250318_1396627.html",
+  "note": "主题⑦绿证市场机制的最新政策，衔接绿电交易与数据中心／智算中心绿电消费核算。"
+ },
+ {
+  "key": "caizhengbu2023",
+  "intext": "财政部，2023",
+  "gb": "财政部. 关于印发《企业数据资源相关会计处理暂行规定》的通知: 财会〔2023〕11号[EB/OL]. (2023-08-21)[2026-08-13]. http://kjs.mof.gov.cn/zhengcefabu/202308/t20230821_3903354.htm.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "http://kjs.mof.gov.cn/zhengcefabu/202308/t20230821_3903354.htm",
+  "note": "主题②数据资产入表的规范性依据：2023-08-21发布、2024-01-01施行，规定数据资源确认为无形资产／存货及披露要求。采用财政部会计司官网原文链接。"
+ },
+ {
+  "key": "guowuyuan2025",
+  "intext": "国务院，2025",
+  "gb": "国务院. 关于深入实施“人工智能+”行动的意见: 国发〔2025〕11号[EB/OL]. (2025-08-26)[2026-08-13]. https://www.gov.cn/zhengce/content/202508/content_7037861.htm.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.gov.cn/zhengce/content/202508/content_7037861.htm",
+  "note": "主题⑧智能经济形态的国家级界定：明确「加快形成人机协同、跨界融合、共创分享的智能经济和智能社会新形态」，可直接用作本书智能经济概念的政策锚点。"
+ },
+ {
+  "key": "xintongyuan2025",
+  "intext": "中国信息通信研究院，2025",
+  "gb": "中国信息通信研究院. 算力电力协同发展研究报告(2025年)[R]. 北京: 中国信息通信研究院, 2025.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.caict.ac.cn/english/research/whitepapers/202509/P020250903602966954403.pdf",
+  "note": "主题⑦算电协同：由信通院云大所2025年5月发布，系统给出算电协同内涵、要素、四阶段演进（2020—2023探索、2024—2025起步、2026—2030深度协同、2031年后全面融合）与六大关键举措，是算力能耗与绿电匹配的权威中文数据来源。报告类著录按GB/T 7714用[R]，不需页码。"
+ },
+ {
+  "key": "bick2024",
+  "intext": "Bick等，2024",
+  "gb": "BICK A, BLANDIN A, DEMING D J. The rapid adoption of generative AI: NBER working paper No. 32966[R]. Cambridge, MA: National Bureau of Economic Research, 2024.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.nber.org/papers/w32966",
+  "note": "方向①。经 NBER 官网与 RePEc（nbr:nberwo:32966）核实。全美代表性调查：2024 年底 18-64 岁人群约 40% 使用生成式 AI，23% 就业者每周至少用于工作一次，1%-5% 工作时长由生成式 AI 辅助——为本书\"词元使用强度→投入测度\"提供宏观基准。期刊版已被 Management Science 接收（DOI: 10.1287/mnsc.2025.02523），但截至核实日卷期页码尚未分配，按页码纪律改用 NBER 工作论文[R]形式著录。"
+ },
+ {
+  "key": "czarnitzki2023",
+  "intext": "Czarnitzki等，2023",
+  "gb": "CZARNITZKI D, FERNÁNDEZ G P, RAMMER C. Artificial intelligence and firm-level productivity[J]. Journal of Economic Behavior & Organization, 2023, 211: 188-205.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/pii/S0167268123001531",
+  "note": "方向①。经 ScienceDirect 与 RePEc（eee:jeborg:v:211:y:2023:i:c:p:188-205）核实。DOI: 10.1016/j.jebo.2023.05.008。德国企业微观数据下 AI 采用与全要素生产率的因果估计，是\"AI 投入—产出弹性\"在企业层面的直接证据。"
+ },
+ {
+  "key": "humlum2025",
+  "intext": "Humlum和Vestergaard，2025",
+  "gb": "HUMLUM A, VESTERGAARD E. The unequal adoption of ChatGPT exacerbates existing inequalities among workers[J]. Proceedings of the National Academy of Sciences of the United States of America, 2025, 122(1): e2414972121.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.pnas.org/doi/10.1073/pnas.2414972121",
+  "note": "方向①。经 PNAS 官网、PMC（PMC11725873）与 NASA ADS（2024PNAS..12214972H）核实。DOI: 10.1073/pnas.2414972121。丹麦全样本雇主-雇员匹配数据下的生成式 AI 采用与时间节省测算，可用于校准词元消费的异质性分布。"
+ },
+ {
+  "key": "syverson2017",
+  "intext": "Syverson，2017",
+  "gb": "SYVERSON C. Challenges to mismeasurement explanations for the US productivity slowdown[J]. Journal of Economic Perspectives, 2017, 31(2): 165-186.",
+  "year": 2017,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/jep.31.2.165",
+  "note": "方向①（增长核算与投入测度）。经 AEA 官网与 RePEc（aea:jecper:v31y2017i2p165-86）核实。DOI: 10.1257/jep.31.2.165。系统检验\"数字产品测度误差解释生产率放缓\"假说，是本书论证\"需要 STPI 这类新价格/数量指标\"的关键对照文献。"
+ },
+ {
+  "key": "byrne2018",
+  "intext": "Byrne等，2018",
+  "gb": "BYRNE D M, CORRADO C A, SICHEL D E. The rise of cloud computing: minding your P's, Q's and K's: NBER working paper No. 25188[R]. Cambridge, MA: National Bureau of Economic Research, 2018.",
+  "year": 2018,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.nber.org/papers/w25188",
+  "note": "方向②＋④交叉。经 NBER 官网、SSRN（abstract 3274414）核实。以 AWS 2009—2016 季度报价构建计算、数据库、存储三类云服务的享乐价格指数，是本书 STPI（词元标准价格指数）最直接的方法论先例。该文另有 2021 年芝加哥大学出版社《Measuring and Accounting for Innovation in the Twenty-First Century》书章版本，但章节起止页无法在官方渠道（NBER/出版社站点均被访问限制）确证，按页码纪律改用 NBER 工作论文[R]形式著录。"
+ },
+ {
+  "key": "destefano2025",
+  "intext": "DeStefano等，2025",
+  "gb": "DESTEFANO T, KNELLER R, TIMMIS J. Cloud computing and firm growth[J]. The Review of Economics and Statistics, 2025, 107(6): 1638-1651.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://direct.mit.edu/rest/article/doi/10.1162/rest_a_01393/118334/Cloud-Computing-and-Firm-Growth",
+  "note": "方向②。经 MIT Press（direct.mit.edu，Vol 107 Issue 6 目录页）核实。DOI: 10.1162/rest_a_01393。云计算采用降低算力固定投入门槛、改变企业规模分布与增长率，对应本书\"按词元计费替代自建算力\"的配置效率机制。"
+ },
+ {
+  "key": "weng2022",
+  "intext": "Weng等，2022",
+  "gb": "WENG Q, XIAO W, YU Y, et al. MLaaS in the wild: workload analysis and scheduling in large-scale heterogeneous GPU clusters[C]//Proceedings of the 19th USENIX Symposium on Networked Systems Design and Implementation (NSDI '22). Berkeley, CA: USENIX Association, 2022: 945-960.",
+  "year": 2022,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.usenix.org/conference/nsdi22/presentation/weng",
+  "note": "方向②（GPU 资源与容量规划）。经 USENIX 官网与 dblp（conf/nsdi/WengXYWWHLZLD22）核实起止页 945-960。阿里巴巴 6000+ GPU 生产集群两个月负载轨迹分析，给出 GPU 利用率、排队时延与异构调度的实测分布，是算力容量规划与\"有效词元产能\"估算的经验基础。"
+ },
+ {
+  "key": "coyle2019",
+  "intext": "Coyle和Nguyen，2019",
+  "gb": "COYLE D, NGUYEN D. Cloud computing, cross-border data flows and new challenges for measurement in economics[J]. National Institute Economic Review, 2019, 249: R30-R38.",
+  "year": 2019,
+  "lang": "en",
+  "verified": true,
+  "url": "https://journals.sagepub.com/doi/10.1177/002795011924900112",
+  "note": "方向②。经 SAGE 官网与 RePEc（cup:nierev:v249:y:2019:p:r30-r38）核实。DOI: 10.1177/002795011924900112。论证云服务作为通用目的技术给国民经济核算带来的价格、数量与跨境流量测度难题，直接支撑本书\"词元需要标准计量单位\"的论点。"
+ },
+ {
+  "key": "mussa1978",
+  "intext": "Mussa和Rosen，1978",
+  "gb": "MUSSA M, ROSEN S. Monopoly and product quality[J]. Journal of Economic Theory, 1978, 18(2): 301-317.",
+  "year": 1978,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/article/abs/pii/0022053178900856",
+  "note": "方向③（二级价格歧视经典）。经 ScienceDirect 与 RePEc（eee:jetheo:v:18:y:1978:i:2:p:301-317）核实。质量-价格菜单与自选择的奠基模型，是 LLM 服务分档（不同模型/上下文长度/推理档位）定价的理论原型。"
+ },
+ {
+  "key": "bhargava2008",
+  "intext": "Bhargava和Choudhary，2008",
+  "gb": "BHARGAVA H K, CHOUDHARY V. Research note: when is versioning optimal for information goods?[J]. Management Science, 2008, 54(5): 1029-1035.",
+  "year": 2008,
+  "lang": "en",
+  "verified": true,
+  "url": "https://pubsonline.informs.org/doi/10.1287/mnsc.1070.0773",
+  "note": "方向③（versioning）。经 INFORMS PubsOnline 与 RePEc（inm:ormnsc:v:54:y:2008:i:5:p:1029-1035）核实。DOI: 10.1287/mnsc.1070.0773。给出零/常数边际成本信息品\"版本划分何时最优\"的判据，可直接迁移至模型服务的档位设计。"
+ },
+ {
+  "key": "jones2020",
+  "intext": "Jones和Tonetti，2020",
+  "gb": "JONES C I, TONETTI C. Nonrivalry and the economics of data[J]. American Economic Review, 2020, 110(9): 2819-2858.",
+  "year": 2020,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/aer.20191330",
+  "note": "方向③（零边际成本与非竞争性）。经 AEA 官网与 RePEc 核实。DOI: 10.1257/aer.20191330。数据非竞争性带来的规模报酬递增与产权配置效率，是本书\"数据要素—词元产能\"链条的理论支点。"
+ },
+ {
+  "key": "dube2023",
+  "intext": "Dubé和Misra，2023",
+  "gb": "DUBÉ J P, MISRA S. Personalized pricing and consumer welfare[J]. Journal of Political Economy, 2023, 131(1): 131-189.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.journals.uchicago.edu/doi/abs/10.1086/720793",
+  "note": "方向③。经 University of Chicago Press 官网与 RePEc（ucp:jpolec:doi:10.1086/720793）核实。DOI: 10.1086/720793。基于随机定价田野实验的个性化定价福利分解，为\"按用户/场景差别化词元定价\"提供福利评估框架。"
+ },
+ {
+  "key": "griliches1961",
+  "intext": "Griliches，1961",
+  "gb": "GRILICHES Z. Hedonic price indexes for automobiles: an econometric analysis of quality change[M]//NATIONAL BUREAU OF ECONOMIC RESEARCH. The price statistics of the federal government. New York: National Bureau of Economic Research, 1961: 173-196.",
+  "year": 1961,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.nber.org/books-and-chapters/price-statistics-federal-goverment/hedonic-price-indexes-automobiles-econometric-quality-change",
+  "note": "方向④（享乐价格指数奠基文献）。经 NBER 书章页与 RePEc（nbr:nberch:6492）核实起止页 173-196。享乐回归用于质量调整价格指数的开山之作，是 STPI 指数\"以特征向量剥离质量变动\"的方法论源头。"
+ },
+ {
+  "key": "pakes2003",
+  "intext": "Pakes，2003",
+  "gb": "PAKES A. A reconsideration of hedonic price indexes with an application to PC's[J]. American Economic Review, 2003, 93(5): 1578-1596.",
+  "year": 2003,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/000282803322655455",
+  "note": "方向④。经 AEA 官网与作者主页（Harvard）核实。DOI: 10.1257/000282803322655455。厘清享乐系数不应被解释为边际效用、以及享乐指数与配比模型指数在快速迭代品类上的巨大差异——对词元这类高速降价、特征快速变化的品类尤为关键。"
+ },
+ {
+  "key": "erickson2011",
+  "intext": "Erickson和Pakes，2011",
+  "gb": "ERICKSON T, PAKES A. An experimental component index for the CPI: from annual computer data to monthly data on other goods[J]. American Economic Review, 2011, 101(5): 1707-1738.",
+  "year": 2011,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/aer.101.5.1707",
+  "note": "方向④。经 AEA 官网与 openICPSR 复制数据（project 112445）核实。DOI: 10.1257/aer.101.5.1707。处理产品退出与选择性偏误的分量指数构造法，可直接用于模型/接口频繁下线时的 STPI 链式接续。"
+ },
+ {
+  "key": "groshen2017",
+  "intext": "Groshen等，2017",
+  "gb": "GROSHEN E L, MOYER B C, AIZCORBE A M, et al. How government statistics adjust for potential biases from quality change and new goods in an age of digital technologies: a view from the trenches[J]. Journal of Economic Perspectives, 2017, 31(2): 187-210.",
+  "year": 2017,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/jep.31.2.187",
+  "note": "方向④（统计局质量调整方法，本书 STPI 的对口方向）。经 AEA 官网与 JSTOR（stable/44235005）核实。DOI: 10.1257/jep.31.2.187。由 BLS 局长与 BEA 局长合著，逐项说明美国官方统计在质量调整、新产品引入、享乐法与配比模型法上的实际操作规程，是 STPI 对标官方方法的首选依据。"
+ },
+ {
+  "key": "redding2020",
+  "intext": "Redding和Weinstein，2020",
+  "gb": "REDDING S J, WEINSTEIN D E. Measuring aggregate price indices with taste shocks: theory and evidence for CES preferences[J]. The Quarterly Journal of Economics, 2020, 135(1): 503-560.",
+  "year": 2020,
+  "lang": "en",
+  "verified": true,
+  "url": "https://academic.oup.com/qje/article-abstract/135/1/503/5579038",
+  "note": "方向④。经 Oxford Academic 与 RePEc（oup:qjecon:v135y2020i1p503-560）核实。DOI: 10.1093/qje/qjz031。在 CES 偏好下同时处理品种进入退出与偏好冲击的统一价格指数（CUPI），为 STPI 在模型代际更替中的加权与偏误校正提供理论基准。"
+ },
+ {
+  "key": "akerlof1970",
+  "intext": "Akerlof，1970",
+  "gb": "AKERLOF G A. The market for \"lemons\": quality uncertainty and the market mechanism[J]. The Quarterly Journal of Economics, 1970, 84(3): 488-500.",
+  "year": 1970,
+  "lang": "en",
+  "verified": true,
+  "url": "https://doi.org/10.2307/1879431",
+  "note": "方向⑤（质量不确定性经典）。经 QJE 卷期记录核实。DOI: 10.2307/1879431。质量不可观测导致的逆向选择与市场萎缩，是本书论证\"词元质量需可计量、可披露\"的经济学起点。"
+ },
+ {
+  "key": "dranove2010",
+  "intext": "Dranove和Jin，2010",
+  "gb": "DRANOVE D, JIN G Z. Quality disclosure and certification: theory and practice[J]. Journal of Economic Literature, 2010, 48(4): 935-963.",
+  "year": 2010,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/jel.48.4.935",
+  "note": "方向⑤。经 AEA 官网与 RePEc（aea:jeclit:v:48:y:2010:i:4:p:935-63）核实。DOI: 10.1257/jel.48.4.935。质量披露与第三方认证的理论—实证综述，直接支撑本书关于模型能力评测、词元质量标识与认证机构激励的制度设计章节。"
+ },
+ {
+  "key": "farrell1985",
+  "intext": "Farrell和Saloner，1985",
+  "gb": "FARRELL J, SALONER G. Standardization, compatibility, and innovation[J]. The RAND Journal of Economics, 1985, 16(1): 70-83.",
+  "year": 1985,
+  "lang": "en",
+  "verified": true,
+  "url": "https://ideas.repec.org/a/rje/randje/v16y1985ispringp70-83.html",
+  "note": "方向⑤。经 RAND Journal of Economics 卷期记录与 RePEc（rje:randje:v16y1985ispringp70-83）核实。标准化收益与\"过度惯性/过度动量\"的经典分析，对应词元计量口径统一过程中的协调失灵与锁定风险。"
+ },
+ {
+  "key": "simcoe2012",
+  "intext": "Simcoe，2012",
+  "gb": "SIMCOE T. Standard setting committees: consensus governance for shared technology platforms[J]. American Economic Review, 2012, 102(1): 305-336.",
+  "year": 2012,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/aer.102.1.305",
+  "note": "方向⑤。经 AEA 官网与 RePEc（aea:aecrev:v:102:y:2012:i:1:p:305-36）核实。DOI: 10.1257/aer.102.1.305。以 IETF 数据实证标准制定委员会的共识治理与分配冲突，为词元计量标准的组织形式（谁来定标、如何避免拖延）提供经验参照。"
+ },
+ {
+  "key": "katz1985",
+  "intext": "Katz和Shapiro，1985",
+  "gb": "KATZ M L, SHAPIRO C. Network externalities, competition, and compatibility[J]. American Economic Review, 1985, 75(3): 424-440.",
+  "year": 1985,
+  "lang": "en",
+  "verified": true,
+  "url": "https://ideas.repec.org/a/aea/aecrev/v75y1985i3p424-40.html",
+  "note": "方向⑥（网络外部性奠基文献）。经 AEA 卷期记录与 RePEc（aea:aecrev:v:75:y:1985:i:3:p:424-40）核实。兼容性选择与网络规模预期的均衡分析，是分析模型接口/词元化方案兼容性竞争的基础框架。"
+ },
+ {
+  "key": "jullien2021",
+  "intext": "Jullien等，2021",
+  "gb": "JULLIEN B, PAVAN A, RYSMAN M. Two-sided markets, pricing, and network effects[M]//HO K, HORTAÇSU A, LIZZERI A. Handbook of industrial organization: Volume 4. Amsterdam: North-Holland, 2021: 485-592.",
+  "year": 2021,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.sciencedirect.com/science/chapter/handbook/abs/pii/S1573448X21000078",
+  "note": "方向⑥。经 ScienceDirect 手册章节页（S1573448X21000078）与 TSE 工作论文版核实起止页 485-592；卷次编者与出版信息经 Elsevier/North-Holland 书目（ISBN 9780323915137，2021 年 12 月）核实。DOI: 10.1016/bs.hesind.2021.11.008。双边市场定价结构与网络效应的权威综述，用于分析模型平台在开发者侧与用户侧的词元价格结构。"
+ },
+ {
+  "key": "bergemann2024",
+  "intext": "Bergemann和Bonatti，2024",
+  "gb": "BERGEMANN D, BONATTI A. Data, competition, and digital platforms[J]. American Economic Review, 2024, 114(8): 2553-2595.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.aeaweb.org/articles?id=10.1257/aer.20230478",
+  "note": "方向⑥。经 AEA 官网与 RePEc（aea:aecrev:v114y2024i8p2553-95）核实。DOI: 10.1257/aer.20230478。平台以数据进行匹配、同时向卖方出售定向广告的均衡刻画，是\"数据—匹配—平台租金\"链条在 AI 服务平台上的迁移基础。"
+ },
+ {
+  "key": "masanet2020",
+  "intext": "Masanet等，2020",
+  "gb": "MASANET E, SHEHABI A, LEI N, et al. Recalibrating global data center energy-use estimates[J]. Science, 2020, 367(6481): 984-986.",
+  "year": 2020,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.science.org/doi/abs/10.1126/science.aba3758",
+  "note": "方向⑦。经 Science 官网与 PubMed（PMID 32108103）核实。DOI: 10.1126/science.aba3758。自下而上重估全球数据中心用电，纠正\"能耗倍增\"式外推，是本书能耗测算章节的方法论警戒线。"
+ },
+ {
+  "key": "shehabi2024",
+  "intext": "Shehabi等，2024",
+  "gb": "SHEHABI A, SMITH S J, HUBBARD A, 等. 2024 United States data center energy usage report: LBNL-2001637[R]. Berkeley, CA: Lawrence Berkeley National Laboratory, 2024.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024-united-states-data-center-energy-usage-report_1.pdf",
+  "note": "方向⑦。经 LBNL Energy Technologies Area 出版页与 eScholarship（item 32d6m0d1）核实报告号 LBNL-2001637 与作者序（Shehabi, Smith, Hubbard, Newkirk, Lei, Siddik, Holecek, Koomey, Masanet, Sartor）。依《2020 年能源法》向国会提交，给出 2014—2028 年美国数据中心用电的历史值与情景区间，是单位词元能耗折算的权威分母来源。"
+ },
+ {
+  "key": "iea2025",
+  "intext": "IEA，2025",
+  "gb": "INTERNATIONAL ENERGY AGENCY. Energy and AI[R]. Paris: International Energy Agency, 2025.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.iea.org/reports/energy-and-ai",
+  "note": "方向⑦。经 IEA 官网报告页与 2025 年 4 月发布通稿核实。首份全球性\"能源与 AI\"特别报告：2025 年数据中心约占全球电力需求 1.5%，基准情景 2030 年升至约 3%（约 950 TWh），并给出单位任务能效年度数量级改善的证据——可与 STPI 的\"每词元能耗\"分项对照。"
+ },
+ {
+  "key": "li2025",
+  "intext": "Li等，2025",
+  "gb": "LI P, YANG J, ISLAM M A, 等. Making AI less \"thirsty\": uncovering and addressing the secret water footprint of AI models[J]. Communications of the ACM, 2025, 68(7): 54-63.",
+  "year": 2025,
+  "lang": "en",
+  "verified": true,
+  "url": "https://dl.acm.org/doi/10.1145/3724499",
+  "note": "方向⑦。经 ACM Digital Library 与 CACM 官网栏目页核实卷期页码（Vol 68, No 7, pp. 54-63）。DOI: 10.1145/3724499；预印本 arXiv:2304.03271。首次系统核算 AI 训练与推理的取水/耗水足迹，并提出按时空水效率调度的缓解方案，将词元的外部成本从碳扩展到水。"
+ },
+ {
+  "key": "ndrc2021",
+  "intext": "「国家发展改革委等，2021」",
+  "gb": "国家发展改革委, 中央网信办, 工业和信息化部, 等. 全国一体化大数据中心协同创新体系算力枢纽实施方案: 发改高技〔2021〕709号[EB/OL]. (2021-05-24)[2026-08-13]. https://www.ndrc.gov.cn/xxgk/zcfb/tz/202105/t20210526_1280838.html.",
+  "year": 2021,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202105/t20210526_1280838.html",
+  "note": "四部门（发改委、中央网信办、工信部、国家能源局）联合印发，成文日期2021-05-24，网站发布2021-05-26。首次提出布局京津冀、长三角、粤港澳大湾区、成渝及贵州、内蒙古、甘肃、宁夏八大国家枢纽节点，正式启动“东数西算”工程，是算力资源跨区域配置效率研究的政策起点。ndrc.gov.cn 在本会话网络出口策略下无法直接抓取，元数据经检索索引核实；中国政府网镜像同文：https://www.gov.cn/zhengce/zhengceku/2021-05/26/content_5612405.htm"
+ },
+ {
+  "key": "ndrc2023",
+  "intext": "「国家发展改革委等，2023」",
+  "gb": "国家发展改革委, 国家数据局, 中央网信办, 等. 关于深入实施“东数西算”工程 加快构建全国一体化算力网的实施意见: 发改数据〔2023〕1779号[EB/OL]. (2023-12-25)[2026-08-13]. https://www.ndrc.gov.cn/xxgk/zcfb/tz/202312/t20231229_1363000.html.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/202312/t20231229_1363000.html",
+  "note": "成文日期2023-12-25，网站发布2023-12-29。明确“算力是数字经济时代的新型生产力”，提出统筹通用算力、智能算力、超级算力协同，构建“联网调度、普惠易用、绿色安全”的全国一体化算力网，是算力并网调度与配置效率的核心依据。国家数据局镜像：https://www.nda.gov.cn/sjj/zwgk/zcfb/0830/20240830174329104216060_pc.html"
+ },
+ {
+  "key": "nda2023",
+  "intext": "「国家数据局等，2023」",
+  "gb": "国家数据局, 中央网信办, 科技部, 等. “数据要素×”三年行动计划（2024—2026年）: 国数政策〔2023〕11号[EB/OL]. (2023-12-31)[2026-08-13]. https://www.nda.gov.cn/sjj/xxgk/gknr/ghjh/0909/20240909160155798592998_pc.html.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.nda.gov.cn/sjj/xxgk/gknr/ghjh/0909/20240909160155798592998_pc.html",
+  "note": "国家数据局等十七部门联合印发，落款日期2023-12-31，2024-01-04对外公布。聚焦工业制造、科技创新等12个行业领域，明确支持通用人工智能大模型与垂直领域大模型训练，是“数据要素—模型训练—词元供给”链条的政策依据。中央网信办转发版：https://www.cac.gov.cn/2024-01/05/c_1706119078060945.htm"
+ },
+ {
+  "key": "cac2023",
+  "intext": "「国家互联网信息办公室等，2023」",
+  "gb": "国家互联网信息办公室, 国家发展和改革委员会, 教育部, 等. 生成式人工智能服务管理暂行办法: 国家互联网信息办公室等七部门令第15号[EB/OL]. (2023-07-10)[2026-08-13]. https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm.",
+  "year": 2023,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+  "note": "经2023-05-23国家网信办2023年第12次室务会审议通过，七部门令第15号于2023-07-10公布，2023-07-13在网信办官网发布，自2023-08-15起施行。规范面向境内公众提供文本、图片、音频、视频生成服务的行为，构成模型服务定价与合规成本的制度约束。"
+ },
+ {
+  "key": "cac2022",
+  "intext": "「国家互联网信息办公室等，2022」",
+  "gb": "国家互联网信息办公室, 工业和信息化部, 公安部. 互联网信息服务深度合成管理规定: 国家互联网信息办公室、工业和信息化部、公安部令第12号[EB/OL]. (2022-11-25)[2026-08-13]. https://www.cac.gov.cn/2022-12/11/c_1672221949354811.htm.",
+  "year": 2022,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.cac.gov.cn/2022-12/11/c_1672221949354811.htm",
+  "note": "2022-11-03审议通过，2022-11-25由庄荣文、金壮龙、王小洪三部门主要负责人签署公布，2022-12-11官网发布，自2023-01-10起施行。确立深度合成服务标识与安全管理义务，是生成内容（词元产出）可追溯性的规制基础。工信部转发版：https://wap.miit.gov.cn/xwdt/gxdt/sjdt/art/2022/art_466dfb964d6646f38234ca8aadc056b1.html"
+ },
+ {
+  "key": "mee2024",
+  "intext": "「生态环境部等，2024」",
+  "gb": "生态环境部, 国家发展和改革委员会, 工业和信息化部, 等. 关于建立碳足迹管理体系的实施方案: 环气候〔2024〕30号[EB/OL]. (2024-05-22)[2026-08-13]. https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202406/t20240604_1074986.html.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202406/t20240604_1074986.html",
+  "note": "文号更正：检索核实实际文号为环气候〔2024〕30号（生态环境部等十五部门），非委托检索清单中所写的“发改环资〔2024〕587号”。成文日期2024-05-22，2024-06-04公开发布。提出建立国家产品碳足迹管理体系、发布重点产品碳足迹核算规则与因子数据库，是算力与词元服务碳足迹核算的国内制度框架。"
+ },
+ {
+  "key": "mee2024b",
+  "intext": "「生态环境部等，2024」",
+  "gb": "生态环境部, 国家发展和改革委员会, 国家市场监督管理总局, 等. 产品碳足迹核算标准编制工作指引: 环气候〔2024〕91号[EB/OL]. (2024-12-28)[2026-08-13]. https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202501/t20250106_1099994.html.",
+  "year": 2024,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202501/t20250106_1099994.html",
+  "note": "名称更正：检索核实官方文件名为《产品碳足迹核算标准编制工作指引》（环气候〔2024〕91号），非“产品碳足迹核算标准编制工作方案”。由生态环境部会同国家发展改革委、市场监管总局、交通运输部、国家数据局印发，成文日期2024-12-28，2025-01-06公开。提出2027年前制定100项、2030年前制定200项产品碳足迹核算标准，为算力/词元类产品碳足迹标准化提供路径。中国政府网同文：https://www.gov.cn/zhengce/zhengceku/202501/content_6996538.htm"
+ },
+ {
+  "key": "shanghai2026",
+  "intext": "「上海市经济和信息化委员会，2026」",
+  "gb": "上海市经济和信息化委员会. 上海市软件和信息服务业发展“十五五”规划: 沪经信软〔2026〕471号[EB/OL]. (2026-08-04)[2026-08-13]. https://sheitc.sh.gov.cn/cyfz/20260811/7ff732b1c470421c86e46d14c0270ead.html.",
+  "year": 2026,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://sheitc.sh.gov.cn/cyfz/20260811/7ff732b1c470421c86e46d14c0270ead.html",
+  "note": "名称核实为《上海市软件和信息服务业发展“十五五”规划》（含“发展”二字）。成文日期2026-08-04，2026-08-11公开发布。提出2030年产业规模力争达4万亿元、增加值超1.1万亿元，构建“一环两极三射”产业空间布局，部署云计算数智化提升等九大工程。上海市政府公开库同文：https://www.shanghai.gov.cn/gwk/search/content/7ff732b1c470421c86e46d14c0270ead"
+ },
+ {
+  "key": "zhejiang2026",
+  "intext": "「浙江省人民代表大会，2026」",
+  "gb": "浙江省第十四届人民代表大会第四次会议. 浙江省国民经济和社会发展第十五个五年规划纲要[EB/OL]. (2026-01-17)[2026-08-13]. https://zjnews.zjol.com.cn/zjnews/202602/t20260210_31500156.shtml.",
+  "year": 2026,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://zjnews.zjol.com.cn/zjnews/202602/t20260210_31500156.shtml",
+  "note": "2026-01-17由浙江省第十四届人民代表大会第四次会议审议通过，2026-02-10全文公开。纲要明确提出“建立全省一体化算力监测调度平台”，统筹全省算力资源、构建与国产大模型训练相适配的算力集群并面向中小企业构建多层次算力服务体系，可直接支撑算力配置效率与调度机制论述。URL 采用浙江省级官方新闻门户（浙江在线）全文版，因 zj.gov.cn 全文页在本会话网络策略下不可达；省经济信息中心图解版另见 https://zjic.zj.gov.cn/zkdt/rdzx/202602/t20260224_23959930.shtml"
+ },
+ {
+  "key": "caict2025",
+  "intext": "「中国信息通信研究院，2025」",
+  "gb": "中国信息通信研究院. 算力经济发展研究报告（2025年）[R/OL]. 北京: 中国信息通信研究院, 2025[2026-08-13]. https://www.caict.ac.cn/kxyj/qwfb/ztbg/202509/P020250910593366724819.pdf.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.caict.ac.cn/kxyj/qwfb/ztbg/202509/P020250910593366724819.pdf",
+  "note": "中国信息通信研究院云计算与大数据研究所编写，2025年9月发布。系统讨论算力供给、算力成本与算力服务定价机制，是“算力—词元”成本传导与计量的国内权威研究基础。"
+ },
+ {
+  "key": "caict2026",
+  "intext": "「中国信息通信研究院，2026」",
+  "gb": "中国信息通信研究院. 人工智能产业发展研究报告（2025年）[R/OL]. 北京: 中国信息通信研究院, 2026[2026-08-13]. https://www.caict.ac.cn/kxyj/qwfb/bps/202602/P020260202487301304903.pdf.",
+  "year": 2026,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.caict.ac.cn/kxyj/qwfb/bps/202602/P020260202487301304903.pdf",
+  "note": "报告编号 No.202516，2026年1月完成、2026-02-02上网。含大模型 Token 服务能力监测数据：2025年公有云大模型客户侧 Token 调用量约2000万亿、同比增长16倍；调用成功率99.9%，首 Token 时延（TTFT）由约0.8秒降至0.6秒，每秒输出词元数（TPS）由约30升至50——是词元价值计量与服务质量定价的关键实证来源。CAICT 权威发布栏目页：https://www.caict.ac.cn/kxyj/qwfb/bps/202602/t20260202_712679.htm"
+ },
+ {
+  "key": "nda2026",
+  "intext": "「国家数据局，2026」",
+  "gb": "国家数据局. 全国数据资源调查报告（2025年）[R/OL]. 北京: 国家数据局, 2026[2026-08-13]. https://www.nda.gov.cn/sjj/ywpd/sjzy/0429/ff808081-9b5e8626-019d-d86d1ac9-115b.pdf.",
+  "year": 2026,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://www.nda.gov.cn/sjj/ywpd/sjzy/0429/ff808081-9b5e8626-019d-d86d1ac9-115b.pdf",
+  "note": "全国数据资源统计调查工作组编制，2026-04-29于第九届数字中国建设峰会正式发布。2025年全国数据生产总量52.26 ZB（同比增长27.28%，占全球约27.44%），数据存储总量2.53 ZB（同比增长21.05%），约九成生产增量来自企业。为数据要素供给规模与词元训练语料基数提供官方口径。发布消息页：https://www.nda.gov.cn/sjj/swdt/xwfb/0429/20260429164803571173880_pc.html"
+ },
+ {
+  "key": "idc2025",
+  "intext": "「IDC，2025」",
+  "gb": "国际数据公司. 中国智算云基础设施市场（AI IaaS）（2025上半年）跟踪[R/OL]. 北京: IDC中国, 2025[2026-08-13]. https://my.idc.com/getdoc.jsp?containerId=prCHC53879525.",
+  "year": 2025,
+  "lang": "zh",
+  "verified": true,
+  "url": "https://my.idc.com/getdoc.jsp?containerId=prCHC53879525",
+  "note": "IDC 官方新闻稿发布日期2025-10-21。2025上半年中国 AI IaaS 整体市场规模198.7亿元、同比增长122.4%，其中 GenAI IaaS 市场166.8亿元、同比增长219.3%，Other AI IaaS 市场31.9亿元、同比缩减14.1%——刻画智算服务由训练向推理（词元生产）迁移的市场结构。选此篇而非《2025年中国人工智能计算力发展评估报告》，因后者仅有第三方转载页、无 IDC 官方可点击原始 URL，按页码/来源纪律不予收录。"
+ },
+ {
+  "key": "stanford2026",
+  "intext": "「Stanford HAI，2026」",
+  "gb": "STANFORD INSTITUTE FOR HUMAN-CENTERED ARTIFICIAL INTELLIGENCE. The 2026 AI index report[R/OL]. Stanford, CA: Stanford University, 2026[2026-08-13]. https://hai.stanford.edu/ai-index/2026-ai-index-report.",
+  "year": 2026,
+  "lang": "en",
+  "verified": true,
+  "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+  "note": "AI Index 第九版，2026年4月发布（官方仅公布月份，未见确切日期，故著录至月份，不臆造具体日）。Economy 章报告：至2026年初美国生成式 AI 消费者剩余约1720亿美元/年（上年1120亿美元），人均中位价值三年内增至三倍；70%的组织已在至少一项业务职能中使用生成式 AI。为词元服务的消费者剩余测算与价值计量提供国际基准。Economy 分章：https://hai.stanford.edu/ai-index/2026-ai-index-report/economy"
+ },
+ {
+  "key": "oecd2024",
+  "intext": "「OECD，2024」",
+  "gb": "OECD. The impact of artificial intelligence on productivity, distribution and growth: key mechanisms, initial evidence and policy challenges[R/OL]. Paris: OECD Publishing, 2024[2026-08-13]. https://www.oecd.org/en/publications/the-impact-of-artificial-intelligence-on-productivity-distribution-and-growth_8d900037-en.html.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.oecd.org/en/publications/the-impact-of-artificial-intelligence-on-productivity-distribution-and-growth_8d900347-en.html",
+  "note": "OECD Artificial Intelligence Papers, No. 15，2024年4月出版。估计 AI 可使美国年度全要素生产率增长提高0.25—0.6个百分点（劳动生产率0.4—0.9个百分点）。以机构作者著录而非逐一列示作者，因检索仅确证机构、出版社与系列编号，未能逐一确证作者姓名与顺序，按页码/署名纪律不臆造。官方 PDF：https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/04/the-impact-of-artificial-intelligence-on-productivity-distribution-and-growth_d54e2842/8d900037-en.pdf"
+ },
+ {
+  "key": "cazzaniga2024",
+  "intext": "「Cazzaniga等，2024」",
+  "gb": "CAZZANIGA M, JAUMOTTE F, LI L, et al. Gen-AI: artificial intelligence and the future of work[R/OL]. Washington, DC: International Monetary Fund, 2024[2026-08-13]. https://www.imf.org/-/media/files/publications/sdn/2024/english/sdnea2024001.pdf.",
+  "year": 2024,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.imf.org/-/media/files/publications/sdn/2024/english/sdnea2024001.pdf",
+  "note": "IMF Staff Discussion Note SDN/2024/001，2024年1月。作者为 Cazzaniga M, Jaumotte F, Li L, Melina G, Panton A J, Pizzinelli C, Rockall E, Tavares M M。估计全球约40%就业（发达经济体约60%）暴露于生成式 AI，并区分互补性与替代性暴露。采用 [R/OL] 而非 [J] 形式，因该文为 IMF 工作论文系列、无期刊卷期页码，按页码纪律不编造。IMF eLibrary 著录页：https://www.elibrary.imf.org/view/journals/006/2024/001/006.2024.issue-001-en.xml"
+ },
+ {
+  "key": "chui2023",
+  "intext": "「Chui等，2023」",
+  "gb": "CHUI M, HAZAN E, ROBERTS R, et al. The economic potential of generative AI: the next productivity frontier[R/OL]. New York: McKinsey Global Institute, 2023[2026-08-13]. https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier",
+  "note": "麦肯锡全球研究院报告，2023-06-14发布。估计生成式 AI 每年可为全球经济增加2.6万亿—4.4万亿美元价值；2023—2040年工作活动自动化带来的全球年生产率提升0.5%—3.4%，其中生成式 AI 贡献0.1—0.6个百分点。采用 [R/OL] 形式，因系机构研究报告、无卷期页码。"
+ },
+ {
+  "key": "iso2018",
+  "intext": "「ISO，2018」",
+  "gb": "INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. Greenhouse gases — carbon footprint of products — requirements and guidelines for quantification: ISO 14067:2018[S/OL]. Geneva: ISO, 2018[2026-08-13]. https://www.iso.org/standard/71206.html.",
+  "year": 2018,
+  "lang": "en",
+  "verified": true,
+  "url": "https://www.iso.org/standard/71206.html",
+  "note": "第1版，出版日期2018-08，2024年复审确认继续有效。与 ISO 14040/14044 生命周期评价标准一致，仅针对“气候变化”单一影响类别，规定产品碳足迹（CFP）及部分碳足迹的量化与报告原则、要求与指南；碳抵消与 CFP 信息沟通不在其范围内。是算力/词元服务碳足迹核算的国际方法学基准。在线浏览平台：https://www.iso.org/obp/ui#iso:std:iso:14067:ed-1:v1:en"
+ },
+ {
+  "key": "wri2011",
+  "intext": "「WRI和WBCSD，2011」",
+  "gb": "WORLD RESOURCES INSTITUTE, WORLD BUSINESS COUNCIL FOR SUSTAINABLE DEVELOPMENT. Greenhouse gas protocol product life cycle accounting and reporting standard[S/OL]. Washington, DC: WRI; Geneva: WBCSD, 2011[2026-08-13]. https://ghgprotocol.org/product-standard.",
+  "year": 2011,
+  "lang": "en",
+  "verified": true,
+  "url": "https://ghgprotocol.org/product-standard",
+  "note": "2011年发布。2008年由 WRI 与 WBCSD 启动三年制订流程，2009年首稿由112名成员组成的技术工作组完成，2010年38家企业参与路测。规定企业量化并公开报告单一产品全生命周期温室气体排放与清除的要求与指引，为 GHG Protocol 产品标准；不适用于抵消量化或碳中和声明。标准全文 PDF：https://ghgprotocol.org/sites/default/files/standards/Product-Life-Cycle-Accounting-Reporting-Standard_041613.pdf"
+ },
+ {
+  "key": "eu2023",
+  "intext": "「European Parliament和Council，2023」",
+  "gb": "EUROPEAN PARLIAMENT, COUNCIL OF THE EUROPEAN UNION. Establishing a carbon border adjustment mechanism: Regulation (EU) 2023/956[EB/OL]. (2023-05-16)[2026-08-13]. https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R0956.",
+  "year": 2023,
+  "lang": "en",
+  "verified": true,
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R0956",
+  "note": "法案通过日2023-05-10，官方公报公布日2023-05-16，载 OJ L 130, 16.5.2023, p. 52-104（页码已由 EUR-Lex 确证）。自2023-10-01起适用，部分条款分别自2024-12-31、2026-01-01适用；过渡期内进口商自2024-01-31起按季度提交 CBAM 报告。为跨境碳成本内部化机制，可类比讨论算力/词元产品的碳边境调节。注：该法规已由 Regulation (EU) 2025/2083 修订，合并版见 https://eur-lex.europa.eu/eli/reg/2023/956/2025-10-20/eng"
+ }
+]

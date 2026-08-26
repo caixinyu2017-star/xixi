@@ -1,0 +1,158 @@
+# key → 文中引用（c(key) 输出加外括号）。仅可使用本清单中的 key。
+schultz1961	（Schultz，1961）	SCHULTZ T W. Investment in human capital[J]. American Econom
+becker1964	（Becker，1964）	BECKER G S. Human capital: a theoretical and empirical analy
+mincer1974	（Mincer，1974）	MINCER J. Schooling, experience, and earnings[M]. New York: 
+spence1973	（Spence，1973）	SPENCE M. Job market signaling[J]. Quarterly Journal of Econ
+goldin2008	（Goldin和Katz，2008）	GOLDIN C, KATZ L F. The race between education and technolog
+autor2003	（Autor等，2003）	AUTOR D H, LEVY F, MURNANE R J. The skill content of recent 
+acemoglu2011	（Acemoglu和Autor，2011）	ACEMOGLU D, AUTOR D. Skills, tasks and technologies: implica
+acemoglu2018	（Acemoglu和Restrepo，2018）	ACEMOGLU D, RESTREPO P. The race between man and machine: im
+acemoglu2019	（Acemoglu和Restrepo，2019）	ACEMOGLU D, RESTREPO P. Automation and new tasks: how techno
+frey2017	（Frey和Osborne，2017）	FREY C B, OSBORNE M A. The future of employment: how suscept
+hanushek1979	（Hanushek，1979）	HANUSHEK E A. Conceptual and empirical issues in the estimat
+heckman2012	（Heckman和Kautz，2012）	HECKMAN J J, KAUTZ T. Hard evidence on soft skills[J]. Labou
+deming2017	（Deming，2017）	DEMING D J. The growing importance of social skills in the l
+brynjolfsson2017	（Brynjolfsson和Mitchell，2017）	BRYNJOLFSSON E, MITCHELL T. What can machine learning do? Wo
+webb2020	（Webb，2020）	WEBB M. The impact of artificial intelligence on the labor m
+felten2021	（Felten等，2021）	FELTEN E, RAJ M, SEAMANS R. Occupational, industry, and geog
+mortensen1994	（Mortensen和Pissarides，1994）	MORTENSEN D T, PISSARIDES C A. Job creation and job destruct
+pissarides2000	（Pissarides，2000）	PISSARIDES C A. Equilibrium unemployment theory[M]. 2nd ed. 
+petrongolo2001	（Petrongolo和Pissarides，2001）	PETRONGOLO B, PISSARIDES C A. Looking into the black box: a 
+blanchard1989	（Blanchard和Diamond，1989）	BLANCHARD O J, DIAMOND P. The Beveridge curve[J]. Brookings 
+sahin2014	（Şahin等，2014）	ŞAHIN A, SONG J, TOPA G, et al. Mismatch unemployment[J]. Am
+etzkowitz2000	（Etzkowitz和Leydesdorff，2000）	ETZKOWITZ H, LEYDESDORFF L. The dynamics of innovation: from
+etzkowitz2008	（Etzkowitz，2008）	ETZKOWITZ H. The triple helix: university-industry-governmen
+perkmann2013	（Perkmann等，2013）	PERKMANN M, TARTARI V, MCKELVEY M, et al. Academic engagemen
+busemeyer2012	（Busemeyer和Trampusch，2012）	BUSEMEYER M R, TRAMPUSCH C. The political economy of collect
+thelen2004	（Thelen，2004）	THELEN K. How institutions evolve: the political economy of 
+allen2001	（Allen和van der Velden，2001）	ALLEN J, VAN DER VELDEN R. Educational mismatches versus ski
+mcguinness2018	（McGuinness等，2018）	MCGUINNESS S, POULIAKAS K, REDMOND P. Skills mismatch: conce
+cappelli2015	（Cappelli，2015）	CAPPELLI P H. Skill gaps, skill shortages, and skill mismatc
+lucas1988	（Lucas，1988）	LUCAS R E. On the mechanics of economic development[J]. Jour
+nelson1966	（Nelson和Phelps，1966）	NELSON R R, PHELPS E S. Investment in humans, technological 
+xie2019	（谢笑珍，2019）	谢笑珍. "产教融合"机理及其机制设计路径研究[J]. 高等工程教育研究, 2019(5): 81-87.
+liu2015	（柳友荣等，2015）	柳友荣, 项桂娥, 王剑程. 应用型本科院校产教融合模式及其影响因素研究[J]. 中国高教研究, 2015(5): 64
+chen2014	（陈年友等，2014）	陈年友, 周常青, 吴祝平. 产教融合的内涵与实现途径[J]. 中国高校科技, 2014(8): 40-42.
+zhuang2018	（庄西真，2018）	庄西真. 产教融合的内在矛盾与解决策略[J]. 中国高教研究, 2018(9): 81-86.
+lin2024	（林健，2024）	林健. 现代产业学院建设：主要共性问题分析及对策建议[J]. 高等工程教育研究, 2024(1): 1-9.
+lin2023	（林健和耿乐乐，2023）	林健, 耿乐乐. 现代产业学院建设：培养新时代卓越工程师和促进产业发展的新途径[J]. 高等工程教育研究, 2023(1
+zhong2017	（钟登华，2017）	钟登华. 新工科建设的内涵与行动[J]. 高等工程教育研究, 2017(3): 1-6.
+gu2017	（顾佩华，2017）	顾佩华. 新工科与新范式：概念、框架和实施路径[J]. 高等工程教育研究, 2017(6): 1-13.
+lin2020	（林健，2020）	林健. 新工科专业课程体系改革和课程建设[J]. 高等工程教育研究, 2020(1): 1-13.
+wu2019	（吴飞等，2019）	吴飞, 杨洋, 何钦铭. 人工智能本科专业课程设置思考：厘清内涵、促进交叉、赋能应用[J]. 中国大学教学, 2019(
+gu2022	（顾小清和郝祥军，2022）	顾小清, 郝祥军. 从人工智能重塑的知识观看未来教育[J]. 教育研究, 2022, 43(9): 138-149.
+cao2020	（曹培杰，2020）	曹培杰. 人工智能教育变革的三重境界[J]. 教育研究, 2020, 41(2): 143-150.
+zheng2019	（郑南宁，2019）	郑南宁. 人工智能本科专业知识体系与课程设置[M]. 北京: 清华大学出版社, 2019.
+lin2023b	（林健，2023）	林健. 国家卓越工程师学院建设：校企全方位深度合作培养高层次卓越工程师[J]. 高等工程教育研究, 2023(5): 7
+yan2022	（严建华等，2022）	严建华, 包刚, 王家平, 等. 浙江大学高水平产教融合培养卓越工程师的实践与探索[J]. 学位与研究生教育, 2022
+xiao2012	（肖凤翔和张弛，2012）	肖凤翔, 张弛. "双师型"教师的内涵解读[J]. 中国职业技术教育, 2012(15): 69-74.
+hao2019	（郝天聪和石伟平，2019）	郝天聪, 石伟平. 从松散联结到实体嵌入：职业教育产教融合的困境及其突破[J]. 教育研究, 2019, 40(7): 
+pan2013	（潘海生等，2013）	潘海生, 王世斌, 龙德毅. 中国高职教育校企合作现状及影响因素分析[J]. 高等工程教育研究, 2013(3): 14
+wang2020	（王永钦和董雯，2020）	王永钦, 董雯. 机器人的兴起如何影响中国劳动力市场？——来自制造业上市公司的证据[J]. 经济研究, 2020, 55
+kong2020	（孔高文等，2020）	孔高文, 刘莎莎, 孔东民. 机器人与就业——基于行业与地区异质性的探索性分析[J]. 中国工业经济, 2020(8):
+yu2021	（余玲铮等，2021）	余玲铮, 魏下海, 孙中伟, 等. 工业机器人、工作任务与非常规能力溢价——来自制造业“企业—工人”匹配调查的证据[J]
+li2021	（李磊等，2021）	李磊, 王小霞, 包群. 机器人的就业效应：机制与中国经验[J]. 管理世界, 2021, 37(9): 104-118
+wang2022	（王林辉等，2022）	王林辉, 胡晟明, 董直庆. 人工智能技术、任务属性与职业可替代风险——来自微观层面的经验证据[J]. 管理世界, 20
+guo2019	（郭凯明，2019）	郭凯明. 人工智能发展、产业结构转型升级与劳动收入份额变动[J]. 管理世界, 2019, 35(7): 60-77.
+han2024	（韩文龙等，2024）	韩文龙, 张瑞生, 赵峰. 新质生产力水平测算与中国经济增长新动能[J]. 数量经济技术经济研究, 2024, 41(6
+song2010	（宋冬林等，2010）	宋冬林, 王林辉, 董直庆. 技能偏向型技术进步存在吗？——来自中国的经验证据[J]. 经济研究, 2010, 45(5
+dong2014	（董直庆等，2014）	董直庆, 蔡啸, 王林辉. 技能溢价：基于技术进步方向的解释[J]. 中国社会科学, 2014(10): 19-39.
+hu2021	（胡晟明等，2021）	胡晟明, 王林辉, 朱利莹. 工业机器人应用存在人力资本提升效应吗？[J]. 财经研究, 2021, 47(6): 61
+wu2021	（吴晓刚和李晓光，2021）	吴晓刚, 李晓光. 中国城市劳动力市场中教育匹配的变迁趋势——基于年龄、时期和世代效应的动态分析[J]. 中国社会科学,
+yan2018	（颜敏和王维国，2018）	颜敏, 王维国. 教育错配对工资的惩罚效应——来自中国微观面板数据的证据[J]. 财经研究, 2018, 44(3): 
+wang2023	（汪鲸和罗楚亮，2023）	汪鲸, 罗楚亮. 社会网络有助于降低过度教育概率吗？——基于中国家庭追踪调查（CFPS）的数据分析[J]. 财经研究, 
+xiao2022	（肖土盛等，2022）	肖土盛, 孙瑞琦, 袁淳, 等. 企业数字化转型、人力资本结构调整与劳动收入份额[J]. 管理世界, 2022, 38(
+bai2021	（柏培文和张云，2021）	柏培文, 张云. 数字经济、人口红利下降与中低技能劳动者权益[J]. 经济研究, 2021, 56(5): 91-108
+tian2022	（田鸽和张勋，2022）	田鸽, 张勋. 数字经济、非农就业与社会分工[J]. 管理世界, 2022, 38(5): 72-84.
+acemoglu2020	（Acemoglu和Restrepo，2020）	ACEMOGLU D, RESTREPO P. Robots and jobs: evidence from US la
+acemoglu2022	（Acemoglu等，2022）	ACEMOGLU D, AUTOR D, HAZELL J, et al. Artificial intelligenc
+babina2024	（Babina等，2024）	BABINA T, FEDYK A, HE A, et al. Artificial intelligence, fir
+graetz2018	（Graetz和Michaels，2018）	GRAETZ G, MICHAELS G. Robots at work[J]. Review of Economics
+acemoglu2022b	（Acemoglu和Restrepo，2022）	ACEMOGLU D, RESTREPO P. Tasks, automation, and the rise in U
+deming2018	（Deming和Kahn，2018）	DEMING D, KAHN L B. Skill requirements across firms and labo
+hershbein2018	（Hershbein和Kahn，2018）	HERSHBEIN B, KAHN L B. Do recessions accelerate routine-bias
+deming2020	（Deming和Noray，2020）	DEMING D J, NORAY K. Earnings dynamics, changing job skills,
+alekseeva2021	（Alekseeva等，2021）	ALEKSEEVA L, AZAR J, GINÉ M, et al. The demand for AI skills
+noy2023	（Noy和Zhang，2023）	NOY S, ZHANG W. Experimental evidence on the productivity ef
+brynjolfsson2025	（Brynjolfsson等，2025）	BRYNJOLFSSON E, LI D, RAYMOND L R. Generative AI at work[J].
+eloundou2024	（Eloundou等，2024）	ELOUNDOU T, MANNING S, MISHKIN P, et al. GPTs are GPTs: labo
+perkmann2021	（Perkmann等，2021）	PERKMANN M, SALANDRA R, TARTARI V, et al. Academic engagemen
+adda2023	（Adda和Dustmann，2023）	ADDA J, DUSTMANN C. Sources of wage growth[J]. Journal of Po
+muehlemann2014	（Muehlemann和Wolter，2014）	MUEHLEMANN S, WOLTER S C. Return on investment of apprentice
+jackson2015	（Jackson，2015）	JACKSON D. Employability skill development in work-integrate
+clarke2018	（Clarke，2018）	CLARKE M. Rethinking graduate employability: the role of cap
+pellizzari2017	（Pellizzari和Fichen，2017）	PELLIZZARI M, FICHEN A. A new measure of skill mismatch: the
+blundell2022	（Blundell等，2022）	BLUNDELL R, GREEN D, JIN W. The U.K. as a technological foll
+carneiro2023	（Carneiro等，2023）	CARNEIRO P, LIU K, SALVANES K G. The supply of skill and end
+guowuyuanbangongting2017	（国务院办公厅，2017）	国务院办公厅. 关于深化产教融合的若干意见: 国办发〔2017〕95号[EB/OL]. (2017-12-19)[202
+guowuyuan2017	（国务院，2017）	国务院. 新一代人工智能发展规划: 国发〔2017〕35号[EB/OL]. (2017-07-20)[2026-08-1
+quanguorenda2022	（全国人民代表大会常务委员会，2022）	全国人民代表大会常务委员会. 中华人民共和国职业教育法[EB/OL]. (2022-04-20)[2026-08-10]
+jiaoyububangongting2020	（教育部办公厅和工业和信息化部办公厅，2020a）	教育部办公厅, 工业和信息化部办公厅. 现代产业学院建设指南（试行）: 教高厅函〔2020〕16号[EB/OL]. (2
+jiaoyububangongting2020b	（教育部办公厅和工业和信息化部办公厅，2020b）	教育部办公厅, 工业和信息化部办公厅. 特色化示范性软件学院建设指南（试行）: 教高厅函〔2020〕11号[EB/OL]
+jiaoyubu2018	（教育部，2018）	教育部. 高等学校人工智能创新行动计划: 教技〔2018〕3号[EB/OL]. (2018-04-10)[2026-08
+renshebu2024	（人力资源社会保障部等，2024）	人力资源社会保障部, 国家发展改革委, 教育部, 等. 加快数字人才培育支撑数字经济发展行动方案（2024—2026年）
+guowuyuanxueweiweiyuanhui2021	（国务院学位委员会和教育部，2021）	国务院学位委员会, 教育部. 关于设置"交叉学科"门类、"集成电路科学与工程"和"国家安全学"一级学科的通知: 学位〔2
+xintongyuan2022	（中国信息通信研究院，2022）	中国信息通信研究院. 人工智能白皮书（2022年）[R]. 北京: 中国信息通信研究院, 2022.
+gongxinbu2020	（工业和信息化部人才交流中心，2020）	工业和信息化部人才交流中心. 人工智能产业人才发展报告（2019—2020年版）[R]. 北京: 工业和信息化部人才交流
+stanfordhai2025	（Stanford HAI，2025）	Stanford Institute for Human-Centered Artificial Intelligenc
+jiaoyubu2024	（教育部，2024）	教育部. 普通高等学校本科专业目录（2024年）[R]. 2024.
+oecd2017	（OECD，2017）	OECD. Getting skills right: skills for jobs indicators[R]. P
+wef2025	（WEF，2025）	World Economic Forum. The future of jobs report 2025[R]. Gen
+aigner1977	（Aigner等，1977）	AIGNER D, LOVELL C A K, SCHMIDT P. Formulation and estimatio
+battese1995	（Battese和Coelli，1995）	BATTESE G E, COELLI T J. A model for technical inefficiency 
+charnes1978	（Charnes等，1978）	CHARNES A, COOPER W W, RHODES E. Measuring the efficiency of
+saaty1980	（Saaty，1980）	SAATY T L. The Analytic Hierarchy Process: Planning, Priorit
+forrester1961	（Forrester，1961）	FORRESTER J W. Industrial Dynamics[M]. Cambridge, MA: MIT Pr
+glaser1967	（Glaser和Strauss，1967）	GLASER B G, STRAUSS A L. The Discovery of Grounded Theory: S
+friedman1991	（Friedman，1991）	FRIEDMAN D. Evolutionary games in economics[J]. Econometrica
+taylor1978	（Taylor和Jonker，1978）	TAYLOR P D, JONKER L B. Evolutionary stable strategies and g
+nelson1982	（Nelson和Winter，1982）	NELSON R R, WINTER S G. An Evolutionary Theory of Economic C
+north1990	（North，1990）	NORTH D C. Institutions, Institutional Change and Economic P
+deng1987	（邓聚龙，1987）	邓聚龙. 灰色系统基本方法[M]. 武汉: 华中理工大学出版社, 1987.
+cai2024	（Cai等，2024）	CAI X, XIANG H, NESKORODIEVA I, et al. Interrelation between
+cai2025	（Cai等，2025）	CAI X, XIANG H, AKBARI F. Integrated sustainability perspect
+cai2025b	（蔡鑫宇和唐雯，2025）	蔡鑫宇, 唐雯. 农地社会保障功能与农地流转: 理论研究与实证分析[J]. 数学的实践与认识, 2025, 55(3):
+cai2025c	（蔡鑫宇，2025）	蔡鑫宇. 我国基本医疗保险对商业健康保险的挤出效应研究[J]. 数学的实践与认识, 2025, 55(5): 42-60
+yan2025	（闫琰等，2025）	闫琰, 向华, 王秀东, 等. 农业数字化转型对其新质生产力的影响及空间溢出效应研究[J]. 中国农业资源与区划, 20
+wu2025	（Wu等，2025）	WU Y, ZHANG J, CAI X. Impact of regional artificial intellig
+li2022	（Li等，2022）	LI Z, CAI X, KUZNETSOVA M, et al. Assessment of scientific t
+zhengrongyi2021	（郑荣奕和蒋新革，2021）	郑荣奕, 蒋新革. 现代产业学院建设：发展历程、组织特征与改革路径[J]. 职业技术教育, 2021, 42(30): 
+yangxuhui2023	（杨旭辉，2023）	杨旭辉. 市域产教联合体的政策要义、理论逻辑与行动策略[J]. 职业技术教育, 2023, 44(25): 6-13.
+cuifazhou2023	（崔发周，2023）	崔发周. 行业产教融合共同体：基本功能、制度设计与推进策略[J]. 职业技术教育, 2023, 44(28): 6-12
+zhengqinghua2024	（郑庆华，2024）	郑庆华. 人工智能赋能创建未来教育新格局[J]. 中国高教研究, 2024(3): 1-7.
+yuanjing2024	（袁婧等，2024）	袁婧, 翟雪松, 吴飞, 等. 基于虚拟教研室的高校人工智能专业（AI+X方向）建设[J]. 现代教育技术, 2024,
+liubangqi2025	（刘邦奇等，2025）	刘邦奇, 聂小林, 王亚飞, 等. 生成式AI赋能教育：技术框架、应用场域及价值——2024智能教育发展研究报告[J].
+liyushun2025	（李玉顺和韩梦莹，2025）	李玉顺, 韩梦莹. 教育强国背景下人工智能赋能教育教学创新：未来图景、实践路径与风险审思[J]. 中国电化教育, 202
+yejinxin2022	（叶金鑫等，2022）	叶金鑫, 韩钰, 张江龙, 等. 新时代卓越工程师教育培养的校企协同机制构建探究——以北京航空航天大学未来空天技术学院为
+zhangtingting2023	（张婷婷和李冲，2023）	张婷婷, 李冲. 关系与路径：产教融合培养卓越工程师的行动逻辑研究[J]. 中国高教研究, 2023(5): 48-54
+zhuzhiting2022	（祝智庭和胡姣，2022）	祝智庭, 胡姣. 教育数字化转型的本质探析与研究展望[J]. 中国电化教育, 2022(4): 1-8,25.
+liyushun2023	（李玉顺等，2023）	李玉顺, 付苏豪, 等. 数字经济时代学生数字素养的培育——时代价值、理论建构与实践进路[J]. 中国电化教育, 202
+xuguoqing2024	（徐国庆和孙帅帅，2024）	徐国庆, 孙帅帅. 中国技能型社会建设的问题背景、结构设计与路径规划[J]. 华东师范大学学报（教育科学版）, 2024
+yangxin2023	（杨欣，2023）	杨欣. 基于生成式人工智能的教育转型图景——ChatGPT究竟对教育意味着什么[J]. 中国电化教育, 2023(5):
+zhouling2023	（周玲和王烽，2023）	周玲, 王烽. 生成式人工智能的教育启示：让每个人成为他自己[J]. 中国电化教育, 2023(5): 9-14.
+chendong2022	（陈东和秦子洋，2022）	陈东, 秦子洋. 人工智能与包容性增长——来自全球工业机器人使用的证据[J]. 经济研究, 2022, 57(4): 8
+wanglinhui2023	（王林辉等，2023）	王林辉, 钱圆圆, 宋冬林, 等. 机器人应用的岗位转换效应及就业敏感性群体特征——来自微观个体层面的经验证据[J]. 
+hexiaogang2023	（何小钢等，2023）	何小钢, 朱国悦, 冯大威. 工业机器人应用与劳动收入份额——来自中国工业企业的证据[J]. 中国工业经济, 2023(
+chenguifu2022	（陈贵富等，2022）	陈贵富, 韩静, 韩恺明. 城市数字经济发展、技能偏向型技术进步与劳动力不充分就业[J]. 中国工业经济, 2022(8
+youliang2023	（尤亮和李根丽，2023）	尤亮, 李根丽. 过度教育与劳动者离职倾向[J]. 外国经济与管理, 2023, 45(12): 80-95.
+zhouwen2023	（周文和许凌云，2023）	周文, 许凌云. 论新质生产力：内涵特征与重要着力点[J]. 改革, 2023(10): 1-13.
+hongyinxing2024	（洪银兴，2024）	洪银兴. 新质生产力及其培育和发展[J]. 经济学动态, 2024(1): 3-11.
+braxton2023	（Braxton和Taska，2023）	BRAXTON J C, TASKA B. Technological change and the consequen
+acemoglu2025	（Acemoglu，2025）	ACEMOGLU D. The simple macroeconomics of AI[J]. Economic Pol
+brunello2021	（Brunello和Wruuck，2021）	BRUNELLO G, WRUUCK P. Skill shortages and skill mismatch: a 
+green2021	（Green和Henseke，2021）	GREEN F, HENSEKE G. Europe's evolving graduate labour market
+michaillat2021	（Michaillat和Saez，2021）	MICHAILLAT P, SAEZ E. Beveridgean unemployment gap[J]. Journ
+mcguinness2023	（McGuinness等，2023）	MCGUINNESS S, POULIAKAS K, REDMOND P. Skills-displacing tech
+forsythe2022	（Forsythe等，2022）	FORSYTHE E, KAHN L B, LANGE F, et al. Where have all the wor
+borah2021	（Borah等，2021）	BORAH D, MALIK K, MASSINI S. Teaching-focused university-ind
+odwyer2023	（O'Dwyer等，2023）	O'DWYER M, FILIERI R, O'MALLEY L. Establishing successful un
+healy2022	（Healy等，2022）	HEALY M, HAMMER S, MCILVEEN P. Mapping graduate employabilit
+jackson2021	（Jackson和Bridgstock，2021）	JACKSON D, BRIDGSTOCK R. What actually works to enhance grad
+johri2023	（Johri等，2023）	JOHRI A, KATZ A S, QADIR J, et al. Generative artificial int
+ng2021	（Ng等，2021）	NG D T K, LEUNG J K L, CHU S K W, et al. Conceptualizing AI 
+laupichler2022	（Laupichler等，2022）	LAUPICHLER M C, ASTER A, SCHIRCH J, et al. Artificial intell
+crompton2023	（Crompton和Burke，2023）	CROMPTON H, BURKE D. Artificial intelligence in higher educa
+southworth2023	（Southworth等，2023）	SOUTHWORTH J, MIGLIACCIO K, GLOVER J, et al. Developing a mo
+goldfarb2023	（Goldfarb等，2023）	GOLDFARB A, TASKA B, TEODORIDIS F. Could machine learning be
+lyu2021	（Lyu和Liu，2021）	LYU W, LIU J. Soft skills, hard skills: what matters most? E
+maikesi2025	（麦可思研究院，2025）	麦可思研究院. 2025年中国本科生就业报告[M]. 北京: 社会科学文献出版社, 2025.

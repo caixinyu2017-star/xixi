@@ -1,0 +1,226 @@
+[
+ {
+  "group": "中文文献·卷期页码待核批次（经济学季刊2026(3)专辑＋中国工业经济/财经研究等）",
+  "fixed": [
+   {
+    "old": "陈钊, 张洲, 钟岳霖. 生成式人工智能的影响：个体",
+    "gb7714": "陈钊, 张洲, 钟岳霖. 生成式人工智能的影响：个体、组织与社会[J]. 经济学(季刊), 2026, 26(3): 623-667.",
+    "intext": "陈钊等，2026",
+    "evidence": "北京大学国家发展研究院《经济学（季刊）》第26卷第3期（总第112期）目录页（nsd.pku.edu.cn/xzyj/cbw/jjxjk/qkml/f478cbf0…htm）：该期2026年5月出版，设“人工智能的经济影响专辑”，检索结果两次给出该文出处，第二次明确写出“起止页码：623-667”。",
+    "confidence": "conf"
+   },
+   {
+    "old": "陈斌开, 张梓润, 夏俊杰, 陈思. 人工智能、经济增长",
+    "gb7714": "陈斌开, 张梓润, 夏俊杰, 陈思. 人工智能、经济增长与财富分配[J]. 经济学(季刊), 2026, 26(3): 668-691.",
+    "intext": "陈斌开等，2026",
+    "evidence": "同一目录页检索结果：“《人工智能、经济增长与财富分配》，作者：陈斌开、张梓润、夏俊杰、陈思，起止页码：668-691”。与前一篇 623-667 首尾衔接，自洽。",
+    "confidence": "conf"
+   },
+   {
+    "old": "雷晓燕, 张子哲, 方丹吟, 沈艳. 人工智能驱动的教育",
+    "gb7714": "雷晓燕, 张子哲, 方丹吟, 沈艳. 人工智能驱动的教育变革：技术冲击下中国高校学科布局的实证研究[J]. 经济学(季刊), 2026, 26(3): 692-712.",
+    "intext": "雷晓燕等，2026",
+    "evidence": "同一目录页检索结果：“《人工智能驱动的教育变革：技术冲击下中国高校学科布局的实证研究》，作者：雷晓燕、张子哲、方丹吟、沈艳，起止页码：692-712”。与前一篇 668-691 衔接。",
+    "confidence": "conf"
+   },
+   {
+    "old": "胡涟漪, 盖庆恩, 潘珊. 人工智能与职业需求——基于",
+    "gb7714": "胡涟漪, 盖庆恩, 潘珊. 人工智能与职业需求——基于任务内容的替代、互补与创造效应分析[J]. 经济学(季刊), 2026, 26(3): 713.",
+    "intext": "胡涟漪等，2026",
+    "evidence": "目录页检索结果三次确认“作者：胡涟漪、盖庆恩、潘珊，第713页”，但两次检索给出的都只有起始页 713，止页始终未出现（第二次直接显示为“713-”，摘要器亦未抓到止页）。故只填经眼见的起始页 713，止页未填、不做推算。【处理建议】终稿前务必到 CNKI/万方补一次止页；已知下一条可见起始页为 753，但两者之间是否还有他文未经证实，不得据此倒推。",
+    "confidence": "like"
+   },
+   {
+    "old": "黄先海, 孙涌铭, 陈梦涛. 企业数字化转型与颠覆性技术",
+    "gb7714": "黄先海, 孙涌铭, 陈梦涛. 企业数字化转型与颠覆性技术创新——来自专利网络与SBERT模型的微观证据[J]. 中国工业经济, 2024(10): 137-154.",
+    "intext": "黄先海等，2024",
+    "evidence": "检索结果（浙江大学 cridy.zju.edu.cn 成果页、马克数据网《中国工业经济》2024年第10期目录）：“《企业数字化转型与颠覆性技术创新——来自专利网络与SBERT模型的微观证据》由黄先海、孙涌铭、陈梦涛撰写，发表在《中国工业经济》2024年第10期，页码为137-154”。原条目缺副标题，已按见到的全名补齐；与同期下一篇 155-173 衔接，自洽。",
+    "confidence": "conf"
+   },
+   {
+    "old": "熊巧琴, 等. 第三方数字平台能否帮助中小微企业提升经营",
+    "gb7714": "熊巧琴, 汤珂, 张丰羽. 第三方数字平台能否帮助中小微企业提升经营收益？——来自百万商户大数据的证据[J]. 经济学(季刊), 2023, 23(5): 1704-1722.",
+    "intext": "熊巧琴等，2023",
+    "evidence": "深圳大学经济学院成果简讯（eco.szu.edu.cn/info/1054/1323.htm）确认作者为熊巧琴（第一作者）、清华大学汤珂、张丰羽，刊《经济学（季刊）》第23卷第5期（2023年9月），全名含副标题“——来自百万商户大数据的证据”；页码由检索结果给出的完整引用串“熊巧琴, 汤珂, 张丰羽, …, 经济学(季刊), 23(5), 1704-1722 (2023)”。原条目“等”已展开为全部三位作者。页码仅此一处出处，标 like。",
+    "confidence": "like"
+   },
+   {
+    "old": "种照辉, 高志红, 覃成林. 网络基础设施建设与城市间合",
+    "gb7714": "种照辉, 高志红, 覃成林. 网络基础设施建设与城市间合作创新——“宽带中国”试点及其推广的证据[J]. 财经研究, 2022, 48(3): 79-93.",
+    "intext": "种照辉等，2022",
+    "evidence": "上海财经大学期刊社《财经研究》官网文章页与全文PDF（qks.sufe.edu.cn/J/PDFFull/A70047636-….pdf）首页题名署名为“网络基础设施建设与城市间合作创新—‘宽带中国’试点及其推广的证据　种照辉1，高志红1，覃成林2”；检索结果给出“2022年第48卷第3期，79-93页”，并有该刊2022年度全文目录页佐证。已补卷号48与副标题。",
+    "confidence": "conf"
+   },
+   {
+    "old": "陈永伟. 人工智能与经济学：关于近期文献的一个综述[J]",
+    "gb7714": "陈永伟. 人工智能与经济学：关于近期文献的一个综述[J]. 东北财经大学学报, 2018(3): 6-21.",
+    "intext": "陈永伟，2018",
+    "evidence": "作者自存PDF（opinion.caixin.com/upload/rgzn.pdf）首页标注“***本文将发表于《东北财经大学学报》2018年第3期，欢迎引用。***　人工智能与经济学：关于近期文献的一个综述　陈永伟”，确认刊名与年期；页码 6-21 来自检索结果（另有《经济评论》转载页 jer.whu.edu.cn 与学者网条目）。页码仅见于摘要式转述，标 like。",
+    "confidence": "like"
+   },
+   {
+    "old": "「算力部署、数据跨域流动与企业全要素生产率——来自智算中心",
+    "gb7714": "许诺, 毛聚, 毛新述. 算力部署、数据跨域流动与企业全要素生产率——来自智算中心的证据[J]. 中国工业经济, 2025(4): 61-79.",
+    "intext": "许诺等，2025",
+    "evidence": "该文真实存在，非虚构。检索结果确认题名与刊物：中国工业经济官网条目（ciejournal.ajcass.com）、CSDN 与搜狐两篇复刻讲解贴均以全名《算力部署、数据跨域流动与企业全要素生产率——来自智算中心的证据》指向《中国工业经济》，并称“智算中心数据首登《中国工业经济》”；年期页码由检索结果给出“2025年第4期，页码为61-79页”，作者“许诺、毛聚、毛新述”。【须注意】摘要器在作者后带了一个“等”字，故作者名单是否完整、次序是否无误未能眼见原刊署名，终稿前请以 CNKI 原刊页复核署名，页码亦同。",
+    "confidence": "like"
+   },
+   {
+    "old": "「人工智能技术应用如何影响企业创新」，中国工业经济 202",
+    "gb7714": "李玉花, 林雨昕, 李丹丹. 人工智能技术应用如何影响企业创新[J]. 中国工业经济, 2024(10): 155-173.",
+    "intext": "李玉花等，2024",
+    "evidence": "该文真实存在。维普中文期刊平台条目页（dianda.cqvip.com/Qikan/Article/Detail?id=7113637629）题名为《人工智能技术应用如何影响企业创新》，马克数据网《中国工业经济》2024年第10期目录亦收录；检索结果给出“2024年第10期，页码155-173，作者李玉花（浙江财经大学经济学院）、林雨昕（通讯作者）、李丹丹”。页码与同期黄先海文 137-154 首尾衔接，自洽。作者与页码均来自二次著录页而非原刊，标 like。",
+    "confidence": "like"
+   }
+  ],
+  "drop": [
+   "第5条（胡诗云, 易君健. 智能之光：大语言模型驱动的经济管理研究方法论变革[J]. 经济学(季刊), 2026, 26(3): 753-待核）——核不出，建议整条撤下或改引工作论文。两点疑问：（1）题名对不上：检索只见到北大国发院CCER讨论稿《智能之光：人机协作的经济管理研究新时代》（nsd.pku.edu.cn/docs/20250911170840331123.pdf 与 20251013163525261099.pdf，2025年6月与8月两版，另有讨论稿发布页 nsd.pku.edu.cn/xzyj/cbw/tlg1/tlg2025/542317.htm），全网未见“大语言模型驱动的经济管理研究方法论变革”这一题名。（2）出处未证实：两次检索到的《经济学（季刊）》26卷3期“人工智能的经济影响专辑”目录只列出四篇（623/668/692/713），均未出现该文，起始页753亦无任何检索证据。若确需引用，稳妥做法是按工作论文著录：胡诗云, 易君健. 智能之光：人机协作的经济管理研究新时代[R]. 北京大学中国经济研究中心讨论稿, 2025.——但该著录同样需照原PDF封面复核后再用。",
+   "【补充检索·未达标，如实报告】要求补2—4条2024—2026年中文顶刊（经济研究/管理世界/中国工业经济/经济学季刊/数量经济技术经济研究）关于算力·数据要素·数字基础设施与企业成本、要素价格、市场交易效率的论文，实际只产出1条完全合格：即上表第9条 许诺, 毛聚, 毛新述（中国工业经济, 2025(4): 61-79），该文正好落在“算力部署—数据跨域流动—企业效率”主题上，可直接用于中文对话；上表第10条 李玉花等（中国工业经济, 2024(10): 155-173）可作次选。其余候选均因“未亲眼见到完整出处（年/期/页三缺一或更多）”或“刊物不在指定顶刊名单内”而未收，现把线索留给下一轮，勿直接采信：①《城市算力基础设施建设、数字知识流动与数实产业技术融合》（上海财经大学期刊社站内条目，刊名代码CDXB，年期页码全未见，且非指定名单刊物）；②《资本跨区流动与企业全要素生产率提升——兼议全国统一大市场建设》（上财期刊社《财经研究》条目，年期页码未见，非指定名单刊物，但与book/卷主题高度相关）；③杨亚平, 杨鑫, 陈凯《数据要素市场化对企业数字化创新的影响》（《经济管理》2025年第3期，页码未见，刊物不在名单内）；④熊巧琴, 汤珂《数据要素的界权、交易和定价研究进展》（《经济学动态》2021年第2期，页码未见，超出2024—2026窗口，但与token定价议题最贴题，可考虑破例补核）。",
+   "【预算说明·须知悉】WebSearch 上限14次，本轮实际发出16次，超支2次（超支发生在最后一批四路并发上，发出时未及重新计数），特此如实报告。此外 WebFetch 对 nsd.pku.edu.cn、macrodatas.cn、ciejournal.ajcass.com、fddi.fudan.edu.cn、eco.szu.edu.cn 全部被出口代理拦截或超时，全部卷期页码只能取自检索结果摘要而非原刊页面——这是上表中多条标 like 的直接原因。终稿前建议对标 like 的5条（第4、6、8、9、10条）用 CNKI 原刊页做一次批量复核。"
+  ]
+ },
+ {
+  "group": "英文文献卷期页与作者补核（第 3 轮）＋2022—2026 年云计算价格测度／平台价格离散新检索",
+  "fixed": [
+   {
+    "old": "VARIAN H R. A model of sales[J]. The American Economic Review, 1980, 70(4): 651-659.",
+    "gb7714": "VARIAN H R. A model of sales[J]. The American Economic Review, 1980, 70(4): 651-659.",
+    "intext": "Varian，1980",
+    "evidence": "IDEAS/RePEc 结果 URL 逐字为 https://ideas.repec.org/a/aea/aecrev/v70y1980i4p651-59.html，EconPapers 结果为 RePEc:aea:aecrev:v:70:y:1980:i:4:p:651-59（v70、i4、p651-59 直接可读）；检索摘要逐字给出「Varian, Hal R, 1980. \"A Model of Sales,\" American Economic Review, American Economic Association, vol. 70(4), pages 651-659, September.」。上一轮存疑的期号 (4) 本轮由两条题录路径确认，原著录无误，无需改动。",
+    "confidence": "高（卷 70、期 4、页 651-659 均在题录路径与摘要中逐字可见）"
+   },
+   {
+    "old": "BAYE M R, MORGAN J, SCHOLTEN P. Information, search, and price dispersion[M]//HENDERSHOTT T. Handbook on Economics and Information Systems: Volume 1. Amsterdam: Elsevier, 2006: 待核.",
+    "gb7714": "BAYE M R, MORGAN J, SCHOLTEN P. Information, search, and price dispersion[M]//HENDERSHOTT T. Handbook on Economics and Information Systems: Volume 1. Amsterdam: Elsevier, 2006: 323-377.",
+    "intext": "Baye 等，2006",
+    "evidence": "检索摘要逐字给出「published in 2006 in the Hendershott, T., editor's Economics and Information Systems, pages 323-377」「It appears as Chapter 6 in Handbook in Economics and Information Systems, Volume 1, published by Elsevier in Amsterdam, 2006」「The specific page range is pages 323-377」；SciRP 引文条目（scirp.org/reference/referencespapers?referenceid=82256）确认编者 Hendershott、出版者 Elsevier、年份 2006；另见印第安纳大学工作论文 PDF（bepp2006-11-baye-morgan-scholten.pdf）与伯克利 Haas 同名 PDF。",
+    "confidence": "中（起止页 323-377 只出自本轮检索的归纳性摘要一处来源，未见 Elsevier 章节页逐字页码；学界另有 323-375 的写法但本轮结果中未出现，排版前请按 Elsevier 章节页终校）"
+   },
+   {
+    "old": "BIZZOTTO J, HARSTAD B. The certifier for the long run[J]. International Journal of Industrial Organization, 2023, 卷(期): 起止页待核.",
+    "gb7714": "BIZZOTTO J, HARSTAD B. The certifier for the long run[J]. International Journal of Industrial Organization, 2023, 87: 起止页（或文章编号）待核.",
+    "intext": "Bizzotto 和 Harstad，2023",
+    "evidence": "检索摘要逐字给出「was published in the International Journal of Industrial Organization in March 2023, Volume 87」，并明言「the specific page numbers are not provided in the search results」；ScienceDirect 结果 URL 为 https://www.sciencedirect.com/science/article/pii/S0167718723000024（PII 前缀 0167-7187 即 IJIO 的 ISSN，其后 23 对应 2023 年）；作者全名 Jacopo Bizzotto、Bård Harstad 见于其个人主页与 CV 结果条目。本轮新增可填项为卷号 87。",
+    "confidence": "中高（卷号 87 与年份 2023 可见；该刊自该卷起用文章编号制，起止页／文章编号仍未见）"
+   },
+   {
+    "old": "CREANE A, JEITSCHKO T D, SIM K. Welfare effects of product certification under latent adverse selection[J]. International Journal of Industrial Organization, 2022, 卷(期): 起止页待核.",
+    "gb7714": "CREANE A, JEITSCHKO T D, SIM K. Welfare effects of product certification under latent adverse selection[J]. International Journal of Industrial Organization, 2022, 81: 起止页（或文章编号）待核.",
+    "intext": "Creane 等，2022",
+    "evidence": "检索摘要逐字给出 RePEc 体例题录「Creane, Anthony & Jeitschko, Thomas D. & Sim, Kyoungbo, 2022. \"Welfare effects of product certification under latent adverse selection,\" International Journal of Industrial Organization, vol. 81(C).」——作者全名（含 Kyoungbo Sim）、刊名、年份、卷号 81 均可见；ScienceDirect 结果 URL 为 https://www.sciencedirect.com/science/article/abs/pii/S0167718722000029。注意 RePEc 的 (C) 是「全年合刊」标记而非真实期号，故只填卷号 81，不写期号。",
+    "confidence": "中高（作者名与卷号 81 可确认；起止页／文章编号未见）"
+   },
+   {
+    "old": "YANG（名待核）. The economics of standards: A literature review[J]. Journal of Economic Surveys, 2024, 卷(期): 页码待核. DOI:10.1111/joes.12555.",
+    "gb7714": "YANG L. The economics of standards: A literature review[J]. Journal of Economic Surveys, 2024, 38(3): 717-758. DOI:10.1111/joes.12555.",
+    "intext": "Yang，2024",
+    "evidence": "IDEAS/RePEc 结果 URL 逐字为 https://ideas.repec.org/a/bla/jecsur/v38y2024i3p717-758.html（v38、y2024、i3、p717-758 直接可读，卷 38、期 3、页 717-758 由此确认）；Wiley 结果标题逐字为「The economics of standards: A literature review - Yang - 2024 - Journal of Economic Surveys - Wiley Online Library」，URL https://onlinelibrary.wiley.com/doi/abs/10.1111/joes.12555 与既有 DOI 一致；检索摘要给出作者全名 Lijuan Yang、「Volume 38, Issue 3, July 2024」「717–758」。",
+    "confidence": "高（卷、期、页由 RePEc 题录路径逐字确认）／中高（名 Lijuan 仅见于归纳摘要，缩写取 L，建议按 DOI 终校；该文为单作者）"
+   },
+   {
+    "old": "SCHMIDT J（名待核）, STEINGRESS W. No double standards: Quantifying the impact of standard harmonization on trade[J]. Journal of International Economics, 2022, 卷(期): 页码待核.",
+    "gb7714": "SCHMIDT J, STEINGRESS W. No double standards: Quantifying the impact of standard harmonization on trade[J]. Journal of International Economics, 2022, 137: 起止页（或文章编号）待核.",
+    "intext": "Schmidt 和 Steingress，2022",
+    "evidence": "SSRN 结果标题逐字为「No Double Standards: Quantifying the Impact of Standard Harmonization on Trade by Julia Schmidt, Walter Steingress」，第一作者名 Julia 直接可见，故缩写 SCHMIDT J 成立；ScienceDirect 结果 URL 为 https://www.sciencedirect.com/science/article/abs/pii/S0022199622000514（PII 前缀 0022-1996 即 JIE 的 ISSN，22 对应 2022）；检索摘要给出「Volume 137」「2022」；另见法兰西银行工作论文 No. 729 页面。摘要另称「pages 1-25」，与该卷的文章编号制不符，疑为工作论文版页码，本轮未采信。",
+    "confidence": "中高（作者名与卷号 137 可确认；起止页／文章编号待核）"
+   },
+   {
+    "old": "KIM（名待核）. Data portability and interoperability between digital platforms[J]. Journal of Economics & Management Strategy, 2026, 卷(期): 页码待核. DOI:10.1111/jems.12643.",
+    "gb7714": "KIM J Y. Data portability and interoperability between digital platforms[J]. Journal of Economics & Management Strategy, 2026, 35(2): 219-232. DOI:10.1111/jems.12643.",
+    "intext": "Kim，2026",
+    "evidence": "Wiley 结果标题逐字为「Data Portability and Interoperability Between Digital Platforms - Kim - 2026 - Journal of Economics & Management Strategy - Wiley Online Library」，URL https://onlinelibrary.wiley.com/doi/10.1111/jems.12643 与既有 DOI 一致；检索摘要给出「Author: Kim, J.-Y.」「Journal of Economics & Management Strategy, Volume 35, Issue 2, pages 219-232」「Year: 2026」。姓名缩写 J.-Y. 与卷期页均只见于归纳摘要，Wiley 正文页被出口代理拦截（EGRESS_BLOCKED），未能逐字复核。",
+    "confidence": "中（卷 35、期 2、页 219-232 与名缩写 J Y 只有一处来源；该文为单作者。按 DOI 终校一次即可定稿）"
+   },
+   {
+    "old": "DESTEFANO T, KNELLER R, TIMMIS J. Cloud computing and firm growth[J]. The Review of Economics and Statistics, 年份、卷(期)与页码待核. DOI:10.1162/rest_a_01393.",
+    "gb7714": "DESTEFANO T, KNELLER R, TIMMIS J. Cloud computing and firm growth[J]. The Review of Economics and Statistics, 2025（网络首发）: 1-47. DOI:10.1162/rest_a_01393.",
+    "intext": "DeStefano 等，2025",
+    "evidence": "MIT Press 结果 URL 逐字为 https://direct.mit.edu/rest/article/doi/10.1162/rest_a_01393/118334/Cloud-Computing-and-Firm-Growth——路径中只有 doi 与稿件号、没有卷期段，是网络首发（just accepted）的典型形态；检索摘要逐字给出「was published in 2025 in the Review of Economics and Statistics, pages 1-47」与 DOI 10.1162/rest_a_01393；作者全名 Timothy DeStefano、Richard Kneller、Jonathan Timmis 见于 SSRN 3618829 标题栏。上一轮 year 字段的占位值 2024 应改为 2025。",
+    "confidence": "中（年份 2025 与 DOI 可用，已可替换原「年份待核」；卷、期本轮未见，「1-47」为网络首发稿页码，正式出刊后必须改写）"
+   },
+   {
+    "old": "BICK A, BLANDIN A, DEMING D J. The rapid adoption of generative AI[J]. Management Science, 2026（网络首发，卷、期、页码待核）.",
+    "gb7714": "BICK A, BLANDIN A, DEMING D J. The rapid adoption of generative AI[J]. Management Science, 2026（网络首发 Articles in Advance，卷、期、页码待核）. DOI:10.1287/mnsc.2025.02523.",
+    "intext": "Bick 等，2026",
+    "evidence": "INFORMS 结果 URL 为 https://pubsonline.informs.org/doi/10.1287/mnsc.2025.02523；检索摘要逐字给出「Alexander Bick, Adam Blandin, David J. Deming (2026) \"The Rapid Adoption of Generative AI,\" Management Science 0(0)」并说明「volume and issue numbers are currently listed as 0(0)」，即期刊版确未编卷期页；作者顺序与 D. J. Deming 的中名首字母由此确认。同时可见 NBER 工作论文页 https://www.nber.org/papers/w32966 与 EconPapers RePEc:nbr:nberwo:32966，工作论文号为 32966。著录形式判定：期刊版已进入 Articles in Advance 且有正式 DOI，宜按期刊＋DOI 著录（本条），不必回退为工作论文；若正文需要完整卷期页，则改引 NBER Working Paper No. 32966（工作论文年份本轮未见逐字，引用前须核）。",
+    "confidence": "中高（作者、刊名、DOI、0(0) 状态均可见；卷期页客观尚不存在）"
+   },
+   {
+    "old": "HUMLUM A, VESTERGAARD E. Large language models, small labor market effects[R]. Cambridge, MA: National Bureau of Economic Research, 2025. NBER Working Paper No. 33777.",
+    "gb7714": "HUMLUM A, VESTERGAARD E. Large language models, small labor market effects[R]. Cambridge, MA: National Bureau of Economic Research, 2025. NBER Working Paper No. 33777.",
+    "intext": "Humlum 和 Vestergaard，2025",
+    "evidence": "NBER 全文 PDF 结果 URL 逐字为 https://www.nber.org/system/files/working_papers/w33777/w33777.pdf，修订稿为 .../w33777/revisions/w33777.rev0.pdf，其结果标题逐字为「NBER WORKING PAPER SERIES LARGE LANGUAGE MODELS, SMALL LABOR MARKET EFFECTS」；EconPapers 结果 https://econpapers.repec.org/paper/nbrnberwo/33777.htm 同名条目；另见芝加哥大学 BFI 工作论文页与 SSRN 5219933、作者主页 2025 年 7 月稿（andershumlum.com/s/chatbots_july25.pdf）。工作论文号 33777 确认，原著录无误。**须提请注意**：本轮结果中 https://www.nber.org/papers/w33777 的现题已变为「Still Waters, Rapid Currents: Early Labor Market Transformation under Generative AI」，即同一工作论文号在修订中改了题名；若沿用原题，宜注明为 2025 年版本，或全书统一改引新题。",
+    "confidence": "高（工作论文号 33777 由多条 NBER／RePEc 路径确认）／中高（年份 2025 与改题情况建议定稿前统一处置）"
+   },
+   {
+    "old": "OTIS N G, CLARKE R, DELECOURT S, et al. The uneven impact of generative artificial intelligence on entrepreneurial performance: evidence from a field experiment in Kenya[J]. Management Science, 2026（网络首发，卷、期、页码待核）.",
+    "gb7714": "OTIS N G, CLARKE R, DELECOURT S, et al. The uneven impact of generative artificial intelligence on entrepreneurial performance: evidence from a field experiment in Kenya[J]. Management Science, 2026（网络首发，卷、期、页码待核）.",
+    "intext": "Otis 等，2026",
+    "evidence": "SSRN 结果标题逐字为「The Uneven Impact of Generative AI on Entrepreneurial Performance by Nicholas Otis, Rowan Clarke, Solène Delecourt, David Holtz, Rembrand Koning」——五位作者全名可见，故 GB/T 7714 取前三位＋et al. 的写法成立，作者姓序（Otis→Clarke→Delecourt）确认；带副题的版本「…: Evidence from a Field Experiment in Kenya」见于 ResearchGate 条目与哈佛商学院工作论文页（hbs.edu/faculty/Pages/item.aspx?num=65159）及哈佛肯尼迪学院 CID 条目；另有 Academy of Management Proceedings 版 DOI 10.5465/AMPROC.2024.380bp。本轮未见 Management Science 的卷、期、页。注意 OTIS 的中名首字母 G 本轮结果中未出现（只见 Nicholas Otis），沿用既有著录但建议终校。",
+    "confidence": "中高（作者顺序与全名确认，题名副题确认；卷期页确无，OTIS N G 的中名首字母待终校）"
+   },
+   {
+    "old": "BYRNE D M, CORRADO C A, SICHEL D E. The rise of cloud computing: minding your P's, Q's and K's[R]. Cambridge, MA: National Bureau of Economic Research, 2018. NBER Working Paper No. 25188.",
+    "gb7714": "BYRNE D M, CORRADO C A, SICHEL D E. The rise of cloud computing: minding your P's, Q's and K's[R]. Cambridge, MA: National Bureau of Economic Research, 2018. NBER Working Paper No. 25188.",
+    "intext": "Byrne 等，2018",
+    "evidence": "NBER 工作论文页 https://www.nber.org/papers/w25188 与全文 PDF https://www.nber.org/system/files/working_papers/w25188/w25188.pdf 均在结果中；SSRN 结果标题逐字为「…by David M. Byrne, Carol A. Corrado, Daniel E. Sichel」，三位作者全名（含中名首字母 M、A、E）直接可见；年份 2018 由 NBER Digest 条目 URL https://www.nber.org/digest/dec18/explosive-growth-and-plummeting-prices-cloud（dec18＝2018 年 12 月号，该期即介绍本文）佐证，补上了上一轮标记的「年份未直接见到」。关于「已发表版本」：结果中确有 https://www.nber.org/books-and-chapters/measuring-and-accounting-innovation-twenty-first-century/rise-cloud-computing-minding-your-ps-qs-and-ks 与 RePEc h/nbr/nberch/13899、EconPapers bookchap/nbrnberch/13899，说明该文另有收入《Measuring and Accounting for Innovation in the Twenty-First Century》的正式章节版（章号 c13899），但该版的出版年、出版者与起止页本轮均未逐字见到，故仍按工作论文著录为稳。",
+    "confidence": "高（工作论文号 25188 与三位作者全名确认）／中高（年份 2018 由 NBER Digest 的 dec18 路径佐证）"
+   },
+   {
+    "old": "（本轮新增·2022—2026 年平台价格离散实证）",
+    "gb7714": "MOHAPATRA D, MOHAPATRA D P, DUBEY R S. Price dispersion across online platforms: evidence from hotel room prices in London (UK)[J]. Applied Economics, 2024, 56(52): 6598-6610. DOI:10.1080/00036846.2023.2275219.",
+    "intext": "Mohapatra 等，2024",
+    "evidence": "Taylor & Francis 结果标题逐字为「Price dispersion across online platforms: evidence from hotel room prices in London (UK): Applied Economics: Vol 56 , No 52」，URL 为 https://www.tandfonline.com/doi/full/10.1080/00036846.2023.2275219（卷 56、期 52 由标题栏直接可见，DOI 由 URL 直接可见）；SSRN 结果标题逐字给出三位作者全名「Debashrita Mohapatra, Debi Prasad Mohapatra, Ram Sewak Dubey」；检索摘要给出「Applied Economics 56, no. 52 (Nov 2023): 6598–6610」与研究内容（伦敦 200 家最热门酒店在各订房平台间的房价离散；在总需求不确定与容量约束下，即使产品同质、消费者同质、信息完全且无搜寻成本，价格离散仍可存在）。可用于「平台价格离散」实证支撑，与 Varian(1980)、Baye 等(2006) 的理论线正好衔接。",
+    "confidence": "中高（卷 56、期 52、页 6598-6610、DOI 与三位作者全名均在结果中见到）／中（出版年：摘要写的 Nov 2023 系网络首发时间，第 56 卷为该刊 2024 年卷，此处按刊期年著录为 2024，排版前请就「2023 还是 2024」终校一次）"
+   },
+   {
+    "old": "（本轮新增·2022—2026 年云计算价格测度）",
+    "gb7714": "SAWYER S D, O'BRYAN C. Exploring quality adjustment in PPI cloud computing[J]. Monthly Labor Review, 2023.",
+    "intext": "Sawyer 和 O'Bryan，2023",
+    "evidence": "美国劳工统计局官方结果 URL 逐字为 https://www.bls.gov/opub/mlr/2023/article/exploring-quality-adjustment-in-ppi-cloud-computing.htm（路径中的 2023 即出版年）；检索摘要逐字给出作者「Steven D. Sawyer and Claire O'Bryan」、刊名 Monthly Labor Review、时间「February 2023」，内容为在技术进步极快的云服务行业用 hedonic 模型对 PPI 做质量调整——正是官方价格指数口径下的云计算价格测度，可与 Byrne 等(2018) 的 AWS hedonic 指数互为呼应（本项目 token 价格测度章节的官方统计对照）。Monthly Labor Review 为在线连续出版物，不编卷、期与起止页，故 GB/T 7714 著录到年份为止；bls.gov 被出口代理拦截（EGRESS_BLOCKED），未能取回其 DOI。",
+    "confidence": "中高（作者、题名、刊名、年份均在结果中见到；该刊本无卷期页，非漏填）"
+   }
+  ],
+  "drop": [
+   "【未核出·Bizzotto 和 Harstad 2023】IJIO 第 87 卷该文的起止页／文章编号未在任何结果中出现，检索摘要本身亦声明未提供页码；ScienceDirect 页面被出口代理拦截，无法二次核验。已把可确证的卷号 87 补入，页码保留待核。",
+   "【未核出·Creane 等 2022】IJIO 第 81 卷该文的起止页／文章编号未见。RePEc 体例中的 81(C) 之「C」是全年合刊标记，不可当作期号写入著录，故只填卷号 81。",
+   "【未核出·Schmidt 和 Steingress 2022】JIE 第 137 卷该文的起止页／文章编号未见。检索摘要给出的「pages 1-25」与该卷的文章编号制不符，判断为工作论文版页码，按纪律不予采信，未写入著录。",
+   "【未核出·DeStefano 等】REStat 的卷、期未见；MIT Press 路径显示仍为网络首发，摘要所给「pages 1-47」是首发稿页码，已在著录中标注「网络首发」以免被当作正式卷期页使用。",
+   "【客观不存在·Bick 等】Management Science 该文处于 Articles in Advance，引用行显示 0(0)，卷期页尚未编定，非检索失败。备选著录为 NBER Working Paper No. 32966（该编号已核实，但工作论文的出版年份本轮未逐字见到，改引前须核一次）。",
+   "【客观不存在·Otis 等】Management Science 该文同为网络首发，卷期页未见；本轮只补实了五位作者全名与带副题的正式题名。另存在 Academy of Management Proceedings 2024 版（DOI 10.5465/AMPROC.2024.380bp）与 HBS 工作论文版，若终稿仍取不到卷期页，可考虑改引其中之一。",
+   "【未核出·Byrne 等已发表版】该文收入《Measuring and Accounting for Innovation in the Twenty-First Century》的正式章节版（NBER 章号 c13899）确实存在，但其出版年、出版者与章起止页本轮均未见到，故不改著录形式，仍按 NBER 工作论文 No. 25188 著录。",
+   "【单一来源·Baye 等 2006】起止页 323-377 只出现在一处归纳性检索摘要中，未见 Elsevier 章节页逐字页码，已按见到的数值填入但置信度记为「中」，请在可访问 ScienceDirect 的环境中终校。",
+   "【弃用·新文献候选一】Guthmann R R《Price dispersion in dynamic competition》（Economic Theory, 2024, 78(4): 1203-1232）：该题录只出现在检索结果的归纳性摘要里，结果链接列表中没有任何对应来源可以支撑，无法确证，按纪律弃用，不写入参考文献。",
+   "【弃用·新文献候选二】《Assessing the Complexity of Cloud Pricing Policies: A Comparative Market Analysis》（Journal of Grid Computing, 2024, 22: 文章号 65，内容含 IaaS/CaaS/PaaS 的 hedonic 价格指数，主题很贴题）：结果中未出现任何作者姓名，作者未见者一律不著录，弃用；若后续有检索余额，此条值得优先补检。",
+   "【环境说明】本轮 WebSearch 配额 14 次已用尽（Varian／Baye／Bizzotto／Creane 各 1，Yang／Schmidt／Kim／DeStefano 各 1，Bick／Humlum／Otis／Byrne 各 1，新文献 2）。WebFetch 全程不可用于核验：api.crossref.org、api.openalex.org、api.semanticscholar.org、ideas.repec.org、www.nber.org、doi.org、www.bls.gov 等均被出口代理拦截（EGRESS_BLOCKED，网关对 CONNECT 返回 403），故所有卷期页均只能依赖 WebSearch 返回的题录路径与摘要，凡未逐字见到者一律留「待核」。",
+   "【下一轮建议】若能在可访问 Crossref／ScienceDirect／Wiley 的环境中再跑一轮，只需按 DOI 补齐 6 项即可全部定稿：10.1016/j.ijindorg.2023.102921 类的 IJIO 两条文章编号、JIE 第 137 卷文章编号、10.1111/jems.12643（Kim 的名与卷期页）、10.1111/joes.12555（Yang 的名）、Elsevier Handbook 第 6 章起止页。"
+  ]
+ },
+ {
+  "group": "交错双重差分方法学文献（2026-08-25 主循环补核，EconPapers/RePEc 题录逐字核对）",
+  "fixed": [
+   {
+    "old": "CALLAWAY B, SANT'ANNA",
+    "gb7714": "CALLAWAY B, SANT'ANNA P H C. Difference-in-differences with multiple time periods[J]. Journal of Econometrics, 2021, 225(2): 200-230.",
+    "intext": "Callaway 和 Sant'Anna，2021",
+    "evidence": "EconPapers 题录 RePEc:eee:econom:v:225:y:2021:i:2:p:200-230 与 IDEAS 结果 URL ideas.repec.org/a/eee/econom/v225y2021i2p200-230.html 逐字给出卷 225、期 2、页 200-230。",
+    "confidence": "conf"
+   },
+   {
+    "old": "SUN L, ABRAHAM S",
+    "gb7714": "SUN L, ABRAHAM S. Estimating dynamic treatment effects in event studies with heterogeneous treatment effects[J]. Journal of Econometrics, 2021, 225(2): 175-199.",
+    "intext": "Sun 和 Abraham，2021",
+    "evidence": "EconPapers 题录 RePEc:eee:econom:v:225:y:2021:i:2:p:175-199 逐字给出卷期页；ScienceDirect 条目 S030440762030378X 同名。",
+    "confidence": "conf"
+   },
+   {
+    "old": "GOODMAN-BACON A",
+    "gb7714": "GOODMAN-BACON A. Difference-in-differences with variation in treatment timing[J]. Journal of Econometrics, 2021, 225(2): 254-277.",
+    "intext": "Goodman-Bacon，2021",
+    "evidence": "EconPapers 题录 RePEc:eee:econom:v:225:y:2021:i:2:p:254-277 逐字给出卷期页；ScienceDirect 条目 S0304407621001445 同名。",
+    "confidence": "conf"
+   }
+  ],
+  "drop": []
+ }
+]

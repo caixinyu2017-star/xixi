@@ -1,2 +1,30 @@
 __pycache__/
 *.pyc
+green-standards-book/build/_*
+green-standards-book/build/eqchk_*
+green-standards-book/build/*.md
+green-standards-book/build/pages/
+token-econ-book/build/_*
+token-econ-book/build/eqchk*
+token-econ-book/build/eqprobe/
+token-econ-book/build/ch0*test/
+token-econ-book/build/*.md
+token-econ-book/figs_mpl_backup/
+
+# 论文构建中间件
+health-insurance-paper/build/_*
+health-insurance-paper/build/*.zip
+health-insurance-paper/__pycache__/
+
+# 长三角就业专著
+csj-employment-book/refs_src/*.pdf
+csj-employment-book/refs_src/*.zip
+csj-employment-book/refs_src/*.docx
+csj-employment-book/build/_*
+csj-employment-book/build/*.md
+
+# 词元论文中间件
+token-econ-papers/paper2/data/panel.csv
+token-econ-papers/*/build/_*
+token-econ-papers/*/__pycache__/
+token-econ-papers/*/build/_eq.*
