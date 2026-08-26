@@ -1,0 +1,17 @@
+#	focal input	pooled slope	within slope	pooled R²	within R²	person-years	people
+W1	employer tenure	0.037***	0.028***	0.401	0.176	18964	4134
+W2	work experience	0.042***	0.049***	0.401	0.176	18964	4134
+W3	employer tenure	0.036***	0.030***	0.402	0.176	18964	4134
+W4	weeks unemployed, per ten	0.001	0.005	0.401	0.174	13634	4010
+W5	weeks unemployed, per ten	-0.002	0.001	0.401	0.174	13634	4010
+W6	work experience	0.042***	0.051***	0.401	0.176	18964	4134
+W7	weekly hours	0.001*	-0.002*	0.404	0.180	18964	4134
+W8	employer tenure	0.040***	0.032***	0.402	0.176	18964	4134
+M1	work experience	0.061***	0.059***	0.209	0.208	4360	545
+M2	work experience	0.080***	0.070***	0.207	0.203	4360	545
+M3	work experience	0.075***	0.068***	0.208	0.203	4360	545
+M4	weekly hours	-0.009***	-0.017***	0.209	0.208	4360	545
+M5	union coverage	0.198***	0.086***	0.208	0.205	4360	545
+M6	work experience	0.080***	0.070***	0.207	0.202	4360	545
+M7	weekly hours	-0.004	-0.012***	0.211	0.206	4360	545
+M8	married	0.126***	0.029	0.208	0.205	4360	545

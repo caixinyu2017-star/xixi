@@ -1,0 +1,17 @@
+#	panel	focal input	moderator	claim
+W1	NLS Young Women	employer tenure	college graduate	Employer tenure raises wages more for college graduates.
+W2	NLS Young Women	work experience	college graduate	General work experience raises wages more for college graduates.
+W3	NLS Young Women	employer tenure	union coverage	Employer tenure raises wages more under a union contract.
+W4	NLS Young Women	weeks unemployed, per ten	college graduate	Time spent unemployed depresses wages less for college graduates.
+W5	NLS Young Women	weeks unemployed, per ten	union coverage	Time spent unemployed depresses wages less for union members.
+W6	NLS Young Women	work experience	married	Work experience raises wages less for married women.
+W7	NLS Young Women	weekly hours	college graduate	Longer hours raise wages more for college graduates.
+W8	NLS Young Women	employer tenure	resident in the South	Employer tenure raises wages less in the South.
+M1	NLSY79 young men	work experience	post-secondary schooling	Work experience raises wages more for those with post-secondary schooling.
+M2	NLSY79 young men	work experience	union coverage	Work experience raises wages less under a union contract.
+M3	NLSY79 young men	work experience	married	Work experience raises wages more for married men.
+M4	NLSY79 young men	weekly hours	post-secondary schooling	Longer hours raise wages more for those with post-secondary schooling.
+M5	NLSY79 young men	union coverage	post-secondary schooling	The union wage premium is smaller for the more educated.
+M6	NLSY79 young men	work experience	resident in the South	Work experience raises wages less in the South.
+M7	NLSY79 young men	weekly hours	union coverage	Longer hours raise wages less under a union contract.
+M8	NLSY79 young men	married	post-secondary schooling	The marriage wage premium is smaller for the more educated.
