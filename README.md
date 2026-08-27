@@ -28,14 +28,16 @@ bases, scripts, templates and shared folders all resolve correctly once installe
 | **auto-visio-helper** | `auto-visio-helper` (1 skill) | Auto Visio Helper：把方法描述、论文截图或手绘草图转成可编辑的 Microsoft Visio `.vsdx` 图。先产出可审阅的 JSON 绘图 spec，再经本地 Visio COM 自动化渲染，保持形状/连线/文本/图层可编辑；附参考文档、demo、可复用 Visio 模板与 PNG/PDF/SVG 预览导出。 |
 | **visio-image-rebuilder** | `visio-image-rebuilder` (1 skill) | Visio 图重建 Skill：从参考图片或已有 `.vsdx` 重建/改版可编辑的 Visio 图，并可导出 `.vsdx`/PNG/SVG/PDF/PPTX；用原生形状/文本/连线复刻多面板科学图而非整图嵌入，含面板坐标校准与中文技术标流程图默认模式（宋体 12pt、固定样式/页面框、只输出主 `.vsdx` 的批量出图）；附重建指南、Visio PowerShell/COM 自动化脚手架与 CJK Unicode 转义指引。 |
 | **frontend-slides** | `frontend-slides` (1 skill) | Frontend Slides：零依赖、动画丰富的 HTML 演示文稿生成器，可从零搭建或将 PPT/PPTX 转成网页，含安全预设、bold 模板库、固定 16:9 舞台与反 “AI slop” 设计理念。 |
+| **watermarks-remover** | `watermarks-remover` (2 skills) | Watermarks Remover：对**你自己拥有或获授权处理**的内容做文本与文件卫生。`clean-user-facing-text` 自包含，审计并移除不可见 Unicode（零宽字符、双向控制符、tag 字符、异体空格），保留代码、引文、数字与必需披露；`remove-ai-marks` 是 HTTP 瘦客户端，检查/清理 C2PA、EXIF、XMP 与文档属性等来源元数据（PNG/JPEG/WebP/AVIF/HEIC/SVG/PDF/DOCX/XLSX/PPTX/EPUB/ODT/HTML/MD 及音视频容器），**需先自行启动 `service/`**（`docker compose up -d` 或 `make serve`），否则技能会直接报服务不可用。包内 `references/ethics.md`、`responsible-use.md` 明确把学术造假、规避法定或平台披露、以及“证明为人类撰写”的说法列为不适用场景。 |
 
-**可直接安装的插件共 15 个**（`light` / `academic-research-skills` / `nature-skills` /
+**可直接安装的插件共 16 个**（`light` / `academic-research-skills` / `nature-skills` /
 `econ-top-journal-writing` / `writing-ai-paper` / `aer-skills` /
 `empirical-analysis-python` / `empirical-analysis-stata` / `empirical-analysis-r` /
-`cyber-ppt` / `dashiai-ppt` / `ppt-master` / `auto-visio-helper` / `visio-image-rebuilder` / `frontend-slides`）；
+`cyber-ppt` / `dashiai-ppt` / `ppt-master` / `auto-visio-helper` / `visio-image-rebuilder` / `frontend-slides` /
+`watermarks-remover`）；
 AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 
-**15 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
+**16 directly installable plugins** in total; AERS additionally ships a browsable ~1,150-skill catalog.
 
 ---
 
@@ -64,6 +66,7 @@ AERS 另附约 **1,150 个可浏览/可复制的 catalog skill**（见下）。
 /plugin install cyber-ppt@xixi-research-skills
 /plugin install dashiai-ppt@xixi-research-skills
 /plugin install ppt-master@xixi-research-skills
+/plugin install watermarks-remover@xixi-research-skills
 
 # —— AERS 的 4 个开箱即用插件 / the 4 first-party AERS plugins ——
 /plugin install aer-skills@xixi-research-skills
@@ -160,6 +163,7 @@ xixi/
 │   ├── cyber-ppt/                # 1 skill (+ references/, scripts/, assets/icons 11k+ SVG)
 │   ├── dashiai-ppt/              # 1 skill (+ project/ 本地 HTML→PPTX/PDF 生成器)
 │   ├── ppt-master/               # 1 skill (doc→native PPTX pipeline, large icon/template library)
+│   ├── watermarks-remover/       # 2 skills (+ service/ HTTP 清理服务, hooks/, tests/, docs/)
 │   └── auto-empirical-research-skills/   # AERS — Stanford REAP × CoPaper.AI
 │       ├── .claude-plugin/marketplace.json   # AERS 自带市场清单（4 first-party plugins）
 │       ├── SKILL.md              # 根 router / catalog-router skill
@@ -208,10 +212,23 @@ AERS 作为完整技能包整体 vendored 进来，保留其 `SKILL.md` 路由�
 - **cyber-ppt** — MIT（CyberPPT contributors）
 - **dashiai-ppt** — AGPL-3.0（大师的AI小灶，https://github.com/chuspeeism/dashiAI-ppt-skill）
 - **ppt-master** — MIT（Hugo He，https://github.com/hugohe3/ppt-master）
+- **watermarks-remover** — MIT（watermarks-remover contributors，https://github.com/guillaumemeyer/watermarks-remover）
 - **auto-empirical-research-skills (AERS)** — Stanford REAP × CoPaper.AI（Bryce Wang，https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills）；
   `aer-skills` 为 MIT，`empirical-analysis-{python,stata,r}` 为 CC-BY-SA-4.0；catalog 内 73 套第三方技能各自保留其原始许可，请逐个查阅子目录的 `LICENSE`。
 
 请在使用时遵循各自许可（尤其 academic-research-skills 为非商业 CC-BY-NC-4.0；AERS catalog 内含多种许可）。
+
+> ⚠️ `watermarks-remover` 仅适用于**你自己拥有或获授权处理**的内容，用于隐私、工程卫生与水印稳健性研究。
+> 其 `remove-ai-marks` 技能是瘦客户端，必须先在本机启动 `plugins/watermarks-remover/service/`
+> （`docker compose up -d` 或 `make serve`，默认 `http://127.0.0.1:8765`）才能工作；未启动时技能会直接报错而不会退回本地清理。
+> 包内 `references/ethics.md` 明确排除学术造假、规避法定或平台披露要求，并禁止把清理结果宣称为“人类撰写”或“不可检测”；
+> C2PA soft binding、SynthID 类像素/音视频信号与厂商密钥检测器均在其能力范围之外，元数据清理成功**不等于**来源痕迹已清除。
+
+> ⚠️ `watermarks-remover` is for content **you own or are authorized to process** — privacy, engineering
+> hygiene, and watermark-robustness research. Its `remove-ai-marks` skill is a thin client and needs the
+> bundled `service/` running locally first. Stripping metadata does **not** mean no AI provenance remains,
+> and the package's own `ethics.md` rules out academic fraud, bypassing required disclosure, and any
+> "proves human-written" claim.
 
 > ℹ️ `auto-visio-helper` 与 `visio-image-rebuilder` 依赖 Windows 上的 Microsoft Visio（COM/PowerShell
 > 自动化）来渲染/导出 `.vsdx`；spec 规划、参考分析等步骤在任意平台可用。
