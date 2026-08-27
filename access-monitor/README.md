@@ -260,9 +260,23 @@ nohup python run.py watch >> logs/watch.out 2>&1 &
 
 我在自己的环境里**没法连到学校的 WebVPN**（校外网络 + 需要你的账号），所以：
 
-- ✅ **已经离线验证过的**：表格解析（含无表头、脏页面的兜底）、去重指纹、滑动窗口突发检测、
-  冷却与不丢记录、配置加载、告警渲染、通道调度。`python tests/test_parser.py`
-  和 `python tests/test_integration.py` 都能跑通。
+- ✅ **已经验证过的**（三层测试，全部不碰外网）：
+
+  ```bash
+  python tests/test_parser.py        # 解析、时间、IP 提取、滑动窗口、检测规则、ip2region 格式
+  python tests/test_integration.py   # 主循环逻辑：去重、冷却并单、假页面不误报
+  python tests/test_browser_flow.py  # 真 Chromium 打本地假站点，跑完整链路
+  ```
+
+  第三个尤其值得说：`tests/fake_site.py` 起了一个本地假站点，复刻了 CAS 验证码、
+  多层 iframe、默认折叠的左侧菜单、以及可以被服务端踢掉的会话。测试跑的是真浏览器，
+  验证了这几件事：
+  - 密码错时**只提交一次**表单就停（假站点会数提交次数），不会把账号试锁；
+  - 验证码一直识别不出来时，提交次数不超过 `max_login_attempts`；
+  - 登录 → 点「运营中心 → 访问统计 → 最近访问记录」→ 穿过两层 iframe 读到表格 → 记住地址；
+  - 会话被踢掉能识别出来，自动重登一次并恢复取数；
+  - 装了 ddddocr 时，截图 → 识别 → 填入 → 提交这条链路真的走得通；
+  - 完整主循环：建基线 → 塞 3 条新记录 → 正好报一次警 → 再跑一轮不重复报。
 - ⚠️ **必须在你机器上第一次运行时才能确定的**：登录页的具体选择器、验证码是否区分大小写、
   「最近访问记录」页的真实地址和表格列名、后台会话多久过期。
   程序对这些都做了自动探测 + 兜底，但第一次跑很可能需要按 `discover` 的输出微调一到两处。
@@ -294,5 +308,9 @@ access-monitor/
 │   ├── report.py           告警渲染（文本 / Markdown / HTML 邮件）
 │   ├── notify.py           10 个推送通道 + 冷却限流
 │   └── monitor.py          主循环
-└── tests/                  离线测试，不联网就能跑
+└── tests/
+    ├── fake_site.py        本地假站点：假 CAS（带验证码）+ 假博达后台（多层 iframe）
+    ├── test_parser.py      解析 / 检测 / IP 格式
+    ├── test_integration.py 主循环逻辑（假会话）
+    └── test_browser_flow.py 真 Chromium 端到端
 ```

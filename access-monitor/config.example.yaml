@@ -38,6 +38,7 @@ browser:
   # 跑顺了之后改成 true 挂后台。
   headless: false
   channel: ""              # 留空用内置 Chromium；也可填 chrome / msedge 用本机浏览器
+  executable_path: ""      # 也可以直接指向浏览器可执行文件，省得再下一份 Chromium
   slow_mo_ms: 0            # 调试时可以设 300，能看清每一步在点什么
   timeout_ms: 45000
   user_data_dir: "state/browser"          # 浏览器 profile，登录态主要靠它

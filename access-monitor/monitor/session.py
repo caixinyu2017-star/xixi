@@ -187,6 +187,8 @@ class BrowserSession:
         }
         if b.channel:
             launch_kwargs["channel"] = b.channel
+        if b.executable_path:
+            launch_kwargs["executable_path"] = b.executable_path
 
         # 用「持久化 profile」而不是普通 context：深信服 WebVPN 的票据有时不只在 cookie 里，
         # 整个 profile 存盘最稳，第二次启动基本不用重新登录。

@@ -93,6 +93,9 @@ class WebvpnConfig:
 class BrowserConfig:
     headless: bool = False
     channel: str = ""                    # "" / chrome / msedge
+    # 指向已有的浏览器可执行文件。留空则用 playwright install 下载的那个。
+    # 适合两种情况：不想再下一份 Chromium，或者 playwright 版本和已装的内核对不上。
+    executable_path: str = ""
     slow_mo_ms: int = 0
     timeout_ms: int = 45000
     user_data_dir: str = "state/browser"
