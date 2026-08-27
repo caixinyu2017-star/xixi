@@ -45,6 +45,7 @@ class AccessMonitor:
         self._consecutive_errors = 0
         self._stop = False
         self._cycles = 0
+        self._skew_warned = False
         self._last_prune = datetime.now()
 
     # ------------------------------------------------------------------ #
@@ -125,9 +126,15 @@ class AccessMonitor:
 
         log.info("本轮新增 %d 条（页面共 %d 条）", len(new_records), len(records))
 
-        # 检测窗口：取两条规则里更长的那个窗口，再放宽一倍，保证跨轮的簇也能连上
+        # 检测窗口按「我们什么时候看到这条记录」来取，而不是按后台标注的访问时间。
+        # 原因：后台服务器的时钟未必和这台电脑一致。差个十几分钟的话，
+        # 按访问时间取窗口会一条都捞不到，突发检测就**静默失效**了——最坏的一种坏。
+        # 而簇内的疏密仍然按访问时间算，那是相对量，不受时钟偏移影响。
         window = max(self.cfg.rules.burst_window_seconds, self.cfg.rules.ip_burst_window_seconds)
-        window_records = self.store.records_since(now - timedelta(seconds=window * 2 + 60))
+        window_records = self.store.records_since(
+            now - timedelta(seconds=window * 2 + 60), use_visit_time=False
+        )
+        self._warn_on_clock_skew(new_records, now)
 
         profiles = self._enrich(new_records, window_records)
 
@@ -168,6 +175,22 @@ class AccessMonitor:
         except Exception as exc:  # noqa: BLE001
             log.warning("IP 画像查询失败（不影响告警）：%s", exc)
             return {}
+
+    def _warn_on_clock_skew(self, records, now: datetime) -> None:
+        """后台时间和本机差太多时提醒一次。不影响检测，但值得让用户知道。"""
+        if self._skew_warned:
+            return
+        stamps = [r.visited_at for r in records if r.visited_at]
+        if not stamps:
+            return
+        skew = (max(stamps) - now).total_seconds()
+        if abs(skew) > 600:
+            self._skew_warned = True
+            log.warning(
+                "后台记录的最新访问时间是 %s，本机现在是 %s，差了约 %d 分钟。"
+                "突发检测本身不受影响（按记录之间的相对间隔算），但告警里显示的时间会以后台为准。",
+                max(stamps).strftime("%H:%M:%S"), now.strftime("%H:%M:%S"), round(skew / 60),
+            )
 
     def _remember_pending(self, records) -> None:
         have = {r.key for r in self._pending}

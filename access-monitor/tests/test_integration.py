@@ -226,6 +226,31 @@ def test_slow_trickle_is_not_merged_into_one_giant_burst():
 
 
 
+
+def test_burst_detected_even_when_server_clock_is_skewed():
+    """后台服务器时钟和本机差 40 分钟时，突发检测必须照样工作。
+
+    这是最阴险的一类 bug：窗口如果按后台标注的访问时间去取，时钟一偏就一条都捞不到，
+    程序看起来一切正常、日志也没有报错，但**永远不会告警**。
+    所以窗口按「我们什么时候看到它」取，簇内疏密才按访问时间算。
+    """
+    skewed = datetime.now().replace(microsecond=0) - timedelta(minutes=40)
+    fmt = "%Y-%m-%d %H:%M:%S"
+    rows = [((skewed + timedelta(seconds=i * 6)).strftime(fmt), f"198.51.100.{i}") for i in range(3)]
+    rules = RulesConfig(burst_threshold=3, burst_window_seconds=60,
+                        ip_burst_enabled=False, baseline_on_first_run=False)
+    with tempfile.TemporaryDirectory() as td:
+        mon = _make_monitor(Path(td), [_page_html(rows)], rules)
+        try:
+            r = mon.run_once()
+            assert r["new"] == 3, r
+            assert len(mon.notifier.sent) == 1, "时钟偏移不该让告警消失"
+            assert len(mon.notifier.sent[0].records) == 3
+        finally:
+            mon.store.close()
+
+
+
 if __name__ == "__main__":
     failures = 0
     for name, fn in sorted(globals().items()):
