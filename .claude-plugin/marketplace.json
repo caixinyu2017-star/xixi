@@ -5,8 +5,8 @@
     "url": "https://github.com/caixinyu2017-star/xixi"
   },
   "metadata": {
-    "description": "A bundled Claude Code marketplace of research, figure, and presentation skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, cyber-ppt, dashiai-ppt, ppt-master, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog.",
-    "version": "1.5.0"
+    "description": "A bundled Claude Code marketplace of research, figure, and presentation skill packages: Light, academic-research-skills, nature-skills, econ-top-journal-writing, writing-ai-paper, auto-visio-helper, visio-image-rebuilder, frontend-slides, cyber-ppt, dashiai-ppt, ppt-master, and the Auto-Empirical-Research-Skills (AERS) stack (Stanford REAP x CoPaper.AI) with its 4 install-ready empirical-econometrics plugins plus a browsable 73-collection catalog, and watermarks-remover for invisible-Unicode and provenance-metadata hygiene on your own files.",
+    "version": "1.6.0"
   },
   "plugins": [
     {
@@ -113,6 +113,13 @@
       "description": "Explicit 8-step empirical-analysis pipeline in the modern tidyverse + econometrics R stack (dplyr + haven + fixest + did + synthdid + rdrobust + MatchIt + WeightIt + grf + DoubleML + mediation + marginaleffects + modelsummary). All eight steps fit in a single .qmd; `quarto render` produces a unified PDF/HTML/Word reproducibility report. Includes epidemiology and ML-causal modes.",
       "version": "1.0.0",
       "license": "CC-BY-SA-4.0"
+    },
+    {
+      "name": "watermarks-remover",
+      "source": "./plugins/watermarks-remover",
+      "description": "Watermarks Remover (2 skills) — clean-user-facing-text: 自包含的正文文本卫生流程，审计并移除不可见 Unicode（零宽字符、双向控制符、tag 字符、异体空格），同时保留代码、引文、数字与必需的披露声明；remove-ai-marks: 通过本地 HTTP 服务（service/，需自行 docker compose up 或 make serve）检查与清理 C2PA / EXIF / XMP / 文档属性等来源元数据，覆盖 PNG、JPEG、WebP、AVIF、HEIC、SVG、PDF、DOCX、XLSX、PPTX、EPUB、ODT、HTML、Markdown 与音视频容器。定位为你自有内容的隐私与工程卫生工具：技能内置的 ethics.md / responsible-use.md 明确排除学术造假与规避法定披露的用途，并要求区分“可验证的移除”与“尽力而为的改写”，不得宣称结果为人类撰写或不可检测。",
+      "version": "0.5.0",
+      "license": "MIT"
     }
   ]
 }
