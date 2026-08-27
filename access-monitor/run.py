@@ -116,18 +116,27 @@ def cmd_doctor(cfg, args) -> int:
             print(f"  ✗ {label:<14} 配置了但文件不存在：{cfg.path(value)}")
 
     print("\n[浏览器]")
-    try:
-        from playwright.sync_api import sync_playwright
-        with sync_playwright() as pw:
-            path = pw.chromium.executable_path
-            exists = Path(path).exists()
-            print(f"  {'✓' if exists else '✗'} Chromium: {path}")
-            if not exists:
-                ok = False
-                print("     → 请执行：python -m playwright install chromium")
-    except Exception as exc:  # noqa: BLE001
-        ok = False
-        print(f"  ✗ 无法启动 Playwright：{exc}")
+    if cfg.browser.executable_path:
+        exists = Path(cfg.browser.executable_path).exists()
+        print(f"  {'✓' if exists else '✗'} 指定的浏览器：{cfg.browser.executable_path}")
+        if not exists:
+            ok = False
+            print("     → config.yaml 里 browser.executable_path 指向的文件不存在")
+    else:
+        try:
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as pw:
+                path = pw.chromium.executable_path
+                exists = Path(path).exists()
+                print(f"  {'✓' if exists else '✗'} Chromium: {path}")
+                if not exists:
+                    ok = False
+                    print("     → 请执行：python -m playwright install chromium")
+                    print("     → 或者在 config.yaml 里用 browser.executable_path "
+                          "指向已有的 Chrome / Chromium")
+        except Exception as exc:  # noqa: BLE001
+            ok = False
+            print(f"  ✗ 无法启动 Playwright：{exc}")
 
     print("\n[配置]")
     print(f"  配置文件：{getattr(cfg, 'config_file', '') or '（没找到，用的内置默认值）'}")

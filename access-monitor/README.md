@@ -268,7 +268,8 @@ SIGTTIN 挂起，看起来像卡死。接上之后它会直接判定「拿不到
 
   ```bash
   python tests/test_parser.py        # 解析、时间、IP 提取、滑动窗口、检测规则、ip2region 格式
-  python tests/test_integration.py   # 主循环逻辑：去重、冷却并单、假页面不误报
+  python tests/test_integration.py   # 主循环：去重、挂起补发、投递失败重试、时钟偏移、假页面不误报
+  python tests/test_notify_config.py # 钉钉/飞书签名、Server酱路由、.env 解析、通道配置校验
   python tests/test_browser_flow.py  # 真 Chromium 打本地假站点，跑完整链路
   ```
 
@@ -313,8 +314,9 @@ access-monitor/
 │   ├── notify.py           10 个推送通道 + 冷却限流
 │   └── monitor.py          主循环
 └── tests/
-    ├── fake_site.py        本地假站点：假 CAS（带验证码）+ 假博达后台（多层 iframe）
-    ├── test_parser.py      解析 / 检测 / IP 格式
-    ├── test_integration.py 主循环逻辑（假会话）
-    └── test_browser_flow.py 真 Chromium 端到端
+    ├── fake_site.py           本地假站点：假 CAS（带验证码）+ 假博达后台（多层 iframe）
+    ├── test_parser.py         解析 / 检测 / IP 格式
+    ├── test_integration.py    主循环逻辑（假会话）
+    ├── test_notify_config.py  推送签名 / 配置加载
+    └── test_browser_flow.py   真 Chromium 端到端
 ```
