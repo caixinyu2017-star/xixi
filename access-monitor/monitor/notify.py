@@ -11,6 +11,7 @@ import base64
 import hashlib
 import hmac
 import logging
+import re
 import smtplib
 import time
 import urllib.parse
@@ -142,18 +143,24 @@ class BarkChannel(Channel):
         payload = {
             "title": alert.title[:100],
             "body": render_short(alert, 300),
-            "group": self.conf.get("group", "网站访问监控"),
-            "level": self.conf.get("level", "timeSensitive" if alert.severity != "critical" else "critical"),
-            "sound": self.conf.get("sound", "alarm"),
+            "group": self.conf.get("group") or "网站访问监控",
+            # 配置里留空就按告警级别自动选：timeSensitive 能穿透专注模式，critical 能突破静音
+            "level": self.conf.get("level") or ("critical" if alert.severity == "critical" else "timeSensitive"),
+            "sound": self.conf.get("sound") or "alarm",
             "isArchive": 1,
         }
-        if self.conf.get("volume") is not None:
-            payload["volume"] = self.conf["volume"]
+        if payload["level"] == "critical" and self.conf.get("volume") is not None:
+            payload["volume"] = self.conf["volume"]      # volume 只对 critical 生效
+        if alert.dedup_key:
+            # 同一次突发就更新同一条通知，而不是在锁屏上堆一长串
+            payload["id"] = hashlib.md5(alert.dedup_key.encode("utf-8")).hexdigest()[:16]
         try:
-            ok, msg = self._post_json(f"{server}/{key}", payload, self.timeout)
+            resp = requests.post(f"{server}/{key}", json=payload, timeout=self.timeout)
+            data = resp.json() if resp.content else {}
         except Exception as exc:  # noqa: BLE001
             return DeliveryResult(self.name, False, f"{type(exc).__name__}: {exc}")
-        return DeliveryResult(self.name, ok, msg)
+        ok = resp.status_code < 400 and (not isinstance(data, dict) or data.get("code", 200) == 200)
+        return DeliveryResult(self.name, ok, str(data)[:200] or f"HTTP {resp.status_code}")
 
 
 class ServerChanChannel(Channel):
@@ -164,21 +171,40 @@ class ServerChanChannel(Channel):
     def missing(self) -> List[str]:
         return [] if (self.conf.get("sendkey") or self.conf.get("url")) else ["sendkey"]
 
-    def send(self, alert: Alert) -> DeliveryResult:
+    #: Server酱³ 的 SendKey 形如 sctp<uid>t<随机串>，uid 就夹在 sctp 和 t 之间
+    _SCT3_RE = re.compile(r"^sctp(\d+)t", re.IGNORECASE)
+
+    def endpoint(self) -> str:
+        """按 SendKey 前缀自动区分 Server酱³ 和老版 Turbo，不用用户自己填 uid。"""
+        if self.conf.get("url"):
+            return str(self.conf["url"])
         sendkey = self.conf.get("sendkey") or ""
-        url = self.conf.get("url") or ""
-        if not url:
-            if not sendkey:
-                return DeliveryResult(self.name, False, "缺少 sendkey")
-            uid = self.conf.get("uid") or ""
-            url = (f"https://{uid}.push.ft07.com/send/{sendkey}.send" if uid
-                   else f"https://sctapi.ftqq.com/{sendkey}.send")
+        m = self._SCT3_RE.match(sendkey)
+        if m:
+            return f"https://{m.group(1)}.push.ft07.com/send/{sendkey}.send"
+        uid = self.conf.get("uid") or ""
+        if uid:
+            return f"https://{uid}.push.ft07.com/send/{sendkey}.send"
+        return f"https://sctapi.ftqq.com/{sendkey}.send"
+
+    def send(self, alert: Alert) -> DeliveryResult:
+        if not (self.conf.get("sendkey") or self.conf.get("url")):
+            return DeliveryResult(self.name, False, "缺少 sendkey")
         try:
-            resp = requests.post(url, data={"title": alert.title[:100],
-                                            "desp": render_markdown(alert)}, timeout=self.timeout)
-            return DeliveryResult(self.name, resp.status_code < 400, f"HTTP {resp.status_code} {resp.text[:200]}")
+            resp = requests.post(self.endpoint(),
+                                 data={"title": alert.title[:32], "desp": render_markdown(alert)},
+                                 timeout=self.timeout)
         except Exception as exc:  # noqa: BLE001
             return DeliveryResult(self.name, False, f"{type(exc).__name__}: {exc}")
+        try:
+            data = resp.json() if resp.content else {}
+        except ValueError:
+            return DeliveryResult(self.name, resp.status_code < 400, f"HTTP {resp.status_code}")
+        # Server酱 也是 HTTP 200 + body 里带错误码，不能只看状态码
+        code = data.get("code", data.get("errno", 0))
+        ok = resp.status_code < 400 and code in (0, 200)
+        note = "" if ok else "（Turbo 免费版每天只有 5 条）"
+        return DeliveryResult(self.name, ok, f"{str(data)[:200]}{note}")
 
 
 class PushPlusChannel(Channel):
@@ -194,10 +220,15 @@ class PushPlusChannel(Channel):
         if self.conf.get("topic"):
             payload["topic"] = self.conf["topic"]
         try:
-            ok, msg = self._post_json("https://www.pushplus.plus/send", payload, self.timeout)
+            resp = requests.post("https://www.pushplus.plus/send", json=payload, timeout=self.timeout)
+            data = resp.json() if resp.content else {}
         except Exception as exc:  # noqa: BLE001
             return DeliveryResult(self.name, False, f"{type(exc).__name__}: {exc}")
-        return DeliveryResult(self.name, ok, msg)
+        code = data.get("code") if isinstance(data, dict) else None
+        ok = resp.status_code < 400 and code == 200
+        hint = {905: "（需要先完成实名认证）", 900: "（已达每日上限或被限制推送）"}.get(code, "")
+        # 注意：code=200 只代表「已受理」，实际投递是异步的
+        return DeliveryResult(self.name, ok, f"{str(data)[:200]}{hint}")
 
 
 class WecomChannel(Channel):

@@ -118,7 +118,7 @@ notify:
     console:
       enabled: true
 
-    # ---------- 邮件（推荐，信息最全、可留档）----------
+    # ---------- 邮件（信息最全、可留档；但手机收信常延迟几分钟，别只靠它）----------
     email:
       enabled: true
       host: "smtp.qq.com"
@@ -129,25 +129,34 @@ notify:
       from: "${SMTP_USERNAME}"
       from_name: "网站访问监控"
       to: ["${SMTP_USERNAME}"]         # 收件人，可以写多个
-      # 163 邮箱：host: smtp.163.com, port: 465
-      # Gmail：  host: smtp.gmail.com, port: 465（需要应用专用密码）
-      # Outlook：host: smtp.office365.com, port: 587, ssl: false, starttls: true
+      # 163 邮箱：host: smtp.163.com, port: 465（同样要「客户端授权密码」）
+      # Gmail：  host: smtp.gmail.com, port: 465（要先开两步验证再生成应用专用密码；
+      #          而且大陆网络一般连不上，需要代理）
+      # Outlook / 微软账号：**不要用**。微软已于 2025 年停用 SMTP 的密码登录，
+      #          现在必须走 OAuth2，smtplib 用账号密码是连不上的。
 
-    # ---------- 手机即时推送（下面四选一或多选，秒到）----------
-    bark:                               # iOS：App Store 装 Bark，复制 key
+    # ---------- 手机即时推送：这才是「实时」的关键，至少开一个 ----------
+
+    # 【首选】企业微信群机器人：安卓 iOS 都能用，不用实名、没有每日额度（20 条/分钟），
+    # 自己建个只有自己的群，60 秒就能加好机器人。
+    wecom:
+      enabled: false
+      key: "${WECOM_KEY}"
+
+    # 【iPhone 用户首选】Bark：唯一能突破静音/专注模式响铃的通道
+    bark:
       enabled: false
       key: "${BARK_KEY}"
       sound: "alarm"
       group: "网站访问监控"
+      level: ""                         # 留空自动选：一般 timeSensitive，严重时 critical
+      # critical（重要警告）需要在 iOS 通知设置里单独给 Bark 授权，否则会降级成普通通知
 
     serverchan:                         # 微信收消息：https://sct.ftqq.com
       enabled: false
-      sendkey: "${SERVERCHAN_SENDKEY}"
-      uid: ""                           # Server酱³ 才需要填
-
-    wecom:                              # 企业微信群机器人
-      enabled: false
-      key: "${WECOM_KEY}"
+      sendkey: "${SERVERCHAN_SENDKEY}"  # sctp 开头会自动识别为 Server酱³，不用填 uid
+      uid: ""
+      # 注意：Turbo 免费版每天只有 5 条，busy 的站点很容易用完
 
     dingtalk:                           # 钉钉自定义机器人
       enabled: false
@@ -160,7 +169,7 @@ notify:
       token: "${FEISHU_TOKEN}"
       secret: "${FEISHU_SECRET}"
 
-    pushplus:
+    pushplus:                           # 需要先在 pushplus 完成实名认证才能调接口
       enabled: false
       token: "${PUSHPLUS_TOKEN}"
 
