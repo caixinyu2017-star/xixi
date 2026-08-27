@@ -17,7 +17,7 @@ bases, scripts, templates and shared folders all resolve correctly once installe
 | 技能包 / Package | 市场内可安装插件 / Installable plugins | 说明 / What it does |
 | --- | --- | --- |
 | **light** | `light` (28 skills) | 全流程科研技能包：文献检索、数据工程、创意生成/批判、系统与图表设计、实验分析、论文写作/润色、引用、排版、审稿返修、专利软著、PPT 与竞赛材料。内置 9 个可溯源知识库与可运行脚本。 |
-| **academic-research-skills** | `academic-research-skills` (4 skills, +35 modes) | 生产级学术研究流水线：research → write → review → revise → finalize，含 deep-research、引用核验闸门与多智能体集成。 |
+| **academic-research-skills** | `academic-research-skills` (4 skills, 25 modes) | 生产级学术研究流水线：research → write → review → revise → finalize，含 deep-research、引用核验闸门与多智能体集成。 |
 | **nature-skills** | `nature-skills` (12 skills) | Nature 风格科研技能：学术检索、引用、数据、图表、论文转专利、论文转 PPT、润色、阅读/翻译、审稿回复、同行评审、科研写作，外加 OpenClaw 医学模块。 |
 | **econ-top-journal-writing** | `econ-top-journal-writing` (5 skills) | 经济学顶刊写作流程：总入口路由、英文经济学写作、中文顶刊写作、中英文表图设计、多智能体写作控制器。 |
 | **writing-ai-paper** | `writing-ai-paper` (1 skill) | 《Writing AI Conference Papers》新手手册（hzwer & DingXiaoH 著）封装成可调用 skill，用于 AI/ML 顶会论文的选题、框架、引言、可读性与审稿应对。 |
