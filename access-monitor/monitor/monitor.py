@@ -105,7 +105,8 @@ class AccessMonitor:
         if max_rows and len(records) > max_rows:
             records = records[:max_rows]
 
-        known_ips_before = self.store.all_known_ips()
+        # 这是一次 DISTINCT 全表扫，只有「首次出现的 IP」规则真的开着才值得付这个代价
+        known_ips_before = self.store.all_known_ips() if self.cfg.rules.new_ip_enabled else None
         first_run = self.store.is_empty()
         new_records = self.store.filter_new(records)
         for rec in new_records:

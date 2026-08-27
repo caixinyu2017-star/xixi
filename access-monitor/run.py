@@ -309,6 +309,9 @@ def main(argv=None) -> int:
     if args.verbose:
         cfg.log_level = "DEBUG"
     setup_logging(cfg.log_path, cfg.log_level)
+    if getattr(cfg, "using_example_config", False):
+        log.warning("没找到 config.yaml，正在直接用 config.example.yaml。"
+                    "建议先 cp config.example.yaml config.yaml 再改，免得下次更新被覆盖。")
     try:
         return COMMANDS[args.command](cfg, args)
     except KeyboardInterrupt:

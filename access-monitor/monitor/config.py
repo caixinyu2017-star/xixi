@@ -276,6 +276,9 @@ def load_config(config_file: Optional[Path] = None, base_dir: Optional[Path] = N
 
     cfg.unknown_keys = unknown  # type: ignore[attr-defined]
     cfg.config_file = str(config_file) if config_file else ""  # type: ignore[attr-defined]
+    cfg.using_example_config = bool(  # type: ignore[attr-defined]
+        config_file and Path(config_file).name == "config.example.yaml"
+    )
     return cfg
 
 
