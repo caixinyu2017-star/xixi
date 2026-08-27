@@ -16,6 +16,13 @@ from typing import Any, Dict, List, Optional
 import yaml
 
 _ENV_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)(?::-([^}]*))?\}")
+#: 行尾注释必须和值之间有空白。密码里完全可能带 #（Pa55w#rd），
+#: 见到 # 就截断会把密码截坏——那比留着注释糟糕得多。
+_INLINE_COMMENT_RE = re.compile(r"\s#")
+
+
+def _strip_inline_comment(value: str) -> str:
+    return _INLINE_COMMENT_RE.split(value, maxsplit=1)[0].rstrip()
 
 
 # --------------------------------------------------------------------------- #
@@ -25,6 +32,8 @@ def load_dotenv(path: Path) -> Dict[str, str]:
     """极简 .env 解析器（不额外引入 python-dotenv）。
 
     支持 `KEY=value`、`export KEY=value`、`#` 注释、单/双引号包裹。
+    行尾注释必须和值之间有空白（`KEY=v  # 说明`），因为密码本身可能含 `#`；
+    值里如果真的要带「空格 + #」，请用引号整体包起来。
     已存在的环境变量不会被覆盖，方便临时用 `WEBVPN_PASSWORD=xxx python run.py` 覆盖。
     """
     loaded: Dict[str, str] = {}
@@ -41,8 +50,17 @@ def load_dotenv(path: Path) -> Dict[str, str]:
         key, _, value = line.partition("=")
         key = key.strip()
         value = value.strip()
-        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
-            value = value[1:-1]
+        if value[:1] in "\"'":
+            # 有引号：取到配对的引号为止，后面的（注释、空白）一律不要。
+            # 这样值里面的 " # " 才不会被当成注释起点。
+            quote = value[0]
+            end = value.find(quote, 1)
+            if end > 0:
+                value = value[1:end]
+            else:                                   # 引号没闭合，按无引号处理
+                value = _strip_inline_comment(value)
+        else:
+            value = _strip_inline_comment(value)
         loaded[key] = value
         os.environ.setdefault(key, value)
     return loaded
@@ -172,8 +190,13 @@ class IpIntelConfig:
     qqmap_key: str = ""
     use_rdns: bool = True                # 反向 DNS，用来认爬虫
     use_rdap: bool = True                # RDAP 查 ASN / 网段归属
+    # RDAP 是串行的外网请求，一轮里最多查几个。IP 一多就会把轮询节奏拖垮，
+    # 而它提供的「注册机构」只是锦上添花，不是告警必需的信息。
+    rdap_max_per_cycle: int = 5
     timeout_seconds: int = 6
     rdns_timeout_seconds: float = 3.0    # 单个反向 DNS 最多等多久
+    rdns_budget_seconds: float = 8.0     # 一轮里所有反向 DNS 加起来最多等多久
+    cache_failure_minutes: int = 10      # 查失败的 IP 缓存多久（别每 30 秒就重试一遍）
     cache_days: int = 7
     # 认定为「本校/校园网」的关键词，命中即打标签
     campus_keywords: List[str] = field(
@@ -187,8 +210,6 @@ class NotifyConfig:
     channels: Dict[str, Dict[str, Any]] = field(default_factory=dict)
     cooldown_seconds: int = 120          # 全局最短告警间隔，防轰炸
     max_alerts_per_hour: int = 20
-    include_html: bool = True
-    attach_ip_map_link: bool = True      # 邮件里附一个地图链接
 
 
 @dataclass
@@ -309,7 +330,10 @@ def _env_channel_defaults(cfg: AppConfig) -> None:
         env_value = os.environ.get(env_name)
         if not env_value:
             continue
-        ch.setdefault(channel, {})
+        if not isinstance(ch.get(channel), dict):
+            # YAML 里只写了 `bark:` 而没有任何子项时，值是 None 而不是 {}，
+            # setdefault 不会替换它，接着 .get 就会 AttributeError。
+            ch[channel] = {}
         if not ch[channel].get(key):
             ch[channel][key] = env_value
             ch[channel].setdefault("enabled", True)

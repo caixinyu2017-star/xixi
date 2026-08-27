@@ -54,10 +54,27 @@ class Channel:
     def enabled(self) -> bool:
         return bool(self.conf.get("enabled", True))
 
+    @staticmethod
+    def _blank(value) -> bool:
+        """判断一个配置值算不算「没填」。
+
+        YAML 里写 `to: ["${SMTP_USERNAME}"]` 而环境变量没设置时，展开结果是 [""]。
+        它是个非空列表，直接用 `not value` 判断会以为填好了。
+        """
+        if value is None:
+            return True
+        if isinstance(value, str):
+            return not value.strip()
+        if isinstance(value, (list, tuple, set)):
+            return all(Channel._blank(v) for v in value)
+        if isinstance(value, dict):
+            return not value
+        return False
+
     @property
     def missing(self) -> List[str]:
         """还缺哪些配置项。启动时统一提示一次，省得每条告警都报一次错。"""
-        return [k for k in self.required_keys if not self.conf.get(k)]
+        return [k for k in self.required_keys if self._blank(self.conf.get(k))]
 
     def send(self, alert: Alert) -> DeliveryResult:  # pragma: no cover - 由子类实现
         raise NotImplementedError
@@ -100,6 +117,8 @@ class EmailChannel(Channel):
         to = c.get("to") or []
         if isinstance(to, str):
             to = [x.strip() for x in to.replace(";", ",").split(",") if x.strip()]
+        else:
+            to = [str(x).strip() for x in to if str(x).strip()]
         if not (host and username and password and to):
             return DeliveryResult(self.name, False, "邮件配置不完整（host/username/password/to）")
 
@@ -169,7 +188,8 @@ class ServerChanChannel(Channel):
 
     @property
     def missing(self) -> List[str]:
-        return [] if (self.conf.get("sendkey") or self.conf.get("url")) else ["sendkey"]
+        has = not self._blank(self.conf.get("sendkey")) or not self._blank(self.conf.get("url"))
+        return [] if has else ["sendkey"]
 
     #: Server酱³ 的 SendKey 形如 sctp<uid>t<随机串>，uid 就夹在 sctp 和 t 之间
     _SCT3_RE = re.compile(r"^sctp(\d+)t", re.IGNORECASE)
@@ -272,7 +292,9 @@ class DingTalkChannel(Channel):
             digest = hmac.new(secret.encode("utf-8"), string_to_sign.encode("utf-8"),
                               hashlib.sha256).digest()
             params["timestamp"] = ts
-            params["sign"] = urllib.parse.quote_plus(base64.b64encode(digest))
+            # 注意不要自己 quote_plus：下面用 params= 交给 requests，它会编码一次。
+            # 手工再编一次的话钉钉解码后拿到的是 "...%3D" 而不是 "...="，签名必然对不上。
+            params["sign"] = base64.b64encode(digest).decode("utf-8")
         keyword = self.conf.get("keyword") or ""
         title = f"{keyword} {alert.title}".strip() if keyword else alert.title
         text = render_markdown(alert)
@@ -376,11 +398,15 @@ CHANNEL_TYPES = {
 class NotificationHub:
     """统一调度：冷却、限流、多通道分发。"""
 
-    def __init__(self, cfg: NotifyConfig, store=None):
+    def __init__(self, cfg: NotifyConfig, store=None, rule_cooldown_seconds: int = 0):
         self.cfg = cfg
         self.store = store
+        #: 同一条规则两次告警之间的最短间隔（rules.cooldown_seconds）。
+        #: 和 notify.cooldown_seconds 的区别：后者是全局的，管所有规则加起来的节奏。
+        self.rule_cooldown_seconds = rule_cooldown_seconds
         self.channels: List[Channel] = []
         self.skipped: List[str] = []
+        self.configured_but_off: List[str] = []
         conf = dict(cfg.channels or {})
         conf.setdefault("console", {"enabled": True})
         for name, channel_conf in conf.items():
@@ -390,6 +416,14 @@ class NotificationHub:
                 continue
             channel = cls(channel_conf or {})
             if not channel.enabled:
+                if channel.name != "console" and not channel.missing and channel.required_keys:
+                    # 用户只在 .env 里填了 key，却忘了把 enabled 改成 true。
+                    # 不擅自替他打开（那属于替用户做决定），但一定要说出来，
+                    # 否则他会以为配好了，真出事时收不到任何东西。
+                    log.warning("通道「%s」的密钥已经填好，但 enabled 还是 false —— 没有启用。"
+                                "要用它就把 config.yaml 里 notify.channels.%s.enabled 改成 true。",
+                                channel.name, channel.name)
+                    self.configured_but_off.append(channel.name)
                 continue
             if channel.missing:
                 # 开着但没配全：提示一次就跳过，别让每条告警都刷一遍错误日志
@@ -407,12 +441,19 @@ class NotificationHub:
         if not self.store:
             return True, ""
         now = now or datetime.now()
+        rule_cd = max(self.rule_cooldown_seconds, self.cfg.cooldown_seconds)
         last = self.store.last_alert_ts(rule=alert.rule)
         if last is not None:
             elapsed = now.timestamp() - last
+            if elapsed < rule_cd:
+                return False, (f"规则 {alert.rule} 冷却中（距上次 {int(elapsed)} 秒 "
+                               f"< {rule_cd} 秒），这条告警会挂起等下一轮")
+        last_any = self.store.last_alert_ts()
+        if last_any is not None:
+            elapsed = now.timestamp() - last_any
             if elapsed < self.cfg.cooldown_seconds:
-                return False, (f"冷却中（{alert.rule} 距上次 {int(elapsed)} 秒 "
-                               f"< {self.cfg.cooldown_seconds} 秒），本批记录会并入下次告警")
+                return False, (f"全局冷却中（距上次任意告警 {int(elapsed)} 秒 "
+                               f"< {self.cfg.cooldown_seconds} 秒），这条告警会挂起等下一轮")
         if self.cfg.max_alerts_per_hour > 0:
             sent = self.store.alerts_since(now - timedelta(hours=1))
             if sent >= self.cfg.max_alerts_per_hour:

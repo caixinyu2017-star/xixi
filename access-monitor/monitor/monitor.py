@@ -38,7 +38,8 @@ class AccessMonitor:
         self.store = Store(cfg.state_path / "monitor.sqlite")
         self.detector = BurstDetector(cfg.rules)
         self.ipintel = IpIntel(cfg.ipintel, self.store)
-        self.notifier = NotificationHub(cfg.notify, self.store)
+        self.notifier = NotificationHub(cfg.notify, self.store,
+                                       rule_cooldown_seconds=cfg.rules.cooldown_seconds)
         self.session = BrowserSession(cfg, use_ocr=use_ocr)
         self.navigator: Optional[RecordsNavigator] = None
         # 还没送出去的告警（被冷却压住的，或者所有通道都投递失败的）。
@@ -282,10 +283,16 @@ class AccessMonitor:
             except Exception as exc:  # noqa: BLE001
                 self._consecutive_errors += 1
                 log.exception("本轮异常（连续第 %d 次）：%s", self._consecutive_errors, exc)
-                if self._consecutive_errors >= p.max_consecutive_errors:
-                    log.error("连续 %d 轮失败，退出。请检查网络/账号，或看 dumps/ 里的快照。",
-                              self._consecutive_errors)
-                    break
+
+            # 这个检查必须放在 try/except **外面**。最常见的失败——抓不到页面、
+            # 确认不了是不是记录页——是正常 return 出来的，不走异常分支；
+            # 只在 except 里检查的话，程序会一直空转，用户既收不到告警也收不到任何提示，
+            # 还以为这段时间真的没人访问。
+            if self._consecutive_errors >= p.max_consecutive_errors:
+                log.error("连续 %d 轮抓取失败，停止监控。请检查网络/账号，或看 dumps/ 里的快照。",
+                          self._consecutive_errors)
+                self._notify_health_failure()
+                break
 
             # 连续出错就退避，避免把 WebVPN 打爆
             backoff = min(2 ** self._consecutive_errors, 8) if self._consecutive_errors else 1
@@ -294,6 +301,21 @@ class AccessMonitor:
             if wait > 0 and not self._stop:
                 self._sleep(wait)
         log.info("监控已停止（共 %d 轮）", self._cycles)
+
+    def _notify_health_failure(self) -> None:
+        """监控自己挂了，也要告诉用户一声——沉默是最坏的结果。"""
+        try:
+            alert = Alert(
+                rule="monitor_down", severity="critical",
+                title="❌ 网站访问监控已停止工作",
+                summary=(f"连续 {self._consecutive_errors} 轮没能取到「最近访问记录」，已停止监控。"
+                         f"常见原因：会话掉线且无法自动重登、后台页面改版、网络不通。"
+                         f"请到 dumps/ 目录看最近的页面快照，或重跑一次 `python run.py discover`。"),
+                triggered_at=datetime.now(), dedup_key="monitor_down",
+            )
+            self.notifier.dispatch(alert)
+        except Exception as exc:  # noqa: BLE001
+            log.debug("发送自检告警失败：%s", exc)
 
     def _sleep(self, seconds: float) -> None:
         """可被 Ctrl+C 立刻打断的 sleep。"""

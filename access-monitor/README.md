@@ -68,7 +68,8 @@ WEBVPN_USERNAME=00008227
 WEBVPN_PASSWORD=你改好的新密码
 
 SMTP_USERNAME=你的邮箱@qq.com
-SMTP_PASSWORD=QQ邮箱的十六位授权码      # 不是QQ密码！见下面第五节
+# 下面填的是授权码，不是 QQ 密码，怎么拿见第五节
+SMTP_PASSWORD=QQ邮箱的十六位授权码
 ```
 
 **`config.yaml`** 放不敏感的设置（阈值、间隔、开哪些通道）。里面每一项都有中文注释，
@@ -237,8 +238,11 @@ python run.py ip 223.104.3.77 8.8.8.8
 **macOS / Linux**：
 
 ```bash
-nohup python run.py watch >> logs/watch.out 2>&1 &
+nohup python run.py watch < /dev/null >> logs/watch.out 2>&1 &
 ```
+
+`< /dev/null` 别省：不接的话，万一程序想让你手工输验证码，后台进程读 stdin 会被
+SIGTTIN 挂起，看起来像卡死。接上之后它会直接判定「拿不到验证码」并干净地报错退出。
 
 或者用 `screen` / `tmux`。日志在 `logs/monitor.log`，按天滚动保留 14 天。
 

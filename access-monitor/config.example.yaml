@@ -17,7 +17,11 @@ webvpn:
   # ---- 账号安全（重要）----
   # 提交登录表单的次数上限。有些统一认证把「验证码错」也算一次失败登录，
   # 攒够几次就锁账号，所以这里必须保守，别调大。
+  # 这是**跨轮次**的预算：登录成功会清零，失败则在下面的窗口内累计。
   max_login_attempts: 3
+  # 失败提交的滚动统计窗口（秒）。超过这么久没有新的失败，计数自然归零，
+  # 这样长期挂机时正常的会话过期重登不会被越算越多。
+  lockout_window_seconds: 900
   # 不提交、只换一张验证码重新识别的次数。这个动作不消耗上面的登录次数，可以放心多试。
   max_captcha_attempts: 6
   # OCR 置信度低于这个值就换一张，不拿去浪费宝贵的提交机会
@@ -54,6 +58,11 @@ navigation:
   # 留空即可：第一次 discover 成功后，程序会把真实地址记到 state/monitor.sqlite，
   # 之后直接开那个地址，几百毫秒就拿到数据。
   records_url: ""
+  # 用来确认「这确实是记录页」的特征词，命中任意一个即可。
+  # 一个都命中不了时程序会**整轮跳过**而不是硬解析——因为解析器最后一层兜底是
+  # 全文正则捞 IP，拿它去啃一个错误页会捞出一堆时间相同的垃圾记录，立刻假告警。
+  # 如果你们后台用词不一样，把实际的词加进来。
+  page_markers: ["最近访问记录", "来访IP", "访问时间"]
 
 poll:
   interval_seconds: 30     # 多久查一次。30 秒够「实时」了，也顺带保住 WebVPN 会话不掉线
@@ -103,16 +112,24 @@ ipintel:
   qqmap_key: "${QQMAP_KEY}"  # https://lbs.qq.com 申请，个人免费额度 1 万次/天
   use_rdns: true             # 反向 DNS，识别百度/谷歌/字节等爬虫最可靠的手段
   use_rdap: true             # 查网段归属机构，能看出是教育网还是机房
+  rdap_max_per_cycle: 5      # RDAP 是串行外网请求，每轮限量，别把轮询节奏拖垮
   timeout_seconds: 6
+  rdns_timeout_seconds: 3    # 单个反向 DNS 最多等多久
+  rdns_budget_seconds: 8     # 一轮里所有反向 DNS 加起来最多等多久
   cache_days: 7
+  cache_failure_minutes: 10  # 查失败的 IP 缓存多久，避免网络一抖就每轮重查一遍
 
   # 命中这些关键词就打「校园网/教育网」标签并降低风险分
   campus_keywords: ["Jiaxing University", "嘉兴", "CERNET", "教育和科研", "edu.cn", "zjxu"]
 
 notify:
   enabled: true
-  cooldown_seconds: 120     # 全局最短告警间隔，防轰炸
+  # 全局最短告警间隔：任意两条告警之间至少隔这么久。
+  # 单条规则自己的冷却写在上面的 rules.cooldown_seconds，两者取严。
+  cooldown_seconds: 120
   max_alerts_per_hour: 20
+  # 被冷却或投递失败压下来的告警不会丢：它们会被挂起，之后每轮重试，
+  # 直到有一个非控制台通道确认发出去，或者挂满 6 小时。
 
   channels:
     # 控制台：永远开着，终端里能直接看到完整告警

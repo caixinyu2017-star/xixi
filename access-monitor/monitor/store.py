@@ -265,17 +265,21 @@ class Store:
     # ------------------------------------------------------------------ #
     # IP 画像缓存
     # ------------------------------------------------------------------ #
-    def get_ip_profile(self, ip: str, max_age_days: int = 7) -> Optional[IpProfile]:
+    def get_ip_profile(self, ip: str, max_age_days: int = 7,
+                       failure_minutes: int = 10) -> Optional[IpProfile]:
         with self._lock:
             row = self._conn.execute("SELECT * FROM ip_cache WHERE ip=?", (ip,)).fetchone()
         if not row:
             return None
         age = datetime.now().timestamp() - float(row["updated_ts"])
-        if age > max_age_days * 86400:
-            return None
         try:
             data = json.loads(row["profile_json"])
         except json.JSONDecodeError:
+            return None
+        # 查失败的结果也要缓存，否则网络一抖，每 30 秒就把同一批 IP 全部重查一遍；
+        # 但只能缓存很短时间，网络恢复后要能自己补上。
+        limit = max_age_days * 86400 if data.get("ok") else failure_minutes * 60
+        if age > limit:
             return None
         data.pop("location_text", None)
         data.pop("network_text", None)
@@ -290,6 +294,7 @@ class Store:
         return prof
 
     def put_ip_profile(self, profile: IpProfile) -> None:
+        """成功和失败都缓存，失败的那份 TTL 由 get_ip_profile 单独控制。"""
         now = datetime.now()
         with self._lock:
             self._conn.execute(

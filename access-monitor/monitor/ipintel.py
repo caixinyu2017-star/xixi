@@ -118,6 +118,10 @@ class RateLimiter:
         with self._lock:
             self._blocked_until = max(self._blocked_until, time.monotonic() + seconds)
 
+    def penalized(self) -> bool:
+        with self._lock:
+            return time.monotonic() < self._blocked_until
+
     def acquire(self, block: bool = True) -> bool:
         while True:
             with self._lock:
@@ -166,33 +170,42 @@ class IpIntel:
 
     # ------------------------------------------------------------------ #
     def enrich_many(self, ips: Iterable[str], user_agents: Optional[Dict[str, str]] = None) -> Dict[str, IpProfile]:
+        uas = user_agents or {}
         ips = [ip for ip in dict.fromkeys(ips) if ip]
         result: Dict[str, IpProfile] = {}
+        base: Dict[str, IpProfile] = {}
         pending: List[str] = []
+        need_rdns: List[str] = []
+
         for ip in ips:
             cached = self._from_cache(ip)
-            if cached is not None:
-                result[ip] = cached
-            else:
+            if cached is None:
                 pending.append(ip)
-        if not pending:
-            return result
+                continue
+            # 缓存命中也要重新归类：爬虫判定要看**这一次**访问的 UA，
+            # 不能沿用七天前那次的结论。归类是纯本地计算，不花任何 I/O。
+            self._classify(cached, uas.get(ip, ""))
+            result[ip] = cached
+            base[ip] = cached
+            if self.cfg.use_rdns and not cached.rdns_checked and not cached.is_private:
+                need_rdns.append(ip)      # 上次反查超时了，这次补上
 
-        base: Dict[str, IpProfile] = {}
         needs_online: List[str] = []
         for ip in pending:
             prof = IpProfile(ip=ip, looked_up_at=datetime.now())
+            base[ip] = prof
             if self._fill_local(prof):
-                base[ip] = prof
                 continue
             self._fill_geocn(prof)      # 层 1：国内到区县
             self._fill_ip2region(prof)  # 层 2：全球到市
-            base[ip] = prof
             needs_online.append(ip)
+            if self.cfg.use_rdns:
+                need_rdns.append(ip)
 
         if needs_online and self.cfg.enabled:
             # 层 3：补 ASN / 代理 / 机房。批量一次搞定，比逐个查省配额得多。
             self._fill_ip_api_batch(needs_online, base)
+            rdap_budget = self.cfg.rdap_max_per_cycle
             for ip in needs_online:
                 prof = base[ip]
                 if not prof.city and not prof.region:
@@ -201,36 +214,67 @@ class IpIntel:
                 if (self.cfg.use_qqmap and self.cfg.qqmap_key
                         and not prof.district and prof.country_code in ("CN", "")):
                     self._fill_qqmap(prof)
-                if self.cfg.use_rdap and not prof.network:
+                # 层 5：RDAP 是串行外网请求，每轮限量。它给的「注册机构」是加分项，
+                # 不值得为它把轮询节奏拖垮——剩下的 IP 下一轮再查。
+                if self.cfg.use_rdap and rdap_budget > 0 and not prof.org and not prof.network:
                     self._fill_rdap(prof)
+                    rdap_budget -= 1
 
-        # 层 5：反向 DNS。丢线程池 + 硬超时，绝不能让某个没有 PTR 的 IP 把主循环卡住。
-        if self.cfg.use_rdns:
-            targets = [ip for ip in pending if not base[ip].is_private]
-            futures = {ip: self._dns_pool.submit(self._reverse_dns, ip) for ip in targets}
-            for ip, future in futures.items():
-                try:
-                    base[ip].rdns = future.result(timeout=self.cfg.rdns_timeout_seconds)
-                except Exception:  # noqa: BLE001  超时就当查不到，线程自己会退出
-                    base[ip].rdns = ""
-                base[ip].rdns_checked = True   # 查不到也记下来，别每轮重付一次 DNS 超时
+        self._resolve_rdns(need_rdns, base)
 
-        for ip, prof in base.items():
-            self._classify(prof, (user_agents or {}).get(ip, ""))
+        for ip in ips:
+            prof = base.get(ip)
+            if prof is None:
+                continue
+            self._classify(prof, uas.get(ip, ""))
             prof.ok = bool(prof.country or prof.region or prof.city or prof.rdns or prof.is_private)
             self._to_cache(prof)
             result[ip] = prof
         return result
+
+    def _resolve_rdns(self, targets: Sequence[str], base: Dict[str, IpProfile]) -> None:
+        """并发做反向 DNS，整批共享一个时间预算。
+
+        两个坑：
+        1. 线程池并发度有限，排在后面的任务可能**根本没开始跑**就被判超时。
+           如果那时候把它记成「查过了，没有 PTR」，这个错误结论会被缓存七天，
+           从此这个 IP 永远认不出是爬虫。所以只有真正跑完的才标记 checked。
+        2. 逐个等 timeout 会让总耗时随 IP 数线性增长，几十个 IP 就能把一轮拖成几分钟。
+           所以用整批统一的截止时间。
+        """
+        if not targets:
+            return
+        futures = {ip: self._dns_pool.submit(self._reverse_dns, ip) for ip in dict.fromkeys(targets)}
+        deadline = time.monotonic() + max(1.0, self.cfg.rdns_budget_seconds)
+        unfinished = 0
+        for ip, future in futures.items():
+            remaining = min(self.cfg.rdns_timeout_seconds, max(0.0, deadline - time.monotonic()))
+            prof = base.get(ip)
+            if prof is None:
+                future.cancel()
+                continue
+            try:
+                prof.rdns = future.result(timeout=remaining)
+                prof.rdns_checked = True
+            except Exception:  # noqa: BLE001
+                future.cancel()
+                unfinished += 1      # 没查完，不标记 checked，下一轮还会再试
+        if unfinished:
+            log.debug("%d 个 IP 的反向解析本轮没查完，下一轮继续", unfinished)
 
     def enrich(self, ip: str, user_agent: str = "") -> IpProfile:
         return self.enrich_many([ip], {ip: user_agent}).get(ip, IpProfile(ip=ip, error="查询失败"))
 
     # ------------------------------------------------------------------ #
     def _from_cache(self, ip: str) -> Optional[IpProfile]:
-        return self.store.get_ip_profile(ip, self.cfg.cache_days) if self.store else None
+        if not self.store:
+            return None
+        return self.store.get_ip_profile(ip, self.cfg.cache_days, self.cfg.cache_failure_minutes)
 
     def _to_cache(self, prof: IpProfile) -> None:
-        if self.store and prof.ok:
+        # 失败的结果也写进去（TTL 由 store 按 ok 标志区别对待），
+        # 否则网络一抖，每 30 秒就把同一批 IP 全部重查一遍。
+        if self.store:
             try:
                 self.store.put_ip_profile(prof)
             except Exception as exc:  # noqa: BLE001
@@ -445,6 +489,11 @@ class IpIntel:
                 resp.raise_for_status()
                 payload = resp.json()
             except Exception as exc:  # noqa: BLE001
+                if self._batch_limiter.penalized():
+                    # 刚被限流罚站，再逐个去查只会每个都阻塞一次 X-Ttl，
+                    # 一批 IP 就能把主循环卡住好几分钟，而且更容易被封。
+                    log.warning("ip-api 限流中，本轮跳过在线查询（%s）", exc)
+                    return
                 log.warning("ip-api 批量查询失败（%s），改逐个查", exc)
                 for ip in chunk:
                     self._fill_ip_api_single(base[ip])

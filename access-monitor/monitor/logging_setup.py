@@ -37,5 +37,8 @@ def setup_logging(log_dir: Path, level: str = "INFO", quiet: bool = False) -> No
     root.addHandler(file_handler)
 
     # 第三方库太吵
-    for noisy in ("urllib3", "requests", "asyncio", "PIL"):
+    for noisy in ("urllib3", "requests", "PIL"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
+    # asyncio 在 Playwright 关闭时会喷 "Task was destroyed but it is pending"，
+    # 无害但很吓人，会盖住真正要看的信息
+    logging.getLogger("asyncio").setLevel(logging.CRITICAL)

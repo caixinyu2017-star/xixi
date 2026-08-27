@@ -24,8 +24,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
+# 中文 Windows 的控制台默认是 GBK，把输出重定向到文件或管道时，
+# 日志里的 ✓ ● ⚠️ 之类字符会直接 UnicodeEncodeError 把程序打崩。
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 from monitor.config import load_config                      # noqa: E402
 from monitor.logging_setup import setup_logging             # noqa: E402
+from monitor.session import LoginError                      # noqa: E402
 
 log = logging.getLogger("run")
 
@@ -81,12 +90,19 @@ def cmd_doctor(cfg, args) -> int:
         except ImportError:
             ok = False
             print(f"  ✗ {mod:<12} {why}  → 缺失！请 pip install -r requirements.txt")
+    missing_optional = []
     for mod, why in optional.items():
         try:
             __import__(mod)
             print(f"  ✓ {mod:<12} {why}")
         except ImportError:
+            missing_optional.append(mod)
             print(f"  ○ {mod:<12} {why}  → 未安装")
+    if missing_optional:
+        print("     装可选增强：pip install -r requirements-optional.txt")
+    if "ddddocr" in missing_optional:
+        print("     ! 没有 ddddocr 就无法无人值守：会话一过期就需要你手工输验证码，"
+              "而任务计划/后台进程没有终端可输入。")
 
     print("\n[离线 IP 库]")
     for label, value in (("GeoCN.mmdb", cfg.ipintel.geocn_mmdb),
@@ -137,6 +153,9 @@ def cmd_doctor(cfg, args) -> int:
     print(f"  已启用：{', '.join(names) or '无'}")
     for name in hub.skipped:
         print(f"  ! {name}：配置不完整，已跳过（去 .env / config.yaml 里补齐）")
+    for name in hub.configured_but_off:
+        print(f"  ! {name}：密钥已填好但 enabled 还是 false —— 没有启用。"
+              f"要用它就把 notify.channels.{name}.enabled 改成 true")
     if names == ["console"]:
         print("  ! 只有控制台通道 —— 关掉终端就收不到告警了。建议至少配一个邮箱或 Bark。")
 
@@ -159,7 +178,7 @@ def cmd_doctor(cfg, args) -> int:
 
 
 def cmd_login(cfg, args) -> int:
-    from monitor.session import BrowserSession, LoginError
+    from monitor.session import BrowserSession
     with BrowserSession(cfg, use_ocr=not args.no_ocr) as session:
         try:
             outcome = session.ensure_logged_in()
@@ -192,9 +211,17 @@ def cmd_discover(cfg, args) -> int:
         if not args.no_dump:
             out = nav.dump("discover")
             print(f"\n页面快照已导出：{out}")
-        if not result.ok and not result.html:
+        if not result.html:
             print(f"❌ 没找到记录页：{result.error}")
             print("   建议：把 config.yaml 里 browser.headless 设成 false，再跑一次亲眼看看菜单文字。")
+            return 1
+        if not result.verified:
+            # 页面拿到了，但确认不了它是不是记录页。这时候绝不能报成功——
+            # 用户会以为配好了，然后 watch 一直空转。
+            print(f"⚠️  打开了一个页面，但确认不了它是「最近访问记录」：{result.error}")
+            print(f"   页面地址：{result.url}")
+            print("   如果快照看下来确实是对的页面，只是用词不同，"
+                  "就把那几个词加进 config.yaml 的 navigation.page_markers。")
             return 1
         print(f"\n✅ 记录页地址：{result.url}")
         print(f"   frame: {result.frame_name or '(主文档)'}")
@@ -317,6 +344,10 @@ def main(argv=None) -> int:
     except KeyboardInterrupt:
         print("\n已中断")
         return 130
+    except LoginError as exc:
+        # 这类错误是「设计好的停手」，不是程序崩溃，别拿堆栈吓用户
+        print(f"\n❌ 登录失败：{exc}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":
