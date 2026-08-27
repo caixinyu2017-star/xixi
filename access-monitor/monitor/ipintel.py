@@ -204,12 +204,16 @@ class IpIntel:
                 if self.cfg.use_rdap and not prof.network:
                     self._fill_rdap(prof)
 
-        # 层 5：反向 DNS。放线程池里做，避免某个 IP 没有 PTR 时把主循环卡死。
+        # 层 5：反向 DNS。丢线程池 + 硬超时，绝不能让某个没有 PTR 的 IP 把主循环卡住。
         if self.cfg.use_rdns:
             targets = [ip for ip in pending if not base[ip].is_private]
-            for ip, rdns in zip(targets, self._dns_pool.map(self._reverse_dns, targets)):
-                base[ip].rdns = rdns
-                base[ip].rdns_checked = True   # 查不到也记下来，别每轮都重付一次 DNS 超时
+            futures = {ip: self._dns_pool.submit(self._reverse_dns, ip) for ip in targets}
+            for ip, future in futures.items():
+                try:
+                    base[ip].rdns = future.result(timeout=self.cfg.rdns_timeout_seconds)
+                except Exception:  # noqa: BLE001  超时就当查不到，线程自己会退出
+                    base[ip].rdns = ""
+                base[ip].rdns_checked = True   # 查不到也记下来，别每轮重付一次 DNS 超时
 
         for ip, prof in base.items():
             self._classify(prof, (user_agents or {}).get(ip, ""))
@@ -559,15 +563,17 @@ class IpIntel:
 
     # ------------------------------------------------------------------ #
     @staticmethod
-    def _reverse_dns(ip: str, timeout: float = 3.0) -> str:
-        old = socket.getdefaulttimeout()
+    def _reverse_dns(ip: str) -> str:
+        """反查主机名。
+
+        注意这里**没有**用 socket.setdefaulttimeout —— 那是进程级全局设置，
+        在工作线程里改会波及同时在跑的 HTTP 请求。超时改由调用方
+        future.result(timeout=...) 控制，卡住的线程让它自己慢慢退。
+        """
         try:
-            socket.setdefaulttimeout(timeout)
             return socket.gethostbyaddr(ip)[0]
         except Exception:  # noqa: BLE001
             return ""
-        finally:
-            socket.setdefaulttimeout(old)
 
     def _fill_rdap(self, prof: IpProfile) -> None:
         try:

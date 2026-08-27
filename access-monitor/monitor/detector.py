@@ -82,9 +82,15 @@ def sliding_clusters(
             j += 1
         size = j - i + 1
         if size >= threshold:
-            # 尽量把簇撑大：继续把落在「最后一条 + window」内的记录并进来
+            # 把簇往后撑大，但**必须保持密度**：只有当「新来这条 + 它前面 threshold-1 条」
+            # 仍然挤在同一个窗口里，才算还是同一次突发。
+            # 如果只判断「和上一条间隔 < window」，那么每 59 秒来一条的细水长流
+            # 会被一路串起来，最后报出一个「一小时内 60 条」的假突发。
             k = j
-            while k + 1 < n and times[k + 1] - times[k] <= window_seconds:
+            while k + 1 < n:
+                lo = k + 1 - (threshold - 1)
+                if lo < i or times[k + 1] - times[lo] > window_seconds:
+                    break
                 k += 1
             clusters.append(ordered[i:k + 1])
             i = k + 1

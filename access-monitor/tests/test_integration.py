@@ -24,8 +24,11 @@ def _page_html(rows):
         f"<td><a href='/a/{i}.htm'>页面{i}</a></td><td>-</td><td>Chrome</td></tr>"
         for i, (t, ip) in enumerate(rows)
     )
-    return ("<html><body><table><tr><th>序号</th><th>访问时间</th><th>来访IP</th>"
-            "<th>访问页面</th><th>来源页面</th><th>浏览器</th></tr>" + body + "</table></body></html>")
+    # 标题里的「最近访问记录」是给 navigator 用来确认页面身份的特征词
+    return ("<html><body><h2>最近访问记录</h2><table>"
+            "<tr><th>序号</th><th>访问时间</th><th>来访IP</th>"
+            "<th>访问页面</th><th>来源页面</th><th>浏览器</th></tr>"
+            + body + "</table></body></html>")
 
 
 class FakeSession:
@@ -54,16 +57,21 @@ class FakeSession:
 
 class FakeNavigator:
     """按预设脚本一轮一轮吐 HTML。"""
-    def __init__(self, pages):
+    def __init__(self, pages, verified=True):
         self.pages = list(pages)
         self.calls = 0
+        self.verified = verified
+        self.dumped = 0
 
     def fetch(self, force_rediscover=False):
         html = self.pages[min(self.calls, len(self.pages) - 1)]
         self.calls += 1
-        return FetchResult(ok=True, html=html, url="http://fake/records", record_count=1)
+        return FetchResult(ok=self.verified, html=html, url="http://fake/records",
+                           record_count=1, verified=self.verified,
+                           error="" if self.verified else "确认不了这是记录页")
 
     def dump(self, tag="x"):
+        self.dumped += 1
         return Path(".")
 
 
@@ -180,6 +188,42 @@ def test_sibling_webvpn_url():
                    "77726476706e69737468656265737421a1a70fcd777e391e2d/"
                    "system/statistics/visit.jsp?a=1"), got
     assert sibling_webvpn_url("https://example.com/foo", "/bar") == ""
+
+
+
+def test_unverified_page_is_never_parsed():
+    """抓到一个确认不了身份的页面时，必须整轮跳过。
+
+    解析器最后一层是全文正则捞 IP。如果拿它去啃错误页/登录页，捞出来的垃圾记录
+    时间戳全都是「此刻」，会立刻凑够 3 条触发假告警——这是最危险的失败模式。
+    """
+    junk = ("<html><body>系统繁忙，请稍后再试。"
+            "服务器 10.20.30.41 / 10.20.30.42 / 10.20.30.43 均无响应</body></html>")
+    with tempfile.TemporaryDirectory() as td:
+        mon = _make_monitor(Path(td), [junk])
+        mon.navigator = FakeNavigator([junk], verified=False)
+        try:
+            r = mon.run_once()
+            assert r["ok"] is False, r
+            assert mon.notifier.sent == [], "确认不了的页面绝不能产生告警"
+            assert mon.store.stats()["records"] == 0, "也不能把垃圾写进数据库"
+        finally:
+            mon.store.close()
+
+
+def test_slow_trickle_is_not_merged_into_one_giant_burst():
+    """每 59 秒来一条的细水长流，不该被串成「一小时 60 条」的假突发。"""
+    from monitor.detector import sliding_clusters
+    from monitor.models import VisitRecord
+    base = datetime(2026, 8, 27, 10, 0, 0)
+    # 前三条是真突发（0/5/10 秒），后面每 59 秒一条
+    times = [0, 5, 10] + [10 + 59 * i for i in range(1, 8)]
+    recs = [VisitRecord(ip=f"1.1.1.{i}", visited_at=base + timedelta(seconds=t), first_seen_at=base)
+            for i, t in enumerate(times)]
+    clusters = sliding_clusters(recs, window_seconds=60, threshold=3)
+    assert len(clusters) == 1, f"应该只认出开头那一次突发，实际 {len(clusters)} 个"
+    assert len(clusters[0]) == 3, f"突发应该只含开头 3 条，实际 {len(clusters[0])} 条"
+
 
 
 if __name__ == "__main__":

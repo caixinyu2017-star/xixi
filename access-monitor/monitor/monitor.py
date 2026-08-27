@@ -85,7 +85,10 @@ class AccessMonitor:
                 raise LoginError(outcome.message or "重新登录失败")
             fetch = self.navigator.fetch(force_rediscover=True)
 
-        if not fetch.html:
+        if not fetch.html or not fetch.verified:
+            # verified=False 说明拿到的页面不能确认是记录页。**绝不能**硬着头皮去解析：
+            # 解析器最后一层是全文正则捞 IP，啃错页面会捞出一堆时间戳相同的垃圾记录，
+            # 直接触发一次假突发告警。
             self._consecutive_errors += 1
             log.error("第 %d 次抓取失败：%s", self._consecutive_errors, fetch.error or "未知原因")
             if self._consecutive_errors == 2:

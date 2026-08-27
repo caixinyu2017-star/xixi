@@ -166,6 +166,7 @@ class IpIntelConfig:
     use_rdns: bool = True                # 反向 DNS，用来认爬虫
     use_rdap: bool = True                # RDAP 查 ASN / 网段归属
     timeout_seconds: int = 6
+    rdns_timeout_seconds: float = 3.0    # 单个反向 DNS 最多等多久
     cache_days: int = 7
     # 认定为「本校/校园网」的关键词，命中即打标签
     campus_keywords: List[str] = field(

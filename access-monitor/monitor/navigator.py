@@ -42,6 +42,10 @@ class FetchResult:
     frame_name: str = ""
     record_count: int = 0
     logged_out: bool = False
+    #: 页面上出现了「最近访问记录 / 来访IP / 访问时间」这类特征词，确认是记录页。
+    #: 这个标志很重要：解析器最后一层兜底是「全文正则捞 IP」，如果放它去啃一个
+    #: 错误页或登录页，捞出来的垃圾 IP 会全部落在同一时刻，立刻触发一次假突发。
+    verified: bool = False
     error: str = ""
     xhr_endpoints: List[str] = field(default_factory=list)
 
@@ -184,7 +188,7 @@ class RecordsNavigator:
     def _read_best_frame(self, fallback_url: str = "", wait_seconds: float = 8.0) -> FetchResult:
         """表格可能是 AJAX 异步塞进来的，所以要轮询等一会儿。"""
         deadline = time.monotonic() + wait_seconds
-        best: Optional[Tuple[float, str, str, str, int]] = None
+        best: Optional[Tuple[float, str, str, str, int, int]] = None
         while time.monotonic() < deadline:
             for frame in self._all_frames():
                 try:
@@ -193,29 +197,38 @@ class RecordsNavigator:
                     continue
                 if not html:
                     continue
-                score, count = self._score_html(html)
+                score, count, markers = self._score_html(html)
                 if score <= 0:
                     continue
                 if best is None or score > best[0]:
                     best = (score, html, getattr(frame, "url", "") or fallback_url,
-                            getattr(frame, "name", "") or "", count)
-            if best and best[4] > 0:
+                            getattr(frame, "name", "") or "", count, markers)
+            # 特征词齐了、记录也解析出来了才算稳，否则再等等（表格常是 AJAX 后塞进来的）
+            if best and best[4] > 0 and best[5] > 0:
                 break
             time.sleep(0.6)
 
         if not best:
             return FetchResult(ok=False, url=fallback_url,
                                error="页面里没找到访问记录表（可能菜单没点到，或页面结构不同）")
-        score, html, url, name, count = best
-        return FetchResult(ok=count > 0 or score >= 3, html=html, url=url,
-                           frame_name=name, record_count=count,
-                           error="" if count else "找到了页面但没解析出记录（可能当前没有访问记录）")
+        score, html, url, name, count, markers = best
+        if not markers:
+            # 宁可这一轮什么都不报，也不能拿一个不确定是什么的页面去解析。
+            return FetchResult(
+                ok=False, html=html, url=url, frame_name=name, record_count=0, verified=False,
+                error="页面上找不到「最近访问记录 / 来访IP / 访问时间」之类的特征词，"
+                      "无法确认这是记录页，本轮跳过（如果你们后台用词不同，"
+                      "改 config.yaml 的 navigation.page_markers）",
+            )
+        return FetchResult(ok=True, html=html, url=url, frame_name=name, record_count=count,
+                           verified=True,
+                           error="" if count else "找到了记录页但当前没有访问记录")
 
-    @staticmethod
-    def _score_html(html: str) -> Tuple[float, int]:
-        marker_hits = sum(1 for m in CONTENT_MARKERS if m in html)
+    def _score_html(self, html: str) -> Tuple[float, int, int]:
+        markers = self.cfg.navigation.page_markers or list(CONTENT_MARKERS)
+        marker_hits = sum(1 for m in markers if m in html)
         records = parse_records(html)
-        return marker_hits * 2.0 + len(records) * 1.0, len(records)
+        return marker_hits * 2.0 + len(records) * 1.0, len(records), marker_hits
 
     # ------------------------------------------------------------------ #
     # XHR 嗅探（为以后走 JSON 接口做准备）
@@ -278,9 +291,10 @@ class RecordsNavigator:
             name = re.sub(r"[^0-9A-Za-z_.-]", "_", (getattr(frame, "name", "") or f"frame{i}"))[:40]
             fp = out / f"{i:02d}-{name}.html"
             fp.write_text(html, encoding="utf-8")
-            score, count = self._score_html(html)
+            score, count, markers = self._score_html(html)
             index.append({"file": fp.name, "url": getattr(frame, "url", ""),
-                          "name": getattr(frame, "name", ""), "score": score, "records": count})
+                          "name": getattr(frame, "name", ""), "score": score,
+                          "records": count, "markers": markers})
         (out / "frames.json").write_text(json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
         log.info("已导出 %d 个 frame 到 %s", len(index), out)
         return out
