@@ -84,8 +84,9 @@ class CapturingHub:
         return True, ""
 
     def dispatch(self, alert: Alert):
+        from monitor.notify import DeliveryResult
         self.sent.append(alert)
-        return []
+        return [DeliveryResult("fake", True, "已投递")]
 
 
 def _make_monitor(tmp: Path, pages, rules=None) -> AccessMonitor:
@@ -150,19 +151,25 @@ def test_baseline_suppresses_first_run():
             mon.store.close()
 
 
-def test_cooldown_defers_but_does_not_lose_records():
-    """被冷却压住的记录必须并进下一次告警，不能人间蒸发。"""
+class BlockingHub(CapturingHub):
+    def __init__(self):
+        super().__init__()
+        self.block = True
+
+    def should_send(self, alert, now=None):
+        return (False, "冷却中") if self.block else (True, "")
+
+
+def test_cooldown_defers_but_does_not_lose_the_alert():
+    """被冷却压住的告警必须在冷却结束后补发出去。
+
+    关键在于：补发**不能**依赖「下一轮重新成簇」。抑制只要超过检测窗口，
+    那些记录就滑出窗口再也凑不成簇，告警会无声消失——而程序对用户承诺的是不会丢。
+    所以这里第二轮故意不给任何新记录，挂起的告警照样要发出来。
+    """
     base = datetime.now().replace(microsecond=0) - timedelta(minutes=5)
     fmt = "%Y-%m-%d %H:%M:%S"
     first = [((base + timedelta(seconds=i * 5)).strftime(fmt), f"1.1.1.{i}") for i in range(3)]
-
-    class BlockingHub(CapturingHub):
-        def __init__(self):
-            super().__init__()
-            self.block = True
-
-        def should_send(self, alert, now=None):
-            return (False, "冷却中") if self.block else (True, "")
 
     with tempfile.TemporaryDirectory() as td:
         mon = _make_monitor(Path(td), [_page_html(first), _page_html(first)])
@@ -170,12 +177,69 @@ def test_cooldown_defers_but_does_not_lose_records():
         mon.notifier = hub
         try:
             mon.run_once()
-            assert hub.sent == [] and len(mon._pending) == 3, "被压住的 3 条要挂在待发队列里"
+            assert hub.sent == [], "冷却期内不该发出去"
+            assert len(mon._deferred) == 1, "但要挂起来"
+
             hub.block = False
-            mon.run_once()                       # 页面没变，但积压的记录应该被重新报出去
-            assert len(hub.sent) == 1
+            second = mon.run_once()              # 页面没变，一条新记录都没有
+            assert second["new"] == 0
+            assert len(hub.sent) == 1, "冷却结束后必须补发"
             assert len(hub.sent[0].records) == 3
-            assert mon._pending == []
+            assert mon._deferred == []
+        finally:
+            mon.store.close()
+
+
+def test_delivery_failure_is_retried_not_swallowed():
+    """所有通道都失败时，不能把告警记成「已发送」然后再也不管。"""
+    from monitor.notify import DeliveryResult
+    base = datetime.now().replace(microsecond=0) - timedelta(minutes=5)
+    fmt = "%Y-%m-%d %H:%M:%S"
+    rows = [((base + timedelta(seconds=i * 5)).strftime(fmt), f"2.2.2.{i}") for i in range(3)]
+
+    class FlakyHub(CapturingHub):
+        def __init__(self):
+            super().__init__()
+            self.fail = True
+
+        def dispatch(self, alert):
+            if self.fail:
+                return [DeliveryResult("email", False, "SMTPConnectError")]
+            self.sent.append(alert)
+            return [DeliveryResult("email", True, "ok")]
+
+    with tempfile.TemporaryDirectory() as td:
+        mon = _make_monitor(Path(td), [_page_html(rows), _page_html(rows)])
+        hub = FlakyHub()
+        mon.notifier = hub
+        try:
+            mon.run_once()
+            assert hub.sent == [], "投递失败就不算发出去"
+            assert len(mon._deferred) == 1, "要挂起等下一轮重试"
+            assert mon.store.alerts_since(datetime.now() - timedelta(hours=1)) == 0, \
+                "失败的告警不该写进 alerts 表——那会启动冷却，把重试挡在门外"
+
+            hub.fail = False
+            mon.run_once()
+            assert len(hub.sent) == 1, "网络恢复后必须补发"
+            assert mon._deferred == []
+        finally:
+            mon.store.close()
+
+
+def test_already_alerted_records_do_not_refire():
+    """已经推送过的簇，不能在冷却到期后被重新报一遍。"""
+    base = datetime.now().replace(microsecond=0) - timedelta(minutes=2)
+    fmt = "%Y-%m-%d %H:%M:%S"
+    rows = [((base + timedelta(seconds=i * 5)).strftime(fmt), f"3.3.3.{i}") for i in range(3)]
+    with tempfile.TemporaryDirectory() as td:
+        mon = _make_monitor(Path(td), [_page_html(rows)] * 4)
+        try:
+            mon.run_once()
+            assert len(mon.notifier.sent) == 1
+            for _ in range(3):
+                mon.run_once()
+            assert len(mon.notifier.sent) == 1, "同一批记录只能报一次"
         finally:
             mon.store.close()
 

@@ -22,6 +22,11 @@ class VisitRecord:
 
     ip: str
     visited_at: Optional[datetime] = None      # 访问时间（Asia/Shanghai）
+    #: 页面上原样的时间文字。指纹用它而不是解析后的 datetime——
+    #: 页面只给「15:32:11」时我们要自己补日期，补法依赖「现在几点」，
+    #: 于是同一行记录在午夜前后会算出两个不同的 datetime、两个不同的指纹，
+    #: 结果重复入库、重复告警。原始字符串没有这个问题。
+    raw_time: str = ""
     page: str = ""                             # 访问页面 / URL
     page_title: str = ""                       # 页面标题（如果有单独一列）
     referer: str = ""                          # 来源页面
@@ -32,6 +37,11 @@ class VisitRecord:
     location_hint: str = ""                    # 后台自带的地区列（通常只到省）
     raw: Dict[str, str] = field(default_factory=dict)
     row_index: int = -1                        # 在当次抓取的表格里的行号
+    #: 同一批解析里，指纹完全相同的第几条（0 表示唯一）。
+    #: 用于兜住「一行的所有可辨识字段都没解析出来」的退化情况，
+    #: 否则 N 条记录会坍缩成 1 条：当轮凑不够阈值不告警，而且这个 IP
+    #: 之后的每一条访问都会被当成「见过了」永久丢弃。
+    dup_index: int = 0
     first_seen_at: Optional[datetime] = None   # 我们第一次看到它的时间
 
     @property
@@ -39,11 +49,20 @@ class VisitRecord:
         """去重指纹。
 
         博达后台的表格没有稳定的行 ID，所以用「时间 + IP + 页面 + 来源」做指纹。
-        时间精确到秒，同一个人同一秒访问同一个页面才会被当成同一条。
+        时间优先取页面上的原始字符串（见 raw_time 的说明），实在没有才用解析结果。
         """
-        ts = self.visited_at.strftime("%Y-%m-%d %H:%M:%S") if self.visited_at else ""
+        ts = self.raw_time or (
+            self.visited_at.strftime("%Y-%m-%d %H:%M:%S") if self.visited_at else ""
+        )
         payload = "|".join([ts, self.ip, self.page, self.referer, self.page_title])
+        if self.dup_index:
+            payload += f"|#{self.dup_index}"
         return hashlib.sha1(payload.encode("utf-8", "replace")).hexdigest()[:20]
+
+    @property
+    def is_degraded(self) -> bool:
+        """这条记录除了 IP 之外什么都没解析出来——去重能力已经退化。"""
+        return not (self.raw_time or self.visited_at or self.page or self.page_title)
 
     def to_dict(self) -> Dict[str, Any]:
         d = asdict(self)

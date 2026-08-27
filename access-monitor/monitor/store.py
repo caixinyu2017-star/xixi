@@ -119,7 +119,36 @@ class Store:
                 f"SELECT key FROM seen_records WHERE key IN ({placeholders})", keys
             ).fetchall()
         known = {r["key"] for r in rows}
-        return [r for r in records if r.key not in known]
+        # 同一批里也可能出现完全相同的指纹（同秒、同 IP、同页面）。
+        # add_records 是 INSERT OR IGNORE，只会写进一条，所以这里也要去重，
+        # 否则「本轮新增 N 条」和库里实际增量对不上，排查时会被误导。
+        out, seen = [], set()
+        for rec in records:
+            if rec.key in known or rec.key in seen:
+                continue
+            seen.add(rec.key)
+            out.append(rec)
+        return out
+
+    def alerted_keys(self, keys: Iterable[str]) -> set:
+        """这些记录里哪些已经真的推送出去过。
+
+        seen_records.alerted 以前只写不读，等于形同虚设——已经报过的老记录
+        会跟着新记录一起被重复计入下一次告警。"""
+        keys = [k for k in dict.fromkeys(keys) if k]
+        if not keys:
+            return set()
+        found = set()
+        for start in range(0, len(keys), 500):     # SQLite 参数个数有上限
+            chunk = keys[start:start + 500]
+            placeholders = ",".join("?" * len(chunk))
+            with self._lock:
+                rows = self._conn.execute(
+                    f"SELECT key FROM seen_records WHERE alerted=1 AND key IN ({placeholders})",
+                    chunk,
+                ).fetchall()
+            found |= {r["key"] for r in rows}
+        return found
 
     def add_records(self, records: Iterable[VisitRecord], now: Optional[datetime] = None) -> int:
         now = now or datetime.now()

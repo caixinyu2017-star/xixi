@@ -151,6 +151,110 @@ def test_private_ip_short_circuits():
 
 
 
+
+def test_decoy_table_without_ips_never_wins():
+    """页面上常常还有一张「最新文章」表：只有标题和时间、一个 IP 都没有。
+
+    以前打分时直接跑 IPv6 正则，「09:11:01」这种时间串也会被算成 IP，
+    于是 30 行的假表能压过 20 行的真表，然后整页掉进正则兜底。
+    """
+    decoy = "".join(f"<tr><td>文章{i}</td><td>2026-08-27 09:{i:02d}:01</td></tr>" for i in range(30))
+    real = "".join(
+        f"<tr><td>{i}</td><td>2026-08-27 15:{i:02d}:11</td><td>10.1.2.{i}</td><td>/p{i}.htm</td></tr>"
+        for i in range(20))
+    html = (f"<html><body><table><tr><th>标题</th><th>发布时间</th></tr>{decoy}</table>"
+            f"<table><tr><th>序号</th><th>访问时间</th><th>来访IP</th><th>访问页面</th></tr>"
+            f"{real}</table></body></html>")
+    recs = parse_records(html)
+    assert len(recs) == 20, f"应该选中真正的记录表，实际解析出 {len(recs)} 条"
+    assert all(r.visited_at is not None for r in recs), "时间必须都解析出来"
+    assert recs[0].ip.startswith("10.1.2.")
+
+
+def test_fallback_keeps_time_on_the_same_line_as_ip():
+    """兜底解析必须能把同一行的 IP 和时间配上。
+
+    否则所有记录都没有时间，会被统一按「此刻」处理，一批记录挤在同一瞬间，
+    直接凑成一次假突发——跨度显示「0 秒内 N 条」。
+    """
+    rows = "".join(
+        f"<tr><td>{i}</td><td>2026-08-27 1{i}:0{i}:00</td><td>10.9.9.{i}</td></tr>" for i in range(1, 5))
+    # 故意不给表头，且外面套一层，让表格打分路径失效，强制走兜底
+    html = f"<html><body><table>{rows}</table></body></html>"
+    from monitor.parser import _fallback_regex
+    recs = _fallback_regex(html, None)
+    assert len(recs) == 4, [r.ip for r in recs]
+    assert all(r.visited_at is not None for r in recs), \
+        "兜底解析也必须带上时间，否则会制造假突发"
+    assert len({r.visited_at for r in recs}) == 4, "四条记录的时间应该各不相同"
+
+
+def test_fallback_handles_div_based_rows():
+    """有些后台一个字段一个 <div>，不能因为没有 </tr> 就把整页并成一行。"""
+    from monitor.parser import _fallback_regex
+    html = ("<div class='row'><span>2026-08-27 10:00:01</span><span>10.1.1.1</span></div>"
+            "<div class='row'><span>2026-08-27 10:00:05</span><span>10.1.1.2</span></div>"
+            "<div class='row'><span>2026-08-27 10:00:09</span><span>10.1.1.3</span></div>")
+    recs = _fallback_regex(html, None)
+    assert [r.ip for r in recs] == ["10.1.1.1", "10.1.1.2", "10.1.1.3"], [r.ip for r in recs]
+    assert all(r.visited_at is not None for r in recs)
+
+
+def test_degraded_rows_do_not_collapse_into_one():
+    """只认出 IP、其它字段全空时，多条记录不能坍缩成一条。
+
+    坍缩的后果是双份的：当轮凑不够阈值不告警，而且这个指纹一旦入库，
+    该 IP 之后每一条访问都会被当成「见过了」永久丢弃。
+    """
+    from monitor.parser import _disambiguate
+    from monitor.models import VisitRecord
+    recs = _disambiguate([VisitRecord(ip="7.7.7.7") for _ in range(4)])
+    assert len({r.key for r in recs}) == 4, "四条退化记录必须有四个不同指纹"
+
+
+def test_browser_version_is_not_mistaken_for_an_ip():
+    """UA 里的「Chrome/121.0.0.0」和 IPv4 长得一模一样。"""
+    html = ("<table><tr><td>2026-08-27 10:00:01</td><td>浙江</td>"
+            "<td>Mozilla/5.0 Chrome/121.0.0.0 Safari/537.36</td><td>203.0.113.9</td></tr>"
+            "<tr><td>2026-08-27 10:00:04</td><td>江苏</td>"
+            "<td>Mozilla/5.0 Chrome/121.0.0.0 Safari/537.36</td><td>203.0.113.8</td></tr></table>")
+    recs = parse_records(html)
+    assert [r.ip for r in recs] == ["203.0.113.9", "203.0.113.8"], [r.ip for r in recs]
+
+
+def test_month_day_across_new_year_is_not_a_year_in_the_future():
+    ref = datetime(2027, 1, 3, 9, 0, 0)
+    got = parse_datetime("12-31 23:05:00", ref)
+    assert got == datetime(2026, 12, 31, 23, 5), got
+    # 同年的正常日期不受影响
+    assert parse_datetime("01-02 08:00:00", ref) == datetime(2027, 1, 2, 8, 0)
+
+
+def test_raw_time_keeps_the_key_stable_around_midnight():
+    """页面只给「23:50:00」时，我们补出来的日期会随「现在几点」变化。
+
+    如果指纹用补出来的 datetime，同一行记录在午夜前后会算出两个不同的指纹，
+    于是重复入库、重复告警。指纹用页面原样的字符串就没这个问题。
+    """
+    html = "<table><tr><td>23:50:00</td><td>1.2.3.4</td><td>/a.htm</td></tr></table>"
+    # 11:40 和 12:00 正好跨过「比现在晚 12 小时」这条线，补出来的日期会翻转
+    before = parse_records(html, reference_time=datetime(2026, 8, 27, 12, 0))
+    after = parse_records(html, reference_time=datetime(2026, 8, 27, 11, 40))
+    assert before[0].visited_at != after[0].visited_at, "前提：补出来的日期确实会变"
+    assert before[0].key == after[0].key, "但指纹必须稳定，否则会重复入库、重复告警"
+
+
+def test_colspan_does_not_shift_columns():
+    html = ("<table>"
+            "<tr><th>序号</th><th>访问时间</th><th>来访IP</th><th>访问页面</th></tr>"
+            "<tr><td colspan='2'>合并单元格</td><td>10.0.0.7</td><td>/x.htm</td></tr>"
+            "<tr><td>2</td><td>2026-08-27 10:00:00</td><td>10.0.0.8</td><td>/y.htm</td></tr>"
+            "</table>")
+    recs = parse_records(html)
+    assert [r.ip for r in recs] == ["10.0.0.7", "10.0.0.8"], [r.ip for r in recs]
+
+
+
 if __name__ == "__main__":
     failures = 0
     for name, fn in sorted(list(globals().items())):

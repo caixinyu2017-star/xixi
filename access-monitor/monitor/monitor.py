@@ -41,7 +41,10 @@ class AccessMonitor:
         self.notifier = NotificationHub(cfg.notify, self.store)
         self.session = BrowserSession(cfg, use_ocr=use_ocr)
         self.navigator: Optional[RecordsNavigator] = None
-        self._pending: List[VisitRecord] = []      # 被冷却压住、还没报出去的记录
+        # 还没送出去的告警（被冷却压住的，或者所有通道都投递失败的）。
+        # 存的是**告警对象本身**而不是零散记录：靠「下一轮重新成簇」来补发是不可靠的，
+        # 抑制一旦超过检测窗口，那些记录就滑出窗口再也凑不成簇，告警会无声消失。
+        self._deferred: List[Dict[str, object]] = []
         self._consecutive_errors = 0
         self._stop = False
         self._cycles = 0
@@ -120,9 +123,13 @@ class AccessMonitor:
             return {"ok": True, "records": len(records), "new": len(new_records),
                     "baseline": True, "alerts": 0}
 
-        if not new_records and not self._pending:
-            log.info("本轮无新增（页面共 %d 条）", len(records))
-            return {"ok": True, "records": len(records), "new": 0, "alerts": 0}
+        if not new_records:
+            # 没有新记录也要走一遍补发：上一轮可能有告警被冷却压着
+            sent = self._flush_deferred(now)
+            log.info("本轮无新增（页面共 %d 条）%s", len(records),
+                     f"，补发了 %d 条挂起告警" % sent if sent else "")
+            return {"ok": True, "records": len(records), "new": 0, "alerts": sent,
+                    "deferred": len(self._deferred)}
 
         log.info("本轮新增 %d 条（页面共 %d 条）", len(new_records), len(records))
 
@@ -138,30 +145,20 @@ class AccessMonitor:
 
         profiles = self._enrich(new_records, window_records)
 
-        candidates = list(self._pending) + [r for r in new_records
-                                            if r.key not in {p.key for p in self._pending}]
+        alerted = self.store.alerted_keys([r.key for r in window_records])
         alerts = self.detector.detect(
-            candidates, window_records, profiles, known_ips_before=known_ips_before, now=now
+            new_records, window_records, profiles,
+            known_ips_before=known_ips_before, now=now, alerted_keys=alerted,
         )
 
-        sent = 0
+        # 先补发上一轮压住的，再处理这一轮新发现的
+        sent = self._flush_deferred(now)
         for alert in alerts:
-            allowed, why = self.notifier.should_send(alert, now)
-            if not allowed:
-                log.info("告警被抑制：%s（%s）", alert.title, why)
-                self._remember_pending(alert.records)
-                continue
-            results = self.notifier.dispatch(alert)
-            self.store.record_alert(alert, {r.channel: r.ok for r in results})
-            self._forget_pending(alert.records)
-            sent += 1
-
-        if not alerts:
-            self._pending = []      # 没有任何簇成型，积压的记录也就没意义了
+            sent += 1 if self._deliver(alert, now) else 0
 
         self._housekeeping(now)
         return {"ok": True, "records": len(records), "new": len(new_records),
-                "alerts": sent, "suppressed": len(alerts) - sent}
+                "alerts": sent, "deferred": len(self._deferred)}
 
     # ------------------------------------------------------------------ #
     def _enrich(self, new_records, window_records) -> Dict[str, IpProfile]:
@@ -192,18 +189,70 @@ class AccessMonitor:
                 max(stamps).strftime("%H:%M:%S"), now.strftime("%H:%M:%S"), round(skew / 60),
             )
 
-    def _remember_pending(self, records) -> None:
-        have = {r.key for r in self._pending}
-        for rec in records:
-            if rec.key not in have:
-                self._pending.append(rec)
-        # 别无限堆积
-        if len(self._pending) > 500:
-            self._pending = self._pending[-500:]
+    # ------------------------------------------------------------------ #
+    # 投递
+    # ------------------------------------------------------------------ #
+    MAX_DEFERRED = 50
+    DEFER_MAX_AGE = timedelta(hours=6)
 
-    def _forget_pending(self, records) -> None:
-        done = {r.key for r in records}
-        self._pending = [r for r in self._pending if r.key not in done]
+    def _deliver(self, alert: Alert, now: datetime) -> bool:
+        """尝试把一条告警发出去。发不出去就挂起，等下一轮再试。"""
+        allowed, why = self.notifier.should_send(alert, now)
+        if not allowed:
+            log.info("告警被抑制，挂起等下一轮：%s（%s）", alert.title, why)
+            self._defer(alert, now)
+            return False
+
+        results = self.notifier.dispatch(alert)
+        if not results:
+            # 一个通道都没配。挂起也没意义，记录下来别重复处理就是了。
+            log.warning("没有任何可用的通知通道，告警只写进了本地数据库：%s", alert.title)
+            self.store.record_alert(alert, {})
+            self._undefer(alert)
+            return True
+        # 控制台通道只是打印到终端，不能拿它当「送到了」的证据
+        push = [r for r in results if r.channel != "console"]
+        delivered = any(r.ok for r in (push or results))
+        if not delivered:
+            log.error("告警「%s」所有推送通道都失败了，挂起重试：%s", alert.title,
+                      "；".join(f"{r.channel}: {r.message}" for r in results) or "没有可用通道")
+            self._defer(alert, now)
+            return False
+
+        self.store.record_alert(alert, {r.channel: r.ok for r in results})
+        self._undefer(alert)
+        return True
+
+    def _flush_deferred(self, now: datetime) -> int:
+        """把挂起的告警再试一遍。"""
+        if not self._deferred:
+            return 0
+        sent = 0
+        for item in list(self._deferred):
+            alert: Alert = item["alert"]          # type: ignore[assignment]
+            if now - item["since"] > self.DEFER_MAX_AGE:   # type: ignore[operator]
+                log.warning("告警「%s」挂起超过 %d 小时仍未发出，放弃（共 %d 条记录）",
+                            alert.title, self.DEFER_MAX_AGE.total_seconds() // 3600,
+                            len(alert.records))
+                self._deferred.remove(item)
+                continue
+            if self._deliver(alert, now):
+                sent += 1
+        return sent
+
+    def _defer(self, alert: Alert, now: datetime) -> None:
+        for item in self._deferred:
+            if item["alert"].dedup_key == alert.dedup_key:   # type: ignore[union-attr]
+                item["alert"] = alert          # 用最新的一份（可能记录更全）
+                return
+        self._deferred.append({"alert": alert, "since": now})
+        if len(self._deferred) > self.MAX_DEFERRED:
+            dropped = self._deferred.pop(0)
+            log.warning("挂起的告警太多，丢弃最旧的一条：%s", dropped["alert"].title)  # type: ignore[union-attr]
+
+    def _undefer(self, alert: Alert) -> None:
+        self._deferred = [i for i in self._deferred
+                          if i["alert"].dedup_key != alert.dedup_key]  # type: ignore[union-attr]
 
     def _housekeeping(self, now: datetime) -> None:
         if now - self._last_prune > timedelta(hours=12):

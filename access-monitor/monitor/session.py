@@ -138,14 +138,18 @@ class CaptchaSolver:
         return re.sub(r"[^0-9A-Za-z]", "", text).strip(), confidence
 
 
-def prompt_captcha(image_path: Optional[Path]) -> str:
-    """人工兜底：把验证码图片存下来，让用户在终端里敲。"""
+def prompt_captcha(image_path: Optional[Path], can_refresh: bool = True) -> str:
+    """人工兜底：把验证码图片存下来，让用户在终端里敲。
+
+    返回空串表示「换一张」（调用方会刷新后再问一次）。
+    """
     if image_path:
         print(f"\n请打开验证码图片并输入：{image_path}", file=sys.stderr)
     else:
         print("\n请在打开的浏览器窗口中查看验证码", file=sys.stderr)
+    hint = "验证码（直接回车 = 换一张，Ctrl+C = 放弃登录）：" if can_refresh else "验证码："
     try:
-        return input("验证码（直接回车 = 换一张）：").strip()
+        return input(hint).strip()
     except (EOFError, KeyboardInterrupt):
         return ""
 
@@ -161,6 +165,10 @@ class BrowserSession:
         self.context = None
         self.page = None
         self.solver = CaptchaSolver(enabled=use_ocr)
+        # **跨调用**的失败提交计数。login() 里的循环变量只管一次调用，
+        # 但 watch 循环遇到异常时会重新调 login()，那就等于又发了一份新预算。
+        # 账号是在服务器那边被锁的，预算也必须记在会话对象上、按时间窗口滚动。
+        self._failed_submits: List[float] = []
 
     # ---------------- 生命周期 ----------------
     def __enter__(self) -> "BrowserSession":
@@ -287,6 +295,26 @@ class BrowserSession:
             self.save_state()
         return outcome
 
+    # ---------------- 提交预算（防账号锁定） ----------------
+    def _submits_left(self) -> int:
+        """还能提交几次表单。窗口外的旧失败自动过期。"""
+        window = max(1, self.cfg.webvpn.lockout_window_seconds)
+        now = time.monotonic()
+        self._failed_submits = [t for t in self._failed_submits if now - t < window]
+        return max(0, self.cfg.webvpn.max_login_attempts - len(self._failed_submits))
+
+    def _note_submit(self) -> None:
+        """在**提交之前**先记账。
+
+        为什么是提交前而不是提交后：提交之后到判定结果之间的任何异常
+        （页面超时、元素脱离 DOM）都会让这次提交没被记上，而服务器那边是实打实收到了。
+        先记账、成功了再清零，方向上永远偏保守。
+        """
+        self._failed_submits.append(time.monotonic())
+
+    def _clear_submit_budget(self) -> None:
+        self._failed_submits = []
+
     def login(self) -> LoginOutcome:
         """完整登录流程。
 
@@ -306,14 +334,24 @@ class BrowserSession:
 
         used_ocr = False
         last_message = ""
-        for submit_no in range(1, max(1, cfg.max_login_attempts) + 1):
-            log.info("正在登录（第 %d/%d 次提交）…", submit_no, cfg.max_login_attempts)
+        submit_no = 0
+        while True:
+            left = self._submits_left()
+            if left <= 0:
+                raise LoginError(
+                    f"最近 {cfg.lockout_window_seconds // 60} 分钟内已经失败提交 "
+                    f"{cfg.max_login_attempts} 次，为避免账号被锁定，已停止自动登录。"
+                    f"请先手工登录一次确认账号密码没问题。页面最后的提示：{last_message[:100] or '无'}"
+                )
+            submit_no += 1
+            log.info("正在登录（本次第 %d 次，预算还剩 %d 次提交）…", submit_no, left)
             # execution / lt 这类隐藏字段是一次性的，每次提交前都要重新打开登录页
             self.page.goto(cfg.login_url, wait_until="domcontentloaded")
             self._settle()
 
             if not self.looks_logged_out():
                 log.info("打开登录页时发现已经是登录态")
+                self._clear_submit_budget()
                 return LoginOutcome(ok=True, attempts=submit_no - 1, used_ocr=used_ocr)
 
             self._fill_first(USERNAME_SELECTORS, cfg.username, cfg.username_selector, "账号")
@@ -332,12 +370,14 @@ class BrowserSession:
                 captcha_input.fill(code)
                 log.info("验证码填入 %s（%s）", code, "自动识别" if from_ocr else "人工输入")
 
+            self._note_submit()          # 先记账，再提交
             if not self._submit():
                 raise LoginError("找不到登录按钮，请在 config.yaml 里配置 webvpn.submit_selector")
             self._settle(extra_wait=1.2)
 
             if not self.looks_logged_out():
                 log.info("登录成功")
+                self._clear_submit_budget()   # 成功了就清零，长期挂机不会被越攒越多
                 self.save_state()
                 return LoginOutcome(ok=True, attempts=submit_no, used_ocr=used_ocr)
 
@@ -350,12 +390,14 @@ class BrowserSession:
             log.warning("第 %d 次提交未通过（判定为%s）：%s",
                         submit_no, {"captcha": "验证码错误"}.get(reason, "原因不明"), text[:100])
 
-        return LoginOutcome(
-            ok=False, attempts=cfg.max_login_attempts, used_ocr=used_ocr,
-            message=(f"连续 {cfg.max_login_attempts} 次登录未通过，已停止（继续试可能触发账号锁定）。"
-                     f"页面最后的提示：{last_message[:100] or '无'}。"
-                     "建议先手工登录一次确认账号密码没问题，再把 browser.headless 设为 false 观察。"),
-        )
+            if not self._submits_left():
+                return LoginOutcome(
+                    ok=False, attempts=submit_no, used_ocr=used_ocr,
+                    message=(f"连续 {cfg.max_login_attempts} 次登录未通过，已停止（继续试可能触发账号锁定）。"
+                             f"页面最后的提示：{last_message[:100] or '无'}。"
+                             "建议先手工登录一次确认账号密码没问题，"
+                             "再把 browser.headless 设为 false 观察。"),
+                )
 
     def _acquire_captcha(self) -> Tuple[str, bool]:
         """在**不提交表单**的前提下，反复换验证码直到 OCR 有把握。
@@ -382,10 +424,13 @@ class BrowserSession:
 
         # OCR 一直没把握：优先请人工，其次拿最有把握的那次去赌一把
         if cfg.manual_captcha_fallback and sys.stdin and sys.stdin.isatty():
-            _, image_path = self._capture_captcha_image()
-            manual = prompt_captcha(image_path)
-            if manual:
-                return manual, False
+            for attempt in range(3):
+                _, image_path = self._capture_captcha_image()
+                manual = prompt_captcha(image_path, can_refresh=attempt < 2)
+                if manual:
+                    return manual, False
+                if attempt < 2:          # 空输入 = 换一张，和提示语说的一致
+                    self._refresh_captcha()
         if best_code:
             log.warning("验证码识别始终不太确定，用置信度最高的一次（%s，%.2f）试一下", best_code, best_conf)
             return best_code, True
@@ -485,22 +530,61 @@ class BrowserSession:
         return frames
 
     def _submit(self) -> bool:
-        loc = self._first_visible(SUBMIT_SELECTORS, self.cfg.webvpn.submit_selector)
-        if loc is not None:
+        """提交登录表单，**保证最多只发出去一次**。
+
+        坑在这里：Playwright 的 click() 可能在点击事件已经派发出去之后才抛异常
+        （表单正在跳转时的稳定性检查失败、按钮被 JS 换掉导致元素脱离 DOM）。
+        如果这时候盲目走「在密码框里按回车」的兜底，就会**再提交一次**——
+        对服务器来说这是两次失败登录，而我们只记了一次，预算直接被击穿一倍。
+
+        所以先挂一个监听器盯着主框架有没有发出导航请求：只要发出去了，
+        无论 click 抛没抛异常，都算这次已经提交，绝不再补一发。
+        """
+        sent: List[object] = []
+
+        def _watch_request(request):
             try:
-                loc.click()
-                return True
-            except Exception as exc:  # noqa: BLE001
-                log.debug("点击登录按钮失败：%s", exc)
-        # 兜底：在密码框里回车
-        pwd = self._first_visible(PASSWORD_SELECTORS, self.cfg.webvpn.password_selector)
-        if pwd is not None:
-            try:
-                pwd.press("Enter")
-                return True
+                if request.is_navigation_request() and request.frame == self.page.main_frame:
+                    sent.append(request)
             except Exception:  # noqa: BLE001
                 pass
-        return False
+
+        listening = False
+        try:
+            self.page.on("request", _watch_request)
+            listening = True
+        except Exception:  # noqa: BLE001
+            pass
+
+        try:
+            loc = self._first_visible(SUBMIT_SELECTORS, self.cfg.webvpn.submit_selector)
+            if loc is not None:
+                try:
+                    loc.click()
+                    return True
+                except Exception as exc:  # noqa: BLE001
+                    if sent:
+                        log.warning("点击登录按钮后报错（%s），但请求已经发出去了，"
+                                    "不再重复提交", exc)
+                        return True
+                    log.warning("点击登录按钮失败且未发出请求（%s），改用回车提交", exc)
+            # 只有确认什么都没发出去，才允许用回车兜底
+            if sent:
+                return True
+            pwd = self._first_visible(PASSWORD_SELECTORS, self.cfg.webvpn.password_selector)
+            if pwd is not None:
+                try:
+                    pwd.press("Enter")
+                    return True
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("回车提交也失败了：%s", exc)
+            return bool(sent)
+        finally:
+            if listening:
+                try:
+                    self.page.remove_listener("request", _watch_request)
+                except Exception:  # noqa: BLE001
+                    pass
 
     def _settle(self, extra_wait: float = 0.0) -> None:
         try:

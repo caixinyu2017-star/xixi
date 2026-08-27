@@ -84,8 +84,11 @@ def _records_html(rows) -> str:
 class FakeSite:
     """开在随机端口上的假站点，用完记得 stop()。"""
 
-    def __init__(self, require_captcha: bool = True):
+    def __init__(self, require_captcha: bool = True, generic_error: bool = False):
         self.require_captcha = require_captcha
+        # 很多统一认证对「密码错」和「验证码错」返回同一句含糊的话，
+        # 程序分不清是哪种，只能保守处理。这个开关就是用来复现那种部署的。
+        self.generic_error = generic_error
         self.captcha_code = self._new_code()
         self.valid_session: Optional[str] = None
         self.login_posts = 0            # 关键指标：表单被提交了几次
@@ -208,11 +211,15 @@ class FakeSite:
                 captcha = (form.get("captcha") or [""])[0]
                 service = (form.get("service") or [""])[0]
 
-                if username != CORRECT_USER or password != CORRECT_PASSWORD:
-                    self._login_page("用户名或密码错误，请重新输入", service)
-                    return
-                if site.require_captcha and captcha.upper() != site.captcha_code.upper():
-                    self._login_page("验证码错误，请重新输入", service)
+                bad_credential = username != CORRECT_USER or password != CORRECT_PASSWORD
+                bad_captcha = site.require_captcha and captcha.upper() != site.captcha_code.upper()
+                if bad_credential or bad_captcha:
+                    if site.generic_error:
+                        self._login_page("系统繁忙，请稍后再试", service)
+                    elif bad_credential:
+                        self._login_page("用户名或密码错误，请重新输入", service)
+                    else:
+                        self._login_page("验证码错误，请重新输入", service)
                     return
 
                 site.valid_session = "".join(random.choice(string.hexdigits) for _ in range(16))

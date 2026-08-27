@@ -148,12 +148,17 @@ class BurstDetector:
         profiles: Dict[str, IpProfile],
         known_ips_before: Optional[set] = None,
         now: Optional[datetime] = None,
+        alerted_keys: Optional[set] = None,
     ) -> List[Alert]:
         """
         :param new_records:    本轮新抓到的记录（已入库）
         :param window_records: 最近一段时间的全部记录（含 new_records），用来算窗口
         :param profiles:       IP 画像，用于过滤和告警正文
         :param known_ips_before: 本轮之前已知的 IP 集合，用于「首次出现的 IP」规则
+        :param alerted_keys:   已经成功推送过的记录指纹。簇的**密度**仍然算上它们
+                               （「60 秒内 3 条」是整簇的性质），但**触发**必须靠
+                               一条既是新记录、又没报过的记录，否则一个已经报过的簇
+                               会在每次冷却到期后反复再报一遍。
         """
         now = now or datetime.now()
         r = self.rules
@@ -163,7 +168,10 @@ class BurstDetector:
         if not new_kept:
             return alerts
         window_kept = self.filter_records(window_records, profiles)
-        new_keys = {rec.key for rec in new_kept}
+        done = alerted_keys or set()
+        new_keys = {rec.key for rec in new_kept} - done
+        if not new_keys:
+            return alerts
 
         # ---- 规则一：整体突发 ----
         if r.burst_enabled:

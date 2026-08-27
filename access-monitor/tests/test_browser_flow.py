@@ -251,6 +251,58 @@ def test_full_loop_detects_a_real_burst_through_the_browser():
 
 
 
+
+def test_submit_budget_survives_a_new_login_call():
+    """预算必须跨 login() 调用累计，否则 watch 循环每轮都能拿到一份新预算。
+
+    真实触发路径：登录中途抛出一个不是 LoginError 的异常（比如页面 goto 超时），
+    watch 的通用 except 会吞掉它继续轮询，下一轮又调一次 login()。
+    如果预算只是 login() 里的循环变量，配置写的「最多 3 次」实际能变成 3 的好几倍。
+    这里直接连着调两次 login() 来模拟那个效果。
+    """
+    site = FakeSite(require_captcha=False, generic_error=True)   # 提示含糊，判不出是密码错
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            cfg = make_config(site, Path(td), password="wrong-but-indistinguishable")
+            cfg.webvpn.max_login_attempts = 3
+            with BrowserSession(cfg, use_ocr=False) as session:
+                first = session.login()
+                assert first.ok is False
+                assert site.login_posts == 3, f"第一次调用应该用满 3 次，实际 {site.login_posts}"
+
+                # 第二次调用不能再拿到新预算，必须直接拒绝
+                try:
+                    session.login()
+                    raise AssertionError("预算已耗尽却还允许再次登录")
+                except LoginError as exc:
+                    assert "锁定" in str(exc), str(exc)
+            assert site.login_posts == 3, (
+                f"跨调用总共只该提交 3 次，实际 {site.login_posts} 次")
+    finally:
+        site.stop()
+
+
+def test_successful_login_clears_the_budget():
+    """长期挂机时，正常的会话过期重登不能把预算越攒越少。"""
+    site = FakeSite(require_captcha=False, generic_error=True)
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            cfg = make_config(site, Path(td), password="wrong-at-first")
+            cfg.webvpn.max_login_attempts = 3
+            with BrowserSession(cfg, use_ocr=False) as session:
+                assert session.login().ok is False
+                assert session._submits_left() == 0
+
+                cfg.webvpn.password = CORRECT_PASSWORD     # 用户改对了密码
+                session._failed_submits = session._failed_submits[:1]   # 模拟窗口过期掉两条
+                assert session.login().ok is True
+                assert session._submits_left() == cfg.webvpn.max_login_attempts, \
+                    "登录成功后预算应该完全恢复"
+    finally:
+        site.stop()
+
+
+
 if __name__ == "__main__":
     exe = chromium_path()
     if exe == "MISSING":
