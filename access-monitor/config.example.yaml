@@ -1,0 +1,207 @@
+# ============================================================================
+#  网站访问实时监控 —— 配置文件
+#
+#  用法：复制成 config.yaml 再改。账号密码不要写在这里，写到 .env 里。
+#  这个文件里的 ${XXX} 会自动用环境变量 / .env 里的同名值替换。
+# ============================================================================
+
+webvpn:
+  # 学校 WebVPN 的统一身份认证登录页（就是你平时手动打开的那个）
+  login_url: "https://webvpn.zjxu.edu.cn/http/77726476706e69737468656265737421fef2569f267e725a661dc7a99c406d362a/cas/login?service=https%3A%2F%2Fwebvpn.zjxu.edu.cn%2Flogin%3Fcas_login%3Dtrue"
+  # 登录成功后要进的博达后台地址
+  target_url: "https://webvpn.zjxu.edu.cn/http-8080/77726476706e69737468656265737421a1a70fcd777e391e2d/system/caslogin.jsp"
+
+  username: "${WEBVPN_USERNAME}"
+  password: "${WEBVPN_PASSWORD}"
+
+  # ---- 账号安全（重要）----
+  # 提交登录表单的次数上限。有些统一认证把「验证码错」也算一次失败登录，
+  # 攒够几次就锁账号，所以这里必须保守，别调大。
+  # 这是**跨轮次**的预算：登录成功会清零，失败则在下面的窗口内累计。
+  max_login_attempts: 3
+  # 失败提交的滚动统计窗口（秒）。超过这么久没有新的失败，计数自然归零，
+  # 这样长期挂机时正常的会话过期重登不会被越算越多。
+  lockout_window_seconds: 900
+  # 不提交、只换一张验证码重新识别的次数。这个动作不消耗上面的登录次数，可以放心多试。
+  max_captcha_attempts: 6
+  # OCR 置信度低于这个值就换一张，不拿去浪费宝贵的提交机会
+  captcha_min_confidence: 0.6
+  # OCR 实在识别不出来时，在终端提示你手工输入（需要前台运行）
+  manual_captcha_fallback: true
+
+  # 下面这些选择器一般不用填，程序会自动找。
+  # 只有当日志报「找不到账号输入框」之类时，才按 F12 看一眼再手工指定。
+  username_selector: ""
+  password_selector: ""
+  captcha_input_selector: ""
+  captcha_image_selector: ""
+  submit_selector: ""
+
+browser:
+  # 第一次建议 false（看得见窗口，方便手工输验证码 / 观察菜单）；
+  # 跑顺了之后改成 true 挂后台。
+  headless: false
+  channel: ""              # 留空用内置 Chromium；也可填 chrome / msedge 用本机浏览器
+  executable_path: ""      # 也可以直接指向浏览器可执行文件，省得再下一份 Chromium
+  slow_mo_ms: 0            # 调试时可以设 300，能看清每一步在点什么
+  timeout_ms: 45000
+  user_data_dir: "state/browser"          # 浏览器 profile，登录态主要靠它
+  storage_state: "state/storage_state.json"
+  viewport_width: 1600
+  viewport_height: 950
+  ignore_https_errors: true
+
+navigation:
+  # 从后台首页点到「最近访问记录」的菜单文字。
+  # 如果你们后台的菜单名不一样，照着实际界面改这里就行。
+  menu_path: ["运营中心", "访问统计", "最近访问记录"]
+  # 留空即可：第一次 discover 成功后，程序会把真实地址记到 state/monitor.sqlite，
+  # 之后直接开那个地址，几百毫秒就拿到数据。
+  records_url: ""
+  # 用来确认「这确实是记录页」的特征词，命中任意一个即可。
+  # 一个都命中不了时程序会**整轮跳过**而不是硬解析——因为解析器最后一层兜底是
+  # 全文正则捞 IP，拿它去啃一个错误页会捞出一堆时间相同的垃圾记录，立刻假告警。
+  # 如果你们后台用词不一样，把实际的词加进来。
+  page_markers: ["最近访问记录", "来访IP", "访问时间"]
+
+poll:
+  interval_seconds: 30     # 多久查一次。30 秒够「实时」了，也顺带保住 WebVPN 会话不掉线
+  jitter_seconds: 5        # 随机抖动，别每次都卡在整点
+  max_rows: 300            # 每次最多处理表格前多少行
+  max_consecutive_errors: 5
+
+rules:
+  # ---- 规则一：整体突发（你要的「短时间内 3 条以上访问记录」）----
+  burst_enabled: true
+  burst_threshold: 3       # ≥ 3 条就报（含 3）
+  burst_window_seconds: 60 # 在任意 60 秒的滑动窗口内
+
+  # ---- 规则二：同一个 IP 短时间内反复访问 ----
+  ip_burst_enabled: true
+  ip_burst_threshold: 3
+  ip_burst_window_seconds: 300
+
+  # ---- 规则三：出现从没见过的 IP（默认关，开了会比较吵）----
+  new_ip_enabled: false
+
+  # ---- 过滤 ----
+  ignore_ips: []           # 自己的 IP / 办公室网段，支持 "1.2.3.4" 或 "10.0.0.0/8" 或 "192.168."
+  only_ips: []             # 反过来：只关心这些 IP（一般留空）
+  ignore_bots: false       # true = 百度/谷歌等搜索引擎爬虫不告警（识别靠反向域名，比较准）
+  ignore_private: false    # true = 忽略内网地址
+  cooldown_seconds: 300    # 同一条规则多久内不重复告警；被压下去的记录会并进下一次，不会丢
+  baseline_on_first_run: true   # 第一次运行把已有记录当基线，避免一启动就轰炸
+
+ipintel:
+  enabled: true
+
+  # ---- 离线库（强烈建议至少装第一个，国内 IP 能精确到「区/县」）----
+  # GeoCN.mmdb：国内 IP 到 省-市-区县 + 运营商（含「教育网」）+ 网络类型（宽带/基站/专线/IDC）
+  # 下载：https://github.com/ljxi/GeoCN/releases  把 GeoCN.mmdb 放进 state/ 即可
+  geocn_mmdb: ""             # 例如 "state/GeoCN.mmdb"
+  # 可选：行政区划码 -> 名称对照表（同目录下有 divisions.json 会自动读，也可在这里指定）
+  divisions_json: ""
+  # ip2region.xdb：全球覆盖，国内到市级。GeoCN 只覆盖大陆，境外 IP 靠它兜底
+  # 下载：https://github.com/lionsoul2014/ip2region  data/ip2region.xdb
+  ip2region_xdb: ""          # 例如 "state/ip2region.xdb"
+
+  # ---- 在线 API ----
+  use_ip_api: true           # ip-api.com：免费、中文，补 ASN / 组织 / 是否代理 / 是否机房
+  ip_api_lang: "zh-CN"       # 只支持 en/de/es/pt-BR/fr/ja/zh-CN/ru
+  use_qqmap: false           # 腾讯位置服务：目前唯一「国内基本都能到区/县」的在线 API
+  qqmap_key: "${QQMAP_KEY}"  # https://lbs.qq.com 申请，个人免费额度 1 万次/天
+  use_rdns: true             # 反向 DNS，识别百度/谷歌/字节等爬虫最可靠的手段
+  use_rdap: true             # 查网段归属机构，能看出是教育网还是机房
+  rdap_max_per_cycle: 5      # RDAP 是串行外网请求，每轮限量，别把轮询节奏拖垮
+  timeout_seconds: 6
+  rdns_timeout_seconds: 3    # 单个反向 DNS 最多等多久
+  rdns_budget_seconds: 8     # 一轮里所有反向 DNS 加起来最多等多久
+  cache_days: 7
+  cache_failure_minutes: 10  # 查失败的 IP 缓存多久，避免网络一抖就每轮重查一遍
+
+  # 命中这些关键词就打「校园网/教育网」标签并降低风险分
+  campus_keywords: ["Jiaxing University", "嘉兴", "CERNET", "教育和科研", "edu.cn", "zjxu"]
+
+notify:
+  enabled: true
+  # 全局最短告警间隔：任意两条告警之间至少隔这么久。
+  # 单条规则自己的冷却写在上面的 rules.cooldown_seconds，两者取严。
+  cooldown_seconds: 120
+  max_alerts_per_hour: 20
+  # 被冷却或投递失败压下来的告警不会丢：它们会被挂起，之后每轮重试，
+  # 直到有一个非控制台通道确认发出去，或者挂满 6 小时。
+
+  channels:
+    # 控制台：永远开着，终端里能直接看到完整告警
+    console:
+      enabled: true
+
+    # ---------- 邮件（信息最全、可留档；但手机收信常延迟几分钟，别只靠它）----------
+    email:
+      enabled: true
+      host: "smtp.qq.com"
+      port: 465
+      ssl: true
+      username: "${SMTP_USERNAME}"
+      password: "${SMTP_PASSWORD}"     # QQ/163 填【授权码】，不是登录密码
+      from: "${SMTP_USERNAME}"
+      from_name: "网站访问监控"
+      to: ["${SMTP_USERNAME}"]         # 收件人，可以写多个
+      # 163 邮箱：host: smtp.163.com, port: 465（同样要「客户端授权密码」）
+      # Gmail：  host: smtp.gmail.com, port: 465（要先开两步验证再生成应用专用密码；
+      #          而且大陆网络一般连不上，需要代理）
+      # Outlook / 微软账号：**不要用**。微软已于 2025 年停用 SMTP 的密码登录，
+      #          现在必须走 OAuth2，smtplib 用账号密码是连不上的。
+
+    # ---------- 手机即时推送：这才是「实时」的关键，至少开一个 ----------
+
+    # 【首选】企业微信群机器人：安卓 iOS 都能用，不用实名、没有每日额度（20 条/分钟），
+    # 自己建个只有自己的群，60 秒就能加好机器人。
+    wecom:
+      enabled: false
+      key: "${WECOM_KEY}"
+
+    # 【iPhone 用户首选】Bark：唯一能突破静音/专注模式响铃的通道
+    bark:
+      enabled: false
+      key: "${BARK_KEY}"
+      sound: "alarm"
+      group: "网站访问监控"
+      level: ""                         # 留空自动选：一般 timeSensitive，严重时 critical
+      # critical（重要警告）需要在 iOS 通知设置里单独给 Bark 授权，否则会降级成普通通知
+
+    serverchan:                         # 微信收消息：https://sct.ftqq.com
+      enabled: false
+      sendkey: "${SERVERCHAN_SENDKEY}"  # sctp 开头会自动识别为 Server酱³，不用填 uid
+      uid: ""
+      # 注意：Turbo 免费版每天只有 5 条，busy 的站点很容易用完
+
+    dingtalk:                           # 钉钉自定义机器人
+      enabled: false
+      token: "${DINGTALK_TOKEN}"
+      secret: "${DINGTALK_SECRET}"      # 安全设置选「加签」时填
+      keyword: ""                       # 安全设置选「自定义关键词」时填那个词
+
+    feishu:
+      enabled: false
+      token: "${FEISHU_TOKEN}"
+      secret: "${FEISHU_SECRET}"
+
+    pushplus:                           # 需要先在 pushplus 完成实名认证才能调接口
+      enabled: false
+      token: "${PUSHPLUS_TOKEN}"
+
+    telegram:                           # 大陆网络一般连不上，需要代理
+      enabled: false
+      bot_token: "${TELEGRAM_BOT_TOKEN}"
+      chat_id: "${TELEGRAM_CHAT_ID}"
+      proxy: ""                         # 例如 "http://127.0.0.1:7890"
+
+    webhook:                            # 想接到自己系统里就用这个，POST 完整 JSON
+      enabled: false
+      url: ""
+
+state_dir: "state"
+log_dir: "logs"
+dump_dir: "dumps"
+log_level: "INFO"

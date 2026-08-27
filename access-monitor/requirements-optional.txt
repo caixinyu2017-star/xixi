@@ -1,0 +1,14 @@
+# 可选增强。装不上不影响主功能，但强烈建议至少装 ddddocr。
+#     pip install -r requirements-optional.txt
+
+# 验证码自动识别。不装的话，每次会话过期都要人工输一次验证码，
+# 挂后台就没意义了（任务计划里没有终端，会直接失败退出）。
+# 连同 onnxruntime / opencv 大约 400MB，第一次装会比较慢。
+# 注意：1.6.0 是坏的（import 就报 NameError），必须 >=1.6.1。
+ddddocr>=1.6.1,!=1.6.0
+
+# 离线 IP 库。装了之后国内 IP 能精确到「区/县」，零延迟、不耗 API 配额。
+# 两个库配合最好：GeoCN 管大陆（到区县），ip2region 管全球（到市）。
+# 库装完还要单独下数据文件，见 README「IP 定位精度」一节。
+maxminddb>=2.6            # 读 GeoCN.mmdb
+py-ip2region>=3.0.4       # 读 ip2region.xdb（官方绑定；注意不是 XdbSearchIP）

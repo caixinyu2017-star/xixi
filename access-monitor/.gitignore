@@ -1,0 +1,19 @@
+# ==== 绝对不能提交的东西 / never commit ====
+.env
+config.yaml
+state/
+logs/
+dumps/
+*.session.json
+storage_state*.json
+ip_cache.sqlite*
+monitor.sqlite*
+
+# ==== 运行产物 ====
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.log
+*.png
+*.html.dump

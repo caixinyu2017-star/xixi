@@ -1,0 +1,10 @@
+# 必装依赖。这一份很小，装不上说明环境有问题。
+playwright>=1.45          # 驱动浏览器登录 WebVPN、点菜单、读 iframe
+beautifulsoup4>=4.12      # 解析「最近访问记录」表格
+lxml>=5.0                 # bs4 的高速解析器（没有也能跑，但慢且更容易解析歪）
+requests>=2.31            # IP 查询 + 各种推送通道
+PyYAML>=6.0               # 读 config.yaml
+
+# 可选增强（验证码自动识别、离线 IP 库）在 requirements-optional.txt 里。
+# 单独放是因为那几个包加起来 400MB 以上，混在一起的话
+# 任何一个装不上都会让必装依赖也跟着失败。
