@@ -19,7 +19,7 @@
     {
       "name": "academic-research-skills",
       "source": "./plugins/academic-research-skills",
-      "description": "Production-grade academic research pipeline (4 skills, 35+ modes, multi-agent ensemble): research → write → review → revise → finalize, with deep-research, citation-verification gates, and a Material Passport pipeline.",
+      "description": "Production-grade academic research pipeline (4 skills, 25 modes, multi-agent ensemble): research → write → review → revise → finalize, with deep-research, citation-verification gates, and a Material Passport pipeline.",
       "version": "3.12.0",
       "license": "CC-BY-NC-4.0"
     },
@@ -89,7 +89,7 @@
     {
       "name": "aer-skills",
       "source": "./plugins/auto-empirical-research-skills/skills/50-brycewang-aer-skills",
-      "description": "AER-skills (from Auto-Empirical-Research-Skills) — nine-skill stack for top-5 economics manuscripts (AER / AER: Insights / AEJ): topic selection, modern causal identification (DiD / IV / RDD / SCM / Bartik), referee-anticipating robustness, Keith-Head-style introductions, AER booktabs tables, AEA Data & Code Availability deposits (openICPSR-ready), submission preflight, and R&R rebuttal letters. Ships Stata / R / Python templates and classic-AER exemplars.",
+      "description": "AER-skills (from Auto-Empirical-Research-Skills) — 14-skill stack for top-5 economics manuscripts (AER / AER: Insights / AEJ): topic selection, modern causal identification (DiD / IV / RDD / SCM / Bartik), referee-anticipating robustness, Keith-Head-style introductions, AER booktabs tables, AEA Data & Code Availability deposits (openICPSR-ready), submission preflight, and R&R rebuttal letters. Ships Stata / R / Python templates and classic-AER exemplars.",
       "version": "1.1.0",
       "license": "MIT"
     },
