@@ -180,9 +180,11 @@ FIGURES = dict(
                       "match (market replication 1). Bars give each "
                       "pair feature's signed contribution to the score "
                       "difference between the offered post and the best "
-                      "alternative; the ten largest contributions are "
-                      "shown and the full ledger sums to the score "
-                      "difference with zero residual."),
+                      "alternative; filled bars favour the offered post "
+                      "and open bars favour the alternative. The ten "
+                      "largest contributions are shown and the full "
+                      "ledger sums to the score difference with zero "
+                      "residual."),
     fig4=dict(number=4, file="figure4_tradeoffs.png", width_cm=8.6,
               caption="The two policy dials. (a) Acceptance, 24-month "
                       "retention among formed matches, and stay-yield "

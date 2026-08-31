@@ -242,8 +242,8 @@ def figure4_tradeoffs():
     sw, rc = S["sweep"], S["riskcov"]
 
     fig, axes = plt.subplots(1, 2, figsize=(88 / 25.4, 40 / 25.4))
-    fig.subplots_adjust(left=0.105, right=0.985, bottom=0.21, top=0.90,
-                        wspace=0.45)
+    fig.subplots_adjust(left=0.105, right=0.985, bottom=0.30, top=0.90,
+                        wspace=0.52)
 
     ax = axes[0]
     al = [d["alpha"] for d in sw]
@@ -253,12 +253,13 @@ def figure4_tradeoffs():
             color=BLACK, ls="--", label="24-month retention")
     ax.plot(al, [d["yield100"] / 100.0 for d in sw], marker="^", ms=2.8,
             lw=0.9, color=GREY, label="stay-yield / 100")
-    ax.set_xlabel("Mixing weight α (0 = retention, 1 = acceptance)",
+    ax.set_xlabel("Mixing weight α\n(0 = retention, 1 = acceptance)",
                   fontsize=6.4)
     ax.set_ylabel("Rate", fontsize=6.6)
+    ax.set_ylim(0.24, 0.66)
     ax.set_title("(a)", fontsize=7.0, loc="left")
-    ax.legend(fontsize=5.2, frameon=False, loc="lower right",
-              handlelength=1.6)
+    ax.legend(fontsize=5.2, frameon=False, loc="center",
+              bbox_to_anchor=(0.56, 0.34), handlelength=1.6)
     ax.tick_params(width=0.5, length=2.2)
 
     ax = axes[1]
@@ -267,7 +268,7 @@ def figure4_tradeoffs():
     sd = [d["sd"] for d in rc]
     ax.errorbar(cov, ret, yerr=sd, marker="o", ms=2.6, lw=0.9,
                 color=BLACK, elinewidth=0.6, capsize=1.6)
-    ax.set_xlabel("Coverage (share auto-approved)", fontsize=6.4)
+    ax.set_xlabel("Coverage\n(share auto-approved)", fontsize=6.4)
     ax.set_ylabel("24-month retention", fontsize=6.6)
     ax.set_title("(b)", fontsize=7.0, loc="left")
     ax.tick_params(width=0.5, length=2.2)

@@ -25,7 +25,7 @@ N_SEEDS = 20            # main comparison
 N_SEEDS_AUDIT = 8       # audits and the mismatched-oracle check
 LOG_ROUNDS = 4          # years of logged administrative matching
 ALPHAS = [0.0, 0.25, 0.5, 0.75, 1.0]
-ETAS = [0.0, 0.1, 0.2, 0.3]
+ETAS = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 MIN_EDU = {0: 0, 1: 1, 2: 1, 3: 2, 4: 2}    # admin eligibility by category
 
@@ -522,18 +522,25 @@ def main():
     log("=== extraction-noise sweep ===")
     noise = []
     for eta in ETAS:
-        vals_r, vals_m = [], []
+        vals_r, vals_m, vals_l, vals_f = [], [], [], []
         for s in range(1, 7):
             r = one_seed(s, eta=eta)
             vals_r.append(r["metrics"]["RAMT"]["yield100"])
             vals_m.append(r["metrics"]["MLP-Acc"]["yield100"])
+            vals_l.append(r["metrics"]["Logit-Acc+DA"]["yield100"])
+            vals_f.append(r["metrics"]["FCFS"]["yield100"])
         noise.append(dict(eta=eta,
                           ramt=float(np.mean(vals_r)),
                           ramt_sd=float(np.std(vals_r)),
                           mlp=float(np.mean(vals_m)),
-                          mlp_sd=float(np.std(vals_m))))
-        log("eta %.1f: RAMT %.2f MLP %.2f" % (eta, noise[-1]["ramt"],
-                                              noise[-1]["mlp"]))
+                          mlp_sd=float(np.std(vals_m)),
+                          logit=float(np.mean(vals_l)),
+                          logit_sd=float(np.std(vals_l)),
+                          fcfs=float(np.mean(vals_f)),
+                          fcfs_sd=float(np.std(vals_f))))
+        log("eta %.1f: RAMT %.2f MLP %.2f Logit %.2f FCFS %.2f"
+            % (eta, noise[-1]["ramt"], noise[-1]["mlp"],
+               noise[-1]["logit"], noise[-1]["fcfs"]))
     S["noise"] = noise
 
     # ---- corpus description ------------------------------------------

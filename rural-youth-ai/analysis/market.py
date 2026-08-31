@@ -308,27 +308,30 @@ def retention_matrix(mk, style=None):
 def extraction_noise(mk, eta, seed=0):
     """Corrupt profile features as an imperfect extraction pipeline would.
 
-    eta is the field error rate: each continuous field is perturbed with
-    probability eta by a re-draw toward the population mean plus noise, and
-    each binary field is flipped with probability eta/2. Returns a shallow
-    copy of the market with corrupted OBSERVED features; the oracle keeps
-    the true ones, which is the point: matching runs on what the profiling
-    layer reports, outcomes follow what is actually true.
+    eta is the field error rate: with probability eta a continuous field
+    is replaced by the corresponding field of another randomly drawn
+    profile — a plausible but wrong extraction — and a binary field is
+    flipped with probability eta. Returns a shallow copy of the market
+    with corrupted OBSERVED features; the oracle keeps the true ones,
+    which is the point: matching runs on what the profiling layer
+    reports, outcomes follow what is actually true.
     """
     rng = np.random.default_rng(10_000 + seed)
     import copy
     obs = copy.copy(mk)
     for name in ("skill", "dig", "gai", "wexp", "ties"):
         x = getattr(mk, name).copy()
-        mask = rng.random(x.shape) < eta
-        centre = x.mean()
-        x[mask] = np.clip(0.5 * centre + 0.5 * x[mask]
-                          + rng.normal(0, 0.25 * (x.std() + 1e-9),
-                                       mask.sum()), 0, None)
+        donor = rng.integers(0, x.shape[0], x.shape[0])
+        if x.ndim == 1:
+            mask = rng.random(x.shape[0]) < eta
+            x[mask] = x[donor][mask]
+        else:
+            mask = rng.random(x.shape) < eta
+            x[mask] = x[donor, :][mask]
         setattr(obs, name, x)
     for name in ("returnee", "child"):
         x = getattr(mk, name).copy()
-        flip = rng.random(x.shape) < eta / 2
+        flip = rng.random(x.shape) < eta
         x[flip] = 1 - x[flip]
         setattr(obs, name, x)
     return obs
