@@ -131,9 +131,9 @@ BLOCKS = [
     ("p",
      "Rural revitalisation runs on young people, and China's counties "
      "now compete for them. National monitoring counts nearly 300 "
-     "million rural migrant workers, and the cohort returning toward "
-     "county and village employment has grown into the tens of millions "
-     "[[nbs2024]]. What a returning young person finds is a thin, "
+     "million rural migrant workers [[nbs2024]], and county policy now "
+     "works to draw part of that cohort back toward county and "
+     "village employment. What a returning young person finds is a thin, "
      "fragmented market: village posts in modern agriculture, rural "
      "e-commerce, agritourism and grassroots governance are scattered "
      "across dozens of administrative villages, capacities are small, "
@@ -164,9 +164,9 @@ BLOCKS = [
      "the objective is wrong: recommender-style matchers are trained on "
      "immediate outcomes — clicks, applications, offer acceptance — "
      "whereas the talent chain's binding constraint is retention. "
-     "County practice in the Yangtze River Delta reports exactly this "
-     "failure mode: young people are placed, and then leave, because "
-     "the placement optimised the placement rate. Second, the models "
+     "The predictable failure mode follows: young people are placed, "
+     "and then leave, because the placement optimised the placement "
+     "rate. Second, the models "
      "are opaque: a two-tower network scores a pair and the office "
      "cannot state why this youth was routed to that post, which "
      "matters because an automated employment decision about a public "
@@ -280,8 +280,8 @@ BLOCKS = [
      "[[wang2022returnee]], and large questionnaire studies decompose "
      "the entrepreneurial capability of returning workers "
      "[[lu2023ability]]. The distributional stakes are documented "
-     "too: rural e-commerce expansion has widened rather than "
-     "narrowed local income gaps where its gains concentrated "
+     "too: whether rural e-commerce narrows or widens local income "
+     "gaps has been shown to turn on where its gains concentrate "
      "[[liu2023ecom]]. What this literature does not contain is an "
      "allocation mechanism: given profiles and posts, who should go "
      "where. That is the gap this paper addresses, and the recent "
@@ -352,7 +352,7 @@ BLOCKS = [
      "empirically, with sobering compliance rates [[wright2024]], "
      "[[groves2024]]. This paper's contribution to the line is to "
      "move the audit from the score to the decision: the checks in "
-     "Section 4.6 ask whether a trail justifies the allocation "
+     "Section 4 ask whether a trail justifies the allocation "
      "actually made, against the alternative actually foregone."),
 
     # =====================================================================
@@ -479,7 +479,7 @@ BLOCKS = [
      "entries $\\varphi_{k}$ are the evidence ledger, and they "
      "reconstruct the score with zero residual because they are the "
      "score. This is the property post-hoc attribution methods "
-     "estimate for black boxes [[lundberg2017]] and here comes free "
+     "estimate for black boxes [[lundberg2017]] and that comes free "
      "by construction, which is the architectural bet of the paper: "
      "Section 6 measures what, if anything, the bet costs in "
      "accuracy."),
@@ -530,7 +530,7 @@ BLOCKS = [
      "interpolates between a matcher that optimises predicted "
      "retention ($\\alpha = 0$, the engine's default) and one that "
      "optimises predicted acceptance ($\\alpha = 1$, the objective "
-     "of deployed platforms). Section 6.5 traces the frontier and "
+     "of deployed platforms). Section 6 traces the frontier and "
      "argues the choice of $\\alpha$ is a policy decision that "
      "should be taken in the open."),
     ("h2", "Assignment by Deferred Acceptance"),
@@ -551,7 +551,7 @@ BLOCKS = [
      "with row masses $a$ uniform over youth, column masses $b$ "
      "proportional to capacities and the rounded plan used as an "
      "assignment. Transport fills every seat by construction; what "
-     "it gives up, Section 6.3 measures, is stability."),
+     "it gives up, the ablations of Section 6 measure, is stability."),
     ("h2", "Decision-Level Audits and Abstention"),
     ("p",
      "An evidence trail should justify the decision actually taken, "
@@ -585,7 +585,7 @@ BLOCKS = [
      "the point of running them is that the same checks can be "
      "applied to any engine whose trails are sampled Shapley "
      "attributions, which is how the black-box baselines are "
-     "audited in Section 6.2."),
+     "audited in Section 6."),
     ("p",
      "Finally, the engine declines to decide alone where its own "
      "evidence is thin. An ensemble of five hazard heads trained on "
@@ -597,7 +597,7 @@ BLOCKS = [
      "and the most uncertain share $1 - q$ of matches is routed to "
      "human review rather than auto-approved, the selective-"
      "prediction pattern [[geifman2017]], [[hendrickx2024]] in its "
-     "learning-to-defer form [[mozannar2023]]. Section 6.5 traces "
+     "learning-to-defer form [[mozannar2023]]. Section 6 traces "
      "retention against coverage $q$; calibration of the underlying "
      "probabilities is checked with standard tools [[guo2017]], "
      "[[angelopoulos2023]]."),
@@ -655,7 +655,7 @@ BLOCKS = [
      "separate two-sided utility with its own noise. A second, "
      "structurally different generator (a single smooth logistic "
      "hazard with no regimes, no threshold and no interactions) is "
-     "held out for the validity check of Section 6.6."),
+     "held out for the validity checks of Section 6."),
     ("h2", "Logged Behaviour Policy"),
     ("p",
      "Engines train on logs of the administrative rule the "
@@ -712,7 +712,8 @@ BLOCKS = [
      "sampled pairs against the retention-priority preferences, and "
      "an assignment-parity ratio — the assignment rate of youth with "
      "college education and above over that of the rest — complete "
-     "the deployment picture. Audit metrics follow Section 4.6: "
+     "the deployment picture. Audit metrics follow the checks of "
+     "Section 4: "
      "reconstruction residual as a share of the score difference, "
      "and pass rates of the sufficiency, minimality and "
      "counterfactual-flip checks, computed on samples of assigned "
@@ -781,7 +782,7 @@ BLOCKS = [
      f"{pm('RAMT', 'yield100', f2)}), because forming more matches "
      "and keeping each formed match longer trade off almost "
      "exactly under this wage structure. The mixing dial of "
-     "Section 6.5 spans the entire frontier between the two "
+     "Section 6 spans the entire frontier between the two "
      "objectives, so where a county sits on it is a published "
      "policy parameter, not a property of the engine. Second, the "
      "allocator matters as much as the "
@@ -796,7 +797,7 @@ BLOCKS = [
      "return to this."),
     ("h2", "Auditability"),
     ("p",
-     "Table 2 applies the decision-level audits of Section 4.6 to "
+     "Table 2 applies the decision-level audits of Section 4 to "
      "every engine that ships a trail. For RAMT the trail is the "
      "ledger; for the black-box engines it is sampled Shapley "
      "attribution over the same features, with the same checks "
@@ -952,7 +953,7 @@ BLOCKS = [
     ("p",
      "Two checks probe whether the conclusions are artefacts of "
      "the simulator. First, the entire evaluation was re-run under "
-     "the held-out generator of Section 5.1 — a single smooth "
+     "the held-out generator of Section 5 — a single smooth "
      "logistic hazard with none of the regime, threshold or "
      "interaction structure the engines could not represent. Table "
      "4 shows the engine ordering is preserved essentially intact "
@@ -1077,7 +1078,7 @@ BLOCKS = [
      "elicitation: the youth side is represented here by a "
      "fitted acceptance model, and replacing it with elicited "
      "or LLM-assisted preference structures [[du2024]] — with "
-     "the profiling caveats of Section 6.6 — would let the "
+     "the profiling caveats of Section 6 — would let the "
      "stability guarantee bind to preferences the young people "
      "actually state."),
 
