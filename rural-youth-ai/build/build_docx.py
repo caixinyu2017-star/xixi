@@ -198,7 +198,7 @@ def table(spec):
         frac = [lead] + [(1.0 - lead) / (ncol - 1)] * (ncol - 1)
     widths = [int(round(5000 * x)) for x in frac]
     widths[0] += 5000 - sum(widths)
-    grid = "".join('<w:gridCol w:w="%d"/>' % int(9720 * x / 5000)
+    grid = "".join('<w:gridCol w:w="%d"/>' % int(5040 * x / 5000)
                    for x in widths)
     tblPr = (
         '<w:tblPr><w:tblStyle w:val="%s"/>'
@@ -214,6 +214,8 @@ def table(spec):
         '<w:bottom w:w="20" w:type="dxa"/>'
         '<w:right w:w="60" w:type="dxa"/></w:tblCellMar>'
         '</w:tblPr>' % S_TABLE)
+
+    csz = spec.get("size", 9)
 
     def cell(text, bold, align, colw, last_header=False,
              first_row=False, bottom=False):
@@ -238,7 +240,7 @@ def table(spec):
         # readable point instead of wherever the column happens to end
         parts = text.split("\n")
         body = "<w:r><w:br/></w:r>".join(
-            (run(t, bold=True, size=9) if bold else rich(t, size=9))
+            (run(t, bold=True, size=csz) if bold else rich(t, size=csz))
             for t in parts)
         return "<w:tc>%s<w:p>%s%s</w:p></w:tc>" % (tcpr, ppr, body)
 
@@ -413,8 +415,12 @@ def build():
         items = {i.filename: zin.read(i.filename)
                  for i in zin.infolist()}
 
-    # register the figure images
+    # register the figure images; drop the template's own image
+    # relationships first so no relationship dangles once the old
+    # media files are removed below
     rels = items["word/_rels/document.xml.rels"].decode("utf-8")
+    rels = re.sub(r'<Relationship [^>]*Target="media/image[^>]*/>', "",
+                  rels)
     add = []
     for rid, path in IMAGES:
         name = "media/" + os.path.basename(path)

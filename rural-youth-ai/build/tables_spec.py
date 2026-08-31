@@ -20,7 +20,7 @@ MINUS = "−"
 
 # engine keys in run_all.py -> row labels the reader saw in Section 5.4
 ENGINES = [
-    ("AdminRule", "Administrative rule (incumbent)"),
+    ("AdminRule", "Admin. rule (wage rank)"),
     ("FCFS", "First-come queue"),
     ("MLP-Acc", "Platform matcher [[yi2019]]"),
     ("Logit-Acc+DA", "Interpretable acceptance matcher"),
@@ -51,19 +51,18 @@ def table1():
                      _stack(a["accept"]),
                      _stack(a["ret24"]),
                      _stack(a["yield100"], "%.2f"),
-                     _stack(a["fit"]),
                      _stack(a["block"], "%.4f"),
                      _stack(a["parity"], "%.2f")])
     return dict(number=1,
                 caption="Deployment Performance on the Simulated County "
                         "Micro-Market (Mean (SD) over %d Market "
                         "Replications)" % S["meta"]["n_seeds"],
-                header=["Engine", "Offer\naccept.", "24 m\nretention",
-                        "Stay-yield\n/100 offers", "Skill\nfit",
-                        "Blocking\nrate", "Parity\n(high/low)"],
-                rows=rows,
-                widths=[0.235, 0.115, 0.12, 0.135, 0.115, 0.145, 0.135],
-                align=["left"] + ["center"] * 6)
+                header=["Engine", "Accept.\nrate", "Retent.\n24 m",
+                        "Stay-yield\n/100 offers", "Block.\nrate",
+                        "Parity\n(high/low)"],
+                rows=rows, size=8,
+                widths=[0.21, 0.14, 0.14, 0.16, 0.18, 0.17],
+                align=["left"] + ["center"] * 5)
 
 
 # ---------------------------------------------------------------------------
@@ -82,7 +81,7 @@ def table2():
     for key, label in AUDIT_ROWS:
         d = S["audit"][key]
         rows.append([label,
-                     _stack(d["residual"], "%.4f"),
+                     _stack(d["residual"], "%.3f"),
                      _stack(d["sufficiency"]),
                      _stack(d["minimality"]),
                      _stack(d["flip"])])

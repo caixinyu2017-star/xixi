@@ -30,6 +30,8 @@ OPS = {
     'subseteq': '⊆', 'cup': '∪', 'cap': '∩', 'setminus': '∖',
     'langle': '⟨', 'rangle': '⟩', 'lVert': '‖', 'rVert': '‖',
     'Vert': '‖', 'vert': '|', 'lvert': '|', 'rvert': '|',
+    'varnothing': '∅', 'emptyset': '∅', 'neg': '¬', 'lnot': '¬',
+    'wedge': '∧', 'land': '∧', 'vee': '∨', 'lor': '∨',
 }
 BLACKBOARD = {
     'R': 'ℝ', 'N': 'ℕ', 'Z': 'ℤ', 'Q': 'ℚ', 'C': 'ℂ', 'E': '𝔼', 'P': 'ℙ',
@@ -171,15 +173,17 @@ def _atom(t):
             # read until matching \right
             depth = 1; buf = ''
             while t.i < t.n:
-                if t.s[t.i:t.i+6] == '\\left ' or t.s[t.i:t.i+5] == '\\left':
-                    pass
-                if t.s[t.i:t.i+6] == '\\right':
+                # word-boundary guards keep \leftarrow / \rightarrow
+                # from being counted as delimiter tokens
+                if (t.s[t.i:t.i+6] == '\\right'
+                        and not t.s[t.i+6:t.i+7].isalpha()):
                     t.i += 6; rc = t.getc(); depth -= 1
                     if depth == 0:
                         break
                     else:
                         buf += '\\right' + rc; continue
-                if t.s[t.i:t.i+5] == '\\left':
+                if (t.s[t.i:t.i+5] == '\\left'
+                        and not t.s[t.i+5:t.i+6].isalpha()):
                     depth += 1; buf += t.s[t.i:t.i+5]; t.i += 5; continue
                 buf += t.s[t.i]; t.i += 1
             inner = parse(buf)

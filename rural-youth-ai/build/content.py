@@ -66,6 +66,10 @@ def nz_at(eta):
 
 ORACLE_SHARE = 100.0 * m("RAMT", "yield100") / m("Oracle", "yield100")
 ADMIN_MULT = m("RAMT", "yield100") / m("AdminRule", "yield100")
+_FITS = [S["main"][k]["fit"][0]
+         for k in ("AdminRule", "FCFS", "MLP-Acc", "Logit-Acc+DA",
+                   "GBM-Ret", "RAMT", "Oracle")]
+FIT_LO, FIT_HI = min(_FITS), max(_FITS)
 
 # stay-yield of the best mixing point on the sweep
 SW_BEST = max(SW, key=lambda d: d["yield100"])
@@ -384,14 +388,15 @@ BLOCKS = [
     ("p",
      "Given youth-side preferences $u_{i}(\\cdot)$ over posts and "
      "post-side priorities $s(\\cdot, j)$ over youth, an assignment "
-     "$\\mu$ is stable if no youth-post pair would jointly deviate "
-     "from it:"),
-    ("eq", r"\neg \exists (i,j) : u_{i}(j) > u_{i}(\mu(i)) "
-           r"\;\text{and}\; \left[ | \mu^{-1}(j) | < c_{j} "
-           r"\;\text{or}\; s(i,j) > \min_{i' \in \mu^{-1}(j)} "
-           r"s(i',j) \right]", 2),
+     "$\\mu$ is stable if no youth-post pair $(i,j)$ would jointly "
+     "deviate from it, that is, if no pair satisfies"),
+    ("eq", r"u_{i}(j) > u_{i}(\mu(i)) \; \wedge \; "
+           r"\left[ | \mu^{-1}(j) | < c_{j} \; \vee \; "
+           r"s(i,j) > s_{\min}(j) \right]", 2),
     ("where",
-     "with $u_{i}(\\varnothing)$ ranked below every acceptable post. "
+     "where $s_{\\min}(j) = \\min_{i' \\in \\mu^{-1}(j)} s(i',j)$ is "
+     "the weakest priority currently holding a seat at $j$, and "
+     "$u_{i}(\\varnothing)$ is ranked below every acceptable post. "
      "Youth-proposing deferred acceptance produces a stable assignment "
      "in this sense and is strategy-proof for the proposing side "
      "[[gale1962]], [[roth2008]]. Stability is reported below as a "
@@ -457,9 +462,8 @@ BLOCKS = [
      "Each feature passes through its own one-dimensional "
      "piecewise-linear spline, and the score is their sum. With hat "
      "functions $B_{kp}$ on quantile knots and weights $w_{kp}$,"),
-    ("eq", r"f_{k}(z) = \sum_{p=1}^{P_{k}} w_{kp} B_{kp}(z) , \qquad "
-           r"s(i,j) = b + \sum_{k=1}^{D} f_{k}\left( z_{k}(i,j) "
-           r"\right)", 4),
+    ("eq", r"f_{k}(z) = \sum_{p=1}^{P_{k}} w_{kp} B_{kp}(z) , \quad "
+           r"s(i,j) = b + \sum_{k=1}^{D} f_{k}\left( z_{k} \right)", 4),
     ("where",
      "which is the classical shape of an intelligible additive model "
      "[[lou2012]], [[agarwal2021]]: flexible within each feature, "
@@ -501,11 +505,10 @@ BLOCKS = [
     ("eq", r"L_{\text{ret}} = - \frac{1}{\sum_{e} \omega_{e}} "
            r"\sum_{e} \omega_{e} \left[ \sum_{t=1}^{m_{e}} "
            r"\ln \left( 1 - h_{t}^{e} \right) + \left( 1 - "
-           r"\kappa_{e} \right) \ln h_{m_{e}+1}^{e} \right] , "
-           r"\qquad \omega_{e} = \min \left( 1 / \pi_{e} , W "
-           r"\right)", 7),
+           r"\kappa_{e} \right) \ln h_{m_{e}+1}^{e} \right]", 7),
     ("where",
-     "with the weights clipped at $W = 20$ in the usual way "
+     "with weights $\\omega_{e} = \\min(1/\\pi_{e}, W)$ and the "
+     "clip $W = 20$ in the usual way "
      "[[swaminathan2015]]. Nothing in the training loop ever touches "
      "the simulator's latent process; the engine sees exactly what a "
      "county system would see, which is its own logs."),
@@ -753,7 +756,10 @@ BLOCKS = [
      f"{pm('Oracle', 'yield100', f2)} — with 24-month retention "
      f"among formed matches of {pm('RAMT', 'ret24')}, the highest "
      "of any learned engine, and a blocking-pair rate "
-     "statistically indistinguishable from zero. One baseline "
+     "statistically indistinguishable from zero. Mean skill fit "
+     "of assigned pairs is nearly flat across the pool (from "
+     f"{f3(FIT_LO)} to {f3(FIT_HI)}), so no engine buys its yield "
+     "by mismatching skills, and Table 1 omits the column. One baseline "
      "deserves a sentence of its own: the platform-style neural "
      "acceptance matcher, deployed greedily as such systems are, "
      f"yields {pm('MLP-Acc', 'yield100', f2)} and does not clear "
@@ -929,6 +935,7 @@ BLOCKS = [
      "settled talent want different points — and the contribution "
      "of the dial is to make the choice explicit rather than "
      "buried in a loss function."),
+    ("fig", "fig4"),
     ("p",
      "Figure 4(b) traces the abstention dial. Auto-approving the "
      f"most certain half of matches yields 24-month retention of "
