@@ -1,0 +1,9 @@
+Level of aggregation	Unit	AI	SE	N	Within R2
+Firm	firm-year	-0.434***	(0.018)	26,115	0.097
+Firm, network lags included	firm-year	-0.422***	(0.018)	26,115	0.107
+City	city-year	-0.222**	(0.095)	600	0.110
+Industry	industry-year	-0.493***	(0.055)	200	0.455
+City, experienced share	city-year	-0.056	(0.086)	600	0.106
+Implied local reallocation share (%)		48.9			
+System-level total impact		-1.313	(0.195)		
+Ratio of total impact to firm-level estimate		3.02			

@@ -1,0 +1,13 @@
+Statistic	V1	V2	V3	V4	V5
+SEC:Model summary					
+R	0.168				
+R Square	0.028				
+Adjusted R Square	-0.011				
+Std. Error of the Estimate	5.47654				
+SEC:ANOVA	Sum of Squares	df	Mean Square	F	Sig.
+Regression	21.776	1	21.776	0.726	0.402
+Residual	749.811	25	29.992		
+Total	771.587	26			
+SEC:Coefficients	B	Std. Error	Beta	t	Sig.
+(Constant)	15.644	1.054		14.843	0.000
+FACT_AIR	-0.915	1.074	-0.168	-0.852	0.402

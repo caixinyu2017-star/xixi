@@ -1,0 +1,7 @@
+Model	χ2	df	CFI	Δχ2 (Δdf)	p
+Gender: configural	519.8	430	0.991		
+Gender: metric	541.4	453	0.991	21.6 (23)	0.543
+Major: configural	508.4	430	0.992		
+Major: metric	530.0	453	0.992	21.6 (23)	0.545
+Harman single factor: first-factor share (%)	22.4				
+Method factor: variance share (%)	13.1				

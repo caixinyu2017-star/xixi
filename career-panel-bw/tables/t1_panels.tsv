@@ -1,0 +1,30 @@
+panel	variable	mean	between-person SD	within-person SD
+NLS Young Women	person-years	28534		
+	people	4711		
+	waves	15 (1968-1988)		
+	log hourly wage	1.67	0.38	0.26
+	employer tenure	3.12	2.70	1.88
+	work experience	6.22	3.08	2.67
+	weekly hours	36.56	6.37	6.52
+	weeks unemployed, per ten	0.25	0.50	0.41
+	union coverage	0.23	0.39	0.18
+	married	0.60	0.37	0.24
+	years of schooling	12.53	2.32	0.00
+	college graduate	0.17	0.37	0.00
+	resident in the South	0.41	0.47	0.06
+	urban residence	0.72	0.41	0.08
+	Black	0.28	0.45	0.00
+NLSY79 young men	person-years	4360		
+	people	545		
+	waves	8 (1980-1987)		
+	log hourly wage	1.65	0.39	0.32
+	work experience	6.51	1.65	2.45
+	weekly hours	21.91	3.81	3.73
+	union coverage	0.24	0.33	0.20
+	married	0.44	0.38	0.26
+	years of schooling	11.77	1.75	0.00
+	college graduate	0.01	0.09	0.00
+	post-secondary schooling	0.24	0.43	0.00
+	resident in the South	0.35	0.46	0.03
+	urban residence	0.80	0.36	0.08
+	Black	0.12	0.32	0.00

@@ -1,0 +1,8 @@
+Engine	Stay-yield, regime-switching oracle	Stay-yield, smooth logistic oracle
+AdminRule	6.48 (0.51)	7.99 (0.75)
+FCFS	22.64 (0.84)	27.51 (1.04)
+MLP-Acc	21.59 (1.22)	26.15 (1.38)
+Logit-Acc+DA	29.13 (1.01)	34.73 (0.88)
+GBM-Ret	19.06 (2.67)	21.89 (2.85)
+RAMT	28.13 (1.57)	32.23 (2.22)
+Oracle	31.88 (1.17)	35.55 (0.86)

@@ -1,0 +1,10 @@
+Quantity	Value
+Data range of AI	[0.000, 4.816]
+Slope at the lower extreme	2.952 (0.190)
+Slope at the upper extreme	-3.716 (0.267)
+Lind–Mehlum test for an inverted U shape	t = 13.91, p < 0.001
+Extreme point	2.132
+Fieller 95% interval for the extreme point	[2.033, 2.237]
+Share of post-shock observations beyond the extreme point	42.9%
+Two-lines test, slope below the break	1.622 (p < 0.001)
+Two-lines test, slope above the break	-1.754 (p < 0.001)

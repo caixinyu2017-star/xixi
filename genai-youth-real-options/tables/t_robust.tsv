@@ -1,0 +1,13 @@
+Specification	AIU	SE	N	Within R2
+Baseline	-1.230***	(0.026)	29,660	0.277
+Industry x year effects	-1.217***	(0.027)	29,660	0.267
+Province x year effects	-1.224***	(0.028)	29,660	0.256
+Two-way clustering (firm and year)	-1.230***	(0.035)	29,660	0.277
+Dependent variable in logs	-0.180***	(0.004)	29,660	0.308
+Balanced panel	-1.204***	(0.029)	24,240	0.274
+Excluding the pandemic years	-1.239***	(0.029)	23,390	0.280
+Excluding 2025	-1.230***	(0.028)	26,621	0.275
+Excluding state-owned firms	-1.124***	(0.030)	20,484	0.254
+Winsorised at the 5th and 95th percentiles	-1.104***	(0.022)	29,660	0.300
+Firms with at least five annual reports	-1.228***	(0.026)	29,621	0.277
+Adding the lagged dependent variable	-1.222***	(0.028)	26,460	0.280

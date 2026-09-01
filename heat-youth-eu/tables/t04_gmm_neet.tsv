@@ -1,0 +1,6 @@
+Variable	Coefficient	p-Value	Interpretation
+L.NEET	0.860	0.000	positive, significant
+CDD100	0.654	0.000	positive, significant
+CDD100 × GRN	-0.015	0.053	negative, weakly significant
+GDPG	-0.215	0.000	negative, significant
+TERT	-0.063	0.101	negative, not significant

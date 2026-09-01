@@ -1,0 +1,12 @@
+Variable	Coefficient	Std. Error	z-Statistic	p-Value
+L.NEET	0.8490	0.0978	8.6834	0.0000
+CDD100	0.7225	0.1851	3.9022	0.0001
+CDD100 × GRN	-0.0181	0.0093	-1.9399	0.0524
+GDPG	-0.1968	0.0247	-7.9723	0.0000
+TERT	-0.0914	0.0528	-1.7330	0.0831
+SEC:Diagnostic Test	Value			
+Arellano–Bond AR(1), p-value	0.0002			
+Arellano–Bond AR(2), p-value	0.6160			
+Hansen test, p-value	0.8077			
+Number of instruments	8			
+Number of countries/groups	27			

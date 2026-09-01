@@ -1,0 +1,9 @@
+Specification	Buffering effect	S.E.	Observations	R-squared
+Excluding the pandemic years 2020 and 2021	1.234***	(0.060)	29,264	0.051
+Balanced panel only	1.272***	(0.048)	30,151	0.060
+Effective number of skill groups in place of the entropy	0.344***	(0.012)	36,064	0.056
+Binary indicator for an adverse shock	2.082***	(0.088)	36,064	0.047
+Youth share of the age-classified workforce	1.105***	(0.043)	36,064	0.043
+Adding revenue growth to the control set	1.256***	(0.044)	36,064	0.058
+Two-way clustering by firm and year	1.257***	(0.026)	36,064	0.058
+Placebo: employees aged 31 to 50	0.040	(0.044)	36,064	0.003

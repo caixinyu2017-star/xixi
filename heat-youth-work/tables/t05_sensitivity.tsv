@@ -1,0 +1,15 @@
+input	index_hours_saved	index_baseline_loss
+climate	0.333	0.747
+canopy_air_cooling	0.122	0.007
+erf	0.084	0.051
+divergence	0.053	0.006
+outdoor_share_moderate	0.012	0.010
+work_hours_per_day	0.011	0.009
+radiant_gain	0.011	0.028
+wind_canyon_ms	0.007	0.011
+wind_open_ms	0.007	0.007
+outdoor_share_high	0.007	0.003
+uhi_max_c	0.006	0.011
+cost_blue_eur_ha	0.006	0.003
+blue_latitude_pivot	0.005	0.003
+svf_open	0.005	0.004

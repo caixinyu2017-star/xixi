@@ -1,0 +1,5 @@
+System (trail)	Reconstruction residual	Sufficiency pass	Minimality pass	Counterfactual flip pass
+RAMT (ledger)	0.0000 (0.0000)	1.000 (0.000)	0.949 (0.059)	1.000 (0.000)
+RAMT-MLPscore (Shapley)	0.0000 (0.0000)	1.000 (0.000)	0.922 (0.052)	0.114 (0.067)
+MLP-Acc (Shapley)	0.0000 (0.0000)	1.000 (0.000)	0.904 (0.067)	0.188 (0.098)
+GBM-Ret (Shapley)	0.0000 (0.0000)	1.000 (0.000)	0.945 (0.036)	0.360 (0.153)

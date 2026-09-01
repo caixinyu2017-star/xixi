@@ -1,0 +1,14 @@
+{
+ "anxiety_interference": 0.85,
+ "expl_anxiety": 2.4,
+ "process_noise": 0.12,
+ "anxiety_from_efficacy": 0.05,
+ "support_reassurance": 0.4925413994167228,
+ "scaffold_gain": 2.0,
+ "trait_anxiety_mean": 0.1,
+ "expl_efficacy": 0.4,
+ "heterogeneity": 0.0,
+ "sd_trait_anxiety": 0.85,
+ "efficacy_attribution": 0.2831755210264985,
+ "substitute_yield": 0.6937283402221656
+}

@@ -1,0 +1,16 @@
+quantity	value	unit
+Grid cells	1600	cells of 250 m
+City extent	10.0	km across
+Residents	300939	persons
+Jobs, heavy outdoor	50883	jobs
+Jobs, moderate	64080	jobs
+Jobs, light service	65711	jobs
+Young workers in exposed classes	37765	workers
+Mean existing canopy cover	0.203	fraction
+Workplace-residence correlation	-0.271	Pearson r
+Land use, core	0.043	share of cells
+Land use, industry	0.072	share of cells
+Land use, residential	0.300	share of cells
+Land use, periphery	0.461	share of cells
+Land use, park	0.099	share of cells
+Land use, water	0.025	share of cells

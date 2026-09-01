@@ -1,0 +1,3 @@
+  with residual      mean |cos| 0.664  max |cos| 0.890
+  without residual   mean |cos| 0.650  max |cos| 0.997
+written to /home/user/xixi/ema-regulation-ai/tables/concept_collapse.json

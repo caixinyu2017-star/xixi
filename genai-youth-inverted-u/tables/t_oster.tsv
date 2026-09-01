@@ -1,0 +1,8 @@
+Quantity	Value
+Coefficient on AI without controls	2.975
+Coefficient on AI with controls	2.952
+R-squared without controls	0.014
+R-squared with controls	0.030
+Assumed maximum R-squared (1.3 × R-squared with controls)	0.040
+Bias-adjusted coefficient on AI	2.939
+Relative degree of selection that would set it to zero	228.24

@@ -1,0 +1,8 @@
+Variant	Stay-yield per 100 offers	24m retention (formed)	Blocking-pair rate	Parity
+RAMT (full)	28.13 (1.57)	0.605 (0.010)	0.0005 (0.0006)	0.65 (0.13)
+boosted-tree scorer with deferred acceptance	29.13 (2.64)	0.595 (0.040)	0.0771 (0.0316)	0.65 (0.14)
+acceptance-trained scorer (alpha = 1)	29.13 (1.01)	0.570 (0.008)	0.1260 (0.0283)	0.57 (0.05)
+MLP scorer in place of additive splines	26.26 (2.06)	0.565 (0.023)	0.1128 (0.0332)	0.66 (0.10)
+greedy fill in place of deferred acceptance	19.97 (2.55)	0.547 (0.017)	0.1864 (0.0322)	1.01 (0.02)
+no inverse-propensity weighting	27.34 (1.02)	0.595 (0.010)	0.0159 (0.0068)	0.78 (0.08)
+Sinkhorn transport in place of deferred acceptance	25.70 (3.69)	0.594 (0.020)	0.1348 (0.0305)	0.92 (0.05)

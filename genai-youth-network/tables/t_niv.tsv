@@ -1,0 +1,17 @@
+Variable	(1)	(2)	(3)	(4)
+AI	-0.422***	-0.552***	-0.549***	-0.547***
+	(0.018)	(0.029)	(0.030)	(0.030)
+UpAI	-0.246***	-0.235***	-0.236***	-0.262***
+	(0.031)	(0.031)	(0.031)	(0.049)
+DownAI	-0.396***	-0.381***	-0.417***	-0.418***
+	(0.032)	(0.032)	(0.052)	(0.052)
+PeerAI	0.334***	0.407***	0.409***	0.417***
+	(0.078)	(0.079)	(0.079)	(0.095)
+Endogenous regressors	none	AI	AI, DownAI	AI and all three lags
+Kleibergen-Paap rk Wald F		6591.3	3379.2	1783.9
+Hansen J (p)		0.230	0.262	0.581
+Wu-Hausman (p)		0.0000	0.0000	0.0000
+Controls	Yes	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes	Yes
+Year FE	Yes	Yes	Yes	Yes
+Observations	26,115	26,115	26,115	26,115

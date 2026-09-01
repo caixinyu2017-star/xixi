@@ -1,0 +1,8 @@
+quantity	estimate	ci_low	ci_high
+a (anxiety on self-efficacy)	-0.384		
+b (self-efficacy on difficulty)	-0.084		
+c' (direct, at mean support)	0.478		
+Indirect effect (a x b)	0.032	0.001	0.065
+Anxiety x support interaction	-0.105	-0.207	-0.007
+Simple slope at low support (-1 SD)	0.583		
+Simple slope at high support (+1 SD)	0.373		

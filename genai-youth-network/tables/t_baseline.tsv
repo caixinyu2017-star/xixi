@@ -1,0 +1,12 @@
+Variable	(1)	(2)	(3)	(4)	(5)
+AI	-0.433***	-0.434***	-0.369***	-0.449***	-0.087***
+	(0.018)	(0.018)	(0.021)	(0.018)	(0.016)
+Controls	No	Yes	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes	Yes	Yes
+Year FE	Yes	Yes	-	-	Yes
+Industry x year FE	-	-	Yes	-	-
+City x year FE	-	-	-	Yes	-
+Observations	26,115	26,115	26,115	26,115	26,115
+Within R2	0.027	0.097	0.085	0.097	0.050
+Cross-equation difference		0.347***			
+		(0.023)			

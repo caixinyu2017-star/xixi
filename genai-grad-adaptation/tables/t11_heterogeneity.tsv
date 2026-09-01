@@ -1,0 +1,16 @@
+Subsample	N	dADP/dANX at mean	(SE)	ANX²
+Female	483	0.187	(0.048)	-0.260***
+Male	431	0.166	(0.052)	-0.205***
+    difference (z, p)		0.29	0.774	
+STEM	368	0.200	(0.055)	-0.228***
+Non-STEM	546	0.161	(0.046)	-0.244***
+    difference (z, p)		0.55	0.586	
+Tier-1 city	298	0.209	(0.062)	-0.240***
+Other cities	616	0.158	(0.042)	-0.231***
+    difference (z, p)		0.69	0.492	
+High exposure	477	0.180	(0.046)	-0.213***
+Low exposure	437	0.164	(0.056)	-0.255***
+    difference (z, p)		0.21	0.831	
+Employed	676	0.181	(0.038)	-0.238***
+Not employed	238	0.171	(0.083)	-0.224***
+    difference (z, p)		0.11	0.914	

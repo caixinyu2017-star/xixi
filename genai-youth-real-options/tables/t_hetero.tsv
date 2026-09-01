@@ -1,0 +1,9 @@
+Partition	Subsample A	AIU	N	Subsample B	AIU	N	Difference
+State ownership	State-owned	-1.467***	9,176	Non-state	-1.124***	20,484	-0.343***
+		(0.050)			(0.030)		(0.058)
+Technology intensity	High technology	-1.567***	8,879	Other	-1.085***	20,781	-0.482***
+		(0.048)			(0.031)		(0.057)
+Employment protection	Strict	-1.483***	14,834	Lenient	-0.974***	14,826	-0.509***
+		(0.036)			(0.036)		(0.051)
+Local youth labour market	Slack	-1.247***	14,830	Tight	-1.187***	14,830	-0.060
+		(0.037)			(0.039)		(0.054)

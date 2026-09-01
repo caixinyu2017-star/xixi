@@ -1,0 +1,10 @@
+{
+ "with residual": {
+  "mean_abs_cosine": 0.7108538666928991,
+  "max_abs_cosine": 0.9327716969797928
+ },
+ "without residual": {
+  "mean_abs_cosine": 0.7455998987110596,
+  "max_abs_cosine": 0.9978866708224924
+ }
+}

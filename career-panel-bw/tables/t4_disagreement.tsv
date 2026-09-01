@@ -1,0 +1,17 @@
+#	panel	interaction	pooled verdict	between-person verdict	within-person verdict	sign reversed	verdict changed	between ≠ within (q<.05)
+W1	NLS Young Women	employer tenure × college graduate	negative	negative	no moderation	yes	yes	yes
+W2	NLS Young Women	work experience × college graduate	no moderation	negative	no moderation	yes	yes	yes
+W3	NLS Young Women	employer tenure × union coverage	negative	no moderation	negative	no	yes	no
+W4	NLS Young Women	weeks unemployed, per ten × college graduate	no moderation	no moderation	no moderation	yes	no	no
+W5	NLS Young Women	weeks unemployed, per ten × union coverage	no moderation	no moderation	no moderation	no	no	no
+W6	NLS Young Women	work experience × married	no moderation	no moderation	negative	yes	yes	yes
+W7	NLS Young Women	weekly hours × college graduate	negative	no moderation	negative	no	yes	no
+W8	NLS Young Women	employer tenure × resident in the South	negative	no moderation	negative	no	yes	no
+M1	NLSY79 young men	work experience × post-secondary schooling	positive	no moderation	positive	yes	yes	no
+M2	NLSY79 young men	work experience × union coverage	no moderation	no moderation	negative	yes	yes	yes
+M3	NLSY79 young men	work experience × married	no moderation	no moderation	negative	yes	yes	yes
+M4	NLSY79 young men	weekly hours × post-secondary schooling	no moderation	no moderation	positive	no	yes	no
+M5	NLSY79 young men	union coverage × post-secondary schooling	no moderation	no moderation	no moderation	no	no	no
+M6	NLSY79 young men	work experience × resident in the South	no moderation	negative	no moderation	no	yes	no
+M7	NLSY79 young men	weekly hours × union coverage	negative	no moderation	negative	no	yes	yes
+M8	NLSY79 young men	married × post-secondary schooling	no moderation	no moderation	no moderation	yes	no	no

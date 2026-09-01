@@ -1,0 +1,5 @@
+Dependent Variable	Parameter	B	Std. Error	t	Sig.	95% CI Lower	95% CI Upper	Partial Eta Squared
+NEET	Intercept	17.646	1.506	11.715	0.000	14.544	20.748	0.846
+NEET	ICTS	-1.463	0.284	-5.152	0.000	-2.048	-0.878	0.515
+YUR	Intercept	17.573	3.779	4.650	0.000	9.790	25.355	0.464
+YUR	ICTS	-0.379	0.713	-0.532	0.600	-1.846	1.089	0.011

@@ -1,0 +1,25 @@
+Variable	(1) First stage	(2) First stage	(3) 2SLS	(4) PSM	(5) Entropy balancing
+Dependent variable	AI	AI2	Youth	Youth	Youth
+IV_Bartik	0.046	0.193			
+	(0.034)	(0.162)			
+IV_Peer	0.230***	0.271			
+	(0.057)	(0.260)			
+IV_Exp	0.449***	1.995***			
+	(0.030)	(0.149)			
+IV_Bartik2	-0.041	-0.226*			
+	(0.026)	(0.132)			
+IV_Peer2	-0.000	0.160**			
+	(0.013)	(0.066)			
+IV_Exp2	0.015	0.172*			
+	(0.019)	(0.093)			
+AI			3.309**	2.921***	2.934***
+			(1.632)	(0.223)	(0.208)
+AI2			-0.895**	-0.679***	-0.684***
+			(0.385)	(0.052)	(0.048)
+Controls	Yes	Yes	Yes	Yes	Yes
+Firm FE	Yes	Yes	Yes	Yes	Yes
+Year FE	Yes	Yes	Yes	Yes	Yes
+Kleibergen-Paap rk Wald F	99.1	87.6			
+Hansen J (p)			4.43 (0.350)		
+Wu-Hausman (p)			0.007		
+Observations	27,320	27,320	27,320	21,811	27,320

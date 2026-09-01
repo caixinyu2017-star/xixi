@@ -1,0 +1,5 @@
+Dependent Variable	Parameter	B	Std. Error	t	Sig.	95% CI Lower	95% CI Upper	Partial Eta Squared
+NEET	Intercept	23.424	2.078	11.271	0.000	19.143	27.704	0.836
+NEET	GAIY	-0.260	0.040	-6.467	0.000	-0.343	-0.177	0.626
+YUR	Intercept	19.688	5.914	3.329	0.003	7.509	31.867	0.307
+YUR	GAIY	-0.080	0.114	-0.695	0.493	-0.315	0.156	0.019

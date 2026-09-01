@@ -1,0 +1,29 @@
+parameter	value	unit	low	high	provenance
+blue_cool_day_c	2	C	0.8	3.3	literature
+blue_decay_m	120	m	30	740	literature
+blue_latitude_pivot	45	degrees north	40	50	assumed
+blue_night_warming_c	0.6	C	0	1.2	literature
+canopy_air_cooling	0.3	C per 10 percentage points of canopy	0.04	0.8	literature
+cost_blue_eur_ha	900000	EUR per hectare	400000	1.8e+06	assumed
+cost_tree_eur	450	EUR per established tree	250	900	assumed
+outdoor_share_high	0.85	share	0.7	0.95	assumed
+outdoor_share_low	0.12	share	0.03	0.25	assumed
+outdoor_share_moderate	0.45	share	0.25	0.65	assumed
+park_cool_island_c	1.1	C	0.5	2.5	literature
+park_decay_m	180	m	80	400	literature
+radiant_gain	0.24	C (W m-2)^-0.5 (m s-1)^0.5	0.18	0.36	assumed
+solar_noon_wm2	780	W m-2	650	900	assumed
+svf_canyon	0.45	dimensionless	0.3	0.6	assumed
+svf_open	0.92	dimensionless	0.85	0.98	assumed
+svf_under_canopy	0.15	dimensionless	0.08	0.28	assumed
+trees_per_ha	120	trees per hectare	80	180	assumed
+uhi_max_c	3.2	C	1.5	5	literature
+wind_canyon_ms	1.4	m s-1	0.8	2.2	assumed
+wind_floor_ms	0.5	m s-1	0.3	1	assumed
+wind_open_ms	2.6	m s-1	1.8	3.6	assumed
+work_hours_per_day	8	h	7	9	assumed
+youth_incident_ratio	1.6	ratio	1.5	1.7	literature
+youth_share_high	0.34	share of jobs held by workers under 30	0.22	0.45	assumed
+youth_share_low	0.3	share	0.2	0.4	assumed
+youth_share_moderate	0.32	share	0.2	0.42	assumed
+youth_wage_eur_h	13.5	EUR per hour	9	20	assumed
