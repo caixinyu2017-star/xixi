@@ -155,45 +155,29 @@ TABLES = dict(table1=table1, table2=table2, table3=table3, table4=table4)
 # ---------------------------------------------------------------------------
 FIGURES = dict(
     fig1=dict(number=1, file="figure1_pipeline.png", width_cm=8.6,
-              caption="The deployed pipeline. A generative-AI profiling "
-                      "layer extracts structured youth and post profiles "
-                      "from free-form materials; RAMT scores every "
-                      "feasible pair on predicted retention, allocates "
-                      "under capacity constraints, and attaches to every "
-                      "offer an exact evidence ledger, an uncertainty "
-                      "flag routing low-margin cases to a case worker, "
-                      "and the audited outcome record that feeds the "
-                      "next round of training."),
+              caption="The deployed pipeline. The generative-AI "
+                      "profiling layer feeds RAMT, whose offers carry "
+                      "evidence ledgers and abstentions; observed "
+                      "acceptance and retention feed the next round of "
+                      "training."),
     fig2=dict(number=2, file="figure2_architecture.png", width_cm=8.6,
-              caption="The RAMT scoring and allocation architecture. A "
-                      "fixed 15-feature pair ledger feeds per-feature "
-                      "additive spline contributions that sum exactly to "
-                      "the pair score; a discrete-time retention hazard "
-                      "with regime intercepts and an acceptance head are "
-                      "mixed by the policy dial α; capacity-"
-                      "constrained deferred acceptance produces the "
-                      "offer list, and a bootstrap ensemble margin "
-                      "routes uncertain matches to human review."),
+              caption="The RAMT architecture: additive spline scoring "
+                      "over the pre-registered feature ledger, retention "
+                      "and acceptance heads mixed by the dial α, "
+                      "capacity-constrained deferred acceptance, and "
+                      "ensemble-margin abstention."),
     fig3=dict(number=3, file="figure3_ledger.png", width_cm=8.6,
               caption="The exact evidence ledger for one median-margin "
-                      "match (market replication 1). Bars give each "
-                      "pair feature's signed contribution to the score "
-                      "difference between the offered post and the best "
-                      "alternative; filled bars favour the offered post "
-                      "and open bars favour the alternative. The ten "
-                      "largest contributions are shown and the full "
-                      "ledger sums to the score difference with zero "
-                      "residual."),
+                      "match (market replication 1): the ten largest "
+                      "signed contributions to the score difference "
+                      "between the offered post and the best "
+                      "alternative. Filled bars favour the offered "
+                      "post."),
     fig4=dict(number=4, file="figure4_tradeoffs.png", width_cm=8.6,
-              caption="The two policy dials. (a) Acceptance, 24-month "
-                      "retention among formed matches, and stay-yield "
-                      "per 100 offers as the objective mixing weight "
-                      "α moves from pure retention (α = 0) to "
-                      "pure acceptance (α = 1); means over 10 "
-                      "market replications. (b) 24-month retention among "
-                      "automatically approved matches as the automated "
-                      "share of decisions rises from one half to full "
-                      "automation, with one standard deviation across "
-                      "replications; the remainder is routed to a case "
-                      "worker by the bootstrap ensemble margin."),
+              caption="The two policy dials. (a) Acceptance, retention "
+                      "and stay-yield against the mixing weight α "
+                      "(means over 10 market replications). (b) "
+                      "24-month retention among auto-approved matches "
+                      "against automated coverage, with one standard "
+                      "deviation across replications."),
 )

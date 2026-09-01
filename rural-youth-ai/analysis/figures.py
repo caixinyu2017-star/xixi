@@ -113,16 +113,15 @@ def figure1_pipeline():
     _arrow(ax, (b["r"], b["cy"]), (c["l"], c["cy"] - 3.5))
     _arrow(ax, (c["r"], c["cy"] + 3.5), (d["l"], d["cy"]))
     _arrow(ax, (c["r"], c["cy"] - 3.5), (e["l"], e["cy"]))
-    # the retention feedback loop, routed around the right margin and
-    # under everything so that it crosses no box
-    yb = 4.2
-    xr = 87.2
-    ax.plot([d["r"], xr, xr, c["cx"]], [d["cy"], d["cy"], yb, yb],
+    # the retention feedback loop, routed under everything along the
+    # bottom of the canvas so that it crosses no box and no text
+    yb = 6.0
+    ax.plot([e["cx"], e["cx"], c["cx"]], [e["b"], yb, yb],
             color=BLACK, lw=0.8, ls="--", zorder=1)
     _arrow(ax, (c["cx"], yb), (c["cx"], c["b"]), dashed=True)
-    ax.text(60.0, yb + 1.8, "observed acceptance and retention",
-            ha="center", va="bottom", fontsize=5.6, style="italic",
-            bbox=dict(facecolor="white", edgecolor="none", pad=0.5))
+    ax.text((c["cx"] + e["cx"]) / 2.0, 2.9,
+            "observed acceptance and retention",
+            ha="center", va="center", fontsize=5.4, style="italic")
     return save(fig, "figure1_pipeline")
 
 
@@ -222,11 +221,11 @@ def figure3_ledger():
         side.set_linewidth(0.6)
     tot = dphi.sum()
     strue = float(s_ret[i, j] - s_ret[i, j2])
-    ax.text(0.03, 0.05,
+    ax.text(0.02, 0.12,
             "ledger total = %.4f\nscore difference = %.4f" % (tot, strue),
-            transform=ax.transAxes, ha="left", va="bottom", fontsize=5.8,
+            transform=ax.transAxes, ha="left", va="bottom", fontsize=5.0,
             bbox=dict(facecolor="white", edgecolor=BLACK, linewidth=0.5,
-                      pad=1.6))
+                      pad=1.1))
     return save(fig, "figure3_ledger")
 
 
