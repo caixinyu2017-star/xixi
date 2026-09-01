@@ -102,10 +102,10 @@ def figure1_pipeline():
              fs=5.5)
     c = _box(ax, 44.0, 30.5, 22, 16,
              ["RAMT", "matching", "engine"], fs=6.6, fill=LIGHT)
-    d = _box(ax, 74.0, 41.0, 26, 12,
+    d = _box(ax, 71.0, 41.0, 26, 12,
              ["Capacity-feasible", "offers", "(deferred acceptance)"],
              fs=5.5)
-    e = _box(ax, 74.0, 20.0, 26, 12,
+    e = _box(ax, 71.0, 20.0, 26, 12,
              ["Per-match evidence", "ledger; low-margin", "cases to review"],
              fs=5.5)
 
@@ -117,12 +117,8 @@ def figure1_pipeline():
     # under everything so that it crosses no box
     yb = 4.2
     xr = 87.2
-    ax.plot([d["r"], xr], [d["cy"], d["cy"]], color=BLACK, lw=0.8,
-            ls="--", zorder=1)
-    ax.plot([xr, xr], [d["cy"], yb], color=BLACK, lw=0.8, ls="--",
-            zorder=1)
-    ax.plot([xr, c["cx"]], [yb, yb], color=BLACK, lw=0.8, ls="--",
-            zorder=1)
+    ax.plot([d["r"], xr, xr, c["cx"]], [d["cy"], d["cy"], yb, yb],
+            color=BLACK, lw=0.8, ls="--", zorder=1)
     _arrow(ax, (c["cx"], yb), (c["cx"], c["b"]), dashed=True)
     ax.text(60.0, yb + 1.8, "observed acceptance and retention",
             ha="center", va="bottom", fontsize=5.6, style="italic",
@@ -226,9 +222,9 @@ def figure3_ledger():
         side.set_linewidth(0.6)
     tot = dphi.sum()
     strue = float(s_ret[i, j] - s_ret[i, j2])
-    ax.text(0.985, 0.04,
+    ax.text(0.03, 0.05,
             "ledger total = %.4f\nscore difference = %.4f" % (tot, strue),
-            transform=ax.transAxes, ha="right", va="bottom", fontsize=5.8,
+            transform=ax.transAxes, ha="left", va="bottom", fontsize=5.8,
             bbox=dict(facecolor="white", edgecolor=BLACK, linewidth=0.5,
                       pad=1.6))
     return save(fig, "figure3_ledger")
