@@ -1,0 +1,7 @@
+[
+{
+"name": "s2_team",
+"size": "1536x1024",
+"prompt": "A WIDE LANDSCAPE flat-vector process-and-incentive diagram for a Chinese academic report. The composition MUST be landscape, clearly wider than tall, roughly 3:2. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, green #2E7D32, light gray #E8EAED. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nUPPER HALF: a left-to-right chain of four navy rounded boxes connected by thick gold right-pointing arrows. Each box has a white bold Chinese title line and a smaller light-gray Chinese sub-line:\nBox 1 title 学院组织, sub-line 人工智能学院招募带队\nBox 2 title 岗前培训, sub-line 规范手册 培训考核\nBox 3 title 三级作业, sub-line 本科生初标 研究生复核 课题组抽检\nBox 4 title 合格验收, sub-line 抽检与一致性检验\n\nLOWER HALF: a horizontal row of four gold rounded boxes, each with dark bold Chinese text on two lines, sitting under a thin gray label bar that reads 激励:\nBox A line1 按合格件计酬, line2 多劳多得\nBox B line1 学时与学分, line2 实践证明\nBox C line1 汇编署名, line2 成果致谢\nBox D line1 优秀评选, line2 老带新上浮\n\nDraw a thick gold curved arrow leaving Box 4 on the right, sweeping down and back to the LEFT edge, returning into Box 1, to show a repeating cycle."
+}
+]

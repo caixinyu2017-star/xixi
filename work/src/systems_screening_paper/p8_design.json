@@ -1,0 +1,63 @@
+{
+ "n_respondents": 452,
+ "n_tasks": 14,
+ "n_alternatives": 2,
+ "n_choice_sets": 6328,
+ "n_profile_evaluations": 12656,
+ "d_error": 0.57021,
+ "cols": [
+  "ai",
+  "proc",
+  "ai_proc",
+  "test70",
+  "test90",
+  "inst",
+  "refer",
+  "intern",
+  "wage"
+ ],
+ "attributes": {
+  "ai": [
+   "no statement",
+   "disclosed AI assistance"
+  ],
+  "proc": [
+   "no process evidence",
+   "process evidence portfolio"
+  ],
+  "test": [
+   "no verified assessment",
+   "assessment 70th pct",
+   "assessment 90th pct"
+  ],
+  "inst": [
+   "non-elite institution",
+   "elite institution"
+  ],
+  "refer": [
+   "no referral",
+   "employee referral"
+  ],
+  "intern": [
+   "no relevant internship",
+   "6-month relevant internship"
+  ],
+  "wage": [
+   "8.0",
+   "10.0",
+   "12.0"
+  ]
+ },
+ "opt_out_share": 0.1149,
+ "arm_counts": {
+  "0": 151,
+  "1": 151,
+  "2": 150
+ },
+ "true_regime_shares": [
+  0.3673,
+  0.292,
+  0.3407
+ ],
+ "seed": 20260728
+}

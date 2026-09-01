@@ -1,0 +1,81 @@
+# -*- coding: utf-8 -*-
+"""Paper 5 references: reuse of the verified paper-1/paper-2 pools plus new
+survey-specific additions (all verified 2026-07-20; evidence in
+p5_references_verified.json)."""
+from paper_refs import REFS as POOL1
+from p2_refs import REFS2 as POOL2
+
+REFS5 = {}
+REFS5.update(POOL1)
+REFS5.update(POOL2)
+
+# ------------------------------------------------------------------ new items
+NEW = {
+ 'zeike2019': dict(authors='Zeike, S.; Bradbury, K.; Lindert, L.; Pfaff, H.',
+     title='Digital Leadership Skills and Associations with Psychological Well-Being',
+     journal='Int. J. Environ. Res. Public Health', year='2019', volume='16', pages='2628'),
+ 'vial2019': dict(authors='Vial, G.',
+     title='Understanding digital transformation: A review and a research agenda',
+     journal='J. Strateg. Inf. Syst.', year='2019', volume='28', pages='118–144'),
+ 'upper_digital': dict(authors='Merín-Rodrigáñez, J.; Dasí, À.; Alegre, J.; Hughes, M.',
+     title='Dynamic managerial capabilities for digital transformation in innovative SMEs: What are the effects on new product development performance?',
+     journal='J. Bus. Res.', year='2025', volume='201', pages='115709'),
+ 'budhwar2023': dict(authors='Budhwar, P.; Chowdhury, S.; Wood, G.; Aguinis, H.; Bamber, G.J.; Beltran, J.R.; Boselie, P.; Cooke, F.L.; Decker, S.; DeNisi, A.; et al.',
+     title='Human resource management in the age of generative artificial intelligence: Perspectives and research directions on ChatGPT',
+     journal='Hum. Resour. Manag. J.', year='2023', volume='33', pages='606–659'),
+ 'mitchell2001': dict(authors='Mitchell, T.R.; Holtom, B.C.; Lee, T.W.; Sablynski, C.J.; Erez, M.',
+     title='Why people stay: Using job embeddedness to predict voluntary turnover',
+     journal='Acad. Manag. J.', year='2001', volume='44', pages='1102–1121'),
+ 'podsakoff2003': dict(authors='Podsakoff, P.M.; MacKenzie, S.B.; Lee, J.-Y.; Podsakoff, N.P.',
+     title='Common method biases in behavioral research: A critical review of the literature and recommended remedies',
+     journal='J. Appl. Psychol.', year='2003', volume='88', pages='879–903'),
+ 'podsakoff2024': dict(authors='Podsakoff, P.M.; Podsakoff, N.P.; Williams, L.J.; Huang, C.; Yang, J.',
+     title='Common method bias: It’s bad, it’s complex, it’s widespread, and it’s not easy to fix',
+     journal='Annu. Rev. Organ. Psychol. Organ. Behav.', year='2024', volume='11', pages='17–61'),
+ 'brislin1970': dict(authors='Brislin, R.W.',
+     title='Back-translation for cross-cultural research',
+     journal='J. Cross-Cult. Psychol.', year='1970', volume='1', pages='185–216'),
+ 'armstrong1977': dict(authors='Armstrong, J.S.; Overton, T.S.',
+     title='Estimating nonresponse bias in mail surveys',
+     journal='J. Mark. Res.', year='1977', volume='14', pages='396–402'),
+ 'cronbach1951': dict(authors='Cronbach, L.J.',
+     title='Coefficient alpha and the internal structure of tests',
+     journal='Psychometrika', year='1951', volume='16', pages='297–334'),
+ 'hayes2020': dict(authors='Hayes, A.F.; Coutts, J.J.',
+     title='Use omega rather than Cronbach’s alpha for estimating reliability. But…',
+     journal='Commun. Methods Meas.', year='2020', volume='14', pages='1–24'),
+ 'bartlett1954': dict(authors='Bartlett, M.S.',
+     title='A note on the multiplying factors for various χ2 approximations',
+     journal='J. R. Stat. Soc. Ser. B', year='1954', volume='16', pages='296–298'),
+ 'genz_work': dict(authors='Benítez-Márquez, M.D.; Sánchez-Teba, E.M.; Bermúdez-González, G.; Núñez-Rydman, E.S.',
+     title='Generation Z Within the Workforce and in the Workplace: A Bibliometric Analysis',
+     journal='Front. Psychol.', year='2022', volume='12', pages='736820'),
+ 'china_newgen': dict(authors='Lu, J.; Guo, S.; Qu, J.; Lin, W.; Lev, B.',
+     title='“Stay” or “Leave”: Influence of employee-oriented social responsibility on the turnover intention of new-generation employees',
+     journal='J. Bus. Res.', year='2023', volume='161', pages='113814'),
+ 'employer_attract': dict(authors='Halová, D.; Müller, M.',
+     title='Being an Employer of Choice: Attracting Generation Z to Work by Building Brand via Social Media',
+     journal='Corp. Reput. Rev.', year='2024', volume='27', pages='283–298'),
+ 'youth_demand_side': dict(authors='Friedrich, A.',
+     title='School-leaving certificates and vocational education and training—The role of firms as gatekeepers in Germany',
+     journal='Int. J. Manpow.', year='2025', volume='46', pages='125–147'),
+ 'digital_sme': dict(authors='Škare, M.; de Obesso, M.d.l.M.; Ribeiro-Navarrete, S.',
+     title='Digital transformation and European small and medium enterprises (SMEs): A comparative study using digital economy and society index data',
+     journal='Int. J. Inf. Manag.', year='2023', volume='68', pages='102594'),
+ 'ghasemaghaei': dict(authors='Ghasemaghaei, M.; Calic, G.',
+     title='Does big data enhance firm innovation competency? The mediating role of data-driven insights',
+     journal='J. Bus. Res.', year='2019', volume='104', pages='69–84'),
+ 'ddd_perf': dict(authors='Chaudhuri, R.; Chatterjee, S.; Mariani, M.M.; Fosso Wamba, S.',
+     title='Assessing the influence of emerging technologies on organizational data driven culture and innovation capabilities: A sustainability performance perspective',
+     journal='Technol. Forecast. Soc. Change', year='2024', volume='200', pages='123165'),
+ 'ai_adopt_sme': dict(authors='Baabdullah, A.M.',
+     title='The precursors of AI adoption in business: Towards an efficient decision-making and functional performance',
+     journal='Int. J. Inf. Manag.', year='2024', volume='75', pages='102745'),
+ 'digitrans_emp_firm': dict(authors='Qin, S.; Liu, Z.; Wang, J.; Wu, Y.',
+     title='The impact of digital transformation on labour demand quantity and structure: Evidence from China',
+     journal='Econ. Anal. Policy', year='2024', volume='84', pages='1452–1469'),
+ 'kmeans_biz': dict(authors='Ketchen, D.J., Jr.; Shook, C.L.',
+     title='The application of cluster analysis in strategic management research: An analysis and critique',
+     journal='Strateg. Manag. J.', year='1996', volume='17', pages='441–458'),
+}
+REFS5.update(NEW)

@@ -1,0 +1,7 @@
+[
+{
+"name": "r3_discourse",
+"size": "1536x1024",
+"prompt": "A WIDE LANDSCAPE flat-vector diagram for a Chinese academic report. The composition MUST be landscape: clearly wider than tall, roughly 3:2. Keep the whole diagram compact vertically. IMPORTANT: do NOT draw any title, heading, or caption anywhere. Pure white background. Palette: deep navy #1B3A6B, crimson #C42B1C, gold #C9A227, gray #8A8F98. Bold crisp Chinese sans-serif typography, perfectly legible. No shadows, no gradients.\n\nTOP: one wide crimson rounded bar spanning the full width, white Chinese text on ONE line: 输入一条政策表述　例：教材是国家事权\n\nA short downward gold arrow splits into three short arrows leading to THREE navy rounded boxes side by side, each about one third of the width. Each box has a white bold Chinese header line and THREE smaller white Chinese item lines beneath it:\nBox 1 header 政策文本栏, items: 出现于哪些文件 / 表述如何演变 / 文号与条款\nBox 2 header 学术文献栏, items: 学界如何讨论 / 对应学术概念 / 文献出处\nBox 3 header 历史材料栏, items: 历史制度依据 / 不同时期做法 / 史料出处\n\nBOTTOM: below the three boxes, a short downward gold arrow to one wide gold rounded bar spanning full width with dark Chinese text on ONE line: 研究者据此提炼学术命题\nDirectly beneath it, a slightly narrower gray rounded bar with dark Chinese text on ONE line: 助手只做并置与溯源，不作提炼"
+}
+]

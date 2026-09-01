@@ -1,0 +1,729 @@
+{
+ "n": 356,
+ "true_values": {
+  "j0": 0.13497,
+  "phi": 0.62,
+  "nu": 0.13,
+  "mstar": 0.1,
+  "crowd": 0.62,
+  "tau0": 6.0,
+  "a_ment": 0.45,
+  "theta": 0.55,
+  "lam_max": 0.6
+ },
+ "profile": {
+  "sector": {
+   "Software and IT services": 140,
+   "Professional and business services": 124,
+   "Finance and shared-service operations": 92
+  },
+  "size_bands": {
+   "20-99": 112,
+   "100-299": 156,
+   "300-999": 79,
+   "1000+": 9
+  },
+  "median_employees": 152,
+  "median_age": 13.0,
+  "mean_rdi": 3.51
+ },
+ "flow": {
+  "distributed": 520,
+  "returned": 389,
+  "excluded": 33,
+  "valid": 356,
+  "return_rate": 74.8,
+  "valid_rate": 68.5
+ },
+ "descriptives": {
+  "ATA": {
+   "mean": 0.3419,
+   "sd": 0.1529,
+   "p25": 0.2376,
+   "median": 0.3512,
+   "p75": 0.4425,
+   "min": 0.02,
+   "max": 0.7135
+  },
+  "JSH": {
+   "mean": 0.1064,
+   "sd": 0.0192,
+   "p25": 0.0921,
+   "median": 0.1056,
+   "p75": 0.1198,
+   "min": 0.0581,
+   "max": 0.1717
+  },
+  "VNU": {
+   "mean": 0.1364,
+   "sd": 0.0412,
+   "p25": 0.108,
+   "median": 0.1287,
+   "p75": 0.1573,
+   "min": 0.0604,
+   "max": 0.3906
+  },
+  "MEN": {
+   "mean": 0.097,
+   "sd": 0.0192,
+   "p25": 0.0835,
+   "median": 0.0964,
+   "p75": 0.1095,
+   "min": 0.0485,
+   "max": 0.1653
+  },
+  "PRS": {
+   "mean": 0.9652,
+   "sd": 0.2187,
+   "p25": 0.7962,
+   "median": 0.9478,
+   "p75": 1.1049,
+   "min": 0.55,
+   "max": 1.55
+  },
+  "TTP": {
+   "mean": 6.9425,
+   "sd": 1.3516,
+   "p25": 5.9722,
+   "median": 6.8769,
+   "p75": 7.7199,
+   "min": 3.9202,
+   "max": 10.5032
+  },
+  "SAL": {
+   "mean": 0.4143,
+   "sd": 0.2329,
+   "p25": 0.2288,
+   "median": 0.3958,
+   "p75": 0.5847,
+   "min": 0.02,
+   "max": 0.97
+  },
+  "lnSIZE": {
+   "mean": 5.0529,
+   "sd": 0.9041,
+   "p25": 4.4237,
+   "median": 5.0258,
+   "p75": 5.6915,
+   "min": 2.5552,
+   "max": 7.36
+  },
+  "AGE": {
+   "mean": 14.6096,
+   "sd": 6.7387,
+   "p25": 10.0,
+   "median": 13.0,
+   "p75": 18.0,
+   "min": 4.0,
+   "max": 42.0
+  },
+  "RDI": {
+   "mean": 3.5087,
+   "sd": 2.5906,
+   "p25": 1.7,
+   "median": 2.9,
+   "p75": 4.8,
+   "min": 0.2,
+   "max": 17.4
+  }
+ },
+ "correlations": {
+  "ATA~JSH": [
+   -0.5505,
+   0.0
+  ],
+  "ATA~VNU": [
+   -0.105,
+   0.04769
+  ],
+  "ATA~MEN": [
+   0.0149,
+   0.77961
+  ],
+  "ATA~PRS": [
+   0.0889,
+   0.09388
+  ],
+  "ATA~TTP": [
+   0.1394,
+   0.00842
+  ],
+  "ATA~SAL": [
+   0.2193,
+   3e-05
+  ],
+  "JSH~VNU": [
+   -0.0354,
+   0.50498
+  ],
+  "JSH~MEN": [
+   0.0553,
+   0.29845
+  ],
+  "JSH~PRS": [
+   -0.1739,
+   0.00099
+  ],
+  "JSH~TTP": [
+   -0.2342,
+   1e-05
+  ],
+  "JSH~SAL": [
+   0.0007,
+   0.99008
+  ],
+  "VNU~MEN": [
+   -0.0955,
+   0.072
+  ],
+  "VNU~PRS": [
+   -0.0987,
+   0.06294
+  ],
+  "VNU~TTP": [
+   0.1561,
+   0.00315
+  ],
+  "VNU~SAL": [
+   -0.3091,
+   0.0
+  ],
+  "MEN~PRS": [
+   -0.312,
+   0.0
+  ],
+  "MEN~TTP": [
+   -0.6025,
+   0.0
+  ],
+  "MEN~SAL": [
+   0.4057,
+   0.0
+  ],
+  "PRS~TTP": [
+   0.1988,
+   0.00016
+  ],
+  "PRS~SAL": [
+   0.0788,
+   0.13804
+  ],
+  "TTP~SAL": [
+   -0.4788,
+   0.0
+  ]
+ },
+ "model_A": {
+  "names": [
+   "Intercept",
+   "ATA",
+   "lnSIZE",
+   "AGE",
+   "RDI",
+   "Prof. services",
+   "Finance ops"
+  ],
+  "n": 356,
+  "k": 7,
+  "b": [
+   0.1335,
+   -0.0808,
+   0.0057,
+   -0.0033,
+   0.0002,
+   0.0011,
+   0.0005
+  ],
+  "se": [
+   0.0027,
+   0.0061,
+   0.0008,
+   0.0008,
+   0.0008,
+   0.0019,
+   0.0021
+  ],
+  "t": [
+   48.703,
+   -13.162,
+   7.176,
+   -3.923,
+   0.272,
+   0.576,
+   0.225
+  ],
+  "p": [
+   0.0,
+   0.0,
+   0.0,
+   0.00011,
+   0.78567,
+   0.56509,
+   0.82191
+  ],
+  "ci_lo": [
+   0.1281,
+   -0.0929,
+   0.0042,
+   -0.0049,
+   -0.0013,
+   -0.0027,
+   -0.0036
+  ],
+  "ci_hi": [
+   0.1389,
+   -0.0687,
+   0.0073,
+   -0.0016,
+   0.0017,
+   0.0049,
+   0.0046
+  ],
+  "R2": 0.4094,
+  "adjR2": 0.3992,
+  "F": 40.321,
+  "pF": 0.0,
+  "rmse": 0.0149,
+  "vif": {
+   "ATA": 1.284,
+   "lnSIZE": 1.104,
+   "AGE": 1.028,
+   "RDI": 1.151,
+   "Prof. services": 1.358,
+   "Finance ops": 1.354
+  },
+  "bp": [
+   11.101,
+   0.0853,
+   6
+  ]
+ },
+ "phi_hat": {
+  "estimate": 0.6052,
+  "se": 0.0351,
+  "ci": [
+   0.5364,
+   0.6741
+  ],
+  "true": 0.62
+ },
+ "nu_hat": {
+  "mean": 0.1364,
+  "sd": 0.0412,
+  "median": 0.1287,
+  "se": 0.00218,
+  "ci": [
+   0.1321,
+   0.1407
+  ],
+  "trimmed_mean": 0.1346,
+  "true": 0.13
+ },
+ "model_B": {
+  "names": [
+   "Intercept",
+   "SAL",
+   "ATA",
+   "lnSIZE",
+   "RDI"
+  ],
+  "n": 356,
+  "k": 5,
+  "b": [
+   0.1668,
+   -0.0607,
+   -0.0154,
+   0.0033,
+   0.0008
+  ],
+  "se": [
+   0.0077,
+   0.0111,
+   0.0141,
+   0.0026,
+   0.0025
+  ],
+  "t": [
+   21.594,
+   -5.456,
+   -1.091,
+   1.279,
+   0.324
+  ],
+  "p": [
+   0.0,
+   0.0,
+   0.27607,
+   0.20167,
+   0.74635
+  ],
+  "ci_lo": [
+   0.1516,
+   -0.0826,
+   -0.043,
+   -0.0018,
+   -0.0042
+  ],
+  "ci_hi": [
+   0.182,
+   -0.0388,
+   0.0123,
+   0.0085,
+   0.0058
+  ],
+  "R2": 0.1016,
+  "adjR2": 0.0914,
+  "F": 9.928,
+  "pF": 0.0,
+  "rmse": 0.0392,
+  "vif": {
+   "SAL": 1.551,
+   "ATA": 1.197,
+   "lnSIZE": 1.427,
+   "RDI": 1.305
+  },
+  "bp": [
+   14.29,
+   0.00642,
+   4
+  ]
+ },
+ "model_C": {
+  "names": [
+   "Intercept",
+   "Excess delivery pressure",
+   "ATA (centred)",
+   "SAL (centred)",
+   "lnSIZE",
+   "AGE"
+  ],
+  "n": 356,
+  "k": 6,
+  "b": [
+   0.1019,
+   -0.0679,
+   -0.0039,
+   0.0409,
+   -0.0005,
+   -0.0001
+  ],
+  "se": [
+   0.001,
+   0.0064,
+   0.0058,
+   0.0047,
+   0.0011,
+   0.0009
+  ],
+  "t": [
+   100.17,
+   -10.524,
+   -0.678,
+   8.729,
+   -0.429,
+   -0.161
+  ],
+  "p": [
+   0.0,
+   0.0,
+   0.49825,
+   0.0,
+   0.66789,
+   0.8721
+  ],
+  "ci_lo": [
+   0.0999,
+   -0.0805,
+   -0.0153,
+   0.0317,
+   -0.0027,
+   -0.0019
+  ],
+  "ci_hi": [
+   0.104,
+   -0.0552,
+   0.0074,
+   0.0501,
+   0.0017,
+   0.0016
+  ],
+  "R2": 0.3406,
+  "adjR2": 0.3311,
+  "F": 36.152,
+  "pF": 0.0,
+  "rmse": 0.0157,
+  "vif": {
+   "Excess delivery pressure": 1.234,
+   "ATA (centred)": 1.139,
+   "SAL (centred)": 1.489,
+   "lnSIZE": 1.626,
+   "AGE": 1.025
+  },
+  "bp": [
+   11.857,
+   0.0368,
+   5
+  ]
+ },
+ "mstar_hat": {
+  "estimate": 0.1019,
+  "se": 0.001,
+  "true": 0.1
+ },
+ "crowd_hat": {
+  "estimate": 0.6663,
+  "se": 0.0597,
+  "true": 0.62
+ },
+ "model_D": {
+  "names": [
+   "Intercept",
+   "ln(mentoring ratio)",
+   "ATA",
+   "ATA x SAL",
+   "lnSIZE",
+   "AGE",
+   "RDI",
+   "Prof. services",
+   "Finance ops"
+  ],
+  "n": 356,
+  "k": 9,
+  "b": [
+   1.7957,
+   -0.4455,
+   0.5738,
+   -0.6393,
+   -0.0349,
+   0.024,
+   -0.0003,
+   0.004,
+   -0.0055
+  ],
+  "se": [
+   0.0238,
+   0.0429,
+   0.0639,
+   0.1128,
+   0.0093,
+   0.0072,
+   0.0094,
+   0.0171,
+   0.0198
+  ],
+  "t": [
+   75.392,
+   -10.387,
+   8.977,
+   -5.669,
+   -3.771,
+   3.356,
+   -0.033,
+   0.235,
+   -0.28
+  ],
+  "p": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.00019,
+   0.00088,
+   0.97347,
+   0.81457,
+   0.77941
+  ],
+  "ci_lo": [
+   1.7489,
+   -0.5299,
+   0.4481,
+   -0.8611,
+   -0.0531,
+   0.0099,
+   -0.0188,
+   -0.0297,
+   -0.0445
+  ],
+  "ci_hi": [
+   1.8426,
+   -0.3611,
+   0.6995,
+   -0.4175,
+   -0.0167,
+   0.0381,
+   0.0182,
+   0.0377,
+   0.0334
+  ],
+  "R2": 0.5289,
+  "adjR2": 0.5181,
+  "F": 48.705,
+  "pF": 0.0,
+  "rmse": 0.135,
+  "vif": {
+   "ln(mentoring ratio)": 1.33,
+   "ATA": 2.039,
+   "ATA x SAL": 3.068,
+   "lnSIZE": 1.433,
+   "AGE": 1.034,
+   "RDI": 1.54,
+   "Prof. services": 1.365,
+   "Finance ops": 1.356
+  },
+  "bp": [
+   5.205,
+   0.73547,
+   8
+  ],
+  "shapiro": [
+   0.9968,
+   0.71341
+  ]
+ },
+ "tau0_hat": {
+  "estimate": 6.0237,
+  "ci": [
+   5.7483,
+   6.3129
+  ],
+  "true": 6.0
+ },
+ "a_ment_hat": {
+  "estimate": 0.4455,
+  "se": 0.0429,
+  "ci": [
+   0.3611,
+   0.5299
+  ],
+  "true": 0.45
+ },
+ "theta_hat": {
+  "estimate": 0.5738,
+  "se": 0.0639,
+  "ci": [
+   0.4481,
+   0.6995
+  ],
+  "true": 0.55
+ },
+ "lam_max_hat": {
+  "estimate": 0.6393,
+  "se": 0.1128,
+  "ci": [
+   0.4175,
+   0.8611
+  ],
+  "true": 0.6
+ },
+ "lam_at_mean_SAL": 0.2648,
+ "mean_SAL": 0.4143,
+ "net_learning_effect": {
+  "sal_p25": 0.2288,
+  "sal_p75": 0.5847,
+  "sal_p95": 0.8253,
+  "at_p95": {
+   "estimate": 0.0462,
+   "se": 0.077,
+   "p": 0.549057
+  },
+  "neutralising_SAL": 0.8975,
+  "at_p25": {
+   "estimate": 0.4275,
+   "se": 0.0535,
+   "p": 0.0
+  },
+  "at_p75": {
+   "estimate": 0.2,
+   "se": 0.0601,
+   "p": 0.000961
+  }
+ },
+ "robust_quadratic": {
+  "b_ATA2": 0.0772,
+  "se": 0.2449,
+  "p": 0.75287,
+  "adjR2": 0.5168
+ },
+ "robust_split": {
+  "large": {
+   "n": 178,
+   "a_ment": 0.5757,
+   "theta": 0.4544,
+   "lam": 0.4187,
+   "adjR2": 0.4819
+  },
+  "small": {
+   "n": 178,
+   "a_ment": 0.3237,
+   "theta": 0.7148,
+   "lam": 0.8585,
+   "adjR2": 0.4703
+  }
+ },
+ "calibration_map": [
+  {
+   "parameter": "phi",
+   "label": "Substitutability of AI for junior labour",
+   "source": "Model A (JSH on ATA)",
+   "estimate": 0.6052,
+   "se": 0.0351,
+   "adopted": 0.62
+  },
+  {
+   "parameter": "nu",
+   "label": "Verification load per unit of AI output",
+   "source": "Direct measurement (senior-years per AI output unit)",
+   "estimate": 0.1364,
+   "se": 0.00218,
+   "adopted": 0.13
+  },
+  {
+   "parameter": "m*",
+   "label": "Reference mentoring intensity",
+   "source": "Model C intercept",
+   "estimate": 0.1019,
+   "se": 0.001,
+   "adopted": 0.1
+  },
+  {
+   "parameter": "tau_0",
+   "label": "Reference time to proficiency (years)",
+   "source": "Model D intercept",
+   "estimate": 6.0237,
+   "se": null,
+   "adopted": 6.0
+  },
+  {
+   "parameter": "a",
+   "label": "Mentoring elasticity of proficiency",
+   "source": "Model D, ln(mentoring ratio)",
+   "estimate": 0.4455,
+   "se": 0.0429,
+   "adopted": 0.45
+  },
+  {
+   "parameter": "theta",
+   "label": "Practice-displacement coefficient",
+   "source": "Model D, ATA",
+   "estimate": 0.5738,
+   "se": 0.0639,
+   "adopted": 0.55
+  },
+  {
+   "parameter": "lambda_max",
+   "label": "AI-as-tutor coefficient at full structured practice",
+   "source": "Model D, ATA x SAL",
+   "estimate": 0.6393,
+   "se": 0.1128,
+   "adopted": 0.6
+  },
+  {
+   "parameter": "lambda",
+   "label": "AI-as-tutor coefficient at the sample mean practice",
+   "source": "lambda_max x mean(SAL)",
+   "estimate": 0.2648,
+   "se": null,
+   "adopted": 0.252
+  }
+ ]
+}
